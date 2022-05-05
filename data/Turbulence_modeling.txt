@@ -1,0 +1,575 @@
+turbulence modeling is the construction and use of a mathematical model to predict the effects of turbulence. turbulent flows are commonplace in most real life scenarios, including the flow of blood through the cardiovascular system, the airflow over an aircraft wing, the re-entry of space vehicles, besides others. in spite of decades of research, there is no analytical theory to predict the evolution of these turbulent flows. the equations governing turbulent flows can only be solved directly for simple cases of flow. for most real life turbulent flows, cfd simulations use turbulent models to predict the evolution of turbulence. these turbulence models are simplified constitutive equations that predict the statistical evolution of turbulent flows.
+
+
+== closure problem ==
+the navier–stokes equations govern the velocity and pressure of a fluid flow. in a turbulent flow, each of these quantities may be decomposed into a mean part and a fluctuating part. averaging the equations gives the reynolds-averaged navier–stokes (rans) equations, which govern the mean flow. however, the nonlinearity of the navier–stokes equations means that the velocity fluctuations still appear in the rans equations, in the nonlinear term 
+  
+    
+      
+        −
+        ρ
+        
+          
+            
+              
+                v
+                
+                  i
+                
+                
+                  ′
+                
+              
+              
+                v
+                
+                  j
+                
+                
+                  ′
+                
+              
+            
+            ¯
+          
+        
+      
+    
+    {\displaystyle -\rho {\overline {v_{i}^{\prime }v_{j}^{\prime }}}}
+   from the convective acceleration. this term is known as the reynolds stress, 
+  
+    
+      
+        
+          r
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle r_{ij}}
+  . its effect on the mean flow is like that of a stress term, such as from pressure or viscosity.
+to obtain equations containing only the mean velocity and pressure, we need to close the rans equations by modelling the reynolds stress term 
+  
+    
+      
+        
+          r
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle r_{ij}}
+   as a function of the mean flow, removing any reference to the fluctuating part of the velocity. this is the closure problem.
+
+
+== eddy viscosity ==
+joseph valentin boussinesq was the first to attack the closure problem, by introducing the concept of eddy viscosity. in 1877 boussinesq proposed relating the turbulence stresses to the mean flow to close the system of equations. here the boussinesq hypothesis is applied to model the reynolds stress term. note that a new proportionality constant 
+  
+    
+      
+        
+          ν
+          
+            t
+          
+        
+        >
+        0
+      
+    
+    {\displaystyle \nu _{t}>0}
+  , the turbulence eddy viscosity, has been introduced. models of this type are known as eddy viscosity models or evm's.
+
+  
+    
+      
+        −
+        
+          
+            
+              
+                v
+                
+                  i
+                
+                
+                  ′
+                
+              
+              
+                v
+                
+                  j
+                
+                
+                  ′
+                
+              
+            
+            ¯
+          
+        
+        =
+        
+          ν
+          
+            t
+          
+        
+        
+          (
+          
+            
+              
+                
+                  ∂
+                  
+                    
+                      
+                        v
+                        
+                          i
+                        
+                      
+                      ¯
+                    
+                  
+                
+                
+                  ∂
+                  
+                    x
+                    
+                      j
+                    
+                  
+                
+              
+            
+            +
+            
+              
+                
+                  ∂
+                  
+                    
+                      
+                        v
+                        
+                          j
+                        
+                      
+                      ¯
+                    
+                  
+                
+                
+                  ∂
+                  
+                    x
+                    
+                      i
+                    
+                  
+                
+              
+            
+          
+          )
+        
+        −
+        
+          
+            2
+            3
+          
+        
+        k
+        
+          δ
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle -{\overline {v_{i}^{\prime }v_{j}^{\prime }}}=\nu _{t}\left({\frac {\partial {\overline {v_{i}}}}{\partial x_{j}}}+{\frac {\partial {\overline {v_{j}}}}{\partial x_{i}}}\right)-{\frac {2}{3}}k\delta _{ij}}
+  
+which can be written in shorthand as
+
+  
+    
+      
+        −
+        
+          
+            
+              
+                v
+                
+                  i
+                
+                
+                  ′
+                
+              
+              
+                v
+                
+                  j
+                
+                
+                  ′
+                
+              
+            
+            ¯
+          
+        
+        =
+        2
+        
+          ν
+          
+            t
+          
+        
+        
+          s
+          
+            i
+            j
+          
+        
+        −
+        
+          
+            2
+            3
+          
+        
+        k
+        
+          δ
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle -{\overline {v_{i}^{\prime }v_{j}^{\prime }}}=2\nu _{t}s_{ij}-{\frac {2}{3}}k\delta _{ij}}
+  
+where 
+  
+    
+      
+        
+          s
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle s_{ij}}
+   is the mean rate of strain tensor
+
+  
+    
+      
+        
+          ν
+          
+            t
+          
+        
+      
+    
+    {\displaystyle \nu _{t}}
+   is the turbulence eddy viscosity
+
+  
+    
+      
+        k
+        =
+        
+          
+            1
+            2
+          
+        
+        
+          
+            
+              
+                v
+                
+                  i
+                
+                ′
+              
+              
+                v
+                
+                  i
+                
+                ′
+              
+            
+            ¯
+          
+        
+      
+    
+    {\displaystyle k={\frac {1}{2}}{\overline {v_{i}'v_{i}'}}}
+   is the turbulence kinetic energy
+and 
+  
+    
+      
+        
+          δ
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle \delta _{ij}}
+   is the kronecker delta.in this model, the additional turbulence stresses are given by augmenting the molecular viscosity with an eddy viscosity. this can be a simple constant eddy viscosity (which works well for some free shear flows such as axisymmetric jets, 2-d jets, and mixing layers).
+
+
+== prandtl's mixing-length concept ==
+later, ludwig prandtl introduced the additional concept of the mixing length, along with the idea of a boundary layer. for wall-bounded turbulent flows, the eddy viscosity must vary with distance from the wall, hence the addition of the concept of a 'mixing length'. in the simplest wall-bounded flow model, the eddy viscosity is given by the equation:
+
+  
+    
+      
+        
+          ν
+          
+            t
+          
+        
+        =
+        
+          |
+          
+            
+              
+                ∂
+                u
+              
+              
+                ∂
+                y
+              
+            
+          
+          |
+        
+        
+          l
+          
+            m
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \nu _{t}=\left|{\frac {\partial u}{\partial y}}\right|l_{m}^{2}}
+  where:
+  
+    
+      
+        
+          
+            
+              ∂
+              u
+            
+            
+              ∂
+              y
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {\partial u}{\partial y}}}
+   is the partial derivative of the streamwise velocity (u) with respect to the wall normal direction (y);
+  
+    
+      
+        
+          l
+          
+            m
+          
+        
+      
+    
+    {\displaystyle l_{m}}
+   is the mixing length.this simple model is the basis for the "law of the wall", which is a surprisingly accurate model for wall-bounded, attached (not separated) flow fields with small pressure gradients.
+more general turbulence models have evolved over time, with most modern turbulence models given by field equations similar to the navier–stokes equations.
+
+
+== smagorinsky model for the sub-grid scale eddy viscosity ==
+joseph smagorinsky was the first who proposed a formula for the eddy viscosity in large eddy simulation models, based on the local derivatives of the velocity field and the local grid size:
+
+  
+    
+      
+        
+          ν
+          
+            t
+          
+        
+        =
+        δ
+        x
+        δ
+        y
+        
+          
+            
+              
+                (
+                
+                  
+                    
+                      ∂
+                      u
+                    
+                    
+                      ∂
+                      x
+                    
+                  
+                
+                )
+              
+              
+                2
+              
+            
+            +
+            
+              
+                (
+                
+                  
+                    
+                      ∂
+                      v
+                    
+                    
+                      ∂
+                      y
+                    
+                  
+                
+                )
+              
+              
+                2
+              
+            
+            +
+            
+              
+                1
+                2
+              
+            
+            
+              
+                (
+                
+                  
+                    
+                      
+                        ∂
+                        u
+                      
+                      
+                        ∂
+                        y
+                      
+                    
+                  
+                  +
+                  
+                    
+                      
+                        ∂
+                        v
+                      
+                      
+                        ∂
+                        x
+                      
+                    
+                  
+                
+                )
+              
+              
+                2
+              
+            
+          
+        
+      
+    
+    {\displaystyle \nu _{t}=\delta x\delta y{\sqrt {\left({\frac {\partial u}{\partial x}}\right)^{2}+\left({\frac {\partial v}{\partial y}}\right)^{2}+{\frac {1}{2}}\left({\frac {\partial u}{\partial y}}+{\frac {\partial v}{\partial x}}\right)^{2}}}}
+  in the context of large eddy simulation, turbulence modeling refers to the need to parameterize the subgrid scale stress in terms of features of the filtered velocity field. this field is called subgrid-scale modeling.
+
+
+== spalart–allmaras, k–ε and k–ω models ==
+the boussinesq hypothesis is employed in the spalart–allmaras (s–a), k–ε (k–epsilon), and k–ω (k–omega) models and offers a relatively low cost computation for the turbulence viscosity 
+  
+    
+      
+        
+          ν
+          
+            t
+          
+        
+      
+    
+    {\displaystyle \nu _{t}}
+  . the s–a model uses only one additional equation to model turbulence viscosity transport, while the k–ε and k–ω models use two.
+
+
+== common models ==
+the following is a brief overview of commonly employed models in modern engineering applications.
+
+
+== references ==
+
+
+=== notes ===
+
+
+=== other ===
+absi, r. (2019) "eddy viscosity and velocity profiles in fully-developed turbulent channel flows" fluid dyn (2019) 54: 137. https://doi.org/10.1134/s0015462819010014
+absi, r. (2021) "reinvestigating the parabolic-shaped eddy viscosity profile for free surface flows" hydrology 2021, 8(3), 126. https://doi.org/10.3390/hydrology8030126
+townsend, a.a. (1980) "the structure of turbulent shear flow" 2nd edition (cambridge monographs on mechanics), isbn 0521298199
+bradshaw, p. (1971) "an introduction to turbulence and its measurement" (pergamon press), isbn 0080166210
+wilcox c. d., (1998), "turbulence modeling for cfd" 2nd ed., (dcw industries, la cañada), isbn 0963605100

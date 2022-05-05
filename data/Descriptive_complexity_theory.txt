@@ -1,0 +1,888 @@
+descriptive complexity is a branch of computational complexity theory and of finite model theory that characterizes complexity classes by the type of logic needed to express the languages in them. for example, ph, the union of all complexity classes in the polynomial hierarchy, is precisely the class of languages expressible by statements of second-order logic. this connection between complexity and the logic of finite structures allows results to be transferred easily from one area to the other, facilitating new proof methods and providing additional evidence that the main complexity classes are somehow "natural" and not tied to the specific abstract machines used to define them.
+specifically, each logical system produces a set of queries expressible in it. the queries – when restricted to finite structures – correspond to the computational problems of traditional complexity theory.
+the first main result of descriptive complexity was fagin's theorem, shown by ronald fagin in 1974. it established that np is precisely the set of languages expressible by sentences of existential second-order logic; that is, second order logic excluding universal quantification over relations, functions, and subsets. many other classes were later characterized in such a manner.
+
+
+== the setting ==
+when we use the logic formalism to describe a computational problem, the input is a finite structure, and the elements of that structure are the domain of discourse. usually the input is either a string (of bits or over an alphabet) and the elements of the logical structure represent positions of the string, or the input is a graph and the elements of the logical structure represent its vertices. the length of the input will be measured by the size of the respective structure.
+whatever the structure is, we can assume that there are relations that can be tested, for example "
+  
+    
+      
+        e
+        (
+        x
+        ,
+        y
+        )
+      
+    
+    {\displaystyle e(x,y)}
+   is true iff there is an edge from x to y" (in case of the structure being a graph), or "
+  
+    
+      
+        p
+        (
+        n
+        )
+      
+    
+    {\displaystyle p(n)}
+   is true iff the nth letter of the string is 1." these relations are the predicates for the first-order logic system. we also have constants, which are special elements of the respective structure, for example if we want to check reachability in a graph, we will have to choose two constants s (start) and t (terminal).
+in descriptive complexity theory we often assume that there is a total order over the elements and that we can check equality between elements. this lets us consider elements as numbers: the element x represents the number n iff there are 
+  
+    
+      
+        (
+        n
+        −
+        1
+        )
+      
+    
+    {\displaystyle (n-1)}
+   elements y with 
+  
+    
+      
+        y
+        <
+        x
+      
+    
+    {\displaystyle y<x}
+  . thanks to this we also may have the primitive predicate "bit", where 
+  
+    
+      
+        b
+        i
+        t
+        (
+        x
+        ,
+        k
+        )
+      
+    
+    {\displaystyle bit(x,k)}
+   is true if only the kth bit of the binary expansion of n is 1. (we can replace addition and multiplication by ternary relations such that 
+  
+    
+      
+        p
+        l
+        u
+        s
+        (
+        x
+        ,
+        y
+        ,
+        z
+        )
+      
+    
+    {\displaystyle plus(x,y,z)}
+   is true iff 
+  
+    
+      
+        x
+        +
+        y
+        =
+        z
+      
+    
+    {\displaystyle x+y=z}
+   and 
+  
+    
+      
+        t
+        i
+        m
+        e
+        s
+        (
+        x
+        ,
+        y
+        ,
+        z
+        )
+      
+    
+    {\displaystyle times(x,y,z)}
+   is true iff 
+  
+    
+      
+        x
+        ∗
+        y
+        =
+        z
+      
+    
+    {\displaystyle x*y=z}
+  ).
+
+
+== overview of characterisations of complexity classes ==
+if we restrict ourselves to ordered structures with a successor relation and basic arithmetical predicates, then we get the following characterisations:
+
+first-order logic defines the class ac0, the languages recognized by polynomial-size circuits of bounded depth, which equals the languages recognized by a concurrent random access machine in constant time.
+first-order logic augmented with symmetric or deterministic transitive closure operators yield l, problems solvable in logarithmic space.
+first-order logic with a transitive closure operator yields nl, the problems solvable in nondeterministic logarithmic space.
+first-order logic with a least fixed point operator gives p, the problems solvable in deterministic polynomial time.
+existential second-order logic yields np.
+universal second-order logic (excluding existential second-order quantification) yields co-np.
+second-order logic corresponds to the polynomial hierarchy ph.
+second-order logic with a transitive closure (commutative or not) yields pspace, the problems solvable in polynomial space. 
+second-order logic with a least fixed point operator gives exptime, the problems solvable in exponential time.
+ho is equal to elementary
+
+
+== sub-polynomial time ==
+
+
+=== fo without any operators ===
+in circuit complexity, first-order logic with arbitrary predicates can be shown to be equal to ac0, the first class in the ac hierarchy. indeed, there is a natural translation from fo's symbols to nodes of circuits, with 
+  
+    
+      
+        ∀
+        ,
+        ∃
+      
+    
+    {\displaystyle \forall ,\exists }
+   being 
+  
+    
+      
+        ∧
+      
+    
+    {\displaystyle \land }
+   and 
+  
+    
+      
+        ∨
+      
+    
+    {\displaystyle \lor }
+   of size n. first-order logic in a signature with arithmetical predicates characterises the restriction of  the ac0 family of circuits to those constructible in alternating logarithmic time. first-order logic in a signature with only the order relation corresponds to the set of star-free languages.
+
+
+=== transitive closure logic ===
+first-order logic gains substantially in expressive power when it is augmented with an operator that compute transitive closures of binary relations. the resulting transitive closure logic is known to characterise non-deterministic logarithmic space (nl) on ordered structures. this was used by immerman to show that nl is closed under complement (i. e. that nl = co-nl).when restricting the transitive closure operator to deterministic transitive closure, the resulting logic exactly characterises logarithmic space on ordered structures. 
+
+
+=== second-order krom formulae ===
+on structures which have a successor function, nl can also be characterised by second-order krom formulae. 
+so-krom is the set of boolean queries definable with second-order formulae in conjunctive normal form such that the first order quantifiers are universal and the quantifier-free part of the formula is in krom form, which means that the first order formula is a conjunction of disjunctions, and in each "disjunction" there are at most two variables. every second-order krom formula is equivalent to an existential second-order krom formula.
+so-krom characterises nl on structures with a successor function.
+
+
+== polynomial time ==
+on ordered structures, first-order least fixed-point logic captures ptime:
+
+
+=== first-order least fixed-point logic ===
+fo[lfp] is the extension of first-order logic by a least fixed-point operator, which expresses the fixed-point of a monotone expression. this augments first-order logic with the ability to express recursion. the immerman-vardi theorem, shown independently by immerman and vardi, shows that fo[lfp] characterises ptime on ordered structures.as of 2022, it is still open whether there is a natural logic characterising ptime on unorpered structures. 
+the abiteboul-vianu theorem states that fo[lfp]=fo[pfp] on all structures if and only if fo[lfp]=fo[pfp], hence if and only if p=pspace. this result has been extended to other fixpoints.
+
+
+=== second-order horn formulae ===
+in the presence of a successor function, ptime can also be characterised by second-order horn formulae.
+so-horn is the set of boolean queries definable with so formulae in disjunctive normal form such that the first order quantifiers are all universal and the quantifier-free part of the formula is in horn form, which means that it is a big and of or, and in each "or" every variable except possibly one are negated.
+this class is equal to p on structures with a successor function.those formulae can be transformed to prenex formulas in existential second-order horn logic.
+
+
+== non-deterministic polynomial time ==
+
+
+=== fagin's theorem ===
+ronald fagin's 1974 proof that the complexity class np was characterised exactly by those classes of structures axiomatizable in existential second-order logic was the starting point of descriptive complexity theory.since the complement of an existential formula is a universal formula, it follows immediately that co-np is characterized by universal second-order logic.so, unrestricted second-order logic, is equal to the polynomial hierarchy ph. more precisely, we have the following generalisation of fagin's theorem: the set of formulae in prenex normal form where existential and universal quantifiers of second order alternate k times characterise the kth level of the polynomial hierarchy.unlike most other characterisations of complexity classes, fagin's theorem and its generalisation do not presuppose a total ordering on the structures. this is because existential second-order logic is itself sufficiently expressive to refer to the possible total orders on a structure using second-order variables.
+
+
+== beyond np ==
+
+
+=== partial fixed point is pspace ===
+the class of all problems computable in polynomial space, pspace, can be characterised by augmenting first-order logic with a more expressive partial fixed-point operator. 
+partial fixed-point logic, fo[pfp], is the extension of first-order logic with a partial fixed-point operator, which expresses the fixed-point of a formula if there is one and returns 'false' otherwise.  
+partial fixed-point logic characterises pspace on ordered structures.
+
+
+=== transitive closure is pspace ===
+second-order logic can be extended by a transitive closure operator in the same way as first-order logic, resulting in so[tc]. the tc operator can now also take second-order variables as argument. so[tc] characterises pspace. since ordering can be referenced in second-order logic, this characterisation does not presuppose ordered structures.
+
+
+== elementary functions ==
+the time complexity class elementary of elementary functions can be characterised by ho, the complexity class of structures that can be recognized by formulas of higher-order logic. higher-order logic is an extension of first-order logic and second-order logic with higher-order quantifiers.  there is a relation between the 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  th order and non-deterministic algorithms the time of which is bounded by 
+  
+    
+      
+        i
+        −
+        1
+      
+    
+    {\displaystyle i-1}
+   levels of exponentials.
+
+
+=== definition ===
+we define higher-order variables. a variable of order 
+  
+    
+      
+        i
+        >
+        1
+      
+    
+    {\displaystyle i>1}
+   has an arity 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   and represents any set of 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  -tuples of elements of order 
+  
+    
+      
+        i
+        −
+        1
+      
+    
+    {\displaystyle i-1}
+  . they are usually written in upper-case and with a natural number as exponent to indicate the order. higher-order logic is the set of first-order  formulae where we add quantification over higher-order variables, hence we will use the terms defined in the fo article without defining them again.
+ho
+  
+    
+      
+        
+          
+          
+            i
+          
+        
+      
+    
+    {\displaystyle ^{i}}
+   is the set of formulae with variables of order at most 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  . ho
+  
+    
+      
+        
+          
+          
+            j
+          
+          
+            i
+          
+        
+      
+    
+    {\displaystyle _{j}^{i}}
+   is the subset of formulae of the form 
+  
+    
+      
+        ϕ
+        =
+        ∃
+        
+          
+            
+              x
+              
+                1
+              
+              
+                i
+              
+            
+            ¯
+          
+        
+        ∀
+        
+          
+            
+              x
+              
+                2
+              
+              
+                i
+              
+            
+            ¯
+          
+        
+        …
+        q
+        
+          
+            
+              x
+              
+                j
+              
+              
+                i
+              
+            
+            ¯
+          
+        
+        ψ
+      
+    
+    {\displaystyle \phi =\exists {\overline {x_{1}^{i}}}\forall {\overline {x_{2}^{i}}}\dots q{\overline {x_{j}^{i}}}\psi }
+  , where 
+  
+    
+      
+        q
+      
+    
+    {\displaystyle q}
+   is a quantifier and 
+  
+    
+      
+        q
+        
+          
+            
+              x
+              
+                i
+              
+            
+            ¯
+          
+        
+      
+    
+    {\displaystyle q{\overline {x^{i}}}}
+   means that 
+  
+    
+      
+        
+          
+            
+              x
+              
+                i
+              
+            
+            ¯
+          
+        
+      
+    
+    {\displaystyle {\overline {x^{i}}}}
+   is  a tuple of variable of order 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   with the same quantification. so ho
+  
+    
+      
+        
+          
+          
+            j
+          
+          
+            i
+          
+        
+      
+    
+    {\displaystyle _{j}^{i}}
+   is the set of formulae with 
+  
+    
+      
+        j
+      
+    
+    {\displaystyle j}
+   alternations of quantifiers of order 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  , beginning with 
+  
+    
+      
+        ∃
+      
+    
+    {\displaystyle \exists }
+  , followed by a formula of order 
+  
+    
+      
+        i
+        −
+        1
+      
+    
+    {\displaystyle i-1}
+  .
+using the standard notation of the tetration, 
+  
+    
+      
+        
+          exp
+          
+            2
+          
+          
+            0
+          
+        
+        ⁡
+        (
+        x
+        )
+        =
+        x
+      
+    
+    {\displaystyle \exp _{2}^{0}(x)=x}
+   and 
+  
+    
+      
+        
+          exp
+          
+            2
+          
+          
+            i
+            +
+            1
+          
+        
+        ⁡
+        (
+        x
+        )
+        =
+        
+          2
+          
+            
+              exp
+              
+                2
+              
+              
+                i
+              
+            
+            ⁡
+            (
+            x
+            )
+          
+        
+      
+    
+    {\displaystyle \exp _{2}^{i+1}(x)=2^{\exp _{2}^{i}(x)}}
+  . 
+  
+    
+      
+        
+          exp
+          
+            2
+          
+          
+            i
+            +
+            1
+          
+        
+        ⁡
+        (
+        x
+        )
+        =
+        
+          2
+          
+            
+              2
+              
+                
+                  2
+                  
+                    
+                      2
+                      
+                        …
+                        
+                          
+                          
+                            
+                              2
+                              
+                                x
+                              
+                            
+                          
+                        
+                      
+                    
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle \exp _{2}^{i+1}(x)=2^{2^{2^{2^{\dots ^{2^{x}}}}}}}
+   with 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   times 
+  
+    
+      
+        2
+      
+    
+    {\displaystyle 2}
+  
+
+
+=== normal form ===
+every formula of order 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  th  is equivalent to a formula in prenex normal form, where we first write quantification over variable of 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  th order and then a formula of order 
+  
+    
+      
+        i
+        −
+        1
+      
+    
+    {\displaystyle i-1}
+   in normal form.
+
+
+=== relation to complexity classes ===
+ho is equal to the class elementary of elementary functions.  to be more precise, 
+  
+    
+      
+        
+          
+            
+              h
+              o
+            
+          
+          
+            0
+          
+          
+            i
+          
+        
+        =
+        
+          
+            n
+            t
+            i
+            m
+            e
+          
+        
+        (
+        
+          exp
+          
+            2
+          
+          
+            i
+            −
+            2
+          
+        
+        ⁡
+        (
+        
+          n
+          
+            o
+            (
+            1
+            )
+          
+        
+        )
+        )
+      
+    
+    {\displaystyle {\mathsf {ho}}_{0}^{i}={\mathsf {ntime}}(\exp _{2}^{i-2}(n^{o(1)}))}
+  , meaning a tower of 
+  
+    
+      
+        (
+        i
+        −
+        2
+        )
+      
+    
+    {\displaystyle (i-2)}
+    2s, ending with 
+  
+    
+      
+        
+          n
+          
+            c
+          
+        
+      
+    
+    {\displaystyle n^{c}}
+  , where 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+   is a constant. a special case of this is that 
+  
+    
+      
+        ∃
+        
+          
+            s
+            o
+          
+        
+        =
+        
+          
+            
+              h
+              o
+            
+          
+          
+            0
+          
+          
+            2
+          
+        
+        =
+        
+          
+            n
+            t
+            i
+            m
+            e
+          
+        
+        (
+        
+          n
+          
+            o
+            (
+            1
+            )
+          
+        
+        )
+        =
+        
+          
+            
+              
+                n
+                p
+              
+            
+          
+        
+      
+    
+    {\displaystyle \exists {\mathsf {so}}={\mathsf {ho}}_{0}^{2}={\mathsf {ntime}}(n^{o(1)})={\color {blue}{\mathsf {np}}}}
+  , which is exactly fagin's theorem. using oracle machines in the polynomial hierarchy, 
+  
+    
+      
+        
+          
+            
+              h
+              o
+            
+          
+          
+            j
+          
+          
+            i
+          
+        
+        =
+        
+          
+            
+              
+                n
+                t
+                i
+                m
+                e
+              
+            
+          
+        
+        (
+        
+          exp
+          
+            2
+          
+          
+            i
+            −
+            2
+          
+        
+        ⁡
+        (
+        
+          n
+          
+            o
+            (
+            1
+            )
+          
+        
+        
+          )
+          
+            
+              σ
+              
+                j
+              
+              
+                
+                  p
+                
+              
+            
+          
+        
+        )
+      
+    
+    {\displaystyle {\mathsf {ho}}_{j}^{i}={\color {blue}{\mathsf {ntime}}}(\exp _{2}^{i-2}(n^{o(1)})^{\sigma _{j}^{\mathsf {p}}})}
+  
+
+
+== notes ==
+
+
+== references ==
+neil, immerman (1999). descriptive complexity. springer. isbn 0-387-98600-6. oclc 901297152.
+
+
+== external links ==
+neil immerman's descriptive complexity page, including a diagram

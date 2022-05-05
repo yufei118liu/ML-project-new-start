@@ -1,0 +1,2711 @@
+in mathematical logic and automated theorem proving, resolution is a rule of inference leading to a refutation complete theorem-proving technique for sentences in propositional logic and first-order logic. for propositional logic, systematically applying the resolution rule acts as a decision procedure for formula unsatisfiability, solving the (complement of the) boolean satisfiability problem. for first-order logic, resolution can be used as the basis for a semi-algorithm for the unsatisfiability problem of first-order logic, providing a more practical method than one following from gödel's completeness theorem.
+the resolution rule can be traced back to davis and putnam (1960); however, their algorithm required trying all ground instances of the given formula. this source of combinatorial explosion was eliminated in 1965 by john alan robinson's syntactical unification algorithm, which allowed one to instantiate the formula during the proof "on demand" just as far as needed to keep refutation completeness.the clause produced by a resolution rule is sometimes called a resolvent.
+
+
+== resolution in propositional logic ==
+
+
+=== resolution rule ===
+the resolution rule in propositional logic is a single valid inference rule that produces a new clause implied by two clauses containing complementary literals. a literal is a propositional variable or the negation of a propositional variable. two literals are said to be complements if one is the negation of the other (in the following,
+
+  
+    
+      
+        ¬
+        c
+      
+    
+    {\displaystyle \lnot c}
+   is taken to be the complement to 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+  ). the resulting clause contains all the literals that do not have complements.
+formally:
+
+  
+    
+      
+        
+          
+            
+              
+                a
+                
+                  1
+                
+              
+              ∨
+              
+                a
+                
+                  2
+                
+              
+              ∨
+              ⋯
+              ∨
+              c
+              ,
+              
+              
+                b
+                
+                  1
+                
+              
+              ∨
+              
+                b
+                
+                  2
+                
+              
+              ∨
+              ⋯
+              ∨
+              ¬
+              c
+            
+            
+              
+                a
+                
+                  1
+                
+              
+              ∨
+              
+                a
+                
+                  2
+                
+              
+              ∨
+              ⋯
+              ∨
+              
+                b
+                
+                  1
+                
+              
+              ∨
+              
+                b
+                
+                  2
+                
+              
+              ∨
+              ⋯
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {a_{1}\lor a_{2}\lor \cdots \lor c,\quad b_{1}\lor b_{2}\lor \cdots \lor \neg c}{a_{1}\lor a_{2}\lor \cdots \lor b_{1}\lor b_{2}\lor \cdots }}}
+  where
+
+all 
+  
+    
+      
+        
+          a
+          
+            i
+          
+        
+      
+    
+    {\displaystyle a_{i}}
+  , 
+  
+    
+      
+        
+          b
+          
+            i
+          
+        
+      
+    
+    {\displaystyle b_{i}}
+  , and 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+   are literals,
+the dividing line stands for "entails".the above may also be written as:
+
+  
+    
+      
+        
+          
+            
+              (
+              ¬
+              
+                a
+                
+                  1
+                
+              
+              ∧
+              ¬
+              
+                a
+                
+                  2
+                
+              
+              ∧
+              ⋯
+              )
+              →
+              c
+              ,
+              
+              c
+              →
+              (
+              
+                b
+                
+                  1
+                
+              
+              ∨
+              
+                b
+                
+                  2
+                
+              
+              ∨
+              ⋯
+              )
+            
+            
+              (
+              ¬
+              
+                a
+                
+                  1
+                
+              
+              ∧
+              ¬
+              
+                a
+                
+                  2
+                
+              
+              ∧
+              ⋯
+              )
+              →
+              (
+              
+                b
+                
+                  1
+                
+              
+              ∨
+              
+                b
+                
+                  2
+                
+              
+              ∨
+              ⋯
+              )
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {(\neg a_{1}\land \neg a_{2}\land \cdots )\rightarrow c,\quad c\rightarrow (b_{1}\lor b_{2}\lor \cdots )}{(\neg a_{1}\land \neg a_{2}\land \cdots )\rightarrow (b_{1}\lor b_{2}\lor \cdots )}}}
+  or schematically as:
+
+  
+    
+      
+        
+          
+            
+              
+                γ
+                
+                  1
+                
+              
+              ∪
+              
+                {
+                ℓ
+                }
+              
+              
+              
+              
+              
+              
+                γ
+                
+                  2
+                
+              
+              ∪
+              
+                {
+                
+                  
+                    ℓ
+                    ¯
+                  
+                
+                }
+              
+            
+            
+              
+                γ
+                
+                  1
+                
+              
+              ∪
+              
+                γ
+                
+                  2
+                
+              
+            
+          
+        
+        
+          |
+        
+        ℓ
+        
+          |
+        
+      
+    
+    {\displaystyle {\frac {\gamma _{1}\cup \left\{\ell \right\}\,\,\,\,\gamma _{2}\cup \left\{{\overline {\ell }}\right\}}{\gamma _{1}\cup \gamma _{2}}}|\ell |}
+  we have the following terminology:
+
+the clauses 
+  
+    
+      
+        
+          γ
+          
+            1
+          
+        
+        ∪
+        
+          {
+          ℓ
+          }
+        
+      
+    
+    {\displaystyle \gamma _{1}\cup \left\{\ell \right\}}
+    and 
+  
+    
+      
+        
+          γ
+          
+            2
+          
+        
+        ∪
+        
+          {
+          
+            
+              ℓ
+              ¯
+            
+          
+          }
+        
+      
+    
+    {\displaystyle \gamma _{2}\cup \left\{{\overline {\ell }}\right\}}
+   are the inference's premises
+
+  
+    
+      
+        
+          γ
+          
+            1
+          
+        
+        ∪
+        
+          γ
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \gamma _{1}\cup \gamma _{2}}
+   (the resolvent of the premises) is its conclusion.
+the literal 
+  
+    
+      
+        ℓ
+      
+    
+    {\displaystyle \ell }
+   is the left resolved literal,
+the literal 
+  
+    
+      
+        
+          
+            ℓ
+            ¯
+          
+        
+      
+    
+    {\displaystyle {\overline {\ell }}}
+   is the right resolved literal,
+
+  
+    
+      
+        
+          |
+        
+        ℓ
+        
+          |
+        
+      
+    
+    {\displaystyle |\ell |}
+   is the resolved atom or pivot.the clause produced by the resolution rule is called the resolvent of the two input clauses. it is the principle of consensus applied to clauses rather than terms.when the two clauses contain more than one pair of complementary literals, the resolution rule can be applied (independently) for each such pair; however, the result is always a tautology.
+modus ponens can be seen as a special case of resolution (of a one-literal clause and a two-literal clause).
+
+  
+    
+      
+        
+          
+            
+              p
+              →
+              q
+              ,
+              
+              p
+            
+            q
+          
+        
+      
+    
+    {\displaystyle {\frac {p\rightarrow q,\quad p}{q}}}
+  is equivalent to
+
+  
+    
+      
+        
+          
+            
+              ¬
+              p
+              ∨
+              q
+              ,
+              
+              p
+            
+            q
+          
+        
+      
+    
+    {\displaystyle {\frac {\lnot p\lor q,\quad p}{q}}}
+  
+
+
+=== a resolution technique ===
+when coupled with a complete search algorithm, the resolution rule yields a sound and complete algorithm for deciding the satisfiability of a propositional formula, and, by extension, the validity of a sentence under a set of axioms.
+this resolution technique uses proof by contradiction and is based on the fact that any sentence in propositional logic can be transformed into an equivalent sentence in conjunctive normal form. the steps are as follows.
+
+all sentences in the knowledge base and the negation of the sentence to be proved (the conjecture) are conjunctively connected.
+the resulting sentence is transformed into a conjunctive normal form with the conjuncts viewed as elements in a set, s, of clauses.for example,   
+  
+    
+      
+        (
+        
+          a
+          
+            1
+          
+        
+        ∨
+        
+          a
+          
+            2
+          
+        
+        )
+        ∧
+        (
+        
+          b
+          
+            1
+          
+        
+        ∨
+        
+          b
+          
+            2
+          
+        
+        ∨
+        
+          b
+          
+            3
+          
+        
+        )
+        ∧
+        (
+        
+          c
+          
+            1
+          
+        
+        )
+      
+    
+    {\displaystyle (a_{1}\lor a_{2})\land (b_{1}\lor b_{2}\lor b_{3})\land (c_{1})}
+   gives rise to the set 
+  
+    
+      
+        s
+        =
+        {
+        
+          a
+          
+            1
+          
+        
+        ∨
+        
+          a
+          
+            2
+          
+        
+        ,
+        
+          b
+          
+            1
+          
+        
+        ∨
+        
+          b
+          
+            2
+          
+        
+        ∨
+        
+          b
+          
+            3
+          
+        
+        ,
+        
+          c
+          
+            1
+          
+        
+        }
+      
+    
+    {\displaystyle s=\{a_{1}\lor a_{2},b_{1}\lor b_{2}\lor b_{3},c_{1}\}}
+  .
+the resolution rule is applied to all possible pairs of clauses that contain complementary literals. after each application of the resolution rule, the resulting sentence is simplified by removing repeated literals. if the clause contains complementary literals, it is discarded (as a tautology). if not, and if it is not yet present in the clause set s, it is added to s, and is considered for further resolution inferences.
+if after applying a resolution rule the empty clause is derived, the original formula is unsatisfiable (or contradictory), and hence it can be concluded that the initial conjecture follows from the axioms.
+if, on the other hand, the empty clause cannot be derived, and the resolution rule cannot be applied to derive any more new clauses, the conjecture is not a theorem of the original knowledge base.one instance of this algorithm is the original davis–putnam algorithm that was later refined into the dpll algorithm that removed the need for explicit representation of the resolvents.
+this description of the resolution technique uses a set s as the underlying data-structure to represent resolution derivations. lists, trees and directed acyclic graphs are other possible and common alternatives. tree representations are more faithful to the fact that the resolution rule is binary. together with a sequent notation for clauses, a tree representation also makes it clear to see how the resolution rule is related to a special case of the cut-rule, restricted to atomic cut-formulas. however, tree representations are not as compact as set or list representations, because they explicitly show redundant subderivations of clauses that are used more than once in the derivation of the empty clause. graph representations can be as compact in the number of clauses as list representations and they also store structural information regarding which clauses were resolved to derive each resolvent.
+
+
+==== a simple example ====
+
+  
+    
+      
+        
+          
+            
+              a
+              ∨
+              b
+              ,
+              
+              ¬
+              a
+              ∨
+              c
+            
+            
+              b
+              ∨
+              c
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {a\vee b,\quad \neg a\vee c}{b\vee c}}}
+  
+in plain language: suppose 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   is false. in order for the premise 
+  
+    
+      
+        a
+        ∨
+        b
+      
+    
+    {\displaystyle a\vee b}
+   to be true, 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   must be true.
+alternatively, suppose 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   is true. in order for the premise 
+  
+    
+      
+        ¬
+        a
+        ∨
+        c
+      
+    
+    {\displaystyle \neg a\vee c}
+   to be true, 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+   must be true. therefore, regardless of falsehood or veracity of 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  , if both premises hold, then the conclusion 
+  
+    
+      
+        b
+        ∨
+        c
+      
+    
+    {\displaystyle b\vee c}
+   is true.
+
+
+== resolution in first order logic ==
+resolution rule can be generalized to first-order logic to:
+
+  
+    
+      
+        
+          
+            
+              
+                γ
+                
+                  1
+                
+              
+              ∪
+              
+                {
+                
+                  l
+                  
+                    1
+                  
+                
+                }
+              
+              
+              
+              
+              
+              
+                γ
+                
+                  2
+                
+              
+              ∪
+              
+                {
+                
+                  l
+                  
+                    2
+                  
+                
+                }
+              
+            
+            
+              (
+              
+                γ
+                
+                  1
+                
+              
+              ∪
+              
+                γ
+                
+                  2
+                
+              
+              )
+              ϕ
+            
+          
+        
+        ϕ
+      
+    
+    {\displaystyle {\frac {\gamma _{1}\cup \left\{l_{1}\right\}\,\,\,\,\gamma _{2}\cup \left\{l_{2}\right\}}{(\gamma _{1}\cup \gamma _{2})\phi }}\phi }
+  where 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   is a most general unifier of 
+  
+    
+      
+        
+          l
+          
+            1
+          
+        
+      
+    
+    {\displaystyle l_{1}}
+   and 
+  
+    
+      
+        
+          
+            
+              l
+              
+                2
+              
+            
+            ¯
+          
+        
+      
+    
+    {\displaystyle {\overline {l_{2}}}}
+  , and 
+  
+    
+      
+        
+          γ
+          
+            1
+          
+        
+      
+    
+    {\displaystyle \gamma _{1}}
+   and 
+  
+    
+      
+        
+          γ
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \gamma _{2}}
+   have no common variables.
+
+
+=== example ===
+the clauses 
+  
+    
+      
+        p
+        (
+        x
+        )
+        ,
+        q
+        (
+        x
+        )
+      
+    
+    {\displaystyle p(x),q(x)}
+   and 
+  
+    
+      
+        ¬
+        p
+        (
+        b
+        )
+      
+    
+    {\displaystyle \neg p(b)}
+   can apply this rule with 
+  
+    
+      
+        [
+        b
+        
+          /
+        
+        x
+        ]
+      
+    
+    {\displaystyle [b/x]}
+   as unifier.
+here x is a variable and b is a constant.
+
+  
+    
+      
+        
+          
+            
+              p
+              (
+              x
+              )
+              ,
+              q
+              (
+              x
+              )
+              
+              
+              
+              
+              ¬
+              p
+              (
+              b
+              )
+            
+            
+              q
+              (
+              b
+              )
+            
+          
+        
+        [
+        b
+        
+          /
+        
+        x
+        ]
+      
+    
+    {\displaystyle {\frac {p(x),q(x)\,\,\,\,\neg p(b)}{q(b)}}[b/x]}
+  here we see that
+
+the clauses 
+  
+    
+      
+        p
+        (
+        x
+        )
+        ,
+        q
+        (
+        x
+        )
+      
+    
+    {\displaystyle p(x),q(x)}
+    and 
+  
+    
+      
+        ¬
+        p
+        (
+        b
+        )
+      
+    
+    {\displaystyle \neg p(b)}
+   are the inference's premises
+
+  
+    
+      
+        q
+        (
+        b
+        )
+      
+    
+    {\displaystyle q(b)}
+   (the resolvent of the premises) is its conclusion.
+the literal 
+  
+    
+      
+        p
+        (
+        x
+        )
+      
+    
+    {\displaystyle p(x)}
+   is the left resolved literal,
+the literal 
+  
+    
+      
+        ¬
+        p
+        (
+        b
+        )
+      
+    
+    {\displaystyle \neg p(b)}
+   is the right resolved literal,
+
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   is the resolved atom or pivot.
+
+  
+    
+      
+        [
+        b
+        
+          /
+        
+        x
+        ]
+      
+    
+    {\displaystyle [b/x]}
+   is the most general unifier of the resolved literals.
+
+
+=== informal explanation ===
+in first order logic, resolution condenses the traditional syllogisms of logical inference down to a single rule.
+to understand how resolution works, consider the following example syllogism of term logic:
+
+all greeks are europeans.
+homer is a greek.
+therefore, homer is a european.or, more generally:
+
+  
+    
+      
+        ∀
+        x
+        .
+        p
+        (
+        x
+        )
+        ⇒
+        q
+        (
+        x
+        )
+      
+    
+    {\displaystyle \forall x.p(x)\rightarrow q(x)}
+  
+
+  
+    
+      
+        p
+        (
+        a
+        )
+      
+    
+    {\displaystyle p(a)}
+  
+therefore, 
+  
+    
+      
+        q
+        (
+        a
+        )
+      
+    
+    {\displaystyle q(a)}
+  to recast the reasoning using the resolution technique, first the clauses must be converted to conjunctive normal form (cnf). in this form, all quantification becomes implicit: universal quantifiers on variables (x, y, ...) are simply omitted as understood, while existentially-quantified variables are replaced by skolem functions.
+
+  
+    
+      
+        ¬
+        p
+        (
+        x
+        )
+        ∨
+        q
+        (
+        x
+        )
+      
+    
+    {\displaystyle \neg p(x)\vee q(x)}
+  
+
+  
+    
+      
+        p
+        (
+        a
+        )
+      
+    
+    {\displaystyle p(a)}
+  
+therefore, 
+  
+    
+      
+        q
+        (
+        a
+        )
+      
+    
+    {\displaystyle q(a)}
+  so the question is, how does the resolution technique derive the last clause from the first two? the rule is simple:
+
+find two clauses containing the same predicate, where it is negated in one clause but not in the other.
+perform a unification on the two predicates. (if the unification fails, you made a bad choice of predicates. go back to the previous step and try again.)
+if any unbound variables which were bound in the unified predicates also occur in other predicates in the two clauses, replace them with their bound values (terms) there as well.
+discard the unified predicates, and combine the remaining ones from the two clauses into a new clause, also joined by the "∨" operator.to apply this rule to the above example, we find the predicate p occurs in negated form
+
+¬p(x)in the first clause, and in non-negated form
+
+p(a)in the second clause. x is an unbound variable, while a is a bound value (term). unifying the two produces the substitution
+
+x ↦ adiscarding the unified predicates, and applying this substitution to the remaining predicates (just q(x), in this case), produces the conclusion:
+
+q(a)for another example, consider the syllogistic form
+
+all cretans are islanders.
+all islanders are liars.
+therefore all cretans are liars.or more generally,
+
+∀x p(x) → q(x)
+∀x q(x) → r(x)
+therefore, ∀x p(x) → r(x)in cnf, the antecedents become:
+
+¬p(x) ∨ q(x)
+¬q(y) ∨ r(y)(note that the variable in the second clause was renamed to make it clear that variables in different clauses are distinct.)
+now, unifying q(x) in the first clause with ¬q(y) in the second clause means that x and y become the same variable anyway. substituting this into the remaining clauses and combining them gives the conclusion:
+
+¬p(x) ∨ r(x)
+
+
+=== factoring ===
+the resolution rule, as defined by robinson, also incorporated factoring, which unifies two literals in the same clause, before or during the application of resolution as defined above. the resulting inference rule is refutation-complete, in that a set of clauses is unsatisfiable if and only if there exists a derivation of the empty clause using only resolution, enhanced by factoring.
+an example for an unsatisfiable clause set for which factoring is needed to derive the empty clause is:
+
+  
+    
+      
+        
+          
+            
+              
+                (
+                1
+                )
+                :
+              
+              
+                p
+                (
+                u
+                )
+              
+              
+                ∨
+              
+              
+                p
+                (
+                f
+                (
+                u
+                )
+                )
+              
+            
+            
+              
+                (
+                2
+                )
+                :
+              
+              
+                ¬
+                p
+                (
+                v
+                )
+              
+              
+                ∨
+              
+              
+                p
+                (
+                f
+                (
+                w
+                )
+                )
+              
+            
+            
+              
+                (
+                3
+                )
+                :
+              
+              
+                ¬
+                p
+                (
+                x
+                )
+              
+              
+                ∨
+              
+              
+                ¬
+                p
+                (
+                f
+                (
+                x
+                )
+                )
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{array}{rlcl}(1):&p(u)&\lor &p(f(u))\\(2):&\lnot p(v)&\lor &p(f(w))\\(3):&\lnot p(x)&\lor &\lnot p(f(x))\\\end{array}}}
+  since each clause consists of two literals, so does each possible resolvent. therefore, by resolution without factoring, the empty clause can never be obtained.
+using factoring, it can be obtained e.g. as follows:
+
+  
+    
+      
+        
+          
+            
+              
+                (
+                4
+                )
+                :
+              
+              
+                p
+                (
+                u
+                )
+                ∨
+                p
+                (
+                f
+                (
+                w
+                )
+                )
+              
+              
+                
+                  by resolving (1) and (2), with 
+                
+                v
+                =
+                f
+                (
+                u
+                )
+              
+            
+            
+              
+                (
+                5
+                )
+                :
+              
+              
+                p
+                (
+                f
+                (
+                w
+                )
+                )
+              
+              
+                
+                  by factoring (4), with 
+                
+                u
+                =
+                f
+                (
+                w
+                )
+              
+            
+            
+              
+                (
+                6
+                )
+                :
+              
+              
+                ¬
+                p
+                (
+                f
+                (
+                f
+                (
+                
+                  w
+                  ′
+                
+                )
+                )
+                )
+              
+              
+                
+                  by resolving (5) and (3), with 
+                
+                w
+                =
+                
+                  w
+                  ′
+                
+                ,
+                x
+                =
+                f
+                (
+                
+                  w
+                  ′
+                
+                )
+              
+            
+            
+              
+                (
+                7
+                )
+                :
+              
+              
+                
+                  false
+                
+              
+              
+                
+                  by resolving (5) and (6), with 
+                
+                w
+                =
+                f
+                (
+                
+                  w
+                  ′
+                
+                )
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{array}{rll}(4):&p(u)\lor p(f(w))&{\text{by resolving (1) and (2), with }}v=f(u)\\(5):&p(f(w))&{\text{by factoring (4), with }}u=f(w)\\(6):&\lnot p(f(f(w')))&{\text{by resolving (5) and (3), with }}w=w',x=f(w')\\(7):&{\text{false}}&{\text{by resolving (5) and (6), with }}w=f(w')\\\end{array}}}
+  
+
+
+== non-clausal resolution ==
+generalizations of the above resolution rule have been devised that do not require the originating formulas to be in clausal normal form.these techniques are useful mainly in interactive theorem proving where it is important to preserve human readability of intermediate result formulas. besides, they avoid combinatorial explosion during transformation to clause-form,: 98  and sometimes save resolution steps.: 425 
+
+
+=== non-clausal resolution in propositional logic ===
+for propositional logic, murray: 18  and manna and waldinger: 98  use the rule
+
+  
+    
+      
+        
+          
+            
+              
+                f
+                [
+                p
+                ]
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                g
+                [
+                p
+                ]
+              
+            
+            
+              
+                f
+                [
+                
+                  
+                    true
+                  
+                
+                ]
+                ∨
+                g
+                [
+                
+                  
+                    false
+                  
+                
+                ]
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{array}{c}f[p]\;\;\;\;\;\;\;\;\;\;g[p]\\\hline f[{\textit {true}}]\lor g[{\textit {false}}]\\\end{array}}}
+  ,where 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   denotes an arbitrary formula, 
+  
+    
+      
+        f
+        [
+        p
+        ]
+      
+    
+    {\displaystyle f[p]}
+   denotes a formula containing 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   as a subformula, and 
+  
+    
+      
+        f
+        [
+        
+          
+            true
+          
+        
+        ]
+      
+    
+    {\displaystyle f[{\textit {true}}]}
+   is built by replacing in 
+  
+    
+      
+        f
+        [
+        p
+        ]
+      
+    
+    {\displaystyle f[p]}
+   every occurrence of 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   by 
+  
+    
+      
+        
+          
+            true
+          
+        
+      
+    
+    {\displaystyle {\textit {true}}}
+  ; likewise for 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+  .
+the resolvent 
+  
+    
+      
+        f
+        [
+        
+          
+            true
+          
+        
+        ]
+        ∨
+        g
+        [
+        
+          
+            false
+          
+        
+        ]
+      
+    
+    {\displaystyle f[{\textit {true}}]\lor g[{\textit {false}}]}
+   is intended to be simplified using rules like 
+  
+    
+      
+        q
+        ∧
+        
+          
+            true
+          
+        
+        
+        ⟹
+        
+        q
+      
+    
+    {\displaystyle q\land {\textit {true}}\implies q}
+  , etc.
+in order to prevent generating useless trivial resolvents, the rule shall be applied only when 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   has at least one "negative" and "positive" occurrence in 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   and 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+  , respectively. murray has shown that this rule is complete if augmented by appropriate logical transformation rules.: 103 traugott uses the rule
+
+  
+    
+      
+        
+          
+            
+              
+                f
+                [
+                
+                  p
+                  
+                    +
+                  
+                
+                ,
+                
+                  p
+                  
+                    −
+                  
+                
+                ]
+                
+                
+                
+                
+                
+                
+                
+                
+                g
+                [
+                p
+                ]
+              
+            
+            
+              
+                f
+                [
+                g
+                [
+                
+                  
+                    true
+                  
+                
+                ]
+                ,
+                ¬
+                g
+                [
+                
+                  
+                    false
+                  
+                
+                ]
+                ]
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{array}{c}f[p^{+},p^{-}]\;\;\;\;\;\;\;\;g[p]\\\hline f[g[{\textit {true}}],\lnot g[{\textit {false}}]]\\\end{array}}}
+  ,where the exponents of 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   indicate the polarity of its occurrences. while 
+  
+    
+      
+        g
+        [
+        
+          
+            true
+          
+        
+        ]
+      
+    
+    {\displaystyle g[{\textit {true}}]}
+   and 
+  
+    
+      
+        g
+        [
+        
+          
+            false
+          
+        
+        ]
+      
+    
+    {\displaystyle g[{\textit {false}}]}
+   are built as before, the formula 
+  
+    
+      
+        f
+        [
+        g
+        [
+        
+          
+            true
+          
+        
+        ]
+        ,
+        ¬
+        g
+        [
+        
+          
+            false
+          
+        
+        ]
+        ]
+      
+    
+    {\displaystyle f[g[{\textit {true}}],\lnot g[{\textit {false}}]]}
+   is obtained by replacing each positive and each negative occurrence of 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   in 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   with 
+  
+    
+      
+        g
+        [
+        
+          
+            true
+          
+        
+        ]
+      
+    
+    {\displaystyle g[{\textit {true}}]}
+   and 
+  
+    
+      
+        g
+        [
+        
+          
+            false
+          
+        
+        ]
+      
+    
+    {\displaystyle g[{\textit {false}}]}
+  , respectively. similar to murray's approach, appropriate simplifying transformations are to be applied to the resolvent. traugott proved his rule to be complete, provided 
+  
+    
+      
+        ∧
+        ,
+        ∨
+        ,
+        →
+        ,
+        ¬
+      
+    
+    {\displaystyle \land ,\lor ,\rightarrow ,\lnot }
+   are the only connectives used in formulas.: 398–400 traugott's resolvent is stronger than murray's.: 395  moreover, it does not introduce new binary junctors, thus avoiding a tendency towards clausal form in repeated resolution. however, formulas may grow longer when a small 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   is replaced multiple times with a larger 
+  
+    
+      
+        g
+        [
+        
+          
+            true
+          
+        
+        ]
+      
+    
+    {\displaystyle g[{\textit {true}}]}
+   and/or 
+  
+    
+      
+        g
+        [
+        
+          
+            false
+          
+        
+        ]
+      
+    
+    {\displaystyle g[{\textit {false}}]}
+  .: 398 
+
+
+=== propositional non-clausal resolution example ===
+as an example, starting from the user-given assumptions
+
+  
+    
+      
+        
+          
+            
+              
+                (
+                1
+                )
+                :
+              
+              
+                a
+              
+              
+                →
+              
+              
+                b
+                ∧
+                c
+              
+            
+            
+              
+                (
+                2
+                )
+                :
+              
+              
+                c
+              
+              
+                →
+              
+              
+                d
+              
+            
+            
+              
+                (
+                3
+                )
+                :
+              
+              
+                b
+                ∧
+                d
+              
+              
+                →
+              
+              
+                e
+              
+            
+            
+              
+                (
+                4
+                )
+                :
+              
+              
+                ¬
+                (
+                a
+              
+              
+                →
+              
+              
+                e
+                )
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{array}{rccc}(1):&a&\rightarrow &b\land c\\(2):&c&\rightarrow &d\\(3):&b\land d&\rightarrow &e\\(4):&\lnot (a&\rightarrow &e)\\\end{array}}}
+  the murray rule can be used as follows to infer a contradiction:
+
+  
+    
+      
+        
+          
+            
+              
+                (
+                5
+                )
+                :
+              
+              
+                (
+                
+                  
+                    true
+                  
+                
+                →
+                d
+                )
+              
+              
+                ∨
+              
+              
+                (
+                a
+                →
+                b
+                ∧
+                
+                  
+                    false
+                  
+                
+                )
+              
+              
+                
+                ⟹
+                
+              
+              
+                d
+                ∨
+                ¬
+                a
+              
+              
+                
+                  
+                    from (2) and (1), with 
+                  
+                
+                p
+                =
+                c
+              
+            
+            
+              
+                (
+                6
+                )
+                :
+              
+              
+                (
+                b
+                ∧
+                
+                  
+                    true
+                  
+                
+                →
+                e
+                )
+              
+              
+                ∨
+              
+              
+                (
+                
+                  
+                    false
+                  
+                
+                ∨
+                ¬
+                a
+                )
+              
+              
+                
+                ⟹
+                
+              
+              
+                (
+                b
+                →
+                e
+                )
+                ∨
+                ¬
+                a
+              
+              
+                
+                  
+                    from (3) and (5), with 
+                  
+                
+                p
+                =
+                d
+              
+            
+            
+              
+                (
+                7
+                )
+                :
+              
+              
+                (
+                (
+                
+                  
+                    true
+                  
+                
+                →
+                e
+                )
+                ∨
+                ¬
+                a
+                )
+              
+              
+                ∨
+              
+              
+                (
+                a
+                →
+                
+                  
+                    false
+                  
+                
+                ∧
+                c
+                )
+              
+              
+                
+                ⟹
+                
+              
+              
+                e
+                ∨
+                ¬
+                a
+                ∨
+                ¬
+                a
+              
+              
+                
+                  
+                    from (6) and (1), with 
+                  
+                
+                p
+                =
+                b
+              
+            
+            
+              
+                (
+                8
+                )
+                :
+              
+              
+                (
+                e
+                ∨
+                ¬
+                
+                  
+                    true
+                  
+                
+                ∨
+                ¬
+                
+                  
+                    true
+                  
+                
+                )
+              
+              
+                ∨
+              
+              
+                ¬
+                (
+                
+                  
+                    false
+                  
+                
+                →
+                e
+                )
+              
+              
+                
+                ⟹
+                
+              
+              
+                e
+              
+              
+                
+                  
+                    from (7) and (4), with 
+                  
+                
+                p
+                =
+                a
+              
+            
+            
+              
+                (
+                9
+                )
+                :
+              
+              
+                ¬
+                (
+                a
+                →
+                
+                  
+                    true
+                  
+                
+                )
+              
+              
+                ∨
+              
+              
+                
+                  
+                    false
+                  
+                
+              
+              
+                
+                ⟹
+                
+              
+              
+                
+                  
+                    false
+                  
+                
+              
+              
+                
+                  
+                    from (4) and (8), with 
+                  
+                
+                p
+                =
+                e
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{array}{rrclccl}(5):&({\textit {true}}\rightarrow d)&\lor &(a\rightarrow b\land {\textit {false}})&\implies &d\lor \lnot a&{\mbox{from (2) and (1), with }}p=c\\(6):&(b\land {\textit {true}}\rightarrow e)&\lor &({\textit {false}}\lor \lnot a)&\implies &(b\rightarrow e)\lor \lnot a&{\mbox{from (3) and (5), with }}p=d\\(7):&(({\textit {true}}\rightarrow e)\lor \lnot a)&\lor &(a\rightarrow {\textit {false}}\land c)&\implies &e\lor \lnot a\lor \lnot a&{\mbox{from (6) and (1), with }}p=b\\(8):&(e\lor \lnot {\textit {true}}\lor \lnot {\textit {true}})&\lor &\lnot ({\textit {false}}\rightarrow e)&\implies &e&{\mbox{from (7) and (4), with }}p=a\\(9):&\lnot (a\rightarrow {\textit {true}})&\lor &{\textit {false}}&\implies &{\textit {false}}&{\mbox{from (4) and (8), with }}p=e\\\end{array}}}
+  for the same purpose, the traugott rule can be used as follows :: 397 
+
+  
+    
+      
+        
+          
+            
+              
+                (
+                10
+                )
+                :
+              
+              
+                a
+                →
+                b
+                ∧
+                (
+                
+                  
+                    true
+                  
+                
+                →
+                d
+                )
+              
+              
+                
+                ⟹
+                
+              
+              
+                a
+                →
+                b
+                ∧
+                d
+              
+              
+                
+                  
+                    from (1) and (2), with 
+                  
+                
+                p
+                =
+                c
+              
+            
+            
+              
+                (
+                11
+                )
+                :
+              
+              
+                a
+                →
+                (
+                
+                  
+                    true
+                  
+                
+                →
+                e
+                )
+              
+              
+                
+                ⟹
+                
+              
+              
+                a
+                →
+                e
+              
+              
+                
+                  
+                    from (10) and (3), with 
+                  
+                
+                p
+                =
+                (
+                b
+                ∧
+                d
+                )
+              
+            
+            
+              
+                (
+                12
+                )
+                :
+              
+              
+                ¬
+                
+                  
+                    true
+                  
+                
+              
+              
+                
+                ⟹
+                
+              
+              
+                
+                  
+                    false
+                  
+                
+              
+              
+                
+                  
+                    from (11) and (4), with 
+                  
+                
+                p
+                =
+                (
+                a
+                →
+                e
+                )
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{array}{rcccl}(10):&a\rightarrow b\land ({\textit {true}}\rightarrow d)&\implies &a\rightarrow b\land d&{\mbox{from (1) and (2), with }}p=c\\(11):&a\rightarrow ({\textit {true}}\rightarrow e)&\implies &a\rightarrow e&{\mbox{from (10) and (3), with }}p=(b\land d)\\(12):&\lnot {\textit {true}}&\implies &{\textit {false}}&{\mbox{from (11) and (4), with }}p=(a\rightarrow e)\\\end{array}}}
+  from a comparison of both deductions, the following issues can be seen:
+
+traugott's rule may yield a sharper resolvent: compare (5) and (10), which both resolve (1) and (2) on 
+  
+    
+      
+        p
+        =
+        c
+      
+    
+    {\displaystyle p=c}
+  .
+murray's rule introduced 3 new disjunction symbols: in (5), (6), and (7), while traugott's rule didn't introduce any new symbol; in this sense, traugott's intermediate formulas resemble the user's style more closely than murray's.
+due to the latter issue, traugott's rule can take advantage of the implication in assumption (4), using as 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   the non-atomic formula 
+  
+    
+      
+        a
+        →
+        e
+      
+    
+    {\displaystyle a\rightarrow e}
+   in step (12). using murray's rules, the semantically equivalent formula 
+  
+    
+      
+        e
+        ∨
+        ¬
+        a
+        ∨
+        ¬
+        a
+      
+    
+    {\displaystyle e\lor \lnot a\lor \lnot a}
+   was obtained as (7), however, it could not be used as 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   due to its syntactic form.
+
+
+=== non-clausal resolution in first-order logic ===
+for first-order predicate logic, murray's rule is generalized to allow distinct, but unifiable, subformulas 
+  
+    
+      
+        
+          p
+          
+            1
+          
+        
+      
+    
+    {\displaystyle p_{1}}
+   and 
+  
+    
+      
+        
+          p
+          
+            2
+          
+        
+      
+    
+    {\displaystyle p_{2}}
+   of 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   and 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+  , respectively. if 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   is the most general unifier of 
+  
+    
+      
+        
+          p
+          
+            1
+          
+        
+      
+    
+    {\displaystyle p_{1}}
+   and 
+  
+    
+      
+        
+          p
+          
+            2
+          
+        
+      
+    
+    {\displaystyle p_{2}}
+  , then the generalized resolvent is 
+  
+    
+      
+        f
+        ϕ
+        [
+        
+          
+            true
+          
+        
+        ]
+        ∨
+        g
+        ϕ
+        [
+        
+          
+            false
+          
+        
+        ]
+      
+    
+    {\displaystyle f\phi [{\textit {true}}]\lor g\phi [{\textit {false}}]}
+  . while the rule remains sound if a more special substitution 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   is used, no such rule applications are needed to achieve completeness.traugott's rule is generalized to allow several pairwise distinct subformulas 
+  
+    
+      
+        
+          p
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          p
+          
+            m
+          
+        
+      
+    
+    {\displaystyle p_{1},\ldots ,p_{m}}
+   of 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   and 
+  
+    
+      
+        
+          p
+          
+            m
+            +
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          p
+          
+            n
+          
+        
+      
+    
+    {\displaystyle p_{m+1},\ldots ,p_{n}}
+   of 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+  , as long as 
+  
+    
+      
+        
+          p
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          p
+          
+            n
+          
+        
+      
+    
+    {\displaystyle p_{1},\ldots ,p_{n}}
+   have a common most general unifier, say 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+  . the generalized resolvent is obtained after applying 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   to the parent formulas, thus making the propositional version applicable. traugott's completeness proof relies on the assumption that this fully general rule is used;: 401  it is not clear whether his rule would remain complete if restricted to 
+  
+    
+      
+        
+          p
+          
+            1
+          
+        
+        =
+        ⋯
+        =
+        
+          p
+          
+            m
+          
+        
+      
+    
+    {\displaystyle p_{1}=\cdots =p_{m}}
+   and 
+  
+    
+      
+        
+          p
+          
+            m
+            +
+            1
+          
+        
+        =
+        ⋯
+        =
+        
+          p
+          
+            n
+          
+        
+      
+    
+    {\displaystyle p_{m+1}=\cdots =p_{n}}
+  .
+
+
+== paramodulation ==
+paramodulation is a related technique for reasoning on sets of clauses where the predicate symbol is equality. it generates all "equal" versions of clauses, except reflexive identities. the paramodulation operation takes a positive from clause, which must contain an equality literal. it then searches an into clause with a subterm that unifies with one side of the equality. the subterm is then replaced by the other side of the equality. the general aim of paramodulation is to reduce the system to atoms, reducing the size of the terms when substituting.
+
+
+== implementations ==
+carine
+gkc
+otter
+prover9
+snark
+spass
+vampire
+logictools online prover
+
+
+== see also ==
+condensed detachment — an earlier version of resolution
+inductive logic programming
+inverse resolution
+logic programming
+method of analytic tableaux
+sld resolution
+resolution inference
+
+
+== notes ==
+
+
+== references ==
+robinson, j. alan (1965). "a machine-oriented logic based on the resolution principle". journal of the acm. 12 (1): 23–41. doi:10.1145/321250.321253.
+leitsch, alexander (1997). the resolution calculus. springer.
+gallier, jean h. (1986). logic for computer science: foundations of automatic theorem proving. harper & row publishers.
+lee, chin-liang chang, richard char-tung (1987). symbolic logic and mechanical theorem proving ([reprint] ed.). san diego: academic press. isbn 0-12-170350-9.
+
+
+== external links ==
+alex sakharov. "resolution principle". mathworld.
+alex sakharov. "resolution". mathworld.

@@ -1,0 +1,2994 @@
+in numerical analysis, finite-difference methods (fdm) are a class of numerical techniques for solving differential equations by approximating derivatives with finite differences. both the spatial domain and time interval (if applicable) are discretized, or broken into a finite number of steps, and the value of the solution at these discrete points is approximated by solving algebraic equations containing finite differences and values from nearby points.
+finite difference methods convert ordinary differential equations (ode) or partial differential equations (pde), which may be nonlinear, into a system of linear equations that can be solved by matrix algebra techniques. modern computers can perform these linear algebra computations efficiently which, along with their relative ease of implementation, has led to the widespread use of fdm in modern numerical analysis.
+today, fdm are one of the most common approaches to the numerical solution of pde, along with finite element methods.
+
+
+== derivation from taylor's polynomial ==
+first, assuming the function whose derivatives are to be approximated is properly behaved, by taylor's theorem, we can create a taylor series expansion
+
+  
+    
+      
+        f
+        (
+        
+          x
+          
+            0
+          
+        
+        +
+        h
+        )
+        =
+        f
+        (
+        
+          x
+          
+            0
+          
+        
+        )
+        +
+        
+          
+            
+              
+                f
+                ′
+              
+              (
+              
+                x
+                
+                  0
+                
+              
+              )
+            
+            
+              1
+              !
+            
+          
+        
+        h
+        +
+        
+          
+            
+              
+                f
+                
+                  (
+                  2
+                  )
+                
+              
+              (
+              
+                x
+                
+                  0
+                
+              
+              )
+            
+            
+              2
+              !
+            
+          
+        
+        
+          h
+          
+            2
+          
+        
+        +
+        ⋯
+        +
+        
+          
+            
+              
+                f
+                
+                  (
+                  n
+                  )
+                
+              
+              (
+              
+                x
+                
+                  0
+                
+              
+              )
+            
+            
+              n
+              !
+            
+          
+        
+        
+          h
+          
+            n
+          
+        
+        +
+        
+          r
+          
+            n
+          
+        
+        (
+        x
+        )
+        ,
+      
+    
+    {\displaystyle f(x_{0}+h)=f(x_{0})+{\frac {f'(x_{0})}{1!}}h+{\frac {f^{(2)}(x_{0})}{2!}}h^{2}+\cdots +{\frac {f^{(n)}(x_{0})}{n!}}h^{n}+r_{n}(x),}
+  where n! denotes the factorial of n, and rn(x) is a remainder term, denoting the difference between the taylor polynomial of degree n and the original function. we will derive an approximation for the first derivative of the function "f" by first truncating the taylor polynomial:
+
+  
+    
+      
+        f
+        (
+        
+          x
+          
+            0
+          
+        
+        +
+        h
+        )
+        =
+        f
+        (
+        
+          x
+          
+            0
+          
+        
+        )
+        +
+        
+          f
+          ′
+        
+        (
+        
+          x
+          
+            0
+          
+        
+        )
+        h
+        +
+        
+          r
+          
+            1
+          
+        
+        (
+        x
+        )
+        ,
+      
+    
+    {\displaystyle f(x_{0}+h)=f(x_{0})+f'(x_{0})h+r_{1}(x),}
+  setting, x0=a we have,
+
+  
+    
+      
+        f
+        (
+        a
+        +
+        h
+        )
+        =
+        f
+        (
+        a
+        )
+        +
+        
+          f
+          ′
+        
+        (
+        a
+        )
+        h
+        +
+        
+          r
+          
+            1
+          
+        
+        (
+        x
+        )
+        ,
+      
+    
+    {\displaystyle f(a+h)=f(a)+f'(a)h+r_{1}(x),}
+  dividing across by h gives:
+
+  
+    
+      
+        
+          
+            
+              f
+              (
+              a
+              +
+              h
+              )
+            
+            h
+          
+        
+        =
+        
+          
+            
+              f
+              (
+              a
+              )
+            
+            h
+          
+        
+        +
+        
+          f
+          ′
+        
+        (
+        a
+        )
+        +
+        
+          
+            
+              
+                r
+                
+                  1
+                
+              
+              (
+              x
+              )
+            
+            h
+          
+        
+      
+    
+    {\displaystyle {f(a+h) \over h}={f(a) \over h}+f'(a)+{r_{1}(x) \over h}}
+  solving for f'(a):
+
+  
+    
+      
+        
+          f
+          ′
+        
+        (
+        a
+        )
+        =
+        
+          
+            
+              f
+              (
+              a
+              +
+              h
+              )
+              −
+              f
+              (
+              a
+              )
+            
+            h
+          
+        
+        −
+        
+          
+            
+              
+                r
+                
+                  1
+                
+              
+              (
+              x
+              )
+            
+            h
+          
+        
+      
+    
+    {\displaystyle f'(a)={f(a+h)-f(a) \over h}-{r_{1}(x) \over h}}
+  assuming that 
+  
+    
+      
+        
+          r
+          
+            1
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle r_{1}(x)}
+   is sufficiently small, the approximation of the first derivative of "f" is:
+
+  
+    
+      
+        
+          f
+          ′
+        
+        (
+        a
+        )
+        ≈
+        
+          
+            
+              f
+              (
+              a
+              +
+              h
+              )
+              −
+              f
+              (
+              a
+              )
+            
+            h
+          
+        
+        .
+      
+    
+    {\displaystyle f'(a)\approx {f(a+h)-f(a) \over h}.}
+  this is, not coincidentally, similar to the definition of derivative, which is given as:
+
+  
+    
+      
+        
+          f
+          ′
+        
+        (
+        a
+        )
+        =
+        
+          lim
+          
+            h
+            →
+            0
+          
+        
+        
+          
+            
+              f
+              (
+              a
+              +
+              h
+              )
+              −
+              f
+              (
+              a
+              )
+            
+            h
+          
+        
+        .
+      
+    
+    {\displaystyle f'(a)=\lim _{h\to 0}{\frac {f(a+h)-f(a)}{h}}.}
+  except for the limit towards zero (the method is named after this).
+
+
+== accuracy and order ==
+
+the error in a method's solution is defined as the difference between the approximation and the exact analytical solution. the two sources of error in finite difference methods are round-off error, the loss of precision due to computer rounding of decimal quantities, and truncation error or discretization error, the difference between the exact solution of the original differential equation and the exact quantity assuming perfect arithmetic (that is, assuming no round-off).
+
+to use a finite difference method to approximate the solution to a problem, one must first discretize the problem's domain. this is usually done by dividing the domain into a uniform grid (see image to the right). this means that finite-difference methods produce sets of discrete numerical approximations to the derivative, often in a "time-stepping" manner.
+an expression of general interest is the local truncation error of a method. typically expressed using big-o notation, local truncation error refers to the error from a single application of a method. that is, it is the quantity 
+  
+    
+      
+        
+          f
+          ′
+        
+        (
+        
+          x
+          
+            i
+          
+        
+        )
+        −
+        
+          f
+          
+            i
+          
+          ′
+        
+      
+    
+    {\displaystyle f'(x_{i})-f'_{i}}
+   if 
+  
+    
+      
+        
+          f
+          ′
+        
+        (
+        
+          x
+          
+            i
+          
+        
+        )
+      
+    
+    {\displaystyle f'(x_{i})}
+   refers to the exact value and 
+  
+    
+      
+        
+          f
+          
+            i
+          
+          ′
+        
+      
+    
+    {\displaystyle f'_{i}}
+   to the numerical approximation. the remainder term of a taylor polynomial is convenient for analyzing the local truncation error. using the lagrange form of the remainder from the taylor polynomial for 
+  
+    
+      
+        f
+        (
+        
+          x
+          
+            0
+          
+        
+        +
+        h
+        )
+      
+    
+    {\displaystyle f(x_{0}+h)}
+  , which is
+
+  
+    
+      
+        
+          r
+          
+            n
+          
+        
+        (
+        
+          x
+          
+            0
+          
+        
+        +
+        h
+        )
+        =
+        
+          
+            
+              
+                f
+                
+                  (
+                  n
+                  +
+                  1
+                  )
+                
+              
+              (
+              ξ
+              )
+            
+            
+              (
+              n
+              +
+              1
+              )
+              !
+            
+          
+        
+        (
+        h
+        
+          )
+          
+            n
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle r_{n}(x_{0}+h)={\frac {f^{(n+1)}(\xi )}{(n+1)!}}(h)^{n+1}}
+  , where 
+  
+    
+      
+        
+          x
+          
+            0
+          
+        
+        <
+        ξ
+        <
+        
+          x
+          
+            0
+          
+        
+        +
+        h
+      
+    
+    {\displaystyle x_{0}<\xi <x_{0}+h}
+  ,
+the dominant term of the local truncation error can be discovered. for example, again using the forward-difference formula for the first derivative, knowing that 
+  
+    
+      
+        f
+        (
+        
+          x
+          
+            i
+          
+        
+        )
+        =
+        f
+        (
+        
+          x
+          
+            0
+          
+        
+        +
+        i
+        h
+        )
+      
+    
+    {\displaystyle f(x_{i})=f(x_{0}+ih)}
+  ,
+
+  
+    
+      
+        f
+        (
+        
+          x
+          
+            0
+          
+        
+        +
+        i
+        h
+        )
+        =
+        f
+        (
+        
+          x
+          
+            0
+          
+        
+        )
+        +
+        
+          f
+          ′
+        
+        (
+        
+          x
+          
+            0
+          
+        
+        )
+        i
+        h
+        +
+        
+          
+            
+              
+                f
+                ″
+              
+              (
+              ξ
+              )
+            
+            
+              2
+              !
+            
+          
+        
+        (
+        i
+        h
+        
+          )
+          
+            2
+          
+        
+        ,
+      
+    
+    {\displaystyle f(x_{0}+ih)=f(x_{0})+f'(x_{0})ih+{\frac {f''(\xi )}{2!}}(ih)^{2},}
+  and with some algebraic manipulation, this leads to
+
+  
+    
+      
+        
+          
+            
+              f
+              (
+              
+                x
+                
+                  0
+                
+              
+              +
+              i
+              h
+              )
+              −
+              f
+              (
+              
+                x
+                
+                  0
+                
+              
+              )
+            
+            
+              i
+              h
+            
+          
+        
+        =
+        
+          f
+          ′
+        
+        (
+        
+          x
+          
+            0
+          
+        
+        )
+        +
+        
+          
+            
+              
+                f
+                ″
+              
+              (
+              ξ
+              )
+            
+            
+              2
+              !
+            
+          
+        
+        i
+        h
+        ,
+      
+    
+    {\displaystyle {\frac {f(x_{0}+ih)-f(x_{0})}{ih}}=f'(x_{0})+{\frac {f''(\xi )}{2!}}ih,}
+  and further noting that the quantity on the left is the approximation from the finite difference method and that the quantity on the right is the exact quantity of interest plus a remainder, clearly that remainder is the local truncation error. a final expression of this example and its order is:
+
+  
+    
+      
+        
+          
+            
+              f
+              (
+              
+                x
+                
+                  0
+                
+              
+              +
+              i
+              h
+              )
+              −
+              f
+              (
+              
+                x
+                
+                  0
+                
+              
+              )
+            
+            
+              i
+              h
+            
+          
+        
+        =
+        
+          f
+          ′
+        
+        (
+        
+          x
+          
+            0
+          
+        
+        )
+        +
+        o
+        (
+        h
+        )
+        .
+      
+    
+    {\displaystyle {\frac {f(x_{0}+ih)-f(x_{0})}{ih}}=f'(x_{0})+o(h).}
+  this means that, in this case, the local truncation error is proportional to the step sizes. the quality and duration of simulated fdm solution depends on the discretization equation selection and the step sizes (time and space steps). the data quality and simulation duration increase significantly with smaller step size. therefore, a reasonable balance between data quality and simulation duration is necessary for practical usage. large time steps are useful for increasing simulation speed in practice. however, time steps which are too large may create instabilities and affect the data quality.the von neumann and courant-friedrichs-lewy criteria are often evaluated to determine the numerical model stability.
+
+
+== example: ordinary differential equation ==
+for example, consider the ordinary differential equation
+
+  
+    
+      
+        
+          u
+          ′
+        
+        (
+        x
+        )
+        =
+        3
+        u
+        (
+        x
+        )
+        +
+        2.
+        
+      
+    
+    {\displaystyle u'(x)=3u(x)+2.\,}
+  the euler method for solving this equation uses the finite difference quotient
+
+  
+    
+      
+        
+          
+            
+              u
+              (
+              x
+              +
+              h
+              )
+              −
+              u
+              (
+              x
+              )
+            
+            h
+          
+        
+        ≈
+        
+          u
+          ′
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle {\frac {u(x+h)-u(x)}{h}}\approx u'(x)}
+  to approximate the differential equation by first substituting it for u'(x) then applying a little algebra (multiplying both sides by h, and then adding u(x) to both sides) to get
+
+  
+    
+      
+        u
+        (
+        x
+        +
+        h
+        )
+        =
+        u
+        (
+        x
+        )
+        +
+        h
+        (
+        3
+        u
+        (
+        x
+        )
+        +
+        2
+        )
+        .
+        
+      
+    
+    {\displaystyle u(x+h)=u(x)+h(3u(x)+2).\,}
+  the last equation is a finite-difference equation, and solving this equation gives an approximate solution to the differential equation.
+
+
+== example: the heat equation ==
+consider the normalized heat equation in one dimension, with homogeneous dirichlet boundary conditions
+
+  
+    
+      
+        
+          u
+          
+            t
+          
+        
+        =
+        
+          u
+          
+            x
+            x
+          
+        
+        
+      
+    
+    {\displaystyle u_{t}=u_{xx}\,}
+  
+
+  
+    
+      
+        u
+        (
+        0
+        ,
+        t
+        )
+        =
+        u
+        (
+        1
+        ,
+        t
+        )
+        =
+        0
+        
+      
+    
+    {\displaystyle u(0,t)=u(1,t)=0\,}
+    (boundary condition)
+
+  
+    
+      
+        u
+        (
+        x
+        ,
+        0
+        )
+        =
+        
+          u
+          
+            0
+          
+        
+        (
+        x
+        )
+        
+      
+    
+    {\displaystyle u(x,0)=u_{0}(x)\,}
+     (initial condition)one way to numerically solve this equation is to approximate all the derivatives by finite differences. we partition the domain in space using a mesh 
+  
+    
+      
+        
+          x
+          
+            0
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          x
+          
+            j
+          
+        
+      
+    
+    {\displaystyle x_{0},...,x_{j}}
+   and in time using a mesh 
+  
+    
+      
+        
+          t
+          
+            0
+          
+        
+        ,
+        .
+        .
+        .
+        .
+        ,
+        
+          t
+          
+            n
+          
+        
+      
+    
+    {\displaystyle t_{0},....,t_{n}}
+  . we assume a uniform partition both in space and in time, so the difference between two consecutive space points will be h and between two consecutive time points will be k. the points
+
+  
+    
+      
+        u
+        (
+        
+          x
+          
+            j
+          
+        
+        ,
+        
+          t
+          
+            n
+          
+        
+        )
+        =
+        
+          u
+          
+            j
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle u(x_{j},t_{n})=u_{j}^{n}}
+  will represent the numerical approximation of 
+  
+    
+      
+        u
+        (
+        
+          x
+          
+            j
+          
+        
+        ,
+        
+          t
+          
+            n
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle u(x_{j},t_{n}).}
+  
+
+
+=== explicit method ===
+
+using a forward difference at time 
+  
+    
+      
+        
+          t
+          
+            n
+          
+        
+      
+    
+    {\displaystyle t_{n}}
+   and a second-order central difference for the space derivative at position 
+  
+    
+      
+        
+          x
+          
+            j
+          
+        
+      
+    
+    {\displaystyle x_{j}}
+   (ftcs) we get the recurrence equation:
+
+  
+    
+      
+        
+          
+            
+              
+                u
+                
+                  j
+                
+                
+                  n
+                  +
+                  1
+                
+              
+              −
+              
+                u
+                
+                  j
+                
+                
+                  n
+                
+              
+            
+            k
+          
+        
+        =
+        
+          
+            
+              
+                u
+                
+                  j
+                  +
+                  1
+                
+                
+                  n
+                
+              
+              −
+              2
+              
+                u
+                
+                  j
+                
+                
+                  n
+                
+              
+              +
+              
+                u
+                
+                  j
+                  −
+                  1
+                
+                
+                  n
+                
+              
+            
+            
+              h
+              
+                2
+              
+            
+          
+        
+        .
+        
+      
+    
+    {\displaystyle {\frac {u_{j}^{n+1}-u_{j}^{n}}{k}}={\frac {u_{j+1}^{n}-2u_{j}^{n}+u_{j-1}^{n}}{h^{2}}}.\,}
+  this is an explicit method for solving the one-dimensional heat equation.
+we can obtain 
+  
+    
+      
+        
+          u
+          
+            j
+          
+          
+            n
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle u_{j}^{n+1}}
+   from the other values this way:
+
+  
+    
+      
+        
+          u
+          
+            j
+          
+          
+            n
+            +
+            1
+          
+        
+        =
+        (
+        1
+        −
+        2
+        r
+        )
+        
+          u
+          
+            j
+          
+          
+            n
+          
+        
+        +
+        r
+        
+          u
+          
+            j
+            −
+            1
+          
+          
+            n
+          
+        
+        +
+        r
+        
+          u
+          
+            j
+            +
+            1
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle u_{j}^{n+1}=(1-2r)u_{j}^{n}+ru_{j-1}^{n}+ru_{j+1}^{n}}
+  where 
+  
+    
+      
+        r
+        =
+        k
+        
+          /
+        
+        
+          h
+          
+            2
+          
+        
+        .
+      
+    
+    {\displaystyle r=k/h^{2}.}
+  
+so, with this recurrence relation, and knowing the values at time n, one can obtain the corresponding values at time n+1. 
+  
+    
+      
+        
+          u
+          
+            0
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle u_{0}^{n}}
+   and 
+  
+    
+      
+        
+          u
+          
+            j
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle u_{j}^{n}}
+   must be replaced by the boundary conditions, in this example they are both 0.
+this explicit method is known to be numerically stable and convergent whenever 
+  
+    
+      
+        r
+        ≤
+        1
+        
+          /
+        
+        2
+      
+    
+    {\displaystyle r\leq 1/2}
+  . the numerical errors are proportional to the time step and the square of the space step:
+
+  
+    
+      
+        δ
+        u
+        =
+        o
+        (
+        k
+        )
+        +
+        o
+        (
+        
+          h
+          
+            2
+          
+        
+        )
+        
+      
+    
+    {\displaystyle \delta u=o(k)+o(h^{2})\,}
+  
+
+
+=== implicit method ===
+
+if we use the backward difference at time 
+  
+    
+      
+        
+          t
+          
+            n
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle t_{n+1}}
+   and a second-order central difference for the space derivative at position 
+  
+    
+      
+        
+          x
+          
+            j
+          
+        
+      
+    
+    {\displaystyle x_{j}}
+   (the backward time, centered space method "btcs") we get the recurrence equation:
+
+  
+    
+      
+        
+          
+            
+              
+                u
+                
+                  j
+                
+                
+                  n
+                  +
+                  1
+                
+              
+              −
+              
+                u
+                
+                  j
+                
+                
+                  n
+                
+              
+            
+            k
+          
+        
+        =
+        
+          
+            
+              
+                u
+                
+                  j
+                  +
+                  1
+                
+                
+                  n
+                  +
+                  1
+                
+              
+              −
+              2
+              
+                u
+                
+                  j
+                
+                
+                  n
+                  +
+                  1
+                
+              
+              +
+              
+                u
+                
+                  j
+                  −
+                  1
+                
+                
+                  n
+                  +
+                  1
+                
+              
+            
+            
+              h
+              
+                2
+              
+            
+          
+        
+        .
+        
+      
+    
+    {\displaystyle {\frac {u_{j}^{n+1}-u_{j}^{n}}{k}}={\frac {u_{j+1}^{n+1}-2u_{j}^{n+1}+u_{j-1}^{n+1}}{h^{2}}}.\,}
+  this is an implicit method for solving the one-dimensional heat equation.
+we can obtain 
+  
+    
+      
+        
+          u
+          
+            j
+          
+          
+            n
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle u_{j}^{n+1}}
+   from solving a system of linear equations:
+
+  
+    
+      
+        (
+        1
+        +
+        2
+        r
+        )
+        
+          u
+          
+            j
+          
+          
+            n
+            +
+            1
+          
+        
+        −
+        r
+        
+          u
+          
+            j
+            −
+            1
+          
+          
+            n
+            +
+            1
+          
+        
+        −
+        r
+        
+          u
+          
+            j
+            +
+            1
+          
+          
+            n
+            +
+            1
+          
+        
+        =
+        
+          u
+          
+            j
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle (1+2r)u_{j}^{n+1}-ru_{j-1}^{n+1}-ru_{j+1}^{n+1}=u_{j}^{n}}
+  the scheme is always numerically stable and convergent but usually more numerically intensive than the explicit method as it requires solving a system of numerical equations on each time step. the errors are  linear over the time step and quadratic over the space step:
+
+  
+    
+      
+        δ
+        u
+        =
+        o
+        (
+        k
+        )
+        +
+        o
+        (
+        
+          h
+          
+            2
+          
+        
+        )
+        .
+        
+      
+    
+    {\displaystyle \delta u=o(k)+o(h^{2}).\,}
+  
+
+
+=== crank–nicolson method ===
+finally if we use the central difference at time 
+  
+    
+      
+        
+          t
+          
+            n
+            +
+            1
+            
+              /
+            
+            2
+          
+        
+      
+    
+    {\displaystyle t_{n+1/2}}
+   and a second-order central difference for the space derivative at position 
+  
+    
+      
+        
+          x
+          
+            j
+          
+        
+      
+    
+    {\displaystyle x_{j}}
+   ("ctcs") we get the recurrence equation:
+
+  
+    
+      
+        
+          
+            
+              
+                u
+                
+                  j
+                
+                
+                  n
+                  +
+                  1
+                
+              
+              −
+              
+                u
+                
+                  j
+                
+                
+                  n
+                
+              
+            
+            k
+          
+        
+        =
+        
+          
+            1
+            2
+          
+        
+        
+          (
+          
+            
+              
+                
+                  
+                    u
+                    
+                      j
+                      +
+                      1
+                    
+                    
+                      n
+                      +
+                      1
+                    
+                  
+                  −
+                  2
+                  
+                    u
+                    
+                      j
+                    
+                    
+                      n
+                      +
+                      1
+                    
+                  
+                  +
+                  
+                    u
+                    
+                      j
+                      −
+                      1
+                    
+                    
+                      n
+                      +
+                      1
+                    
+                  
+                
+                
+                  h
+                  
+                    2
+                  
+                
+              
+            
+            +
+            
+              
+                
+                  
+                    u
+                    
+                      j
+                      +
+                      1
+                    
+                    
+                      n
+                    
+                  
+                  −
+                  2
+                  
+                    u
+                    
+                      j
+                    
+                    
+                      n
+                    
+                  
+                  +
+                  
+                    u
+                    
+                      j
+                      −
+                      1
+                    
+                    
+                      n
+                    
+                  
+                
+                
+                  h
+                  
+                    2
+                  
+                
+              
+            
+          
+          )
+        
+        .
+        
+      
+    
+    {\displaystyle {\frac {u_{j}^{n+1}-u_{j}^{n}}{k}}={\frac {1}{2}}\left({\frac {u_{j+1}^{n+1}-2u_{j}^{n+1}+u_{j-1}^{n+1}}{h^{2}}}+{\frac {u_{j+1}^{n}-2u_{j}^{n}+u_{j-1}^{n}}{h^{2}}}\right).\,}
+  this formula is known as the crank–nicolson method.
+
+we can obtain 
+  
+    
+      
+        
+          u
+          
+            j
+          
+          
+            n
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle u_{j}^{n+1}}
+   from solving a system of linear equations:
+
+  
+    
+      
+        (
+        2
+        +
+        2
+        r
+        )
+        
+          u
+          
+            j
+          
+          
+            n
+            +
+            1
+          
+        
+        −
+        r
+        
+          u
+          
+            j
+            −
+            1
+          
+          
+            n
+            +
+            1
+          
+        
+        −
+        r
+        
+          u
+          
+            j
+            +
+            1
+          
+          
+            n
+            +
+            1
+          
+        
+        =
+        (
+        2
+        −
+        2
+        r
+        )
+        
+          u
+          
+            j
+          
+          
+            n
+          
+        
+        +
+        r
+        
+          u
+          
+            j
+            −
+            1
+          
+          
+            n
+          
+        
+        +
+        r
+        
+          u
+          
+            j
+            +
+            1
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle (2+2r)u_{j}^{n+1}-ru_{j-1}^{n+1}-ru_{j+1}^{n+1}=(2-2r)u_{j}^{n}+ru_{j-1}^{n}+ru_{j+1}^{n}}
+  the scheme is always numerically stable and convergent but usually more numerically intensive as it requires solving a system of numerical equations on each time step. the errors are quadratic over both the time step and the space step:
+
+  
+    
+      
+        δ
+        u
+        =
+        o
+        (
+        
+          k
+          
+            2
+          
+        
+        )
+        +
+        o
+        (
+        
+          h
+          
+            2
+          
+        
+        )
+        .
+        
+      
+    
+    {\displaystyle \delta u=o(k^{2})+o(h^{2}).\,}
+  
+
+
+=== comparison ===
+to summarize, usually the crank–nicolson scheme is the most accurate scheme for small time steps. for larger time steps, the implicit scheme works better since it is less computationally demanding. the explicit scheme is the least accurate and can be unstable, but is also the easiest to implement and the least numerically intensive. 
+here is an example. the figures below present the solutions given by the above methods to approximate the heat equation 
+
+  
+    
+      
+        
+          u
+          
+            t
+          
+        
+        =
+        α
+        
+          u
+          
+            x
+            x
+          
+        
+        ,
+        
+        α
+        =
+        
+          
+            1
+            
+              π
+              
+                2
+              
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle u_{t}=\alpha u_{xx},\quad \alpha ={\frac {1}{\pi ^{2}}},}
+  with the boundary condition
+
+  
+    
+      
+        u
+        (
+        0
+        ,
+        t
+        )
+        =
+        u
+        (
+        1
+        ,
+        t
+        )
+        =
+        0.
+      
+    
+    {\displaystyle u(0,t)=u(1,t)=0.}
+  the exact solution is
+
+  
+    
+      
+        u
+        (
+        x
+        ,
+        t
+        )
+        =
+        
+          
+            1
+            
+              π
+              
+                2
+              
+            
+          
+        
+        
+          e
+          
+            −
+            t
+          
+        
+        sin
+        ⁡
+        (
+        π
+        x
+        )
+        .
+      
+    
+    {\displaystyle u(x,t)={\frac {1}{\pi ^{2}}}e^{-t}\sin(\pi x).}
+  
+
+
+== example: the laplace operator ==
+the (continuous) laplace operator in 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  -dimensions is given by 
+  
+    
+      
+        δ
+        u
+        (
+        x
+        )
+        =
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            n
+          
+        
+        
+          ∂
+          
+            i
+          
+          
+            2
+          
+        
+        u
+        (
+        x
+        )
+      
+    
+    {\displaystyle \delta u(x)=\sum _{i=1}^{n}\partial _{i}^{2}u(x)}
+  .
+the discrete laplace operator 
+  
+    
+      
+        
+          δ
+          
+            h
+          
+        
+        u
+      
+    
+    {\displaystyle \delta _{h}u}
+   depends on the dimension 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  .
+in 1d the laplace operator is approximated as 
+
+  
+    
+      
+        δ
+        u
+        (
+        x
+        )
+        =
+        
+          u
+          ″
+        
+        (
+        x
+        )
+        ≈
+        
+          
+            
+              u
+              (
+              x
+              −
+              h
+              )
+              −
+              2
+              u
+              (
+              x
+              )
+              +
+              u
+              (
+              x
+              +
+              h
+              )
+            
+            
+              h
+              
+                2
+              
+            
+          
+        
+        =:
+        
+          δ
+          
+            h
+          
+        
+        u
+        (
+        x
+        )
+        
+        .
+      
+    
+    {\displaystyle \delta u(x)=u''(x)\approx {\frac {u(x-h)-2u(x)+u(x+h)}{h^{2}}}=:\delta _{h}u(x)\,.}
+  this approximation is usually expressed via the following stencil
+
+  
+    
+      
+        
+          δ
+          
+            h
+          
+        
+        =
+        
+          
+            1
+            
+              h
+              
+                2
+              
+            
+          
+        
+        
+          
+            [
+            
+              
+                
+                  1
+                
+                
+                  −
+                  2
+                
+                
+                  1
+                
+              
+            
+            ]
+          
+        
+      
+    
+    {\displaystyle \delta _{h}={\frac {1}{h^{2}}}{\begin{bmatrix}1&-2&1\end{bmatrix}}}
+  and which represents a symmetric, tridiagonal matrix. 
+for an equidistant grid one gets a toeplitz matrix.
+the 2d case shows all the characteristics of the more general nd case. each second partial derivative needs to be approximated similar to the 1d case 
+
+  
+    
+      
+        
+          
+            
+              
+                δ
+                u
+                (
+                x
+                ,
+                y
+                )
+              
+              
+                
+                =
+                
+                  u
+                  
+                    x
+                    x
+                  
+                
+                (
+                x
+                ,
+                y
+                )
+                +
+                
+                  u
+                  
+                    y
+                    y
+                  
+                
+                (
+                x
+                ,
+                y
+                )
+              
+            
+            
+              
+              
+                
+                ≈
+                
+                  
+                    
+                      u
+                      (
+                      x
+                      −
+                      h
+                      ,
+                      y
+                      )
+                      −
+                      2
+                      u
+                      (
+                      x
+                      ,
+                      y
+                      )
+                      +
+                      u
+                      (
+                      x
+                      +
+                      h
+                      ,
+                      y
+                      )
+                    
+                    
+                      h
+                      
+                        2
+                      
+                    
+                  
+                
+                +
+                
+                  
+                    
+                      u
+                      (
+                      x
+                      ,
+                      y
+                      −
+                      h
+                      )
+                      −
+                      2
+                      u
+                      (
+                      x
+                      ,
+                      y
+                      )
+                      +
+                      u
+                      (
+                      x
+                      ,
+                      y
+                      +
+                      h
+                      )
+                    
+                    
+                      h
+                      
+                        2
+                      
+                    
+                  
+                
+              
+            
+            
+              
+              
+                
+                =
+                
+                  
+                    
+                      u
+                      (
+                      x
+                      −
+                      h
+                      ,
+                      y
+                      )
+                      +
+                      u
+                      (
+                      x
+                      +
+                      h
+                      ,
+                      y
+                      )
+                      −
+                      4
+                      u
+                      (
+                      x
+                      ,
+                      y
+                      )
+                      +
+                      u
+                      (
+                      x
+                      ,
+                      y
+                      −
+                      h
+                      )
+                      +
+                      u
+                      (
+                      x
+                      ,
+                      y
+                      +
+                      h
+                      )
+                    
+                    
+                      h
+                      
+                        2
+                      
+                    
+                  
+                
+              
+            
+            
+              
+              
+                
+                =:
+                
+                  δ
+                  
+                    h
+                  
+                
+                u
+                (
+                x
+                ,
+                y
+                )
+                
+                ,
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}\delta u(x,y)&=u_{xx}(x,y)+u_{yy}(x,y)\\&\approx {\frac {u(x-h,y)-2u(x,y)+u(x+h,y)}{h^{2}}}+{\frac {u(x,y-h)-2u(x,y)+u(x,y+h)}{h^{2}}}\\&={\frac {u(x-h,y)+u(x+h,y)-4u(x,y)+u(x,y-h)+u(x,y+h)}{h^{2}}}\\&=:\delta _{h}u(x,y)\,,\end{aligned}}}
+  which is usually given by the following stencil
+
+  
+    
+      
+        
+          δ
+          
+            h
+          
+        
+        =
+        
+          
+            1
+            
+              h
+              
+                2
+              
+            
+          
+        
+        
+          
+            [
+            
+              
+                
+                
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  −
+                  4
+                
+                
+                  1
+                
+              
+              
+                
+                
+                  1
+                
+              
+            
+            ]
+          
+        
+        
+        .
+      
+    
+    {\displaystyle \delta _{h}={\frac {1}{h^{2}}}{\begin{bmatrix}&1\\1&-4&1\\&1\end{bmatrix}}\,.}
+  
+
+
+=== consistency ===
+consistency of the above-mentioned approximation can be shown for highly regular functions, such as 
+  
+    
+      
+        u
+        ∈
+        
+          c
+          
+            4
+          
+        
+        (
+        ω
+        )
+      
+    
+    {\displaystyle u\in c^{4}(\omega )}
+  .
+the statement is
+
+  
+    
+      
+        δ
+        u
+        −
+        
+          δ
+          
+            h
+          
+        
+        u
+        =
+        
+          
+            o
+          
+        
+        (
+        
+          h
+          
+            2
+          
+        
+        )
+        
+        .
+      
+    
+    {\displaystyle \delta u-\delta _{h}u={\mathcal {o}}(h^{2})\,.}
+  to prove this, one needs to substitute taylor series expansions up to order 3 into the discrete laplace operator.
+
+
+=== properties ===
+
+
+==== subharmonic ====
+similar to continuous subharmonic functions one can define subharmonic functions for finite-difference approximations 
+  
+    
+      
+        
+          u
+          
+            h
+          
+        
+      
+    
+    {\displaystyle u_{h}}
+  
+
+  
+    
+      
+        −
+        
+          δ
+          
+            h
+          
+        
+        
+          u
+          
+            h
+          
+        
+        ≤
+        0
+        
+        .
+      
+    
+    {\displaystyle -\delta _{h}u_{h}\leq 0\,.}
+  
+
+
+==== mean value ====
+one can define a general stencil of positive type via
+
+  
+    
+      
+        
+          
+            [
+            
+              
+                
+                
+                  
+                    α
+                    
+                      n
+                    
+                  
+                
+              
+              
+                
+                  
+                    α
+                    
+                      w
+                    
+                  
+                
+                
+                  −
+                  
+                    α
+                    
+                      c
+                    
+                  
+                
+                
+                  
+                    α
+                    
+                      e
+                    
+                  
+                
+              
+              
+                
+                
+                  
+                    α
+                    
+                      s
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        
+        ,
+        
+        
+          α
+          
+            i
+          
+        
+        >
+        0
+        
+        ,
+        
+        
+          α
+          
+            c
+          
+        
+        =
+        
+          ∑
+          
+            i
+            ∈
+            {
+            n
+            ,
+            e
+            ,
+            s
+            ,
+            w
+            }
+          
+        
+        
+          α
+          
+            i
+          
+        
+        
+        .
+      
+    
+    {\displaystyle {\begin{bmatrix}&\alpha _{n}\\\alpha _{w}&-\alpha _{c}&\alpha _{e}\\&\alpha _{s}\end{bmatrix}}\,,\quad \alpha _{i}>0\,,\quad \alpha _{c}=\sum _{i\in \{n,e,s,w\}}\alpha _{i}\,.}
+  if 
+  
+    
+      
+        
+          u
+          
+            h
+          
+        
+      
+    
+    {\displaystyle u_{h}}
+   is (discrete) subharmonic then the following mean value property holds
+
+  
+    
+      
+        
+          u
+          
+            h
+          
+        
+        (
+        
+          x
+          
+            c
+          
+        
+        )
+        ≤
+        
+          
+            
+              
+                ∑
+                
+                  i
+                  ∈
+                  {
+                  n
+                  ,
+                  e
+                  ,
+                  s
+                  ,
+                  w
+                  }
+                
+              
+              
+                α
+                
+                  i
+                
+              
+              
+                u
+                
+                  h
+                
+              
+              (
+              
+                x
+                
+                  i
+                
+              
+              )
+            
+            
+              
+                ∑
+                
+                  i
+                  ∈
+                  {
+                  n
+                  ,
+                  e
+                  ,
+                  s
+                  ,
+                  w
+                  }
+                
+              
+              
+                α
+                
+                  i
+                
+              
+            
+          
+        
+        
+        ,
+      
+    
+    {\displaystyle u_{h}(x_{c})\leq {\frac {\sum _{i\in \{n,e,s,w\}}\alpha _{i}u_{h}(x_{i})}{\sum _{i\in \{n,e,s,w\}}\alpha _{i}}}\,,}
+  where the approximation is evaluated on points of the grid, and the stencil is assumed to be of positive type.
+a similar mean value property also holds for the continuous case.
+
+
+==== maximum principle ====
+for a (discrete) subharmonic function 
+  
+    
+      
+        
+          u
+          
+            h
+          
+        
+      
+    
+    {\displaystyle u_{h}}
+   the following holds
+
+  
+    
+      
+        
+          max
+          
+            
+              ω
+              
+                h
+              
+            
+          
+        
+        
+          u
+          
+            h
+          
+        
+        ≤
+        
+          max
+          
+            ∂
+            
+              ω
+              
+                h
+              
+            
+          
+        
+        
+          u
+          
+            h
+          
+        
+        
+        ,
+      
+    
+    {\displaystyle \max _{\omega _{h}}u_{h}\leq \max _{\partial \omega _{h}}u_{h}\,,}
+  where 
+  
+    
+      
+        
+          ω
+          
+            h
+          
+        
+        ,
+        ∂
+        
+          ω
+          
+            h
+          
+        
+      
+    
+    {\displaystyle \omega _{h},\partial \omega _{h}}
+   are discretizations of the continuous domain 
+  
+    
+      
+        ω
+      
+    
+    {\displaystyle \omega }
+  , respectively the boundary 
+  
+    
+      
+        ∂
+        ω
+      
+    
+    {\displaystyle \partial \omega }
+  .
+a similar maximum principle also holds for the continuous case.
+
+
+== the sbp-sat method ==
+the sbp-sat method is a stable and accurate technique for discretizing and imposing boundary conditions of a well-posed partial differential equation using high order finite differences. the method is based on finite differences where the differentiation operators exhibit summation-by-parts properties. typically, these operators consist of differentiation matrices with central difference stencils in the interior with carefully chosen one-sided boundary stencils designed to mimic integration-by-parts in the discrete setting. using the sat technique, the boundary conditions of the pde are imposed weakly, where the boundary values are "pulled" towards the desired conditions rather than exactly fulfilled. if the tuning parameters (inherent to the sat technique) are chosen properly, the resulting system of ode's will exhibit similar energy behavior as the continuous pde, i.e. the system has no non-physical energy growth. this guarantees stability if an integration scheme with a stability region that includes parts of the imaginary axis, such as the fourth order runge-kutta method, is used. this makes the sat technique an attractive method of imposing boundary conditions for higher order finite difference methods, in contrast to for example the injection method, which typically will not be stable if high order differentiation operators are used.
+
+
+== see also ==
+
+
+== references ==
+
+
+== further reading ==
+k.w. morton and d.f. mayers, numerical solution of partial differential equations, an introduction. cambridge university press, 2005.
+autar kaw and e. eric kalu, numerical methods with applications, (2008) [1]. contains a brief, engineering-oriented introduction to fdm (for odes) in chapter 08.07.
+john strikwerda (2004). finite difference schemes and partial differential equations (2nd ed.). siam. isbn 978-0-89871-639-9.
+smith, g. d. (1985), numerical solution of partial differential equations: finite difference methods, 3rd ed., oxford university press
+peter olver (2013). introduction to partial differential equations. springer. chapter 5: finite differences. isbn 978-3-319-02099-0..
+randall j. leveque, finite difference methods for ordinary and partial differential equations, siam, 2007.
+sergey lemeshevsky, piotr matus, dmitriy poliakov(eds): "exact finite-difference schemes", de gruyter (2016). doi: https://doi.org/10.1515/9783110491326 .

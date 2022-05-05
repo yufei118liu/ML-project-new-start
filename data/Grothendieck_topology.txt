@@ -1,0 +1,660 @@
+in category theory, a branch of mathematics, a grothendieck topology is a structure on a category c that makes the objects of c act like the open sets of a topological space.  a category together with a choice of grothendieck topology is called a site.
+grothendieck topologies axiomatize the notion of an open cover.  using the notion of covering provided by a grothendieck topology, it becomes possible to define sheaves on a category and their cohomology.  this was first done in algebraic geometry and algebraic number theory by alexander grothendieck to define the étale cohomology of a scheme.  it has been used to define other cohomology theories since then, such as ℓ-adic cohomology, flat cohomology, and crystalline cohomology. while grothendieck topologies are most often used to define cohomology theories, they have found other applications as well, such as to john tate's theory of rigid analytic geometry.
+there is a natural way to associate a site to an ordinary topological space, and grothendieck's theory is loosely regarded as a generalization of classical topology.  under meager point-set hypotheses, namely sobriety, this is completely accurate—it is possible to recover a sober space from its associated site.  however simple examples such as the indiscrete topological space show that not all topological spaces can be expressed using grothendieck topologies.  conversely, there are grothendieck topologies that do not come from topological spaces.
+the term "grothendieck topology" has changed in meaning. in artin (1962) it meant what is now called a grothendieck pretopology, and some authors still use this old meaning. giraud (1964) modified the definition to use sieves rather than covers. much of the time this does not make much difference, as each grothendieck pretopology determines a unique grothendieck topology, though quite different pretopologies can give the same topology.
+
+
+== overview ==
+
+andré weil's famous weil conjectures proposed that certain properties of equations with integral coefficients should be understood as geometric properties of the algebraic variety that they define.  his conjectures postulated that there should be a cohomology theory of algebraic varieties that gives number-theoretic information about their defining equations.  this cohomology theory was known as the "weil  cohomology", but using the tools he had available, weil was unable to construct it.
+in the early 1960s, alexander grothendieck introduced étale maps into algebraic geometry as algebraic analogues of local analytic isomorphisms in analytic geometry.  he used étale coverings to define an algebraic analogue of the fundamental group of a topological space.  soon jean-pierre serre noticed that some properties of étale coverings mimicked those of open immersions, and that consequently it was possible to make constructions that imitated the cohomology functor h1.  grothendieck saw that it would be possible to use serre's idea to define a cohomology theory that he suspected would be the weil cohomology.  to define this cohomology theory, grothendieck needed to replace the usual, topological notion of an open covering with one that would use étale coverings instead.  grothendieck also saw how to phrase the definition of covering abstractly; this is where the definition of a grothendieck topology comes from.
+
+
+== definition ==
+
+
+=== motivation ===
+the classical definition of a sheaf begins with a topological space x.  a sheaf associates information to the open sets of x.  this information can be phrased abstractly by letting o(x) be the category whose objects are the open subsets u of x and whose morphisms are the inclusion maps v → u of open sets u and v of x.  we will call such maps open immersions, just as in the context of schemes.  then a presheaf on x is a contravariant functor from o(x) to the category of sets, and a sheaf is a presheaf that satisfies the gluing axiom (here including the separation axiom).  the gluing axiom is phrased in terms of pointwise covering, i.e., 
+  
+    
+      
+        {
+        
+          u
+          
+            i
+          
+        
+        }
+      
+    
+    {\displaystyle \{u_{i}\}}
+   covers u if and only if 
+  
+    
+      
+        
+          ⋃
+          
+            i
+          
+        
+        
+          u
+          
+            i
+          
+        
+        =
+        u
+      
+    
+    {\displaystyle \bigcup _{i}u_{i}=u}
+  . in this definition, 
+  
+    
+      
+        
+          u
+          
+            i
+          
+        
+      
+    
+    {\displaystyle u_{i}}
+   is an open subset of x. grothendieck topologies replace each 
+  
+    
+      
+        
+          u
+          
+            i
+          
+        
+      
+    
+    {\displaystyle u_{i}}
+   with an entire family of open subsets; in this example, 
+  
+    
+      
+        
+          u
+          
+            i
+          
+        
+      
+    
+    {\displaystyle u_{i}}
+   is replaced by the family of all open immersions 
+  
+    
+      
+        
+          v
+          
+            i
+            j
+          
+        
+        →
+        
+          u
+          
+            i
+          
+        
+      
+    
+    {\displaystyle v_{ij}\to u_{i}}
+  . such a collection is called a sieve. pointwise covering is replaced by the notion of a covering family; in the above example, the set of all 
+  
+    
+      
+        {
+        
+          v
+          
+            i
+            j
+          
+        
+        →
+        
+          u
+          
+            i
+          
+        
+        
+          }
+          
+            j
+          
+        
+      
+    
+    {\displaystyle \{v_{ij}\to u_{i}\}_{j}}
+   as i varies is a covering family of u. sieves and covering families can be axiomatized, and once this is done open sets and pointwise covering can be replaced by other notions that describe other properties of the space x.
+
+
+=== sieves ===
+in a grothendieck topology, the notion of a collection of open subsets of u stable under inclusion is replaced by the notion of a sieve.  if c is any given object in c, a sieve on c is a subfunctor of the functor hom(−, c); (this is the yoneda embedding applied to c).  in the case of o(x), a sieve s on an open set u selects a collection of open subsets of u that is stable under inclusion.  more precisely, consider that for any open subset v of u, s(v) will be a subset of hom(v, u), which has only one element, the open immersion v → u.  then v will be considered "selected" by s if and only if s(v) is nonempty. if w is a subset of v, then there is a morphism s(v) → s(w) given by composition with the inclusion w → v.  if s(v) is non-empty, it follows that s(w) is also non-empty.
+if s is a sieve on x, and f: y → x is a morphism, then left composition by f gives a sieve on y called the pullback of s along f, denoted by f
+  
+    
+      
+        
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle ^{\ast }}
+  s.  it is defined as the fibered product s ×hom(−, x) hom(−, y) together with its natural embedding in hom(−, y).  more concretely, for each object z of c, f
+  
+    
+      
+        
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle ^{\ast }}
+  s(z) = { g: z → y | fg 
+  
+    
+      
+        ∈
+      
+    
+    {\displaystyle \in }
+  s(z) }, and f
+  
+    
+      
+        
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle ^{\ast }}
+  s inherits its action on morphisms by being a subfunctor of hom(−, y).  in the classical example, the pullback of a collection {vi} of subsets of u along an inclusion w → u is the collection {vi∩w}.
+
+
+=== grothendieck topology ===
+a grothendieck topology j on a category c is a collection, for each object c of c, of distinguished sieves on c, denoted by j(c) and called covering sieves of c.  this selection will be subject to certain axioms, stated below.   continuing the previous example, a sieve s on an open set u in o(x) will be a covering sieve if and only if the union of all the open sets v for which s(v) is nonempty equals u; in other words, if and only if s gives us a collection of open sets that cover u in the classical sense.
+
+
+==== axioms ====
+the conditions we impose on a grothendieck topology are:
+
+(t 1) (base change) if s is a covering sieve on x, and f: y → x is a morphism, then the pullback f
+  
+    
+      
+        ∗
+      
+    
+    {\displaystyle \ast }
+  s is a covering sieve on y.
+(t 2) (local character)  let s be a covering sieve on x, and let t be any sieve on x.  suppose that for each object y of c and each arrow f: y → x in s(y), the pullback sieve f
+  
+    
+      
+        ∗
+      
+    
+    {\displaystyle \ast }
+  t is a covering sieve on y.  then t is a covering sieve on x.
+(t 3) (identity) hom(−, x) is a covering sieve on x for any object x in c.the base change axiom corresponds to the idea that if {ui} covers u, then {ui ∩ v} should cover u ∩ v.  the local character axiom corresponds to the idea that if {ui} covers u and {vij}j 
+  
+    
+      
+        ∈
+      
+    
+    {\displaystyle \in }
+  ji covers ui for each i, then the collection {vij} for all i and j should cover u.  lastly, the identity axiom corresponds to the idea that any set is covered by itself via the identity map.
+
+
+==== grothendieck pretopologies ====
+in fact, it is possible to put these axioms in another form where their geometric character is more apparent, assuming that the underlying category c contains certain fibered products. in this case, instead of specifying sieves, we can specify that certain collections of maps with a common codomain should cover their codomain.  these collections are called covering families.  if the collection of all covering families satisfies certain axioms, then we say that they form a grothendieck pretopology.  these axioms are:
+
+(pt 0) (existence of fibered products) for all objects x of c, and for all morphisms x0 → x that appear in some covering family of x, and for all morphisms y → x, the fibered product x0 ×x y exists.
+(pt 1) (stability under base change) for all objects x of c, all morphisms y → x, and all covering families {xα → x}, the family {xα ×x y → y} is a covering family.
+(pt 2) (local character) if {xα → x} is a covering family, and if for all α, {xβα → xα} is a covering family, then the family of composites {xβα → xα → x} is a covering family.
+(pt 3) (isomorphisms) if f: y → x is an isomorphism, then {f} is a covering family.for any pretopology, the collection of all sieves that contain a covering family from the pretopology is always a grothendieck topology.
+for categories with fibered products, there is a converse.  given a collection of arrows {xα → x}, we construct a sieve s by letting s(y) be the set of all morphisms y → x that factor through some arrow xα → x.  this is called the sieve generated by {xα → x}.  now choose a topology.  say that {xα → x} is a covering family if and only if the sieve that it generates is a covering sieve for the given topology.  it is easy to check that this defines a pretopology.
+(pt 3) is sometimes replaced by a weaker axiom:
+
+(pt 3') (identity) if 1x : x → x is the identity arrow, then {1x} is a covering family.(pt 3) implies (pt 3'), but not conversely.  however, suppose that we have a collection of covering families that satisfies (pt 0) through (pt 2) and (pt 3'), but not (pt 3).  these families generate a pretopology.  the topology generated by the original collection of covering families is then the same as the topology generated by the pretopology, because the sieve generated by an isomorphism y → x is hom(−, x).  consequently, if we restrict our attention to topologies, (pt 3) and (pt 3') are equivalent.
+
+
+== sites and sheaves ==
+
+let c be a category and let j be a grothendieck topology on c.  the pair (c, j) is called a site.
+a presheaf on a category is a contravariant functor from c to the category of all sets.  note that for this definition c is not required to have a topology.  a sheaf on a site, however, should allow gluing, just like sheaves in classical topology.  consequently, we define a sheaf on a site to be a presheaf f such that for all objects x and all covering sieves s on x, the natural map hom(hom(−, x), f) → hom(s, f), induced by the inclusion of s into hom(−, x), is a bijection.  halfway in between a presheaf and a sheaf is the notion of a separated presheaf, where the natural map above is required to be only an injection, not a bijection, for all sieves s.  a morphism of presheaves or of sheaves is a natural transformation of functors.  the category of all sheaves on c is the topos defined by the site (c, j).
+using the yoneda lemma, it is possible to show that a presheaf on the category o(x) is a sheaf on the topology defined above if and only if it is a sheaf in the classical sense.
+sheaves on a pretopology have a particularly simple description: for each covering family {xα → x}, the diagram
+
+  
+    
+      
+        f
+        (
+        x
+        )
+        →
+        
+          ∏
+          
+            α
+            ∈
+            a
+          
+        
+        f
+        (
+        
+          x
+          
+            α
+          
+        
+        )
+        
+          
+            
+              
+                
+
+                
+                ⟶
+              
+            
+            
+              
+                ⟶
+                
+
+                
+              
+            
+          
+        
+        
+          ∏
+          
+            α
+            ,
+            β
+            ∈
+            a
+          
+        
+        f
+        (
+        
+          x
+          
+            α
+          
+        
+        
+          ×
+          
+            x
+          
+        
+        
+          x
+          
+            β
+          
+        
+        )
+      
+    
+    {\displaystyle f(x)\rightarrow \prod _{\alpha \in a}f(x_{\alpha }){{{} \atop \longrightarrow } \atop {\longrightarrow  \atop {}}}\prod _{\alpha ,\beta \in a}f(x_{\alpha }\times _{x}x_{\beta })}
+  must be an equalizer.  for a separated presheaf, the first arrow need only be injective.
+similarly, one can define presheaves and sheaves of abelian groups, rings, modules, and so on.  one can require either that a presheaf f is a contravariant functor to the category of abelian groups (or rings, or modules, etc.), or that f be an abelian group (ring, module, etc.) object in the category of all contravariant functors from c to the category of sets.  these two definitions are equivalent.
+
+
+== examples of sites ==
+
+
+=== the discrete and indiscrete topologies ===
+let c be any category.  to define the discrete topology, we declare all sieves to be covering sieves.  if c has all fibered products, this is equivalent to declaring all families to be covering families.  to define the indiscrete topology, also known as the coarse or chaotic topology, we declare only the sieves of the form hom(−, x) to be covering sieves.  the indiscrete topology is generated by the pretopology that has only isomorphisms for covering families. a sheaf on the indiscrete site is the same thing as a presheaf.
+
+
+=== the canonical topology ===
+let c be any category.  the yoneda embedding gives a functor hom(−, x) for each object x of c.  the canonical topology is the biggest (finest) topology such that every representable presheaf, i.e. presheaf of the form hom(−, x), is a sheaf.  a covering sieve or covering family for this site is said to be strictly universally epimorphic because it consists of the legs of a colimit cone (under the full diagram on the domains of its constituent morphisms) and these colimits are stable under pullbacks along morphisms in c.  a topology that is less fine than the canonical topology, that is, for which every covering sieve is strictly universally epimorphic, is called subcanonical.  subcanonical sites are exactly the sites for which every presheaf of the form hom(−, x) is a sheaf.  most sites encountered in practice are subcanonical.
+
+
+=== small site associated to a topological space ===
+we repeat the example that we began with above.  let x be a topological space.  we defined o(x) to be the category whose objects are the open sets of x and whose morphisms are inclusions of open sets.  note that for an open set u and a sieve s on u, the set s(v) contains either zero or one element for every open set v. the covering sieves on an object u of o(x) are those sieves s satisfying the following condition:
+
+if w is the union of all the sets v such that s(v) is non-empty, then w = u.this notion of cover matches the usual notion in point-set topology.
+this topology can also naturally be expressed as a pretopology.  we say that a family of inclusions {vα 
+  
+    
+      
+        ⊆
+      
+    
+    {\displaystyle \subseteq }
+   u} is a covering family if and only if the union  
+  
+    
+      
+        ∪
+      
+    
+    {\displaystyle \cup }
+  vα equals u.  this site is called the small site associated to a topological space x.
+
+
+=== big site associated to a topological space ===
+let spc be the category of all topological spaces.  given any family of functions {uα : vα → x}, we say that it is a surjective family or that the morphisms uα are jointly surjective if  
+  
+    
+      
+        ∪
+      
+    
+    {\displaystyle \cup }
+   uα(vα) equals x.  we define a pretopology on spc by taking the covering families to be surjective families all of whose members are open immersions.  let s be a sieve on spc.  s is a covering sieve for this topology if and only if:
+
+for all y and every morphism f : y → x in s(y), there exists a v and a g : v → x such that g is an open immersion, g is in s(v), and f factors through g.
+if w is the union of all the sets f(y), where f : y → x is in s(y), then w = x.fix a topological space x.  consider the comma category spc/x of topological spaces with a fixed continuous map to x.  the topology on spc induces a topology on spc/x.  the covering sieves and covering families are almost exactly the same; the only difference is that now all the maps involved commute with the fixed maps to x.  this is the big site associated to a topological space x .  notice that spc is the big site associated to the one point space.  this site was first considered by jean giraud.
+
+
+=== the big and small sites of a manifold ===
+let m be a manifold.  m has a category of open sets o(m) because it is a topological space, and it gets a topology as in the above example.  for two open sets u and v of m, the fiber product u ×m v is the open set u ∩ v, which is still in o(m).  this means that the topology on o(m) is defined by a pretopology, the same pretopology as before.
+let mfd be the category of all manifolds and continuous maps.  (or smooth manifolds and smooth maps, or real analytic manifolds and analytic maps, etc.) mfd is a subcategory of spc, and open immersions are continuous (or smooth, or analytic, etc.), so mfd inherits a topology from spc.  this lets us construct the big site of the manifold m as the site mfd/m.  we can also define this topology using the same pretopology we used above.  notice that to satisfy (pt 0), we need to check that for any continuous map of manifolds x → y and any open subset u of y, the fibered product u ×y x is in mfd/m.  this is just the statement that the preimage of an open set is open.  notice, however, that not all fibered products exist in mfd because the preimage of a smooth map at a critical value need not be a manifold.
+
+
+=== topologies on the category of schemes ===
+
+the category of schemes, denoted sch, has a tremendous number of useful topologies.  a complete understanding of some questions may require examining a scheme using several different topologies.  all of these topologies have associated small and big sites.  the big site is formed by taking the entire category of schemes and their morphisms, together with the covering sieves specified by the topology.  the small site over a given scheme is formed by only taking the objects and morphisms that are part of a cover of the given scheme.
+the most elementary of these is the zariski topology.  let x be a scheme.  x has an underlying topological space, and this topological space determines a grothendieck topology.  the zariski topology on sch is generated by the pretopology whose covering families are jointly surjective families of scheme-theoretic open immersions.  the covering sieves s for zar are characterized by the following two properties:
+
+for all y and every morphism f : y → x in s(y), there exists a v and a g : v → x such that g is an open immersion, g is in s(v), and f factors through g.
+if w is the union of all the sets f(y), where f : y → x is in s(y), then w = x.despite their outward similarities, the topology on zar is not the restriction of the topology on spc!  this is because there are morphisms of schemes that are topologically open immersions but that are not scheme-theoretic open immersions.  for example, let a be a non-reduced ring and let n be its ideal of nilpotents.  the quotient map a → a/n induces a map spec a/n → spec a, which is the identity on underlying topological spaces.  to be a scheme-theoretic open immersion it must also induce an isomorphism on structure sheaves, which this map does not do.  in fact, this map is a closed immersion.
+the étale topology is finer than the zariski topology.  it was the first grothendieck topology to be closely studied.  its covering families are jointly surjective families of étale morphisms.  it is finer than the nisnevich topology, but neither finer nor coarser than the cdh and l′ topologies.
+there are two flat topologies, the fppf topology and the fpqc topology.  fppf stands for fidèlement plate de présentation finie, and in this topology, a morphism of affine schemes is a covering morphism if it is faithfully flat, of finite presentation, and is quasi-finite.  fpqc stands for fidèlement plate et quasi-compacte, and in this topology, a morphism of affine schemes is a covering morphism if it is faithfully flat.  in both categories, a covering family is defined to be a family that is a cover on zariski open subsets.  in the fpqc topology, any faithfully flat and quasi-compact morphism is a cover.  these topologies are closely related to descent.  the fpqc topology is finer than all the topologies mentioned above, and it is very close to the canonical topology.
+grothendieck introduced crystalline cohomology to study the p-torsion part of the cohomology of characteristic p varieties.  in the crystalline topology, which is the basis of this theory, the underlying category has objects given by infinitesimal thickenings together with divided power structures.  crystalline sites are examples of sites with no final object.
+
+
+== continuous and cocontinuous functors ==
+there are two natural types of functors between sites.  they are given by functors that are compatible with the topology in a certain sense.
+
+
+=== continuous functors ===
+if (c, j) and (d, k) are sites and u : c → d is a functor, then u is continuous if for every sheaf f on d with respect to the topology k, the presheaf fu is a sheaf with respect to the topology j. continuous functors induce functors between the corresponding topoi by sending a sheaf f to fu.  these functors are called pushforwards.  if 
+  
+    
+      
+        
+          
+            
+              c
+              ~
+            
+          
+        
+      
+    
+    {\displaystyle {\tilde {c}}}
+   and 
+  
+    
+      
+        
+          
+            
+              d
+              ~
+            
+          
+        
+      
+    
+    {\displaystyle {\tilde {d}}}
+   denote the topoi associated to c and d, then the pushforward functor is 
+  
+    
+      
+        
+          u
+          
+            s
+          
+        
+        :
+        
+          
+            
+              d
+              ~
+            
+          
+        
+        →
+        
+          
+            
+              c
+              ~
+            
+          
+        
+      
+    
+    {\displaystyle u_{s}:{\tilde {d}}\to {\tilde {c}}}
+  .
+us admits a left adjoint us called the pullback. us need not preserve limits, even finite limits.
+in the same way, u sends a sieve on an object x of c to a sieve on the object ux of d.  a continuous functor sends covering sieves to covering sieves.  if j is the topology defined by a pretopology, and if u commutes with fibered products, then u is continuous if and only if it sends covering sieves to covering sieves and if and only if it sends covering families to covering families.  in general, it is not sufficient for u to send covering sieves to covering sieves (see sga iv 3, exemple 1.9.3).
+
+
+=== cocontinuous functors ===
+again, let (c, j) and (d, k) be sites and v : c → d be a functor.  if x is an object of c and r is a sieve on vx, then r can be pulled back to a sieve s as follows: a morphism f : z → x is in s if and only if v(f) : vz → vx is in r.  this defines a sieve.  v is cocontinuous if and only if for every object x of c and every covering sieve r of vx, the pullback s of r is a covering sieve on x.
+composition with v sends a presheaf f on d to a presheaf fv on c, but if v is cocontinuous, this need not send sheaves to sheaves.  however, this functor on presheaf categories, usually denoted 
+  
+    
+      
+        
+          
+            
+              
+                v
+                ^
+              
+            
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle {\hat {v}}^{*}}
+  , admits a right adjoint 
+  
+    
+      
+        
+          
+            
+              
+                v
+                ^
+              
+            
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle {\hat {v}}_{*}}
+  .  then v is cocontinuous if and only if 
+  
+    
+      
+        
+          
+            
+              
+                v
+                ^
+              
+            
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle {\hat {v}}_{*}}
+   sends sheaves to sheaves, that is, if and only if it restricts to a functor 
+  
+    
+      
+        
+          v
+          
+            ∗
+          
+        
+        :
+        
+          
+            
+              c
+              ~
+            
+          
+        
+        →
+        
+          
+            
+              d
+              ~
+            
+          
+        
+      
+    
+    {\displaystyle v_{*}:{\tilde {c}}\to {\tilde {d}}}
+  .  in this case, the composite of 
+  
+    
+      
+        
+          
+            
+              
+                v
+                ^
+              
+            
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle {\hat {v}}^{*}}
+   with the associated sheaf functor is a left adjoint of v* denoted v*. furthermore, v* preserves finite limits, so the adjoint functors v* and v* determine a geometric morphism of topoi 
+  
+    
+      
+        
+          
+            
+              c
+              ~
+            
+          
+        
+        →
+        
+          
+            
+              d
+              ~
+            
+          
+        
+      
+    
+    {\displaystyle {\tilde {c}}\to {\tilde {d}}}
+  .
+
+
+=== morphisms of sites ===
+a continuous functor u : c → d is a morphism of sites d → c (not c → d) if us preserves finite limits.  in this case, us and us determine a geometric morphism of topoi 
+  
+    
+      
+        
+          
+            
+              c
+              ~
+            
+          
+        
+        →
+        
+          
+            
+              d
+              ~
+            
+          
+        
+      
+    
+    {\displaystyle {\tilde {c}}\to {\tilde {d}}}
+  . the reasoning behind the convention that a continuous functor c → d is said to determine a morphism of sites in the opposite direction is that this agrees with the intuition coming from the case of topological spaces.  a continuous map of topological spaces x → y determines a continuous functor o(y) → o(x).  since the original map on topological spaces is said to send x to y, the morphism of sites is said to as well.
+a particular case of this happens when a continuous functor admits a left adjoint. suppose that u : c → d and v : d → c are functors with u right adjoint to v. then u is continuous if and only if v is cocontinuous, and when this happens, us is naturally isomorphic to v* and us is naturally isomorphic to v*.  in particular, u is a morphism of sites.
+
+
+== see also ==
+fibered category
+lawvere–tierney topology
+
+
+== notes ==
+
+
+== references ==
+artin, michael (1962). grothendieck topologies. cambridge, ma: harvard university, dept. of mathematics. zbl 0208.48701.
+demazure, michel; grothendieck, alexandre, eds. (1970). séminaire de géométrie algébrique du bois marie - 1962-64 - schémas en groupes - (sga 3) - vol. 1. lecture notes in mathematics (in french). vol. 151. berlin; new york: springer-verlag. pp. xv+564. zbl 0212.52810.
+artin, michael (1972).  alexandre grothendieck; jean-louis verdier (eds.). séminaire de géométrie algébrique du bois marie - 1963-64 - théorie des topos et cohomologie étale des schémas - (sga 4) - vol. 1 (lecture notes in mathematics 269) (in french). berlin; new york: springer-verlag. xix+525.
+giraud, jean (1964), "analysis situs", séminaire bourbaki, 1962/63. fasc. 3, paris: secrétariat mathématique, mr 0193122
+shatz, stephen s. (1972). profinite groups, arithmetic, and geometry. annals of mathematics studies. vol. 67. princeton, nj: princeton university press. isbn 0-691-08017-8. mr 0347778. zbl 0236.12002.
+nisnevich, yevsey a. (1989). "the completely decomposed topology on schemes and associated descent spectral sequences in algebraic k-theory".  in jardine, j. f.; snaith, v. p. (eds.). algebraic k-theory: connections with geometry and topology.  proceedings of the nato advanced study institute held in lake louise, alberta, december 7--11, 1987. nato advanced science institutes series c: mathematical and physical sciences, 279. dordrecht: kluwer academic publishers group. pp. 241–342. zbl 0715.14009.
+
+
+== external links ==
+the birthday of grothendieck topologies
+the birthday of grothendieck topologies (non-archived version)

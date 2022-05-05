@@ -1,0 +1,411 @@
+in statistics, nonlinear regression is a form of regression analysis in which observational data are modeled by a function which is a nonlinear combination of the model parameters and depends on one or more independent variables. the data are fitted by a method of successive approximations.
+
+
+== general ==
+in nonlinear regression, a statistical model of the form,
+
+  
+    
+      
+        
+          y
+        
+        ∼
+        f
+        (
+        
+          x
+        
+        ,
+        
+          β
+        
+        )
+      
+    
+    {\displaystyle \mathbf {y} \sim f(\mathbf {x} ,{\boldsymbol {\beta }})}
+  relates a vector of independent variables, 
+  
+    
+      
+        
+          x
+        
+      
+    
+    {\displaystyle \mathbf {x} }
+  , and its associated observed dependent variables, 
+  
+    
+      
+        
+          y
+        
+      
+    
+    {\displaystyle \mathbf {y} }
+  . the function 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   is nonlinear in the components of the vector of parameters 
+  
+    
+      
+        β
+      
+    
+    {\displaystyle \beta }
+  , but otherwise arbitrary. for example, the michaelis–menten model for enzyme kinetics has two parameters and one independent variable, related by 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   by:
+
+  
+    
+      
+        f
+        (
+        x
+        ,
+        
+          β
+        
+        )
+        =
+        
+          
+            
+              
+                β
+                
+                  1
+                
+              
+              x
+            
+            
+              
+                β
+                
+                  2
+                
+              
+              +
+              x
+            
+          
+        
+      
+    
+    {\displaystyle f(x,{\boldsymbol {\beta }})={\frac {\beta _{1}x}{\beta _{2}+x}}}
+  this function is nonlinear because it cannot be expressed as a linear combination of the two 
+  
+    
+      
+        β
+      
+    
+    {\displaystyle \beta }
+  s.
+systematic error may be present in the independent variables but its treatment is outside the scope of regression analysis. if the independent variables are not error-free, this is an errors-in-variables model, also outside this scope.
+other examples of nonlinear functions include exponential functions, logarithmic functions, trigonometric functions, power functions, gaussian function, and lorentz distributions. some functions, such as the exponential or logarithmic functions, can be transformed so that they are linear. when so transformed, standard linear regression can be performed but must be applied with caution. see linearization§transformation, below, for more details.
+in general, there is no closed-form expression for the best-fitting parameters, as there is in linear regression. usually numerical optimization algorithms are applied to determine the best-fitting parameters. again in contrast to linear regression, there may be many local minima of the function to be optimized and even the global minimum may produce a biased estimate. in practice, estimated values of the parameters are used, in conjunction with the optimization algorithm, to attempt to find the global minimum of a sum of squares.
+for details concerning nonlinear data modeling see least squares and non-linear least squares.
+
+
+== regression statistics ==
+the assumption underlying this procedure is that the model can be approximated by a linear function, namely a first-order taylor series:
+
+  
+    
+      
+        f
+        (
+        
+          x
+          
+            i
+          
+        
+        ,
+        
+          β
+        
+        )
+        ≈
+        f
+        (
+        
+          x
+          
+            i
+          
+        
+        ,
+        0
+        )
+        +
+        
+          ∑
+          
+            j
+          
+        
+        
+          j
+          
+            i
+            j
+          
+        
+        
+          β
+          
+            j
+          
+        
+      
+    
+    {\displaystyle f(x_{i},{\boldsymbol {\beta }})\approx f(x_{i},0)+\sum _{j}j_{ij}\beta _{j}}
+  where 
+  
+    
+      
+        
+          j
+          
+            i
+            j
+          
+        
+        =
+        
+          
+            
+              ∂
+              f
+              (
+              
+                x
+                
+                  i
+                
+              
+              ,
+              
+                β
+              
+              )
+            
+            
+              ∂
+              
+                β
+                
+                  j
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle j_{ij}={\frac {\partial f(x_{i},{\boldsymbol {\beta }})}{\partial \beta _{j}}}}
+  . it follows from this that the least squares estimators are given by
+
+  
+    
+      
+        
+          
+            
+              β
+              ^
+            
+          
+        
+        ≈
+        
+          (
+          
+            j
+            
+              t
+            
+          
+          j
+          
+            )
+            
+              −
+              1
+            
+          
+          
+            j
+            
+              t
+            
+          
+          y
+        
+        ,
+      
+    
+    {\displaystyle {\hat {\boldsymbol {\beta }}}\approx \mathbf {(j^{t}j)^{-1}j^{t}y} ,}
+  compare generalized least squares with covariance matrix proportional to the unit matrix.
+the nonlinear regression statistics are computed and used as in linear regression statistics, but using j in place of x in the formulas. the linear approximation introduces bias into the statistics. therefore, more caution than usual is required in interpreting statistics derived from a nonlinear model.
+
+
+== ordinary and weighted least squares ==
+the best-fit curve is often assumed to be that which minimizes the sum of squared residuals. this is the ordinary least squares (ols) approach.  however, in cases where the dependent variable does not have constant variance, a sum of weighted squared residuals may be minimized; see weighted least squares. each weight should ideally be equal to the reciprocal of the variance of the observation, but weights may be recomputed on each iteration, in an iteratively weighted least squares algorithm.
+
+
+== linearization ==
+
+
+=== transformation ===
+
+some nonlinear regression problems can be moved to a linear domain by a suitable transformation of the model formulation.
+for example, consider the nonlinear regression problem
+
+  
+    
+      
+        y
+        =
+        a
+        
+          e
+          
+            b
+            x
+          
+        
+        u
+        
+        
+      
+    
+    {\displaystyle y=ae^{bx}u\,\!}
+  with parameters a and b and with multiplicative error term u. if we take the logarithm of both sides, this becomes
+
+  
+    
+      
+        ln
+        ⁡
+        
+          (
+          y
+          )
+        
+        =
+        ln
+        ⁡
+        
+          (
+          a
+          )
+        
+        +
+        b
+        x
+        +
+        u
+        ,
+        
+        
+      
+    
+    {\displaystyle \ln {(y)}=\ln {(a)}+bx+u,\,\!}
+  where u = ln(u), suggesting estimation of the unknown parameters by a linear regression of ln(y) on x, a computation that does not require iterative optimization. however, use of a nonlinear transformation requires caution.  the influences of the data values will change, as will the error structure of the model and the interpretation of any inferential results.  these may not be desired effects.  on the other hand, depending on what the largest source of error is, a nonlinear transformation may distribute the errors in a gaussian fashion, so the choice to perform a nonlinear transformation must be informed by modeling considerations.
+for michaelis–menten kinetics, the linear lineweaver–burk plot
+
+  
+    
+      
+        
+          
+            1
+            v
+          
+        
+        =
+        
+          
+            1
+            
+              v
+              
+                max
+              
+            
+          
+        
+        +
+        
+          
+            
+              k
+              
+                m
+              
+            
+            
+              
+                v
+                
+                  max
+                
+              
+              [
+              s
+              ]
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {1}{v}}={\frac {1}{v_{\max }}}+{\frac {k_{m}}{v_{\max }[s]}}}
+  of 1/v against 1/[s] has been much used. however, since it is very sensitive to data error and is strongly biased toward fitting the data in a particular range of the independent variable, [s], its use is strongly discouraged.
+for error distributions that belong to the exponential family, a link function may be used to transform the parameters under the generalized linear model framework.
+
+
+=== segmentation ===
+
+the independent or explanatory variable (say x) can be split up into classes or segments and linear regression can be performed per segment. segmented regression with confidence analysis may yield the result that the dependent or response variable (say y) behaves differently in the various segments.the figure shows that the soil salinity (x) initially exerts no influence on the crop yield (y) of mustard, until a critical or threshold value (breakpoint), after which the yield is affected negatively.
+
+
+== see also ==
+
+non-linear least squares
+curve fitting
+generalized linear model
+local regression
+response modeling methodology
+genetic programming
+multi expression programming
+
+
+== references ==
+
+
+== notes ==
+
+
+== further reading ==
+bethea, r. m.; duran, b. s.; boullion, t. l. (1985). statistical methods for engineers and scientists. new york: marcel dekker. isbn 0-8247-7227-x.
+meade, n.; islam, t. (1995). "prediction intervals for growth curve forecasts". journal of forecasting. 14 (5): 413–430. doi:10.1002/for.3980140502.
+schittkowski, k. (2002). data fitting in dynamical systems. boston: kluwer. isbn 1402010796.
+seber, g. a. f.; wild, c. j. (1989). nonlinear regression. new york: john wiley and sons. isbn 0471617601.

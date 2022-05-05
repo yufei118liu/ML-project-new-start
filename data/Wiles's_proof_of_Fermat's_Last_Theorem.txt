@@ -1,0 +1,886 @@
+wiles's proof of fermat's last theorem is a proof by british mathematician andrew wiles of a special case of the modularity theorem for elliptic curves. together with ribet's theorem, it provides a proof for fermat's last theorem. both fermat's last theorem and the modularity theorem were almost universally considered inaccessible to prove by contemporaneous mathematicians, meaning that they were believed to be impossible to prove using current knowledge.: 203–205, 223, 226 wiles first announced his proof on 23 june 1993 at a lecture in cambridge entitled "modular forms, elliptic curves and galois representations". however, in september 1993 the proof was found to contain an error. one year later on 19 september 1994, in what he would call "the most important moment of [his] working life", wiles stumbled upon a revelation that allowed him to correct the proof to the satisfaction of the mathematical community. the corrected proof was published in 1995.wiles's proof uses many techniques from algebraic geometry and number theory, and has many ramifications in these branches of mathematics. it also uses standard constructions of modern algebraic geometry, such as the category of schemes and iwasawa theory, and other 20th-century techniques which were not available to fermat.
+together, the two papers which contain the proof are 129 pages long, and consumed over seven years of wiles's research time. john coates described the proof as one of the highest achievements of number theory, and john conway called it "the proof of the [20th] century." wiles's path to proving fermat's last theorem, by way of proving the modularity theorem for the special case of semistable elliptic curves, established powerful modularity lifting techniques and opened up entire new approaches to numerous other problems. for proving fermat's last theorem, he was knighted, and received other honours such as the 2016 abel prize. when announcing that wiles had won the abel prize, the norwegian academy of science and letters described his achievement as a "stunning proof".
+
+
+== precursors to wiles's proof ==
+
+
+=== fermat's last theorem and progress prior to 1980 ===
+
+fermat's last theorem, formulated in 1637, states that no three distinct positive integers a, b, and c can satisfy the equation
+
+  
+    
+      
+        
+          a
+          
+            n
+          
+        
+        +
+        
+          b
+          
+            n
+          
+        
+        =
+        
+          c
+          
+            n
+          
+        
+      
+    
+    {\displaystyle a^{n}+b^{n}=c^{n}}
+  if n is an integer greater than two (n > 2).
+over time, this simple assertion became one of the most famous unproved claims in mathematics.  between its publication and andrew wiles's eventual solution over 350 years later, many mathematicians and amateurs attempted to prove this statement, either for all values of n > 2, or for specific cases. it spurred the development of entire new areas within number theory. proofs were eventually found for all values of n up to around 4 million, first by hand, and later by computer. however, no general proof was found that would be valid for all possible values of n, nor even a hint how such a proof could be undertaken.
+
+
+=== the taniyama–shimura–weil conjecture ===
+
+separately from anything related to fermat's last theorem, in the 1950s and 1960s japanese mathematician goro shimura, drawing on ideas posed by yutaka taniyama, conjectured that a connection might exist between elliptic curves and modular forms. these were mathematical objects with no known connection between them. taniyama and shimura posed the question whether, unknown to mathematicians, the two kinds of object were actually identical mathematical objects, just seen in different ways.
+they conjectured that every rational elliptic curve is also modular. this became known as the taniyama–shimura conjecture. in the west, this conjecture became well known through a 1967 paper by andré weil, who gave conceptual evidence for it; thus, it is sometimes called the taniyama–shimura–weil conjecture.
+by around 1980, much evidence had been accumulated to form conjectures about elliptic curves, and many papers had been written which examined the consequences if the conjecture were true, but the actual conjecture itself was unproven and generally considered inaccessible—meaning that mathematicians believed a proof of the conjecture was probably impossible using current knowledge. 
+for decades, the conjecture remained an important but unsolved problem in mathematics. around 50 years after first being proposed, the conjecture was finally proven and renamed the modularity theorem, largely as a result of andrew wiles's work described below.
+
+
+=== frey's curve ===
+on yet another separate branch of development, in the late 1960s, yves hellegouarch came up with the idea of associating hypothetical solutions (a, b, c) of fermat's equation with a completely different mathematical object: an elliptic curve. the curve consists of all points in the plane whose coordinates (x, y) satisfy the relation
+
+  
+    
+      
+        
+          y
+          
+            2
+          
+        
+        =
+        x
+        (
+        x
+        −
+        
+          a
+          
+            n
+          
+        
+        )
+        (
+        x
+        +
+        
+          b
+          
+            n
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle y^{2}=x(x-a^{n})(x+b^{n}).}
+  such an elliptic curve would enjoy very special properties due to the appearance of high powers of integers in its equation and the fact that an + bn = cn would be an nth power as well.
+in 1982–1985, gerhard frey called attention to the unusual properties of this same curve, now called a frey curve. he showed that it was likely that the curve could link fermat and taniyama, since any counterexample to fermat's last theorem would probably also imply that an elliptic curve existed that was not modular. frey showed that there were good reasons to believe that any set of numbers (a, b, c, n) capable of disproving fermat's last theorem could also probably be used to disprove the taniyama–shimura–weil conjecture. therefore, if the taniyama–shimura–weil conjecture were true, no set of numbers capable of disproving fermat could exist, so fermat's last theorem would have to be true as well.
+mathematically, the conjecture says that each elliptic curve with rational coefficients can be constructed in an entirely different way, not by giving its equation but by using modular functions to parametrise coordinates x and y of the points on it. thus, according to the conjecture, any elliptic curve over q would have to be a modular elliptic curve, yet if a solution to fermat's equation with non-zero a, b, c and n greater than 2 existed, the corresponding curve would not be modular, resulting in a contradiction. if the link identified by frey could be proven, then in turn, it would mean that a proof or disproof of either fermat's last theorem or the taniyama–shimura–weil conjecture would simultaneously prove or disprove the other.
+
+
+=== ribet's theorem ===
+
+to complete this link,  it was necessary to show that frey's intuition was correct: that a frey curve, if it existed, could not be modular. in 1985, jean-pierre serre provided a partial proof that a frey curve could not be modular. serre did not provide a complete proof of his proposal; the missing part (which serre had noticed early on: 1 ) became known as the epsilon conjecture (sometimes written ε-conjecture; now known as ribet's theorem). serre's main interest was in an even more ambitious conjecture, serre's conjecture on modular galois representations, which would imply the taniyama–shimura–weil conjecture. however his partial proof came close to confirming the link between fermat and taniyama.
+in the summer of 1986, ken ribet succeeded in proving the epsilon conjecture, now known as ribet's theorem.  his article was published in 1990. in doing so, ribet finally proved the link between the two theorems by confirming, as frey had suggested, that a proof of the taniyama–shimura–weil conjecture for the kinds of elliptic curves frey had identified, together with ribet's theorem, would also prove fermat's last theorem.
+in mathematical terms, ribet's theorem showed that if the galois representation associated with an elliptic curve has certain properties (which frey's curve has), then that curve cannot be modular, in the sense that there cannot exist a modular form which gives rise to the same galois representation.
+
+
+=== situation prior to wiles's proof ===
+following the developments related to the frey curve, and its link to both fermat and taniyama, a proof of fermat's last theorem would follow from a proof of the taniyama–shimura–weil conjecture—or at least a proof of the conjecture for the kinds of elliptic curves that included frey's equation (known as semistable elliptic curves).
+
+from ribet's theorem and the frey curve, any 4 numbers able to be used to disprove fermat's last theorem could also be used to make a semistable elliptic curve ("frey's curve") that could never be modular;
+but if the taniyama–shimura–weil conjecture were also true for semistable elliptic curves, then by definition every frey's curve that existed must be modular.
+the contradiction could have only one answer: if ribet's theorem and the taniyama–shimura–weil conjecture for semistable curves were both true, then it would mean there could not be any solutions to fermat's equation—because then there would be no frey curves at all, meaning no contradictions would exist. this would finally prove fermat's last theorem.however, despite the progress made by serre and ribet, this approach to fermat was widely considered unusable as well, since almost all mathematicians saw the taniyama–shimura–weil conjecture itself as completely inaccessible to proof with current knowledge.: 203–205, 223, 226  for example, wiles's ex-supervisor john coates stated that it seemed "impossible to actually prove",: 226  and ken ribet considered himself "one of the vast majority of people who believed [it] was completely inaccessible".: 223 
+
+
+== andrew wiles ==
+hearing of ribet's 1986 proof of the epsilon conjecture, english mathematician andrew wiles, who had studied elliptic curves and had a childhood fascination with fermat, decided to begin working in secret towards a proof of the taniyama–shimura–weil conjecture, since it was now professionally justifiable, as well as because of the enticing goal of proving such a long-standing problem.
+ribet later commented that "andrew wiles was probably one of the few people on earth who had the audacity to dream that you can actually go and prove [it].": 223 
+
+
+== announcement and subsequent developments ==
+wiles initially presented his proof in 1993. it was finally accepted as correct, and published, in 1995, following the correction of a subtle error in one part of his original paper. his work was extended to a full proof of the modularity theorem over the following six years by others, who built on wiles's work.
+
+
+=== announcement and final proof (1993–1995) ===
+during 21–23 june 1993, wiles announced and presented his proof of the taniyama–shimura conjecture for semistable elliptic curves, and hence of fermat's last theorem, over the course of three lectures delivered at the isaac newton institute for mathematical sciences in cambridge, england. there was a relatively large amount of press coverage afterwards.after the announcement, nick katz was appointed as one of the referees to review wiles's manuscript. in the course of his review, he asked wiles a series of clarifying questions that led wiles to recognise that the proof contained a gap. there was an error in one critical portion of the proof which gave a bound for the order of a particular group: the euler system used to extend kolyvagin and flach's method was incomplete. the error would not have rendered his work worthless—each part of wiles's work was highly significant and innovative by itself, as were the many developments and techniques he had created in the course of his work, and only one part was affected.: 289, 296–297  without this part proved, however, there was no actual proof of fermat's last theorem.
+wiles spent almost a year trying to repair his proof, initially by himself and then in collaboration with his former student richard taylor, without success. by the end of 1993, rumours had spread that under scrutiny, wiles's proof had failed, but how seriously was not known. mathematicians were beginning to pressure wiles to disclose his work whether or not complete, so that the wider community could explore and use whatever he had managed to accomplish. instead of being fixed, the problem, which had originally seemed minor, now seemed very significant, far more serious, and less easy to resolve.wiles states that on the morning of 19 september 1994, he was on the verge of giving up and was almost resigned to accepting that he had failed, and to publishing his work so that others could build on it and find the error. he states that he was having a final look to try to understand the fundamental reasons why his approach could not be made to work, when he had a sudden insight that the specific reason why the kolyvagin–flach approach would not work directly also meant that his original attempt using iwasawa theory could be made to work if he strengthened it using experience gained from the kolyvagin–flach approach since then. each was inadequate by itself, but fixing one approach with tools from the other would resolve the issue and produce a class number formula (cnf) valid for all cases that were not already proven by his refereed paper:
+i was sitting at my desk examining the kolyvagin–flach method. it wasn't that i believed i could make it work, but i thought that at least i could explain why it didn't work. suddenly i had this incredible revelation. i realised that, the kolyvagin–flach method wasn't working, but it was all i needed to make my original iwasawa theory work from three years earlier. so out of the ashes of kolyvagin–flach seemed to rise the true answer to the problem. it was so indescribably beautiful; it was so simple and so elegant. i couldn't understand how i'd missed it and i just stared at it in disbelief for twenty minutes. then during the day i walked around the department, and i'd keep coming back to my desk looking to see if it was still there. it was still there. i couldn't contain myself, i was so excited. it was the most important moment of my working life. nothing i ever do again will mean as much.
+on 6 october wiles asked three colleagues (including faltings) to review his new proof, and on 24 october 1994 wiles submitted two manuscripts, "modular elliptic curves and fermat's last theorem" and "ring theoretic properties of certain hecke algebras", the second of which wiles had written with taylor and proved that certain conditions were met which were needed to justify the corrected step in the main paper.
+the two papers were vetted and finally published as the entirety of the may 1995 issue of the annals of mathematics. the new proof was widely analysed, and became accepted as likely correct in its major components. these papers established the modularity theorem for semistable elliptic curves, the last step in proving fermat's last theorem, 358 years after it was conjectured.
+
+
+=== subsequent developments ===
+fermat claimed to "...have discovered a truly marvelous proof of this, which this margin is too narrow to contain". wiles's proof is very complex, and incorporates the work of so many other specialists that it was suggested in 1994 that only a small number of people were capable of fully understanding at that time all the details of what he had done. the complexity of wiles's proof motivated a 10-day conference at boston university; the resulting book of conference proceedings aimed to make the full range of required topics accessible to graduate students in number theory.as noted above, wiles proved the taniyama–shimura–weil conjecture for the special case of semistable elliptic curves, rather than for all elliptic curves. over the following years, christophe breuil, brian conrad, fred diamond, and richard taylor (sometimes abbreviated as "bcdt")  carried the work further, ultimately proving the taniyama–shimura–weil conjecture for all elliptic curves in a 2001 paper. now proved, the conjecture became known as the modularity theorem.
+in 2005, dutch computer scientist jan bergstra posed the problem of formalizing wiles's proof in such a way that it could be verified by computer.
+
+
+== summary of wiles's proof ==
+
+wiles used proof by contradiction, in which one assumes the opposite of what is to be proved, and shows if that were true, it would create a contradiction. the contradiction shows that the assumption must have been incorrect.
+the proof falls roughly in two parts. in the first part, wiles proves a general result about "lifts", known as the "modularity lifting theorem". this first part allows him to prove results about elliptic curves by converting them to problems about galois representations of elliptic curves.  he then uses this result to prove that all semistable curves are modular, by proving that the galois representations of these curves are modular.
+
+
+== mathematical detail of wiles's proof ==
+
+
+=== overview ===
+wiles opted to attempt to match elliptic curves to a countable set of modular forms. he found that this direct approach was not working, so he transformed the problem by instead matching the galois representations of the elliptic curves to modular forms. wiles denotes this matching (or mapping) that, more specifically, is a ring homomorphism:
+
+  
+    
+      
+        
+          r
+          
+            n
+          
+        
+        →
+        
+          
+            t
+          
+          
+            n
+          
+        
+        .
+      
+    
+    {\displaystyle r_{n}\rightarrow \mathbf {t} _{n}.}
+  
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+   is a deformation ring and 
+  
+    
+      
+        
+          t
+        
+      
+    
+    {\displaystyle \mathbf {t} }
+   is a hecke ring.
+wiles had the insight that in many cases this ring homomorphism could be a ring isomorphism (conjecture 2.16 in chapter 2, §3 of the 1995 paper). he realised that the map between 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+   and 
+  
+    
+      
+        
+          t
+        
+      
+    
+    {\displaystyle \mathbf {t} }
+   is an isomorphism if and only if two abelian groups occurring in the theory are finite and have the same cardinality. this is sometimes referred to as the "numerical criterion". given this result, fermat's last theorem is reduced to the statement that two groups have the same order. much of the text of the proof leads into topics and theorems related to ring theory and commutation theory. wiles's goal was to verify that the map 
+  
+    
+      
+        r
+        →
+        
+          t
+        
+      
+    
+    {\displaystyle r\rightarrow \mathbf {t} }
+   is an isomorphism and ultimately that 
+  
+    
+      
+        r
+        =
+        
+          t
+        
+      
+    
+    {\displaystyle r=\mathbf {t} }
+  . in treating deformations, wiles defined four cases, with the flat deformation case requiring more effort to prove and treated in a separate article in the same volume entitled "ring-theoretic properties of certain hecke algebras".
+gerd faltings, in his bulletin, gives the following commutative diagram (p. 745):
+
+or ultimately that 
+  
+    
+      
+        r
+        =
+        
+          t
+        
+      
+    
+    {\displaystyle r=\mathbf {t} }
+  , indicating a complete intersection. since wiles could not show that 
+  
+    
+      
+        r
+        =
+        
+          t
+        
+      
+    
+    {\displaystyle r=\mathbf {t} }
+   directly, he did so through 
+  
+    
+      
+        
+          
+            z
+          
+          
+            3
+          
+        
+        ,
+        
+          
+            f
+          
+          
+            3
+          
+        
+      
+    
+    {\displaystyle \mathbf {z} _{3},\mathbf {f} _{3}}
+   and 
+  
+    
+      
+        
+          t
+        
+        
+          /
+        
+        
+          
+            m
+          
+        
+      
+    
+    {\displaystyle \mathbf {t} /{\mathfrak {m}}}
+   via lifts.
+in order to perform this matching, wiles had to create a class number formula (cnf). he first attempted to use horizontal iwasawa theory but that part of his work had an unresolved issue such that he could not create a cnf. at the end of the summer of 1991, he learned about an euler system recently developed by victor kolyvagin and matthias flach that seemed "tailor made" for the inductive part of his proof, which could be used to create a cnf, and so wiles set his iwasawa work aside and began working to extend kolyvagin and flach's work instead, in order to create the cnf his proof would require. by the spring of 1993, his work had covered all but a few families of elliptic curves, and in early 1993, wiles was confident enough of his nearing success to let one trusted colleague into his secret. since his work relied extensively on using the kolyvagin–flach approach, which was new to mathematics and to wiles, and which he had also extended, in january 1993 he asked his princeton colleague, nick katz, to help him review his work for subtle errors. their conclusion at the time was that the techniques wiles used seemed to work correctly.: 261–265 wiles's use of kolyvagin–flach would later be found to be the point of failure in the original proof submission, and he eventually had to revert to iwasawa theory and a collaboration with richard taylor to fix it. in may 1993, while reading a paper by mazur, wiles had the insight that the 3/5 switch would resolve the final issues and would then cover all elliptic curves.
+
+
+=== general approach and strategy ===
+given an elliptic curve e over the field q of rational numbers 
+  
+    
+      
+        e
+        (
+        
+          
+            
+              
+                q
+              
+              ¯
+            
+          
+        
+        )
+      
+    
+    {\displaystyle e({\bar {\mathbf {q} }})}
+  , for every prime power 
+  
+    
+      
+        
+          ℓ
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \ell ^{n}}
+  , there exists a homomorphism from the absolute galois group
+
+  
+    
+      
+        gal
+        ⁡
+        (
+        
+          
+            
+              
+                q
+              
+              ¯
+            
+          
+        
+        
+          /
+        
+        
+          q
+        
+        )
+      
+    
+    {\displaystyle \operatorname {gal} ({\bar {\mathbf {q} }}/\mathbf {q} )}
+  to
+
+  
+    
+      
+        
+          gl
+          
+            2
+          
+        
+        ⁡
+        (
+        
+          z
+        
+        
+          /
+        
+        
+          l
+          
+            n
+          
+        
+        
+          z
+        
+        )
+        ,
+      
+    
+    {\displaystyle \operatorname {gl} _{2}(\mathbf {z} /l^{n}\mathbf {z} ),}
+  the group of invertible 2 by 2 matrices whose entries are integers modulo 
+  
+    
+      
+        
+          ℓ
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \ell ^{n}}
+  .  this is because 
+  
+    
+      
+        e
+        (
+        
+          
+            
+              
+                q
+              
+              ¯
+            
+          
+        
+        )
+      
+    
+    {\displaystyle e({\bar {\mathbf {q} }})}
+  , the points of e over 
+  
+    
+      
+        
+          
+            
+              
+                q
+              
+              ¯
+            
+          
+        
+      
+    
+    {\displaystyle {\bar {\mathbf {q} }}}
+  , form an abelian group, on which 
+  
+    
+      
+        gal
+        ⁡
+        (
+        
+          
+            
+              
+                q
+              
+              ¯
+            
+          
+        
+        
+          /
+        
+        
+          q
+        
+        )
+      
+    
+    {\displaystyle \operatorname {gal} ({\bar {\mathbf {q} }}/\mathbf {q} )}
+   acts; the subgroup of elements x such that 
+  
+    
+      
+        
+          ℓ
+          
+            n
+          
+        
+        x
+        =
+        0
+      
+    
+    {\displaystyle \ell ^{n}x=0}
+   is just 
+  
+    
+      
+        (
+        
+          z
+        
+        
+          /
+        
+        
+          ℓ
+          
+            n
+          
+        
+        
+          z
+        
+        
+          )
+          
+            2
+          
+        
+      
+    
+    {\displaystyle (\mathbf {z} /\ell ^{n}\mathbf {z} )^{2}}
+  , and an automorphism of this group is a matrix of the type described.
+less obvious is that given a modular form of a certain special type, a hecke eigenform with eigenvalues in q, one also gets a homomorphism from the absolute galois group
+
+  
+    
+      
+        gal
+        ⁡
+        (
+        
+          
+            
+              
+                q
+              
+              ¯
+            
+          
+        
+        
+          /
+        
+        
+          q
+        
+        )
+        →
+        
+          gl
+          
+            2
+          
+        
+        ⁡
+        (
+        
+          z
+        
+        
+          /
+        
+        
+          l
+          
+            n
+          
+        
+        
+          z
+        
+        )
+        .
+      
+    
+    {\displaystyle \operatorname {gal} ({\bar {\mathbf {q} }}/\mathbf {q} )\rightarrow \operatorname {gl} _{2}(\mathbf {z} /l^{n}\mathbf {z} ).}
+  this goes back to eichler and shimura.  the idea is that the galois group acts first on the modular curve on which the modular form is defined, thence on the jacobian variety of the curve, and finally on the points of 
+  
+    
+      
+        
+          ℓ
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \ell ^{n}}
+   power order on that jacobian.  the resulting representation is not usually 2-dimensional, but the hecke operators cut out a 2-dimensional piece.  it is easy to demonstrate that these representations come from some elliptic curve but the converse is the difficult part to prove.
+instead of trying to go directly from the elliptic curve to the modular form, one can first pass to the 
+  
+    
+      
+        (
+        
+          m
+          o
+          d
+        
+        
+        
+          ℓ
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle (\mathrm {mod} \,\ell ^{n})}
+   representation for some ℓ and n, and from that to the modular form.  in the case ℓ = 3 and n = 1, results of the langlands–tunnell theorem show that the 
+  
+    
+      
+        (
+        
+          m
+          o
+          d
+        
+        
+        3
+        )
+      
+    
+    {\displaystyle (\mathrm {mod} \,3)}
+   representation of any elliptic curve over q comes from a modular form.  the basic strategy is to use induction on n to show that this is true for ℓ = 3 and any n, that ultimately there is a single modular form that works for all n.  to do this, one uses a counting argument, comparing the number of ways in which one can lift a 
+  
+    
+      
+        (
+        
+          m
+          o
+          d
+        
+        
+        
+          ℓ
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle (\mathrm {mod} \,\ell ^{n})}
+   galois representation to 
+  
+    
+      
+        (
+        
+          m
+          o
+          d
+        
+        
+        
+          ℓ
+          
+            n
+            +
+            1
+          
+        
+        )
+      
+    
+    {\displaystyle (\mathrm {mod} \,\ell ^{n+1})}
+   and the number of ways in which one can lift a 
+  
+    
+      
+        (
+        
+          m
+          o
+          d
+        
+        
+        
+          ℓ
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle (\mathrm {mod} \,\ell ^{n})}
+   modular form.  an essential point is to impose a sufficient set of conditions on the galois representation; otherwise, there will be too many lifts and most will not be modular.  these conditions should be satisfied for the representations coming from modular forms and those coming from elliptic curves. 
+
+
+=== 3-5 trick ===
+if the original 
+  
+    
+      
+        (
+        
+          m
+          o
+          d
+        
+        
+        3
+        )
+      
+    
+    {\displaystyle (\mathrm {mod} \,3)}
+   representation has an image which is too small, one runs into trouble with the lifting argument, and in this case, there is a final trick which has since been studied in greater generality in the subsequent work on the serre modularity conjecture. the idea involves the interplay between the 
+  
+    
+      
+        (
+        
+          m
+          o
+          d
+        
+        
+        3
+        )
+      
+    
+    {\displaystyle (\mathrm {mod} \,3)}
+   and 
+  
+    
+      
+        (
+        
+          m
+          o
+          d
+        
+        
+        5
+        )
+      
+    
+    {\displaystyle (\mathrm {mod} \,5)}
+   representations. in particular, if the mod-5 galois representation 
+  
+    
+      
+        
+          
+            
+              ρ
+              ¯
+            
+          
+          
+            e
+            ,
+            5
+          
+        
+      
+    
+    {\displaystyle {\overline {\rho }}_{e,5}}
+   associated to an semistable elliptic curve e over q is irreducible, then there is another semistable elliptic curve e' over q such that its associated mod-5 galois representation 
+  
+    
+      
+        
+          
+            
+              ρ
+              ¯
+            
+          
+          
+            
+              e
+              ′
+            
+            ,
+            5
+          
+        
+      
+    
+    {\displaystyle {\overline {\rho }}_{e',5}}
+   is isomorphic to 
+  
+    
+      
+        
+          
+            
+              ρ
+              ¯
+            
+          
+          
+            e
+            ,
+            5
+          
+        
+      
+    
+    {\displaystyle {\overline {\rho }}_{e,5}}
+   and such that its associated mod-3 galois representation 
+  
+    
+      
+        
+          
+            
+              ρ
+              ¯
+            
+          
+          
+            e
+            ,
+            3
+          
+        
+      
+    
+    {\displaystyle {\overline {\rho }}_{e,3}}
+   is irreducible (and therefore modular by langlands–tunnell).
+
+
+=== structure of wiles's proof ===
+in his 108-page article published in 1995, wiles divides the subject matter up into the following chapters (preceded here by page numbers):
+
+introduction
+443
+chapter 1
+455 1. deformations of galois representations
+472 2. some computations of cohomology groups
+475 3. some results on subgroups of gl2(k)
+chapter 2
+479 1. the gorenstein property
+489 2. congruences between hecke rings
+503 3. the main conjectures
+chapter 3
+517 estimates for the selmer group
+chapter 4
+525 1. the ordinary cm case
+533 2. calculation of η
+chapter 5
+541 application to elliptic curves
+appendix
+545 gorenstein rings and local complete intersectionsgerd faltings subsequently provided some simplifications to the 1995 proof, primarily in switching from geometric constructions to rather simpler algebraic ones.  the book of the cornell conference also contained simplifications to the original proof.
+
+
+=== overviews available in the literature ===
+wiles's paper is over 100 pages long and often uses the specialised symbols and notations of group theory, algebraic geometry, commutative algebra, and galois theory. the mathematicians who helped to lay the groundwork for wiles often created new specialised concepts and technical jargon.
+among the introductory presentations are an email which ribet sent in 1993; hesselink's quick review of top-level issues, which gives just the elementary algebra and avoids abstract algebra; or daney's web page, which provides a set of his own notes and lists the current books available on the subject. weston attempts to provide a handy map of some of the relationships between the subjects. f. q. gouvêa's 1994 article "a marvelous proof", which reviews some of the required topics, won a lester r. ford award from the mathematical association of america. faltings' 5-page technical bulletin on the matter is a quick and technical review of the proof for the non-specialist. for those in search of a commercially available book to guide them, he recommended that those familiar with abstract algebra read hellegouarch, then read the cornell book, which is claimed to be accessible to "a graduate student in number theory". the cornell book does not cover the entirety of the wiles proof.
+
+
+== references ==
+
+
+== bibliography ==
+aczel, amir (1 january 1997). fermat's last theorem: unlocking the secret of an ancient mathematical problem. isbn 978-1-56858-077-7. zbl 0878.11003.
+john coates (july 1996). "wiles receives nas award in mathematics" (pdf). notices of the ams. 43 (7): 760–763. zbl 1029.01513.
+cornell, gary (1 january 1998). modular forms and fermat's last theorem. isbn 978-0-387-94609-2. zbl 0878.11004. (cornell, et al.)
+daney, charles (2003). "the mathematics of fermat's last theorem". archived from the original on 3 august 2004. retrieved 5 august 2004.
+darmon, h. (9 september 2007). "wiles' theorem and the arithmetic of elliptic curves" (pdf).
+faltings, gerd (july 1995). "the proof of fermat's last theorem by r. taylor and a. wiles" (pdf). notices of the ams. 42 (7): 743–746. issn 0002-9920. zbl 1047.11510.
+frey, gerhard (1986). "links between stable elliptic curves and certain diophantine equations". ann. univ. sarav. ser. math. 1: 1–40. zbl 0586.10010.
+hellegouarch, yves (1 january 2001). invitation to the mathematics of fermat–wiles. isbn 978-0-12-339251-0. zbl 0887.11003. see review
+mozzochi, charles (7 december 2000). the fermat diary. american mathematical society. isbn 978-0-8218-2670-6. zbl 0955.11002. see also gouvêa, fernando q. (2001). "review: wiles's proof, 1993–1995: the fermat diary by c. j. mozzochi". american scientist. 89 (3): 281–282. jstor 27857485.
+mozzochi, charles (6 july 2006). the fermat proof. trafford publishing. isbn 978-1-4120-2203-3. zbl 1104.11001.
+o'connor, j. j.; robertson, e. f. (1996). "fermat's last theorem". retrieved 5 august 2004.
+van der poorten, alfred (1 january 1996). notes on fermat's last theorem. isbn 978-0-471-06261-5. zbl 0882.11001.
+ribenboim, paulo (1 january 2000). fermat's last theorem for amateurs. isbn 978-0-387-98508-4. zbl 0920.11016.
+singh, simon (october 1998). fermat's enigma. new york: anchor books. isbn 978-0-385-49362-8. zbl 0930.00002.
+simon singh "the whole story". archived from the original on 10 may 2011. edited version of ~2,000-word essay published in prometheus magazine, describing andrew wiles's successful journey.
+richard taylor and andrew wiles (may 1995). "ring-theoretic properties of certain hecke algebras". annals of mathematics. 141 (3): 553–572. citeseerx 10.1.1.128.531. doi:10.2307/2118560. issn 0003-486x. jstor 2118560. oclc 37032255. zbl 0823.11030.
+wiles, andrew (1995). "modular elliptic curves and fermat's last theorem". annals of mathematics. 141 (3): 443–551. citeseerx 10.1.1.169.9076. doi:10.2307/2118559. issn 0003-486x. jstor 2118559. oclc 37032255. zbl 0823.11029.
+
+
+== external links ==
+weisstein, eric w. "fermat's last theorem". mathworld.
+"the proof". pbs. the title of one edition of the pbs television series nova discusses andrew wiles's effort to prove fermat's last theorem that broadcast on bbc horizon and utv/documentary as fermat's last theorem (adobe flash) (subscription required)
+wiles, ribet, shimura–taniyama–weil and fermat's last theorem
+are mathematicians finally satisfied with andrew wiles's proof of fermat's last theorem? why has this theorem been so difficult to prove?, scientific american, 21 october 1999
+
+
+=== explanations of the proof (varying levels) ===
+overview of wiles proof, accessible to non-experts, by henri darmon
+very short summary of the proof by charles daney
+140 page students work-through of the proof, with exercises, by nigel boston

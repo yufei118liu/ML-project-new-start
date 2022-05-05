@@ -1,0 +1,479 @@
+in cryptography, post-quantum cryptography (sometimes referred to as quantum-proof, quantum-safe or quantum-resistant) refers to cryptographic algorithms (usually public-key algorithms) that are thought to be secure against a cryptanalytic attack by a quantum computer. the problem with currently popular algorithms is that their security relies on one of three hard mathematical problems:  the integer factorization problem, the discrete logarithm problem or the elliptic-curve discrete logarithm problem. all of these problems can be easily solved on a sufficiently powerful quantum computer running shor's algorithm.even though current, publicly known, experimental quantum computers lack processing power to break any real cryptographic algorithm, many cryptographers are designing new algorithms to prepare for a time when quantum computing becomes a threat. this work has gained greater attention from academics and industry through the pqcrypto conference series since 2006 and more recently by several workshops on quantum safe cryptography hosted by the european telecommunications standards institute (etsi) and the institute for quantum computing.in contrast to the threat quantum computing poses to current public-key algorithms, most current symmetric cryptographic algorithms and hash functions are considered to be relatively secure against attacks by quantum computers. while the quantum grover's algorithm does speed up attacks against symmetric ciphers, doubling the key size can effectively block these attacks. thus post-quantum symmetric cryptography does not need to differ significantly from current symmetric cryptography. see section on symmetric-key approach below.
+
+
+== algorithms ==
+currently post-quantum cryptography research is mostly focused on six different approaches:
+
+
+=== lattice-based cryptography ===
+
+this approach includes cryptographic systems such as learning with errors, ring learning with errors (ring-lwe), the ring learning with errors key exchange and the ring learning with errors signature, the older ntru or ggh encryption schemes, and the newer ntru signature and bliss signatures. some of these schemes like ntru encryption have been studied for many years without anyone finding a feasible attack. others like the ring-lwe algorithms have proofs that their security reduces to a worst-case problem. the post quantum cryptography study group sponsored by the european commission suggested that the stehle–steinfeld variant of ntru be studied for standardization rather than the ntru algorithm. at that time, ntru was still patented. studies have indicated that ntru may have more secure properties than other lattice based algorithms.
+
+
+=== multivariate cryptography ===
+
+this includes cryptographic systems such as the rainbow (unbalanced oil and vinegar) scheme which is based on the difficulty of solving systems of multivariate equations. various attempts to build secure multivariate equation encryption schemes have failed. however, multivariate signature schemes like rainbow could provide the basis for a quantum secure digital signature. there is a patent on the rainbow signature scheme.
+
+
+=== hash-based cryptography ===
+
+this includes cryptographic systems such as lamport signatures and the merkle signature scheme and the newer xmss and sphincs schemes. hash based digital signatures were invented in the late 1970s by ralph merkle and have been studied ever since as an interesting alternative to number-theoretic digital signatures like rsa and dsa.  their primary drawback is that for any hash-based public key, there is a limit on the number of signatures that can be signed using the corresponding set of private keys.  this fact had reduced interest in these signatures until interest was revived due to the desire for cryptography that was resistant to attack by quantum computers.  there appear to be no patents on the merkle signature scheme and there exist many non-patented hash functions that could be used with these schemes. the stateful hash-based signature scheme xmss developed by a team of researchers under the direction of johannes buchmann is described in rfc 8391.
+note that all the above schemes are one-time or bounded-time signatures, moni naor and moti yung invented uowhf hashing in 1989 and designed a signature based on hashing (the naor-yung scheme)  which can be unlimited-time in use (the first such signature that does not require trapdoor properties).
+
+
+=== code-based cryptography ===
+this includes cryptographic systems which rely on error-correcting codes, such as the mceliece and niederreiter encryption algorithms and the related courtois, finiasz and sendrier signature scheme. the original mceliece signature using random goppa codes has withstood scrutiny for over 40 years.  however, many variants of the mceliece scheme, which seek to introduce more structure into the code used in order to reduce the size of the keys, have been shown to be insecure.  the post quantum cryptography study group sponsored by the european commission has recommended the mceliece public key encryption system as a candidate for long term protection against attacks by quantum computers.
+
+
+=== supersingular elliptic curve isogeny cryptography ===
+
+this cryptographic system relies on the properties of supersingular elliptic curves and supersingular isogeny graphs to create a diffie-hellman replacement with forward secrecy. this cryptographic system uses the well studied mathematics of supersingular elliptic curves to create a diffie-hellman like key exchange that can serve as a straightforward quantum computing resistant replacement for the diffie-hellman and elliptic curve diffie–hellman key exchange methods that are in widespread use today.  because it works much like existing diffie–hellman implementations, it offers forward secrecy which is viewed as important both to prevent mass surveillance by governments but also to protect against the compromise of long term keys through failures.  in 2012, researchers sun, tian and wang of the chinese state key lab for integrated service networks and xidian university, extended the work of de feo, jao, and plut to create quantum secure digital signatures based on supersingular elliptic curve isogenies.  there are no patents covering this cryptographic system.
+
+
+=== symmetric key quantum resistance ===
+provided one uses sufficiently large key sizes, the symmetric key cryptographic systems like aes and snow 3g are already resistant to attack by a quantum computer. further, key management systems and protocols that use symmetric key cryptography instead of public key cryptography like kerberos and the 3gpp mobile network authentication structure are also inherently secure against attack by a quantum computer.  given its widespread deployment in the world already, some researchers recommend expanded use of kerberos-like symmetric key management as an efficient way to get post quantum cryptography today.
+
+
+== security reductions ==
+in cryptography research, it is desirable to prove the equivalence of a cryptographic algorithm and a known hard mathematical problem. these proofs are often called "security reductions", and are used to demonstrate the difficulty of cracking the encryption algorithm. in other words, the security of a given cryptographic algorithm is reduced to the security of a known hard problem.  researchers are actively looking for security reductions in the prospects for post quantum cryptography.  current results are given here:
+
+
+=== lattice-based cryptography – ring-lwe signature ===
+
+in some versions of ring-lwe there is a security reduction to the shortest-vector problem (svp) in a lattice as a lower bound on the security.  the svp is known to be np-hard. specific ring-lwe systems that have provable security reductions include a variant of lyubashevsky's ring-lwe signatures defined in a paper by güneysu, lyubashevsky, and pöppelmann.  the glyph signature scheme is a variant of the güneysu, lyubashevsky, and pöppelmann (glp) signature which takes into account research results that have come after the publication of the glp signature in 2012. another ring-lwe signature is ring-tesla. there also exists a "derandomized variant" of lwe, called learning with rounding (lwr), which yields " improved speedup (by eliminating sampling small errors from a gaussian-like distribution with deterministic errors) and bandwidth." while lwe utilizes the addition of a small error to conceal the lower bits, lwr utilizes rounding for the same purpose. 
+
+
+=== lattice-based cryptography – ntru, bliss ===
+the security of the ntru encryption scheme and the bliss signature is believed to be related to, but not provably reducible to, the closest vector problem (cvp) in a lattice.  the cvp is known to be np-hard. the post quantum cryptography study group sponsored by the european commission suggested that the stehle–steinfeld variant of ntru which does have a security reduction be studied for long term use instead of the original ntru algorithm.
+
+
+=== multivariate cryptography – unbalanced oil and vinegar ===
+
+unbalanced oil and vinegar signature schemes are asymmetric cryptographic primitives based on multivariate polynomials over a finite field 
+  
+    
+      
+        
+          f
+        
+      
+    
+    {\displaystyle \mathbb {f} }
+  . bulygin, petzoldt and buchmann have shown a reduction of generic multivariate quadratic uov systems to the np-hard multivariate quadratic equation solving problem.
+
+
+=== hash-based cryptography – merkle signature scheme ===
+
+in 2005, luis garcia proved that there was a security reduction of merkle hash tree signatures to the security of the underlying hash function. garcia showed in his paper that if computationally one-way hash functions exist then the merkle hash tree signature is provably secure.therefore, if one used a hash function with a provable reduction of security to a known hard problem one would have a provable security reduction of the merkle tree signature to that known hard problem.the post quantum cryptography study group sponsored by the european commission has recommended use of merkle signature scheme for long term security protection against quantum computers.
+
+
+=== code-based cryptography – mceliece ===
+
+the mceliece encryption system has a security reduction to the syndrome decoding problem (sdp). the sdp is known to be np-hard the post quantum cryptography study group sponsored by the european commission has recommended the use of this cryptography for long term protection against attack by a quantum computer.
+
+
+=== code-based cryptography – rlce ===
+in 2016, wang proposed a random linear code encryption scheme rlce which is based on mceliece schemes. rlce scheme can be constructed using any linear code such as reed-solomon code by inserting random columns in the underlying linear code generator matrix.
+
+
+=== supersingular elliptic curve isogeny cryptography ===
+
+security is related to the problem of constructing an isogeny between two supersingular curves with the same number of points. the most recent investigation of the difficulty of this problem is by delfs and galbraith indicates that this problem is as hard as the inventors of the key exchange suggest that it is. there is no security reduction to a known np-hard problem.
+
+
+== comparison ==
+one common characteristic of many post-quantum cryptography algorithms is that they require larger key sizes than commonly used "pre-quantum" public key algorithms.  there are often tradeoffs to be made in key size, computational efficiency and ciphertext or signature size. the table lists some values for different schemes at a 128 bit post-quantum security level.
+
+a practical consideration on a choice among post-quantum cryptographic algorithms is the effort required to send public keys over the internet. from this point of view, the ring-lwe, ntru, and sidh algorithms provide key sizes conveniently under 1kb, hash-signature public keys come in under 5kb, and mdpc-based mceliece takes about 1kb.  on the other hand, rainbow schemes require about 125kb and goppa-based mceliece requires a nearly 1mb key.
+
+
+=== lattice-based cryptography – lwe key exchange and ring-lwe key exchange ===
+
+the fundamental idea of using lwe and ring lwe for key exchange was proposed and filed at the university of cincinnati in 2011 by jintai ding. the basic idea comes from the associativity of matrix multiplications, and the errors are used to provide the security. the paper appeared in 2012 after a provisional patent application was filed in 2012.
+in 2014, peikert presented a key transport scheme following the same basic idea of ding's, where the new idea of sending additional 1 bit signal for rounding in ding's construction is also utilized.  for somewhat greater than 128 bits of security, singh presents a set of parameters which have 6956-bit public keys for the peikert's scheme.  the corresponding private key would be roughly 14,000 bits.
+in 2015, an authenticated key exchange with provable forward security following the same basic idea of ding's was presented at eurocrypt 2015, which is an extension of the hmqv construction in crypto2005. the parameters for different security levels from 80 bits to 350 bits, along with the corresponding key sizes are provided in the paper.
+
+
+=== lattice-based cryptography – ntru encryption ===
+
+for 128 bits of security in ntru, hirschhorn, hoffstein, howgrave-graham and whyte, recommend using a public key represented as a degree 613 polynomial with coefficients 
+  
+    
+      
+        
+          mod
+          
+            
+              (
+              
+                2
+                
+                  10
+                
+              
+              )
+            
+          
+        
+      
+    
+    {\displaystyle {\bmod {\left(2^{10}\right)}}}
+  .  this results in a public key of 6130 bits.  the corresponding private key would be 6743 bits.
+
+
+=== multivariate cryptography – rainbow signature ===
+
+for 128 bits of security and the smallest signature size in a rainbow multivariate quadratic equation signature scheme, petzoldt, bulygin and buchmann, recommend using equations in 
+  
+    
+      
+        
+          
+            f
+          
+          
+            31
+          
+        
+      
+    
+    {\displaystyle \mathbb {f} _{31}}
+   with a public key size of just over 991,000 bits, a private key of just over 740,000 bits and digital signatures which are 424 bits in length.
+
+
+=== hash-based cryptography – merkle signature scheme ===
+
+in order to get 128 bits of security for hash based signatures to sign 1 million messages using the fractal merkle tree method of naor shenhav and wool the public and private key sizes are roughly 36,000 bits in length.
+
+
+=== code-based cryptography – mceliece ===
+
+for 128 bits of security in a mceliece scheme, the european commissions post quantum cryptography study group recommends using a binary goppa code of length at least 
+  
+    
+      
+        n
+        =
+        6960
+      
+    
+    {\displaystyle n=6960}
+   and dimension at least 
+  
+    
+      
+        k
+        =
+        5413
+      
+    
+    {\displaystyle k=5413}
+  , and capable of correcting 
+  
+    
+      
+        t
+        =
+        119
+      
+    
+    {\displaystyle t=119}
+   errors.  with these parameters the public key for the mceliece system will be a systematic generator matrix whose non-identity part takes 
+  
+    
+      
+        k
+        ×
+        (
+        n
+        −
+        k
+        )
+        =
+        8373911
+      
+    
+    {\displaystyle k\times (n-k)=8373911}
+   bits.  the corresponding private key, which consists of the code support with 
+  
+    
+      
+        n
+        =
+        6960
+      
+    
+    {\displaystyle n=6960}
+   elements from 
+  
+    
+      
+        g
+        f
+        (
+        
+          2
+          
+            13
+          
+        
+        )
+      
+    
+    {\displaystyle gf(2^{13})}
+   and a generator polynomial of with 
+  
+    
+      
+        t
+        =
+        119
+      
+    
+    {\displaystyle t=119}
+   coefficients from 
+  
+    
+      
+        g
+        f
+        (
+        
+          2
+          
+            13
+          
+        
+        )
+      
+    
+    {\displaystyle gf(2^{13})}
+  , will be 92,027 bits in lengththe group is also investigating the use of quasi-cyclic mdpc codes of length at least 
+  
+    
+      
+        n
+        =
+        
+          2
+          
+            16
+          
+        
+        +
+        6
+        =
+        65542
+      
+    
+    {\displaystyle n=2^{16}+6=65542}
+   and dimension at least 
+  
+    
+      
+        k
+        =
+        
+          2
+          
+            15
+          
+        
+        +
+        3
+        =
+        32771
+      
+    
+    {\displaystyle k=2^{15}+3=32771}
+  , and capable of correcting 
+  
+    
+      
+        t
+        =
+        264
+      
+    
+    {\displaystyle t=264}
+   errors.  with these parameters the public key for the mceliece system will be the first row of a systematic generator matrix whose non-identity part takes 
+  
+    
+      
+        k
+        =
+        32771
+      
+    
+    {\displaystyle k=32771}
+   bits.  the private key, a quasi-cyclic parity-check matrix with 
+  
+    
+      
+        d
+        =
+        274
+      
+    
+    {\displaystyle d=274}
+   nonzero entries on a column (or twice as much on a row), takes no more than 
+  
+    
+      
+        d
+        ×
+        16
+        =
+        4384
+      
+    
+    {\displaystyle d\times 16=4384}
+   bits when represented as the coordinates of the nonzero entries on the first row.
+barreto et al. recommend using a binary goppa code of length at least 
+  
+    
+      
+        n
+        =
+        3307
+      
+    
+    {\displaystyle n=3307}
+   and dimension at least 
+  
+    
+      
+        k
+        =
+        2515
+      
+    
+    {\displaystyle k=2515}
+  , and capable of correcting 
+  
+    
+      
+        t
+        =
+        66
+      
+    
+    {\displaystyle t=66}
+   errors.  with these parameters the public key for the mceliece system will be a systematic generator matrix whose non-identity part takes 
+  
+    
+      
+        k
+        ×
+        (
+        n
+        −
+        k
+        )
+        =
+        1991880
+      
+    
+    {\displaystyle k\times (n-k)=1991880}
+   bits.  the corresponding private key, which consists of the code support with 
+  
+    
+      
+        n
+        =
+        3307
+      
+    
+    {\displaystyle n=3307}
+   elements from 
+  
+    
+      
+        g
+        f
+        (
+        
+          2
+          
+            12
+          
+        
+        )
+      
+    
+    {\displaystyle gf(2^{12})}
+   and a generator polynomial of with 
+  
+    
+      
+        t
+        =
+        66
+      
+    
+    {\displaystyle t=66}
+   coefficients from 
+  
+    
+      
+        g
+        f
+        (
+        
+          2
+          
+            12
+          
+        
+        )
+      
+    
+    {\displaystyle gf(2^{12})}
+  , will be 40,476 bits in length.
+
+
+=== supersingular elliptic curve isogeny cryptography ===
+
+for 128 bits of security in the supersingular isogeny diffie-hellman (sidh) method, de feo, jao and plut recommend using a supersingular curve modulo a 768-bit prime. if one uses elliptic curve point compression the public key will need to be no more than 8x768 or 6144 bits in length.  a march 2016 paper by authors azarderakhsh, jao, kalach, koziel, and leonardi showed how to cut the number of bits transmitted in half, which was further improved by authors costello, jao, longa, naehrig, renes and urbanik resulting in a compressed-key version of the sidh protocol with public keys only 2640 bits in size. this makes the number of bits transmitted roughly equivalent to the non-quantum secure rsa and diffie-hellman at the same classical security level.
+
+
+=== symmetric–key-based cryptography ===
+as a general rule, for 128 bits of security in a symmetric-key-based system, one can safely use key sizes of 256 bits.  the best quantum attack against generic symmetric-key systems is an application of grover's algorithm, which requires work proportional to the square root of the size of the key space.  to transmit an encrypted key to a device that possesses the symmetric key necessary to decrypt that key requires roughly 256 bits as well.  it is clear that symmetric-key systems offer the smallest key sizes for post-quantum cryptography.
+
+
+== forward secrecy ==
+a public-key system demonstrates a property referred to as perfect forward secrecy when it generates random public keys per session for the purposes of key agreement. this means that the compromise of one message cannot lead to the compromise of others, and also that there is not a single secret value which can lead to the compromise of multiple messages. security experts recommend using cryptographic algorithms that support forward secrecy over those that do not. the reason for this is that forward secrecy can protect against the compromise of long term private keys associated with public/private key pairs. this is viewed as a means of preventing mass surveillance by intelligence agencies.
+both the ring-lwe key exchange and supersingular isogeny diffie-hellman (sidh) key exchange can support forward secrecy in one exchange with the other party. both the ring-lwe and sidh can also be used without forward secrecy by creating a variant of the classic elgamal encryption variant of diffie-hellman.
+the other algorithms in this article, such as ntru, do not support forward secrecy as is.
+any authenticated public key encryption system can be used to build a key exchange with forward secrecy.
+
+
+== open quantum safe project ==
+open quantum safe (oqs) project was started in late 2016 and has the goal of developing and prototyping quantum-resistant cryptography. it aims to integrate current post-quantum schemes in one library: liboqs. liboqs is an open source c library for quantum-resistant cryptographic algorithms. it initially focuses on key exchange algorithms. it provides a common api suitable for post-quantum key exchange algorithms, and will collect together various implementations. liboqs will also include a test harness and benchmarking routines to compare performance of post-quantum implementations. furthermore, oqs also provides integration of liboqs into openssl.as of april 2017, the following key exchange algorithms are supported:
+
+
+== implementation ==
+one of the main challenges in post-quantum cryptography is considered to be the implementation of potentially quantum safe algorithms into existing systems. there are tests done, for example by microsoft research implementing picnic in a pki using hardware security modules. test implementations for google's newhope algorithm have also been done by hsm vendors.
+
+
+== see also ==
+nist post-quantum cryptography standardization
+quantum cryptography – cryptography based on quantum mechanics
+
+
+== references ==
+
+
+== further reading ==
+post-quantum cryptography. springer. 2008. p. 245. isbn 978-3-540-88701-0.
+isogenies in a quantum world
+on ideal lattices and learning with errors over rings
+kerberos revisited: quantum-safe authentication
+the picnic signature scheme
+
+
+== external links ==
+pqcrypto, the post-quantum cryptography conference
+etsi quantum secure standards effort
+nist's post-quantum crypto project
+pqcrypto usage & deployment

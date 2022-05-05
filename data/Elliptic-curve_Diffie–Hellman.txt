@@ -1,0 +1,335 @@
+elliptic-curve diffie–hellman (ecdh) is a key agreement protocol that allows two parties, each having an elliptic-curve public–private key pair, to establish a shared secret over an insecure channel. this shared secret may be directly used as a key, or to derive another key.  the key, or the derived key, can then be used to encrypt subsequent communications using a symmetric-key cipher. it is a variant of the diffie–hellman protocol using elliptic-curve cryptography.
+
+
+== key establishment protocol ==
+the following example illustrates how a shared key is established. suppose alice wants to establish a shared key with bob, but the only channel available for them may be eavesdropped by a third party. initially, the domain parameters (that is, 
+  
+    
+      
+        (
+        p
+        ,
+        a
+        ,
+        b
+        ,
+        g
+        ,
+        n
+        ,
+        h
+        )
+      
+    
+    {\displaystyle (p,a,b,g,n,h)}
+   in the prime case or 
+  
+    
+      
+        (
+        m
+        ,
+        f
+        (
+        x
+        )
+        ,
+        a
+        ,
+        b
+        ,
+        g
+        ,
+        n
+        ,
+        h
+        )
+      
+    
+    {\displaystyle (m,f(x),a,b,g,n,h)}
+   in the binary case) must be agreed upon. also, each party must have a key pair suitable for elliptic curve cryptography, consisting of a private key 
+  
+    
+      
+        d
+      
+    
+    {\displaystyle d}
+   (a randomly selected integer in the interval 
+  
+    
+      
+        [
+        1
+        ,
+        n
+        −
+        1
+        ]
+      
+    
+    {\displaystyle [1,n-1]}
+  ) and a public key represented by a point 
+  
+    
+      
+        q
+      
+    
+    {\displaystyle q}
+   (where 
+  
+    
+      
+        q
+        =
+        d
+        ⋅
+        g
+      
+    
+    {\displaystyle q=d\cdot g}
+  , that is, the result of adding 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+   to itself 
+  
+    
+      
+        d
+      
+    
+    {\displaystyle d}
+   times). let alice's key pair be 
+  
+    
+      
+        (
+        
+          d
+          
+            a
+          
+        
+        ,
+        
+          q
+          
+            a
+          
+        
+        )
+      
+    
+    {\displaystyle (d_{\text{a}},q_{\text{a}})}
+   and bob's key pair be 
+  
+    
+      
+        (
+        
+          d
+          
+            b
+          
+        
+        ,
+        
+          q
+          
+            b
+          
+        
+        )
+      
+    
+    {\displaystyle (d_{\text{b}},q_{\text{b}})}
+  . each party must know the other party's public key prior to execution of the protocol.
+alice computes point 
+  
+    
+      
+        (
+        
+          x
+          
+            k
+          
+        
+        ,
+        
+          y
+          
+            k
+          
+        
+        )
+        =
+        
+          d
+          
+            a
+          
+        
+        ⋅
+        
+          q
+          
+            b
+          
+        
+      
+    
+    {\displaystyle (x_{k},y_{k})=d_{\text{a}}\cdot q_{\text{b}}}
+  . bob computes point 
+  
+    
+      
+        (
+        
+          x
+          
+            k
+          
+        
+        ,
+        
+          y
+          
+            k
+          
+        
+        )
+        =
+        
+          d
+          
+            b
+          
+        
+        ⋅
+        
+          q
+          
+            a
+          
+        
+      
+    
+    {\displaystyle (x_{k},y_{k})=d_{\text{b}}\cdot q_{\text{a}}}
+  .  the shared secret is 
+  
+    
+      
+        
+          x
+          
+            k
+          
+        
+      
+    
+    {\displaystyle x_{k}}
+   (the x coordinate of the point).  most standardized protocols based on ecdh derive a symmetric key from 
+  
+    
+      
+        
+          x
+          
+            k
+          
+        
+      
+    
+    {\displaystyle x_{k}}
+   using some hash-based key derivation function.
+the shared secret calculated by both parties is equal, because 
+  
+    
+      
+        
+          d
+          
+            a
+          
+        
+        ⋅
+        
+          q
+          
+            b
+          
+        
+        =
+        
+          d
+          
+            a
+          
+        
+        ⋅
+        
+          d
+          
+            b
+          
+        
+        ⋅
+        g
+        =
+        
+          d
+          
+            b
+          
+        
+        ⋅
+        
+          d
+          
+            a
+          
+        
+        ⋅
+        g
+        =
+        
+          d
+          
+            b
+          
+        
+        ⋅
+        
+          q
+          
+            a
+          
+        
+      
+    
+    {\displaystyle d_{\text{a}}\cdot q_{\text{b}}=d_{\text{a}}\cdot d_{\text{b}}\cdot g=d_{\text{b}}\cdot d_{\text{a}}\cdot g=d_{\text{b}}\cdot q_{\text{a}}}
+  .
+the only information about her key that alice initially exposes is her public key.  so, no party except alice can determine alice's private key (alice of course knows it by having selected it), unless that party can solve the elliptic curve discrete logarithm problem.  bob's private key is similarly secure.  no party other than alice or bob can compute the shared secret, unless that party can solve the elliptic curve diffie–hellman problem.
+the public keys are either static (and trusted, say via a certificate) or ephemeral (also known as ecdhe, where final 'e' stands for "ephemeral").  ephemeral keys are temporary and not necessarily authenticated, so if authentication is desired, authenticity assurances must be obtained by other means.  authentication is necessary to avoid man-in-the-middle attacks.  if one of either alice's or bob's public keys is static, then man-in-the-middle attacks are thwarted.  static public keys provide neither forward secrecy nor key-compromise impersonation resilience, among other advanced security properties.  holders of static private keys should validate the other public key, and should apply a secure key derivation function to the raw diffie–hellman shared secret to avoid leaking information about the static private key.  for schemes with other security properties, see mqv.
+if alice maliciously chooses invalid curve points for her key and bob does not validate that alice's points are part of the selected group, she can collect enough residues of bob's key to derive his private key. several tls libraries were found to be vulnerable to this attack.while the shared secret may be used directly as a key, it can be desirable to hash the secret to remove weak bits due to the diffie–hellman exchange.
+
+
+== software ==
+curve25519 is a popular set of elliptic curve parameters and reference implementation by daniel j. bernstein in c. bindings and alternative implementations are also available.
+line messenger app has used the ecdh protocol for its "letter sealing" end-to-end encryption of all messages sent through said app since october 2015.
+signal protocol uses ecdh to obtain post-compromise security. implementations of this protocol are found in signal, whatsapp, facebook messenger and skype.
+
+
+== see also ==
+diffie–hellman key exchange
+forward secrecy
+
+
+== references ==

@@ -1,0 +1,4010 @@
+the hamiltonian is a function used to solve a problem of optimal control for a dynamical system. it can be understood as an instantaneous increment of the lagrangian expression of the problem that is to be optimized over a certain time period. inspired by, but distinct from, the hamiltonian of classical mechanics, the hamiltonian of optimal control theory was developed by lev pontryagin as part of his maximum principle. pontryagin proved that a necessary condition for solving the optimal control problem is that the control should be chosen so as to optimize the hamiltonian.
+
+
+== problem statement and definition of the hamiltonian ==
+consider a dynamical system of 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   first-order differential equations
+
+  
+    
+      
+        
+          
+            
+              
+                x
+              
+              ˙
+            
+          
+        
+        (
+        t
+        )
+        =
+        
+          f
+        
+        (
+        
+          x
+        
+        (
+        t
+        )
+        ,
+        
+          u
+        
+        (
+        t
+        )
+        ,
+        t
+        )
+      
+    
+    {\displaystyle {\dot {\mathbf {x} }}(t)=\mathbf {f} (\mathbf {x} (t),\mathbf {u} (t),t)}
+  where 
+  
+    
+      
+        
+          x
+        
+        (
+        t
+        )
+        =
+        
+          
+            [
+            
+              
+                x
+                
+                  1
+                
+              
+              (
+              t
+              )
+              ,
+              
+                x
+                
+                  2
+                
+              
+              (
+              t
+              )
+              ,
+              …
+              ,
+              
+                x
+                
+                  n
+                
+              
+              (
+              t
+              )
+            
+            ]
+          
+          
+            
+              t
+            
+          
+        
+      
+    
+    {\displaystyle \mathbf {x} (t)=\left[x_{1}(t),x_{2}(t),\ldots ,x_{n}(t)\right]^{\mathsf {t}}}
+   denotes a vector of state variables, and 
+  
+    
+      
+        
+          u
+        
+        (
+        t
+        )
+        =
+        
+          
+            [
+            
+              
+                u
+                
+                  1
+                
+              
+              (
+              t
+              )
+              ,
+              
+                u
+                
+                  2
+                
+              
+              (
+              t
+              )
+              ,
+              …
+              ,
+              
+                u
+                
+                  r
+                
+              
+              (
+              t
+              )
+            
+            ]
+          
+          
+            
+              t
+            
+          
+        
+      
+    
+    {\displaystyle \mathbf {u} (t)=\left[u_{1}(t),u_{2}(t),\ldots ,u_{r}(t)\right]^{\mathsf {t}}}
+   a vector of control variables. once initial conditions 
+  
+    
+      
+        
+          x
+        
+        (
+        
+          t
+          
+            0
+          
+        
+        )
+        =
+        
+          
+            x
+          
+          
+            0
+          
+        
+      
+    
+    {\displaystyle \mathbf {x} (t_{0})=\mathbf {x} _{0}}
+   and controls 
+  
+    
+      
+        
+          u
+        
+        (
+        t
+        )
+      
+    
+    {\displaystyle \mathbf {u} (t)}
+   are specified, a solution to the differential equations, called a trajectory 
+  
+    
+      
+        
+          x
+        
+        (
+        t
+        ;
+        
+          
+            x
+          
+          
+            0
+          
+        
+        ,
+        
+          t
+          
+            0
+          
+        
+        )
+      
+    
+    {\displaystyle \mathbf {x} (t;\mathbf {x} _{0},t_{0})}
+  , can be found. the problem of optimal control is to choose 
+  
+    
+      
+        
+          u
+        
+        (
+        t
+        )
+      
+    
+    {\displaystyle \mathbf {u} (t)}
+   (from some set  
+  
+    
+      
+        
+          
+            u
+          
+        
+        ⊆
+        
+          
+            r
+          
+          
+            r
+          
+        
+      
+    
+    {\displaystyle {\mathcal {u}}\subseteq \mathbb {r} ^{r}}
+  ) so that 
+  
+    
+      
+        
+          x
+        
+        (
+        t
+        )
+      
+    
+    {\displaystyle \mathbf {x} (t)}
+   maximizes or minimizes a certain objective function between an initial time 
+  
+    
+      
+        t
+        =
+        
+          t
+          
+            0
+          
+        
+      
+    
+    {\displaystyle t=t_{0}}
+   and a terminal time 
+  
+    
+      
+        t
+        =
+        
+          t
+          
+            1
+          
+        
+      
+    
+    {\displaystyle t=t_{1}}
+   (where 
+  
+    
+      
+        
+          t
+          
+            1
+          
+        
+      
+    
+    {\displaystyle t_{1}}
+   may be infinity). specifically, the goal is to optimize a performance index 
+  
+    
+      
+        i
+        (
+        
+          x
+        
+        (
+        t
+        )
+        ,
+        
+          u
+        
+        (
+        t
+        )
+        ,
+        t
+        )
+      
+    
+    {\displaystyle i(\mathbf {x} (t),\mathbf {u} (t),t)}
+   at each point in time,
+
+  
+    
+      
+        
+          max
+          
+            
+              u
+            
+            (
+            t
+            )
+          
+        
+        j
+        =
+        
+          ∫
+          
+            
+              t
+              
+                0
+              
+            
+          
+          
+            
+              t
+              
+                1
+              
+            
+          
+        
+        i
+        (
+        
+          x
+        
+        (
+        t
+        )
+        ,
+        
+          u
+        
+        (
+        t
+        )
+        ,
+        t
+        )
+        
+        
+          d
+        
+        t
+      
+    
+    {\displaystyle \max _{\mathbf {u} (t)}j=\int _{t_{0}}^{t_{1}}i(\mathbf {x} (t),\mathbf {u} (t),t)\,\mathrm {d} t}
+  subject to the above equations of motion of the state variables. the solution method involves defining an ancillary function known as the control hamiltonian
+
+which combines the objective function and the state equations much like a lagrangian in a static optimization problem, only that the  multipliers 
+  
+    
+      
+        
+          λ
+        
+        (
+        t
+        )
+      
+    
+    {\displaystyle \mathbf {\lambda } (t)}
+  , referred to as costate variables, are functions of time rather than constants.
+the goal is to find an optimal control policy function 
+  
+    
+      
+        
+          
+            u
+          
+          
+            ∗
+          
+        
+        (
+        t
+        )
+      
+    
+    {\displaystyle \mathbf {u} ^{\ast }(t)}
+   and, with it, an optimal trajectory of the state variable 
+  
+    
+      
+        
+          
+            x
+          
+          
+            ∗
+          
+        
+        (
+        t
+        )
+      
+    
+    {\displaystyle \mathbf {x} ^{\ast }(t)}
+  , which by pontryagin's maximum principle are the arguments that maximize the hamiltonian,
+
+  
+    
+      
+        h
+        (
+        
+          
+            x
+          
+          
+            ∗
+          
+        
+        (
+        t
+        )
+        ,
+        
+          
+            u
+          
+          
+            ∗
+          
+        
+        (
+        t
+        )
+        ,
+        
+          λ
+        
+        (
+        t
+        )
+        ,
+        t
+        )
+        ≥
+        h
+        (
+        
+          x
+        
+        (
+        t
+        )
+        ,
+        
+          u
+        
+        (
+        t
+        )
+        ,
+        
+          λ
+        
+        (
+        t
+        )
+        ,
+        t
+        )
+      
+    
+    {\displaystyle h(\mathbf {x} ^{\ast }(t),\mathbf {u} ^{\ast }(t),\mathbf {\lambda } (t),t)\geq h(\mathbf {x} (t),\mathbf {u} (t),\mathbf {\lambda } (t),t)}
+   for all 
+  
+    
+      
+        
+          u
+        
+        (
+        t
+        )
+        ∈
+        
+          
+            u
+          
+        
+      
+    
+    {\displaystyle \mathbf {u} (t)\in {\mathcal {u}}}
+  the first-order necessary conditions for a maximum are given by
+
+  
+    
+      
+        
+          
+            
+              ∂
+              h
+              (
+              
+                x
+              
+              (
+              t
+              )
+              ,
+              
+                u
+              
+              (
+              t
+              )
+              ,
+              
+                λ
+              
+              (
+              t
+              )
+              ,
+              t
+              )
+            
+            
+              ∂
+              
+                λ
+              
+            
+          
+        
+        =
+        
+          
+            
+              
+                x
+              
+              ˙
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {\partial h(\mathbf {x} (t),\mathbf {u} (t),\mathbf {\lambda } (t),t)}{\partial \mathbf {\lambda } }}={\dot {\mathbf {x} }}}
+   which generates the state transition function 
+  
+    
+      
+        
+          f
+        
+        (
+        
+          x
+        
+        (
+        t
+        )
+        ,
+        
+          u
+        
+        (
+        t
+        )
+        ,
+        t
+        )
+        =
+        
+          
+            
+              
+                x
+              
+              ˙
+            
+          
+        
+      
+    
+    {\displaystyle \mathbf {f} (\mathbf {x} (t),\mathbf {u} (t),t)={\dot {\mathbf {x} }}}
+  ,
+
+  
+    
+      
+        
+          
+            
+              ∂
+              h
+              (
+              
+                x
+              
+              (
+              t
+              )
+              ,
+              
+                u
+              
+              (
+              t
+              )
+              ,
+              
+                λ
+              
+              (
+              t
+              )
+              ,
+              t
+              )
+            
+            
+              ∂
+              
+                x
+              
+            
+          
+        
+        =
+        −
+        
+          
+            
+              
+                λ
+              
+              ˙
+            
+          
+        
+        (
+        t
+        )
+      
+    
+    {\displaystyle {\frac {\partial h(\mathbf {x} (t),\mathbf {u} (t),\mathbf {\lambda } (t),t)}{\partial \mathbf {x} }}=-{\dot {\mathbf {\lambda } }}(t)}
+   which generates 
+  
+    
+      
+        
+          
+            
+              
+                λ
+              
+              ˙
+            
+          
+        
+        (
+        t
+        )
+        =
+        −
+        
+          [
+          
+            
+              i
+              
+                
+                  x
+                
+              
+            
+            (
+            
+              x
+            
+            (
+            t
+            )
+            ,
+            
+              u
+            
+            (
+            t
+            )
+            ,
+            t
+            )
+            +
+            
+              
+                λ
+              
+              
+                
+                  t
+                
+              
+            
+            (
+            t
+            )
+            
+              
+                f
+              
+              
+                
+                  x
+                
+              
+            
+            (
+            
+              x
+            
+            (
+            t
+            )
+            ,
+            
+              u
+            
+            (
+            t
+            )
+            ,
+            t
+            )
+          
+          ]
+        
+      
+    
+    {\displaystyle {\dot {\mathbf {\lambda } }}(t)=-\left[i_{\mathbf {x} }(\mathbf {x} (t),\mathbf {u} (t),t)+\mathbf {\lambda } ^{\mathsf {t}}(t)\mathbf {f} _{\mathbf {x} }(\mathbf {x} (t),\mathbf {u} (t),t)\right]}
+  the latter of which are referred to as the costate equations. together, the state and costate equations describe the hamiltonian dynamical system (again analogous to but distinct from the hamiltonian system in physics), the solution of which involves a two-point boundary value problem, given that there are 
+  
+    
+      
+        2
+        n
+      
+    
+    {\displaystyle 2n}
+   boundary conditions involving two different points in time, the initial time (the 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   differential equations for the state variables), and the terminal time (the 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   differential equations for the costate variables; unless a final function is specified, the boundary conditions are 
+  
+    
+      
+        
+          λ
+        
+        (
+        
+          t
+          
+            1
+          
+        
+        )
+        =
+        0
+      
+    
+    {\displaystyle \mathbf {\lambda } (t_{1})=0}
+  , or 
+  
+    
+      
+        
+          lim
+          
+            
+              t
+              
+                1
+              
+            
+            →
+            ∞
+          
+        
+        
+          λ
+        
+        (
+        
+          t
+          
+            1
+          
+        
+        )
+        =
+        0
+      
+    
+    {\displaystyle \lim _{t_{1}\to \infty }\mathbf {\lambda } (t_{1})=0}
+   for infinite time horizons).a sufficient condition for a maximum is the concavity of the hamiltonian evaluated at the solution, i.e.
+
+  
+    
+      
+        
+          h
+          
+            
+              u
+              u
+            
+          
+        
+        (
+        
+          
+            x
+          
+          
+            ∗
+          
+        
+        (
+        t
+        )
+        ,
+        
+          
+            u
+          
+          
+            ∗
+          
+        
+        (
+        t
+        )
+        ,
+        
+          λ
+        
+        (
+        t
+        )
+        ,
+        t
+        )
+        ≤
+        0
+      
+    
+    {\displaystyle h_{\mathbf {uu} }(\mathbf {x} ^{\ast }(t),\mathbf {u} ^{\ast }(t),\mathbf {\lambda } (t),t)\leq 0}
+  where 
+  
+    
+      
+        
+          
+            u
+          
+          
+            ∗
+          
+        
+        (
+        t
+        )
+      
+    
+    {\displaystyle \mathbf {u} ^{\ast }(t)}
+   is the optimal control, and 
+  
+    
+      
+        
+          
+            x
+          
+          
+            ∗
+          
+        
+        (
+        t
+        )
+      
+    
+    {\displaystyle \mathbf {x} ^{\ast }(t)}
+   is resulting optimal trajectory for the state variable. alternatively, by a result due to olvi l. mangasarian, the necessary conditions are sufficient if the functions 
+  
+    
+      
+        i
+        (
+        
+          x
+        
+        (
+        t
+        )
+        ,
+        
+          u
+        
+        (
+        t
+        )
+        ,
+        t
+        )
+      
+    
+    {\displaystyle i(\mathbf {x} (t),\mathbf {u} (t),t)}
+   and 
+  
+    
+      
+        
+          f
+        
+        (
+        
+          x
+        
+        (
+        t
+        )
+        ,
+        
+          u
+        
+        (
+        t
+        )
+        ,
+        t
+        )
+      
+    
+    {\displaystyle \mathbf {f} (\mathbf {x} (t),\mathbf {u} (t),t)}
+   are both concave in 
+  
+    
+      
+        
+          x
+        
+        (
+        t
+        )
+      
+    
+    {\displaystyle \mathbf {x} (t)}
+   and 
+  
+    
+      
+        
+          u
+        
+        (
+        t
+        )
+      
+    
+    {\displaystyle \mathbf {u} (t)}
+  .
+
+
+=== derivation from the lagrangian ===
+a constrained optimization problem as the one stated above usually suggests a lagrangian expression, specifically 
+
+  
+    
+      
+        l
+        =
+        
+          ∫
+          
+            
+              t
+              
+                0
+              
+            
+          
+          
+            
+              t
+              
+                1
+              
+            
+          
+        
+        i
+        (
+        
+          x
+        
+        (
+        t
+        )
+        ,
+        
+          u
+        
+        (
+        t
+        )
+        ,
+        t
+        )
+        +
+        
+          
+            λ
+          
+          
+            
+              t
+            
+          
+        
+        (
+        t
+        )
+        
+          [
+          
+            
+              f
+            
+            (
+            
+              x
+            
+            (
+            t
+            )
+            ,
+            
+              u
+            
+            (
+            t
+            )
+            ,
+            t
+            )
+            −
+            
+              
+                
+                  
+                    x
+                  
+                  ˙
+                
+              
+            
+            (
+            t
+            )
+          
+          ]
+        
+        
+        
+          d
+        
+        t
+      
+    
+    {\displaystyle l=\int _{t_{0}}^{t_{1}}i(\mathbf {x} (t),\mathbf {u} (t),t)+\mathbf {\lambda } ^{\mathsf {t}}(t)\left[\mathbf {f} (\mathbf {x} (t),\mathbf {u} (t),t)-{\dot {\mathbf {x} }}(t)\right]\,\mathrm {d} t}
+  where the 
+  
+    
+      
+        
+          λ
+        
+        (
+        t
+        )
+      
+    
+    {\displaystyle \mathbf {\lambda } (t)}
+   compare to the lagrange multiplier in a static optimization problem but are now, as noted above, a function of time. proceeding with a legendre transformation, the last term on the right-hand side can be rewritten using integration by parts, such that
+
+  
+    
+      
+        −
+        
+          ∫
+          
+            
+              t
+              
+                0
+              
+            
+          
+          
+            
+              t
+              
+                1
+              
+            
+          
+        
+        
+          
+            λ
+          
+          
+            
+              t
+            
+          
+        
+        (
+        t
+        )
+        
+          
+            
+              
+                x
+              
+              ˙
+            
+          
+        
+        (
+        t
+        )
+        
+        
+          d
+        
+        t
+        =
+        −
+        
+          
+            λ
+          
+          
+            
+              t
+            
+          
+        
+        (
+        
+          t
+          
+            1
+          
+        
+        )
+        
+          x
+        
+        (
+        
+          t
+          
+            1
+          
+        
+        )
+        +
+        
+          
+            λ
+          
+          
+            
+              t
+            
+          
+        
+        (
+        
+          t
+          
+            0
+          
+        
+        )
+        
+          x
+        
+        (
+        
+          t
+          
+            0
+          
+        
+        )
+        +
+        
+          ∫
+          
+            
+              t
+              
+                0
+              
+            
+          
+          
+            
+              t
+              
+                1
+              
+            
+          
+        
+        
+          
+            
+              
+                
+                  λ
+                
+                ˙
+              
+            
+          
+          
+            
+              t
+            
+          
+        
+        (
+        t
+        )
+        
+          x
+        
+        (
+        t
+        )
+        
+        
+          d
+        
+        t
+      
+    
+    {\displaystyle -\int _{t_{0}}^{t_{1}}\mathbf {\lambda } ^{\mathsf {t}}(t){\dot {\mathbf {x} }}(t)\,\mathrm {d} t=-\mathbf {\lambda } ^{\mathsf {t}}(t_{1})\mathbf {x} (t_{1})+\mathbf {\lambda } ^{\mathsf {t}}(t_{0})\mathbf {x} (t_{0})+\int _{t_{0}}^{t_{1}}{\dot {\mathbf {\lambda } }}^{\mathsf {t}}(t)\mathbf {x} (t)\,\mathrm {d} t}
+  which can be substituted back into the lagrangian expression to give
+
+  
+    
+      
+        l
+        =
+        
+          ∫
+          
+            
+              t
+              
+                0
+              
+            
+          
+          
+            
+              t
+              
+                1
+              
+            
+          
+        
+        
+          [
+          
+            i
+            (
+            
+              x
+            
+            (
+            t
+            )
+            ,
+            
+              u
+            
+            (
+            t
+            )
+            ,
+            t
+            )
+            +
+            
+              
+                λ
+              
+              
+                
+                  t
+                
+              
+            
+            (
+            t
+            )
+            
+              f
+            
+            (
+            
+              x
+            
+            (
+            t
+            )
+            ,
+            
+              u
+            
+            (
+            t
+            )
+            ,
+            t
+            )
+            +
+            
+              
+                
+                  
+                    
+                      λ
+                    
+                    ˙
+                  
+                
+              
+              
+                
+                  t
+                
+              
+            
+            (
+            t
+            )
+            
+              x
+            
+            (
+            t
+            )
+          
+          ]
+        
+        
+        
+          d
+        
+        t
+        −
+        
+          
+            λ
+          
+          
+            
+              t
+            
+          
+        
+        (
+        
+          t
+          
+            1
+          
+        
+        )
+        
+          x
+        
+        (
+        
+          t
+          
+            1
+          
+        
+        )
+        +
+        
+          
+            λ
+          
+          
+            
+              t
+            
+          
+        
+        (
+        
+          t
+          
+            0
+          
+        
+        )
+        
+          x
+        
+        (
+        
+          t
+          
+            0
+          
+        
+        )
+      
+    
+    {\displaystyle l=\int _{t_{0}}^{t_{1}}\left[i(\mathbf {x} (t),\mathbf {u} (t),t)+\mathbf {\lambda } ^{\mathsf {t}}(t)\mathbf {f} (\mathbf {x} (t),\mathbf {u} (t),t)+{\dot {\mathbf {\lambda } }}^{\mathsf {t}}(t)\mathbf {x} (t)\right]\,\mathrm {d} t-\mathbf {\lambda } ^{\mathsf {t}}(t_{1})\mathbf {x} (t_{1})+\mathbf {\lambda } ^{\mathsf {t}}(t_{0})\mathbf {x} (t_{0})}
+  to derive the first-order conditions for an optimum, assume that the solution has been found and the lagrangian is maximized. then any change to 
+  
+    
+      
+        
+          x
+        
+        (
+        t
+        )
+      
+    
+    {\displaystyle \mathbf {x} (t)}
+   or 
+  
+    
+      
+        
+          u
+        
+        (
+        t
+        )
+      
+    
+    {\displaystyle \mathbf {u} (t)}
+   must cause the value of the lagrangian to decline. specifically, the total derivative of 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+   obeys
+
+  
+    
+      
+        
+          d
+        
+        l
+        =
+        
+          ∫
+          
+            
+              t
+              
+                0
+              
+            
+          
+          
+            
+              t
+              
+                1
+              
+            
+          
+        
+        
+          [
+          
+            
+              (
+              
+                
+                  i
+                  
+                    
+                      u
+                    
+                  
+                
+                (
+                
+                  x
+                
+                (
+                t
+                )
+                ,
+                
+                  u
+                
+                (
+                t
+                )
+                ,
+                t
+                )
+                +
+                
+                  
+                    λ
+                  
+                  
+                    
+                      t
+                    
+                  
+                
+                (
+                t
+                )
+                
+                  
+                    f
+                  
+                  
+                    
+                      u
+                    
+                  
+                
+                (
+                
+                  x
+                
+                (
+                t
+                )
+                ,
+                
+                  u
+                
+                (
+                t
+                )
+                ,
+                t
+                )
+              
+              )
+            
+            
+              d
+            
+            
+              u
+            
+            (
+            t
+            )
+            +
+            
+              (
+              
+                
+                  i
+                  
+                    
+                      x
+                    
+                  
+                
+                (
+                
+                  x
+                
+                (
+                t
+                )
+                ,
+                
+                  u
+                
+                (
+                t
+                )
+                ,
+                t
+                )
+                +
+                
+                  
+                    λ
+                  
+                  
+                    
+                      t
+                    
+                  
+                
+                (
+                t
+                )
+                
+                  
+                    f
+                  
+                  
+                    
+                      x
+                    
+                  
+                
+                (
+                
+                  x
+                
+                (
+                t
+                )
+                ,
+                
+                  u
+                
+                (
+                t
+                )
+                ,
+                t
+                )
+                +
+                
+                  
+                    
+                      
+                        λ
+                      
+                      ˙
+                    
+                  
+                
+                (
+                t
+                )
+              
+              )
+            
+            
+              d
+            
+            
+              x
+            
+            (
+            t
+            )
+          
+          ]
+        
+        
+          d
+        
+        t
+        −
+        
+          
+            λ
+          
+          
+            
+              t
+            
+          
+        
+        (
+        
+          t
+          
+            1
+          
+        
+        )
+        
+          d
+        
+        
+          x
+        
+        (
+        
+          t
+          
+            1
+          
+        
+        )
+        +
+        
+          
+            λ
+          
+          
+            
+              t
+            
+          
+        
+        (
+        
+          t
+          
+            0
+          
+        
+        )
+        
+          d
+        
+        
+          x
+        
+        (
+        
+          t
+          
+            0
+          
+        
+        )
+        ≤
+        0
+      
+    
+    {\displaystyle \mathrm {d} l=\int _{t_{0}}^{t_{1}}\left[\left(i_{\mathbf {u} }(\mathbf {x} (t),\mathbf {u} (t),t)+\mathbf {\lambda } ^{\mathsf {t}}(t)\mathbf {f} _{\mathbf {u} }(\mathbf {x} (t),\mathbf {u} (t),t)\right)\mathrm {d} \mathbf {u} (t)+\left(i_{\mathbf {x} }(\mathbf {x} (t),\mathbf {u} (t),t)+\mathbf {\lambda } ^{\mathsf {t}}(t)\mathbf {f} _{\mathbf {x} }(\mathbf {x} (t),\mathbf {u} (t),t)+{\dot {\mathbf {\lambda } }}(t)\right)\mathrm {d} \mathbf {x} (t)\right]\mathrm {d} t-\mathbf {\lambda } ^{\mathsf {t}}(t_{1})\mathrm {d} \mathbf {x} (t_{1})+\mathbf {\lambda } ^{\mathsf {t}}(t_{0})\mathrm {d} \mathbf {x} (t_{0})\leq 0}
+  for this expression to equal zero necessitates the following optimization conditions:
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  i
+                  
+                    
+                      u
+                    
+                  
+                
+                (
+                
+                  x
+                
+                (
+                t
+                )
+                ,
+                
+                  u
+                
+                (
+                t
+                )
+                ,
+                t
+                )
+                +
+                
+                  
+                    λ
+                  
+                  
+                    
+                      t
+                    
+                  
+                
+                (
+                t
+                )
+                
+                  
+                    f
+                  
+                  
+                    
+                      u
+                    
+                  
+                
+                (
+                
+                  x
+                
+                (
+                t
+                )
+                ,
+                
+                  u
+                
+                (
+                t
+                )
+                ,
+                t
+                )
+              
+              
+                
+                =
+                0
+              
+            
+            
+              
+                
+                  i
+                  
+                    
+                      x
+                    
+                  
+                
+                (
+                
+                  x
+                
+                (
+                t
+                )
+                ,
+                
+                  u
+                
+                (
+                t
+                )
+                ,
+                t
+                )
+                +
+                
+                  
+                    λ
+                  
+                  
+                    
+                      t
+                    
+                  
+                
+                (
+                t
+                )
+                
+                  
+                    f
+                  
+                  
+                    
+                      x
+                    
+                  
+                
+                (
+                
+                  x
+                
+                (
+                t
+                )
+                ,
+                
+                  u
+                
+                (
+                t
+                )
+                ,
+                t
+                )
+                +
+                
+                  
+                    
+                      
+                        λ
+                      
+                      ˙
+                    
+                  
+                
+                (
+                t
+                )
+              
+              
+                
+                =
+                0
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}i_{\mathbf {u} }(\mathbf {x} (t),\mathbf {u} (t),t)+\mathbf {\lambda } ^{\mathsf {t}}(t)\mathbf {f} _{\mathbf {u} }(\mathbf {x} (t),\mathbf {u} (t),t)&=0\\i_{\mathbf {x} }(\mathbf {x} (t),\mathbf {u} (t),t)+\mathbf {\lambda } ^{\mathsf {t}}(t)\mathbf {f} _{\mathbf {x} }(\mathbf {x} (t),\mathbf {u} (t),t)+{\dot {\mathbf {\lambda } }}(t)&=0\end{aligned}}}
+  if both the initial value 
+  
+    
+      
+        
+          x
+        
+        (
+        
+          t
+          
+            0
+          
+        
+        )
+      
+    
+    {\displaystyle \mathbf {x} (t_{0})}
+   and terminal value 
+  
+    
+      
+        
+          x
+        
+        (
+        
+          t
+          
+            1
+          
+        
+        )
+      
+    
+    {\displaystyle \mathbf {x} (t_{1})}
+   are fixed, i.e. 
+  
+    
+      
+        
+          d
+        
+        
+          x
+        
+        (
+        
+          t
+          
+            0
+          
+        
+        )
+        =
+        
+          d
+        
+        
+          x
+        
+        (
+        
+          t
+          
+            1
+          
+        
+        )
+        =
+        0
+      
+    
+    {\displaystyle \mathrm {d} \mathbf {x} (t_{0})=\mathrm {d} \mathbf {x} (t_{1})=0}
+  , no conditions on 
+  
+    
+      
+        
+          λ
+        
+        (
+        
+          t
+          
+            0
+          
+        
+        )
+      
+    
+    {\displaystyle \mathbf {\lambda } (t_{0})}
+   and 
+  
+    
+      
+        
+          λ
+        
+        (
+        
+          t
+          
+            1
+          
+        
+        )
+      
+    
+    {\displaystyle \mathbf {\lambda } (t_{1})}
+   are needed. if the terminal value is free, as is often the case, the additional condition 
+  
+    
+      
+        
+          λ
+        
+        (
+        
+          t
+          
+            1
+          
+        
+        )
+        =
+        0
+      
+    
+    {\displaystyle \mathbf {\lambda } (t_{1})=0}
+   is necessary for optimality. the latter is called a transversality condition for a fixed horizon problem.it can be seen that the necessary conditions are identical to the ones stated above for the hamiltonian. thus the hamiltonian can be understood as a device to generate the first-order necessary conditions.
+
+
+== the hamiltonian in discrete time ==
+when the problem is formulated in discrete time, the hamiltonian is defined as:
+
+  
+    
+      
+        h
+        (
+        
+          x
+          
+            t
+          
+        
+        ,
+        
+          u
+          
+            t
+          
+        
+        ,
+        
+          λ
+          
+            t
+          
+        
+        ,
+        t
+        )
+        =
+        
+          λ
+          
+            t
+            +
+            1
+          
+          
+            t
+          
+        
+        f
+        (
+        
+          x
+          
+            t
+          
+        
+        ,
+        
+          u
+          
+            t
+          
+        
+        ,
+        t
+        )
+        +
+        i
+        (
+        
+          x
+          
+            t
+          
+        
+        ,
+        
+          u
+          
+            t
+          
+        
+        ,
+        t
+        )
+        
+      
+    
+    {\displaystyle h(x_{t},u_{t},\lambda _{t},t)=\lambda _{t+1}^{t}f(x_{t},u_{t},t)+i(x_{t},u_{t},t)\,}
+  and the costate equations are
+
+  
+    
+      
+        
+          λ
+          
+            t
+            +
+            1
+          
+          
+            ⊤
+          
+        
+        =
+        −
+        
+          
+            
+              ∂
+              h
+            
+            
+              ∂
+              
+                x
+                
+                  t
+                
+              
+            
+          
+        
+        +
+        
+          λ
+          
+            t
+          
+          
+            ⊤
+          
+        
+      
+    
+    {\displaystyle \lambda _{t+1}^{\top }=-{\frac {\partial h}{\partial x_{t}}}+\lambda _{t}^{\top }}
+  (note that the discrete time hamiltonian at time 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   involves the costate variable at time 
+  
+    
+      
+        t
+        +
+        1.
+      
+    
+    {\displaystyle t+1.}
+    this small detail is essential so that when we differentiate with respect to 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   we get a term involving 
+  
+    
+      
+        λ
+        (
+        t
+        +
+        1
+        )
+      
+    
+    {\displaystyle \lambda (t+1)}
+   on the right hand side of the costate equations. using a wrong convention here can lead to incorrect results, i.e. a costate equation which is not a backwards difference equation).
+
+
+== behavior of the hamiltonian over time ==
+from pontryagin's maximum principle, special conditions for the hamiltonian can be derived. when the final time 
+  
+    
+      
+        
+          t
+          
+            1
+          
+        
+      
+    
+    {\displaystyle t_{1}}
+   is fixed and the hamiltonian does not depend explicitly on time 
+  
+    
+      
+        
+          (
+          
+            
+              
+                
+                  
+                    ∂
+                    h
+                  
+                  
+                    ∂
+                    t
+                  
+                
+              
+            
+            =
+            0
+          
+          )
+        
+      
+    
+    {\displaystyle \left({\tfrac {\partial h}{\partial t}}=0\right)}
+  , then:
+
+  
+    
+      
+        h
+        (
+        
+          x
+          
+            ∗
+          
+        
+        (
+        t
+        )
+        ,
+        
+          u
+          
+            ∗
+          
+        
+        (
+        t
+        )
+        ,
+        
+          λ
+          
+            ∗
+          
+        
+        (
+        t
+        )
+        )
+        =
+        
+          c
+          o
+          n
+          s
+          t
+          a
+          n
+          t
+        
+        
+      
+    
+    {\displaystyle h(x^{*}(t),u^{*}(t),\lambda ^{*}(t))=\mathrm {constant} \,}
+  or if the terminal time is free, then:
+
+  
+    
+      
+        h
+        (
+        
+          x
+          
+            ∗
+          
+        
+        (
+        t
+        )
+        ,
+        
+          u
+          
+            ∗
+          
+        
+        (
+        t
+        )
+        ,
+        
+          λ
+          
+            ∗
+          
+        
+        (
+        t
+        )
+        )
+        =
+        0.
+        
+      
+    
+    {\displaystyle h(x^{*}(t),u^{*}(t),\lambda ^{*}(t))=0.\,}
+  further, if the terminal time tends to infinity, a transversality condition on the hamiltonian applies.
+
+  
+    
+      
+        
+          lim
+          
+            t
+            →
+            ∞
+          
+        
+        h
+        (
+        t
+        )
+        =
+        0
+      
+    
+    {\displaystyle \lim _{t\to \infty }h(t)=0}
+  
+
+
+== the hamiltonian of control compared to the hamiltonian of mechanics ==
+william rowan hamilton defined the hamiltonian for describing the mechanics of a system. it is a function of three variables:
+
+  
+    
+      
+        
+          
+            h
+          
+        
+        =
+        
+          
+            h
+          
+        
+        (
+        p
+        ,
+        q
+        ,
+        t
+        )
+        =
+        ⟨
+        p
+        ,
+        
+          
+            
+              q
+              ˙
+            
+          
+        
+        ⟩
+        −
+        l
+        (
+        q
+        ,
+        
+          
+            
+              q
+              ˙
+            
+          
+        
+        ,
+        t
+        )
+      
+    
+    {\displaystyle {\mathcal {h}}={\mathcal {h}}(p,q,t)=\langle p,{\dot {q}}\rangle -l(q,{\dot {q}},t)}
+  where 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+   is the lagrangian, the extremizing of which determines the dynamics (not the lagrangian defined above), 
+  
+    
+      
+        q
+      
+    
+    {\displaystyle q}
+   is the state variable and 
+  
+    
+      
+        
+          
+            
+              q
+              ˙
+            
+          
+        
+      
+    
+    {\displaystyle {\dot {q}}}
+   is its time derivative.
+
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   is the so-called "conjugate momentum", defined by
+
+  
+    
+      
+        p
+        =
+        
+          
+            
+              ∂
+              l
+            
+            
+              ∂
+              
+                
+                  
+                    q
+                    ˙
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle p={\frac {\partial l}{\partial {\dot {q}}}}}
+  hamilton then formulated his equations to describe the dynamics of the system as
+
+  
+    
+      
+        
+          
+            d
+            
+              d
+              t
+            
+          
+        
+        p
+        (
+        t
+        )
+        =
+        −
+        
+          
+            ∂
+            
+              ∂
+              q
+            
+          
+        
+        
+          
+            h
+          
+        
+      
+    
+    {\displaystyle {\frac {d}{dt}}p(t)=-{\frac {\partial }{\partial q}}{\mathcal {h}}}
+  
+
+  
+    
+      
+        
+          
+            d
+            
+              d
+              t
+            
+          
+        
+        q
+        (
+        t
+        )
+        =
+         
+         
+        
+          
+            ∂
+            
+              ∂
+              p
+            
+          
+        
+        
+          
+            h
+          
+        
+      
+    
+    {\displaystyle {\frac {d}{dt}}q(t)=~~{\frac {\partial }{\partial p}}{\mathcal {h}}}
+  the hamiltonian of control theory describes not the dynamics of a system but conditions for extremizing some scalar function thereof (the lagrangian) with respect to a control variable 
+  
+    
+      
+        u
+      
+    
+    {\displaystyle u}
+  . as normally defined, it is a function of 4 variables
+
+  
+    
+      
+        h
+        (
+        q
+        ,
+        u
+        ,
+        p
+        ,
+        t
+        )
+        =
+        ⟨
+        p
+        ,
+        
+          
+            
+              q
+              ˙
+            
+          
+        
+        ⟩
+        −
+        l
+        (
+        q
+        ,
+        u
+        ,
+        t
+        )
+      
+    
+    {\displaystyle h(q,u,p,t)=\langle p,{\dot {q}}\rangle -l(q,u,t)}
+  where 
+  
+    
+      
+        q
+      
+    
+    {\displaystyle q}
+   is the state variable and 
+  
+    
+      
+        u
+      
+    
+    {\displaystyle u}
+   is the control variable with respect to that which we are extremizing.
+the associated conditions for a maximum are
+
+  
+    
+      
+        
+          
+            
+              d
+              p
+            
+            
+              d
+              t
+            
+          
+        
+        =
+        −
+        
+          
+            
+              ∂
+              h
+            
+            
+              ∂
+              q
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {dp}{dt}}=-{\frac {\partial h}{\partial q}}}
+  
+  
+    
+      
+        
+          
+            
+              d
+              q
+            
+            
+              d
+              t
+            
+          
+        
+        =
+         
+         
+        
+          
+            
+              ∂
+              h
+            
+            
+              ∂
+              p
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {dq}{dt}}=~~{\frac {\partial h}{\partial p}}}
+  
+  
+    
+      
+        
+          
+            
+              ∂
+              h
+            
+            
+              ∂
+              u
+            
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle {\frac {\partial h}{\partial u}}=0}
+  this definition agrees with that given by the article by sussmann and willems. (see p. 39, equation 14). sussmann and willems show how the control hamiltonian can be used in dynamics e.g. for the brachistochrone problem, but do not mention the prior work of carathéodory on this approach.
+
+
+== current value and present value hamiltonian ==
+in economics, the objective function in dynamic optimization problems often depends directly on time only through exponential discounting, such that it takes the form
+
+  
+    
+      
+        i
+        (
+        
+          x
+        
+        (
+        t
+        )
+        ,
+        
+          u
+        
+        (
+        t
+        )
+        ,
+        t
+        )
+        =
+        
+          e
+          
+            −
+            ρ
+            t
+          
+        
+        ν
+        (
+        
+          x
+        
+        (
+        t
+        )
+        ,
+        
+          u
+        
+        (
+        t
+        )
+        )
+      
+    
+    {\displaystyle i(\mathbf {x} (t),\mathbf {u} (t),t)=e^{-\rho t}\nu (\mathbf {x} (t),\mathbf {u} (t))}
+  where 
+  
+    
+      
+        ν
+        (
+        
+          x
+        
+        (
+        t
+        )
+        ,
+        
+          u
+        
+        (
+        t
+        )
+        )
+      
+    
+    {\displaystyle \nu (\mathbf {x} (t),\mathbf {u} (t))}
+   is referred to as the instantaneous utility function, or felicity function. this allows a redefinition of the hamiltonian as 
+  
+    
+      
+        h
+        (
+        
+          x
+        
+        (
+        t
+        )
+        ,
+        
+          u
+        
+        (
+        t
+        )
+        ,
+        
+          λ
+        
+        (
+        t
+        )
+        ,
+        t
+        )
+        =
+        
+          e
+          
+            −
+            ρ
+            t
+          
+        
+        
+          
+            
+              h
+              ¯
+            
+          
+        
+        (
+        
+          x
+        
+        (
+        t
+        )
+        ,
+        
+          u
+        
+        (
+        t
+        )
+        ,
+        
+          λ
+        
+        (
+        t
+        )
+        )
+      
+    
+    {\displaystyle h(\mathbf {x} (t),\mathbf {u} (t),\mathbf {\lambda } (t),t)=e^{-\rho t}{\bar {h}}(\mathbf {x} (t),\mathbf {u} (t),\mathbf {\lambda } (t))}
+   where
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  
+                    
+                      h
+                      ¯
+                    
+                  
+                
+                (
+                
+                  x
+                
+                (
+                t
+                )
+                ,
+                
+                  u
+                
+                (
+                t
+                )
+                ,
+                
+                  λ
+                
+                (
+                t
+                )
+                )
+                ≡
+              
+              
+                
+                
+                  e
+                  
+                    ρ
+                    t
+                  
+                
+                
+                  [
+                  
+                    i
+                    (
+                    
+                      x
+                    
+                    (
+                    t
+                    )
+                    ,
+                    
+                      u
+                    
+                    (
+                    t
+                    )
+                    ,
+                    t
+                    )
+                    +
+                    
+                      
+                        λ
+                      
+                      
+                        
+                          t
+                        
+                      
+                    
+                    (
+                    t
+                    )
+                    
+                      f
+                    
+                    (
+                    
+                      x
+                    
+                    (
+                    t
+                    )
+                    ,
+                    
+                      u
+                    
+                    (
+                    t
+                    )
+                    ,
+                    t
+                    )
+                  
+                  ]
+                
+              
+            
+            
+              
+                =
+              
+              
+                
+                ν
+                (
+                
+                  x
+                
+                (
+                t
+                )
+                ,
+                
+                  u
+                
+                (
+                t
+                )
+                ,
+                t
+                )
+                +
+                
+                  
+                    μ
+                  
+                  
+                    
+                      t
+                    
+                  
+                
+                (
+                t
+                )
+                
+                  f
+                
+                (
+                
+                  x
+                
+                (
+                t
+                )
+                ,
+                
+                  u
+                
+                (
+                t
+                )
+                ,
+                t
+                )
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}{\bar {h}}(\mathbf {x} (t),\mathbf {u} (t),\mathbf {\lambda } (t))\equiv &\,e^{\rho t}\left[i(\mathbf {x} (t),\mathbf {u} (t),t)+\mathbf {\lambda } ^{\mathsf {t}}(t)\mathbf {f} (\mathbf {x} (t),\mathbf {u} (t),t)\right]\\=&\,\nu (\mathbf {x} (t),\mathbf {u} (t),t)+\mathbf {\mu } ^{\mathsf {t}}(t)\mathbf {f} (\mathbf {x} (t),\mathbf {u} (t),t)\end{aligned}}}
+  which is referred to as the current value hamiltonian, in contrast to the present value hamiltonian 
+  
+    
+      
+        h
+        (
+        
+          x
+        
+        (
+        t
+        )
+        ,
+        
+          u
+        
+        (
+        t
+        )
+        ,
+        
+          λ
+        
+        (
+        t
+        )
+        ,
+        t
+        )
+      
+    
+    {\displaystyle h(\mathbf {x} (t),\mathbf {u} (t),\mathbf {\lambda } (t),t)}
+   defined in the first section. most notably the costate variables are redefined as 
+  
+    
+      
+        
+          μ
+        
+        (
+        t
+        )
+        =
+        
+          e
+          
+            ρ
+            t
+          
+        
+        
+          λ
+        
+        (
+        t
+        )
+      
+    
+    {\displaystyle \mathbf {\mu } (t)=e^{\rho t}\mathbf {\lambda } (t)}
+  , which leads to modified first-order conditions. 
+
+  
+    
+      
+        
+          
+            
+              ∂
+              
+                
+                  
+                    h
+                    ¯
+                  
+                
+              
+              (
+              
+                x
+              
+              (
+              t
+              )
+              ,
+              
+                u
+              
+              (
+              t
+              )
+              ,
+              
+                λ
+              
+              (
+              t
+              )
+              )
+            
+            
+              ∂
+              
+                u
+              
+            
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle {\frac {\partial {\bar {h}}(\mathbf {x} (t),\mathbf {u} (t),\mathbf {\lambda } (t))}{\partial \mathbf {u} }}=0}
+  ,
+
+  
+    
+      
+        
+          
+            
+              ∂
+              
+                
+                  
+                    h
+                    ¯
+                  
+                
+              
+              (
+              
+                x
+              
+              (
+              t
+              )
+              ,
+              
+                u
+              
+              (
+              t
+              )
+              ,
+              
+                λ
+              
+              (
+              t
+              )
+              )
+            
+            
+              ∂
+              
+                x
+              
+            
+          
+        
+        =
+        −
+        
+          
+            
+              
+                μ
+              
+              ˙
+            
+          
+        
+        (
+        t
+        )
+        +
+        ρ
+        
+          μ
+        
+        (
+        t
+        )
+      
+    
+    {\displaystyle {\frac {\partial {\bar {h}}(\mathbf {x} (t),\mathbf {u} (t),\mathbf {\lambda } (t))}{\partial \mathbf {x} }}=-{\dot {\mathbf {\mu } }}(t)+\rho \mathbf {\mu } (t)}
+  which follows immediately from the product rule. economically, 
+  
+    
+      
+        
+          μ
+        
+        (
+        t
+        )
+      
+    
+    {\displaystyle \mathbf {\mu } (t)}
+   represent current-valued shadow prices for the capital goods 
+  
+    
+      
+        
+          x
+        
+        (
+        t
+        )
+      
+    
+    {\displaystyle \mathbf {x} (t)}
+  .
+
+
+== example: ramsey–cass–koopmans model ==
+in economics, the ramsey–cass–koopmans model is used to determine an optimal savings behavior for an economy. the objective function 
+  
+    
+      
+        j
+        (
+        c
+        )
+      
+    
+    {\displaystyle j(c)}
+   is the social welfare function,
+
+  
+    
+      
+        j
+        (
+        c
+        )
+        =
+        
+          ∫
+          
+            0
+          
+          
+            t
+          
+        
+        
+          e
+          
+            −
+            ρ
+            t
+          
+        
+        u
+        (
+        c
+        (
+        t
+        )
+        )
+        d
+        t
+      
+    
+    {\displaystyle j(c)=\int _{0}^{t}e^{-\rho t}u(c(t))dt}
+  to be maximized by choice of an optimal consumption path 
+  
+    
+      
+        c
+        (
+        t
+        )
+      
+    
+    {\displaystyle c(t)}
+  . the function 
+  
+    
+      
+        u
+        (
+        c
+        (
+        t
+        )
+        )
+      
+    
+    {\displaystyle u(c(t))}
+   indicates the utility the representative agent of consuming 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+   at any given point in time. the factor 
+  
+    
+      
+        
+          e
+          
+            −
+            ρ
+            t
+          
+        
+      
+    
+    {\displaystyle e^{-\rho t}}
+   represents discounting. the maximization problem is subject to the following differential equation for capital intensity, describing the time evolution of capital per effective worker:
+
+  
+    
+      
+        
+          
+            
+              k
+              ˙
+            
+          
+        
+        =
+        
+          
+            
+              ∂
+              k
+            
+            
+              ∂
+              t
+            
+          
+        
+        =
+        f
+        (
+        k
+        (
+        t
+        )
+        )
+        −
+        (
+        n
+        +
+        δ
+        )
+        k
+        (
+        t
+        )
+        −
+        c
+        (
+        t
+        )
+      
+    
+    {\displaystyle {\dot {k}}={\frac {\partial k}{\partial t}}=f(k(t))-(n+\delta )k(t)-c(t)}
+  where 
+  
+    
+      
+        c
+        (
+        t
+        )
+      
+    
+    {\displaystyle c(t)}
+   is period t consumption, 
+  
+    
+      
+        k
+        (
+        t
+        )
+      
+    
+    {\displaystyle k(t)}
+   is period t capital per worker (with 
+  
+    
+      
+        k
+        (
+        0
+        )
+        =
+        
+          k
+          
+            0
+          
+        
+        >
+        0
+      
+    
+    {\displaystyle k(0)=k_{0}>0}
+  ), 
+  
+    
+      
+        f
+        (
+        k
+        (
+        t
+        )
+        )
+      
+    
+    {\displaystyle f(k(t))}
+   is period t production, 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   is the population growth rate, 
+  
+    
+      
+        δ
+      
+    
+    {\displaystyle \delta }
+   is the capital depreciation rate, the agent discounts future utility at rate 
+  
+    
+      
+        ρ
+      
+    
+    {\displaystyle \rho }
+  , with 
+  
+    
+      
+        
+          u
+          ′
+        
+        >
+        0
+      
+    
+    {\displaystyle u'>0}
+   and 
+  
+    
+      
+        
+          u
+          ″
+        
+        <
+        0
+      
+    
+    {\displaystyle u''<0}
+  .
+here, 
+  
+    
+      
+        k
+        (
+        t
+        )
+      
+    
+    {\displaystyle k(t)}
+   is the state variable which evolves according to the above equation, and 
+  
+    
+      
+        c
+        (
+        t
+        )
+      
+    
+    {\displaystyle c(t)}
+   is the control variable. the hamiltonian becomes
+
+  
+    
+      
+        h
+        (
+        k
+        ,
+        c
+        ,
+        μ
+        ,
+        t
+        )
+        =
+        
+          e
+          
+            −
+            ρ
+            t
+          
+        
+        u
+        (
+        c
+        (
+        t
+        )
+        )
+        +
+        μ
+        (
+        t
+        )
+        
+          
+            
+              k
+              ˙
+            
+          
+        
+        =
+        
+          e
+          
+            −
+            ρ
+            t
+          
+        
+        u
+        (
+        c
+        (
+        t
+        )
+        )
+        +
+        μ
+        (
+        t
+        )
+        [
+        f
+        (
+        k
+        (
+        t
+        )
+        )
+        −
+        (
+        n
+        +
+        δ
+        )
+        k
+        (
+        t
+        )
+        −
+        c
+        (
+        t
+        )
+        ]
+      
+    
+    {\displaystyle h(k,c,\mu ,t)=e^{-\rho t}u(c(t))+\mu (t){\dot {k}}=e^{-\rho t}u(c(t))+\mu (t)[f(k(t))-(n+\delta )k(t)-c(t)]}
+  the optimality conditions are
+
+  
+    
+      
+        
+          
+            
+              ∂
+              h
+            
+            
+              ∂
+              c
+            
+          
+        
+        =
+        0
+        ⇒
+        
+          e
+          
+            −
+            ρ
+            t
+          
+        
+        
+          u
+          ′
+        
+        (
+        c
+        )
+        =
+        μ
+        (
+        t
+        )
+      
+    
+    {\displaystyle {\frac {\partial h}{\partial c}}=0\rightarrow e^{-\rho t}u'(c)=\mu (t)}
+  
+
+  
+    
+      
+        
+          
+            
+              ∂
+              h
+            
+            
+              ∂
+              k
+            
+          
+        
+        =
+        −
+        
+          
+            
+              ∂
+              μ
+            
+            
+              ∂
+              t
+            
+          
+        
+        =
+        −
+        
+          
+            
+              μ
+              ˙
+            
+          
+        
+        ⇒
+        μ
+        (
+        t
+        )
+        [
+        
+          f
+          ′
+        
+        (
+        k
+        )
+        −
+        (
+        n
+        +
+        δ
+        )
+        ]
+        =
+        −
+        
+          
+            
+              μ
+              ˙
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {\partial h}{\partial k}}=-{\frac {\partial \mu }{\partial t}}=-{\dot {\mu }}\rightarrow \mu (t)[f'(k)-(n+\delta )]=-{\dot {\mu }}}
+  in addition to the transversality condition 
+  
+    
+      
+        μ
+        (
+        t
+        )
+        k
+        (
+        t
+        )
+        =
+        0
+      
+    
+    {\displaystyle \mu (t)k(t)=0}
+  . if we let 
+  
+    
+      
+        u
+        (
+        c
+        )
+        =
+        log
+        ⁡
+        (
+        c
+        )
+      
+    
+    {\displaystyle u(c)=\log(c)}
+  , then log-differentiating the first optimality condition with respect to 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   yields
+
+  
+    
+      
+        −
+        ρ
+        −
+        
+          
+            
+              
+                c
+                ˙
+              
+            
+            
+              c
+              (
+              t
+              )
+            
+          
+        
+        =
+        
+          
+            
+              
+                μ
+                ˙
+              
+            
+            
+              μ
+              (
+              t
+              )
+            
+          
+        
+      
+    
+    {\displaystyle -\rho -{\frac {\dot {c}}{c(t)}}={\frac {\dot {\mu }}{\mu (t)}}}
+  inserting this equation into the second optimality condition yields
+
+  
+    
+      
+        ρ
+        +
+        
+          
+            
+              
+                c
+                ˙
+              
+            
+            
+              c
+              (
+              t
+              )
+            
+          
+        
+        =
+        
+          f
+          ′
+        
+        (
+        k
+        )
+        −
+        (
+        n
+        +
+        δ
+        )
+      
+    
+    {\displaystyle \rho +{\frac {\dot {c}}{c(t)}}=f'(k)-(n+\delta )}
+  which is known as the keynes–ramsey rule, which gives a condition for consumption in every period which, if followed, ensures maximum lifetime utility.
+
+
+== references ==
+
+
+== further reading ==
+léonard, daniel; long, ngo van (1992). "the maximum principle". optimal control theory and static optimization in economics. new york: cambridge university press. pp. 127–168. isbn 0-521-33158-7.
+takayama, akira (1985). "developments of optimal control theory and its applications". mathematical economics (2nd ed.). new york: cambridge university press. pp. 600–719. isbn 0-521-31498-4.
+wulwick, nancy (1995). "the hamiltonian formalism and optimal growth theory".  in rima, i. h. (ed.). measurement, quantification, and economic analysis. london: routledge. isbn 978-0-415-08915-9.

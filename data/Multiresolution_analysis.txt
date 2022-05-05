@@ -1,0 +1,763 @@
+a multiresolution analysis (mra) or multiscale approximation (msa) is the design method of most of the practically relevant discrete wavelet transforms (dwt) and the justification for the algorithm of the fast wavelet transform (fwt). it was introduced in this context in 1988/89 by stephane mallat and yves meyer and has predecessors in the microlocal analysis in the theory of differential equations (the ironing method) and the pyramid methods of image processing as introduced in 1981/83 by peter j. burt, edward h. adelson and james l. crowley.
+
+
+== definition ==
+a multiresolution analysis of the lebesgue space 
+  
+    
+      
+        
+          l
+          
+            2
+          
+        
+        (
+        
+          r
+        
+        )
+      
+    
+    {\displaystyle l^{2}(\mathbb {r} )}
+   consists of a sequence of nested subspaces
+
+  
+    
+      
+        {
+        0
+        }
+        ⋯
+        ⊂
+        
+          v
+          
+            1
+          
+        
+        ⊂
+        
+          v
+          
+            0
+          
+        
+        ⊂
+        
+          v
+          
+            −
+            1
+          
+        
+        ⊂
+        ⋯
+        ⊂
+        
+          v
+          
+            −
+            n
+          
+        
+        ⊂
+        
+          v
+          
+            −
+            (
+            n
+            +
+            1
+            )
+          
+        
+        ⊂
+        ⋯
+        ⊂
+        
+          l
+          
+            2
+          
+        
+        (
+        
+          r
+        
+        )
+      
+    
+    {\displaystyle \{0\}\dots \subset v_{1}\subset v_{0}\subset v_{-1}\subset \dots \subset v_{-n}\subset v_{-(n+1)}\subset \dots \subset l^{2}(\mathbb {r} )}
+  that satisfies certain self-similarity relations in time-space and scale-frequency, as well as completeness and regularity relations.
+
+self-similarity in time demands that each subspace vk is invariant under shifts by integer multiples of 2k. that is, for each 
+  
+    
+      
+        f
+        ∈
+        
+          v
+          
+            k
+          
+        
+        ,
+        
+        m
+        ∈
+        
+          z
+        
+      
+    
+    {\displaystyle f\in v_{k},\;m\in \mathbb {z} }
+   the function g defined as 
+  
+    
+      
+        g
+        (
+        x
+        )
+        =
+        f
+        (
+        x
+        −
+        m
+        
+          2
+          
+            k
+          
+        
+        )
+      
+    
+    {\displaystyle g(x)=f(x-m2^{k})}
+   also contained in 
+  
+    
+      
+        
+          v
+          
+            k
+          
+        
+      
+    
+    {\displaystyle v_{k}}
+  .
+self-similarity in scale demands that all subspaces 
+  
+    
+      
+        
+          v
+          
+            k
+          
+        
+        ⊂
+        
+          v
+          
+            l
+          
+        
+        ,
+        
+        k
+        >
+        l
+        ,
+      
+    
+    {\displaystyle v_{k}\subset v_{l},\;k>l,}
+   are time-scaled versions of each other, with scaling respectively dilation factor 2k-l. i.e., for each 
+  
+    
+      
+        f
+        ∈
+        
+          v
+          
+            k
+          
+        
+      
+    
+    {\displaystyle f\in v_{k}}
+   there is a 
+  
+    
+      
+        g
+        ∈
+        
+          v
+          
+            l
+          
+        
+      
+    
+    {\displaystyle g\in v_{l}}
+   with 
+  
+    
+      
+        ∀
+        x
+        ∈
+        
+          r
+        
+        :
+        
+        g
+        (
+        x
+        )
+        =
+        f
+        (
+        
+          2
+          
+            k
+            −
+            l
+          
+        
+        x
+        )
+      
+    
+    {\displaystyle \forall x\in \mathbb {r} :\;g(x)=f(2^{k-l}x)}
+  .
+in the sequence of subspaces, for k>l the space resolution 2l of the l-th subspace is higher than the resolution 2k of the k-th subspace.
+regularity demands that the model subspace v0 be generated as the linear hull (algebraically or even topologically closed) of the integer shifts of one or a finite number of generating functions 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   or 
+  
+    
+      
+        
+          ϕ
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          ϕ
+          
+            r
+          
+        
+      
+    
+    {\displaystyle \phi _{1},\dots ,\phi _{r}}
+  . those integer shifts should at least form a frame for the subspace 
+  
+    
+      
+        
+          v
+          
+            0
+          
+        
+        ⊂
+        
+          l
+          
+            2
+          
+        
+        (
+        
+          r
+        
+        )
+      
+    
+    {\displaystyle v_{0}\subset l^{2}(\mathbb {r} )}
+  , which imposes certain conditions on the decay at infinity. the generating functions are also known as scaling functions or father wavelets. in most cases one demands of those functions to be piecewise continuous with compact support.
+completeness demands that those nested subspaces fill the whole space, i.e., their union should be dense in 
+  
+    
+      
+        
+          l
+          
+            2
+          
+        
+        (
+        
+          r
+        
+        )
+      
+    
+    {\displaystyle l^{2}(\mathbb {r} )}
+  , and that they are not too redundant, i.e., their intersection should only contain the zero element.
+
+
+== important conclusions ==
+in the case of one continuous (or at least with bounded variation) compactly supported scaling function with orthogonal shifts, one may make a number of deductions. the proof of existence of this class of functions is due to ingrid daubechies.
+assuming the scaling function has compact support, then 
+  
+    
+      
+        
+          v
+          
+            0
+          
+        
+        ⊂
+        
+          v
+          
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle v_{0}\subset v_{-1}}
+   implies that there is a finite sequence of coefficients 
+  
+    
+      
+        
+          a
+          
+            k
+          
+        
+        =
+        2
+        ⟨
+        ϕ
+        (
+        x
+        )
+        ,
+        ϕ
+        (
+        2
+        x
+        −
+        k
+        )
+        ⟩
+      
+    
+    {\displaystyle a_{k}=2\langle \phi (x),\phi (2x-k)\rangle }
+   for 
+  
+    
+      
+        
+          |
+        
+        k
+        
+          |
+        
+        ≤
+        n
+      
+    
+    {\displaystyle |k|\leq n}
+  , and 
+  
+    
+      
+        
+          a
+          
+            k
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle a_{k}=0}
+   for 
+  
+    
+      
+        
+          |
+        
+        k
+        
+          |
+        
+        >
+        n
+      
+    
+    {\displaystyle |k|>n}
+  , such that
+
+  
+    
+      
+        ϕ
+        (
+        x
+        )
+        =
+        
+          ∑
+          
+            k
+            =
+            −
+            n
+          
+          
+            n
+          
+        
+        
+          a
+          
+            k
+          
+        
+        ϕ
+        (
+        2
+        x
+        −
+        k
+        )
+        .
+      
+    
+    {\displaystyle \phi (x)=\sum _{k=-n}^{n}a_{k}\phi (2x-k).}
+  defining another function, known as mother wavelet or just the wavelet
+
+  
+    
+      
+        ψ
+        (
+        x
+        )
+        :=
+        
+          ∑
+          
+            k
+            =
+            −
+            n
+          
+          
+            n
+          
+        
+        (
+        −
+        1
+        
+          )
+          
+            k
+          
+        
+        
+          a
+          
+            1
+            −
+            k
+          
+        
+        ϕ
+        (
+        2
+        x
+        −
+        k
+        )
+        ,
+      
+    
+    {\displaystyle \psi (x):=\sum _{k=-n}^{n}(-1)^{k}a_{1-k}\phi (2x-k),}
+  one can show that the space 
+  
+    
+      
+        
+          w
+          
+            0
+          
+        
+        ⊂
+        
+          v
+          
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle w_{0}\subset v_{-1}}
+  , which is defined as the (closed) linear hull of the mother wavelet's integer shifts, is the orthogonal complement to 
+  
+    
+      
+        
+          v
+          
+            0
+          
+        
+      
+    
+    {\displaystyle v_{0}}
+   inside 
+  
+    
+      
+        
+          v
+          
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle v_{-1}}
+  . or put differently, 
+  
+    
+      
+        
+          v
+          
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle v_{-1}}
+   is the orthogonal sum (denoted by 
+  
+    
+      
+        ⊕
+      
+    
+    {\displaystyle \oplus }
+  ) of 
+  
+    
+      
+        
+          w
+          
+            0
+          
+        
+      
+    
+    {\displaystyle w_{0}}
+   and 
+  
+    
+      
+        
+          v
+          
+            0
+          
+        
+      
+    
+    {\displaystyle v_{0}}
+  . by self-similarity, there are scaled versions 
+  
+    
+      
+        
+          w
+          
+            k
+          
+        
+      
+    
+    {\displaystyle w_{k}}
+   of 
+  
+    
+      
+        
+          w
+          
+            0
+          
+        
+      
+    
+    {\displaystyle w_{0}}
+   and by completeness one has
+
+  
+    
+      
+        
+          l
+          
+            2
+          
+        
+        (
+        
+          r
+        
+        )
+        =
+        
+          
+            closure of 
+          
+        
+        
+          ⨁
+          
+            k
+            ∈
+            
+              z
+            
+          
+        
+        
+          w
+          
+            k
+          
+        
+        ,
+      
+    
+    {\displaystyle l^{2}(\mathbb {r} )={\mbox{closure of }}\bigoplus _{k\in \mathbb {z} }w_{k},}
+  thus the set
+
+  
+    
+      
+        {
+        
+          ψ
+          
+            k
+            ,
+            n
+          
+        
+        (
+        x
+        )
+        =
+        
+          
+            
+              2
+            
+          
+          
+            −
+            k
+          
+        
+        ψ
+        (
+        
+          2
+          
+            −
+            k
+          
+        
+        x
+        −
+        n
+        )
+        :
+        
+        k
+        ,
+        n
+        ∈
+        
+          z
+        
+        }
+      
+    
+    {\displaystyle \{\psi _{k,n}(x)={\sqrt {2}}^{-k}\psi (2^{-k}x-n):\;k,n\in \mathbb {z} \}}
+  is a countable complete orthonormal wavelet basis in 
+  
+    
+      
+        
+          l
+          
+            2
+          
+        
+        (
+        
+          r
+        
+        )
+      
+    
+    {\displaystyle l^{2}(\mathbb {r} )}
+  .
+
+
+== see also ==
+multiscale modeling
+scale space
+time–frequency analysis
+wavelet
+
+
+== references ==
+
+chui, charles k. (1992). an introduction to wavelets. san diego: academic press. isbn 0-585-47090-1.
+akansu, a.n.; haddad, r.a. (1992). multiresolution signal decomposition: transforms, subbands, and wavelets. academic press. isbn 978-0-12-047141-6.
+crowley, j. l., (1982). a representations for visual information, doctoral thesis, carnegie-mellon university, 1982.
+burrus, c.s.; gopinath, r.a.; guo, h. (1997). introduction to wavelets and wavelet transforms: a primer. prentice-hall. isbn 0-13-489600-9.
+mallat, s.g. (1999). a wavelet tour of signal processing. academic press. isbn 0-12-466606-x.

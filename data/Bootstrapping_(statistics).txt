@@ -1,0 +1,3421 @@
+bootstrapping is any test or metric that uses random sampling with replacement (e.g. mimicking the sampling process), and falls under the broader class of resampling methods. bootstrapping assigns measures of accuracy (bias, variance, confidence intervals, prediction error, etc.) to sample estimates. this technique allows estimation of the sampling distribution of almost any statistic using random sampling methods.bootstrapping estimates the properties of an estimator (such as its variance) by measuring those properties when sampling from an approximating distribution. one standard choice for an approximating distribution is the empirical distribution function of the observed data. in the case where a set of observations can be assumed to be from an independent and identically distributed population, this can be implemented by constructing a number of  resamples with replacement, of the observed data set (and of equal size to the observed data set).
+it may also be used for constructing hypothesis tests. it is often used as an alternative to statistical inference based on the assumption of a parametric model when that assumption is in doubt, or where parametric inference is impossible or requires complicated formulas for the calculation of standard errors.
+
+
+== history ==
+the bootstrap was published by bradley efron in "bootstrap methods: another look at the jackknife" (1979), inspired by earlier work on the jackknife. improved estimates of the variance were developed later. a bayesian extension was developed in 1981. the bias-corrected and accelerated (bca) bootstrap was developed by efron in 1987, and the abc procedure in 1992.
+
+
+== approach ==
+the basic idea of bootstrapping is that inference about a population from sample data (sample → population) can be modeled by resampling the sample data and performing inference about a sample from resampled data (resampled → sample). as the population is unknown, the true error in a sample statistic against its population value is unknown. in bootstrap-resamples, the 'population' is in fact the sample, and this is known; hence the quality of inference of the 'true' sample from resampled data (resampled → sample) is measurable.
+more formally, the bootstrap works by treating inference of the true probability distribution j, given the original data, as being analogous to an inference of the empirical distribution ĵ, given the resampled data. the accuracy of inferences regarding ĵ using the resampled data can be assessed because we know ĵ. if ĵ is a reasonable approximation to j, then the quality of inference on j can in turn be inferred.
+as an example, assume we are interested in the average (or mean) height of people worldwide.  we cannot measure all the people in the global population, so instead, we sample only a tiny part of it, and measure that.  assume the sample is of size n; that is, we measure the heights of n individuals.  from that single sample, only one estimate of the mean can be obtained.  in order to reason about the population, we need some sense of the variability of the mean that we have computed. the simplest bootstrap method involves taking the original data set of heights, and, using a computer, sampling from it to form a new sample (called a 'resample' or bootstrap sample) that is also of size n.  the bootstrap sample is taken from the original by using sampling with replacement (e.g. we might 'resample' 5 times from [1,2,3,4,5] and get [2,5,4,4,1]), so, assuming n is sufficiently large, for all practical purposes there is virtually zero probability that it will be identical to the original "real" sample.  this process is repeated a large number of times (typically 1,000 or 10,000 times), and for each of these bootstrap samples, we compute its mean (each of these is called bootstrap estimates).  we now can create a histogram of bootstrap means.  this histogram provides an estimate of the shape of the distribution of the sample mean from which we can answer questions about how much the mean varies across samples.  (the method here, described for the mean, can be applied to almost any other statistic or estimator.)
+
+
+== discussion ==
+
+
+=== advantages ===
+a great advantage of bootstrap is its simplicity. it is a straightforward way to derive estimates of standard errors and confidence intervals for complex estimators of the distribution, such as percentile points, proportions, odds ratio, and correlation coefficients. however, despite its simplicity, bootstrapping can be applied to complex sampling designs (e.g. for population divided into s strata with ns observations per strata, bootstrapping can be applied for each strata). bootstrap is also an appropriate way to control and check the stability of the results.  although for most problems it is impossible to know the true confidence interval, bootstrap is asymptotically more accurate than the standard intervals obtained using sample variance and assumptions of normality. bootstrapping is also a convenient method that avoids the cost of repeating the experiment to get other groups of sample data.
+
+
+=== disadvantages ===
+bootstrapping depends heavily on the estimator used and, though simple, ignorant use of bootstrapping will not always yield asymptotically valid results and can lead to inconsistency. although bootstrapping is (under some conditions) asymptotically consistent, it does not provide general finite-sample guarantees. the result may depend on the representative sample. the apparent simplicity may conceal the fact that important assumptions are being made when undertaking the bootstrap analysis (e.g. independence of samples or large enough of a sample size) where these would be more formally stated in other approaches. also, bootstrapping can be time-consuming and there are not many available software for bootstrapping as it is difficult to automate using traditional statistical computer packages.
+
+
+=== recommendations ===
+scholars have recommended more bootstrap samples as available computing power has increased. if the results may have substantial real-world consequences, then one should use as many samples as is reasonable, given available computing power and time. increasing the number of samples cannot increase the amount of information in the original data; it can only reduce the effects of random sampling errors which can arise from a bootstrap procedure itself. moreover, there is evidence that numbers of samples greater than 100 lead to negligible improvements in the estimation of standard errors. in fact, according to the original developer of the bootstrapping method, even setting the number of samples at 50 is likely to lead to fairly good standard error estimates.adèr et al. recommend the bootstrap procedure for the following situations:
+when the theoretical distribution of a statistic of interest is complicated or unknown. since the bootstrapping procedure is distribution-independent it provides an indirect method to assess the properties of the distribution underlying the sample and the parameters of interest that are derived from this distribution.when the sample size is insufficient for straightforward statistical inference. if the underlying distribution is well-known, bootstrapping provides a way to account for the distortions caused by the specific sample that may not be fully representative of the population.when power calculations have to be performed, and a small pilot sample is available. most power and sample size calculations are heavily dependent on the standard deviation of the statistic of interest. if the estimate used is incorrect, the required sample size will also be wrong. one method to get an impression of the variation of the statistic is to use a small pilot sample and perform bootstrapping on it to get impression of the variance.however, athreya has shown that if one performs a naive bootstrap on the sample mean when the underlying population lacks a finite variance (for example, a power law distribution), then the bootstrap distribution will not converge to the same limit as the sample mean. as a result, confidence intervals on the basis of a monte carlo simulation of the bootstrap could be misleading. athreya states that "unless one is reasonably sure that the underlying distribution is not heavy tailed, one should hesitate to use the naive bootstrap".
+
+
+== types of bootstrap scheme ==
+in univariate problems, it is usually acceptable to resample the individual observations with replacement ("case resampling" below) unlike subsampling, in which resampling is without replacement and is valid under much weaker conditions compared to the bootstrap. in small samples, a parametric bootstrap approach might be preferred. for other problems, a smooth bootstrap will likely be preferred.
+for regression problems, various other alternatives are available.
+
+
+=== case resampling ===
+bootstrap is generally useful for estimating the distribution of a statistic (e.g. mean, variance) without using normal theory (e.g. z-statistic, t-statistic). bootstrap comes in handy when there is no analytical form or normal theory to help estimate the distribution of the statistics of interest since bootstrap methods can apply to most random quantities, e.g., the ratio of variance and mean. there are at least two ways of performing case resampling.
+
+the monte carlo algorithm for case resampling is quite simple. first, we resample the data with replacement, and the size of the resample must be equal to the size of the original data set. then the statistic of interest is computed from the resample from the first step. we repeat this routine many times to get a more precise estimate of the bootstrap distribution of the statistic.
+the 'exact' version for case resampling is similar, but we exhaustively enumerate every possible resample of the data set. this can be computationally expensive as there are a total of 
+  
+    
+      
+        
+          
+            
+              (
+            
+            
+              
+                2
+                n
+                −
+                1
+              
+              n
+            
+            
+              )
+            
+          
+        
+        =
+        
+          
+            
+              (
+              2
+              n
+              −
+              1
+              )
+              !
+            
+            
+              n
+              !
+              (
+              n
+              −
+              1
+              )
+              !
+            
+          
+        
+      
+    
+    {\displaystyle {\binom {2n-1}{n}}={\frac {(2n-1)!}{n!(n-1)!}}}
+   different resamples, where n is the size of the data set. thus for n = 5, 10, 20, 30 there are 126, 92378, 6.89 × 1010 and 5.91 × 1016  different resamples respectively.
+
+
+==== estimating the distribution of sample mean ====
+consider a coin-flipping experiment. we flip the coin and record whether it lands heads or tails. let x = x1, x2, …, x10 be 10 observations from the experiment. xi = 1 if the i th flip lands heads, and 0 otherwise. from normal theory, we can use the t-statistic to estimate the distribution of the sample mean,
+
+  
+    
+      
+        
+          
+            
+              x
+              ¯
+            
+          
+        
+        =
+        
+          
+            1
+            10
+          
+        
+        (
+        
+          x
+          
+            1
+          
+        
+        +
+        
+          x
+          
+            2
+          
+        
+        +
+        ⋯
+        +
+        
+          x
+          
+            10
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle {\bar {x}}={\frac {1}{10}}(x_{1}+x_{2}+\cdots +x_{10}).}
+  instead, we use the bootstrap, specifically case resampling, to derive the distribution of 
+  
+    
+      
+        
+          
+            
+              x
+              ¯
+            
+          
+        
+      
+    
+    {\displaystyle {\bar {x}}}
+  . we first resample the data to obtain a bootstrap resample. an example of the first resample might look like this x1* = x2, x1, x10, x10, x3, x4, x6, x7, x1, x9. there are some duplicates since a bootstrap resample comes from sampling with replacement from the data. also the number of data points in a bootstrap resample is equal to the number of data points in our original observations. then we compute the mean of this resample and obtain the first bootstrap mean: μ1*. we repeat this process to obtain the second resample x2* and compute the second bootstrap mean μ2*. if we repeat this 100 times, then we have μ1*, μ2*, ..., μ100*.  this represents an empirical bootstrap distribution of sample mean. from this empirical distribution, one can derive a bootstrap confidence interval for the purpose of hypothesis testing.
+
+
+==== regression ====
+in regression problems, case resampling refers to the simple scheme of resampling individual cases – often rows of a data set. for regression problems, as long as the data set is fairly large, this simple scheme is often acceptable. however, the method is open to criticism.in regression problems, the explanatory variables are often fixed, or at least observed with more control than the response variable. also, the range of the explanatory variables defines the information available from them. therefore, to resample cases means that each bootstrap sample will lose some information. as such, alternative bootstrap procedures should be considered.
+
+
+=== bayesian bootstrap ===
+bootstrapping can be interpreted in a bayesian framework using a scheme that creates new data sets through reweighting the initial data. given a set of 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   data points, the weighting assigned to data point 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   in a new data set 
+  
+    
+      
+        
+          
+            
+              d
+            
+          
+          
+            j
+          
+        
+      
+    
+    {\displaystyle {\mathcal {d}}^{j}}
+   is 
+  
+    
+      
+        
+          w
+          
+            i
+          
+          
+            j
+          
+        
+        =
+        
+          x
+          
+            i
+          
+          
+            j
+          
+        
+        −
+        
+          x
+          
+            i
+            −
+            1
+          
+          
+            j
+          
+        
+      
+    
+    {\displaystyle w_{i}^{j}=x_{i}^{j}-x_{i-1}^{j}}
+  , where 
+  
+    
+      
+        
+          
+            x
+          
+          
+            j
+          
+        
+      
+    
+    {\displaystyle \mathbf {x} ^{j}}
+   is a low-to-high ordered list of 
+  
+    
+      
+        n
+        −
+        1
+      
+    
+    {\displaystyle n-1}
+   uniformly distributed random numbers on 
+  
+    
+      
+        [
+        0
+        ,
+        1
+        ]
+      
+    
+    {\displaystyle [0,1]}
+  , preceded by 0 and succeeded by 1. the distributions of a parameter inferred from considering many such data sets 
+  
+    
+      
+        
+          
+            
+              d
+            
+          
+          
+            j
+          
+        
+      
+    
+    {\displaystyle {\mathcal {d}}^{j}}
+   are then interpretable as posterior distributions on that parameter.
+
+
+=== smooth bootstrap ===
+under this scheme, a small amount of (usually normally distributed) zero-centered random noise is added onto each resampled observation. this is equivalent to sampling from a kernel density estimate of the data. assume k to be a symmetric kernel density function with unit variance. the standard kernel estimator 
+  
+    
+      
+        
+          
+            
+              
+                
+                  f
+                  
+                
+                ^
+              
+            
+          
+          
+            h
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle {\hat {f\,}}_{h}(x)}
+   of 
+  
+    
+      
+        f
+        (
+        x
+        )
+      
+    
+    {\displaystyle f(x)}
+   is
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  f
+                  
+                
+                ^
+              
+            
+          
+          
+            h
+          
+        
+        (
+        x
+        )
+        =
+        
+          
+            1
+            
+              n
+              h
+            
+          
+        
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            n
+          
+        
+        k
+        
+          (
+          
+            
+              
+                x
+                −
+                
+                  x
+                  
+                    i
+                  
+                
+              
+              h
+            
+          
+          )
+        
+        ,
+      
+    
+    {\displaystyle {\hat {f\,}}_{h}(x)={1 \over nh}\sum _{i=1}^{n}k\left({x-x_{i} \over h}\right),}
+   where 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   is the smoothing parameter. and the corresponding distribution function estimator 
+  
+    
+      
+        
+          
+            
+              
+                
+                  f
+                  
+                
+                ^
+              
+            
+          
+          
+            h
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle {\hat {f\,}}_{h}(x)}
+   is
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  f
+                  
+                
+                ^
+              
+            
+          
+          
+            h
+          
+        
+        (
+        x
+        )
+        =
+        
+          ∫
+          
+            −
+            ∞
+          
+          
+            x
+          
+        
+        
+          
+            
+              
+                f
+                ^
+              
+            
+          
+          
+            h
+          
+        
+        (
+        t
+        )
+        
+        d
+        t
+        .
+      
+    
+    {\displaystyle {\hat {f\,}}_{h}(x)=\int _{-\infty }^{x}{\hat {f}}_{h}(t)\,dt.}
+   
+
+
+=== parametric bootstrap ===
+based on the assumption that the original data set is a realization of a random sample from a distribution of a specific parametric type, in this case a parametric model is fitted by parameter θ,  often by maximum likelihood, and samples of random numbers are drawn from this fitted model. usually the sample drawn has the same sample size as the original data. then the estimate of original function f can be written as 
+  
+    
+      
+        
+          
+            
+              f
+              ^
+            
+          
+        
+        =
+        
+          f
+          
+            
+              
+                θ
+                ^
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\hat {f}}=f_{\hat {\theta }}}
+  . this sampling process is repeated many times as for other bootstrap methods. considering the centered sample mean in this case, the random sample original distribution function 
+  
+    
+      
+        
+          f
+          
+            θ
+          
+        
+      
+    
+    {\displaystyle f_{\theta }}
+   is replaced by a bootstrap random sample with function 
+  
+    
+      
+        
+          f
+          
+            
+              
+                θ
+                ^
+              
+            
+          
+        
+      
+    
+    {\displaystyle f_{\hat {\theta }}}
+  , and the probability distribution of 
+  
+    
+      
+        
+          
+            
+              
+                x
+                
+                  n
+                
+              
+              ¯
+            
+          
+        
+        −
+        
+          μ
+          
+            θ
+          
+        
+      
+    
+    {\displaystyle {\bar {x_{n}}}-\mu _{\theta }}
+   is approximated by that of 
+  
+    
+      
+        
+          
+            
+              
+                x
+                ¯
+              
+            
+          
+          
+            n
+          
+          
+            ∗
+          
+        
+        −
+        
+          μ
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle {\bar {x}}_{n}^{*}-\mu ^{*}}
+  , where 
+  
+    
+      
+        
+          μ
+          
+            ∗
+          
+        
+        =
+        
+          μ
+          
+            
+              
+                θ
+                ^
+              
+            
+          
+        
+      
+    
+    {\displaystyle \mu ^{*}=\mu _{\hat {\theta }}}
+  , which is the expectation corresponding to 
+  
+    
+      
+        
+          f
+          
+            
+              
+                θ
+                ^
+              
+            
+          
+        
+      
+    
+    {\displaystyle f_{\hat {\theta }}}
+  . the use of a parametric model at the sampling stage of the bootstrap methodology leads to procedures which are different from those obtained by applying basic statistical theory to inference for the same model.
+
+
+=== resampling residuals ===
+another approach to bootstrapping in regression problems is to resample residuals. the method proceeds as follows.
+
+fit the model and retain the fitted values 
+  
+    
+      
+        
+          
+            
+              
+                
+                  y
+                  
+                
+                ^
+              
+            
+          
+          
+            i
+          
+        
+      
+    
+    {\displaystyle {\widehat {y\,}}_{i}}
+   and the residuals 
+  
+    
+      
+        
+          
+            
+              
+                
+                  ε
+                  
+                
+                ^
+              
+            
+          
+          
+            i
+          
+        
+        =
+        
+          y
+          
+            i
+          
+        
+        −
+        
+          
+            
+              
+                
+                  y
+                  
+                
+                ^
+              
+            
+          
+          
+            i
+          
+        
+        ,
+        (
+        i
+        =
+        1
+        ,
+        …
+        ,
+        n
+        )
+      
+    
+    {\displaystyle {\widehat {\varepsilon \,}}_{i}=y_{i}-{\widehat {y\,}}_{i},(i=1,\dots ,n)}
+  .
+for each pair, (xi, yi), in which xi is the (possibly multivariate) explanatory variable, add a randomly resampled residual, 
+  
+    
+      
+        
+          
+            
+              
+                
+                  ε
+                  
+                
+                ^
+              
+            
+          
+          
+            j
+          
+        
+      
+    
+    {\displaystyle {\widehat {\varepsilon \,}}_{j}}
+  , to the fitted value 
+  
+    
+      
+        
+          
+            
+              
+                
+                  y
+                  
+                
+                ^
+              
+            
+          
+          
+            i
+          
+        
+      
+    
+    {\displaystyle {\widehat {y\,}}_{i}}
+  . in other words, create synthetic response variables 
+  
+    
+      
+        
+          y
+          
+            i
+          
+          
+            ∗
+          
+        
+        =
+        
+          
+            
+              
+                
+                  y
+                  
+                
+                ^
+              
+            
+          
+          
+            i
+          
+        
+        +
+        
+          
+            
+              
+                
+                  ε
+                  
+                
+                ^
+              
+            
+          
+          
+            j
+          
+        
+      
+    
+    {\displaystyle y_{i}^{*}={\widehat {y\,}}_{i}+{\widehat {\varepsilon \,}}_{j}}
+   where j is selected randomly from the list (1, ..., n) for every i.
+refit the model using the fictitious response variables 
+  
+    
+      
+        
+          y
+          
+            i
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle y_{i}^{*}}
+  , and retain the quantities of interest (often the parameters, 
+  
+    
+      
+        
+          
+            
+              
+                μ
+                ^
+              
+            
+          
+          
+            i
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle {\widehat {\mu }}_{i}^{*}}
+  , estimated from the synthetic 
+  
+    
+      
+        
+          y
+          
+            i
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle y_{i}^{*}}
+  ).
+repeat steps 2 and 3 a large number of times.this scheme has the advantage that it retains the information in the explanatory variables. however, a question arises as to which residuals to resample. raw residuals are one option; another is studentized residuals (in linear regression). although there are arguments in favor of using studentized residuals; in practice, it often makes little difference, and it is easy to compare the results of both schemes.
+
+
+=== gaussian process regression bootstrap ===
+when data are temporally correlated, straightforward bootstrapping destroys the inherent correlations. this method uses gaussian process regression (gpr) to fit a probabilistic model from which replicates may then be drawn. gpr is a bayesian non-linear regression method. a gaussian process (gp) is a collection of random variables, any finite number of which have a joint gaussian (normal) distribution. a gp is defined by a mean function and a covariance function, which specify the mean vectors and covariance matrices for each finite collection of the random variables.regression model:
+
+  
+    
+      
+        y
+        (
+        x
+        )
+        =
+        f
+        (
+        x
+        )
+        +
+        ε
+        ,
+         
+         
+        ε
+        ∼
+        
+          
+            n
+          
+        
+        (
+        0
+        ,
+        
+          σ
+          
+            2
+          
+        
+        )
+        ,
+      
+    
+    {\displaystyle y(x)=f(x)+\varepsilon ,\ \ \varepsilon \sim {\mathcal {n}}(0,\sigma ^{2}),}
+   
+  
+    
+      
+        ε
+      
+    
+    {\displaystyle \varepsilon }
+   is a noise term.gaussian process prior:
+for any finite collection of variables, x1, ..., xn, the function outputs 
+  
+    
+      
+        f
+        (
+        
+          x
+          
+            1
+          
+        
+        )
+        ,
+        …
+        ,
+        f
+        (
+        
+          x
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle f(x_{1}),\ldots ,f(x_{n})}
+   are jointly distributed according to a multivariate gaussian with mean 
+  
+    
+      
+        m
+        =
+        [
+        m
+        (
+        
+          x
+          
+            1
+          
+        
+        )
+        ,
+        …
+        ,
+        m
+        (
+        
+          x
+          
+            n
+          
+        
+        )
+        
+          ]
+          
+            ⊺
+          
+        
+      
+    
+    {\displaystyle m=[m(x_{1}),\ldots ,m(x_{n})]^{\intercal }}
+   and covariance matrix 
+  
+    
+      
+        (
+        k
+        
+          )
+          
+            i
+            j
+          
+        
+        =
+        k
+        (
+        
+          x
+          
+            i
+          
+        
+        ,
+        
+          x
+          
+            j
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle (k)_{ij}=k(x_{i},x_{j}).}
+  
+assume 
+  
+    
+      
+        f
+        (
+        x
+        )
+        ∼
+        
+          
+            g
+            p
+          
+        
+        (
+        m
+        ,
+        k
+        )
+        .
+      
+    
+    {\displaystyle f(x)\sim {\mathcal {gp}}(m,k).}
+   then 
+  
+    
+      
+        y
+        (
+        x
+        )
+        ∼
+        
+          
+            g
+            p
+          
+        
+        (
+        m
+        ,
+        l
+        )
+      
+    
+    {\displaystyle y(x)\sim {\mathcal {gp}}(m,l)}
+  ,
+where 
+  
+    
+      
+        l
+        (
+        
+          x
+          
+            i
+          
+        
+        ,
+        
+          x
+          
+            j
+          
+        
+        )
+        =
+        k
+        (
+        
+          x
+          
+            i
+          
+        
+        ,
+        
+          x
+          
+            j
+          
+        
+        )
+        +
+        
+          σ
+          
+            2
+          
+        
+        δ
+        (
+        
+          x
+          
+            i
+          
+        
+        ,
+        
+          x
+          
+            j
+          
+        
+        )
+      
+    
+    {\displaystyle l(x_{i},x_{j})=k(x_{i},x_{j})+\sigma ^{2}\delta (x_{i},x_{j})}
+  , and 
+  
+    
+      
+        δ
+        (
+        
+          x
+          
+            i
+          
+        
+        ,
+        
+          x
+          
+            j
+          
+        
+        )
+      
+    
+    {\displaystyle \delta (x_{i},x_{j})}
+   is the standard kronecker delta function.gaussian process posterior:
+according to gp prior, we can get
+
+  
+    
+      
+        [
+        y
+        (
+        
+          x
+          
+            1
+          
+        
+        )
+        ,
+        …
+        ,
+        y
+        (
+        
+          x
+          
+            r
+          
+        
+        )
+        ]
+        ∼
+        
+          
+            n
+          
+        
+        (
+        
+          m
+          
+            0
+          
+        
+        ,
+        
+          k
+          
+            0
+          
+        
+        )
+      
+    
+    {\displaystyle [y(x_{1}),\ldots ,y(x_{r})]\sim {\mathcal {n}}(m_{0},k_{0})}
+  ,where 
+  
+    
+      
+        
+          m
+          
+            0
+          
+        
+        =
+        [
+        m
+        (
+        
+          x
+          
+            1
+          
+        
+        )
+        ,
+        …
+        ,
+        m
+        (
+        
+          x
+          
+            r
+          
+        
+        )
+        
+          ]
+          
+            ⊺
+          
+        
+      
+    
+    {\displaystyle m_{0}=[m(x_{1}),\ldots ,m(x_{r})]^{\intercal }}
+   and 
+  
+    
+      
+        (
+        
+          k
+          
+            0
+          
+        
+        
+          )
+          
+            i
+            j
+          
+        
+        =
+        k
+        (
+        
+          x
+          
+            i
+          
+        
+        ,
+        
+          x
+          
+            j
+          
+        
+        )
+        +
+        
+          σ
+          
+            2
+          
+        
+        δ
+        (
+        
+          x
+          
+            i
+          
+        
+        ,
+        
+          x
+          
+            j
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle (k_{0})_{ij}=k(x_{i},x_{j})+\sigma ^{2}\delta (x_{i},x_{j}).}
+  
+let x1*,...,xs* be another finite collection of variables, it's obvious that
+
+  
+    
+      
+        [
+        y
+        (
+        
+          x
+          
+            1
+          
+        
+        )
+        ,
+        …
+        ,
+        y
+        (
+        
+          x
+          
+            r
+          
+        
+        )
+        ,
+        f
+        (
+        
+          x
+          
+            1
+          
+          
+            ∗
+          
+        
+        )
+        ,
+        …
+        ,
+        f
+        (
+        
+          x
+          
+            s
+          
+          
+            ∗
+          
+        
+        )
+        
+          ]
+          
+            ⊺
+          
+        
+        ∼
+        
+          
+            n
+          
+        
+        (
+        
+          
+            
+              (
+            
+            
+              
+                m
+                
+                  0
+                
+              
+              
+                m
+                
+                  ∗
+                
+              
+            
+            
+              )
+            
+          
+        
+        
+          
+            (
+            
+              
+                
+                  
+                    k
+                    
+                      0
+                    
+                  
+                
+                
+                  
+                    k
+                    
+                      ∗
+                    
+                  
+                
+              
+              
+                
+                  
+                    k
+                    
+                      ∗
+                    
+                    
+                      ⊺
+                    
+                  
+                
+                
+                  
+                    k
+                    
+                      ∗
+                      ∗
+                    
+                  
+                
+              
+            
+            )
+          
+        
+        )
+      
+    
+    {\displaystyle [y(x_{1}),\ldots ,y(x_{r}),f(x_{1}^{*}),\ldots ,f(x_{s}^{*})]^{\intercal }\sim {\mathcal {n}}({\binom {m_{0}}{m_{*}}}{\begin{pmatrix}k_{0}&k_{*}\\k_{*}^{\intercal }&k_{**}\end{pmatrix}})}
+  ,where 
+  
+    
+      
+        
+          m
+          
+            ∗
+          
+        
+        =
+        [
+        m
+        (
+        
+          x
+          
+            1
+          
+          
+            ∗
+          
+        
+        )
+        ,
+        …
+        ,
+        m
+        (
+        
+          x
+          
+            s
+          
+          
+            ∗
+          
+        
+        )
+        
+          ]
+          
+            ⊺
+          
+        
+      
+    
+    {\displaystyle m_{*}=[m(x_{1}^{*}),\ldots ,m(x_{s}^{*})]^{\intercal }}
+  , 
+  
+    
+      
+        (
+        
+          k
+          
+            ∗
+            ∗
+          
+        
+        
+          )
+          
+            i
+            j
+          
+        
+        =
+        k
+        (
+        
+          x
+          
+            i
+          
+          
+            ∗
+          
+        
+        ,
+        
+          x
+          
+            j
+          
+          
+            ∗
+          
+        
+        )
+      
+    
+    {\displaystyle (k_{**})_{ij}=k(x_{i}^{*},x_{j}^{*})}
+  , 
+  
+    
+      
+        (
+        
+          k
+          
+            ∗
+          
+        
+        
+          )
+          
+            i
+            j
+          
+        
+        =
+        k
+        (
+        
+          x
+          
+            i
+          
+        
+        ,
+        
+          x
+          
+            j
+          
+          
+            ∗
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle (k_{*})_{ij}=k(x_{i},x_{j}^{*}).}
+  
+according to the equations above, the outputs y are also jointly distributed according to a multivariate gaussian. thus,
+
+  
+    
+      
+        [
+        f
+        (
+        
+          x
+          
+            1
+          
+          
+            ∗
+          
+        
+        )
+        ,
+        …
+        ,
+        f
+        (
+        
+          x
+          
+            s
+          
+          
+            ∗
+          
+        
+        )
+        
+          ]
+          
+            ⊺
+          
+        
+        ∣
+        (
+        [
+        y
+        (
+        x
+        )
+        
+          ]
+          
+            ⊺
+          
+        
+        =
+        y
+        )
+        ∼
+        
+          
+            n
+          
+        
+        (
+        
+          m
+          
+            post
+          
+        
+        ,
+        
+          k
+          
+            post
+          
+        
+        )
+        ,
+      
+    
+    {\displaystyle [f(x_{1}^{*}),\ldots ,f(x_{s}^{*})]^{\intercal }\mid ([y(x)]^{\intercal }=y)\sim {\mathcal {n}}(m_{\text{post}},k_{\text{post}}),}
+  where 
+  
+    
+      
+        y
+        =
+        [
+        
+          y
+          
+            1
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          y
+          
+            r
+          
+        
+        
+          ]
+          
+            ⊺
+          
+        
+      
+    
+    {\displaystyle y=[y_{1},...,y_{r}]^{\intercal }}
+  , 
+  
+    
+      
+        
+          m
+          
+            post
+          
+        
+        =
+        
+          m
+          
+            ∗
+          
+        
+        +
+        
+          k
+          
+            ∗
+          
+          
+            ⊺
+          
+        
+        (
+        
+          k
+          
+            o
+          
+        
+        +
+        
+          σ
+          
+            2
+          
+        
+        
+          i
+          
+            r
+          
+        
+        
+          )
+          
+            −
+            1
+          
+        
+        (
+        y
+        −
+        
+          m
+          
+            0
+          
+        
+        )
+      
+    
+    {\displaystyle m_{\text{post}}=m_{*}+k_{*}^{\intercal }(k_{o}+\sigma ^{2}i_{r})^{-1}(y-m_{0})}
+  , 
+  
+    
+      
+        
+          k
+          
+            post
+          
+        
+        =
+        
+          k
+          
+            ∗
+            ∗
+          
+        
+        −
+        
+          k
+          
+            ∗
+          
+          
+            ⊺
+          
+        
+        (
+        
+          k
+          
+            o
+          
+        
+        +
+        
+          σ
+          
+            2
+          
+        
+        
+          i
+          
+            r
+          
+        
+        
+          )
+          
+            −
+            1
+          
+        
+        
+          k
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle k_{\text{post}}=k_{**}-k_{*}^{\intercal }(k_{o}+\sigma ^{2}i_{r})^{-1}k_{*}}
+  , and 
+  
+    
+      
+        
+          i
+          
+            r
+          
+        
+      
+    
+    {\displaystyle i_{r}}
+   is 
+  
+    
+      
+        r
+        ×
+        r
+      
+    
+    {\displaystyle r\times r}
+   identity matrix.
+
+
+=== wild bootstrap ===
+the wild bootstrap, proposed originally by wu (1986), is suited when the model exhibits heteroskedasticity. the idea is, as the residual bootstrap, to leave the regressors at their sample value, but to resample the response variable based on the residuals values. that is, for each replicate, one computes a new 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   based on
+
+  
+    
+      
+        
+          y
+          
+            i
+          
+          
+            ∗
+          
+        
+        =
+        
+          
+            
+              
+                
+                  y
+                  
+                
+                ^
+              
+            
+          
+          
+            i
+          
+        
+        +
+        
+          
+            
+              
+                
+                  ε
+                  
+                
+                ^
+              
+            
+          
+          
+            i
+          
+        
+        
+          v
+          
+            i
+          
+        
+      
+    
+    {\displaystyle y_{i}^{*}={\widehat {y\,}}_{i}+{\widehat {\varepsilon \,}}_{i}v_{i}}
+  so the residuals are randomly multiplied by a random variable 
+  
+    
+      
+        
+          v
+          
+            i
+          
+        
+      
+    
+    {\displaystyle v_{i}}
+   with mean 0 and variance 1. for most distributions of 
+  
+    
+      
+        
+          v
+          
+            i
+          
+        
+      
+    
+    {\displaystyle v_{i}}
+   (but not mammen's), this method assumes that the 'true' residual distribution is symmetric and can offer advantages over simple residual sampling for smaller sample sizes. different forms are used for the random variable 
+  
+    
+      
+        
+          v
+          
+            i
+          
+        
+      
+    
+    {\displaystyle v_{i}}
+  , such as
+
+the standard normal distributiona distribution suggested by mammen (1993).
+  
+    
+      
+        
+          v
+          
+            i
+          
+        
+        =
+        
+          
+            {
+            
+              
+                
+                  −
+                  (
+                  
+                    
+                      5
+                    
+                  
+                  −
+                  1
+                  )
+                  
+                    /
+                  
+                  2
+                
+                
+                  
+                    with probability 
+                  
+                  (
+                  
+                    
+                      5
+                    
+                  
+                  +
+                  1
+                  )
+                  
+                    /
+                  
+                  (
+                  2
+                  
+                    
+                      5
+                    
+                  
+                  )
+                  ,
+                
+              
+              
+                
+                  (
+                  
+                    
+                      5
+                    
+                  
+                  +
+                  1
+                  )
+                  
+                    /
+                  
+                  2
+                
+                
+                  
+                    with probability 
+                  
+                  (
+                  
+                    
+                      5
+                    
+                  
+                  −
+                  1
+                  )
+                  
+                    /
+                  
+                  (
+                  2
+                  
+                    
+                      5
+                    
+                  
+                  )
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle v_{i}={\begin{cases}-({\sqrt {5}}-1)/2&{\text{with probability }}({\sqrt {5}}+1)/(2{\sqrt {5}}),\\({\sqrt {5}}+1)/2&{\text{with probability }}({\sqrt {5}}-1)/(2{\sqrt {5}})\end{cases}}}
+  approximately, mammen's distribution is:
+  
+    
+      
+        
+          v
+          
+            i
+          
+        
+        =
+        
+          
+            {
+            
+              
+                
+                  −
+                  0.6180
+                  
+                  
+                    (with a 0 in the units' place)
+                  
+                
+                
+                  
+                    with probability 
+                  
+                  0.7236
+                  ,
+                
+              
+              
+                
+                  +
+                  1.6180
+                  
+                  
+                    (with a 1 in the units' place)
+                  
+                
+                
+                  
+                    with probability 
+                  
+                  0.2764.
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle v_{i}={\begin{cases}-0.6180\quad {\text{(with a 0 in the units' place)}}&{\text{with probability }}0.7236,\\+1.6180\quad {\text{(with a 1 in the units' place)}}&{\text{with probability }}0.2764.\end{cases}}}
+  or the simpler distribution, linked to the rademacher distribution:
+  
+    
+      
+        
+          v
+          
+            i
+          
+        
+        =
+        
+          
+            {
+            
+              
+                
+                  −
+                  1
+                
+                
+                  
+                    with probability 
+                  
+                  1
+                  
+                    /
+                  
+                  2
+                  ,
+                
+              
+              
+                
+                  +
+                  1
+                
+                
+                  
+                    with probability 
+                  
+                  1
+                  
+                    /
+                  
+                  2.
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle v_{i}={\begin{cases}-1&{\text{with probability }}1/2,\\+1&{\text{with probability }}1/2.\end{cases}}}
+  
+
+
+=== block bootstrap ===
+the block bootstrap is used when the data, or the errors in a model, are correlated. in this case, a simple case or residual resampling will fail, as it is not able to replicate the correlation in the data. the block bootstrap tries to replicate the correlation by resampling inside blocks of data (see blocking (statistics)). the block bootstrap has been used mainly with data correlated in time (i.e. time series) but can also be used with data correlated in space, or among groups (so-called cluster data).
+
+
+==== time series: simple block bootstrap ====
+in the (simple) block bootstrap, the variable of interest is split into non-overlapping blocks.
+
+
+==== time series: moving block bootstrap ====
+in the moving block bootstrap, introduced by künsch (1989), data is split into n − b + 1 overlapping blocks of length b: observation 1 to b will be block 1, observation 2 to b + 1 will be block 2, etc. then from these n − b + 1 blocks, n/b blocks will be drawn at random with replacement. then aligning these n/b blocks in the order they were picked, will give the bootstrap observations.
+this bootstrap works with dependent data, however, the bootstrapped observations will not be stationary anymore by construction. but, it was shown that varying randomly the block length can avoid this problem. this method is known as the stationary bootstrap. other related modifications of the moving block bootstrap are the markovian bootstrap and a stationary bootstrap method that matches subsequent blocks based on standard deviation matching.
+
+
+==== time series: maximum entropy bootstrap ====
+vinod (2006), presents a method that bootstraps time series data using  maximum entropy principles satisfying the ergodic theorem with mean-preserving and mass-preserving constraints. there is an r package, meboot, that utilizes the method, which  has applications in econometrics and computer science.
+
+
+==== cluster data: block bootstrap ====
+cluster data describes data where many observations per unit are observed. this could be observing many firms in many states or observing students in many classes. in such cases, the correlation structure is simplified, and one does usually make the assumption that data is correlated within a group/cluster, but independent between groups/clusters. the structure of the block bootstrap is easily obtained (where the block just corresponds to the group), and usually only the groups are resampled, while the observations within the groups are left unchanged. cameron et al. (2008) discusses this for clustered errors in linear regression.
+
+
+== methods for improving computational efficiency ==
+the bootstrap is a powerful technique although may require substantial computing resources in both time and memory. some techniques have been developed to reduce this burden. they can generally be combined with many of the different types of bootstrap schemes and various choices of statistics.
+
+
+=== poisson bootstrap ===
+
+the ordinary bootstrap requires the random selection of n elements from a list, which is equivalent to drawing from a multinomial distribution. this may require a large number of passes over the data and is challenging to run these computations in parallel. for large values of n, the poisson bootstrap is an efficient method of generating bootstrapped data sets. when generating a single bootstrap sample, instead of randomly drawing from the sample data with replacement, each data point is assigned a random weight distributed according to the poisson distribution with 
+  
+    
+      
+        λ
+        =
+        1
+      
+    
+    {\displaystyle \lambda =1}
+  . for large sample data, this will approximate random sampling with replacement. this is due to the following approximation:
+
+  
+    
+      
+        
+          lim
+          
+            n
+            →
+            ∞
+          
+        
+        binomial
+        ⁡
+        (
+        n
+        ,
+        1
+        
+          /
+        
+        n
+        )
+        =
+        poisson
+        ⁡
+        (
+        1
+        )
+      
+    
+    {\displaystyle \lim _{n\to \infty }\operatorname {binomial} (n,1/n)=\operatorname {poisson} (1)}
+  this method also lends itself well to streaming data and growing data sets, since the total number of samples does not need to be known in advance of beginning to take bootstrap samples.
+for large enough n, the results are relatively similar to the original bootstrap estimations.a way to improve on the poisson bootstrap, termed "sequential bootstrap", is by taking the first samples so that the proportion of unique values is ~0.632 of the original sample size n. this provides a distribution with main empirical characteristics being within a distance of 
+  
+    
+      
+        o
+        (
+        
+          n
+          
+            3
+            
+              /
+            
+            4
+          
+        
+        )
+      
+    
+    {\displaystyle o(n^{3/4})}
+  . empirical investigation has shown this method can yield good results. this is related to the reduced bootstrap method.
+
+
+=== bag of little bootstraps ===
+for massive data sets, it is often computationally prohibitive to hold all the sample data in memory and resample from the sample data. the bag of little bootstraps (blb) provides a method of pre-aggregating data before bootstrapping to reduce computational constraints. this works by partitioning the data set into 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   equal-sized buckets and aggregating the data within each bucket. this pre-aggregated data set becomes the new sample data over which to draw samples with replacement. this method is similar to the block bootstrap, but the motivations and definitions of the blocks are very different. under certain assumptions, the sample distribution should approximate the full bootstrapped scenario. one constraint is the number of buckets 
+  
+    
+      
+        b
+        =
+        
+          n
+          
+            γ
+          
+        
+      
+    
+    {\displaystyle b=n^{\gamma }}
+  where 
+  
+    
+      
+        γ
+        ∈
+        [
+        0.5
+        ,
+        1
+        ]
+      
+    
+    {\displaystyle \gamma \in [0.5,1]}
+   and the authors recommend usage of 
+  
+    
+      
+        b
+        =
+        
+          n
+          
+            0.7
+          
+        
+      
+    
+    {\displaystyle b=n^{0.7}}
+   as a general solution.
+
+
+== choice of statistic ==
+the bootstrap distribution of a point estimator of a population parameter has been used to produce a bootstrapped confidence interval for the parameter's true value if the parameter can be written as a function of the population's distribution.
+population parameters are estimated with many point estimators. popular families of point-estimators include mean-unbiased minimum-variance estimators, median-unbiased estimators, bayesian estimators (for example, the posterior distribution's mode, median, mean), and maximum-likelihood estimators.
+a bayesian point estimator and a maximum-likelihood estimator have good performance when the sample size is infinite, according to asymptotic theory. for practical problems with finite samples, other estimators may be preferable. asymptotic theory suggests techniques that often improve the performance of bootstrapped estimators; the bootstrapping of a maximum-likelihood estimator may often be improved using transformations related to pivotal quantities.
+
+
+== deriving confidence intervals from the bootstrap distribution ==
+the bootstrap distribution of a parameter-estimator has been used to calculate confidence intervals for its population-parameter.
+
+
+=== bias, asymmetry, and confidence intervals ===
+bias: the bootstrap distribution and the sample may disagree systematically, in which case  bias may occur.
+if the bootstrap distribution of an estimator is symmetric, then percentile confidence-interval are often used; such intervals are appropriate especially for median-unbiased estimators of minimum risk (with respect to an absolute loss function).  bias in the bootstrap distribution will lead to bias in the confidence interval.
+otherwise, if the bootstrap distribution is non-symmetric, then percentile confidence intervals are often inappropriate.
+
+
+=== methods for bootstrap confidence intervals ===
+there are several methods for constructing confidence intervals from the bootstrap distribution of a real parameter:
+
+basic bootstrap, also known as the reverse percentile interval. the basic bootstrap is a simple scheme to construct the confidence interval: one simply takes the empirical quantiles from the bootstrap distribution of the parameter (see davison and hinkley 1997, equ. 5.6 p. 194):
+  
+    
+      
+        (
+        2
+        
+          
+            
+              
+                θ
+                
+              
+              ^
+            
+          
+        
+        −
+        
+          θ
+          
+            (
+            1
+            −
+            α
+            
+              /
+            
+            2
+            )
+          
+          
+            ∗
+          
+        
+        ,
+        2
+        
+          
+            
+              
+                θ
+                
+              
+              ^
+            
+          
+        
+        −
+        
+          θ
+          
+            (
+            α
+            
+              /
+            
+            2
+            )
+          
+          
+            ∗
+          
+        
+        )
+      
+    
+    {\displaystyle (2{\widehat {\theta \,}}-\theta _{(1-\alpha /2)}^{*},2{\widehat {\theta \,}}-\theta _{(\alpha /2)}^{*})}
+   where 
+  
+    
+      
+        
+          θ
+          
+            (
+            1
+            −
+            α
+            
+              /
+            
+            2
+            )
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle \theta _{(1-\alpha /2)}^{*}}
+   denotes the 
+  
+    
+      
+        1
+        −
+        α
+        
+          /
+        
+        2
+      
+    
+    {\displaystyle 1-\alpha /2}
+   percentile of the bootstrapped coefficients 
+  
+    
+      
+        
+          θ
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle \theta ^{*}}
+  .percentile bootstrap. the percentile bootstrap proceeds in a similar way to the basic bootstrap, using percentiles of the bootstrap distribution, but with a different formula (note the inversion of the left and right quantiles):
+  
+    
+      
+        (
+        
+          θ
+          
+            (
+            α
+            
+              /
+            
+            2
+            )
+          
+          
+            ∗
+          
+        
+        ,
+        
+          θ
+          
+            (
+            1
+            −
+            α
+            
+              /
+            
+            2
+            )
+          
+          
+            ∗
+          
+        
+        )
+      
+    
+    {\displaystyle (\theta _{(\alpha /2)}^{*},\theta _{(1-\alpha /2)}^{*})}
+   where 
+  
+    
+      
+        
+          θ
+          
+            (
+            1
+            −
+            α
+            
+              /
+            
+            2
+            )
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle \theta _{(1-\alpha /2)}^{*}}
+   denotes the 
+  
+    
+      
+        1
+        −
+        α
+        
+          /
+        
+        2
+      
+    
+    {\displaystyle 1-\alpha /2}
+   percentile of the bootstrapped coefficients 
+  
+    
+      
+        
+          θ
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle \theta ^{*}}
+  .
+see davison and hinkley (1997, equ. 5.18 p. 203) and efron and tibshirani (1993, equ 13.5 p. 171).
+this method can be applied to any statistic. it will work well in cases where the bootstrap distribution is symmetrical and centered on the observed statistic and where the sample statistic is median-unbiased and has maximum concentration (or minimum risk with respect to an absolute value loss function).  when working with small sample sizes (i.e., less than 50), the basic / reversed percentile and percentile confidence intervals for (for example) the variance statistic will be too narrow. so that with a sample of 20 points, 90% confidence interval will include the true variance only 78% of the time.  the basic / reverse percentile confidence intervals are easier to justify mathematically but they are less accurate in general than percentile confidence intervals, and some authors discourage their use.studentized bootstrap. the studentized bootstrap, also called bootstrap-t, is computed analogously to the standard confidence interval, but replaces the quantiles from the normal or student approximation by the quantiles from the bootstrap distribution of the student's t-test (see davison and hinkley 1997, equ. 5.7 p. 194 and efron and tibshirani 1993 equ 12.22, p. 160):
+  
+    
+      
+        (
+        
+          
+            
+              
+                θ
+                
+              
+              ^
+            
+          
+        
+        −
+        
+          t
+          
+            (
+            1
+            −
+            α
+            
+              /
+            
+            2
+            )
+          
+          
+            ∗
+          
+        
+        ⋅
+        
+          
+            
+              
+                se
+                ^
+              
+            
+          
+          
+            θ
+          
+        
+        ,
+        
+          
+            
+              
+                θ
+                
+              
+              ^
+            
+          
+        
+        −
+        
+          t
+          
+            (
+            α
+            
+              /
+            
+            2
+            )
+          
+          
+            ∗
+          
+        
+        ⋅
+        
+          
+            
+              
+                se
+                ^
+              
+            
+          
+          
+            θ
+          
+        
+        )
+      
+    
+    {\displaystyle ({\widehat {\theta \,}}-t_{(1-\alpha /2)}^{*}\cdot {\widehat {\text{se}}}_{\theta },{\widehat {\theta \,}}-t_{(\alpha /2)}^{*}\cdot {\widehat {\text{se}}}_{\theta })}
+   where 
+  
+    
+      
+        
+          t
+          
+            (
+            1
+            −
+            α
+            
+              /
+            
+            2
+            )
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle t_{(1-\alpha /2)}^{*}}
+   denotes the 
+  
+    
+      
+        1
+        −
+        α
+        
+          /
+        
+        2
+      
+    
+    {\displaystyle 1-\alpha /2}
+   percentile of the bootstrapped student's t-test 
+  
+    
+      
+        
+          t
+          
+            ∗
+          
+        
+        =
+        (
+        
+          
+            
+              
+                
+                  θ
+                  
+                
+                ^
+              
+            
+          
+          
+            ∗
+          
+        
+        −
+        
+          
+            
+              
+                θ
+                
+              
+              ^
+            
+          
+        
+        )
+        
+          /
+        
+        
+          
+            
+              
+                se
+                ^
+              
+            
+          
+          
+            
+              
+                
+                  
+                    
+                      θ
+                      
+                    
+                    ^
+                  
+                
+              
+              
+                ∗
+              
+            
+          
+        
+      
+    
+    {\displaystyle t^{*}=({\widehat {\theta \,}}^{*}-{\widehat {\theta \,}})/{\widehat {\text{se}}}_{{\widehat {\theta \,}}^{*}}}
+  , and 
+  
+    
+      
+        
+          
+            
+              
+                se
+                ^
+              
+            
+          
+          
+            θ
+          
+        
+      
+    
+    {\displaystyle {\widehat {\text{se}}}_{\theta }}
+   is the estimated standard error of the coefficient in the original model.the studentized test enjoys optimal properties as the statistic that is bootstrapped is pivotal (i.e. it does not depend on nuisance parameters as the t-test follows asymptotically a n(0,1) distribution), unlike the percentile bootstrap.bias-corrected bootstrap – adjusts for bias in the bootstrap distribution.
+accelerated bootstrap – the bias-corrected and accelerated (bca) bootstrap, by efron (1987), adjusts for both bias and skewness in the bootstrap distribution. this approach is accurate in a wide variety of settings, has reasonable computation requirements, and produces reasonably narrow intervals.
+
+
+=== bootstrap hypothesis testing ===
+efron and tibshirani suggest the following algorithm for comparing the means of two independent samples:
+let 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x_{1},\ldots ,x_{n}}
+   be a random sample from distribution f with sample mean 
+  
+    
+      
+        
+          
+            
+              x
+              ¯
+            
+          
+        
+      
+    
+    {\displaystyle {\bar {x}}}
+   and sample variance 
+  
+    
+      
+        
+          σ
+          
+            x
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \sigma _{x}^{2}}
+  . let 
+  
+    
+      
+        
+          y
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          y
+          
+            m
+          
+        
+      
+    
+    {\displaystyle y_{1},\ldots ,y_{m}}
+   be another, independent random sample from distribution g with mean 
+  
+    
+      
+        
+          
+            
+              y
+              ¯
+            
+          
+        
+      
+    
+    {\displaystyle {\bar {y}}}
+   and variance 
+  
+    
+      
+        
+          σ
+          
+            y
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \sigma _{y}^{2}}
+  
+
+calculate the test statistic 
+  
+    
+      
+        t
+        =
+        
+          
+            
+              
+                
+                  
+                    x
+                    ¯
+                  
+                
+              
+              −
+              
+                
+                  
+                    y
+                    ¯
+                  
+                
+              
+            
+            
+              
+                σ
+                
+                  x
+                
+                
+                  2
+                
+              
+              
+                /
+              
+              n
+              +
+              
+                σ
+                
+                  y
+                
+                
+                  2
+                
+              
+              
+                /
+              
+              m
+            
+          
+        
+      
+    
+    {\displaystyle t={\frac {{\bar {x}}-{\bar {y}}}{\sqrt {\sigma _{x}^{2}/n+\sigma _{y}^{2}/m}}}}
+  
+create two new data sets whose values are 
+  
+    
+      
+        
+          x
+          
+            i
+          
+          ′
+        
+        =
+        
+          x
+          
+            i
+          
+        
+        −
+        
+          
+            
+              x
+              ¯
+            
+          
+        
+        +
+        
+          
+            
+              z
+              ¯
+            
+          
+        
+      
+    
+    {\displaystyle x_{i}'=x_{i}-{\bar {x}}+{\bar {z}}}
+   and 
+  
+    
+      
+        
+          y
+          
+            i
+          
+          ′
+        
+        =
+        
+          y
+          
+            i
+          
+        
+        −
+        
+          
+            
+              y
+              ¯
+            
+          
+        
+        +
+        
+          
+            
+              z
+              ¯
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle y_{i}'=y_{i}-{\bar {y}}+{\bar {z}},}
+   where 
+  
+    
+      
+        
+          
+            
+              z
+              ¯
+            
+          
+        
+      
+    
+    {\displaystyle {\bar {z}}}
+   is the mean of the combined sample.
+draw a random sample (
+  
+    
+      
+        
+          x
+          
+            i
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle x_{i}^{*}}
+  ) of size 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   with replacement from 
+  
+    
+      
+        
+          x
+          
+            i
+          
+          ′
+        
+      
+    
+    {\displaystyle x_{i}'}
+   and another random sample (
+  
+    
+      
+        
+          y
+          
+            i
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle y_{i}^{*}}
+  ) of size 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   with replacement from 
+  
+    
+      
+        
+          y
+          
+            i
+          
+          ′
+        
+      
+    
+    {\displaystyle y_{i}'}
+  .
+calculate the test statistic 
+  
+    
+      
+        
+          t
+          
+            ∗
+          
+        
+        =
+        
+          
+            
+              
+                
+                  
+                    
+                      x
+                      
+                        ∗
+                      
+                    
+                    ¯
+                  
+                
+              
+              −
+              
+                
+                  
+                    
+                      y
+                      
+                        ∗
+                      
+                    
+                    ¯
+                  
+                
+              
+            
+            
+              
+                σ
+                
+                  x
+                
+                
+                  ∗
+                  2
+                
+              
+              
+                /
+              
+              n
+              +
+              
+                σ
+                
+                  y
+                
+                
+                  ∗
+                  2
+                
+              
+              
+                /
+              
+              m
+            
+          
+        
+      
+    
+    {\displaystyle t^{*}={\frac {{\bar {x^{*}}}-{\bar {y^{*}}}}{\sqrt {\sigma _{x}^{*2}/n+\sigma _{y}^{*2}/m}}}}
+  
+repeat 3 and 4 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   times (e.g. 
+  
+    
+      
+        b
+        =
+        1000
+      
+    
+    {\displaystyle b=1000}
+  ) to collect 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   values of the test statistic.
+estimate the p-value as 
+  
+    
+      
+        p
+        =
+        
+          
+            
+              
+                ∑
+                
+                  i
+                  =
+                  1
+                
+                
+                  b
+                
+              
+              i
+              {
+              
+                t
+                
+                  i
+                
+                
+                  ∗
+                
+              
+              ≥
+              t
+              }
+            
+            b
+          
+        
+      
+    
+    {\displaystyle p={\frac {\sum _{i=1}^{b}i\{t_{i}^{*}\geq t\}}{b}}}
+   where 
+  
+    
+      
+        i
+        (
+        
+          condition
+        
+        )
+        =
+        1
+      
+    
+    {\displaystyle i({\text{condition}})=1}
+   when condition is true and 0 otherwise.
+
+
+== example applications ==
+
+
+=== smoothed bootstrap ===
+in 1878, simon newcomb took observations on the speed of light.
+the data set contains two outliers, which greatly influence the sample mean. (the sample mean need not be a consistent estimator for any population mean, because no mean needs to exist for a heavy-tailed distribution.) a well-defined and  robust statistic for the central tendency is the sample median, which is consistent and median-unbiased for the population median.
+the bootstrap distribution for newcomb's data appears below. we can reduce the discreteness of the bootstrap distribution by adding a small amount of random noise to each bootstrap sample. a conventional choice is to add noise with a standard deviation of 
+  
+    
+      
+        σ
+        
+          /
+        
+        
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \sigma /{\sqrt {n}}}
+   for a sample size n; this noise is often drawn from a student-t distribution with n-1 degrees of freedom. this results in an approximately-unbiased estimator for the variance of the sample mean. this means that samples taken from the bootstrap distribution will have a variance which is, on average, equal to the variance of the total population.
+histograms of the bootstrap distribution and the smooth bootstrap distribution appear below. the bootstrap distribution of the sample-median has only a small number of values. the smoothed bootstrap distribution has a richer support. however, note that whether the smoothed or standard bootstrap procedure is favorable is case-by-case and is shown to depend on both the underlying distribution function and on the quantity being estimated.
+in this example, the bootstrapped 95% (percentile) confidence-interval for the population median is (26, 28.5), which is close to the interval for  (25.98, 28.46) for the smoothed bootstrap.
+
+
+== relation to other approaches to inference ==
+
+
+=== relationship to other resampling methods ===
+the bootstrap is distinguished from:
+
+the jackknife procedure, used to estimate biases of sample statistics and to estimate variances, and
+cross-validation, in which the parameters (e.g., regression weights, factor loadings) that are estimated in one subsample are applied to another subsample.for more details see bootstrap resampling.
+bootstrap aggregating (bagging) is a meta-algorithm based on averaging the results of multiple bootstrap samples.
+
+
+=== u-statistics ===
+
+in situations where an obvious statistic can be devised to measure a required characteristic using only a small number, r, of data items, a corresponding statistic based on the entire sample can be formulated. given an r-sample statistic, one can create an n-sample statistic by something similar to bootstrapping (taking the average of the statistic over all subsamples of size r). this procedure is known to have certain good properties and the result is a u-statistic. the sample mean and sample variance are of this form, for r = 1 and r = 2.
+
+
+== see also ==
+accuracy and precision
+bootstrap aggregating
+bootstrapping
+empirical likelihood
+imputation (statistics)
+reliability (statistics)
+reproducibility
+resampling
+
+
+== references ==
+
+
+== further reading ==
+diaconis, p.; efron, b. (may 1983). "computer-intensive methods in statistics" (pdf). scientific american. 248 (5): 116–130. bibcode:1983sciam.248e.116d. doi:10.1038/scientificamerican0583-116. popular-science
+efron, b. (1981). "nonparametric estimates of standard error: the jackknife, the bootstrap and other methods". biometrika. 68 (3): 589–599. doi:10.1093/biomet/68.3.589.
+hesterberg, t. c.; d. s. moore; s. monaghan; a. clipson & r. epstein (2005). "bootstrap methods and permutation tests" (pdf).  in david s. moore & george mccabe (eds.). introduction to the practice of statistics. software. archived from the original (pdf) on 2006-02-15. retrieved 2007-03-23.
+efron, bradley (1979). "bootstrap methods: another look at the jackknife". the annals of statistics. 7: 1–26. doi:10.1214/aos/1176344552.
+efron, bradley (1981). "nonparametric estimates of standard error: the jackknife, the bootstrap and other methods". biometrika. 68 (3): 589–599. doi:10.2307/2335441. jstor 2335441.
+efron, bradley (1982). the jackknife, the bootstrap, and other resampling plans, in society of industrial and applied mathematics cbms-nsf monographs, 38.
+diaconis, p.; efron, bradley (1983), "computer-intensive methods in statistics," scientific american, may, 116–130.
+efron, bradley; tibshirani, robert j. (1993). an introduction to the bootstrap, new york: chapman & hall, software.
+davison, a. c. and hinkley, d. v. (1997): bootstrap methods and their application, software.
+mooney, c z & duval, r d (1993). bootstrapping. a nonparametric approach to statistical inference.  sage university paper series on quantitative applications in the social sciences, 07-095. newbury park, ca: sage.
+simon, j. l. (1997): resampling: the new statistics.
+wright, d.b., london, k., field, a.p. using bootstrap estimation and the plug-in principle for clinical psychology data. 2011 textrum ltd. online: https://www.researchgate.net/publication/236647074_using_bootstrap_estimation_and_the_plug-in_principle_for_clinical_psychology_data. retrieved on 25/04/2016.
+an introduction to the bootstrap. monographs on statistics and applied probability 57. chapman&hall/chc. 1998. online https://books.google.it/books?id=gllpiuxrntoc&pg=pa35&lpg=pa35&dq=plug+in+principle&source=bl&ots=a8asw5k6e2&sig=7wqvzl3ujanwc8hdnyozklkvx0k&hl=en&sa=x&sqi=2&ved=0ahukewiu5c-ho6xmahuaosakhs_pdjmq6aeipdag#v=onepage&q=plug%20in%20principle&f=false. retrieved on 25 04 2016.
+
+
+== external links ==
+bootstrap sampling tutorial using ms excel
+bootstrap example to simulate stock prices using ms excel
+bootstrapping tutorial 
+what is the bootstrap?
+
+
+=== software ===
+statistics101: resampling, bootstrap, monte carlo simulation program. free program written in java to run on any operating system.

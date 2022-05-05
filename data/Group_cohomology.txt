@@ -1,0 +1,8330 @@
+in mathematics (more specifically, in homological algebra), group cohomology is a set of mathematical tools used to study groups using cohomology theory, a technique from algebraic topology. analogous to group representations, group cohomology looks at the group actions of a group g in an associated g-module m to elucidate the properties of the group. by treating the g-module as a kind of topological space with elements of 
+  
+    
+      
+        
+          g
+          
+            n
+          
+        
+      
+    
+    {\displaystyle g^{n}}
+   representing n-simplices, topological properties of the space may be computed, such as the set of cohomology groups 
+  
+    
+      
+        
+          h
+          
+            n
+          
+        
+        (
+        g
+        ,
+        m
+        )
+      
+    
+    {\displaystyle h^{n}(g,m)}
+  . the cohomology groups in turn provide insight into the structure of the group g and g-module m themselves. group cohomology plays a role in the investigation of fixed points of a group action in a module or space and the quotient module or space with respect to a group action. group cohomology is used in the fields of abstract algebra, homological algebra, algebraic topology and algebraic number theory, as well as in applications to group theory proper. as in algebraic topology, there is a dual theory called group homology. the techniques of group cohomology can also be extended to the case that instead of a g-module, g acts on a nonabelian g-group; in effect, a generalization of a module to non-abelian coefficients.
+these algebraic ideas are closely related to topological ideas. the group cohomology of a discrete group g is the singular cohomology of a suitable space having g as its fundamental group, namely the corresponding eilenberg–maclane space. thus, the group cohomology of 
+  
+    
+      
+        
+          z
+        
+      
+    
+    {\displaystyle \mathbb {z} }
+   can be thought of as the singular cohomology of the circle s1, and similarly for 
+  
+    
+      
+        
+          z
+        
+        
+          /
+        
+        2
+        
+          z
+        
+      
+    
+    {\displaystyle \mathbb {z} /2\mathbb {z} }
+   and 
+  
+    
+      
+        
+          
+            p
+          
+          
+            ∞
+          
+        
+        (
+        
+          r
+        
+        )
+        .
+      
+    
+    {\displaystyle \mathbb {p} ^{\infty }(\mathbb {r} ).}
+  
+a great deal is known about the cohomology of groups, including interpretations of low-dimensional cohomology, functoriality, and how to change groups. the subject of group cohomology began in the 1920s, matured in the late 1940s, and continues as an area of active research today.
+
+
+== motivation ==
+a general paradigm in group theory is that a group g should be studied via its group representations. a slight generalization of those representations are the g-modules: a g-module is an abelian group m together with a group action of g on m, with every element of g acting as an automorphism of m. we will write g multiplicatively and m additively.
+given such a g-module m, it is natural to consider the submodule of g-invariant elements:
+
+  
+    
+      
+        
+          m
+          
+            g
+          
+        
+        =
+        {
+        x
+        ∈
+        m
+         
+        
+          |
+        
+         
+        ∀
+        g
+        ∈
+        g
+        :
+         
+        g
+        x
+        =
+        x
+        }
+        .
+      
+    
+    {\displaystyle m^{g}=\lbrace x\in m\ |\ \forall g\in g:\ gx=x\rbrace .}
+  now, if n is a g-submodule of m (i.e., a subgroup of m mapped to itself by the action of g), it isn't in general true that the invariants in 
+  
+    
+      
+        m
+        
+          /
+        
+        n
+      
+    
+    {\displaystyle m/n}
+   are found as the quotient of the invariants in m by those in n: being invariant 'modulo n ' is broader. the purpose of the first group cohomology 
+  
+    
+      
+        
+          h
+          
+            1
+          
+        
+        (
+        g
+        ,
+        n
+        )
+      
+    
+    {\displaystyle h^{1}(g,n)}
+   is to precisely measure this difference.
+the group cohomology functors 
+  
+    
+      
+        
+          h
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle h^{*}}
+   in general measure the extent to which taking invariants doesn't respect exact sequences. this is expressed by a long exact sequence.
+
+
+== definitions ==
+the collection of all g-modules is a category (the morphisms are group homomorphisms f with the property 
+  
+    
+      
+        f
+        (
+        g
+        x
+        )
+        =
+        g
+        (
+        f
+        (
+        x
+        )
+        )
+      
+    
+    {\displaystyle f(gx)=g(f(x))}
+   for all g in g and x in m). sending each module m to the group of invariants 
+  
+    
+      
+        
+          m
+          
+            g
+          
+        
+      
+    
+    {\displaystyle m^{g}}
+   yields a functor from the category of g-modules to the category ab of abelian groups. this functor is left exact but not necessarily right exact. we may therefore form its right derived functors. their values are abelian groups and they are denoted by 
+  
+    
+      
+        
+          h
+          
+            n
+          
+        
+        (
+        g
+        ,
+        m
+        )
+      
+    
+    {\displaystyle h^{n}(g,m)}
+  , "the n-th cohomology group of g with coefficients in m". furthermore, the group 
+  
+    
+      
+        
+          h
+          
+            0
+          
+        
+        (
+        g
+        ,
+        m
+        )
+      
+    
+    {\displaystyle h^{0}(g,m)}
+   may be identified with 
+  
+    
+      
+        
+          m
+          
+            g
+          
+        
+      
+    
+    {\displaystyle m^{g}}
+  .
+
+
+=== cochain complexes ===
+the definition using derived functors is conceptually very clear, but for concrete applications, the following computations, which some authors also use as a definition, are often helpful. for 
+  
+    
+      
+        n
+        ≥
+        0
+      
+    
+    {\displaystyle n\geq 0}
+  , let 
+  
+    
+      
+        
+          c
+          
+            n
+          
+        
+        (
+        g
+        ,
+        m
+        )
+      
+    
+    {\displaystyle c^{n}(g,m)}
+   be the group of all functions from 
+  
+    
+      
+        
+          g
+          
+            n
+          
+        
+      
+    
+    {\displaystyle g^{n}}
+   to m (here 
+  
+    
+      
+        
+          g
+          
+            0
+          
+        
+      
+    
+    {\displaystyle g^{0}}
+   means 
+  
+    
+      
+        
+          id
+          
+            g
+          
+        
+      
+    
+    {\displaystyle \operatorname {id} _{g}}
+  ). this is an abelian group; its elements are called the (inhomogeneous) n-cochains. the coboundary homomorphisms
+
+  
+    
+      
+        
+          
+            {
+            
+              
+                
+                  
+                    d
+                    
+                      n
+                      +
+                      1
+                    
+                  
+                  :
+                  
+                    c
+                    
+                      n
+                    
+                  
+                  (
+                  g
+                  ,
+                  m
+                  )
+                  →
+                  
+                    c
+                    
+                      n
+                      +
+                      1
+                    
+                  
+                  (
+                  g
+                  ,
+                  m
+                  )
+                
+              
+              
+                
+                  
+                    (
+                    
+                      
+                        d
+                        
+                          n
+                          +
+                          1
+                        
+                      
+                      φ
+                    
+                    )
+                  
+                  (
+                  
+                    g
+                    
+                      1
+                    
+                  
+                  ,
+                  …
+                  ,
+                  
+                    g
+                    
+                      n
+                      +
+                      1
+                    
+                  
+                  )
+                  =
+                  
+                    g
+                    
+                      1
+                    
+                  
+                  φ
+                  (
+                  
+                    g
+                    
+                      2
+                    
+                  
+                  ,
+                  …
+                  ,
+                  
+                    g
+                    
+                      n
+                      +
+                      1
+                    
+                  
+                  )
+                  +
+                  
+                    ∑
+                    
+                      i
+                      =
+                      1
+                    
+                    
+                      n
+                    
+                  
+                  (
+                  −
+                  1
+                  
+                    )
+                    
+                      i
+                    
+                  
+                  φ
+                  
+                    (
+                    
+                      
+                        g
+                        
+                          1
+                        
+                      
+                      ,
+                      …
+                      ,
+                      
+                        g
+                        
+                          i
+                          −
+                          1
+                        
+                      
+                      ,
+                      
+                        g
+                        
+                          i
+                        
+                      
+                      
+                        g
+                        
+                          i
+                          +
+                          1
+                        
+                      
+                      ,
+                      …
+                      ,
+                      
+                        g
+                        
+                          n
+                          +
+                          1
+                        
+                      
+                    
+                    )
+                  
+                  +
+                  (
+                  −
+                  1
+                  
+                    )
+                    
+                      n
+                      +
+                      1
+                    
+                  
+                  φ
+                  (
+                  
+                    g
+                    
+                      1
+                    
+                  
+                  ,
+                  …
+                  ,
+                  
+                    g
+                    
+                      n
+                    
+                  
+                  )
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{cases}d^{n+1}\colon c^{n}(g,m)\to c^{n+1}(g,m)\\\left(d^{n+1}\varphi \right)(g_{1},\ldots ,g_{n+1})=g_{1}\varphi (g_{2},\dots ,g_{n+1})+\sum _{i=1}^{n}(-1)^{i}\varphi \left(g_{1},\ldots ,g_{i-1},g_{i}g_{i+1},\ldots ,g_{n+1}\right)+(-1)^{n+1}\varphi (g_{1},\ldots ,g_{n})\end{cases}}}
+  one may check that 
+  
+    
+      
+        
+          d
+          
+            n
+            +
+            1
+          
+        
+        ∘
+        
+          d
+          
+            n
+          
+        
+        =
+        0
+        ,
+      
+    
+    {\displaystyle d^{n+1}\circ d^{n}=0,}
+   so this defines a cochain complex whose cohomology can be computed. it can be shown that the above-mentioned definition of group cohomology in terms of derived functors is isomorphic to the cohomology of this complex
+
+  
+    
+      
+        
+          h
+          
+            n
+          
+        
+        (
+        g
+        ,
+        m
+        )
+        =
+        
+          z
+          
+            n
+          
+        
+        (
+        g
+        ,
+        m
+        )
+        
+          /
+        
+        
+          b
+          
+            n
+          
+        
+        (
+        g
+        ,
+        m
+        )
+        .
+      
+    
+    {\displaystyle h^{n}(g,m)=z^{n}(g,m)/b^{n}(g,m).}
+  here the groups of n-cocycles, and n-coboundaries, respectively, are defined as
+
+  
+    
+      
+        
+          z
+          
+            n
+          
+        
+        (
+        g
+        ,
+        m
+        )
+        =
+        ker
+        ⁡
+        (
+        
+          d
+          
+            n
+            +
+            1
+          
+        
+        )
+      
+    
+    {\displaystyle z^{n}(g,m)=\ker(d^{n+1})}
+  
+
+  
+    
+      
+        
+          b
+          
+            n
+          
+        
+        (
+        g
+        ,
+        m
+        )
+        =
+        
+          
+            {
+            
+              
+                
+                  0
+                
+                
+                  n
+                  =
+                  0
+                
+              
+              
+                
+                  im
+                  ⁡
+                  (
+                  
+                    d
+                    
+                      n
+                    
+                  
+                  )
+                
+                
+                  n
+                  ⩾
+                  1
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle b^{n}(g,m)={\begin{cases}0&n=0\\\operatorname {im} (d^{n})&n\geqslant 1\end{cases}}}
+  
+
+
+=== the functors extn and formal definition of group cohomology ===
+interpreting g-modules as modules over the group ring 
+  
+    
+      
+        
+          z
+        
+        [
+        g
+        ]
+        ,
+      
+    
+    {\displaystyle \mathbb {z} [g],}
+   one can note that
+
+  
+    
+      
+        
+          h
+          
+            0
+          
+        
+        (
+        g
+        ,
+        m
+        )
+        =
+        
+          m
+          
+            g
+          
+        
+        =
+        
+          hom
+          
+            
+              z
+            
+            [
+            g
+            ]
+          
+        
+        ⁡
+        (
+        
+          z
+        
+        ,
+        m
+        )
+        ,
+      
+    
+    {\displaystyle h^{0}(g,m)=m^{g}=\operatorname {hom} _{\mathbb {z} [g]}(\mathbb {z} ,m),}
+  i.e., the subgroup of g-invariant elements in m is identified with the group of homomorphisms from 
+  
+    
+      
+        
+          z
+        
+      
+    
+    {\displaystyle \mathbb {z} }
+  , which is treated as the trivial g-module (every element of g acts as the identity) to m.
+therefore, as ext functors are the derived functors of hom, there is a natural isomorphism
+
+  
+    
+      
+        
+          h
+          
+            n
+          
+        
+        (
+        g
+        ,
+        m
+        )
+        =
+        
+          ext
+          
+            
+              z
+            
+            [
+            g
+            ]
+          
+          
+            n
+          
+        
+        ⁡
+        (
+        
+          z
+        
+        ,
+        m
+        )
+        .
+      
+    
+    {\displaystyle h^{n}(g,m)=\operatorname {ext} _{\mathbb {z} [g]}^{n}(\mathbb {z} ,m).}
+  these ext groups can also be computed via a projective resolution of 
+  
+    
+      
+        
+          z
+        
+      
+    
+    {\displaystyle \mathbb {z} }
+  , the advantage being that such a resolution only depends on g and not on m. we recall the definition of ext more explicitly for this context. let f be a projective 
+  
+    
+      
+        
+          z
+        
+        [
+        g
+        ]
+      
+    
+    {\displaystyle \mathbb {z} [g]}
+  -resolution (e.g. a free 
+  
+    
+      
+        
+          z
+        
+        [
+        g
+        ]
+      
+    
+    {\displaystyle \mathbb {z} [g]}
+  -resolution) of the trivial 
+  
+    
+      
+        
+          z
+        
+        [
+        g
+        ]
+      
+    
+    {\displaystyle \mathbb {z} [g]}
+  -module 
+  
+    
+      
+        
+          z
+        
+      
+    
+    {\displaystyle \mathbb {z} }
+  :
+
+  
+    
+      
+        ⋯
+        →
+        
+          f
+          
+            n
+          
+        
+        →
+        
+          f
+          
+            n
+            −
+            1
+          
+        
+        →
+        ⋯
+        →
+        
+          f
+          
+            0
+          
+        
+        →
+        
+          z
+        
+        →
+        0.
+      
+    
+    {\displaystyle \cdots \to f_{n}\to f_{n-1}\to \cdots \to f_{0}\to \mathbb {z} \to 0.}
+  e.g., one may always take the resolution of group rings, 
+  
+    
+      
+        
+          f
+          
+            n
+          
+        
+        =
+        
+          z
+        
+        [
+        
+          g
+          
+            n
+            +
+            1
+          
+        
+        ]
+        ,
+      
+    
+    {\displaystyle f_{n}=\mathbb {z} [g^{n+1}],}
+   with morphisms
+
+  
+    
+      
+        
+          
+            {
+            
+              
+                
+                  
+                    f
+                    
+                      n
+                    
+                  
+                  :
+                  
+                    z
+                  
+                  [
+                  
+                    g
+                    
+                      n
+                      +
+                      1
+                    
+                  
+                  ]
+                  →
+                  
+                    z
+                  
+                  [
+                  
+                    g
+                    
+                      n
+                    
+                  
+                  ]
+                
+              
+              
+                
+                  (
+                  
+                    g
+                    
+                      0
+                    
+                  
+                  ,
+                  
+                    g
+                    
+                      1
+                    
+                  
+                  ,
+                  …
+                  ,
+                  
+                    g
+                    
+                      n
+                    
+                  
+                  )
+                  ↦
+                  
+                    ∑
+                    
+                      i
+                      =
+                      0
+                    
+                    
+                      n
+                    
+                  
+                  (
+                  −
+                  1
+                  
+                    )
+                    
+                      i
+                    
+                  
+                  
+                    (
+                    
+                      
+                        g
+                        
+                          0
+                        
+                      
+                      ,
+                      …
+                      ,
+                      
+                        
+                          
+                            
+                              g
+                              
+                                i
+                              
+                            
+                            ^
+                          
+                        
+                      
+                      ,
+                      …
+                      ,
+                      
+                        g
+                        
+                          n
+                        
+                      
+                    
+                    )
+                  
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{cases}f_{n}:\mathbb {z} [g^{n+1}]\to \mathbb {z} [g^{n}]\\(g_{0},g_{1},\ldots ,g_{n})\mapsto \sum _{i=0}^{n}(-1)^{i}\left(g_{0},\ldots ,{\widehat {g_{i}}},\dots ,g_{n}\right)\end{cases}}}
+  recall that for 
+  
+    
+      
+        
+          z
+        
+        [
+        g
+        ]
+      
+    
+    {\displaystyle \mathbb {z} [g]}
+  -modules n and m, homg(n, m) is an abelian group consisting of 
+  
+    
+      
+        
+          z
+        
+        [
+        g
+        ]
+      
+    
+    {\displaystyle \mathbb {z} [g]}
+  -homomorphisms from n to m. since 
+  
+    
+      
+        
+          hom
+          
+            g
+          
+        
+        ⁡
+        (
+        −
+        ,
+        m
+        )
+      
+    
+    {\displaystyle \operatorname {hom} _{g}(-,m)}
+   is a contravariant functor and reverses the arrows, applying 
+  
+    
+      
+        
+          hom
+          
+            g
+          
+        
+        ⁡
+        (
+        −
+        ,
+        m
+        )
+      
+    
+    {\displaystyle \operatorname {hom} _{g}(-,m)}
+   to f termwise and dropping 
+  
+    
+      
+        
+          hom
+          
+            g
+          
+        
+        ⁡
+        (
+        
+          z
+        
+        ,
+        m
+        )
+      
+    
+    {\displaystyle \operatorname {hom} _{g}(\mathbb {z} ,m)}
+   produces a cochain complex 
+  
+    
+      
+        
+          hom
+          
+            g
+          
+        
+        ⁡
+        (
+        −
+        ,
+        m
+        )
+        (
+        f
+        ,
+        m
+        )
+      
+    
+    {\displaystyle \operatorname {hom} _{g}(-,m)(f,m)}
+  :
+
+  
+    
+      
+        ⋯
+        ←
+        
+          hom
+          
+            g
+          
+        
+        ⁡
+        (
+        
+          f
+          
+            n
+          
+        
+        ,
+        m
+        )
+        ←
+        
+          hom
+          
+            g
+          
+        
+        ⁡
+        (
+        
+          f
+          
+            n
+            −
+            1
+          
+        
+        ,
+        m
+        )
+        ←
+        ⋯
+        ←
+        
+          hom
+          
+            g
+          
+        
+        ⁡
+        (
+        
+          f
+          
+            0
+          
+        
+        ,
+        m
+        )
+        ←
+        0.
+      
+    
+    {\displaystyle \cdots \leftarrow \operatorname {hom} _{g}(f_{n},m)\leftarrow \operatorname {hom} _{g}(f_{n-1},m)\leftarrow \dots \leftarrow \operatorname {hom} _{g}(f_{0},m)\leftarrow 0.}
+  the cohomology groups 
+  
+    
+      
+        
+          h
+          
+            ∗
+          
+        
+        (
+        g
+        ,
+        m
+        )
+      
+    
+    {\displaystyle h^{*}(g,m)}
+   of g with coefficients in the module m are defined as the cohomology of the above cochain complex:
+
+  
+    
+      
+        
+          h
+          
+            n
+          
+        
+        (
+        g
+        ,
+        m
+        )
+        =
+        
+          h
+          
+            n
+          
+        
+        (
+        
+          
+            
+              h
+              o
+              m
+            
+          
+          
+            g
+          
+        
+        (
+        f
+        ,
+        m
+        )
+        )
+        ,
+        
+        n
+        ⩾
+        0.
+      
+    
+    {\displaystyle h^{n}(g,m)=h^{n}({\rm {hom}}_{g}(f,m)),\qquad n\geqslant 0.}
+  this construction initially leads to a coboundary operator that acts on the "homogeneous" cochains. these are the elements of 
+  
+    
+      
+        
+          hom
+          
+            g
+          
+        
+        ⁡
+        (
+        f
+        ,
+        m
+        )
+      
+    
+    {\displaystyle \operatorname {hom} _{g}(f,m)}
+  , that is, functions 
+  
+    
+      
+        
+          φ
+          
+            n
+          
+        
+        :
+        
+          g
+          
+            n
+          
+        
+        →
+        m
+      
+    
+    {\displaystyle \varphi _{n}\colon g^{n}\to m}
+   that obey
+
+  
+    
+      
+        g
+        
+          ϕ
+          
+            n
+          
+        
+        (
+        
+          g
+          
+            1
+          
+        
+        ,
+        
+          g
+          
+            2
+          
+        
+        ,
+        …
+        ,
+        
+          g
+          
+            n
+          
+        
+        )
+        =
+        
+          ϕ
+          
+            n
+          
+        
+        (
+        g
+        
+          g
+          
+            1
+          
+        
+        ,
+        g
+        
+          g
+          
+            2
+          
+        
+        ,
+        …
+        ,
+        g
+        
+          g
+          
+            n
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle g\phi _{n}(g_{1},g_{2},\ldots ,g_{n})=\phi _{n}(gg_{1},gg_{2},\ldots ,gg_{n}).}
+  the coboundary operator 
+  
+    
+      
+        δ
+        :
+        
+          c
+          
+            n
+          
+        
+        →
+        
+          c
+          
+            n
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle \delta \colon c^{n}\to c^{n+1}}
+   is now naturally defined by, for example,
+
+  
+    
+      
+        δ
+        
+          ϕ
+          
+            2
+          
+        
+        (
+        
+          g
+          
+            1
+          
+        
+        ,
+        
+          g
+          
+            2
+          
+        
+        ,
+        
+          g
+          
+            3
+          
+        
+        )
+        =
+        
+          ϕ
+          
+            2
+          
+        
+        (
+        
+          g
+          
+            2
+          
+        
+        ,
+        
+          g
+          
+            3
+          
+        
+        )
+        −
+        
+          ϕ
+          
+            2
+          
+        
+        (
+        
+          g
+          
+            1
+          
+        
+        ,
+        
+          g
+          
+            3
+          
+        
+        )
+        +
+        
+          ϕ
+          
+            2
+          
+        
+        (
+        
+          g
+          
+            1
+          
+        
+        ,
+        
+          g
+          
+            2
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle \delta \phi _{2}(g_{1},g_{2},g_{3})=\phi _{2}(g_{2},g_{3})-\phi _{2}(g_{1},g_{3})+\phi _{2}(g_{1},g_{2}).}
+  the relation to the coboundary operator d that was defined in the previous section, and which acts on the "inhomogeneous" cochains 
+  
+    
+      
+        φ
+      
+    
+    {\displaystyle \varphi }
+  , is given by reparameterizing so that
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  φ
+                  
+                    2
+                  
+                
+                (
+                
+                  g
+                  
+                    1
+                  
+                
+                ,
+                
+                  g
+                  
+                    2
+                  
+                
+                )
+              
+              
+                
+                =
+                
+                  ϕ
+                  
+                    3
+                  
+                
+                (
+                1
+                ,
+                
+                  g
+                  
+                    1
+                  
+                
+                ,
+                
+                  g
+                  
+                    1
+                  
+                
+                
+                  g
+                  
+                    2
+                  
+                
+                )
+              
+            
+            
+              
+                
+                  φ
+                  
+                    3
+                  
+                
+                (
+                
+                  g
+                  
+                    1
+                  
+                
+                ,
+                
+                  g
+                  
+                    2
+                  
+                
+                ,
+                
+                  g
+                  
+                    3
+                  
+                
+                )
+              
+              
+                
+                =
+                
+                  ϕ
+                  
+                    4
+                  
+                
+                (
+                1
+                ,
+                
+                  g
+                  
+                    1
+                  
+                
+                ,
+                
+                  g
+                  
+                    1
+                  
+                
+                
+                  g
+                  
+                    2
+                  
+                
+                ,
+                
+                  g
+                  
+                    1
+                  
+                
+                
+                  g
+                  
+                    2
+                  
+                
+                
+                  g
+                  
+                    3
+                  
+                
+                )
+                ,
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}\varphi _{2}(g_{1},g_{2})&=\phi _{3}(1,g_{1},g_{1}g_{2})\\\varphi _{3}(g_{1},g_{2},g_{3})&=\phi _{4}(1,g_{1},g_{1}g_{2},g_{1}g_{2}g_{3}),\end{aligned}}}
+  and so on. thus
+
+  
+    
+      
+        
+          
+            
+              
+                d
+                
+                  φ
+                  
+                    2
+                  
+                
+                (
+                
+                  g
+                  
+                    1
+                  
+                
+                ,
+                
+                  g
+                  
+                    2
+                  
+                
+                ,
+                
+                  g
+                  
+                    3
+                  
+                
+                )
+              
+              
+                
+                =
+                δ
+                
+                  ϕ
+                  
+                    3
+                  
+                
+                (
+                1
+                ,
+                
+                  g
+                  
+                    1
+                  
+                
+                ,
+                
+                  g
+                  
+                    1
+                  
+                
+                
+                  g
+                  
+                    2
+                  
+                
+                ,
+                
+                  g
+                  
+                    1
+                  
+                
+                
+                  g
+                  
+                    2
+                  
+                
+                
+                  g
+                  
+                    3
+                  
+                
+                )
+              
+            
+            
+              
+              
+                
+                =
+                
+                  ϕ
+                  
+                    3
+                  
+                
+                (
+                
+                  g
+                  
+                    1
+                  
+                
+                ,
+                
+                  g
+                  
+                    1
+                  
+                
+                
+                  g
+                  
+                    2
+                  
+                
+                ,
+                
+                  g
+                  
+                    1
+                  
+                
+                
+                  g
+                  
+                    2
+                  
+                
+                
+                  g
+                  
+                    3
+                  
+                
+                )
+                −
+                
+                  ϕ
+                  
+                    3
+                  
+                
+                (
+                1
+                ,
+                
+                  g
+                  
+                    1
+                  
+                
+                
+                  g
+                  
+                    2
+                  
+                
+                ,
+                
+                  g
+                  
+                    1
+                  
+                
+                
+                  g
+                  
+                    2
+                  
+                
+                
+                  g
+                  
+                    3
+                  
+                
+                )
+                +
+                
+                  ϕ
+                  
+                    3
+                  
+                
+                (
+                1
+                ,
+                
+                  g
+                  
+                    1
+                  
+                
+                ,
+                
+                  g
+                  
+                    1
+                  
+                
+                
+                  g
+                  
+                    2
+                  
+                
+                
+                  g
+                  
+                    3
+                  
+                
+                )
+                −
+                
+                  ϕ
+                  
+                    3
+                  
+                
+                (
+                1
+                ,
+                
+                  g
+                  
+                    1
+                  
+                
+                ,
+                
+                  g
+                  
+                    1
+                  
+                
+                
+                  g
+                  
+                    2
+                  
+                
+                )
+              
+            
+            
+              
+              
+                
+                =
+                
+                  g
+                  
+                    1
+                  
+                
+                
+                  ϕ
+                  
+                    3
+                  
+                
+                (
+                1
+                ,
+                
+                  g
+                  
+                    2
+                  
+                
+                ,
+                
+                  g
+                  
+                    2
+                  
+                
+                
+                  g
+                  
+                    3
+                  
+                
+                )
+                −
+                
+                  ϕ
+                  
+                    3
+                  
+                
+                (
+                1
+                ,
+                
+                  g
+                  
+                    1
+                  
+                
+                
+                  g
+                  
+                    2
+                  
+                
+                ,
+                
+                  g
+                  
+                    1
+                  
+                
+                
+                  g
+                  
+                    2
+                  
+                
+                
+                  g
+                  
+                    3
+                  
+                
+                )
+                +
+                
+                  ϕ
+                  
+                    3
+                  
+                
+                (
+                1
+                ,
+                
+                  g
+                  
+                    1
+                  
+                
+                ,
+                
+                  g
+                  
+                    1
+                  
+                
+                
+                  g
+                  
+                    2
+                  
+                
+                
+                  g
+                  
+                    3
+                  
+                
+                )
+                −
+                
+                  ϕ
+                  
+                    3
+                  
+                
+                (
+                1
+                ,
+                
+                  g
+                  
+                    1
+                  
+                
+                ,
+                
+                  g
+                  
+                    1
+                  
+                
+                
+                  g
+                  
+                    2
+                  
+                
+                )
+              
+            
+            
+              
+              
+                
+                =
+                
+                  g
+                  
+                    1
+                  
+                
+                
+                  φ
+                  
+                    2
+                  
+                
+                (
+                
+                  g
+                  
+                    2
+                  
+                
+                ,
+                
+                  g
+                  
+                    3
+                  
+                
+                )
+                −
+                
+                  φ
+                  
+                    2
+                  
+                
+                (
+                
+                  g
+                  
+                    1
+                  
+                
+                
+                  g
+                  
+                    2
+                  
+                
+                ,
+                
+                  g
+                  
+                    3
+                  
+                
+                )
+                +
+                
+                  φ
+                  
+                    2
+                  
+                
+                (
+                
+                  g
+                  
+                    1
+                  
+                
+                ,
+                
+                  g
+                  
+                    2
+                  
+                
+                
+                  g
+                  
+                    3
+                  
+                
+                )
+                −
+                
+                  φ
+                  
+                    2
+                  
+                
+                (
+                
+                  g
+                  
+                    1
+                  
+                
+                ,
+                
+                  g
+                  
+                    2
+                  
+                
+                )
+                ,
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}d\varphi _{2}(g_{1},g_{2},g_{3})&=\delta \phi _{3}(1,g_{1},g_{1}g_{2},g_{1}g_{2}g_{3})\\&=\phi _{3}(g_{1},g_{1}g_{2},g_{1}g_{2}g_{3})-\phi _{3}(1,g_{1}g_{2},g_{1}g_{2}g_{3})+\phi _{3}(1,g_{1},g_{1}g_{2}g_{3})-\phi _{3}(1,g_{1},g_{1}g_{2})\\&=g_{1}\phi _{3}(1,g_{2},g_{2}g_{3})-\phi _{3}(1,g_{1}g_{2},g_{1}g_{2}g_{3})+\phi _{3}(1,g_{1},g_{1}g_{2}g_{3})-\phi _{3}(1,g_{1},g_{1}g_{2})\\&=g_{1}\varphi _{2}(g_{2},g_{3})-\varphi _{2}(g_{1}g_{2},g_{3})+\varphi _{2}(g_{1},g_{2}g_{3})-\varphi _{2}(g_{1},g_{2}),\end{aligned}}}
+  as in the preceding section.
+
+
+== group homology ==
+dually to the construction of group cohomology there is the following definition of group homology: given a g-module m, set dm to be the submodule generated by elements of the form g·m − m, g ∈ g, m ∈ m. assigning to m its so-called coinvariants, the quotient
+
+  
+    
+      
+        
+          m
+          
+            g
+          
+        
+        :=
+        m
+        
+          /
+        
+        d
+        m
+        ,
+      
+    
+    {\displaystyle m_{g}:=m/dm,}
+  is a right exact functor. its left derived functors are by definition the group homology
+
+  
+    
+      
+        
+          h
+          
+            n
+          
+        
+        (
+        g
+        ,
+        m
+        )
+        .
+      
+    
+    {\displaystyle h_{n}(g,m).}
+  the covariant functor which assigns mg to m is isomorphic to the functor which sends m to 
+  
+    
+      
+        
+          z
+        
+        
+          ⊗
+          
+            
+              z
+            
+            [
+            g
+            ]
+          
+        
+        m
+        ,
+      
+    
+    {\displaystyle \mathbb {z} \otimes _{\mathbb {z} [g]}m,}
+   where 
+  
+    
+      
+        
+          z
+        
+      
+    
+    {\displaystyle \mathbb {z} }
+   is endowed with the trivial g-action. hence one also gets an expression for group homology in terms of the tor functors,
+
+  
+    
+      
+        
+          h
+          
+            n
+          
+        
+        (
+        g
+        ,
+        m
+        )
+        =
+        
+          tor
+          
+            n
+          
+          
+            
+              z
+            
+            [
+            g
+            ]
+          
+        
+        ⁡
+        (
+        
+          z
+        
+        ,
+        m
+        )
+      
+    
+    {\displaystyle h_{n}(g,m)=\operatorname {tor} _{n}^{\mathbb {z} [g]}(\mathbb {z} ,m)}
+  note that the superscript/subscript convention for cohomology/homology agrees with the convention for group invariants/coinvariants, while which is denoted "co-" switches:
+
+superscripts correspond to cohomology h* and invariants xg while
+subscripts correspond to homology h∗ and coinvariants xg := x/g.specifically, the homology groups hn(g, m) can be computed as follows. start with a projective resolution f of the trivial 
+  
+    
+      
+        
+          z
+        
+        [
+        g
+        ]
+      
+    
+    {\displaystyle \mathbb {z} [g]}
+  -module 
+  
+    
+      
+        
+          z
+        
+        ,
+      
+    
+    {\displaystyle \mathbb {z} ,}
+   as in the previous section. apply the covariant functor 
+  
+    
+      
+        ⋅
+        
+          ⊗
+          
+            
+              z
+            
+            [
+            g
+            ]
+          
+        
+        m
+      
+    
+    {\displaystyle \cdot \otimes _{\mathbb {z} [g]}m}
+   to f termwise to get a chain complex 
+  
+    
+      
+        f
+        
+          ⊗
+          
+            
+              z
+            
+            [
+            g
+            ]
+          
+        
+        m
+      
+    
+    {\displaystyle f\otimes _{\mathbb {z} [g]}m}
+  :
+
+  
+    
+      
+        ⋯
+        →
+        
+          f
+          
+            n
+          
+        
+        
+          ⊗
+          
+            
+              z
+            
+            [
+            g
+            ]
+          
+        
+        m
+        →
+        
+          f
+          
+            n
+            −
+            1
+          
+        
+        
+          ⊗
+          
+            
+              z
+            
+            [
+            g
+            ]
+          
+        
+        m
+        →
+        ⋯
+        →
+        
+          f
+          
+            0
+          
+        
+        
+          ⊗
+          
+            
+              z
+            
+            [
+            g
+            ]
+          
+        
+        m
+        →
+        
+          z
+        
+        
+          ⊗
+          
+            
+              z
+            
+            [
+            g
+            ]
+          
+        
+        m
+        .
+      
+    
+    {\displaystyle \cdots \to f_{n}\otimes _{\mathbb {z} [g]}m\to f_{n-1}\otimes _{\mathbb {z} [g]}m\to \cdots \to f_{0}\otimes _{\mathbb {z} [g]}m\to \mathbb {z} \otimes _{\mathbb {z} [g]}m.}
+  then hn(g, m) are the homology groups of this chain complex, 
+  
+    
+      
+        
+          h
+          
+            n
+          
+        
+        (
+        g
+        ,
+        m
+        )
+        =
+        
+          h
+          
+            n
+          
+        
+        (
+        f
+        
+          ⊗
+          
+            
+              z
+            
+            [
+            g
+            ]
+          
+        
+        m
+        )
+      
+    
+    {\displaystyle h_{n}(g,m)=h_{n}(f\otimes _{\mathbb {z} [g]}m)}
+   for n ≥ 0.
+group homology and cohomology can be treated uniformly for some groups, especially finite groups, in terms of complete resolutions and the tate cohomology groups.
+the group homology 
+  
+    
+      
+        
+          h
+          
+            ∗
+          
+        
+        (
+        g
+        ,
+        k
+        )
+      
+    
+    {\displaystyle h_{*}(g,k)}
+   of abelian groups g with values in a principal ideal domain k is closely related to the exterior algebra 
+  
+    
+      
+        
+          ∧
+          
+            ∗
+          
+        
+        (
+        g
+        ⊗
+        k
+        )
+      
+    
+    {\displaystyle \wedge ^{*}(g\otimes k)}
+  .
+
+
+== low-dimensional cohomology groups ==
+
+
+=== h 1 ===
+the first cohomology group is the quotient of the so-called crossed homomorphisms, i.e. maps (of sets) f : g → m satisfying f(ab) = f(a) + af(b) for all a, b in g, modulo the so-called principal crossed homomorphisms, i.e. maps f : g → m given by f(a) = am−m for some fixed m ∈ m. this follows from the definition of cochains above.
+if the action of g on m is trivial, then the above boils down to h1(g,m) = hom(g, m), the group of group homomorphisms g → m.
+consider the case of 
+  
+    
+      
+        
+          h
+          
+            1
+          
+        
+        (
+        
+          z
+        
+        
+          /
+        
+        2
+        ,
+        
+          
+            z
+          
+          
+            −
+          
+        
+        )
+        ,
+      
+    
+    {\displaystyle h^{1}(\mathbb {z} /2,\mathbb {z} _{-}),}
+   where 
+  
+    
+      
+        
+          
+            z
+          
+          
+            −
+          
+        
+      
+    
+    {\displaystyle \mathbb {z} _{-}}
+   denotes the non-trivial 
+  
+    
+      
+        
+          z
+        
+        
+          /
+        
+        2
+      
+    
+    {\displaystyle \mathbb {z} /2}
+  -structure on the group of integers. then crossed homomorphisms constitute all maps 
+  
+    
+      
+        f
+        :
+        
+          z
+        
+        
+          /
+        
+        2
+        →
+        
+          z
+        
+      
+    
+    {\displaystyle f:\mathbb {z} /2\to \mathbb {z} }
+   satisfying 
+  
+    
+      
+        f
+        (
+        1
+        )
+        =
+        0
+      
+    
+    {\displaystyle f(1)=0}
+   and 
+  
+    
+      
+        f
+        (
+        −
+        1
+        )
+        =
+        a
+      
+    
+    {\displaystyle f(-1)=a}
+   for some integer a. principal crossed homomorphisms satisfy additionally 
+  
+    
+      
+        f
+        (
+        −
+        1
+        )
+        =
+        2
+        a
+        ,
+      
+    
+    {\displaystyle f(-1)=2a,}
+   hence
+
+  
+    
+      
+        
+          h
+          
+            1
+          
+        
+        (
+        
+          z
+        
+        
+          /
+        
+        2
+        ,
+        
+          
+            z
+          
+          
+            −
+          
+        
+        )
+        ≅
+        
+          z
+        
+        
+          /
+        
+        2
+        =
+        ⟨
+        f
+        :
+        f
+        (
+        1
+        )
+        =
+        0
+        ,
+        f
+        (
+        −
+        1
+        )
+        =
+        1
+        ⟩
+        .
+      
+    
+    {\displaystyle h^{1}(\mathbb {z} /2,\mathbb {z} _{-})\cong \mathbb {z} /2=\langle f:f(1)=0,f(-1)=1\rangle .}
+  
+
+
+=== h 2 ===
+if m is a trivial g-module (i.e. the action of g on m is trivial), the second cohomology group h2(g,m) is in one-to-one correspondence with the set of central extensions of g by m (up to a natural equivalence relation). more generally, if the action of g on m is nontrivial, h2(g,m) classifies the isomorphism classes of all extensions 
+  
+    
+      
+        0
+        →
+        m
+        →
+        e
+        →
+        g
+        →
+        0
+      
+    
+    {\displaystyle 0\to m\to e\to g\to 0}
+   of g by m, in which the action of g on e (by inner automorphisms), endows (the image of) m with isomorphic g-module structure.
+in the example as above, 
+  
+    
+      
+        
+          h
+          
+            2
+          
+        
+        (
+        
+          z
+        
+        
+          /
+        
+        2
+        ,
+        
+          
+            z
+          
+          
+            −
+          
+        
+        )
+        =
+        0
+        ,
+      
+    
+    {\displaystyle h^{2}(\mathbb {z} /2,\mathbb {z} _{-})=0,}
+   as the only extension of 
+  
+    
+      
+        
+          z
+        
+        
+          /
+        
+        2
+      
+    
+    {\displaystyle \mathbb {z} /2}
+   by 
+  
+    
+      
+        
+          z
+        
+      
+    
+    {\displaystyle \mathbb {z} }
+   with the given nontrivial action is the infinite dihedral group.
+an example of a second group cohomology group is the brauer group: it is the cohomology of the absolute galois group of a field k which acts on the invertible elements in a separable closure:
+
+  
+    
+      
+        
+          h
+          
+            2
+          
+        
+        
+          (
+          
+            
+              g
+              a
+              l
+            
+            (
+            k
+            )
+            ,
+            (
+            
+              k
+              
+                
+                  s
+                  e
+                  p
+                
+              
+            
+            
+              )
+              
+                ×
+              
+            
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle h^{2}\left(\mathrm {gal} (k),(k^{\mathrm {sep} })^{\times }\right).}
+  
+
+
+== basic examples ==
+
+
+=== group cohomology of a finite cyclic group ===
+for the finite cyclic group 
+  
+    
+      
+        g
+        =
+        
+          c
+          
+            m
+          
+        
+      
+    
+    {\displaystyle g=c_{m}}
+   of order 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   with generator 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+  , the element 
+  
+    
+      
+        σ
+        −
+        1
+        ∈
+        
+          z
+        
+        [
+        g
+        ]
+      
+    
+    {\displaystyle \sigma -1\in \mathbb {z} [g]}
+   in the associated group ring is a divisor of zero because its product with 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  , given by
+  
+    
+      
+        n
+        =
+        1
+        +
+        σ
+        +
+        
+          σ
+          
+            2
+          
+        
+        +
+        ⋯
+        +
+        
+          σ
+          
+            m
+            −
+            1
+          
+        
+        ∈
+        
+          z
+        
+        [
+        g
+        ]
+        ,
+      
+    
+    {\displaystyle n=1+\sigma +\sigma ^{2}+\cdots +\sigma ^{m-1}\in \mathbb {z} [g],}
+  gives
+  
+    
+      
+        
+          
+            
+              
+                n
+                (
+                1
+                −
+                σ
+                )
+              
+              
+                
+                =
+                1
+                +
+                σ
+                +
+                ⋯
+                +
+                
+                  σ
+                  
+                    m
+                    −
+                    1
+                  
+                
+              
+            
+            
+              
+              
+                
+                
+                −
+                σ
+                −
+                
+                  σ
+                  
+                    2
+                  
+                
+                −
+                ⋯
+                −
+                
+                  σ
+                  
+                    m
+                  
+                
+              
+            
+            
+              
+              
+                
+                =
+                1
+                −
+                
+                  σ
+                  
+                    m
+                  
+                
+              
+            
+            
+              
+              
+                
+                =
+                0.
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}n(1-\sigma )&=1+\sigma +\cdots +\sigma ^{m-1}\\&\quad -\sigma -\sigma ^{2}-\cdots -\sigma ^{m}\\&=1-\sigma ^{m}\\&=0.\end{aligned}}}
+  this property can be used to construct the resolution of the trivial 
+  
+    
+      
+        
+          z
+        
+        [
+        g
+        ]
+      
+    
+    {\displaystyle \mathbb {z} [g]}
+  -module 
+  
+    
+      
+        
+          z
+        
+      
+    
+    {\displaystyle \mathbb {z} }
+   via the complex
+  
+    
+      
+        ⋯
+        
+          →
+          
+            σ
+            −
+            1
+          
+        
+        
+          z
+        
+        [
+        g
+        ]
+        
+          →
+          
+            n
+          
+        
+        
+          z
+        
+        [
+        g
+        ]
+        
+          →
+          
+            σ
+            −
+            1
+          
+        
+        
+          z
+        
+        [
+        g
+        ]
+        
+          →
+          
+            aug
+          
+        
+        
+          z
+        
+        →
+        0
+      
+    
+    {\displaystyle \cdots \xrightarrow {\sigma -1} \mathbb {z} [g]\xrightarrow {n} \mathbb {z} [g]\xrightarrow {\sigma -1} \mathbb {z} [g]\xrightarrow {\text{aug}} \mathbb {z} \to 0}
+  giving the group cohomology computation for any 
+  
+    
+      
+        
+          z
+        
+        [
+        g
+        ]
+      
+    
+    {\displaystyle \mathbb {z} [g]}
+  -module 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+  . note the augmentation map gives the trivial module 
+  
+    
+      
+        
+          z
+        
+      
+    
+    {\displaystyle \mathbb {z} }
+   its 
+  
+    
+      
+        
+          z
+        
+        [
+        g
+        ]
+      
+    
+    {\displaystyle \mathbb {z} [g]}
+  -structure by
+  
+    
+      
+        
+          aug
+        
+        
+          (
+          
+            
+              ∑
+              
+                g
+                ∈
+                g
+              
+            
+            
+              a
+              
+                g
+              
+            
+            g
+          
+          )
+        
+        =
+        
+          ∑
+          
+            g
+            ∈
+            g
+          
+        
+        
+          a
+          
+            g
+          
+        
+      
+    
+    {\displaystyle {\text{aug}}\left(\sum _{g\in g}a_{g}g\right)=\sum _{g\in g}a_{g}}
+  this resolution gives a computation of the group cohomology since there is the isomorphism of cohomology groups
+  
+    
+      
+        
+          h
+          
+            k
+          
+        
+        (
+        g
+        ,
+        a
+        )
+        ≅
+        
+          
+            ext
+          
+          
+            
+              z
+            
+            [
+            g
+            ]
+          
+          
+            k
+          
+        
+        (
+        
+          z
+        
+        ,
+        a
+        )
+      
+    
+    {\displaystyle h^{k}(g,a)\cong {\text{ext}}_{\mathbb {z} [g]}^{k}(\mathbb {z} ,a)}
+  showing that applying the functor 
+  
+    
+      
+        
+          
+            hom
+          
+          
+            
+              z
+            
+            [
+            g
+            ]
+          
+        
+        (
+        −
+        ,
+        a
+        )
+      
+    
+    {\displaystyle {\text{hom}}_{\mathbb {z} [g]}(-,a)}
+   to the complex above (with 
+  
+    
+      
+        
+          z
+        
+      
+    
+    {\displaystyle \mathbb {z} }
+   removed since this resolution is a quasi-isomorphism), gives the computation
+  
+    
+      
+        
+          h
+          
+            k
+          
+        
+        (
+        g
+        ,
+        a
+        )
+        =
+        
+          
+            {
+            
+              
+                
+                  
+                    a
+                    
+                      g
+                    
+                  
+                  
+                    /
+                  
+                  n
+                  a
+                
+                
+                  k
+                  
+                     even
+                  
+                  ,
+                  k
+                  ≥
+                  2
+                
+              
+              
+                
+                  
+                    
+
+                    
+                    
+                      n
+                    
+                  
+                  a
+                  
+                    /
+                  
+                  (
+                  σ
+                  −
+                  1
+                  )
+                  a
+                
+                
+                  k
+                  
+                     odd
+                  
+                  ,
+                  k
+                  ≥
+                  1
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle h^{k}(g,a)={\begin{cases}a^{g}/na&k{\text{ even}},k\geq 2\\{}_{n}a/(\sigma -1)a&k{\text{ odd}},k\geq 1\end{cases}}}
+  for
+  
+    
+      
+        
+          
+
+          
+          
+            n
+          
+        
+        a
+        =
+        {
+        a
+        ∈
+        a
+        :
+        n
+        a
+        =
+        0
+        }
+      
+    
+    {\displaystyle {}_{n}a=\{a\in a:na=0\}}
+  for example, if 
+  
+    
+      
+        a
+        =
+        
+          z
+        
+      
+    
+    {\displaystyle a=\mathbb {z} }
+  , the trivial module, then 
+  
+    
+      
+        
+          
+            z
+          
+          
+            g
+          
+        
+        =
+        
+          z
+        
+      
+    
+    {\displaystyle \mathbb {z} ^{g}=\mathbb {z} }
+  , 
+  
+    
+      
+        n
+        
+          z
+        
+        =
+        
+          aug
+        
+        (
+        n
+        )
+        
+          z
+        
+        =
+        m
+        
+          z
+        
+      
+    
+    {\displaystyle n\mathbb {z} ={\text{aug}}(n)\mathbb {z} =m\mathbb {z} }
+  , and 
+  
+    
+      
+        
+          
+
+          
+          
+            n
+          
+        
+        
+          z
+        
+        =
+        0
+      
+    
+    {\displaystyle {}_{n}\mathbb {z} =0}
+  , hence
+  
+    
+      
+        
+          h
+          
+            k
+          
+        
+        (
+        
+          c
+          
+            m
+          
+        
+        ,
+        
+          z
+        
+        )
+        =
+        
+          
+            {
+            
+              
+                
+                  
+                    z
+                  
+                  
+                    /
+                  
+                  m
+                  
+                    z
+                  
+                
+                
+                  k
+                  
+                     even
+                  
+                  ,
+                  k
+                  ≥
+                  2
+                
+              
+              
+                
+                  0
+                
+                
+                  k
+                  
+                     odd
+                  
+                  ,
+                  k
+                  ≥
+                  1
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle h^{k}(c_{m},\mathbb {z} )={\begin{cases}\mathbb {z} /m\mathbb {z} &k{\text{ even}},k\geq 2\\0&k{\text{ odd}},k\geq 1\end{cases}}}
+  
+
+
+==== explicit cocycles ====
+explicit cocycles for the group cohomology of a cyclic group using the bar resolution can be given explicitlyprop 2.3. we get a complete set of generators of 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+  -cocycles for 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+   odd as the maps
+  
+    
+      
+        
+          ω
+          
+            a
+          
+        
+        :
+        
+          b
+          
+            l
+          
+        
+        →
+        
+          k
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle \omega _{a}:b_{l}\to k^{*}}
+  given by
+  
+    
+      
+        [
+        
+          g
+          
+            
+              i
+              
+                1
+              
+            
+          
+        
+        ,
+        …
+        ,
+        
+          g
+          
+            
+              i
+              
+                l
+              
+            
+          
+        
+        ]
+        ↦
+        
+          ζ
+          
+            m
+          
+          
+            a
+            
+              i
+              
+                1
+              
+            
+            
+              [
+              
+                
+                  
+                    
+                      i
+                      
+                        2
+                      
+                    
+                    +
+                    
+                      i
+                      
+                        3
+                      
+                    
+                  
+                  m
+                
+              
+              ]
+            
+            ⋯
+            
+              [
+              
+                
+                  
+                    
+                      i
+                      
+                        l
+                        −
+                        1
+                      
+                    
+                    +
+                    
+                      i
+                      
+                        l
+                      
+                    
+                  
+                  m
+                
+              
+              ]
+            
+          
+        
+      
+    
+    {\displaystyle [g^{i_{1}},\ldots ,g^{i_{l}}]\mapsto \zeta _{m}^{ai_{1}\left[{\frac {i_{2}+i_{3}}{m}}\right]\cdots \left[{\frac {i_{l-1}+i_{l}}{m}}\right]}}
+  for 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+   odd,  
+  
+    
+      
+        0
+        ≤
+        a
+        ≤
+        m
+        −
+        1
+      
+    
+    {\displaystyle 0\leq a\leq m-1}
+  , 
+  
+    
+      
+        
+          ζ
+          
+            m
+          
+        
+      
+    
+    {\displaystyle \zeta _{m}}
+   a primitive 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+  -th root of unity, 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   a field containing 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+  -th roots of unity, and
+  
+    
+      
+        
+          [
+          
+            
+              a
+              b
+            
+          
+          ]
+        
+      
+    
+    {\displaystyle \left[{\frac {a}{b}}\right]}
+  for a rational number 
+  
+    
+      
+        a
+        
+          /
+        
+        b
+      
+    
+    {\displaystyle a/b}
+   denoting the largest integer less than 
+  
+    
+      
+        a
+        
+          /
+        
+        b
+      
+    
+    {\displaystyle a/b}
+  . also, we are using the notation
+  
+    
+      
+        
+          b
+          
+            l
+          
+        
+        =
+        
+          ⨁
+          
+            0
+            ≤
+            
+              i
+              
+                1
+              
+            
+            ,
+            …
+            ,
+            
+              i
+              
+                l
+              
+            
+            ≤
+            m
+            −
+            1
+          
+        
+        
+          z
+        
+        g
+        ⋅
+        [
+        
+          g
+          
+            
+              i
+              
+                1
+              
+            
+          
+        
+        ,
+        …
+        ,
+        
+          g
+          
+            
+              i
+              
+                l
+              
+            
+          
+        
+        ]
+      
+    
+    {\displaystyle b_{l}=\bigoplus _{0\leq i_{1},\ldots ,i_{l}\leq m-1}\mathbb {z} g\cdot [g^{i_{1}},\ldots ,g^{i_{l}}]}
+  where 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+   is a generator for 
+  
+    
+      
+        g
+        =
+        
+          c
+          
+            m
+          
+        
+      
+    
+    {\displaystyle g=c_{m}}
+  . note that for 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+   non-zero even indices the cohomology groups are trivial.
+
+
+=== cohomology of free groups ===
+
+
+==== using a resolution ====
+given a set 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+   the associated free group 
+  
+    
+      
+        g
+        =
+        
+          free
+        
+        (
+        s
+        )
+        =
+        
+          
+            ∗
+            
+              s
+              ∈
+              s
+            
+          
+        
+        
+          z
+        
+      
+    
+    {\displaystyle g={\text{free}}(s)={\underset {s\in s}{*}}\mathbb {z} }
+   has an explicit resolution of the trivial module 
+  
+    
+      
+        
+          
+            z
+          
+          
+            triv
+          
+        
+      
+    
+    {\displaystyle \mathbb {z} _{\text{triv}}}
+   which can be easily computed. notice the augmentation map
+  
+    
+      
+        
+          aug
+        
+        :
+        
+          z
+        
+        [
+        g
+        ]
+        →
+        
+          
+            z
+          
+          
+            triv
+          
+        
+      
+    
+    {\displaystyle {\text{aug}}:\mathbb {z} [g]\to \mathbb {z} _{\text{triv}}}
+  has kernel given by the free submodule 
+  
+    
+      
+        
+          i
+          
+            s
+          
+        
+      
+    
+    {\displaystyle i_{s}}
+   generated by the set 
+  
+    
+      
+        {
+        s
+        −
+        1
+        :
+        s
+        ∈
+        s
+        }
+      
+    
+    {\displaystyle \{s-1:s\in s\}}
+  , so
+  
+    
+      
+        
+          i
+          
+            s
+          
+        
+        =
+        
+          ⨁
+          
+            s
+            ∈
+            s
+          
+        
+        
+          z
+        
+        [
+        g
+        ]
+        ⋅
+        (
+        s
+        −
+        1
+        )
+      
+    
+    {\displaystyle i_{s}=\bigoplus _{s\in s}\mathbb {z} [g]\cdot (s-1)}
+  .because this object is free, this gives a resolution
+  
+    
+      
+        0
+        →
+        
+          i
+          
+            s
+          
+        
+        →
+        
+          z
+        
+        [
+        g
+        ]
+        →
+        
+          
+            z
+          
+          
+            triv
+          
+        
+        →
+        0
+      
+    
+    {\displaystyle 0\to i_{s}\to \mathbb {z} [g]\to \mathbb {z} _{\text{triv}}\to 0}
+  hence the group cohomology of 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+   with coefficients in 
+  
+    
+      
+        
+          
+            z
+          
+          
+            triv
+          
+        
+      
+    
+    {\displaystyle \mathbb {z} _{\text{triv}}}
+   can be computed by applying the functor 
+  
+    
+      
+        
+          
+            hom
+          
+          
+            
+              z
+            
+            [
+            g
+            ]
+          
+        
+        (
+        −
+        ,
+        
+          z
+        
+        )
+      
+    
+    {\displaystyle {\text{hom}}_{\mathbb {z} [g]}(-,\mathbb {z} )}
+   to the complex 
+  
+    
+      
+        0
+        →
+        
+          i
+          
+            s
+          
+        
+        →
+        
+          z
+        
+        [
+        g
+        ]
+        →
+        0
+      
+    
+    {\displaystyle 0\to i_{s}\to \mathbb {z} [g]\to 0}
+  , giving
+  
+    
+      
+        
+          h
+          
+            k
+          
+        
+        (
+        g
+        ,
+        
+          
+            z
+          
+          
+            triv
+          
+        
+        )
+        =
+        
+          
+            {
+            
+              
+                
+                  
+                    z
+                  
+                
+                
+                  k
+                  =
+                  0
+                
+              
+              
+                
+                  
+                    ⨁
+                    
+                      s
+                      ∈
+                      s
+                    
+                  
+                  
+                    z
+                  
+                
+                
+                  k
+                  =
+                  1
+                
+              
+              
+                
+                  0
+                
+                
+                  k
+                  ≥
+                  2
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle h^{k}(g,\mathbb {z} _{\text{triv}})={\begin{cases}\mathbb {z} &k=0\\\bigoplus _{s\in s}\mathbb {z} &k=1\\0&k\geq 2\end{cases}}}
+  this is because the dual map
+  
+    
+      
+        
+          
+            hom
+          
+          
+            
+              z
+            
+            [
+            g
+            ]
+          
+        
+        (
+        
+          z
+        
+        [
+        g
+        ]
+        ,
+        
+          
+            z
+          
+          
+            triv
+          
+        
+        )
+        →
+        
+          
+            hom
+          
+          
+            
+              z
+            
+            [
+            g
+            ]
+          
+        
+        (
+        
+          i
+          
+            s
+          
+        
+        ,
+        
+          
+            z
+          
+          
+            triv
+          
+        
+        )
+      
+    
+    {\displaystyle {\text{hom}}_{\mathbb {z} [g]}(\mathbb {z} [g],\mathbb {z} _{\text{triv}})\to {\text{hom}}_{\mathbb {z} [g]}(i_{s},\mathbb {z} _{\text{triv}})}
+  sends any 
+  
+    
+      
+        
+          z
+        
+        [
+        g
+        ]
+      
+    
+    {\displaystyle \mathbb {z} [g]}
+  -module morphism
+  
+    
+      
+        ϕ
+        :
+        
+          z
+        
+        [
+        g
+        ]
+        →
+        
+          
+            z
+          
+          
+            triv
+          
+        
+      
+    
+    {\displaystyle \phi :\mathbb {z} [g]\to \mathbb {z} _{\text{triv}}}
+  to the induced morphism on 
+  
+    
+      
+        
+          i
+          
+            s
+          
+        
+      
+    
+    {\displaystyle i_{s}}
+   by composing the inclusion. the only maps which are sent to 
+  
+    
+      
+        0
+      
+    
+    {\displaystyle 0}
+   are 
+  
+    
+      
+        
+          z
+        
+      
+    
+    {\displaystyle \mathbb {z} }
+  -multiples of the augmentation map, giving the first cohomology group. the second can be found by noticing the only other maps
+  
+    
+      
+        ψ
+        ∈
+        
+          
+            hom
+          
+          
+            
+              z
+            
+            [
+            g
+            ]
+          
+        
+        (
+        
+          i
+          
+            s
+          
+        
+        ,
+        
+          
+            z
+          
+          
+            triv
+          
+        
+        )
+      
+    
+    {\displaystyle \psi \in {\text{hom}}_{\mathbb {z} [g]}(i_{s},\mathbb {z} _{\text{triv}})}
+  can be generated by the 
+  
+    
+      
+        
+          z
+        
+      
+    
+    {\displaystyle \mathbb {z} }
+  -basis of maps sending 
+  
+    
+      
+        (
+        s
+        −
+        1
+        )
+        ↦
+        1
+      
+    
+    {\displaystyle (s-1)\mapsto 1}
+   for a fixed 
+  
+    
+      
+        s
+        ∈
+        s
+      
+    
+    {\displaystyle s\in s}
+  , and sending 
+  
+    
+      
+        (
+        
+          s
+          ′
+        
+        −
+        1
+        )
+        ↦
+        0
+      
+    
+    {\displaystyle (s'-1)\mapsto 0}
+   for any 
+  
+    
+      
+        
+          s
+          ′
+        
+        ∈
+        s
+        −
+        {
+        s
+        }
+      
+    
+    {\displaystyle s'\in s-\{s\}}
+  .
+
+
+==== using topology ====
+the group cohomology of free groups 
+  
+    
+      
+        
+          z
+        
+        ∗
+        
+          z
+        
+        ∗
+        ⋯
+        ∗
+        
+          z
+        
+      
+    
+    {\displaystyle \mathbb {z} *\mathbb {z} *\cdots *\mathbb {z} }
+   generated by 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   letters can be readily computed by comparing group cohomology with its interpretation in topology. recall that for every group 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+   there is a topological space 
+  
+    
+      
+        b
+        g
+      
+    
+    {\displaystyle bg}
+  , called the classifying space of the group, which has the property
+  
+    
+      
+        
+          π
+          
+            1
+          
+        
+        (
+        b
+        g
+        )
+        =
+        g
+        
+           and 
+        
+        
+          π
+          
+            k
+          
+        
+        (
+        b
+        g
+        )
+        =
+        0
+        
+           for 
+        
+        k
+        ≥
+        2
+      
+    
+    {\displaystyle \pi _{1}(bg)=g{\text{ and }}\pi _{k}(bg)=0{\text{ for }}k\geq 2}
+  in addition, it has the property that its topological cohomology is isomorphic to group cohomology
+  
+    
+      
+        
+          h
+          
+            k
+          
+        
+        (
+        b
+        g
+        ,
+        
+          z
+        
+        )
+        ≅
+        
+          h
+          
+            k
+          
+        
+        (
+        g
+        ,
+        
+          z
+        
+        )
+      
+    
+    {\displaystyle h^{k}(bg,\mathbb {z} )\cong h^{k}(g,\mathbb {z} )}
+  giving a way to compute some group cohomology groups. note 
+  
+    
+      
+        
+          z
+        
+      
+    
+    {\displaystyle \mathbb {z} }
+   could be replaced by any local system 
+  
+    
+      
+        
+          
+            l
+          
+        
+      
+    
+    {\displaystyle {\mathcal {l}}}
+   which is determined by a map
+  
+    
+      
+        
+          π
+          
+            1
+          
+        
+        (
+        g
+        )
+        →
+        g
+        l
+        (
+        v
+        )
+      
+    
+    {\displaystyle \pi _{1}(g)\to gl(v)}
+  for some abelian group 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+  . in the case of 
+  
+    
+      
+        b
+        (
+        
+          z
+        
+        ∗
+        ⋯
+        ∗
+        
+          z
+        
+        )
+      
+    
+    {\displaystyle b(\mathbb {z} *\cdots *\mathbb {z} )}
+   for 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   letters, this is represented by a wedge sum of 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   circles 
+  
+    
+      
+        
+          s
+          
+            1
+          
+        
+        ∨
+        ⋯
+        ∨
+        
+          s
+          
+            1
+          
+        
+      
+    
+    {\displaystyle s^{1}\vee \cdots \vee s^{1}}
+   which can be showed using the van-kampen theorem, giving the group cohomology
+  
+    
+      
+        
+          h
+          
+            k
+          
+        
+        (
+        
+          z
+        
+        ∗
+        ⋯
+        ∗
+        
+          z
+        
+        )
+        =
+        
+          
+            {
+            
+              
+                
+                  
+                    z
+                  
+                
+                
+                  k
+                  =
+                  0
+                
+              
+              
+                
+                  
+                    
+                      z
+                    
+                    
+                      n
+                    
+                  
+                
+                
+                  k
+                  =
+                  1
+                
+              
+              
+                
+                  0
+                
+                
+                  k
+                  ≥
+                  2
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle h^{k}(\mathbb {z} *\cdots *\mathbb {z} )={\begin{cases}\mathbb {z} &k=0\\\mathbb {z} ^{n}&k=1\\0&k\geq 2\end{cases}}}
+  
+
+
+=== group cohomology of an integral lattice ===
+for an integral lattice 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+   of rank 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   (hence isomorphic to 
+  
+    
+      
+        
+          
+            z
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \mathbb {z} ^{n}}
+  ), its group cohomology can be computed with relative ease. first, because 
+  
+    
+      
+        b
+        
+          z
+        
+        ≅
+        
+          s
+          
+            1
+          
+        
+      
+    
+    {\displaystyle b\mathbb {z} \cong s^{1}}
+  , and 
+  
+    
+      
+        b
+        
+          z
+        
+        ×
+        b
+        
+          z
+        
+      
+    
+    {\displaystyle b\mathbb {z} \times b\mathbb {z} }
+   has 
+  
+    
+      
+        
+          π
+          
+            1
+          
+        
+        ≅
+        
+          z
+        
+        ×
+        
+          z
+        
+      
+    
+    {\displaystyle \pi _{1}\cong \mathbb {z} \times \mathbb {z} }
+  , which as abelian groups are isomorphic to 
+  
+    
+      
+        
+          z
+        
+        ⊕
+        
+          z
+        
+      
+    
+    {\displaystyle \mathbb {z} \oplus \mathbb {z} }
+  , the group cohomology has the isomorphism
+  
+    
+      
+        
+          h
+          
+            k
+          
+        
+        (
+        λ
+        ,
+        
+          
+            z
+          
+          
+            triv
+          
+        
+        )
+        ≅
+        
+          h
+          
+            k
+          
+        
+        (
+        
+          
+            r
+          
+          
+            n
+          
+        
+        
+          /
+        
+        
+          
+            z
+          
+          
+            n
+          
+        
+        ,
+        
+          z
+        
+        )
+      
+    
+    {\displaystyle h^{k}(\lambda ,\mathbb {z} _{\text{triv}})\cong h^{k}(\mathbb {r} ^{n}/\mathbb {z} ^{n},\mathbb {z} )}
+  with the integral cohomology of a torus of rank 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  .
+
+
+== properties ==
+in the following, let m be a g-module.
+
+
+=== long exact sequence of cohomology ===
+in practice, one often computes the cohomology groups using the following fact: if
+
+  
+    
+      
+        0
+        →
+        l
+        →
+        m
+        →
+        n
+        →
+        0
+      
+    
+    {\displaystyle 0\to l\to m\to n\to 0}
+  is a short exact sequence of g-modules, then a long exact sequence is induced:
+
+  
+    
+      
+        0
+        ⟶
+        
+          l
+          
+            g
+          
+        
+        ⟶
+        
+          m
+          
+            g
+          
+        
+        ⟶
+        
+          n
+          
+            g
+          
+        
+        
+          
+            ⟶
+            
+              δ
+              
+                0
+              
+            
+          
+        
+        
+          h
+          
+            1
+          
+        
+        (
+        g
+        ,
+        l
+        )
+        ⟶
+        
+          h
+          
+            1
+          
+        
+        (
+        g
+        ,
+        m
+        )
+        ⟶
+        
+          h
+          
+            1
+          
+        
+        (
+        g
+        ,
+        n
+        )
+        
+          
+            ⟶
+            
+              δ
+              
+                1
+              
+            
+          
+        
+        
+          h
+          
+            2
+          
+        
+        (
+        g
+        ,
+        l
+        )
+        ⟶
+        ⋯
+      
+    
+    {\displaystyle 0\longrightarrow l^{g}\longrightarrow m^{g}\longrightarrow n^{g}{\overset {\delta ^{0}}{\longrightarrow }}h^{1}(g,l)\longrightarrow h^{1}(g,m)\longrightarrow h^{1}(g,n){\overset {\delta ^{1}}{\longrightarrow }}h^{2}(g,l)\longrightarrow \cdots }
+  the so-called connecting homomorphisms,
+
+  
+    
+      
+        
+          δ
+          
+            n
+          
+        
+        :
+        
+          h
+          
+            n
+          
+        
+        (
+        g
+        ,
+        n
+        )
+        →
+        
+          h
+          
+            n
+            +
+            1
+          
+        
+        (
+        g
+        ,
+        l
+        )
+      
+    
+    {\displaystyle \delta ^{n}:h^{n}(g,n)\to h^{n+1}(g,l)}
+  can be described in terms of inhomogeneous cochains as follows. if 
+  
+    
+      
+        c
+        ∈
+        
+          h
+          
+            n
+          
+        
+        (
+        g
+        ,
+        n
+        )
+      
+    
+    {\displaystyle c\in h^{n}(g,n)}
+   is represented by an n-cocycle 
+  
+    
+      
+        ϕ
+        :
+        
+          g
+          
+            n
+          
+        
+        →
+        n
+        ,
+      
+    
+    {\displaystyle \phi :g^{n}\to n,}
+   then 
+  
+    
+      
+        
+          δ
+          
+            n
+          
+        
+        (
+        c
+        )
+      
+    
+    {\displaystyle \delta ^{n}(c)}
+   is represented by 
+  
+    
+      
+        
+          d
+          
+            n
+          
+        
+        (
+        ψ
+        )
+        ,
+      
+    
+    {\displaystyle d^{n}(\psi ),}
+   where 
+  
+    
+      
+        ψ
+      
+    
+    {\displaystyle \psi }
+   is an n-cochain 
+  
+    
+      
+        
+          g
+          
+            n
+          
+        
+        →
+        m
+      
+    
+    {\displaystyle g^{n}\to m}
+   "lifting" 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   (i.e. 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   is the composition of 
+  
+    
+      
+        ψ
+      
+    
+    {\displaystyle \psi }
+   with the surjective map m → n).
+
+
+=== functoriality ===
+group cohomology depends contravariantly on the group g, in the following sense: if f : h → g is a group homomorphism, then we have a naturally induced morphism hn(g, m) → hn(h, m) (where in the latter, m is treated as an h-module via f). this map is called the restriction map. if the index of h in g is finite, there is also a map in the opposite direction, called transfer map,
+
+  
+    
+      
+        c
+        o
+        
+          r
+          
+            h
+          
+          
+            g
+          
+        
+        :
+        
+          h
+          
+            n
+          
+        
+        (
+        h
+        ,
+        m
+        )
+        →
+        
+          h
+          
+            n
+          
+        
+        (
+        g
+        ,
+        m
+        )
+        .
+      
+    
+    {\displaystyle cor_{h}^{g}:h^{n}(h,m)\to h^{n}(g,m).}
+  in degree 0, it is given by the map
+
+  
+    
+      
+        
+          
+            {
+            
+              
+                
+                  
+                    m
+                    
+                      h
+                    
+                  
+                  →
+                  
+                    m
+                    
+                      g
+                    
+                  
+                
+              
+              
+                
+                  m
+                  ↦
+                  
+                    ∑
+                    
+                      g
+                      ∈
+                      g
+                      
+                        /
+                      
+                      h
+                    
+                  
+                  g
+                  m
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{cases}m^{h}\to m^{g}\\m\mapsto \sum _{g\in g/h}gm\end{cases}}}
+  given a morphism of g-modules m → n, one gets a morphism of cohomology groups in the hn(g, m) → hn(g, n).
+
+
+=== products ===
+similarly to other cohomology theories in topology and geometry, such as singular cohomology or de rham cohomology, group cohomology enjoys a product structure: there is a natural map called cup product:
+
+  
+    
+      
+        
+          h
+          
+            n
+          
+        
+        (
+        g
+        ,
+        n
+        )
+        ⊗
+        
+          h
+          
+            m
+          
+        
+        (
+        g
+        ,
+        m
+        )
+        →
+        
+          h
+          
+            n
+            +
+            m
+          
+        
+        (
+        g
+        ,
+        m
+        ⊗
+        n
+        )
+      
+    
+    {\displaystyle h^{n}(g,n)\otimes h^{m}(g,m)\to h^{n+m}(g,m\otimes n)}
+  for any two g-modules m and n. this yields a graded anti-commutative ring structure on 
+  
+    
+      
+        
+          ⊕
+          
+            n
+            ⩾
+            0
+          
+        
+        
+          h
+          
+            n
+          
+        
+        (
+        g
+        ,
+        r
+        )
+        ,
+      
+    
+    {\displaystyle \oplus _{n\geqslant 0}h^{n}(g,r),}
+   where r is a ring such as 
+  
+    
+      
+        
+          z
+        
+      
+    
+    {\displaystyle \mathbb {z} }
+   or 
+  
+    
+      
+        
+          z
+        
+        
+          /
+        
+        p
+        .
+      
+    
+    {\displaystyle \mathbb {z} /p.}
+   for a finite group g, the even part of this cohomology ring in characteristic p, 
+  
+    
+      
+        
+          ⊕
+          
+            n
+            ⩾
+            0
+          
+        
+        
+          h
+          
+            2
+            n
+          
+        
+        (
+        g
+        ,
+        
+          z
+        
+        
+          /
+        
+        p
+        )
+      
+    
+    {\displaystyle \oplus _{n\geqslant 0}h^{2n}(g,\mathbb {z} /p)}
+   carries a lot of information about the group the structure of g, for example the krull dimension of this ring equals the maximal rank of an abelian subgroup 
+  
+    
+      
+        (
+        
+          z
+        
+        
+          /
+        
+        p
+        
+          )
+          
+            r
+          
+        
+      
+    
+    {\displaystyle (\mathbb {z} /p)^{r}}
+  .for example, let g be the group with two elements, under the discrete topology. the real projective space 
+  
+    
+      
+        
+          
+            p
+          
+          
+            ∞
+          
+        
+        (
+        
+          r
+        
+        )
+      
+    
+    {\displaystyle \mathbb {p} ^{\infty }(\mathbb {r} )}
+   is a classifying space for g. let 
+  
+    
+      
+        k
+        =
+        
+          
+            f
+          
+          
+            2
+          
+        
+        ,
+      
+    
+    {\displaystyle k=\mathbb {f} _{2},}
+   the field of two elements. then
+
+  
+    
+      
+        
+          h
+          
+            ∗
+          
+        
+        (
+        g
+        ;
+        k
+        )
+        ≅
+        k
+        [
+        x
+        ]
+        ,
+      
+    
+    {\displaystyle h^{*}(g;k)\cong k[x],}
+  a polynomial k-algebra on a single generator, since this is the cellular cohomology ring of 
+  
+    
+      
+        
+          
+            p
+          
+          
+            ∞
+          
+        
+        (
+        
+          r
+        
+        )
+        .
+      
+    
+    {\displaystyle \mathbb {p} ^{\infty }(\mathbb {r} ).}
+  
+
+
+=== künneth formula ===
+if, m = k is a field, then h*(g; k) is a graded k-algebra and the cohomology of a product of groups is related to the ones of the individual groups by a künneth formula:
+
+  
+    
+      
+        
+          h
+          
+            ∗
+          
+        
+        (
+        
+          g
+          
+            1
+          
+        
+        ×
+        
+          g
+          
+            2
+          
+        
+        ;
+        k
+        )
+        ≅
+        
+          h
+          
+            ∗
+          
+        
+        (
+        
+          g
+          
+            1
+          
+        
+        ;
+        k
+        )
+        ⊗
+        
+          h
+          
+            ∗
+          
+        
+        (
+        
+          g
+          
+            2
+          
+        
+        ;
+        k
+        )
+        .
+      
+    
+    {\displaystyle h^{*}(g_{1}\times g_{2};k)\cong h^{*}(g_{1};k)\otimes h^{*}(g_{2};k).}
+  for example, if g is an elementary abelian 2-group of rank r, and 
+  
+    
+      
+        k
+        =
+        
+          
+            f
+          
+          
+            2
+          
+        
+        ,
+      
+    
+    {\displaystyle k=\mathbb {f} _{2},}
+   then the künneth formula shows that the cohomology of g is a polynomial k-algebra generated by r classes in h1(g; k).,
+
+  
+    
+      
+        
+          h
+          
+            ∗
+          
+        
+        (
+        g
+        ;
+        k
+        )
+        ≅
+        k
+        [
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            r
+          
+        
+        ]
+        .
+      
+    
+    {\displaystyle h^{*}(g;k)\cong k[x_{1},\ldots ,x_{r}].}
+  
+
+
+=== homology vs. cohomology ===
+as for other cohomology theories, such as singular cohomology, group cohomology and homology are related to one another by means of a short exact sequence
+
+  
+    
+      
+        0
+        →
+        
+          
+            e
+            x
+            t
+          
+          
+            
+              z
+            
+          
+          
+            1
+          
+        
+        
+          (
+          
+            
+              h
+              
+                n
+                −
+                1
+              
+            
+            (
+            g
+            ,
+            
+              z
+            
+            )
+            ,
+            a
+          
+          )
+        
+        →
+        
+          h
+          
+            n
+          
+        
+        (
+        g
+        ,
+        a
+        )
+        →
+        
+          h
+          o
+          m
+        
+        
+          (
+          
+            
+              h
+              
+                n
+              
+            
+            (
+            g
+            ,
+            
+              z
+            
+            )
+            ,
+            a
+          
+          )
+        
+        →
+        0
+        ,
+      
+    
+    {\displaystyle 0\to \mathrm {ext} _{\mathbb {z} }^{1}\left(h_{n-1}(g,\mathbb {z} ),a\right)\to h^{n}(g,a)\to \mathrm {hom} \left(h_{n}(g,\mathbb {z} ),a\right)\to 0,}
+  where a is endowed with the trivial g-action and the term at the left is the first ext group.
+
+
+=== amalgamated products ===
+given a group a which is the subgroup of two groups g1 and g2, the homology of the amalgamated product 
+  
+    
+      
+        g
+        :=
+        
+          g
+          
+            1
+          
+        
+        
+          ⋆
+          
+            a
+          
+        
+        
+          g
+          
+            2
+          
+        
+      
+    
+    {\displaystyle g:=g_{1}\star _{a}g_{2}}
+   (with integer coefficients) lies in a long exact sequence
+
+  
+    
+      
+        ⋯
+        →
+        
+          h
+          
+            n
+          
+        
+        (
+        a
+        )
+        →
+        
+          h
+          
+            n
+          
+        
+        (
+        
+          g
+          
+            1
+          
+        
+        )
+        ⊕
+        
+          h
+          
+            n
+          
+        
+        (
+        
+          g
+          
+            2
+          
+        
+        )
+        →
+        
+          h
+          
+            n
+          
+        
+        (
+        g
+        )
+        →
+        
+          h
+          
+            n
+            −
+            1
+          
+        
+        (
+        a
+        )
+        →
+        ⋯
+      
+    
+    {\displaystyle \cdots \to h_{n}(a)\to h_{n}(g_{1})\oplus h_{n}(g_{2})\to h_{n}(g)\to h_{n-1}(a)\to \cdots }
+  the homology of 
+  
+    
+      
+        
+          
+            s
+            l
+          
+          
+            2
+          
+        
+        (
+        
+          z
+        
+        )
+        =
+        
+          z
+        
+        
+          /
+        
+        4
+        
+          ⋆
+          
+            
+              z
+            
+            
+              /
+            
+            2
+          
+        
+        
+          z
+        
+        
+          /
+        
+        6
+      
+    
+    {\displaystyle \mathrm {sl} _{2}(\mathbb {z} )=\mathbb {z} /4\star _{\mathbb {z} /2}\mathbb {z} /6}
+   can be computed using this:
+
+  
+    
+      
+        
+          h
+          
+            n
+          
+        
+        (
+        
+          
+            s
+            l
+          
+          
+            2
+          
+        
+        (
+        
+          z
+        
+        )
+        )
+        =
+        
+          
+            {
+            
+              
+                
+                  
+                    z
+                  
+                
+                
+                  n
+                  =
+                  0
+                
+              
+              
+                
+                  
+                    z
+                  
+                  
+                    /
+                  
+                  12
+                
+                
+                  
+                    odd degrees
+                  
+                
+              
+              
+                
+                  0
+                
+                
+                  
+                    otherwise
+                  
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle h_{n}(\mathrm {sl} _{2}(\mathbb {z} ))={\begin{cases}\mathbb {z} &n=0\\\mathbb {z} /12&{\text{odd degrees}}\\0&{\text{otherwise}}\end{cases}}}
+  this exact sequence can also be applied to show that the homology of the 
+  
+    
+      
+        
+          
+            s
+            l
+          
+          
+            2
+          
+        
+        (
+        k
+        [
+        t
+        ]
+        )
+      
+    
+    {\displaystyle \mathrm {sl} _{2}(k[t])}
+   and the special linear group 
+  
+    
+      
+        
+          
+            s
+            l
+          
+          
+            2
+          
+        
+        (
+        k
+        )
+      
+    
+    {\displaystyle \mathrm {sl} _{2}(k)}
+   agree for an infinite field k.
+
+
+=== change of group ===
+the hochschild–serre spectral sequence relates the cohomology of a normal subgroup n of g and the quotient g/n to the cohomology of the group g (for (pro-)finite groups g). from it, one gets the inflation-restriction exact sequence.
+
+
+=== cohomology of the classifying space ===
+group cohomology is closely related to topological cohomology theories such as sheaf cohomology, by means of an isomorphism
+
+  
+    
+      
+        
+          h
+          
+            n
+          
+        
+        (
+        b
+        g
+        ,
+        
+          z
+        
+        )
+        ≅
+        
+          h
+          
+            n
+          
+        
+        (
+        g
+        ,
+        
+          z
+        
+        )
+        .
+      
+    
+    {\displaystyle h^{n}(bg,\mathbb {z} )\cong h^{n}(g,\mathbb {z} ).}
+  the expression 
+  
+    
+      
+        b
+        g
+      
+    
+    {\displaystyle bg}
+   at the left is a classifying space for 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+  . it is an eilenberg–maclane space 
+  
+    
+      
+        k
+        (
+        g
+        ,
+        1
+        )
+      
+    
+    {\displaystyle k(g,1)}
+  , i.e., a space whose fundamental group is 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+   and whose higher homotopy groups vanish). classifying spaces for 
+  
+    
+      
+        
+          z
+        
+        ,
+        
+          z
+        
+        
+          /
+        
+        2
+      
+    
+    {\displaystyle \mathbb {z} ,\mathbb {z} /2}
+   and 
+  
+    
+      
+        
+          z
+        
+        
+          /
+        
+        n
+      
+    
+    {\displaystyle \mathbb {z} /n}
+   are the 1-sphere s1, infinite real projective space 
+  
+    
+      
+        
+          
+            p
+          
+          
+            ∞
+          
+        
+        (
+        
+          r
+        
+        )
+        =
+        
+          ∪
+          
+            n
+          
+        
+        
+          
+            p
+          
+          
+            n
+          
+        
+        (
+        
+          r
+        
+        )
+        ,
+      
+    
+    {\displaystyle \mathbb {p} ^{\infty }(\mathbb {r} )=\cup _{n}\mathbb {p} ^{n}(\mathbb {r} ),}
+   and lens spaces, respectively. in general, 
+  
+    
+      
+        b
+        g
+      
+    
+    {\displaystyle bg}
+   can be constructed as the quotient 
+  
+    
+      
+        e
+        g
+        
+          /
+        
+        g
+      
+    
+    {\displaystyle eg/g}
+  , where 
+  
+    
+      
+        e
+        g
+      
+    
+    {\displaystyle eg}
+   is a contractible space on which 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+   acts freely. however, 
+  
+    
+      
+        b
+        g
+      
+    
+    {\displaystyle bg}
+   does not usually have an easily amenable geometric description.
+more generally, one can attach to any 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+  -module 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   a local coefficient system on 
+  
+    
+      
+        b
+        g
+      
+    
+    {\displaystyle bg}
+   and the above isomorphism generalizes to an isomorphism
+
+  
+    
+      
+        
+          h
+          
+            n
+          
+        
+        (
+        b
+        g
+        ,
+        m
+        )
+        =
+        
+          h
+          
+            n
+          
+        
+        (
+        g
+        ,
+        m
+        )
+        .
+      
+    
+    {\displaystyle h^{n}(bg,m)=h^{n}(g,m).}
+  
+
+
+== further examples ==
+
+
+=== semi-direct products of groups ===
+there is a way to compute the semi-direct product of groups using the topology of fibrations and properties of eilenberg-maclane spaces. recall that for a semi-direct product of groups 
+  
+    
+      
+        g
+        =
+        n
+        ⋊
+        h
+      
+    
+    {\displaystyle g=n\rtimes h}
+   there is an associated short exact sequence of groups
+  
+    
+      
+        1
+        →
+        n
+        →
+        n
+        ⋊
+        h
+        →
+        h
+        →
+        1
+      
+    
+    {\displaystyle 1\to n\to n\rtimes h\to h\to 1}
+  using the associated eilenberg-maclane spaces there is a serre fibration
+  
+    
+      
+        k
+        (
+        n
+        ,
+        1
+        )
+        →
+        k
+        (
+        g
+        ,
+        1
+        )
+        →
+        k
+        (
+        h
+        ,
+        1
+        )
+      
+    
+    {\displaystyle k(n,1)\to k(g,1)\to k(h,1)}
+  which can be put through a serre spectral sequence. this gives an 
+  
+    
+      
+        
+          e
+          
+            2
+          
+        
+      
+    
+    {\displaystyle e_{2}}
+  -page
+  
+    
+      
+        
+          e
+          
+            2
+          
+          
+            p
+            ,
+            q
+          
+        
+        =
+        
+          h
+          
+            p
+          
+        
+        (
+        k
+        (
+        h
+        ,
+        1
+        )
+        ,
+        
+          h
+          
+            q
+          
+        
+        (
+        k
+        (
+        n
+        ,
+        1
+        )
+        )
+        )
+        ⇒
+        
+          h
+          
+            p
+            +
+            q
+          
+        
+        (
+        k
+        (
+        g
+        ,
+        1
+        )
+        )
+      
+    
+    {\displaystyle e_{2}^{p,q}=h^{p}(k(h,1),h^{q}(k(n,1)))\rightarrow h^{p+q}(k(g,1))}
+  which gives information about the group cohomology of 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+   from the group cohomology groups of 
+  
+    
+      
+        h
+        ,
+        n
+      
+    
+    {\displaystyle h,n}
+  . note this formalism can be applied in a purely group-theoretic manner using the lyndon–hochschild–serre spectral sequence.
+
+
+== cohomology of finite groups ==
+
+
+=== higher cohomology groups are torsion ===
+the cohomology groups hn(g, m) of finite groups g are all torsion for all n≥1. indeed, by maschke's theorem the category of representations of a finite group is semi-simple over any field of characteristic zero (or more generally, any field whose characteristic does not divide the order of the group), hence, viewing group cohomology as a derived functor in this abelian category, one obtains that it is zero. the other argument is that over a field of characteristic zero, the group algebra of a finite group is a direct sum of matrix algebras (possibly over division algebras which are extensions of the original field), while a matrix algebra is morita equivalent to its base field and hence has trivial cohomology.
+if the order of g is invertible in a g-module m (for example, if m is a 
+  
+    
+      
+        
+          q
+        
+      
+    
+    {\displaystyle \mathbb {q} }
+  -vector space), the transfer map can be used to show that 
+  
+    
+      
+        
+          h
+          
+            n
+          
+        
+        (
+        g
+        ,
+        m
+        )
+        =
+        0
+      
+    
+    {\displaystyle h^{n}(g,m)=0}
+   for 
+  
+    
+      
+        n
+        ⩾
+        1.
+      
+    
+    {\displaystyle n\geqslant 1.}
+   a typical application of this fact is as follows: the long exact cohomology sequence of the short exact sequence (where all three groups have a trivial g-action)
+
+  
+    
+      
+        0
+        →
+        
+          z
+        
+        →
+        
+          q
+        
+        →
+        
+          q
+        
+        
+          /
+        
+        
+          z
+        
+        →
+        0
+      
+    
+    {\displaystyle 0\to \mathbb {z} \to \mathbb {q} \to \mathbb {q} /\mathbb {z} \to 0}
+  yields an isomorphism
+
+  
+    
+      
+        
+          h
+          o
+          m
+        
+        (
+        g
+        ,
+        
+          q
+        
+        
+          /
+        
+        
+          z
+        
+        )
+        =
+        
+          h
+          
+            1
+          
+        
+        (
+        g
+        ,
+        
+          q
+        
+        
+          /
+        
+        
+          z
+        
+        )
+        ≅
+        
+          h
+          
+            2
+          
+        
+        (
+        g
+        ,
+        
+          z
+        
+        )
+        .
+      
+    
+    {\displaystyle \mathrm {hom} (g,\mathbb {q} /\mathbb {z} )=h^{1}(g,\mathbb {q} /\mathbb {z} )\cong h^{2}(g,\mathbb {z} ).}
+  
+
+
+=== tate cohomology ===
+tate cohomology groups combine both homology and cohomology of a finite group g:
+
+  
+    
+      
+        
+          
+            
+              
+                h
+                ^
+              
+            
+          
+          
+            n
+          
+        
+        (
+        g
+        ,
+        m
+        )
+        :=
+        
+          
+            {
+            
+              
+                
+                  
+                    h
+                    
+                      n
+                    
+                  
+                  (
+                  g
+                  ,
+                  m
+                  )
+                
+                
+                  n
+                  ⩾
+                  1
+                
+              
+              
+                
+                  coker
+                  ⁡
+                  n
+                
+                
+                  n
+                  =
+                  0
+                
+              
+              
+                
+                  ker
+                  ⁡
+                  n
+                
+                
+                  n
+                  =
+                  −
+                  1
+                
+              
+              
+                
+                  
+                    h
+                    
+                      −
+                      n
+                      −
+                      1
+                    
+                  
+                  (
+                  g
+                  ,
+                  m
+                  )
+                
+                
+                  n
+                  ⩽
+                  −
+                  2
+                  ,
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle {\widehat {h}}^{n}(g,m):={\begin{cases}h^{n}(g,m)&n\geqslant 1\\\operatorname {coker} n&n=0\\\ker n&n=-1\\h_{-n-1}(g,m)&n\leqslant -2,\end{cases}}}
+  where 
+  
+    
+      
+        n
+        :
+        
+          m
+          
+            g
+          
+        
+        →
+        
+          m
+          
+            g
+          
+        
+      
+    
+    {\displaystyle n:m_{g}\to m^{g}}
+   is induced by the norm map:
+
+  
+    
+      
+        
+          
+            {
+            
+              
+                
+                  m
+                  →
+                  m
+                
+              
+              
+                
+                  m
+                  ↦
+                  
+                    ∑
+                    
+                      g
+                      ∈
+                      g
+                    
+                  
+                  g
+                  m
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{cases}m\to m\\m\mapsto \sum _{g\in g}gm\end{cases}}}
+  tate cohomology enjoys similar features, such as long exact sequences, product structures. an important application is in class field theory, see class formation.
+tate cohomology of finite cyclic groups, 
+  
+    
+      
+        g
+        =
+        
+          z
+        
+        
+          /
+        
+        n
+        ,
+      
+    
+    {\displaystyle g=\mathbb {z} /n,}
+   is 2-periodic in the sense that there are isomorphisms
+
+  
+    
+      
+        
+          
+            
+              
+                h
+                ^
+              
+            
+          
+          
+            m
+          
+        
+        (
+        g
+        ,
+        m
+        )
+        ≅
+        
+          
+            
+              
+                h
+                ^
+              
+            
+          
+          
+            m
+            +
+            2
+          
+        
+        (
+        g
+        ,
+        m
+        )
+        
+        
+          for all 
+        
+        m
+        ∈
+        
+          z
+        
+        .
+      
+    
+    {\displaystyle {\widehat {h}}^{m}(g,m)\cong {\widehat {h}}^{m+2}(g,m)\qquad {\text{for all }}m\in \mathbb {z} .}
+  a necessary and sufficient criterion for a d-periodic cohomology is that the only abelian subgroups of g are cyclic. for example, any semi-direct product 
+  
+    
+      
+        
+          z
+        
+        
+          /
+        
+        n
+        ⋊
+        
+          z
+        
+        
+          /
+        
+        m
+      
+    
+    {\displaystyle \mathbb {z} /n\rtimes \mathbb {z} /m}
+   has this property for coprime integers n and m.
+
+
+== applications ==
+
+
+=== algebraic k-theory and homology of linear groups ===
+algebraic k-theory is closely related to group cohomology: in quillen's +-construction of k-theory, k-theory of a ring r is defined as the homotopy groups of a space 
+  
+    
+      
+        
+          b
+          g
+          l
+        
+        (
+        r
+        
+          )
+          
+            +
+          
+        
+        .
+      
+    
+    {\displaystyle \mathrm {bgl} (r)^{+}.}
+   here 
+  
+    
+      
+        
+          g
+          l
+        
+        (
+        r
+        )
+        =
+        
+          ∪
+          
+            n
+            ≥
+            1
+          
+        
+        
+          
+            g
+            l
+          
+          
+            n
+          
+        
+        (
+        r
+        )
+      
+    
+    {\displaystyle \mathrm {gl} (r)=\cup _{n\geq 1}\mathrm {gl} _{n}(r)}
+   is the infinite general linear group. the space 
+  
+    
+      
+        
+          b
+          g
+          l
+        
+        (
+        r
+        
+          )
+          
+            +
+          
+        
+      
+    
+    {\displaystyle \mathrm {bgl} (r)^{+}}
+   has the same homology as 
+  
+    
+      
+        
+          b
+          g
+          l
+        
+        (
+        r
+        )
+        ,
+      
+    
+    {\displaystyle \mathrm {bgl} (r),}
+   i.e., the group homology of gl(r). in some cases, stability results assert that the sequence of cohomology groups
+
+  
+    
+      
+        ⋯
+        →
+        
+          h
+          
+            m
+          
+        
+        
+          (
+          
+            
+              
+                g
+                l
+              
+              
+                n
+              
+            
+            (
+            r
+            )
+          
+          )
+        
+        →
+        
+          h
+          
+            m
+          
+        
+        
+          (
+          
+            
+              
+                g
+                l
+              
+              
+                n
+                +
+                1
+              
+            
+            (
+            r
+            )
+          
+          )
+        
+        →
+        ⋯
+      
+    
+    {\displaystyle \dots \to h_{m}\left(\mathrm {gl} _{n}(r)\right)\to h_{m}\left(\mathrm {gl} _{n+1}(r)\right)\to \cdots }
+  becomes stationary for large enough n, hence reducing the computation of the cohomology of the infinite general linear group to the one of some 
+  
+    
+      
+        
+          
+            g
+            l
+          
+          
+            n
+          
+        
+        (
+        r
+        )
+      
+    
+    {\displaystyle \mathrm {gl} _{n}(r)}
+  . such results have been established when r is a field or for rings of integers in a number field.the phenomenon that group homology of a series of groups 
+  
+    
+      
+        
+          g
+          
+            n
+          
+        
+      
+    
+    {\displaystyle g_{n}}
+   stabilizes is referred to as homological stability. in addition to the case 
+  
+    
+      
+        
+          g
+          
+            n
+          
+        
+        =
+        
+          
+            g
+            l
+          
+          
+            n
+          
+        
+        (
+        r
+        )
+      
+    
+    {\displaystyle g_{n}=\mathrm {gl} _{n}(r)}
+   just mentioned, this applies to various other groups such as symmetric groups or mapping class groups.
+
+
+=== projective representations and group extensions ===
+in quantum mechanics we often have systems with a symmetry group 
+  
+    
+      
+        g
+        .
+      
+    
+    {\displaystyle g.}
+   we expect an action of 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+   on the hilbert space 
+  
+    
+      
+        
+          
+            h
+          
+        
+      
+    
+    {\displaystyle {\mathcal {h}}}
+   by unitary matrices 
+  
+    
+      
+        u
+        (
+        g
+        )
+        .
+      
+    
+    {\displaystyle u(g).}
+   we might expect 
+  
+    
+      
+        u
+        (
+        
+          g
+          
+            1
+          
+        
+        )
+        u
+        (
+        
+          g
+          
+            2
+          
+        
+        )
+        =
+        u
+        (
+        
+          g
+          
+            1
+          
+        
+        
+          g
+          
+            2
+          
+        
+        )
+        ,
+      
+    
+    {\displaystyle u(g_{1})u(g_{2})=u(g_{1}g_{2}),}
+   but the rules of quantum mechanics only require
+
+  
+    
+      
+        u
+        (
+        
+          g
+          
+            1
+          
+        
+        )
+        u
+        (
+        
+          g
+          
+            2
+          
+        
+        )
+        =
+        exp
+        ⁡
+        {
+        2
+        π
+        i
+        ω
+        (
+        
+          g
+          
+            1
+          
+        
+        ,
+        
+          g
+          
+            2
+          
+        
+        )
+        }
+        u
+        (
+        
+          g
+          
+            1
+          
+        
+        
+          g
+          
+            2
+          
+        
+        )
+        ,
+      
+    
+    {\displaystyle u(g_{1})u(g_{2})=\exp\{2\pi i\omega (g_{1},g_{2})\}u(g_{1}g_{2}),}
+  where 
+  
+    
+      
+        exp
+        ⁡
+        {
+        2
+        π
+        i
+        ω
+        (
+        
+          g
+          
+            1
+          
+        
+        ,
+        
+          g
+          
+            2
+          
+        
+        )
+        }
+        ∈
+        
+          
+            u
+          
+        
+        (
+        1
+        )
+      
+    
+    {\displaystyle \exp\{2\pi i\omega (g_{1},g_{2})\}\in {\rm {u}}(1)}
+   is a phase. this projective representation of 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+   can also be thought of as a conventional representation of a group extension 
+  
+    
+      
+        
+          
+            
+              g
+              ~
+            
+          
+        
+      
+    
+    {\displaystyle {\tilde {g}}}
+   of 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+   by 
+  
+    
+      
+        
+          u
+        
+        (
+        1
+        )
+        ,
+      
+    
+    {\displaystyle \mathrm {u} (1),}
+   as described by the exact sequence
+
+  
+    
+      
+        1
+        →
+        
+          
+            u
+          
+        
+        (
+        1
+        )
+        →
+        
+          
+            
+              g
+              ~
+            
+          
+        
+        →
+        g
+        →
+        1.
+      
+    
+    {\displaystyle 1\to {\rm {u}}(1)\to {\tilde {g}}\to g\to 1.}
+  requiring associativity
+
+  
+    
+      
+        u
+        (
+        
+          g
+          
+            1
+          
+        
+        )
+        [
+        u
+        (
+        
+          g
+          
+            2
+          
+        
+        )
+        u
+        (
+        
+          g
+          
+            3
+          
+        
+        )
+        ]
+        =
+        [
+        u
+        (
+        
+          g
+          
+            1
+          
+        
+        )
+        u
+        (
+        
+          g
+          
+            2
+          
+        
+        )
+        ]
+        u
+        (
+        
+          g
+          
+            3
+          
+        
+        )
+      
+    
+    {\displaystyle u(g_{1})[u(g_{2})u(g_{3})]=[u(g_{1})u(g_{2})]u(g_{3})}
+  leads to
+
+  
+    
+      
+        ω
+        (
+        
+          g
+          
+            2
+          
+        
+        ,
+        
+          g
+          
+            3
+          
+        
+        )
+        −
+        ω
+        (
+        
+          g
+          
+            1
+          
+        
+        
+          g
+          
+            2
+          
+        
+        ,
+        
+          g
+          
+            3
+          
+        
+        )
+        +
+        ω
+        (
+        
+          g
+          
+            1
+          
+        
+        ,
+        
+          g
+          
+            2
+          
+        
+        
+          g
+          
+            3
+          
+        
+        )
+        −
+        ω
+        (
+        
+          g
+          
+            1
+          
+        
+        ,
+        
+          g
+          
+            2
+          
+        
+        )
+        =
+        0
+        ,
+      
+    
+    {\displaystyle \omega (g_{2},g_{3})-\omega (g_{1}g_{2},g_{3})+\omega (g_{1},g_{2}g_{3})-\omega (g_{1},g_{2})=0,}
+  which we recognise as the statement that 
+  
+    
+      
+        d
+        ω
+        (
+        
+          g
+          
+            1
+          
+        
+        ,
+        
+          g
+          
+            2
+          
+        
+        ,
+        
+          g
+          
+            3
+          
+        
+        )
+        =
+        0
+        ,
+      
+    
+    {\displaystyle d\omega (g_{1},g_{2},g_{3})=0,}
+   i.e. that 
+  
+    
+      
+        ω
+      
+    
+    {\displaystyle \omega }
+   is a cocycle taking values in 
+  
+    
+      
+        
+          r
+        
+        
+          /
+        
+        
+          z
+        
+        ≃
+        
+          
+            u
+          
+        
+        (
+        1
+        )
+        .
+      
+    
+    {\displaystyle \mathbb {r} /\mathbb {z} \simeq {\rm {u}}(1).}
+   we can ask whether we can eliminate the phases by redefining
+
+  
+    
+      
+        u
+        (
+        g
+        )
+        →
+        exp
+        ⁡
+        {
+        2
+        π
+        i
+        η
+        (
+        g
+        )
+        }
+        u
+        (
+        g
+        )
+      
+    
+    {\displaystyle u(g)\to \exp\{2\pi i\eta (g)\}u(g)}
+  which changes
+
+  
+    
+      
+        ω
+        (
+        
+          g
+          
+            1
+          
+        
+        ,
+        
+          g
+          
+            2
+          
+        
+        )
+        →
+        ω
+        (
+        
+          g
+          
+            1
+          
+        
+        ,
+        
+          g
+          
+            2
+          
+        
+        )
+        +
+        η
+        (
+        
+          g
+          
+            2
+          
+        
+        )
+        −
+        η
+        (
+        
+          g
+          
+            1
+          
+        
+        
+          g
+          
+            2
+          
+        
+        )
+        +
+        η
+        (
+        
+          g
+          
+            1
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle \omega (g_{1},g_{2})\to \omega (g_{1},g_{2})+\eta (g_{2})-\eta (g_{1}g_{2})+\eta (g_{1}).}
+  this we recognise as shifting 
+  
+    
+      
+        ω
+      
+    
+    {\displaystyle \omega }
+   by a coboundary 
+  
+    
+      
+        ω
+        →
+        ω
+        +
+        d
+        η
+        .
+      
+    
+    {\displaystyle \omega \to \omega +d\eta .}
+   the distinct projective representations are therefore classified by 
+  
+    
+      
+        
+          h
+          
+            2
+          
+        
+        (
+        g
+        ,
+        
+          r
+        
+        
+          /
+        
+        
+          z
+        
+        )
+        .
+      
+    
+    {\displaystyle h^{2}(g,\mathbb {r} /\mathbb {z} ).}
+   note that if we allow the phases themselves to be acted on by the group (for example, time reversal would complex-conjugate the phase), then the first term in each of the coboundary operations will have a 
+  
+    
+      
+        
+          g
+          
+            1
+          
+        
+      
+    
+    {\displaystyle g_{1}}
+   acting on it as in the general definitions of coboundary in the previous sections. for example, 
+  
+    
+      
+        d
+        η
+        (
+        
+          g
+          
+            1
+          
+        
+        ,
+        
+          g
+          
+            2
+          
+        
+        )
+        →
+        
+          g
+          
+            1
+          
+        
+        η
+        (
+        
+          g
+          
+            2
+          
+        
+        )
+        −
+        η
+        (
+        
+          g
+          
+            1
+          
+        
+        
+          g
+          
+            2
+          
+        
+        )
+        +
+        η
+        (
+        
+          g
+          
+            1
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle d\eta (g_{1},g_{2})\to g_{1}\eta (g_{2})-\eta (g_{1}g_{2})+\eta (g_{1}).}
+  
+
+
+== extensions ==
+
+
+=== cohomology of topological groups ===
+given a topological group g, i.e., a group equipped with a topology such that product and inverse are continuous maps, it is natural to consider continuous g-modules, i.e., requiring that the action
+
+  
+    
+      
+        g
+        ×
+        m
+        →
+        m
+      
+    
+    {\displaystyle g\times m\to m}
+  is a continuous map. for such modules, one can again consider the derived functor of 
+  
+    
+      
+        m
+        ↦
+        
+          m
+          
+            g
+          
+        
+      
+    
+    {\displaystyle m\mapsto m^{g}}
+  . a special case occurring in algebra and number theory is when g is profinite, for example the absolute galois group of a field. the resulting cohomology is called galois cohomology.
+
+
+=== non-abelian group cohomology ===
+
+using the g-invariants and the 1-cochains, one can construct the zeroth and first group cohomology for a group g with coefficients in a non-abelian group. specifically, a g-group is a (not necessarily abelian) group a together with an action by g.
+the zeroth cohomology of g with coefficients in a is defined to be the subgroup
+
+  
+    
+      
+        
+          h
+          
+            0
+          
+        
+        (
+        g
+        ,
+        a
+        )
+        =
+        
+          a
+          
+            g
+          
+        
+        ,
+      
+    
+    {\displaystyle h^{0}(g,a)=a^{g},}
+  of elements of a fixed by g.
+the first cohomology of g with coefficients in a is defined as 1-cocycles modulo an equivalence relation instead of by 1-coboundaries. the condition for a map 
+  
+    
+      
+        φ
+      
+    
+    {\displaystyle \varphi }
+   to be a 1-cocycle is that 
+  
+    
+      
+        φ
+        (
+        g
+        h
+        )
+        =
+        φ
+        (
+        g
+        )
+        [
+        g
+        φ
+        (
+        h
+        )
+        ]
+      
+    
+    {\displaystyle \varphi (gh)=\varphi (g)[g\varphi (h)]}
+   and 
+  
+    
+      
+         
+        φ
+        ∼
+        
+          φ
+          ′
+        
+      
+    
+    {\displaystyle \ \varphi \sim \varphi '}
+   if there is an a in a such that 
+  
+    
+      
+         
+        a
+        
+          φ
+          ′
+        
+        (
+        g
+        )
+        =
+        φ
+        (
+        g
+        )
+        ⋅
+        (
+        g
+        a
+        )
+      
+    
+    {\displaystyle \ a\varphi '(g)=\varphi (g)\cdot (ga)}
+  . in general, 
+  
+    
+      
+        
+          h
+          
+            1
+          
+        
+        (
+        g
+        ,
+        a
+        )
+      
+    
+    {\displaystyle h^{1}(g,a)}
+   is not a group when a is non-abelian. it instead has the structure of a pointed set – exactly the same situation arises in the 0th homotopy group, 
+  
+    
+      
+         
+        
+          π
+          
+            0
+          
+        
+        (
+        x
+        ;
+        x
+        )
+      
+    
+    {\displaystyle \ \pi _{0}(x;x)}
+   which for a general topological space is not a group but a pointed set. note that a group is in particular a pointed set, with the identity element as distinguished point.
+using explicit calculations, one still obtains a truncated long exact sequence in cohomology. specifically, let
+
+  
+    
+      
+        1
+        →
+        a
+        →
+        b
+        →
+        c
+        →
+        1
+        
+      
+    
+    {\displaystyle 1\to a\to b\to c\to 1\,}
+  be a short exact sequence of g-groups, then there is an exact sequence of pointed sets
+
+  
+    
+      
+        1
+        →
+        
+          a
+          
+            g
+          
+        
+        →
+        
+          b
+          
+            g
+          
+        
+        →
+        
+          c
+          
+            g
+          
+        
+        →
+        
+          h
+          
+            1
+          
+        
+        (
+        g
+        ,
+        a
+        )
+        →
+        
+          h
+          
+            1
+          
+        
+        (
+        g
+        ,
+        b
+        )
+        →
+        
+          h
+          
+            1
+          
+        
+        (
+        g
+        ,
+        c
+        )
+        .
+        
+      
+    
+    {\displaystyle 1\to a^{g}\to b^{g}\to c^{g}\to h^{1}(g,a)\to h^{1}(g,b)\to h^{1}(g,c).\,}
+  
+
+
+== history and relation to other fields ==
+the low-dimensional cohomology of a group was classically studied in other guises, well before the notion of group cohomology was formulated in 1943–45. the first theorem of the subject can be identified as hilbert's theorem 90 in 1897; this was recast into emmy noether's equations in galois theory (an appearance of cocycles for 
+  
+    
+      
+        
+          h
+          
+            1
+          
+        
+      
+    
+    {\displaystyle h^{1}}
+  ). the idea of factor sets for the extension problem for groups (connected with  
+  
+    
+      
+        
+          h
+          
+            2
+          
+        
+      
+    
+    {\displaystyle h^{2}}
+  ) arose in the work of otto hölder (1893), in issai schur's 1904 study of projective representations, in otto schreier's 1926 treatment, and in richard brauer's 1928 study of simple algebras and the brauer group. a fuller discussion of this history may be found in (weibel 1999, pp. 806–811).
+in 1941, while studying 
+  
+    
+      
+        
+          h
+          
+            2
+          
+        
+        (
+        g
+        ,
+        
+          z
+        
+        )
+      
+    
+    {\displaystyle h^{2}(g,\mathbb {z} )}
+   (which plays a special role in groups), heinz hopf discovered what is now called hopf's integral homology formula (hopf 1942), which is identical to schur's formula for the schur multiplier of a finite, finitely presented group:
+
+  
+    
+      
+        
+          h
+          
+            2
+          
+        
+        (
+        g
+        ,
+        
+          z
+        
+        )
+        ≅
+        (
+        r
+        ∩
+        [
+        f
+        ,
+        f
+        ]
+        )
+        
+          /
+        
+        [
+        f
+        ,
+        r
+        ]
+        ,
+      
+    
+    {\displaystyle h_{2}(g,\mathbb {z} )\cong (r\cap [f,f])/[f,r],}
+  where 
+  
+    
+      
+        g
+        ≅
+        f
+        
+          /
+        
+        r
+      
+    
+    {\displaystyle g\cong f/r}
+   and f is a free group.
+hopf's result led to the independent discovery of group cohomology by several groups in 1943-45: samuel eilenberg and saunders mac lane in the united states (rotman 1995, p. 358); hopf and beno eckmann in switzerland;  hans freudenthal in the netherlands (weibel 1999, p. 807); and dmitry faddeev in the soviet union (arslanov 2011, p. 29, faddeev 1947). the situation was chaotic because communication between these countries was difficult during world war ii.
+from a topological point of view, the homology and cohomology of g was first defined as the homology and cohomology of a model for the topological classifying space bg as discussed above. in practice, this meant using topology to produce the chain complexes used in formal algebraic definitions. from a module-theoretic point of view this was integrated into the cartan–eilenberg theory of homological algebra in the early 1950s.
+the application in algebraic number theory to class field theory provided theorems valid for general galois extensions (not just abelian extensions). the cohomological part of class field theory was axiomatized as the theory of class formations. in turn, this led to the notion of galois cohomology and étale cohomology (which builds on it) (weibel 1999, p. 822). some refinements in the theory post-1960 have been made, such as continuous cocycles and john tate's redefinition, but the basic outlines remain the same. this is a large field, and now basic in the theories of algebraic groups.
+the analogous theory for lie algebras, called lie algebra cohomology, was first developed in the late 1940s, by claude chevalley and eilenberg, and jean-louis koszul (weibel 1999, p. 810). it is formally similar, using the corresponding definition of invariant for the action of a lie algebra. it is much applied in representation theory, and is closely connected with the brst quantization of theoretical physics.
+group cohomology theory also has a direct application in condensed matter physics. just like group theory being the mathematical foundation of spontaneous symmetry breaking phases, group cohomology theory is the mathematical foundation of a class of quantum states of matter—short-range entangled states with symmetry. short-range entangled states with symmetry are also known as symmetry-protected topological states.
+
+
+== see also ==
+lyndon–hochschild–serre spectral sequence
+n-group (category theory)
+postnikov tower
+
+
+== notes ==
+
+
+== references ==
+
+
+=== works cited ===
+adem, alejandro; milgram, r. james (2004), cohomology of finite groups, grundlehren der mathematischen wissenschaften, vol. 309 (2nd ed.), springer-verlag, doi:10.1007/978-3-662-06280-7, isbn 978-3-540-20283-7, mr 2035696, zbl 1061.20044
+arslanov, m. m. (2011), математическая жизнь в казани в годы войны, mat. pros., ser. 3, vol. 15, mccme, pp. 20–34, isbn 978-5-94057-741-6
+brown, kenneth s. (1972), cohomology of groups, graduate texts in mathematics, vol. 87, springer verlag, isbn 978-0-387-90688-1, mr 0672956
+faddeev, d. k. (1947), о фактор-системах в абелевых группах с операторами, dokl. akad. nauk sssr, vol. 58, leningrad department of v. a. steklov institute of mathematics, ussr academy of sciences, pp. 361–364, issn 0002-3264
+hopf, heinz (1942), "fundamentalgruppe und zweite bettische gruppe", commentarii mathematici helvetici, 14 (1): 257–309, doi:10.1007/bf02565622, jfm 68.0503.01, mr 0006510, zbl 0027.09503
+knudson, kevin p. (2001), homology of linear groups, progress in mathematics, vol. 193, birkhäuser verlag, zbl 0997.20045
+milne, james (2013), "chapter ii: the cohomology of groups", class field theory, vol. v4.02
+rotman, joseph j. (1995), an introduction to the theory of groups, graduate texts in mathematics, vol. 148 (4th ed.), springer-verlag, doi:10.1007/978-1-4612-4176-8, isbn 978-0-387-94285-8, mr 1307623
+serre, jean-pierre (1979). "chapter vii". local fields. graduate texts in mathematics. vol. 67. berlin, new york: springer-verlag. isbn 978-0-387-90424-5. mr 0554237. zbl 0423.12016.
+weibel, charles a. (1999), "history of homological algebra", history of topology, cambridge university press, pp. 797–836, citeseerx 10.1.1.39.9076, doi:10.1016/b978-044482375-5/50029-8, isbn 978-0-444-82375-5, mr 1721123
+
+
+== further reading ==
+serre, jean-pierre (1994), cohomologie galoisienne, lecture notes in mathematics, vol. 5 (fifth ed.), berlin, new york: springer-verlag, doi:10.1007/bfb0108758, isbn 978-3-540-58002-7, mr 1324577
+shatz, stephen s. (1972), profinite groups, arithmetic, and geometry, princeton, nj: princeton university press, isbn 978-0-691-08017-8, mr 0347778
+chapter 6 of weibel, charles a. (1994). an introduction to homological algebra. cambridge studies in advanced mathematics. vol. 38. cambridge university press. isbn 978-0-521-55987-4. mr 1269324. oclc 36131259.

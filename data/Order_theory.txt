@@ -1,0 +1,208 @@
+order theory is a branch of mathematics that investigates the intuitive notion of order using binary relations. it provides a formal framework for describing statements such as "this is less than that" or "this precedes that". this article introduces the field and provides basic definitions. a list of order-theoretic terms can be found in the order theory glossary.
+
+
+== background and motivation ==
+orders are everywhere in mathematics and related fields like computer science. the first order often discussed in primary school is the standard order on the natural numbers e.g. "2 is less than 3", "10 is greater than 5", or "does tom have fewer cookies than sally?". this intuitive concept can be extended to orders on other sets of numbers, such as the integers and the reals. the idea of being greater than or less than another number is one of the basic intuitions of number systems (compare with numeral systems) in general (although one usually is also interested in the actual difference of two numbers, which is not given by the order). other familiar examples of orderings are the alphabetical order of words in a dictionary and the genealogical property of lineal descent within a group of people.
+the notion of order is very general, extending beyond contexts that have an immediate, intuitive feel of sequence or relative quantity. in other contexts orders may capture notions of containment or specialization. abstractly, this type of order amounts to the subset relation, e.g., "pediatricians are physicians," and "circles are merely special-case ellipses."
+some orders, like "less-than" on the natural numbers and alphabetical order on words, have a special property: each element can be compared to any other element, i.e. it is smaller (earlier) than, larger (later) than, or identical to. however, many other orders do not. consider for example the subset order on a collection of sets: though the set of birds and the set of dogs are both subsets of the set of animals, neither the birds nor the dogs constitutes a subset of the other. those orders like the "subset-of" relation for which there exist incomparable elements are called partial orders; orders for which every pair of elements is comparable are total orders.
+order theory captures the intuition of orders that arises from such examples in a general setting. this is achieved by specifying properties that a relation ≤ must have to be a mathematical order. this more abstract approach makes much sense, because one can derive numerous theorems in the general setting, without focusing on the details of any particular order. these insights can then be readily transferred to many less abstract applications.
+driven by the wide practical usage of orders, numerous special kinds of ordered sets have been defined, some of which have grown into mathematical fields of their own. in addition, order theory does not restrict itself to the various classes of ordering relations, but also considers appropriate functions between them. a simple example of an order theoretic property for functions comes from analysis where monotone functions are frequently found.
+
+
+== basic definitions ==
+this section introduces ordered sets by building upon the concepts of set theory, arithmetic, and binary relations.
+
+
+=== partially ordered sets ===
+orders are special binary relations. suppose that p is a set and that ≤ is a relation on p ('relation on a set' is taken to mean 'relation amongst its inhabitants'). then ≤ is a partial order if it is reflexive, antisymmetric, and transitive, that is, if for all a, b and c in p, we have that:
+
+a ≤ a (reflexivity)
+if a ≤ b and b ≤ a then a = b (antisymmetry)
+if a ≤ b and b ≤ c then a ≤ c (transitivity).a set with a partial order on it is called a partially ordered set, poset, or just ordered set if the intended meaning is clear. by checking these properties, one immediately sees that the well-known orders on natural numbers, integers, rational numbers and reals are all orders in the above sense. however, these examples have the additional property that any two elements are comparable, that is, for all a and b in p, we have that:
+
+a ≤ b or b ≤ a.a partial order with this property is called a total order. these orders can also be called linear orders or chains. while many familiar orders are linear, the subset order on sets provides an example where this is not the case. another example is given by the divisibility (or "is-a-factor-of") relation |. for two natural numbers n and m, we write n|m if n divides m without remainder. one easily sees that this yields a partial order.
+the identity relation = on any set is also a partial order in which every two distinct elements are incomparable. it is also the only relation that is both a partial order and an equivalence relation. many advanced properties of posets are interesting mainly for non-linear orders.
+
+
+=== visualizing a poset ===
+
+hasse diagrams can visually represent the elements and relations of a partial ordering. these are graph drawings where the vertices are the elements of the poset and the ordering relation is indicated by both the edges and the relative positioning of the vertices. orders are drawn bottom-up: if an element x is smaller than (precedes) y then there exists a path from x to y that is directed upwards. it is often necessary for the edges connecting elements to cross each other, but elements must never be located within an edge. an instructive exercise is to draw the hasse diagram for the set of natural numbers that are smaller than or equal to 13, ordered by | (the divides relation).
+even some infinite sets can be diagrammed by superimposing an ellipsis (...) on a finite sub-order. this works well for the natural numbers, but it fails for the reals, where there is no immediate successor above 0; however, quite often one can obtain an intuition related to diagrams of a similar kind.
+
+
+=== special elements within an order ===
+in a partially ordered set there may be some elements that play a special role. the most basic example is given by the least element of a poset. for example, 1 is the least element of the positive integers and the empty set is the least set under the subset order. formally, an element m is a least element if:
+
+m ≤ a, for all elements a of the order.the notation 0 is frequently found for the least element, even when no numbers are concerned. however, in orders on sets of numbers, this notation might be inappropriate or ambiguous, since the number 0 is not always least. an example is given by the above divisibility order |, where 1 is the least element since it divides all other numbers. in contrast, 0 is the number that is divided by all other numbers. hence it is the greatest element of the order.  other frequent terms for the least and greatest elements is bottom and top or zero and unit.
+least and greatest elements may fail to exist, as the example of the real numbers shows. but if they exist, they are always unique. in contrast, consider the divisibility relation | on the set {2,3,4,5,6}. although this set has neither top nor bottom, the elements 2, 3, and 5 have no elements below them, while 4, 5 and 6 have none above. such elements are called minimal and maximal, respectively. formally, an element m is minimal if:
+
+a ≤ m implies a = m, for all elements a of the order.exchanging ≤ with ≥ yields the definition of maximality. as the example shows, there can be many maximal elements and some elements may be both maximal and minimal (e.g. 5 above). however, if there is a least element, then it is the only minimal element of the order. again, in infinite posets maximal elements do not always exist - the set of all finite subsets of a given infinite set, ordered by subset inclusion, provides one of many counterexamples. an important tool to ensure the existence of maximal elements under certain conditions is zorn's lemma.
+subsets of partially ordered sets inherit the order. we already applied this by considering the subset {2,3,4,5,6} of the natural numbers with the induced divisibility ordering. now there are also elements of a poset that are special with respect to some subset of the order. this leads to the definition of upper bounds. given a subset s of some poset p, an upper bound of s is an element b of p that is above all elements of s. formally, this means that
+
+s ≤ b, for all s in s.lower bounds again are defined by inverting the order. for example, -5 is a lower bound of the natural numbers as a subset of the integers. given a set of sets, an upper bound for these sets under the subset ordering is given by their union. in fact, this upper bound is quite special: it is the smallest set that contains all of the sets. hence, we have found the least upper bound of a set of sets. this concept is also called supremum or join, and for a set s one writes sup(s) or 
+  
+    
+      
+        ⋁
+        s
+      
+    
+    {\displaystyle \bigvee s}
+   for its least upper bound. conversely, the greatest lower bound is known as infimum or meet and denoted inf(s) or 
+  
+    
+      
+        ⋀
+        s
+      
+    
+    {\displaystyle \bigwedge s}
+  . these concepts play an important role in many applications of order theory. for two elements x and y, one also writes 
+  
+    
+      
+        x
+        ∨
+        y
+      
+    
+    {\displaystyle x\vee y}
+   and 
+  
+    
+      
+        x
+        ∧
+        y
+      
+    
+    {\displaystyle x\wedge y}
+   for sup({x,y}) and inf({x,y}), respectively.
+for example, 1 is the infimum of the positive integers as a subset of integers.
+for another example, consider again the relation | on natural numbers. the least upper bound of two numbers is the smallest number that is divided by both of them, i.e. the least common multiple of the numbers. greatest lower bounds in turn are given by the greatest common divisor.
+
+
+=== duality ===
+in the previous definitions, we often noted that a concept can be defined by just inverting the ordering in a former definition. this is the case for "least" and "greatest", for "minimal" and "maximal", for "upper bound" and "lower bound", and so on. this is a general situation in order theory: a given order can be inverted by just exchanging its direction, pictorially flipping the hasse diagram top-down. this yields the so-called dual, inverse, or opposite order.
+every order theoretic definition has its dual: it is the notion one obtains by applying the definition to the inverse order. since all concepts are symmetric, this operation preserves the theorems of partial orders. for a given mathematical result, one can just invert the order and replace all definitions by their duals and one obtains another valid theorem. this is important and useful, since one obtains two theorems for the price of one. some more details and examples can be found in the article on duality in order theory.
+
+
+=== constructing new orders ===
+there are many ways to construct orders out of given orders. the dual order is one example. another important construction is the cartesian product of two partially ordered sets, taken together with the product order on pairs of elements. the ordering is defined by (a, x) ≤ (b, y) if (and only if) a ≤ b and x ≤ y. (notice carefully that there are three distinct meanings for the relation symbol ≤ in this definition.) the disjoint union of two posets is another typical example of order construction, where the order is just the (disjoint) union of the original orders.
+every partial order ≤ gives rise to a so-called strict order <, by defining a < b if a ≤ b and not b ≤ a. this transformation can be inverted by setting a ≤ b if a < b or a = b. the two concepts are equivalent although in some circumstances one can be more convenient to work with than the other.
+
+
+== functions between orders ==
+it is reasonable to consider functions between partially ordered sets having certain additional properties that are related to the ordering relations of the two sets. the most fundamental condition that occurs in this context is monotonicity. a function f from a poset p to a poset q is monotone, or order-preserving, if a ≤ b in p implies f(a) ≤ f(b) in q (noting that, strictly, the two relations here are different since they apply to different sets.). the converse of this implication leads to functions that are order-reflecting, i.e. functions f as above for which f(a) ≤ f(b) implies a ≤ b. on the other hand, a function may also be order-reversing or antitone, if a ≤ b implies f(a) ≥ f(b).
+an order-embedding is a function f between orders that is both order-preserving and order-reflecting. examples for these definitions are found easily. for instance, the function that maps a natural number to its successor is clearly monotone with respect to the natural order. any function from a discrete order, i.e. from a set ordered by the identity order "=", is also monotone. mapping each natural number to the corresponding real number gives an example for an order embedding. the set complement on a powerset is an example of an antitone function.
+an important question is when two orders are "essentially equal", i.e. when they are the same up to renaming of elements. order isomorphisms are functions that define such a renaming. an order-isomorphism is a monotone bijective function that has a monotone inverse. this is equivalent to being a surjective order-embedding. hence, the image f(p) of an order-embedding is always isomorphic to p, which justifies the term "embedding".
+a more elaborate type of functions is given by so-called galois connections. monotone galois connections can be viewed as a generalization of order-isomorphisms, since they constitute of a pair of two functions in converse directions, which are "not quite" inverse to each other, but that still have close relationships.
+another special type of self-maps on a poset are closure operators, which are not only monotonic, but also idempotent, i.e. f(x) = f(f(x)), and extensive (or inflationary), i.e. x ≤ f(x). these have many applications in all kinds of "closures" that appear in mathematics.
+besides being compatible with the mere order relations, functions between posets may also behave well with respect to special elements and constructions. for example, when talking about posets with least element, it may seem reasonable to consider only monotonic functions that preserve this element, i.e. which map least elements to least elements. if binary infima ∧ exist, then a reasonable property might be to require that f(x ∧ y) = f(x) ∧ f(y), for all x and y. all of these properties, and indeed many more, may be compiled under the label of limit-preserving functions.
+finally, one can invert the view, switching from functions of orders to orders of functions. indeed, the functions between two posets p and q can be ordered via the pointwise order. for two functions f and g, we have f ≤ g if f(x) ≤ g(x) for all elements x of p. this occurs for example in domain theory, where function spaces play an important role.
+
+
+== special types of orders ==
+many of the structures that are studied in order theory employ order relations with further properties. in fact, even some relations that are not partial orders are of special interest. mainly the concept of a preorder has to be mentioned. a preorder is a relation that is reflexive and transitive, but not necessarily antisymmetric. each preorder induces an equivalence relation between elements, where a is equivalent to b, if a ≤ b and b ≤ a. preorders can be turned into orders by identifying all elements that are equivalent with respect to this relation.
+several types of orders can be defined from numerical data on the items of the order: a total order results from attaching distinct real numbers to each item and using the numerical comparisons to order the items; instead, if distinct items are allowed to have equal numerical scores, one obtains a strict weak ordering. requiring two scores to be separated by a fixed threshold before they may be compared leads to the concept of a semiorder, while allowing the threshold to vary on a per-item basis produces an interval order.
+an additional simple but useful property leads to so-called well-founded, for which all non-empty subsets have a minimal element.  generalizing well-orders from linear to partial orders, a set is well partially ordered if all its non-empty subsets have a finite number of minimal elements.
+many other types of orders arise when the existence of infima and suprema of certain sets is guaranteed. focusing on this aspect, usually referred to as completeness of orders, one obtains:
+
+bounded posets, i.e. posets with a least and greatest element (which are just the supremum and infimum of the empty subset),
+lattices, in which every non-empty finite set has a supremum and infimum,
+complete lattices, where every set has a supremum and infimum, and
+directed complete partial orders (dcpos), that guarantee the existence of suprema of all directed subsets and that are studied in domain theory.
+partial orders with complements, or poc sets, are posets with a unique bottom element 0, as well as an order-reversing involution 
+  
+    
+      
+        ∗
+      
+    
+    {\displaystyle *}
+   such that 
+  
+    
+      
+        a
+        ≤
+        
+          a
+          
+            ∗
+          
+        
+        
+        ⟹
+        
+        a
+        =
+        0.
+      
+    
+    {\displaystyle a\leq a^{*}\implies a=0.}
+  however, one can go even further: if all finite non-empty infima exist, then ∧ can be viewed as a total binary operation in the sense of universal algebra. hence, in a lattice, two operations ∧ and ∨ are available, and one can define new properties by giving identities, such as
+
+x ∧ (y ∨ z)  =  (x ∧ y) ∨ (x ∧ z), for all x, y, and z.this condition is called distributivity and gives rise to distributive lattices. there are some other important distributivity laws which are discussed in the article on distributivity in order theory. some additional order structures that are often specified via algebraic operations and defining identities are
+
+heyting algebras and
+boolean algebras,which both introduce a new operation ~ called negation. both structures play a role in mathematical logic and especially boolean algebras have major applications in computer science.
+finally, various structures in mathematics combine orders with even more algebraic operations, as in the case of quantales, that allow for the definition of an addition operation.
+many other important properties of posets exist. for example, a poset is locally finite if every closed interval [a, b] in it is finite. locally finite posets give rise to incidence algebras which in turn can be used to define the euler characteristic of finite bounded posets.
+
+
+== subsets of ordered sets ==
+in an ordered set, one can define many types of special subsets based on the given order. a simple example are upper sets; i.e. sets that contain all elements that are above them in the order. formally, the upper closure of a set s in a poset p is given by the set {x in p | there is some y in s with y ≤ x}. a set that is equal to its upper closure is called an upper set. lower sets are defined dually.
+more complicated lower subsets are ideals, which have the additional property that each two of their elements have an upper bound within the ideal. their duals are given by filters. a related concept is that of a directed subset, which like an ideal contains upper bounds of finite subsets, but does not have to be a lower set. furthermore, it is often generalized to preordered sets.
+a subset which is - as a sub-poset - linearly ordered, is called a chain. the opposite notion, the antichain, is a subset that contains no two comparable elements; i.e. that is a discrete order.
+
+
+== related mathematical areas ==
+although most mathematical areas use orders in one or the other way, there are also a few theories that have relationships which go far beyond mere application. together with their major points of contact with order theory, some of these are to be presented below.
+
+
+=== universal algebra ===
+as already mentioned, the methods and formalisms of universal algebra are an important tool for many order theoretic considerations. beside formalizing orders in terms of algebraic structures that satisfy certain identities, one can also establish other connections to algebra. an example is given by the correspondence between boolean algebras and boolean rings. other issues are concerned with the existence of free constructions, such as free lattices based on a given set of generators. furthermore, closure operators are important in the study of universal algebra.
+
+
+=== topology ===
+in topology, orders play a very prominent role. in fact, the collection of open sets provides a classical example of a complete lattice, more precisely a complete heyting algebra (or "frame" or "locale"). filters and nets are notions closely related to order theory and the closure operator of sets can be used to define a topology. beyond these relations, topology can be looked at solely in terms of the open set lattices, which leads to the study of pointless topology. furthermore, a natural preorder of elements of the underlying set of a topology is given by the so-called specialization order, that is actually a partial order if the topology is t0.
+conversely, in order theory, one often makes use of topological results. there are various ways to define subsets of an order which can be considered as open sets of a topology. considering topologies on a poset (x, ≤) that in turn induce ≤ as their specialization order, the finest such topology is the alexandrov topology, given by taking all upper sets as opens. conversely, the coarsest topology that induces the specialization order is the upper topology, having the complements of principal ideals (i.e. sets of the form {y in x | y ≤ x} for some x) as a subbase. additionally, a topology with specialization order ≤ may be order consistent, meaning that their open sets are "inaccessible by directed suprema" (with respect to ≤). the finest order consistent topology is the scott topology, which is coarser than the alexandrov topology. a third important topology in this spirit is the lawson topology. there are close connections between these topologies and the concepts of order theory. for example, a function preserves directed suprema if and only if it is continuous with respect to the scott topology (for this reason this order theoretic property is also called scott-continuity).
+
+
+=== category theory ===
+the visualization of orders with hasse diagrams has a straightforward generalization: instead of displaying lesser elements below greater ones, the direction of the order can also be depicted by giving directions to the edges of a graph. in this way, each order is seen to be equivalent to a directed acyclic graph, where the nodes are the elements of the poset and there is a directed path from a to b if and only if a ≤ b. dropping the requirement of being acyclic, one can also obtain all preorders.
+when equipped with all transitive edges, these graphs in turn are just special categories, where elements are objects and each set of morphisms between two elements is at most singleton. functions between orders become functors between categories. many ideas of order theory are just concepts of category theory in small. for example, an infimum is just a categorical product. more generally, one can capture infima and suprema under the abstract notion of a categorical limit (or colimit, respectively). another place where categorical ideas occur is the concept of a (monotone) galois connection, which is just the same as a pair of adjoint functors.
+but category theory also has its impact on order theory on a larger scale. classes of posets with appropriate functions as discussed above form interesting categories. often one can also state constructions of orders, like the product order, in terms of categories. further insights result when categories of orders are found categorically equivalent to other categories, for example of topological spaces. this line of research leads to various representation theorems, often collected under the label of stone duality.
+
+
+== history ==
+as explained before, orders are ubiquitous in mathematics. however, earliest explicit mentionings of partial orders are probably to be found not before the 19th century. in this context the works of george boole are of great importance. moreover, works of charles sanders peirce, richard dedekind, and ernst schröder also consider concepts of order theory.
+contributors to ordered geometry were listed in a 1961 textbook:
+
+it was pasch in 1882, who first pointed out that a geometry of order could be developed without reference to measurement. his system of axioms was gradually improved by peano (1889), hilbert (1899),  and veblen (1904).
+in 1901 bertrand russell wrote "on the notion of order" exploring the foundations of the idea through generation of series. he returned to the topic in part iv of the principles of mathematics (1903).
+russell noted that binary relation arb has a sense proceeding from a to b with the converse relation having an opposite sense, and sense "is the source of order and series". (p 95) he acknowledges immanuel kant was "aware  of the difference between logical opposition and the opposition of positive and negative". he wrote that kant deserves credit as he "first called attention to the logical importance  of asymmetric relations."
+the term poset as an abbreviation for partially ordered set was coined by garrett birkhoff in the second edition of his influential book lattice theory.
+
+
+== see also ==
+cyclic order
+hierarchy
+incidence algebra
+causal sets
+
+
+== notes ==
+
+
+== references ==
+birkhoff, garrett (1940). lattice theory. vol. 25 (3rd revised ed.). american mathematical society. isbn 978-0-8218-1025-5.
+burris, s. n.; sankappanavar, h. p. (1981). a course in universal algebra. springer. isbn 978-0-387-90578-5.
+davey, b. a.; priestley, h. a. (2002). introduction to lattices and order (2nd ed.). cambridge university press. isbn 0-521-78451-4.
+gierz, g.; hofmann, k. h.; keimel, k.; mislove, m.; scott, d. s. (2003). continuous lattices and domains. encyclopedia of mathematics and its applications. vol. 93. cambridge university press. isbn 978-0-521-80338-0.
+
+
+== external links ==
+orders at provenmath partial order, linear order, well order, initial segment; formal definitions and proofs within the axioms of set theory.
+nagel, felix (2013). set theory and topology. an introduction to the foundations of analysis

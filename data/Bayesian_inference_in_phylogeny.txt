@@ -1,0 +1,1117 @@
+bayesian inference of phylogeny combines the information in the prior and in the data likelihood to create the so-called posterior probability of trees, which is the probability that the tree is correct given the data, the prior and the likelihood model. bayesian inference was introduced into molecular phylogenetics in the 1990s by three independent groups: bruce rannala and ziheng yang in berkeley, bob mau in madison, and shuying li in university of iowa, the last two being phd students at the time.  the approach has become very popular since the release of the mrbayes software in 2001, and is now one of the most popular methods in molecular phylogenetics.
+
+
+== bayesian inference of phylogeny background and bases ==
+bayesian inference refers to a probabilistic method developed by reverend thomas bayes based on bayes' theorem. published posthumously in 1763 it was the first expression of inverse probability and the basis of bayesian inference. independently, unaware of bayes' work, pierre-simon laplace developed bayes' theorem in 1774.bayesian inference or the inverse probability method was the standard approach in statistical thinking until the early 1900s before ra fisher developed what's now known as the classical/frequentist/fisherian inference. computational difficulties and philosophical objections had prevented the widespread adoption of the bayesian approach until the 1990s, when markov chain monte carlo (mcmc) algorithms revolutionized bayesian computation.
+the bayesian approach to phylogenetic reconstruction combines the prior probability of a tree p(a) with the likelihood of the data (b) to produce a posterior probability distribution on trees p(a|b). the posterior probability of a tree will be the probability that the tree is correct, given the prior, the data, and the correctness of the likelihood model.
+mcmc methods can be described in three steps: first using a stochastic mechanism a new state for the markov chain is proposed. secondly, the probability of this new state to be correct is calculated. thirdly, a new random variable (0,1) is proposed. if this new value is less than the acceptance probability the new state is accepted and the state of the chain is updated. this process is run thousands or millions of times. the number of times a single tree is visited during the course of the chain is an approximation of its posterior probability. some of the most common algorithms used in mcmc methods include the metropolis–hastings algorithms, the metropolis-coupling mcmc (mc³) and the local algorithm of larget and simon.
+
+
+=== metropolis–hastings algorithm ===
+one of the most common mcmc methods used is the metropolis–hastings algorithm, a modified version of the original metropolis algorithm. it is a widely used method to sample randomly from complicated and multi-dimensional distribution probabilities. the metropolis algorithm is described in the following steps:
+an initial tree, ti, is randomly selected.
+a neighbour tree, tj, is selected from the collection of trees.
+the ratio, r, of the probabilities (or probability density functions) of tj and ti is computed as follows: r = f(tj)/f(ti)
+if r ≥ 1, tj is accepted as the current tree.
+if r < 1, tj is accepted as the current tree with probability r, otherwise ti is kept.
+at this point the process is repeated from step 2 n times.the algorithm keeps running until it reaches an equilibrium distribution. it also assumes that the probability of proposing a new tree tj when we are at the old tree state ti, is the same probability of proposing ti when we are at tj. when this is not the case hastings corrections are applied.
+the aim of metropolis-hastings algorithm is to produce a collection of states with a determined distribution until the markov process reaches a stationary distribution. the algorithm has two components:
+
+a potential transition from one state to another (i → j) using a transition probability function qi,j
+movement of the chain to state j with probability αi,j and remains in i with probability 1 – αi,j.
+
+
+=== metropolis-coupled mcmc ===
+metropolis-coupled mcmc algorithm (mc³)  has been proposed to solve a practical concern of the markov chain moving across peaks when the target distribution has multiple local peaks, separated by low valleys, are known to exist in the tree space. this is the case during heuristic tree search under maximum parsimony (mp), maximum likelihood (ml), and minimum evolution (me) criteria, and the same can be expected for stochastic tree search using mcmc. this problem will result in samples not approximating correctly to the posterior density. the (mc³) improves the mixing of markov chains in presence of multiple local peaks in the posterior density. it runs multiple (m) chains in parallel, each for n iterations and with different stationary distributions 
+  
+    
+      
+        
+          π
+          
+            j
+          
+        
+        (
+        .
+        )
+         
+      
+    
+    {\displaystyle \pi _{j}(.)\ }
+  , 
+  
+    
+      
+        j
+        =
+        1
+        ,
+        2
+        ,
+        …
+        ,
+        m
+         
+      
+    
+    {\displaystyle j=1,2,\ldots ,m\ }
+  , where the first one, 
+  
+    
+      
+        
+          π
+          
+            1
+          
+        
+        =
+        π
+         
+      
+    
+    {\displaystyle \pi _{1}=\pi \ }
+   is the target density, while 
+  
+    
+      
+        
+          π
+          
+            j
+          
+        
+         
+      
+    
+    {\displaystyle \pi _{j}\ }
+  , 
+  
+    
+      
+        j
+        =
+        2
+        ,
+        3
+        ,
+        …
+        ,
+        m
+         
+      
+    
+    {\displaystyle j=2,3,\ldots ,m\ }
+   are chosen to improve mixing.  for example, one can choose incremental heating of the form:
+
+  
+    
+      
+        
+          π
+          
+            j
+          
+        
+        (
+        θ
+        )
+        =
+        π
+        (
+        θ
+        
+          )
+          
+            1
+            
+              /
+            
+            [
+            1
+            +
+            λ
+            (
+            j
+            −
+            1
+            )
+            ]
+          
+        
+        ,
+         
+         
+        λ
+        >
+        0
+        ,
+      
+    
+    {\displaystyle \pi _{j}(\theta )=\pi (\theta )^{1/[1+\lambda (j-1)]},\ \ \lambda >0,}
+  so that the first chain is the cold chain with the correct target density, while chains 
+  
+    
+      
+        2
+        ,
+        3
+        ,
+        …
+        ,
+        m
+      
+    
+    {\displaystyle 2,3,\ldots ,m}
+   are heated chains.  note that raising the density 
+  
+    
+      
+        π
+        (
+        .
+        )
+      
+    
+    {\displaystyle \pi (.)}
+   to the power 
+  
+    
+      
+        1
+        
+          /
+        
+        t
+         
+      
+    
+    {\displaystyle 1/t\ }
+   with 
+  
+    
+      
+        t
+        >
+        1
+         
+      
+    
+    {\displaystyle t>1\ }
+   has the effect of flattening out the distribution, similar to heating a metal.  in such a distribution, it is easier to traverse between peaks (separated by valleys) than in the original distribution.  after each iteration, a swap of states between two randomly chosen chains is proposed through a metropolis-type step.  let 
+  
+    
+      
+        
+          θ
+          
+            (
+            j
+            )
+          
+        
+         
+      
+    
+    {\displaystyle \theta ^{(j)}\ }
+   be the current state in chain 
+  
+    
+      
+        j
+         
+      
+    
+    {\displaystyle j\ }
+  , 
+  
+    
+      
+        j
+        =
+        1
+        ,
+        2
+        ,
+        …
+        ,
+        m
+         
+      
+    
+    {\displaystyle j=1,2,\ldots ,m\ }
+  .  a swap between the states of chains 
+  
+    
+      
+        i
+         
+      
+    
+    {\displaystyle i\ }
+   and 
+  
+    
+      
+        j
+         
+      
+    
+    {\displaystyle j\ }
+   is accepted with probability:
+
+  
+    
+      
+        α
+        =
+        
+          
+            
+              
+                π
+                
+                  i
+                
+              
+              (
+              
+                θ
+                
+                  (
+                  j
+                  )
+                
+              
+              )
+              
+                π
+                
+                  j
+                
+              
+              (
+              
+                θ
+                
+                  (
+                  i
+                  )
+                
+              
+              )
+            
+            
+              
+                π
+                
+                  i
+                
+              
+              (
+              
+                θ
+                
+                  (
+                  i
+                  )
+                
+              
+              )
+              
+                π
+                
+                  j
+                
+              
+              (
+              
+                θ
+                
+                  (
+                  j
+                  )
+                
+              
+              )
+            
+          
+        
+         
+      
+    
+    {\displaystyle \alpha ={\frac {\pi _{i}(\theta ^{(j)})\pi _{j}(\theta ^{(i)})}{\pi _{i}(\theta ^{(i)})\pi _{j}(\theta ^{(j)})}}\ }
+  at the end of the run, output from only the cold chain is used, while those from the hot chains are discarded.  heuristically, the hot chains will visit the local peaks rather easily, and swapping states between chains will let the cold chain occasionally jump valleys, leading to better mixing.  however, if 
+  
+    
+      
+        
+          π
+          
+            i
+          
+        
+        (
+        θ
+        )
+        
+          /
+        
+        
+          π
+          
+            j
+          
+        
+        (
+        θ
+        )
+         
+      
+    
+    {\displaystyle \pi _{i}(\theta )/\pi _{j}(\theta )\ }
+   is unstable, proposed swaps will seldom be accepted.  this is the reason for using several chains which differ only incrementally.
+an obvious disadvantage of the algorithm is that 
+  
+    
+      
+        m
+         
+      
+    
+    {\displaystyle m\ }
+   chains are run and only one chain is used for inference.  for this reason, 
+  
+    
+      
+        
+          
+            m
+            c
+          
+          
+            3
+          
+        
+         
+      
+    
+    {\displaystyle \mathrm {mc} ^{3}\ }
+   is ideally suited for implementation on parallel machines, since each chain will in general require the same amount of computation per iteration.
+
+
+=== local algorithm of larget and simon ===
+the local algorithms offers a computational advantage over previous methods and demonstrates that a bayesian approach is able to assess uncertainty computationally practical in larger trees. the local algorithm is an improvement of the global algorithm presented in mau, newton and larget (1999) in which all branch lengths are changed in every cycle. the local algorithms modifies the tree by selecting an internal branch of the tree at random. the nodes at the ends of this branch are each connected to two other branches. one of each pair is chosen at random. imagine taking these three selected edges and stringing them like a clothesline from left to right, where the direction (left/right) is also selected at random. the two endpoints of the first branch selected will have a sub-tree hanging like a piece of clothing strung to the line. the algorithm proceeds by multiplying the three selected branches by a common random amount, akin to stretching or shrinking the clothesline. finally the leftmost of the two hanging sub-trees is disconnected and reattached to the clothesline at a location selected uniformly at random. this would be the candidate tree.
+suppose we began by selecting the internal branch with length 
+  
+    
+      
+        
+          t
+          
+            8
+          
+        
+         
+      
+    
+    {\displaystyle t_{8}\ }
+   that separates taxa  
+  
+    
+      
+        a
+         
+      
+    
+    {\displaystyle a\ }
+   and 
+  
+    
+      
+        b
+         
+      
+    
+    {\displaystyle b\ }
+   from the rest. suppose also that we have (randomly) selected branches with lengths 
+  
+    
+      
+        
+          t
+          
+            1
+          
+        
+         
+      
+    
+    {\displaystyle t_{1}\ }
+   and 
+  
+    
+      
+        
+          t
+          
+            9
+          
+        
+         
+      
+    
+    {\displaystyle t_{9}\ }
+   from each side, and that we oriented these branches. let 
+  
+    
+      
+        m
+        =
+        
+          t
+          
+            1
+          
+        
+        +
+        
+          t
+          
+            8
+          
+        
+        +
+        
+          t
+          
+            9
+          
+        
+         
+      
+    
+    {\displaystyle m=t_{1}+t_{8}+t_{9}\ }
+  , be the current length of the clothesline. we select the new length to be 
+  
+    
+      
+        
+          m
+          
+            ⋆
+          
+        
+        =
+        m
+        exp
+        ⁡
+        (
+        λ
+        (
+        
+          u
+          
+            1
+          
+        
+        −
+        0.5
+        )
+        )
+         
+      
+    
+    {\displaystyle m^{\star }=m\exp(\lambda (u_{1}-0.5))\ }
+  , where 
+  
+    
+      
+        
+          u
+          
+            1
+          
+        
+         
+      
+    
+    {\displaystyle u_{1}\ }
+   is a uniform random variable on 
+  
+    
+      
+        (
+        0
+        ,
+        1
+        )
+         
+      
+    
+    {\displaystyle (0,1)\ }
+  . then for the local algorithm, the acceptance probability can be computed to be:
+
+  
+    
+      
+        
+          
+            
+              h
+              (
+              y
+              )
+            
+            
+              h
+              (
+              x
+              )
+            
+          
+        
+        ×
+        
+          
+            
+              
+                
+                  m
+                  
+                    ⋆
+                  
+                
+              
+              
+                3
+              
+            
+            
+              m
+              
+                3
+              
+            
+          
+        
+         
+      
+    
+    {\displaystyle {\frac {h(y)}{h(x)}}\times {\frac {{m^{\star }}^{3}}{m^{3}}}\ }
+  
+
+
+==== assessing convergence ====
+to estimate a branch length 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   of a 2-taxon tree under jc, in which 
+  
+    
+      
+        
+          n
+          
+            1
+          
+        
+      
+    
+    {\displaystyle n_{1}}
+   sites are unvaried and 
+  
+    
+      
+        
+          n
+          
+            2
+          
+        
+      
+    
+    {\displaystyle n_{2}}
+   are variable, assume exponential prior distribution with rate 
+  
+    
+      
+        λ
+         
+      
+    
+    {\displaystyle \lambda \ }
+  . the density is 
+  
+    
+      
+        p
+        (
+        t
+        )
+        =
+        λ
+        
+          e
+          
+            −
+            λ
+            t
+          
+        
+         
+      
+    
+    {\displaystyle p(t)=\lambda e^{-\lambda t}\ }
+  . the probabilities of the possible site patterns are:
+
+  
+    
+      
+        1
+        
+          /
+        
+        4
+        
+          (
+          
+            1
+            
+              /
+            
+            4
+            +
+            3
+            
+              /
+            
+            4
+            
+              e
+              
+                −
+                4
+                
+                  /
+                
+                3
+                t
+              
+            
+          
+          )
+        
+         
+      
+    
+    {\displaystyle 1/4\left(1/4+3/4e^{-4/3t}\right)\ }
+  for unvaried sites, and
+
+  
+    
+      
+        1
+        
+          /
+        
+        4
+        
+          (
+          
+            1
+            
+              /
+            
+            4
+            −
+            1
+            
+              /
+            
+            4
+            
+              e
+              
+                −
+                4
+                
+                  /
+                
+                3
+                t
+              
+            
+          
+          )
+        
+         
+      
+    
+    {\displaystyle 1/4\left(1/4-1/4e^{-4/3t}\right)\ }
+  thus the unnormalized posterior distribution is:
+
+  
+    
+      
+        h
+        (
+        t
+        )
+        =
+        
+          
+            (
+            
+              1
+              
+                /
+              
+              4
+            
+            )
+          
+          
+            
+              n
+              
+                1
+              
+            
+            +
+            
+              n
+              
+                2
+              
+            
+          
+        
+        
+          (
+          
+            1
+            
+              /
+            
+            4
+            +
+            3
+            
+              /
+            
+            4
+            
+              
+                
+                  e
+                  
+                    −
+                    4
+                    
+                      /
+                    
+                    3
+                    t
+                  
+                
+              
+              
+                
+                  n
+                  
+                    1
+                  
+                
+              
+            
+          
+          )
+        
+         
+      
+    
+    {\displaystyle h(t)=\left(1/4\right)^{n_{1}+n_{2}}\left(1/4+3/4{e^{-4/3t}}^{n_{1}}\right)\ }
+  or, alternately,
+
+  
+    
+      
+        h
+        (
+        t
+        )
+        =
+        
+          (
+          
+            1
+            
+              /
+            
+            4
+            −
+            1
+            
+              /
+            
+            4
+            
+              
+                
+                  e
+                  
+                    −
+                    4
+                    
+                      /
+                    
+                    3
+                    t
+                  
+                
+              
+              
+                
+                  n
+                  
+                    2
+                  
+                
+              
+            
+          
+          )
+        
+        (
+        λ
+        
+          e
+          
+            −
+            λ
+            t
+          
+        
+        )
+         
+      
+    
+    {\displaystyle h(t)=\left(1/4-1/4{e^{-4/3t}}^{n_{2}}\right)(\lambda e^{-\lambda t})\ }
+  update branch length by choosing new value uniformly at random from a window of half-width 
+  
+    
+      
+        w
+         
+      
+    
+    {\displaystyle w\ }
+   centered at the current value:
+
+  
+    
+      
+        
+          t
+          
+            ⋆
+          
+        
+        =
+        
+          |
+        
+        t
+        +
+        u
+        
+          |
+        
+         
+      
+    
+    {\displaystyle t^{\star }=|t+u|\ }
+  where 
+  
+    
+      
+        u
+         
+      
+    
+    {\displaystyle u\ }
+  is uniformly distributed between 
+  
+    
+      
+        −
+        w
+         
+      
+    
+    {\displaystyle -w\ }
+   and 
+  
+    
+      
+        w
+         
+      
+    
+    {\displaystyle w\ }
+  .  the acceptance
+probability is:
+
+  
+    
+      
+        h
+        (
+        
+          t
+          
+            ⋆
+          
+        
+        )
+        
+          /
+        
+        h
+        (
+        t
+        )
+         
+      
+    
+    {\displaystyle h(t^{\star })/h(t)\ }
+  example:  
+  
+    
+      
+        
+          n
+          
+            1
+          
+        
+        =
+        70
+         
+      
+    
+    {\displaystyle n_{1}=70\ }
+  , 
+  
+    
+      
+        
+          n
+          
+            2
+          
+        
+        =
+        30
+         
+      
+    
+    {\displaystyle n_{2}=30\ }
+  .  we will compare results for two values of 
+  
+    
+      
+        w
+         
+      
+    
+    {\displaystyle w\ }
+  , 
+  
+    
+      
+        w
+        =
+        0.1
+         
+      
+    
+    {\displaystyle w=0.1\ }
+   and 
+  
+    
+      
+        w
+        =
+        0.5
+         
+      
+    
+    {\displaystyle w=0.5\ }
+  .  in each case, we will begin with an initial length of 
+  
+    
+      
+        5
+         
+      
+    
+    {\displaystyle 5\ }
+   and update the length 
+  
+    
+      
+        2000
+         
+      
+    
+    {\displaystyle 2000\ }
+   times.
+
+
+== maximum parsimony and maximum likelihood ==
+there are many approaches to reconstructing phylogenetic trees, each with advantages and disadvantages, and there is no straightforward answer to “what is the best method?”. maximum parsimony (mp) and maximum likelihood (ml) are traditional methods widely used for the estimation of phylogenies and both use character information directly, as bayesian methods do.
+maximum parsimony recovers one or more optimal trees based on a matrix of discrete characters for a certain group of taxa and it does not require a model of evolutionary change. mp gives the most simple explanation for a given set of data, reconstructing a phylogenetic tree that includes as few changes across the sequences as possible. the support of the tree branches is represented by bootstrap percentage. for the same reason that it has been widely used, its simplicity, mp has also received criticism and has been pushed into the background by ml and bayesian methods. mp presents several problems and limitations. as shown by felsenstein (1978), mp might be statistically inconsistent, meaning that as more and more data (e.g. sequence length) is accumulated, results can converge on an incorrect tree and lead to long branch attraction, a phylogenetic phenomenon where taxa with long branches (numerous character state changes) tend to appear more closely related in the phylogeny than they really are. for morphological data, recent simulation studies suggest that parsimony may be less accurate than trees built using bayesian approaches, potentially due to overprecision, although this has been disputed.  studies using novel simulation methods have demonstrated that differences between inference methods result from the search strategy and consensus method employed, rather than the optimization used.as in maximum parsimony, maximum likelihood will evaluate alternative trees. however it considers the probability of each tree explaining the given data based on a model of evolution. in this case, the tree with the highest probability of explaining the data is chosen over the other ones. in other words, it compares how different trees predict the observed data. the introduction of a model of evolution in ml analyses presents an advantage over mp as the probability of nucleotide substitutions and rates of these substitutions are taken into account, explaining the phylogenetic relationships of taxa in a more realistic way. an important consideration of this method is the branch length, which parsimony ignores, with changes being more likely to happen along long branches than short ones. this approach might eliminate long branch attraction and explain the greater consistency of ml over mp. although considered by many to be the best approach to inferring phylogenies from a theoretical point of view, ml is computationally intensive and it is almost impossible to explore all trees as there are too many. bayesian inference also incorporates a model of evolution and the main advantages over mp and ml are that it is computationally more efficient than traditional methods, it quantifies and addresses the source of uncertainty and is able to incorporate complex models of evolution.
+
+
+== pitfalls and controversies ==
+bootstrap values vs posterior probabilities. it has been observed that bootstrap support values, calculated under parsimony or maximum likelihood, tend to be lower than the posterior probabilities obtained by bayesian inference. this leads to a number of questions such as: do posterior probabilities lead to overconfidence in the results?  are bootstrap values more robust than posterior probabilities?
+controversy of using prior probabilities. using prior probabilities for bayesian analysis has been seen by many as an advantage as it provides a way of incorporating information from sources other than the data being analyzed. however when such external information is lacking, one is forced to use a prior even if it is impossible to use a statistical distribution to represent total ignorance.  it is also a concern that the bayesian posterior probabilities may reflect subjective opinions when the prior is arbitrary and subjective.
+model choice. the results of the bayesian analysis of a phylogeny are directly correlated to the model of evolution chosen so it is important to choose a model that fits the observed data, otherwise inferences in the phylogeny will be erroneous. many scientists have raised questions about the interpretation of bayesian inference when the model is unknown or incorrect. for example, an oversimplified model might give higher posterior probabilities.
+
+
+== mrbayes software ==
+mrbayes is a free software tool that performs bayesian inference of phylogeny. it was originally written by john p. huelsenbeck and frederik ronquist in 2001. as bayesian methods increased in popularity, mrbayes became one of the software of choice for many molecular phylogeneticists. it is offered for macintosh, windows, and unix operating systems and it has a command-line interface. the program uses the standard mcmc algorithm as well as the metropolis coupled mcmc variant. mrbayes reads aligned matrices of sequences (dna or amino acids) in the standard nexus format.mrbayes uses mcmc to approximate the posterior probabilities of trees. the user can change assumptions of the substitution model, priors and the details of the mc³ analysis. it also allows the user to remove and add taxa and characters to the analysis. the program uses the most standard model of dna substitution, the 4x4 also called jc69, which assumes that changes across nucleotides occur with equal probability. it also implements a number of 20x20 models of amino acid substitution, and codon models of dna substitution. it offers different methods for relaxing the assumption of equal substitutions rates across nucleotide sites. mrbayes is also able to infer ancestral states accommodating uncertainty to the phylogenetic tree and model parameters.
+mrbayes 3 was a completely reorganized and restructured version of the original mrbayes. the main novelty was the ability of the software to accommodate heterogeneity of data sets. this new framework allows the user to mix models and take advantages of the efficiency of bayesian mcmc analysis when dealing with different type of data (e.g. protein, nucleotide, and morphological). it uses the metropolis-coupling mcmc by default.
+mrbayes 3.2 was released in 2012 the new version allows the users to run multiple analyses in parallel. it also provides faster likelihood calculations and allow these calculations to be delegated to graphics processing unites (gpus). version 3.2 provides wider outputs options compatible with figtree and other tree viewers.
+
+
+== list of phylogenetics software ==
+
+this table includes some of the most common phylogenetic software used for inferring phylogenies under a bayesian framework. some of them do not use exclusively bayesian methods.
+
+
+== applications ==
+bayesian inference has extensively been used by molecular phylogeneticists for a wide number of applications. some of these include: 
+inference of phylogenies.
+inference and evaluation of uncertainty of phylogenies.
+inference of ancestral character state evolution.
+inference of ancestral areas.
+molecular dating analysis.
+model dynamics of species diversification and extinction
+elucidate patterns in pathogens dispersal.
+
+
+== references ==
+
+
+== external links ==
+mrbayes official website
+beast official website

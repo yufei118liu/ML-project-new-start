@@ -1,0 +1,296 @@
+in mathematics, the concept of graph dynamical systems can be used to capture a wide range of processes taking place on graphs or networks. a major theme in the mathematical and computational analysis of gdss is to relate their structural properties (e.g. the network connectivity) and the global dynamics that result.
+the work on gdss considers finite graphs and finite state spaces. as such, the research typically involves techniques from, e.g., graph theory, combinatorics, algebra, and dynamical systems rather than differential geometry. in principle, one could define and study gdss over an infinite graph (e.g. cellular automata or probabilistic cellular automata over 
+  
+    
+      
+        
+          
+            z
+          
+          
+            k
+          
+        
+      
+    
+    {\displaystyle \mathbb {z} ^{k}}
+   or interacting particle systems when some randomness is included), as well as gdss with infinite state space (e.g. 
+  
+    
+      
+        
+          r
+        
+      
+    
+    {\displaystyle \mathbb {r} }
+   as in coupled map lattices); see, for example, wu. in the following, everything is implicitly assumed to be finite unless stated otherwise.
+
+
+== formal definition ==
+a graph dynamical system is constructed from the following components:
+
+a finite graph y with vertex set v[y] = {1,2, ... , n}. depending on the context the graph can be directed or undirected.
+a state xv for each vertex v of y taken from a finite set k. the system state is the n-tuple x = (x1, x2, ... , xn), and x[v] is the tuple consisting of the states associated to the vertices in the 1-neighborhood of v in y (in some fixed order).
+a vertex function fv for each vertex v. the vertex function maps the state of vertex v at time t to the vertex state at time t + 1 based on the states associated to the 1-neighborhood of v in y.
+an update scheme specifying the mechanism by which the mapping of individual vertex states is carried out so as to induce a discrete dynamical system with map f: kn → kn.
+the phase space associated to a dynamical system with map f: kn → kn is the finite directed graph with vertex set kn and directed edges (x, f(x)). the structure of the phase space is governed by the properties of the graph y, the vertex functions (fi)i, and the update scheme. the research in this area seeks to infer phase space properties based on the structure of the system constituents. the analysis has a local-to-global character.
+
+
+== generalized cellular automata (gca) ==
+if, for example, the update scheme consists of applying the vertex functions synchronously one obtains the class of generalized cellular automata (ca). in this case, the global map f: kn → kn is given by
+
+  
+    
+      
+        f
+        (
+        x
+        
+          )
+          
+            v
+          
+        
+        =
+        
+          f
+          
+            v
+          
+        
+        (
+        x
+        [
+        v
+        ]
+        )
+        
+        .
+      
+    
+    {\displaystyle f(x)_{v}=f_{v}(x[v])\;.}
+  
+this class is referred to as generalized cellular automata since the classical or standard cellular automata are typically defined and studied over regular graphs or grids, and the vertex functions are typically assumed to be identical.
+example: let y be the circle graph on vertices {1,2,3,4} with edges {1,2}, {2,3}, {3,4} and {1,4}, denoted circ4. let k = {0,1} be the state space for each vertex and use the function nor3 : k3 → k defined by nor3(x,y,z) = (1 + x)(1 + y)(1 + z) with arithmetic modulo 2 for all vertex functions. then for example the system state (0,1,0,0) is mapped to (0, 0, 0, 1) using a synchronous update. all the transitions are shown in the phase space below.
+
+
+== sequential dynamical systems (sds) ==
+if the vertex functions are applied asynchronously in the sequence specified by a word w = (w1, w2, ... , wm) or permutation 
+  
+    
+      
+        π
+      
+    
+    {\displaystyle \pi }
+   = ( 
+  
+    
+      
+        
+          π
+          
+            1
+          
+        
+      
+    
+    {\displaystyle \pi _{1}}
+  , 
+  
+    
+      
+        
+          π
+          
+            2
+          
+        
+        ,
+        …
+        ,
+        
+          π
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \pi _{2},\dots ,\pi _{n}}
+  ) of v[y] one obtains the class of sequential dynamical systems (sds). in this case it is convenient to introduce the y-local maps fi constructed from the vertex functions by
+
+  
+    
+      
+        
+          f
+          
+            i
+          
+        
+        (
+        x
+        )
+        =
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            i
+            −
+            1
+          
+        
+        ,
+        
+          f
+          
+            i
+          
+        
+        (
+        x
+        [
+        i
+        ]
+        )
+        ,
+        
+          x
+          
+            i
+            +
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+        )
+        
+        .
+      
+    
+    {\displaystyle f_{i}(x)=(x_{1},x_{2},\ldots ,x_{i-1},f_{i}(x[i]),x_{i+1},\ldots ,x_{n})\;.}
+  the sds map f = [fy , w] : kn → kn is the function composition
+
+  
+    
+      
+        [
+        
+          f
+          
+            y
+          
+        
+        ,
+        w
+        ]
+        =
+        
+          f
+          
+            w
+            (
+            m
+            )
+          
+        
+        ∘
+        
+          f
+          
+            w
+            (
+            m
+            −
+            1
+            )
+          
+        
+        ∘
+        ⋯
+        ∘
+        
+          f
+          
+            w
+            (
+            2
+            )
+          
+        
+        ∘
+        
+          f
+          
+            w
+            (
+            1
+            )
+          
+        
+        
+        .
+      
+    
+    {\displaystyle [f_{y},w]=f_{w(m)}\circ f_{w(m-1)}\circ \cdots \circ f_{w(2)}\circ f_{w(1)}\;.}
+  if the update sequence is a permutation one frequently speaks of a permutation sds to emphasize this point.
+example: let y be the circle graph on vertices {1,2,3,4} with edges {1,2}, {2,3}, {3,4} and {1,4}, denoted circ4. let k={0,1} be the state space for each vertex and use the function nor3 : k3 → k defined by nor3(x, y, z) = (1 + x)(1 + y)(1 + z) with arithmetic modulo 2 for all vertex functions. using the update sequence (1,2,3,4) then the system state (0, 1, 0, 0) is mapped to (0, 0, 1, 0). all the system state transitions for this sequential dynamical system are shown in the phase space below.
+
+
+== stochastic graph dynamical systems ==
+from, e.g., the point of view of applications it is interesting to consider the case where one or more of the components of a gds contains stochastic elements. motivating applications could include processes that are not fully understood (e.g. dynamics within a cell) and where certain aspects for all practical purposes seem to behave according to some probability distribution. there are also applications governed by deterministic principles whose description is so complex or unwieldy that it makes sense to consider probabilistic approximations.
+every element of a graph dynamical system can be made stochastic in several ways. for example, in a sequential dynamical system the update sequence can be made stochastic. at each iteration step one may choose the update sequence w at random from a given distribution of update sequences with corresponding probabilities. the matching probability space of update sequences induces a probability space of sds maps. a natural object to study in this regard is the markov chain on state space induced by this collection of sds maps. this case is referred to as update sequence stochastic gds and is motivated by, e.g., processes where "events" occur at random according to certain rates (e.g. chemical reactions), synchronization in parallel computation/discrete event simulations, and in computational paradigms described later.
+this specific example with stochastic update sequence illustrates two general facts for such systems: when passing to a stochastic graph dynamical system one is generally led to (1) a study of markov chains (with specific structure governed by the constituents of the gds), and (2) the resulting markov chains tend to be large having an exponential number of states. a central goal in the study of stochastic gds is to be able to derive reduced models.
+one may also consider the case where the vertex functions are stochastic, i.e., function stochastic gds. for example, random boolean networks are examples of function stochastic gds using a synchronous update scheme and where the state space is k = {0, 1}. finite probabilistic cellular automata (pca) is another example of function stochastic gds. in principle the class of interacting particle systems (ips) covers finite and infinite pca, but in practice the work on ips is largely concerned with the infinite case since this allows one to introduce more interesting topologies on state space.
+
+
+== applications ==
+graph dynamical systems constitute a natural framework for capturing distributed systems such as biological networks and epidemics over social networks, many of which are frequently referred to as complex systems.
+
+
+== see also ==
+chemical reaction network theory
+dynamic network analysis (a social science topic)
+finite state machines
+hopfield networks
+kauffman networks
+petri nets
+
+
+== references ==
+
+
+== further reading ==
+macauley, matthew; mortveit, henning s. (2009). "cycle equivalence of graph dynamical systems". nonlinearity. 22 (2): 421–436. arxiv:0802.4412. bibcode:2009nonli..22..421m. doi:10.1088/0951-7715/22/2/010.
+golubitsky, martin; stewart, ian (2003). the symmetry perspective. basel: birkhauser. isbn 0-8176-2171-7.
+
+
+== external links ==
+graph dynamical systems – a mathematical framework for interaction-based systems, their analysis and simulations by henning mortveit

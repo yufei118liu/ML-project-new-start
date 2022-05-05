@@ -1,0 +1,10947 @@
+in homological algebra and algebraic topology, a spectral sequence is a means of computing homology groups by taking successive approximations.  spectral sequences are a generalization of exact sequences, and since their introduction by jean leray (1946a, 1946b), they have become important computational tools, particularly in algebraic topology, algebraic geometry and homological algebra.
+
+
+== discovery and motivation ==
+motivated by problems in algebraic topology, jean leray introduced the notion of a sheaf and found himself faced with the problem of computing sheaf cohomology. to compute sheaf cohomology, leray introduced a computational technique now known as the leray spectral sequence. this gave a relation between cohomology groups of a sheaf and cohomology groups of the pushforward of the sheaf. the relation involved an infinite process. leray found that the cohomology groups of the pushforward formed a natural chain complex, so that he could take the cohomology of the cohomology. this was still not the cohomology of the original sheaf, but it was one step closer in a sense. the cohomology of the cohomology again formed a chain complex, and its cohomology formed a chain complex, and so on. the limit of this infinite process was essentially the same as the cohomology groups of the original sheaf.
+it was soon realized that leray's computational technique was an example of a more general phenomenon. spectral sequences were found in diverse situations, and they gave intricate relationships among homology and cohomology groups coming from geometric situations such as fibrations and from algebraic situations involving derived functors. while their theoretical importance has decreased since the introduction of derived categories, they are still the most effective computational tool available. this is true even when many of the terms of the spectral sequence are incalculable.
+unfortunately, because of the large amount of information carried in spectral sequences, they are difficult to grasp. this information is usually contained in a rank three lattice of abelian groups or modules. the easiest cases to deal with are those in which the spectral sequence eventually collapses, meaning that going out further in the sequence produces no new information. even when this does not happen, it is often possible to get useful information from a spectral sequence by various tricks.
+
+
+== formal definition ==
+
+
+=== definition ===
+fix an abelian category, such as a category of modules over a ring, and a nonnegative integer 
+  
+    
+      
+        
+          r
+          
+            0
+          
+        
+      
+    
+    {\displaystyle r_{0}}
+  . a cohomological spectral sequence is a sequence 
+  
+    
+      
+        {
+        
+          e
+          
+            r
+          
+        
+        ,
+        
+          d
+          
+            r
+          
+        
+        
+          }
+          
+            r
+            ≥
+            
+              r
+              
+                0
+              
+            
+          
+        
+      
+    
+    {\displaystyle \{e_{r},d_{r}\}_{r\geq r_{0}}}
+   of objects 
+  
+    
+      
+        
+          e
+          
+            r
+          
+        
+      
+    
+    {\displaystyle e_{r}}
+   and endomorphisms 
+  
+    
+      
+        
+          d
+          
+            r
+          
+        
+        :
+        
+          e
+          
+            r
+          
+        
+        →
+        
+          e
+          
+            r
+          
+        
+      
+    
+    {\displaystyle d_{r}:e_{r}\to e_{r}}
+  , such that for every 
+  
+    
+      
+        r
+        ≥
+        
+          r
+          
+            0
+          
+        
+      
+    
+    {\displaystyle r\geq r_{0}}
+  
+
+  
+    
+      
+        
+          d
+          
+            r
+          
+        
+        ∘
+        
+          d
+          
+            r
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle d_{r}\circ d_{r}=0}
+  ,
+
+  
+    
+      
+        
+          e
+          
+            r
+            +
+            1
+          
+        
+        ≅
+        
+          h
+          
+            ∗
+          
+        
+        (
+        
+          e
+          
+            r
+          
+        
+        ,
+        
+          d
+          
+            r
+          
+        
+        )
+      
+    
+    {\displaystyle e_{r+1}\cong h_{*}(e_{r},d_{r})}
+  , the homology of 
+  
+    
+      
+        
+          e
+          
+            r
+          
+        
+      
+    
+    {\displaystyle e_{r}}
+   with respect to 
+  
+    
+      
+        
+          d
+          
+            r
+          
+        
+      
+    
+    {\displaystyle d_{r}}
+  .usually the isomorphisms are suppressed and we write 
+  
+    
+      
+        
+          e
+          
+            r
+            +
+            1
+          
+        
+        =
+        
+          h
+          
+            ∗
+          
+        
+        (
+        
+          e
+          
+            r
+          
+        
+        ,
+        
+          d
+          
+            r
+          
+        
+        )
+      
+    
+    {\displaystyle e_{r+1}=h_{*}(e_{r},d_{r})}
+   instead. an object 
+  
+    
+      
+        
+          e
+          
+            r
+          
+        
+      
+    
+    {\displaystyle e_{r}}
+   is called  sheet (as in a sheet of paper), or sometimes a page or a term; an endomorphism 
+  
+    
+      
+        
+          d
+          
+            r
+          
+        
+      
+    
+    {\displaystyle d_{r}}
+   is called boundary map or differential. sometimes 
+  
+    
+      
+        
+          e
+          
+            r
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle e_{r+1}}
+   is called the derived object of 
+  
+    
+      
+        
+          e
+          
+            r
+          
+        
+      
+    
+    {\displaystyle e_{r}}
+  .
+
+
+=== bigraded spectral sequence ===
+in reality spectral sequences mostly occur in the category of doubly graded modules over a ring r (or doubly graded sheaves of modules over a sheaf of rings), i.e. every sheet is a bigraded r-module 
+  
+    
+      
+        
+          e
+          
+            r
+          
+        
+        =
+        
+          ⨁
+          
+            p
+            ,
+            q
+            ∈
+            
+              
+                z
+              
+              
+                2
+              
+            
+          
+        
+        
+          e
+          
+            r
+          
+          
+            p
+            ,
+            q
+          
+        
+        .
+      
+    
+    {\textstyle e_{r}=\bigoplus _{p,q\in \mathbb {z} ^{2}}e_{r}^{p,q}.}
+  
+so in this case a cohomological spectral sequence is a sequence 
+  
+    
+      
+        {
+        
+          e
+          
+            r
+          
+        
+        ,
+        
+          d
+          
+            r
+          
+        
+        
+          }
+          
+            r
+            ≥
+            
+              r
+              
+                0
+              
+            
+          
+        
+      
+    
+    {\displaystyle \{e_{r},d_{r}\}_{r\geq r_{0}}}
+   of bigraded r-modules 
+  
+    
+      
+        {
+        
+          e
+          
+            r
+          
+          
+            p
+            ,
+            q
+          
+        
+        
+          }
+          
+            p
+            ,
+            q
+          
+        
+      
+    
+    {\displaystyle \{e_{r}^{p,q}\}_{p,q}}
+   and for every module the direct sum of endomorphisms 
+  
+    
+      
+        
+          d
+          
+            r
+          
+        
+        =
+        (
+        
+          d
+          
+            r
+          
+          
+            p
+            ,
+            q
+          
+        
+        :
+        
+          e
+          
+            r
+          
+          
+            p
+            ,
+            q
+          
+        
+        →
+        
+          e
+          
+            r
+          
+          
+            p
+            +
+            r
+            ,
+            q
+            −
+            r
+            +
+            1
+          
+        
+        
+          )
+          
+            p
+            ,
+            q
+            ∈
+            
+              
+                z
+              
+              
+                2
+              
+            
+          
+        
+      
+    
+    {\displaystyle d_{r}=(d_{r}^{p,q}:e_{r}^{p,q}\to e_{r}^{p+r,q-r+1})_{p,q\in \mathbb {z} ^{2}}}
+   of bidegree 
+  
+    
+      
+        (
+        r
+        ,
+        1
+        −
+        r
+        )
+      
+    
+    {\displaystyle (r,1-r)}
+  , such that for every 
+  
+    
+      
+        r
+        ≥
+        
+          r
+          
+            0
+          
+        
+      
+    
+    {\displaystyle r\geq r_{0}}
+   it holds that:
+
+  
+    
+      
+        
+          d
+          
+            r
+          
+          
+            p
+            +
+            r
+            ,
+            q
+            −
+            r
+            +
+            1
+          
+        
+        ∘
+        
+          d
+          
+            r
+          
+          
+            p
+            ,
+            q
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle d_{r}^{p+r,q-r+1}\circ d_{r}^{p,q}=0}
+  ,
+
+  
+    
+      
+        
+          e
+          
+            r
+            +
+            1
+          
+        
+        ≅
+        
+          h
+          
+            ∗
+          
+        
+        (
+        
+          e
+          
+            r
+          
+        
+        ,
+        
+          d
+          
+            r
+          
+        
+        )
+      
+    
+    {\displaystyle e_{r+1}\cong h_{*}(e_{r},d_{r})}
+  .the notation used here is called  complementary degree. some authors write  
+  
+    
+      
+        
+          e
+          
+            r
+          
+          
+            d
+            ,
+            q
+          
+        
+      
+    
+    {\displaystyle e_{r}^{d,q}}
+   instead, where 
+  
+    
+      
+        d
+        =
+        p
+        +
+        q
+      
+    
+    {\displaystyle d=p+q}
+   is the total degree. depending upon the spectral sequence, the boundary map on the first sheet can have a degree which corresponds to r = 0, r = 1, or r = 2. for example, for the spectral sequence of a filtered complex, described below, r0 = 0, but for the grothendieck spectral sequence, r0 = 2. usually r0 is zero, one, or two. in the ungraded situation described above, r0 is irrelevant.
+
+
+=== homological spectral sequence ===
+mostly the objects we are talking about are chain complexes, that occur with descending (like above) or ascending order. in the latter case, by replacing 
+  
+    
+      
+        
+          e
+          
+            r
+          
+          
+            p
+            ,
+            q
+          
+        
+      
+    
+    {\displaystyle e_{r}^{p,q}}
+   with 
+  
+    
+      
+        
+          e
+          
+            p
+            ,
+            q
+          
+          
+            r
+          
+        
+      
+    
+    {\displaystyle e_{p,q}^{r}}
+   and 
+  
+    
+      
+        
+          d
+          
+            r
+          
+          
+            p
+            ,
+            q
+          
+        
+        :
+        
+          e
+          
+            r
+          
+          
+            p
+            ,
+            q
+          
+        
+        →
+        
+          e
+          
+            r
+          
+          
+            p
+            +
+            r
+            ,
+            q
+            −
+            r
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle d_{r}^{p,q}:e_{r}^{p,q}\to e_{r}^{p+r,q-r+1}}
+   with 
+  
+    
+      
+        
+          d
+          
+            p
+            ,
+            q
+          
+          
+            r
+          
+        
+        :
+        
+          e
+          
+            p
+            ,
+            q
+          
+          
+            r
+          
+        
+        →
+        
+          e
+          
+            p
+            −
+            r
+            ,
+            q
+            +
+            r
+            −
+            1
+          
+          
+            r
+          
+        
+      
+    
+    {\displaystyle d_{p,q}^{r}:e_{p,q}^{r}\to e_{p-r,q+r-1}^{r}}
+   (bidegree 
+  
+    
+      
+        (
+        −
+        r
+        ,
+        r
+        −
+        1
+        )
+      
+    
+    {\displaystyle (-r,r-1)}
+  ), one receives the definition of a homological spectral sequence analogously to the cohomological case.
+
+
+==== spectral sequence from a chain complex ====
+the most elementary example in the ungraded situation is a chain complex c•. an object c• in an abelian category of chain complexes naturally comes with a differential d.  let r0 = 0, and let e0 be c•. this forces e1 to be the complex h(c•): at the i'th location this is the i'th homology group of c•. the only natural differential on this new complex is the zero map, so we let d1 = 0. this forces 
+  
+    
+      
+        
+          e
+          
+            2
+          
+        
+      
+    
+    {\displaystyle e_{2}}
+   to equal 
+  
+    
+      
+        
+          e
+          
+            1
+          
+        
+      
+    
+    {\displaystyle e_{1}}
+  , and again our only natural differential is the zero map. putting the zero differential on all the rest of our sheets gives a spectral sequence whose terms are:
+
+e0 = c•
+er = h(c•) for all r ≥ 1.the terms of this spectral sequence stabilize at the first sheet because its only nontrivial differential was on the zeroth sheet. consequently, we can get no more information at later steps. usually, to get useful information from later sheets, we need extra structure on the 
+  
+    
+      
+        
+          e
+          
+            r
+          
+        
+      
+    
+    {\displaystyle e_{r}}
+  .
+
+
+== visualization ==
+
+a doubly graded spectral sequence has a tremendous amount of data to keep track of, but there is a common visualization technique which makes the structure of the spectral sequence clearer. we have three indices, r, p, and q. an object 
+  
+    
+      
+        
+          e
+          
+            r
+          
+        
+      
+    
+    {\displaystyle e_{r}}
+   can be seen as the 
+  
+    
+      
+        
+          r
+          
+            t
+            h
+          
+        
+      
+    
+    {\displaystyle r^{th}}
+   checkered page of a book. on these sheets, we will take p to be the horizontal direction and q to be the vertical direction. at each lattice point we have the object 
+  
+    
+      
+        
+          e
+          
+            r
+          
+          
+            p
+            ,
+            q
+          
+        
+      
+    
+    {\displaystyle e_{r}^{p,q}}
+  . now turning to the next page means taking homology, that is the 
+  
+    
+      
+        (
+        r
+        +
+        1
+        
+          )
+          
+            t
+            h
+          
+        
+      
+    
+    {\displaystyle (r+1)^{th}}
+   page is a subquotient of the 
+  
+    
+      
+        
+          r
+          
+            t
+            h
+          
+        
+      
+    
+    {\displaystyle r^{th}}
+   page. the total degree n = p + q runs diagonally, northwest to southeast, across each sheet. in the homological case, the differentials have bidegree (−r, r − 1), so they decrease n by one. in the cohomological case, n is increased by one. the differentials change their direction with each turn with respect to r.
+
+the red arrows demonstrate the case of a first quadrant sequence (see example below), where only the objects of the first quadrant are non-zero. while turning pages, either the domain or the codomain of all the differentials become zero.
+
+
+== properties ==
+
+
+=== categorical properties ===
+the set of cohomological spectral sequences form a category: a morphism of spectral sequences 
+  
+    
+      
+        f
+        :
+        e
+        →
+        
+          e
+          ′
+        
+      
+    
+    {\displaystyle f:e\to e'}
+   is by definition a collection of maps 
+  
+    
+      
+        
+          f
+          
+            r
+          
+        
+        :
+        
+          e
+          
+            r
+          
+        
+        →
+        
+          e
+          
+            r
+          
+          ′
+        
+      
+    
+    {\displaystyle f_{r}:e_{r}\to e'_{r}}
+   which are compatible with the differentials, i.e. 
+  
+    
+      
+        
+          f
+          
+            r
+          
+        
+        ∘
+        
+          d
+          
+            r
+          
+        
+        =
+        
+          d
+          
+            r
+          
+          ′
+        
+        ∘
+        
+          f
+          
+            r
+          
+        
+      
+    
+    {\displaystyle f_{r}\circ d_{r}=d'_{r}\circ f_{r}}
+  , and with the given isomorphisms between the cohomology of the rth step and the (r+1)th sheets of e and e' , respectively: 
+  
+    
+      
+        
+          f
+          
+            r
+            +
+            1
+          
+        
+        (
+        
+          e
+          
+            r
+            +
+            1
+          
+        
+        )
+        
+        =
+        
+        
+          f
+          
+            r
+            +
+            1
+          
+        
+        (
+        h
+        (
+        
+          e
+          
+            r
+          
+        
+        )
+        )
+        
+        =
+        
+        h
+        (
+        
+          f
+          
+            r
+          
+        
+        (
+        
+          e
+          
+            r
+          
+        
+        )
+        )
+      
+    
+    {\displaystyle f_{r+1}(e_{r+1})\,=\,f_{r+1}(h(e_{r}))\,=\,h(f_{r}(e_{r}))}
+  . in the bigraded case, they should also respect the graduation: 
+  
+    
+      
+        
+          f
+          
+            r
+          
+        
+        (
+        
+          e
+          
+            r
+          
+          
+            p
+            ,
+            q
+          
+        
+        )
+        ⊂
+        
+          
+            
+              e
+              
+                r
+              
+              ′
+            
+          
+          
+            p
+            ,
+            q
+          
+        
+        .
+      
+    
+    {\displaystyle f_{r}(e_{r}^{p,q})\subset {e'_{r}}^{p,q}.}
+  
+
+
+=== multiplicative structure ===
+a cup product gives a ring structure to a cohomology group, turning it into a cohomology ring. thus, it is natural to consider a spectral sequence with a ring structure as well. let 
+  
+    
+      
+        
+          e
+          
+            r
+          
+          
+            p
+            ,
+            q
+          
+        
+      
+    
+    {\displaystyle e_{r}^{p,q}}
+   be a spectral sequence of cohomological type.  we say it has multiplicative structure if (i) 
+  
+    
+      
+        
+          e
+          
+            r
+          
+        
+      
+    
+    {\displaystyle e_{r}}
+   are (doubly graded) differential graded algebras and (ii) the multiplication on 
+  
+    
+      
+        
+          e
+          
+            r
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle e_{r+1}}
+   is induced by that on 
+  
+    
+      
+        
+          e
+          
+            r
+          
+        
+      
+    
+    {\displaystyle e_{r}}
+   via passage to cohomology.
+a typical example is the cohomological serre spectral sequence for a fibration 
+  
+    
+      
+        f
+        →
+        e
+        →
+        b
+      
+    
+    {\displaystyle f\to e\to b}
+  , when the coefficient group is a ring r. it has the multiplicative structure induced by the cup products of fibre and base on the 
+  
+    
+      
+        
+          e
+          
+            2
+          
+        
+      
+    
+    {\displaystyle e_{2}}
+  -page. however, in general the limiting term 
+  
+    
+      
+        
+          e
+          
+            ∞
+          
+        
+      
+    
+    {\displaystyle e_{\infty }}
+   is not isomorphic as a graded algebra to h(e; r). the multiplicative structure can be very useful for calculating differentials on the sequence.
+
+
+== constructions of spectral sequences ==
+spectral sequences can be constructed by various ways. in algebraic topology, an exact couple is perhaps the most common tool for the construction. in algebraic geometry, spectral sequences are usually constructed from filtrations of cochain complexes.
+
+
+=== spectral sequence of an exact couple ===
+
+ 
+the most powerful technique for the construction of spectral sequences is william massey's method of exact couples.  exact couples are particularly common in algebraic topology, where there are many spectral sequences for which no other construction is known. in fact, all known spectral sequences can be constructed using exact couples. despite this they are unpopular in abstract algebra, where most spectral sequences come from filtered complexes.
+to define exact couples, we begin again with an abelian category. as before, in practice this is usually the category of doubly graded modules over a ring.  an exact couple is a pair of objects (a, c), together with three homomorphisms between these objects: f : a → a, g : a → c and h : c → a subject to certain exactness conditions:
+
+image f = kernel g
+image g = kernel h
+image h = kernel fwe will abbreviate this data by (a, c, f, g, h).  exact couples are usually depicted as triangles.  we will see that c corresponds to the e0 term of the spectral sequence and that a is some auxiliary data.
+to pass to the next sheet of the spectral sequence, we will form the derived couple.  we set:
+
+d = g o h
+a' = f(a)
+c' = ker d / im d
+f' = f|a', the restriction of f to a'
+h' : c' → a' is induced by h.  it is straightforward to see that h induces such a map.
+g' : a' → c' is defined on elements as follows: for each a in a', write a as f(b) for some b in a.  g'(a) is defined to be the image of g(b) in c'. in general, g' can be constructed using one of the embedding theorems for abelian categories.from here it is straightforward to check that (a', c', f', g', h') is an exact couple. c' corresponds to the e1 term of the spectral sequence. we can iterate this procedure to get exact couples (a(n), c(n), f(n), g(n), h(n)).
+in order to construct a spectral sequence, let en be c(n) and dn be g(n) o h(n).
+
+
+==== spectral sequences constructed with this method ====
+serre spectral sequence - used to compute (co)homology of a fibration
+atiyah–hirzebruch spectral sequence - used to compute (co)homology of extraordinary cohomology theories, such as k-theory
+bockstein spectral sequence.
+spectral sequences of filtered complexes
+
+
+=== the spectral sequence of a filtered complex ===
+a very common type of spectral sequence comes from a filtered cochain complex, as it naturally induces a bigraded object. consider a cochain complex 
+  
+    
+      
+        (
+        
+          c
+          
+            ∙
+          
+        
+        ,
+        d
+        )
+      
+    
+    {\displaystyle (c^{\bullet },d)}
+   together with a descending filtration,  
+  
+    
+      
+        .
+        .
+        .
+        ⊃
+        
+        
+          f
+          
+            −
+            2
+          
+        
+        
+          c
+          
+            ∙
+          
+        
+        
+        ⊃
+        
+        
+          f
+          
+            −
+            1
+          
+        
+        
+          c
+          
+            ∙
+          
+        
+        ⊃
+        
+          f
+          
+            0
+          
+        
+        
+          c
+          
+            ∙
+          
+        
+        
+        ⊃
+        
+        
+          f
+          
+            1
+          
+        
+        
+          c
+          
+            ∙
+          
+        
+        
+        ⊃
+        
+        
+          f
+          
+            2
+          
+        
+        
+          c
+          
+            ∙
+          
+        
+        
+        ⊃
+        
+        
+          f
+          
+            3
+          
+        
+        
+          c
+          
+            ∙
+          
+        
+        
+        ⊃
+        .
+        .
+        .
+        
+      
+    
+    {\textstyle ...\supset \,f^{-2}c^{\bullet }\,\supset \,f^{-1}c^{\bullet }\supset f^{0}c^{\bullet }\,\supset \,f^{1}c^{\bullet }\,\supset \,f^{2}c^{\bullet }\,\supset \,f^{3}c^{\bullet }\,\supset ...\,}
+   . we require that the boundary map is compatible with the filtration, i.e. 
+  
+    
+      
+        d
+        (
+        
+          f
+          
+            p
+          
+        
+        
+          c
+          
+            n
+          
+        
+        )
+        ⊂
+        
+          f
+          
+            p
+          
+        
+        
+          c
+          
+            n
+            +
+            1
+          
+        
+      
+    
+    {\textstyle d(f^{p}c^{n})\subset f^{p}c^{n+1}}
+  , and that the filtration is exhaustive, that is, the union of the set of all 
+  
+    
+      
+        
+          f
+          
+            p
+          
+        
+        
+          c
+          
+            ∙
+          
+        
+      
+    
+    {\textstyle f^{p}c^{\bullet }}
+   is the entire chain complex 
+  
+    
+      
+        
+          c
+          
+            ∙
+          
+        
+      
+    
+    {\textstyle c^{\bullet }}
+  . then there exists a spectral sequence with 
+  
+    
+      
+        
+          e
+          
+            0
+          
+          
+            p
+            ,
+            q
+          
+        
+        =
+        
+          f
+          
+            p
+          
+        
+        
+          c
+          
+            p
+            +
+            q
+          
+        
+        
+          /
+        
+        
+          f
+          
+            p
+            +
+            1
+          
+        
+        
+          c
+          
+            p
+            +
+            q
+          
+        
+      
+    
+    {\textstyle e_{0}^{p,q}=f^{p}c^{p+q}/f^{p+1}c^{p+q}}
+   and 
+  
+    
+      
+        
+          e
+          
+            1
+          
+          
+            p
+            ,
+            q
+          
+        
+        =
+        
+          h
+          
+            p
+            +
+            q
+          
+        
+        (
+        
+          f
+          
+            p
+          
+        
+        
+          c
+          
+            ∙
+          
+        
+        
+          /
+        
+        
+          f
+          
+            p
+            +
+            1
+          
+        
+        
+          c
+          
+            ∙
+          
+        
+        )
+      
+    
+    {\textstyle e_{1}^{p,q}=h^{p+q}(f^{p}c^{\bullet }/f^{p+1}c^{\bullet })}
+  . later, we will also assume that the filtration is hausdorff or separated, that is, the intersection of the set of all 
+  
+    
+      
+        
+          f
+          
+            p
+          
+        
+        
+          c
+          
+            ∙
+          
+        
+      
+    
+    {\textstyle f^{p}c^{\bullet }}
+   is zero.
+the filtration is useful because it gives a measure of nearness to zero: as p increases, 
+  
+    
+      
+        
+          f
+          
+            p
+          
+        
+        
+          c
+          
+            ∙
+          
+        
+      
+    
+    {\textstyle f^{p}c^{\bullet }}
+    gets closer and closer to zero.  we will construct a spectral sequence from this filtration where coboundaries and cocycles in later sheets get closer and closer to coboundaries and cocycles in the original complex.  this spectral sequence is doubly graded by the filtration degree p and the complementary degree q = n − p.
+
+
+==== construction ====
+
+  
+    
+      
+        
+          c
+          
+            ∙
+          
+        
+      
+    
+    {\displaystyle c^{\bullet }}
+   has only a single grading and a filtration, so we first construct a doubly graded object for the first page of the spectral sequence. to get the second grading, we will take the associated graded object with respect to the filtration.  we will write it in an unusual way which will be justified at the 
+  
+    
+      
+        
+          e
+          
+            1
+          
+        
+      
+    
+    {\displaystyle e_{1}}
+   step:
+
+  
+    
+      
+        
+          z
+          
+            −
+            1
+          
+          
+            p
+            ,
+            q
+          
+        
+        =
+        
+          z
+          
+            0
+          
+          
+            p
+            ,
+            q
+          
+        
+        =
+        
+          f
+          
+            p
+          
+        
+        
+          c
+          
+            p
+            +
+            q
+          
+        
+      
+    
+    {\displaystyle z_{-1}^{p,q}=z_{0}^{p,q}=f^{p}c^{p+q}}
+  
+
+  
+    
+      
+        
+          b
+          
+            0
+          
+          
+            p
+            ,
+            q
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle b_{0}^{p,q}=0}
+  
+
+  
+    
+      
+        
+          e
+          
+            0
+          
+          
+            p
+            ,
+            q
+          
+        
+        =
+        
+          
+            
+              z
+              
+                0
+              
+              
+                p
+                ,
+                q
+              
+            
+            
+              
+                b
+                
+                  0
+                
+                
+                  p
+                  ,
+                  q
+                
+              
+              +
+              
+                z
+                
+                  −
+                  1
+                
+                
+                  p
+                  +
+                  1
+                  ,
+                  q
+                  −
+                  1
+                
+              
+            
+          
+        
+        =
+        
+          
+            
+              
+                f
+                
+                  p
+                
+              
+              
+                c
+                
+                  p
+                  +
+                  q
+                
+              
+            
+            
+              
+                f
+                
+                  p
+                  +
+                  1
+                
+              
+              
+                c
+                
+                  p
+                  +
+                  q
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle e_{0}^{p,q}={\frac {z_{0}^{p,q}}{b_{0}^{p,q}+z_{-1}^{p+1,q-1}}}={\frac {f^{p}c^{p+q}}{f^{p+1}c^{p+q}}}}
+  
+
+  
+    
+      
+        
+          e
+          
+            0
+          
+        
+        =
+        
+          ⨁
+          
+            p
+            ,
+            q
+            ∈
+            
+              z
+            
+          
+        
+        
+          e
+          
+            0
+          
+          
+            p
+            ,
+            q
+          
+        
+      
+    
+    {\displaystyle e_{0}=\bigoplus _{p,q\in \mathbf {z} }e_{0}^{p,q}}
+  since we assumed that the boundary map was compatible with the filtration, 
+  
+    
+      
+        
+          e
+          
+            0
+          
+        
+      
+    
+    {\displaystyle e_{0}}
+   is a doubly graded object and there is a natural doubly graded boundary map 
+  
+    
+      
+        
+          d
+          
+            0
+          
+        
+      
+    
+    {\displaystyle d_{0}}
+   on 
+  
+    
+      
+        
+          e
+          
+            0
+          
+        
+      
+    
+    {\displaystyle e_{0}}
+  .  to get 
+  
+    
+      
+        
+          e
+          
+            1
+          
+        
+      
+    
+    {\displaystyle e_{1}}
+  , we take the homology of 
+  
+    
+      
+        
+          e
+          
+            0
+          
+        
+      
+    
+    {\displaystyle e_{0}}
+  .
+
+  
+    
+      
+        
+          
+            
+              
+                z
+                ¯
+              
+            
+          
+          
+            1
+          
+          
+            p
+            ,
+            q
+          
+        
+        =
+        ker
+        ⁡
+        
+          d
+          
+            0
+          
+          
+            p
+            ,
+            q
+          
+        
+        :
+        
+          e
+          
+            0
+          
+          
+            p
+            ,
+            q
+          
+        
+        →
+        
+          e
+          
+            0
+          
+          
+            p
+            ,
+            q
+            +
+            1
+          
+        
+        =
+        ker
+        ⁡
+        
+          d
+          
+            0
+          
+          
+            p
+            ,
+            q
+          
+        
+        :
+        
+          f
+          
+            p
+          
+        
+        
+          c
+          
+            p
+            +
+            q
+          
+        
+        
+          /
+        
+        
+          f
+          
+            p
+            +
+            1
+          
+        
+        
+          c
+          
+            p
+            +
+            q
+          
+        
+        →
+        
+          f
+          
+            p
+          
+        
+        
+          c
+          
+            p
+            +
+            q
+            +
+            1
+          
+        
+        
+          /
+        
+        
+          f
+          
+            p
+            +
+            1
+          
+        
+        
+          c
+          
+            p
+            +
+            q
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle {\bar {z}}_{1}^{p,q}=\ker d_{0}^{p,q}:e_{0}^{p,q}\rightarrow e_{0}^{p,q+1}=\ker d_{0}^{p,q}:f^{p}c^{p+q}/f^{p+1}c^{p+q}\rightarrow f^{p}c^{p+q+1}/f^{p+1}c^{p+q+1}}
+  
+
+  
+    
+      
+        
+          
+            
+              
+                b
+                ¯
+              
+            
+          
+          
+            1
+          
+          
+            p
+            ,
+            q
+          
+        
+        =
+        
+          
+            im 
+          
+        
+        
+          d
+          
+            0
+          
+          
+            p
+            ,
+            q
+            −
+            1
+          
+        
+        :
+        
+          e
+          
+            0
+          
+          
+            p
+            ,
+            q
+            −
+            1
+          
+        
+        →
+        
+          e
+          
+            0
+          
+          
+            p
+            ,
+            q
+          
+        
+        =
+        
+          
+            im 
+          
+        
+        
+          d
+          
+            0
+          
+          
+            p
+            ,
+            q
+            −
+            1
+          
+        
+        :
+        
+          f
+          
+            p
+          
+        
+        
+          c
+          
+            p
+            +
+            q
+            −
+            1
+          
+        
+        
+          /
+        
+        
+          f
+          
+            p
+            +
+            1
+          
+        
+        
+          c
+          
+            p
+            +
+            q
+            −
+            1
+          
+        
+        →
+        
+          f
+          
+            p
+          
+        
+        
+          c
+          
+            p
+            +
+            q
+          
+        
+        
+          /
+        
+        
+          f
+          
+            p
+            +
+            1
+          
+        
+        
+          c
+          
+            p
+            +
+            q
+          
+        
+      
+    
+    {\displaystyle {\bar {b}}_{1}^{p,q}={\mbox{im }}d_{0}^{p,q-1}:e_{0}^{p,q-1}\rightarrow e_{0}^{p,q}={\mbox{im }}d_{0}^{p,q-1}:f^{p}c^{p+q-1}/f^{p+1}c^{p+q-1}\rightarrow f^{p}c^{p+q}/f^{p+1}c^{p+q}}
+  
+
+  
+    
+      
+        
+          e
+          
+            1
+          
+          
+            p
+            ,
+            q
+          
+        
+        =
+        
+          
+            
+              
+                
+                  
+                    z
+                    ¯
+                  
+                
+              
+              
+                1
+              
+              
+                p
+                ,
+                q
+              
+            
+            
+              
+                
+                  
+                    b
+                    ¯
+                  
+                
+              
+              
+                1
+              
+              
+                p
+                ,
+                q
+              
+            
+          
+        
+        =
+        
+          
+            
+              ker
+              ⁡
+              
+                d
+                
+                  0
+                
+                
+                  p
+                  ,
+                  q
+                
+              
+              :
+              
+                e
+                
+                  0
+                
+                
+                  p
+                  ,
+                  q
+                
+              
+              →
+              
+                e
+                
+                  0
+                
+                
+                  p
+                  ,
+                  q
+                  +
+                  1
+                
+              
+            
+            
+              
+                
+                  im 
+                
+              
+              
+                d
+                
+                  0
+                
+                
+                  p
+                  ,
+                  q
+                  −
+                  1
+                
+              
+              :
+              
+                e
+                
+                  0
+                
+                
+                  p
+                  ,
+                  q
+                  −
+                  1
+                
+              
+              →
+              
+                e
+                
+                  0
+                
+                
+                  p
+                  ,
+                  q
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle e_{1}^{p,q}={\frac {{\bar {z}}_{1}^{p,q}}{{\bar {b}}_{1}^{p,q}}}={\frac {\ker d_{0}^{p,q}:e_{0}^{p,q}\rightarrow e_{0}^{p,q+1}}{{\mbox{im }}d_{0}^{p,q-1}:e_{0}^{p,q-1}\rightarrow e_{0}^{p,q}}}}
+  
+
+  
+    
+      
+        
+          e
+          
+            1
+          
+        
+        =
+        
+          ⨁
+          
+            p
+            ,
+            q
+            ∈
+            
+              z
+            
+          
+        
+        
+          e
+          
+            1
+          
+          
+            p
+            ,
+            q
+          
+        
+        =
+        
+          ⨁
+          
+            p
+            ,
+            q
+            ∈
+            
+              z
+            
+          
+        
+        
+          
+            
+              
+                
+                  
+                    z
+                    ¯
+                  
+                
+              
+              
+                1
+              
+              
+                p
+                ,
+                q
+              
+            
+            
+              
+                
+                  
+                    b
+                    ¯
+                  
+                
+              
+              
+                1
+              
+              
+                p
+                ,
+                q
+              
+            
+          
+        
+      
+    
+    {\displaystyle e_{1}=\bigoplus _{p,q\in \mathbf {z} }e_{1}^{p,q}=\bigoplus _{p,q\in \mathbf {z} }{\frac {{\bar {z}}_{1}^{p,q}}{{\bar {b}}_{1}^{p,q}}}}
+  notice that 
+  
+    
+      
+        
+          
+            
+              
+                z
+                ¯
+              
+            
+          
+          
+            1
+          
+          
+            p
+            ,
+            q
+          
+        
+      
+    
+    {\displaystyle {\bar {z}}_{1}^{p,q}}
+   and 
+  
+    
+      
+        
+          
+            
+              
+                b
+                ¯
+              
+            
+          
+          
+            1
+          
+          
+            p
+            ,
+            q
+          
+        
+      
+    
+    {\displaystyle {\bar {b}}_{1}^{p,q}}
+   can be written as the images in 
+  
+    
+      
+        
+          e
+          
+            0
+          
+          
+            p
+            ,
+            q
+          
+        
+      
+    
+    {\displaystyle e_{0}^{p,q}}
+   of
+
+  
+    
+      
+        
+          z
+          
+            1
+          
+          
+            p
+            ,
+            q
+          
+        
+        =
+        ker
+        ⁡
+        
+          d
+          
+            0
+          
+          
+            p
+            ,
+            q
+          
+        
+        :
+        
+          f
+          
+            p
+          
+        
+        
+          c
+          
+            p
+            +
+            q
+          
+        
+        →
+        
+          c
+          
+            p
+            +
+            q
+            +
+            1
+          
+        
+        
+          /
+        
+        
+          f
+          
+            p
+            +
+            1
+          
+        
+        
+          c
+          
+            p
+            +
+            q
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle z_{1}^{p,q}=\ker d_{0}^{p,q}:f^{p}c^{p+q}\rightarrow c^{p+q+1}/f^{p+1}c^{p+q+1}}
+  
+
+  
+    
+      
+        
+          b
+          
+            1
+          
+          
+            p
+            ,
+            q
+          
+        
+        =
+        (
+        
+          
+            im 
+          
+        
+        
+          d
+          
+            0
+          
+          
+            p
+            ,
+            q
+            −
+            1
+          
+        
+        :
+        
+          f
+          
+            p
+          
+        
+        
+          c
+          
+            p
+            +
+            q
+            −
+            1
+          
+        
+        →
+        
+          c
+          
+            p
+            +
+            q
+          
+        
+        )
+        ∩
+        
+          f
+          
+            p
+          
+        
+        
+          c
+          
+            p
+            +
+            q
+          
+        
+      
+    
+    {\displaystyle b_{1}^{p,q}=({\mbox{im }}d_{0}^{p,q-1}:f^{p}c^{p+q-1}\rightarrow c^{p+q})\cap f^{p}c^{p+q}}
+  and that we then have
+
+  
+    
+      
+        
+          e
+          
+            1
+          
+          
+            p
+            ,
+            q
+          
+        
+        =
+        
+          
+            
+              z
+              
+                1
+              
+              
+                p
+                ,
+                q
+              
+            
+            
+              
+                b
+                
+                  1
+                
+                
+                  p
+                  ,
+                  q
+                
+              
+              +
+              
+                z
+                
+                  0
+                
+                
+                  p
+                  +
+                  1
+                  ,
+                  q
+                  −
+                  1
+                
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle e_{1}^{p,q}={\frac {z_{1}^{p,q}}{b_{1}^{p,q}+z_{0}^{p+1,q-1}}}.}
+  
+  
+    
+      
+        
+          z
+          
+            1
+          
+          
+            p
+            ,
+            q
+          
+        
+      
+    
+    {\displaystyle z_{1}^{p,q}}
+   are exactly the elements which the differential pushes up one level in the filtration, and 
+  
+    
+      
+        
+          b
+          
+            1
+          
+          
+            p
+            ,
+            q
+          
+        
+      
+    
+    {\displaystyle b_{1}^{p,q}}
+   are exactly the image of the elements which the differential pushes up zero levels in the filtration.  this suggests that we should choose 
+  
+    
+      
+        
+          z
+          
+            r
+          
+          
+            p
+            ,
+            q
+          
+        
+      
+    
+    {\displaystyle z_{r}^{p,q}}
+   to be the elements which the differential pushes up r levels in the filtration and 
+  
+    
+      
+        
+          b
+          
+            r
+          
+          
+            p
+            ,
+            q
+          
+        
+      
+    
+    {\displaystyle b_{r}^{p,q}}
+   to be image of the elements which the differential pushes up r-1 levels in the filtration. in other words, the spectral sequence should satisfy
+
+  
+    
+      
+        
+          z
+          
+            r
+          
+          
+            p
+            ,
+            q
+          
+        
+        =
+        ker
+        ⁡
+        
+          d
+          
+            0
+          
+          
+            p
+            ,
+            q
+          
+        
+        :
+        
+          f
+          
+            p
+          
+        
+        
+          c
+          
+            p
+            +
+            q
+          
+        
+        →
+        
+          c
+          
+            p
+            +
+            q
+            +
+            1
+          
+        
+        
+          /
+        
+        
+          f
+          
+            p
+            +
+            r
+          
+        
+        
+          c
+          
+            p
+            +
+            q
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle z_{r}^{p,q}=\ker d_{0}^{p,q}:f^{p}c^{p+q}\rightarrow c^{p+q+1}/f^{p+r}c^{p+q+1}}
+  
+
+  
+    
+      
+        
+          b
+          
+            r
+          
+          
+            p
+            ,
+            q
+          
+        
+        =
+        (
+        
+          
+            im 
+          
+        
+        
+          d
+          
+            0
+          
+          
+            p
+            −
+            r
+            +
+            1
+            ,
+            q
+            +
+            r
+            −
+            2
+          
+        
+        :
+        
+          f
+          
+            p
+            −
+            r
+            +
+            1
+          
+        
+        
+          c
+          
+            p
+            +
+            q
+            −
+            1
+          
+        
+        →
+        
+          c
+          
+            p
+            +
+            q
+          
+        
+        )
+        ∩
+        
+          f
+          
+            p
+          
+        
+        
+          c
+          
+            p
+            +
+            q
+          
+        
+      
+    
+    {\displaystyle b_{r}^{p,q}=({\mbox{im }}d_{0}^{p-r+1,q+r-2}:f^{p-r+1}c^{p+q-1}\rightarrow c^{p+q})\cap f^{p}c^{p+q}}
+  
+
+  
+    
+      
+        
+          e
+          
+            r
+          
+          
+            p
+            ,
+            q
+          
+        
+        =
+        
+          
+            
+              z
+              
+                r
+              
+              
+                p
+                ,
+                q
+              
+            
+            
+              
+                b
+                
+                  r
+                
+                
+                  p
+                  ,
+                  q
+                
+              
+              +
+              
+                z
+                
+                  r
+                  −
+                  1
+                
+                
+                  p
+                  +
+                  1
+                  ,
+                  q
+                  −
+                  1
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle e_{r}^{p,q}={\frac {z_{r}^{p,q}}{b_{r}^{p,q}+z_{r-1}^{p+1,q-1}}}}
+  and we should have the relationship
+
+  
+    
+      
+        
+          b
+          
+            r
+          
+          
+            p
+            ,
+            q
+          
+        
+        =
+        
+          d
+          
+            0
+          
+          
+            p
+            ,
+            q
+          
+        
+        (
+        
+          z
+          
+            r
+            −
+            1
+          
+          
+            p
+            −
+            r
+            +
+            1
+            ,
+            q
+            +
+            r
+            −
+            2
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle b_{r}^{p,q}=d_{0}^{p,q}(z_{r-1}^{p-r+1,q+r-2}).}
+  for this to make sense, we must find a differential 
+  
+    
+      
+        
+          d
+          
+            r
+          
+        
+      
+    
+    {\displaystyle d_{r}}
+   on each 
+  
+    
+      
+        
+          e
+          
+            r
+          
+        
+      
+    
+    {\displaystyle e_{r}}
+   and verify that it leads to homology isomorphic to 
+  
+    
+      
+        
+          e
+          
+            r
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle e_{r+1}}
+  .  the differential 
+
+  
+    
+      
+        
+          d
+          
+            r
+          
+          
+            p
+            ,
+            q
+          
+        
+        :
+        
+          e
+          
+            r
+          
+          
+            p
+            ,
+            q
+          
+        
+        →
+        
+          e
+          
+            r
+          
+          
+            p
+            +
+            r
+            ,
+            q
+            −
+            r
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle d_{r}^{p,q}:e_{r}^{p,q}\rightarrow e_{r}^{p+r,q-r+1}}
+  is defined by restricting the original differential 
+  
+    
+      
+        d
+      
+    
+    {\displaystyle d}
+   defined on 
+  
+    
+      
+        
+          c
+          
+            p
+            +
+            q
+          
+        
+      
+    
+    {\displaystyle c^{p+q}}
+   to the subobject 
+  
+    
+      
+        
+          z
+          
+            r
+          
+          
+            p
+            ,
+            q
+          
+        
+      
+    
+    {\displaystyle z_{r}^{p,q}}
+  . it is straightforward to check that the homology of 
+  
+    
+      
+        
+          e
+          
+            r
+          
+        
+      
+    
+    {\displaystyle e_{r}}
+   with respect to this differential is 
+  
+    
+      
+        
+          e
+          
+            r
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle e_{r+1}}
+  , so this gives a spectral sequence. unfortunately, the differential is not very explicit. determining differentials or finding ways to work around them is one of the main challenges to successfully applying a spectral sequence.
+
+
+==== spectral sequences constructed with this method ====
+hodge–de rham spectral sequence
+spectral sequence of a double complex
+can be used to construct mixed hodge structures
+
+
+=== the spectral sequence of a double complex ===
+another common spectral sequence is the spectral sequence of a double complex. a double complex is a collection of objects ci,j for all integers i and j together with two differentials, d i and d ii.  d i is assumed to decrease i, and d ii is assumed to decrease j. furthermore, we assume that the differentials anticommute, so that d i d ii + d ii d i = 0. our goal is to compare the iterated homologies 
+  
+    
+      
+        
+          h
+          
+            i
+          
+          
+            i
+          
+        
+        (
+        
+          h
+          
+            j
+          
+          
+            i
+            i
+          
+        
+        (
+        
+          c
+          
+            ∙
+            ,
+            ∙
+          
+        
+        )
+        )
+      
+    
+    {\displaystyle h_{i}^{i}(h_{j}^{ii}(c_{\bullet ,\bullet }))}
+   and 
+  
+    
+      
+        
+          h
+          
+            j
+          
+          
+            i
+            i
+          
+        
+        (
+        
+          h
+          
+            i
+          
+          
+            i
+          
+        
+        (
+        
+          c
+          
+            ∙
+            ,
+            ∙
+          
+        
+        )
+        )
+      
+    
+    {\displaystyle h_{j}^{ii}(h_{i}^{i}(c_{\bullet ,\bullet }))}
+  . we will do this by filtering our double complex in two different ways.  here are our filtrations:
+
+  
+    
+      
+        (
+        
+          c
+          
+            i
+            ,
+            j
+          
+          
+            i
+          
+        
+        
+          )
+          
+            p
+          
+        
+        =
+        
+          
+            {
+            
+              
+                
+                  0
+                
+                
+                  
+                    if 
+                  
+                  i
+                  <
+                  p
+                
+              
+              
+                
+                  
+                    c
+                    
+                      i
+                      ,
+                      j
+                    
+                  
+                
+                
+                  
+                    if 
+                  
+                  i
+                  ≥
+                  p
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle (c_{i,j}^{i})_{p}={\begin{cases}0&{\text{if }}i<p\\c_{i,j}&{\text{if }}i\geq p\end{cases}}}
+  
+
+  
+    
+      
+        (
+        
+          c
+          
+            i
+            ,
+            j
+          
+          
+            i
+            i
+          
+        
+        
+          )
+          
+            p
+          
+        
+        =
+        
+          
+            {
+            
+              
+                
+                  0
+                
+                
+                  
+                    if 
+                  
+                  j
+                  <
+                  p
+                
+              
+              
+                
+                  
+                    c
+                    
+                      i
+                      ,
+                      j
+                    
+                  
+                
+                
+                  
+                    if 
+                  
+                  j
+                  ≥
+                  p
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle (c_{i,j}^{ii})_{p}={\begin{cases}0&{\text{if }}j<p\\c_{i,j}&{\text{if }}j\geq p\end{cases}}}
+  to get a spectral sequence, we will reduce to the previous example. we define the total complex t(c•,•) to be the complex whose n'th term is 
+  
+    
+      
+        
+          ⨁
+          
+            i
+            +
+            j
+            =
+            n
+          
+        
+        
+          c
+          
+            i
+            ,
+            j
+          
+        
+      
+    
+    {\displaystyle \bigoplus _{i+j=n}c_{i,j}}
+   and whose differential is d i + d ii.  this is a complex because d i and d ii are anticommuting differentials. the two filtrations on ci,j give two filtrations on the total complex:
+
+  
+    
+      
+        
+          t
+          
+            n
+          
+        
+        (
+        
+          c
+          
+            ∙
+            ,
+            ∙
+          
+        
+        
+          )
+          
+            p
+          
+          
+            i
+          
+        
+        =
+        
+          ⨁
+          
+            
+              
+                i
+                +
+                j
+                =
+                n
+              
+              
+                i
+                >
+                p
+                −
+                1
+              
+            
+          
+        
+        
+          c
+          
+            i
+            ,
+            j
+          
+        
+      
+    
+    {\displaystyle t_{n}(c_{\bullet ,\bullet })_{p}^{i}=\bigoplus _{i+j=n \atop i>p-1}c_{i,j}}
+  
+
+  
+    
+      
+        
+          t
+          
+            n
+          
+        
+        (
+        
+          c
+          
+            ∙
+            ,
+            ∙
+          
+        
+        
+          )
+          
+            p
+          
+          
+            i
+            i
+          
+        
+        =
+        
+          ⨁
+          
+            
+              
+                i
+                +
+                j
+                =
+                n
+              
+              
+                j
+                >
+                p
+                −
+                1
+              
+            
+          
+        
+        
+          c
+          
+            i
+            ,
+            j
+          
+        
+      
+    
+    {\displaystyle t_{n}(c_{\bullet ,\bullet })_{p}^{ii}=\bigoplus _{i+j=n \atop j>p-1}c_{i,j}}
+  to show that these spectral sequences give information about the iterated homologies, we will work out the e0, e1, and e2 terms of the i filtration on t(c•,•).  the e0 term is clear:
+
+  
+    
+      
+        
+          
+
+          
+          
+            i
+          
+        
+        
+          e
+          
+            p
+            ,
+            q
+          
+          
+            0
+          
+        
+        =
+        
+          t
+          
+            n
+          
+        
+        (
+        
+          c
+          
+            ∙
+            ,
+            ∙
+          
+        
+        
+          )
+          
+            p
+          
+          
+            i
+          
+        
+        
+          /
+        
+        
+          t
+          
+            n
+          
+        
+        (
+        
+          c
+          
+            ∙
+            ,
+            ∙
+          
+        
+        
+          )
+          
+            p
+            +
+            1
+          
+          
+            i
+          
+        
+        =
+        
+          ⨁
+          
+            
+              
+                i
+                +
+                j
+                =
+                n
+              
+              
+                i
+                >
+                p
+                −
+                1
+              
+            
+          
+        
+        
+          c
+          
+            i
+            ,
+            j
+          
+        
+        
+          
+            /
+          
+        
+        
+          ⨁
+          
+            
+              
+                i
+                +
+                j
+                =
+                n
+              
+              
+                i
+                >
+                p
+              
+            
+          
+        
+        
+          c
+          
+            i
+            ,
+            j
+          
+        
+        =
+        
+          c
+          
+            p
+            ,
+            q
+          
+        
+        ,
+      
+    
+    {\displaystyle {}^{i}e_{p,q}^{0}=t_{n}(c_{\bullet ,\bullet })_{p}^{i}/t_{n}(c_{\bullet ,\bullet })_{p+1}^{i}=\bigoplus _{i+j=n \atop i>p-1}c_{i,j}{\big /}\bigoplus _{i+j=n \atop i>p}c_{i,j}=c_{p,q},}
+  where n = p + q.
+to find the e1 term, we need to determine d i + d ii on e0. notice that the differential must have degree −1 with respect to n, so we get a map
+
+  
+    
+      
+        
+          d
+          
+            p
+            ,
+            q
+          
+          
+            i
+          
+        
+        +
+        
+          d
+          
+            p
+            ,
+            q
+          
+          
+            i
+            i
+          
+        
+        :
+        
+          t
+          
+            n
+          
+        
+        (
+        
+          c
+          
+            ∙
+            ,
+            ∙
+          
+        
+        
+          )
+          
+            p
+          
+          
+            i
+          
+        
+        
+          /
+        
+        
+          t
+          
+            n
+          
+        
+        (
+        
+          c
+          
+            ∙
+            ,
+            ∙
+          
+        
+        
+          )
+          
+            p
+            +
+            1
+          
+          
+            i
+          
+        
+        =
+        
+          c
+          
+            p
+            ,
+            q
+          
+        
+        →
+        
+          t
+          
+            n
+            −
+            1
+          
+        
+        (
+        
+          c
+          
+            ∙
+            ,
+            ∙
+          
+        
+        
+          )
+          
+            p
+          
+          
+            i
+          
+        
+        
+          /
+        
+        
+          t
+          
+            n
+            −
+            1
+          
+        
+        (
+        
+          c
+          
+            ∙
+            ,
+            ∙
+          
+        
+        
+          )
+          
+            p
+            +
+            1
+          
+          
+            i
+          
+        
+        =
+        
+          c
+          
+            p
+            ,
+            q
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle d_{p,q}^{i}+d_{p,q}^{ii}:t_{n}(c_{\bullet ,\bullet })_{p}^{i}/t_{n}(c_{\bullet ,\bullet })_{p+1}^{i}=c_{p,q}\rightarrow t_{n-1}(c_{\bullet ,\bullet })_{p}^{i}/t_{n-1}(c_{\bullet ,\bullet })_{p+1}^{i}=c_{p,q-1}}
+  consequently, the differential on e0 is the map cp,q → cp,q−1 induced by d i + d ii.  but  d i has the wrong degree to induce such a map, so d i must be zero on e0. that means the differential is exactly d ii, so we get
+
+  
+    
+      
+        
+          
+
+          
+          
+            i
+          
+        
+        
+          e
+          
+            p
+            ,
+            q
+          
+          
+            1
+          
+        
+        =
+        
+          h
+          
+            q
+          
+          
+            i
+            i
+          
+        
+        (
+        
+          c
+          
+            p
+            ,
+            ∙
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle {}^{i}e_{p,q}^{1}=h_{q}^{ii}(c_{p,\bullet }).}
+  to find e2, we need to determine
+
+  
+    
+      
+        
+          d
+          
+            p
+            ,
+            q
+          
+          
+            i
+          
+        
+        +
+        
+          d
+          
+            p
+            ,
+            q
+          
+          
+            i
+            i
+          
+        
+        :
+        
+          h
+          
+            q
+          
+          
+            i
+            i
+          
+        
+        (
+        
+          c
+          
+            p
+            ,
+            ∙
+          
+        
+        )
+        →
+        
+          h
+          
+            q
+          
+          
+            i
+            i
+          
+        
+        (
+        
+          c
+          
+            p
+            +
+            1
+            ,
+            ∙
+          
+        
+        )
+      
+    
+    {\displaystyle d_{p,q}^{i}+d_{p,q}^{ii}:h_{q}^{ii}(c_{p,\bullet })\rightarrow h_{q}^{ii}(c_{p+1,\bullet })}
+  because e1 was exactly the homology with respect to d ii, d ii is zero on e1. consequently, we get
+
+  
+    
+      
+        
+          
+
+          
+          
+            i
+          
+        
+        
+          e
+          
+            p
+            ,
+            q
+          
+          
+            2
+          
+        
+        =
+        
+          h
+          
+            p
+          
+          
+            i
+          
+        
+        (
+        
+          h
+          
+            q
+          
+          
+            i
+            i
+          
+        
+        (
+        
+          c
+          
+            ∙
+            ,
+            ∙
+          
+        
+        )
+        )
+        .
+      
+    
+    {\displaystyle {}^{i}e_{p,q}^{2}=h_{p}^{i}(h_{q}^{ii}(c_{\bullet ,\bullet })).}
+  using the other filtration gives us a different spectral sequence with a similar e2 term:
+
+  
+    
+      
+        
+          
+
+          
+          
+            i
+            i
+          
+        
+        
+          e
+          
+            p
+            ,
+            q
+          
+          
+            2
+          
+        
+        =
+        
+          h
+          
+            q
+          
+          
+            i
+            i
+          
+        
+        (
+        
+          h
+          
+            p
+          
+          
+            i
+          
+        
+        (
+        
+          c
+          
+            ∙
+            ,
+            ∙
+          
+        
+        )
+        )
+        .
+      
+    
+    {\displaystyle {}^{ii}e_{p,q}^{2}=h_{q}^{ii}(h_{p}^{i}(c_{\bullet ,\bullet })).}
+  what remains is to find a relationship between these two spectral sequences. it will turn out that as r increases, the two sequences will become similar enough to allow useful comparisons.
+
+
+== convergence, degeneration, and abutment ==
+
+
+=== interpretation as a filtration of cycles and boundaries ===
+let er be a spectral sequence, starting with say r = 1. then there is a sequence of subobjects
+
+  
+    
+      
+        0
+        =
+        
+          b
+          
+            0
+          
+        
+        ⊂
+        
+          b
+          
+            1
+          
+        
+        ⊂
+        
+          b
+          
+            2
+          
+        
+        ⊂
+        ⋯
+        ⊂
+        
+          b
+          
+            r
+          
+        
+        ⊂
+        ⋯
+        ⊂
+        
+          z
+          
+            r
+          
+        
+        ⊂
+        ⋯
+        ⊂
+        
+          z
+          
+            2
+          
+        
+        ⊂
+        
+          z
+          
+            1
+          
+        
+        ⊂
+        
+          z
+          
+            0
+          
+        
+        =
+        
+          e
+          
+            1
+          
+        
+      
+    
+    {\displaystyle 0=b_{0}\subset b_{1}\subset b_{2}\subset \dots \subset b_{r}\subset \dots \subset z_{r}\subset \dots \subset z_{2}\subset z_{1}\subset z_{0}=e_{1}}
+  such that 
+  
+    
+      
+        
+          e
+          
+            r
+          
+        
+        ≃
+        
+          z
+          
+            r
+            −
+            1
+          
+        
+        
+          /
+        
+        
+          b
+          
+            r
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle e_{r}\simeq z_{r-1}/b_{r-1}}
+  ; indeed, recursively we let 
+  
+    
+      
+        
+          z
+          
+            0
+          
+        
+        =
+        
+          e
+          
+            1
+          
+        
+        ,
+        
+          b
+          
+            0
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle z_{0}=e_{1},b_{0}=0}
+   and let 
+  
+    
+      
+        
+          z
+          
+            r
+          
+        
+        ,
+        
+          b
+          
+            r
+          
+        
+      
+    
+    {\displaystyle z_{r},b_{r}}
+   be so that  
+  
+    
+      
+        
+          z
+          
+            r
+          
+        
+        
+          /
+        
+        
+          b
+          
+            r
+            −
+            1
+          
+        
+        ,
+        
+          b
+          
+            r
+          
+        
+        
+          /
+        
+        
+          b
+          
+            r
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle z_{r}/b_{r-1},b_{r}/b_{r-1}}
+   are the kernel and the image of 
+  
+    
+      
+        
+          e
+          
+            r
+          
+        
+        
+          
+            →
+            
+              d
+              
+                r
+              
+            
+          
+        
+        
+          e
+          
+            r
+          
+        
+        .
+      
+    
+    {\displaystyle e_{r}{\overset {d_{r}}{\to }}e_{r}.}
+  
+we then  let 
+  
+    
+      
+        
+          z
+          
+            ∞
+          
+        
+        =
+        
+          ∩
+          
+            r
+          
+        
+        
+          z
+          
+            r
+          
+        
+        ,
+        
+          b
+          
+            ∞
+          
+        
+        =
+        
+          ∪
+          
+            r
+          
+        
+        
+          b
+          
+            r
+          
+        
+      
+    
+    {\displaystyle z_{\infty }=\cap _{r}z_{r},b_{\infty }=\cup _{r}b_{r}}
+   and
+
+  
+    
+      
+        
+          e
+          
+            ∞
+          
+        
+        =
+        
+          z
+          
+            ∞
+          
+        
+        
+          /
+        
+        
+          b
+          
+            ∞
+          
+        
+      
+    
+    {\displaystyle e_{\infty }=z_{\infty }/b_{\infty }}
+  ;it is called the limiting term. (of course, such 
+  
+    
+      
+        
+          e
+          
+            ∞
+          
+        
+      
+    
+    {\displaystyle e_{\infty }}
+   need not exist in the category, but this is usually a non-issue since for example in the category of modules such limits exist or since in practice a spectral sequence one works with tends to degenerate; there are only finitely many inclusions in the sequence above.)
+
+
+=== terms of convergence ===
+we say a spectral sequence converges weakly if there is a graduated object 
+  
+    
+      
+        
+          h
+          
+            ∙
+          
+        
+      
+    
+    {\displaystyle h^{\bullet }}
+   with a filtration 
+  
+    
+      
+        
+          f
+          
+            ∙
+          
+        
+        
+          h
+          
+            n
+          
+        
+      
+    
+    {\displaystyle f^{\bullet }h^{n}}
+   for every 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  , and for every 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   there exists an isomorphism 
+  
+    
+      
+        
+          e
+          
+            ∞
+          
+          
+            p
+            ,
+            q
+          
+        
+        ≅
+        
+          f
+          
+            p
+          
+        
+        
+          h
+          
+            p
+            +
+            q
+          
+        
+        
+          /
+        
+        
+          f
+          
+            p
+            +
+            1
+          
+        
+        
+          h
+          
+            p
+            +
+            q
+          
+        
+      
+    
+    {\displaystyle e_{\infty }^{p,q}\cong f^{p}h^{p+q}/f^{p+1}h^{p+q}}
+  .  it converges to 
+  
+    
+      
+        
+          h
+          
+            ∙
+          
+        
+      
+    
+    {\displaystyle h^{\bullet }}
+   if the filtration 
+  
+    
+      
+        
+          f
+          
+            ∙
+          
+        
+        
+          h
+          
+            n
+          
+        
+      
+    
+    {\displaystyle f^{\bullet }h^{n}}
+   is hausdorff, i.e. 
+  
+    
+      
+        
+          ∩
+          
+            p
+          
+        
+        
+          f
+          
+            p
+          
+        
+        
+          c
+          
+            ∙
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle \cap _{p}f^{p}c^{\bullet }=0}
+  . we write
+
+  
+    
+      
+        
+          e
+          
+            r
+          
+          
+            p
+            ,
+            q
+          
+        
+        
+          ⇒
+          
+            p
+          
+        
+        
+          e
+          
+            ∞
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle e_{r}^{p,q}\rightarrow _{p}e_{\infty }^{n}}
+  to mean that whenever p + q = n, 
+  
+    
+      
+        
+          e
+          
+            r
+          
+          
+            p
+            ,
+            q
+          
+        
+      
+    
+    {\displaystyle e_{r}^{p,q}}
+   converges to 
+  
+    
+      
+        
+          e
+          
+            ∞
+          
+          
+            p
+            ,
+            q
+          
+        
+      
+    
+    {\displaystyle e_{\infty }^{p,q}}
+  .
+we say that a spectral sequence 
+  
+    
+      
+        
+          e
+          
+            r
+          
+          
+            p
+            ,
+            q
+          
+        
+      
+    
+    {\displaystyle e_{r}^{p,q}}
+   abuts to 
+  
+    
+      
+        
+          e
+          
+            ∞
+          
+          
+            p
+            ,
+            q
+          
+        
+      
+    
+    {\displaystyle e_{\infty }^{p,q}}
+   if for every 
+  
+    
+      
+        p
+        ,
+        q
+      
+    
+    {\displaystyle p,q}
+   there is 
+  
+    
+      
+        r
+        (
+        p
+        ,
+        q
+        )
+      
+    
+    {\displaystyle r(p,q)}
+   such that for all 
+  
+    
+      
+        r
+        ≥
+        r
+        (
+        p
+        ,
+        q
+        )
+      
+    
+    {\displaystyle r\geq r(p,q)}
+  , 
+  
+    
+      
+        
+          e
+          
+            r
+          
+          
+            p
+            ,
+            q
+          
+        
+        =
+        
+          e
+          
+            r
+            (
+            p
+            ,
+            q
+            )
+          
+          
+            p
+            ,
+            q
+          
+        
+      
+    
+    {\displaystyle e_{r}^{p,q}=e_{r(p,q)}^{p,q}}
+  . then 
+  
+    
+      
+        
+          e
+          
+            r
+            (
+            p
+            ,
+            q
+            )
+          
+          
+            p
+            ,
+            q
+          
+        
+        =
+        
+          e
+          
+            ∞
+          
+          
+            p
+            ,
+            q
+          
+        
+      
+    
+    {\displaystyle e_{r(p,q)}^{p,q}=e_{\infty }^{p,q}}
+   is the limiting term. the spectral sequence is regular or degenerates at 
+  
+    
+      
+        
+          r
+          
+            0
+          
+        
+      
+    
+    {\displaystyle r_{0}}
+   if the differentials 
+  
+    
+      
+        
+          d
+          
+            r
+          
+          
+            p
+            ,
+            q
+          
+        
+      
+    
+    {\displaystyle d_{r}^{p,q}}
+   are zero for all 
+  
+    
+      
+        r
+        ≥
+        
+          r
+          
+            0
+          
+        
+      
+    
+    {\displaystyle r\geq r_{0}}
+  . if in particular there is 
+  
+    
+      
+        
+          r
+          
+            0
+          
+        
+        ≥
+        2
+      
+    
+    {\displaystyle r_{0}\geq 2}
+  , such that the 
+  
+    
+      
+        
+          r
+          
+            0
+          
+          
+            t
+            h
+          
+        
+      
+    
+    {\displaystyle r_{0}^{th}}
+   sheet is concentrated on a single row or a single column, then we say it collapses. in symbols, we write:
+
+  
+    
+      
+        
+          e
+          
+            r
+          
+          
+            p
+            ,
+            q
+          
+        
+        
+          ⇒
+          
+            p
+          
+        
+        
+          e
+          
+            ∞
+          
+          
+            p
+            ,
+            q
+          
+        
+      
+    
+    {\displaystyle e_{r}^{p,q}\rightarrow _{p}e_{\infty }^{p,q}}
+  the p indicates the filtration index. it is very common to write the 
+  
+    
+      
+        
+          e
+          
+            2
+          
+          
+            p
+            ,
+            q
+          
+        
+      
+    
+    {\displaystyle e_{2}^{p,q}}
+   term on the left-hand side of the abutment, because this is the most useful term of most spectral sequences. the spectral sequence of an unfiltered chain complex degenerates at the first sheet (see first example): since nothing happens after the zeroth sheet, the limiting sheet 
+  
+    
+      
+        
+          e
+          
+            ∞
+          
+        
+      
+    
+    {\displaystyle e_{\infty }}
+   is the same as 
+  
+    
+      
+        
+          e
+          
+            1
+          
+        
+      
+    
+    {\displaystyle e_{1}}
+  .
+the five-term exact sequence of a spectral sequence relates certain low-degree terms and e∞ terms.
+
+
+== examples of degeneration ==
+
+
+=== the spectral sequence of a filtered complex, continued ===
+notice that we have a chain of inclusions:
+
+  
+    
+      
+        
+          z
+          
+            0
+          
+          
+            p
+            ,
+            q
+          
+        
+        ⊇
+        
+          z
+          
+            1
+          
+          
+            p
+            ,
+            q
+          
+        
+        ⊇
+        
+          z
+          
+            2
+          
+          
+            p
+            ,
+            q
+          
+        
+        ⊇
+        ⋯
+        ⊇
+        
+          b
+          
+            2
+          
+          
+            p
+            ,
+            q
+          
+        
+        ⊇
+        
+          b
+          
+            1
+          
+          
+            p
+            ,
+            q
+          
+        
+        ⊇
+        
+          b
+          
+            0
+          
+          
+            p
+            ,
+            q
+          
+        
+      
+    
+    {\displaystyle z_{0}^{p,q}\supseteq z_{1}^{p,q}\supseteq z_{2}^{p,q}\supseteq \cdots \supseteq b_{2}^{p,q}\supseteq b_{1}^{p,q}\supseteq b_{0}^{p,q}}
+  we can ask what happens if we define
+
+  
+    
+      
+        
+          z
+          
+            ∞
+          
+          
+            p
+            ,
+            q
+          
+        
+        =
+        
+          ⋂
+          
+            r
+            =
+            0
+          
+          
+            ∞
+          
+        
+        
+          z
+          
+            r
+          
+          
+            p
+            ,
+            q
+          
+        
+        ,
+      
+    
+    {\displaystyle z_{\infty }^{p,q}=\bigcap _{r=0}^{\infty }z_{r}^{p,q},}
+  
+
+  
+    
+      
+        
+          b
+          
+            ∞
+          
+          
+            p
+            ,
+            q
+          
+        
+        =
+        
+          ⋃
+          
+            r
+            =
+            0
+          
+          
+            ∞
+          
+        
+        
+          b
+          
+            r
+          
+          
+            p
+            ,
+            q
+          
+        
+        ,
+      
+    
+    {\displaystyle b_{\infty }^{p,q}=\bigcup _{r=0}^{\infty }b_{r}^{p,q},}
+  
+
+  
+    
+      
+        
+          e
+          
+            ∞
+          
+          
+            p
+            ,
+            q
+          
+        
+        =
+        
+          
+            
+              z
+              
+                ∞
+              
+              
+                p
+                ,
+                q
+              
+            
+            
+              
+                b
+                
+                  ∞
+                
+                
+                  p
+                  ,
+                  q
+                
+              
+              +
+              
+                z
+                
+                  ∞
+                
+                
+                  p
+                  +
+                  1
+                  ,
+                  q
+                  −
+                  1
+                
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle e_{\infty }^{p,q}={\frac {z_{\infty }^{p,q}}{b_{\infty }^{p,q}+z_{\infty }^{p+1,q-1}}}.}
+  
+  
+    
+      
+        
+          e
+          
+            ∞
+          
+          
+            p
+            ,
+            q
+          
+        
+      
+    
+    {\displaystyle e_{\infty }^{p,q}}
+   is a natural candidate for the abutment of this spectral sequence. convergence is not automatic, but happens in many cases. in particular, if the filtration is finite and consists of exactly r nontrivial steps, then the spectral sequence degenerates after the rth sheet. convergence also occurs if the complex and the filtration are both bounded below or both bounded above.
+to describe the abutment of our spectral sequence in more detail, notice that we have the formulas:
+
+  
+    
+      
+        
+          z
+          
+            ∞
+          
+          
+            p
+            ,
+            q
+          
+        
+        =
+        
+          ⋂
+          
+            r
+            =
+            0
+          
+          
+            ∞
+          
+        
+        
+          z
+          
+            r
+          
+          
+            p
+            ,
+            q
+          
+        
+        =
+        
+          ⋂
+          
+            r
+            =
+            0
+          
+          
+            ∞
+          
+        
+        ker
+        ⁡
+        (
+        
+          f
+          
+            p
+          
+        
+        
+          c
+          
+            p
+            +
+            q
+          
+        
+        →
+        
+          c
+          
+            p
+            +
+            q
+            +
+            1
+          
+        
+        
+          /
+        
+        
+          f
+          
+            p
+            +
+            r
+          
+        
+        
+          c
+          
+            p
+            +
+            q
+            +
+            1
+          
+        
+        )
+      
+    
+    {\displaystyle z_{\infty }^{p,q}=\bigcap _{r=0}^{\infty }z_{r}^{p,q}=\bigcap _{r=0}^{\infty }\ker(f^{p}c^{p+q}\rightarrow c^{p+q+1}/f^{p+r}c^{p+q+1})}
+  
+
+  
+    
+      
+        
+          b
+          
+            ∞
+          
+          
+            p
+            ,
+            q
+          
+        
+        =
+        
+          ⋃
+          
+            r
+            =
+            0
+          
+          
+            ∞
+          
+        
+        
+          b
+          
+            r
+          
+          
+            p
+            ,
+            q
+          
+        
+        =
+        
+          ⋃
+          
+            r
+            =
+            0
+          
+          
+            ∞
+          
+        
+        (
+        
+          
+            im 
+          
+        
+        
+          d
+          
+            p
+            ,
+            q
+            −
+            r
+          
+        
+        :
+        
+          f
+          
+            p
+            −
+            r
+          
+        
+        
+          c
+          
+            p
+            +
+            q
+            −
+            1
+          
+        
+        →
+        
+          c
+          
+            p
+            +
+            q
+          
+        
+        )
+        ∩
+        
+          f
+          
+            p
+          
+        
+        
+          c
+          
+            p
+            +
+            q
+          
+        
+      
+    
+    {\displaystyle b_{\infty }^{p,q}=\bigcup _{r=0}^{\infty }b_{r}^{p,q}=\bigcup _{r=0}^{\infty }({\mbox{im }}d^{p,q-r}:f^{p-r}c^{p+q-1}\rightarrow c^{p+q})\cap f^{p}c^{p+q}}
+  to see what this implies for 
+  
+    
+      
+        
+          z
+          
+            ∞
+          
+          
+            p
+            ,
+            q
+          
+        
+      
+    
+    {\displaystyle z_{\infty }^{p,q}}
+   recall that we assumed that the filtration was separated. this implies that as r increases, the kernels shrink, until we are left with 
+  
+    
+      
+        
+          z
+          
+            ∞
+          
+          
+            p
+            ,
+            q
+          
+        
+        =
+        ker
+        ⁡
+        (
+        
+          f
+          
+            p
+          
+        
+        
+          c
+          
+            p
+            +
+            q
+          
+        
+        →
+        
+          c
+          
+            p
+            +
+            q
+            +
+            1
+          
+        
+        )
+      
+    
+    {\displaystyle z_{\infty }^{p,q}=\ker(f^{p}c^{p+q}\rightarrow c^{p+q+1})}
+  .  for 
+  
+    
+      
+        
+          b
+          
+            ∞
+          
+          
+            p
+            ,
+            q
+          
+        
+      
+    
+    {\displaystyle b_{\infty }^{p,q}}
+  , recall that we assumed that the filtration was exhaustive. this implies that as r increases, the images grow until we reach 
+  
+    
+      
+        
+          b
+          
+            ∞
+          
+          
+            p
+            ,
+            q
+          
+        
+        =
+        
+          im 
+        
+        (
+        
+          c
+          
+            p
+            +
+            q
+            −
+            1
+          
+        
+        →
+        
+          c
+          
+            p
+            +
+            q
+          
+        
+        )
+        ∩
+        
+          f
+          
+            p
+          
+        
+        
+          c
+          
+            p
+            +
+            q
+          
+        
+      
+    
+    {\displaystyle b_{\infty }^{p,q}={\text{im }}(c^{p+q-1}\rightarrow c^{p+q})\cap f^{p}c^{p+q}}
+  . we conclude
+
+  
+    
+      
+        
+          e
+          
+            ∞
+          
+          
+            p
+            ,
+            q
+          
+        
+        =
+        
+          
+            
+              gr
+            
+          
+          
+            p
+          
+        
+        
+          h
+          
+            p
+            +
+            q
+          
+        
+        (
+        
+          c
+          
+            ∙
+          
+        
+        )
+      
+    
+    {\displaystyle e_{\infty }^{p,q}={\mbox{gr}}_{p}h^{p+q}(c^{\bullet })}
+  ,that is, the abutment of the spectral sequence is the pth graded part of the (p+q)th homology of c. if our spectral sequence converges, then we conclude that:
+
+  
+    
+      
+        
+          e
+          
+            r
+          
+          
+            p
+            ,
+            q
+          
+        
+        
+          ⇒
+          
+            p
+          
+        
+        
+          h
+          
+            p
+            +
+            q
+          
+        
+        (
+        
+          c
+          
+            ∙
+          
+        
+        )
+      
+    
+    {\displaystyle e_{r}^{p,q}\rightarrow _{p}h^{p+q}(c^{\bullet })}
+  
+
+
+==== long exact sequences ====
+using the spectral sequence of a filtered complex, we can derive the existence of long exact sequences. choose a short exact sequence of cochain complexes 0 → a• → b• → c• → 0, and call the first map f• : a• → b•. we get natural maps of homology objects hn(a•) → hn(b•) → hn(c•), and we know that this is exact in the middle. we will use the spectral sequence of a filtered complex to find the connecting homomorphism and to prove that the resulting sequence is exact.to start, we filter b•:
+
+  
+    
+      
+        
+          f
+          
+            0
+          
+        
+        
+          b
+          
+            n
+          
+        
+        =
+        
+          b
+          
+            n
+          
+        
+      
+    
+    {\displaystyle f^{0}b^{n}=b^{n}}
+  
+
+  
+    
+      
+        
+          f
+          
+            1
+          
+        
+        
+          b
+          
+            n
+          
+        
+        =
+        
+          a
+          
+            n
+          
+        
+      
+    
+    {\displaystyle f^{1}b^{n}=a^{n}}
+  
+
+  
+    
+      
+        
+          f
+          
+            2
+          
+        
+        
+          b
+          
+            n
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle f^{2}b^{n}=0}
+  this gives:
+
+  
+    
+      
+        
+          e
+          
+            0
+          
+          
+            p
+            ,
+            q
+          
+        
+        =
+        
+          
+            
+              
+                f
+                
+                  p
+                
+              
+              
+                b
+                
+                  p
+                  +
+                  q
+                
+              
+            
+            
+              
+                f
+                
+                  p
+                  +
+                  1
+                
+              
+              
+                b
+                
+                  p
+                  +
+                  q
+                
+              
+            
+          
+        
+        =
+        
+          
+            {
+            
+              
+                
+                  0
+                
+                
+                  
+                    if 
+                  
+                  p
+                  <
+                  0
+                  
+                     or 
+                  
+                  p
+                  >
+                  1
+                
+              
+              
+                
+                  
+                    c
+                    
+                      q
+                    
+                  
+                
+                
+                  
+                    if 
+                  
+                  p
+                  =
+                  0
+                
+              
+              
+                
+                  
+                    a
+                    
+                      q
+                      +
+                      1
+                    
+                  
+                
+                
+                  
+                    if 
+                  
+                  p
+                  =
+                  1
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle e_{0}^{p,q}={\frac {f^{p}b^{p+q}}{f^{p+1}b^{p+q}}}={\begin{cases}0&{\text{if }}p<0{\text{ or }}p>1\\c^{q}&{\text{if }}p=0\\a^{q+1}&{\text{if }}p=1\end{cases}}}
+  
+
+  
+    
+      
+        
+          e
+          
+            1
+          
+          
+            p
+            ,
+            q
+          
+        
+        =
+        
+          
+            {
+            
+              
+                
+                  0
+                
+                
+                  
+                    if 
+                  
+                  p
+                  <
+                  0
+                  
+                     or 
+                  
+                  p
+                  >
+                  1
+                
+              
+              
+                
+                  
+                    h
+                    
+                      q
+                    
+                  
+                  (
+                  
+                    c
+                    
+                      ∙
+                    
+                  
+                  )
+                
+                
+                  
+                    if 
+                  
+                  p
+                  =
+                  0
+                
+              
+              
+                
+                  
+                    h
+                    
+                      q
+                      +
+                      1
+                    
+                  
+                  (
+                  
+                    a
+                    
+                      ∙
+                    
+                  
+                  )
+                
+                
+                  
+                    if 
+                  
+                  p
+                  =
+                  1
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle e_{1}^{p,q}={\begin{cases}0&{\text{if }}p<0{\text{ or }}p>1\\h^{q}(c^{\bullet })&{\text{if }}p=0\\h^{q+1}(a^{\bullet })&{\text{if }}p=1\end{cases}}}
+  the differential has bidegree (1, 0), so d0,q : hq(c•) → hq+1(a•). these are the connecting homomorphisms from the snake lemma, and together with the maps a• → b• → c•, they give a sequence:
+
+  
+    
+      
+        ⋯
+        →
+        
+          h
+          
+            q
+          
+        
+        (
+        
+          b
+          
+            ∙
+          
+        
+        )
+        →
+        
+          h
+          
+            q
+          
+        
+        (
+        
+          c
+          
+            ∙
+          
+        
+        )
+        →
+        
+          h
+          
+            q
+            +
+            1
+          
+        
+        (
+        
+          a
+          
+            ∙
+          
+        
+        )
+        →
+        
+          h
+          
+            q
+            +
+            1
+          
+        
+        (
+        
+          b
+          
+            ∙
+          
+        
+        )
+        →
+        ⋯
+      
+    
+    {\displaystyle \cdots \rightarrow h^{q}(b^{\bullet })\rightarrow h^{q}(c^{\bullet })\rightarrow h^{q+1}(a^{\bullet })\rightarrow h^{q+1}(b^{\bullet })\rightarrow \cdots }
+  it remains to show that this sequence is exact at the a and c spots.  notice that this spectral sequence degenerates at the e2 term because the differentials have bidegree (2, −1). consequently, the e2 term is the same as the e∞ term:
+
+  
+    
+      
+        
+          e
+          
+            2
+          
+          
+            p
+            ,
+            q
+          
+        
+        ≅
+        
+          
+            gr
+          
+          
+            p
+          
+        
+        
+          h
+          
+            p
+            +
+            q
+          
+        
+        (
+        
+          b
+          
+            ∙
+          
+        
+        )
+        =
+        
+          
+            {
+            
+              
+                
+                  0
+                
+                
+                  
+                    if 
+                  
+                  p
+                  <
+                  0
+                  
+                     or 
+                  
+                  p
+                  >
+                  1
+                
+              
+              
+                
+                  
+                    h
+                    
+                      q
+                    
+                  
+                  (
+                  
+                    b
+                    
+                      ∙
+                    
+                  
+                  )
+                  
+                    /
+                  
+                  
+                    h
+                    
+                      q
+                    
+                  
+                  (
+                  
+                    a
+                    
+                      ∙
+                    
+                  
+                  )
+                
+                
+                  
+                    if 
+                  
+                  p
+                  =
+                  0
+                
+              
+              
+                
+                  
+                    im 
+                  
+                  
+                    h
+                    
+                      q
+                      +
+                      1
+                    
+                  
+                  
+                    f
+                    
+                      ∙
+                    
+                  
+                  :
+                  
+                    h
+                    
+                      q
+                      +
+                      1
+                    
+                  
+                  (
+                  
+                    a
+                    
+                      ∙
+                    
+                  
+                  )
+                  →
+                  
+                    h
+                    
+                      q
+                      +
+                      1
+                    
+                  
+                  (
+                  
+                    b
+                    
+                      ∙
+                    
+                  
+                  )
+                
+                
+                  
+                    if 
+                  
+                  p
+                  =
+                  1
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle e_{2}^{p,q}\cong {\text{gr}}_{p}h^{p+q}(b^{\bullet })={\begin{cases}0&{\text{if }}p<0{\text{ or }}p>1\\h^{q}(b^{\bullet })/h^{q}(a^{\bullet })&{\text{if }}p=0\\{\text{im }}h^{q+1}f^{\bullet }:h^{q+1}(a^{\bullet })\rightarrow h^{q+1}(b^{\bullet })&{\text{if }}p=1\end{cases}}}
+  but we also have a direct description of the e2 term as the homology of the e1 term. these two descriptions must be isomorphic:
+
+  
+    
+      
+        
+          h
+          
+            q
+          
+        
+        (
+        
+          b
+          
+            ∙
+          
+        
+        )
+        
+          /
+        
+        
+          h
+          
+            q
+          
+        
+        (
+        
+          a
+          
+            ∙
+          
+        
+        )
+        ≅
+        ker
+        ⁡
+        
+          d
+          
+            0
+            ,
+            q
+          
+          
+            1
+          
+        
+        :
+        
+          h
+          
+            q
+          
+        
+        (
+        
+          c
+          
+            ∙
+          
+        
+        )
+        →
+        
+          h
+          
+            q
+            +
+            1
+          
+        
+        (
+        
+          a
+          
+            ∙
+          
+        
+        )
+      
+    
+    {\displaystyle h^{q}(b^{\bullet })/h^{q}(a^{\bullet })\cong \ker d_{0,q}^{1}:h^{q}(c^{\bullet })\rightarrow h^{q+1}(a^{\bullet })}
+  
+
+  
+    
+      
+        
+          im 
+        
+        
+          h
+          
+            q
+            +
+            1
+          
+        
+        
+          f
+          
+            ∙
+          
+        
+        :
+        
+          h
+          
+            q
+            +
+            1
+          
+        
+        (
+        
+          a
+          
+            ∙
+          
+        
+        )
+        →
+        
+          h
+          
+            q
+            +
+            1
+          
+        
+        (
+        
+          b
+          
+            ∙
+          
+        
+        )
+        ≅
+        
+          h
+          
+            q
+            +
+            1
+          
+        
+        (
+        
+          a
+          
+            ∙
+          
+        
+        )
+        
+          /
+        
+        (
+        
+          
+            im 
+          
+        
+        
+          d
+          
+            0
+            ,
+            q
+          
+          
+            1
+          
+        
+        :
+        
+          h
+          
+            q
+          
+        
+        (
+        
+          c
+          
+            ∙
+          
+        
+        )
+        →
+        
+          h
+          
+            q
+            +
+            1
+          
+        
+        (
+        
+          a
+          
+            ∙
+          
+        
+        )
+        )
+      
+    
+    {\displaystyle {\text{im }}h^{q+1}f^{\bullet }:h^{q+1}(a^{\bullet })\rightarrow h^{q+1}(b^{\bullet })\cong h^{q+1}(a^{\bullet })/({\mbox{im }}d_{0,q}^{1}:h^{q}(c^{\bullet })\rightarrow h^{q+1}(a^{\bullet }))}
+  the former gives exactness at the c spot, and the latter gives exactness at the a spot.
+
+
+=== the spectral sequence of a double complex, continued ===
+using the abutment for a filtered complex, we find that:
+
+  
+    
+      
+        
+          h
+          
+            p
+          
+          
+            i
+          
+        
+        (
+        
+          h
+          
+            q
+          
+          
+            i
+            i
+          
+        
+        (
+        
+          c
+          
+            ∙
+            ,
+            ∙
+          
+        
+        )
+        )
+        
+          ⇒
+          
+            p
+          
+        
+        
+          h
+          
+            p
+            +
+            q
+          
+        
+        (
+        t
+        (
+        
+          c
+          
+            ∙
+            ,
+            ∙
+          
+        
+        )
+        )
+      
+    
+    {\displaystyle h_{p}^{i}(h_{q}^{ii}(c_{\bullet ,\bullet }))\rightarrow _{p}h^{p+q}(t(c_{\bullet ,\bullet }))}
+  
+
+  
+    
+      
+        
+          h
+          
+            q
+          
+          
+            i
+            i
+          
+        
+        (
+        
+          h
+          
+            p
+          
+          
+            i
+          
+        
+        (
+        
+          c
+          
+            ∙
+            ,
+            ∙
+          
+        
+        )
+        )
+        
+          ⇒
+          
+            q
+          
+        
+        
+          h
+          
+            p
+            +
+            q
+          
+        
+        (
+        t
+        (
+        
+          c
+          
+            ∙
+            ,
+            ∙
+          
+        
+        )
+        )
+      
+    
+    {\displaystyle h_{q}^{ii}(h_{p}^{i}(c_{\bullet ,\bullet }))\rightarrow _{q}h^{p+q}(t(c_{\bullet ,\bullet }))}
+  in general, the two gradings on hp+q(t(c•,•)) are distinct.  despite this, it is still possible to gain useful information from these two spectral sequences.
+
+
+==== commutativity of tor ====
+let r be a ring, let m be a right r-module and n a left r-module. recall that the derived functors of the tensor product are denoted tor. tor is defined using a projective resolution of its first argument. however, it turns out that 
+  
+    
+      
+        
+          tor
+          
+            i
+          
+        
+        ⁡
+        (
+        m
+        ,
+        n
+        )
+        =
+        
+          tor
+          
+            i
+          
+        
+        ⁡
+        (
+        n
+        ,
+        m
+        )
+      
+    
+    {\displaystyle \operatorname {tor} _{i}(m,n)=\operatorname {tor} _{i}(n,m)}
+  . while this can be verified without a spectral sequence, it is very easy with spectral sequences.
+choose projective resolutions 
+  
+    
+      
+        
+          p
+          
+            ∙
+          
+        
+      
+    
+    {\displaystyle p_{\bullet }}
+   and 
+  
+    
+      
+        
+          q
+          
+            ∙
+          
+        
+      
+    
+    {\displaystyle q_{\bullet }}
+   of m and n, respectively. consider these as complexes which vanish in negative degree having differentials d and e, respectively. we can construct a double complex whose terms are 
+  
+    
+      
+        
+          c
+          
+            i
+            ,
+            j
+          
+        
+        =
+        
+          p
+          
+            i
+          
+        
+        ⊗
+        
+          q
+          
+            j
+          
+        
+      
+    
+    {\displaystyle c_{i,j}=p_{i}\otimes q_{j}}
+   and whose differentials are 
+  
+    
+      
+        d
+        ⊗
+        1
+      
+    
+    {\displaystyle d\otimes 1}
+   and 
+  
+    
+      
+        (
+        −
+        1
+        
+          )
+          
+            i
+          
+        
+        (
+        1
+        ⊗
+        e
+        )
+      
+    
+    {\displaystyle (-1)^{i}(1\otimes e)}
+  . (the factor of −1 is so that the differentials anticommute.) since projective modules are flat, taking the tensor product with a projective module commutes with taking homology, so we get:
+
+  
+    
+      
+        
+          h
+          
+            p
+          
+          
+            i
+          
+        
+        (
+        
+          h
+          
+            q
+          
+          
+            i
+            i
+          
+        
+        (
+        
+          p
+          
+            ∙
+          
+        
+        ⊗
+        
+          q
+          
+            ∙
+          
+        
+        )
+        )
+        =
+        
+          h
+          
+            p
+          
+          
+            i
+          
+        
+        (
+        
+          p
+          
+            ∙
+          
+        
+        ⊗
+        
+          h
+          
+            q
+          
+          
+            i
+            i
+          
+        
+        (
+        
+          q
+          
+            ∙
+          
+        
+        )
+        )
+      
+    
+    {\displaystyle h_{p}^{i}(h_{q}^{ii}(p_{\bullet }\otimes q_{\bullet }))=h_{p}^{i}(p_{\bullet }\otimes h_{q}^{ii}(q_{\bullet }))}
+  
+
+  
+    
+      
+        
+          h
+          
+            q
+          
+          
+            i
+            i
+          
+        
+        (
+        
+          h
+          
+            p
+          
+          
+            i
+          
+        
+        (
+        
+          p
+          
+            ∙
+          
+        
+        ⊗
+        
+          q
+          
+            ∙
+          
+        
+        )
+        )
+        =
+        
+          h
+          
+            q
+          
+          
+            i
+            i
+          
+        
+        (
+        
+          h
+          
+            p
+          
+          
+            i
+          
+        
+        (
+        
+          p
+          
+            ∙
+          
+        
+        )
+        ⊗
+        
+          q
+          
+            ∙
+          
+        
+        )
+      
+    
+    {\displaystyle h_{q}^{ii}(h_{p}^{i}(p_{\bullet }\otimes q_{\bullet }))=h_{q}^{ii}(h_{p}^{i}(p_{\bullet })\otimes q_{\bullet })}
+  since the two complexes are resolutions, their homology vanishes outside of degree zero. in degree zero, we are left with
+
+  
+    
+      
+        
+          h
+          
+            p
+          
+          
+            i
+          
+        
+        (
+        
+          p
+          
+            ∙
+          
+        
+        ⊗
+        n
+        )
+        =
+        
+          tor
+          
+            p
+          
+        
+        ⁡
+        (
+        m
+        ,
+        n
+        )
+      
+    
+    {\displaystyle h_{p}^{i}(p_{\bullet }\otimes n)=\operatorname {tor} _{p}(m,n)}
+  
+
+  
+    
+      
+        
+          h
+          
+            q
+          
+          
+            i
+            i
+          
+        
+        (
+        m
+        ⊗
+        
+          q
+          
+            ∙
+          
+        
+        )
+        =
+        
+          tor
+          
+            q
+          
+        
+        ⁡
+        (
+        n
+        ,
+        m
+        )
+      
+    
+    {\displaystyle h_{q}^{ii}(m\otimes q_{\bullet })=\operatorname {tor} _{q}(n,m)}
+  in particular, the 
+  
+    
+      
+        
+          e
+          
+            p
+            ,
+            q
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle e_{p,q}^{2}}
+   terms vanish except along the lines q = 0 (for the i spectral sequence) and p = 0 (for the ii spectral sequence). this implies that the spectral sequence degenerates at the second sheet, so the e∞ terms are isomorphic to the e2 terms:
+
+  
+    
+      
+        
+          tor
+          
+            p
+          
+        
+        ⁡
+        (
+        m
+        ,
+        n
+        )
+        ≅
+        
+          e
+          
+            p
+          
+          
+            ∞
+          
+        
+        =
+        
+          h
+          
+            p
+          
+        
+        (
+        t
+        (
+        
+          c
+          
+            ∙
+            ,
+            ∙
+          
+        
+        )
+        )
+      
+    
+    {\displaystyle \operatorname {tor} _{p}(m,n)\cong e_{p}^{\infty }=h_{p}(t(c_{\bullet ,\bullet }))}
+  
+
+  
+    
+      
+        
+          tor
+          
+            q
+          
+        
+        ⁡
+        (
+        n
+        ,
+        m
+        )
+        ≅
+        
+          e
+          
+            q
+          
+          
+            ∞
+          
+        
+        =
+        
+          h
+          
+            q
+          
+        
+        (
+        t
+        (
+        
+          c
+          
+            ∙
+            ,
+            ∙
+          
+        
+        )
+        )
+      
+    
+    {\displaystyle \operatorname {tor} _{q}(n,m)\cong e_{q}^{\infty }=h_{q}(t(c_{\bullet ,\bullet }))}
+  finally, when p and q are equal, the two right-hand sides are equal, and the commutativity of tor follows.
+
+
+== worked-out examples ==
+
+
+=== first-quadrant sheet ===
+consider a spectral sequence where 
+  
+    
+      
+        
+          e
+          
+            r
+          
+          
+            p
+            ,
+            q
+          
+        
+      
+    
+    {\displaystyle e_{r}^{p,q}}
+   vanishes for all 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   less than some 
+  
+    
+      
+        
+          p
+          
+            0
+          
+        
+      
+    
+    {\displaystyle p_{0}}
+   and for all 
+  
+    
+      
+        q
+      
+    
+    {\displaystyle q}
+   less than some 
+  
+    
+      
+        
+          q
+          
+            0
+          
+        
+      
+    
+    {\displaystyle q_{0}}
+  .  if 
+  
+    
+      
+        
+          p
+          
+            0
+          
+        
+      
+    
+    {\displaystyle p_{0}}
+   and 
+  
+    
+      
+        
+          q
+          
+            0
+          
+        
+      
+    
+    {\displaystyle q_{0}}
+   can be chosen to be zero, this is called a first-quadrant spectral sequence.
+the sequence abuts because 
+  
+    
+      
+        
+          e
+          
+            r
+            +
+            i
+          
+          
+            p
+            ,
+            q
+          
+        
+        =
+        
+          e
+          
+            r
+          
+          
+            p
+            ,
+            q
+          
+        
+      
+    
+    {\displaystyle e_{r+i}^{p,q}=e_{r}^{p,q}}
+   holds for all 
+  
+    
+      
+        i
+        ≥
+        0
+      
+    
+    {\displaystyle i\geq 0}
+   if 
+  
+    
+      
+        r
+        >
+        p
+      
+    
+    {\displaystyle r>p}
+   and 
+  
+    
+      
+        r
+        >
+        q
+        +
+        1
+      
+    
+    {\displaystyle r>q+1}
+  . to see this, note that either the domain or the codomain of the differential is zero for the considered cases. in visual terms, the sheets stabilize in a growing rectangle (see picture above). the spectral sequence need not degenerate, however, because the differential maps might not all be zero at once. similarly, the spectral sequence also converges if 
+  
+    
+      
+        
+          e
+          
+            r
+          
+          
+            p
+            ,
+            q
+          
+        
+      
+    
+    {\displaystyle e_{r}^{p,q}}
+   vanishes for all 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   greater than some 
+  
+    
+      
+        
+          p
+          
+            0
+          
+        
+      
+    
+    {\displaystyle p_{0}}
+   and for all 
+  
+    
+      
+        q
+      
+    
+    {\displaystyle q}
+   greater than some 
+  
+    
+      
+        
+          q
+          
+            0
+          
+        
+      
+    
+    {\displaystyle q_{0}}
+  .
+
+
+=== 2 non-zero adjacent columns ===
+let 
+  
+    
+      
+        
+          e
+          
+            p
+            ,
+            q
+          
+          
+            r
+          
+        
+      
+    
+    {\displaystyle e_{p,q}^{r}}
+   be a homological spectral sequence such that 
+  
+    
+      
+        
+          e
+          
+            p
+            ,
+            q
+          
+          
+            2
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle e_{p,q}^{2}=0}
+   for all p other than 0, 1. visually, this is the spectral sequence with 
+  
+    
+      
+        
+          e
+          
+            2
+          
+        
+      
+    
+    {\displaystyle e^{2}}
+  -page
+  
+    
+      
+        
+          
+            
+              
+              
+                ⋮
+              
+              
+                ⋮
+              
+              
+                ⋮
+              
+              
+                ⋮
+              
+              
+            
+            
+              
+                ⋯
+              
+              
+                0
+              
+              
+                
+                  e
+                  
+                    0
+                    ,
+                    2
+                  
+                  
+                    2
+                  
+                
+              
+              
+                
+                  e
+                  
+                    1
+                    ,
+                    2
+                  
+                  
+                    2
+                  
+                
+              
+              
+                0
+              
+              
+                ⋯
+              
+            
+            
+              
+                ⋯
+              
+              
+                0
+              
+              
+                
+                  e
+                  
+                    0
+                    ,
+                    1
+                  
+                  
+                    2
+                  
+                
+              
+              
+                
+                  e
+                  
+                    1
+                    ,
+                    1
+                  
+                  
+                    2
+                  
+                
+              
+              
+                0
+              
+              
+                ⋯
+              
+            
+            
+              
+                ⋯
+              
+              
+                0
+              
+              
+                
+                  e
+                  
+                    0
+                    ,
+                    0
+                  
+                  
+                    2
+                  
+                
+              
+              
+                
+                  e
+                  
+                    1
+                    ,
+                    0
+                  
+                  
+                    2
+                  
+                
+              
+              
+                0
+              
+              
+                ⋯
+              
+            
+            
+              
+                ⋯
+              
+              
+                0
+              
+              
+                
+                  e
+                  
+                    0
+                    ,
+                    −
+                    1
+                  
+                  
+                    2
+                  
+                
+              
+              
+                
+                  e
+                  
+                    1
+                    ,
+                    −
+                    1
+                  
+                  
+                    2
+                  
+                
+              
+              
+                0
+              
+              
+                ⋯
+              
+            
+            
+              
+              
+                ⋮
+              
+              
+                ⋮
+              
+              
+                ⋮
+              
+              
+                ⋮
+              
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{matrix}&\vdots &\vdots &\vdots &\vdots &\\\cdots &0&e_{0,2}^{2}&e_{1,2}^{2}&0&\cdots \\\cdots &0&e_{0,1}^{2}&e_{1,1}^{2}&0&\cdots \\\cdots &0&e_{0,0}^{2}&e_{1,0}^{2}&0&\cdots \\\cdots &0&e_{0,-1}^{2}&e_{1,-1}^{2}&0&\cdots \\&\vdots &\vdots &\vdots &\vdots &\end{matrix}}}
+  the differentials on the second page have degree (-2, 1), so they are of the form
+  
+    
+      
+        
+          d
+          
+            p
+            ,
+            q
+          
+          
+            2
+          
+        
+        :
+        
+          e
+          
+            p
+            ,
+            q
+          
+          
+            2
+          
+        
+        →
+        
+          e
+          
+            p
+            −
+            2
+            ,
+            q
+            +
+            1
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle d_{p,q}^{2}:e_{p,q}^{2}\to e_{p-2,q+1}^{2}}
+  these maps are all zero since they are
+  
+    
+      
+        
+          d
+          
+            0
+            ,
+            q
+          
+          
+            2
+          
+        
+        :
+        
+          e
+          
+            0
+            ,
+            q
+          
+          
+            2
+          
+        
+        →
+        0
+      
+    
+    {\displaystyle d_{0,q}^{2}:e_{0,q}^{2}\to 0}
+  , 
+  
+    
+      
+        
+          d
+          
+            1
+            ,
+            q
+          
+          
+            2
+          
+        
+        :
+        
+          e
+          
+            1
+            ,
+            q
+          
+          
+            2
+          
+        
+        →
+        0
+      
+    
+    {\displaystyle d_{1,q}^{2}:e_{1,q}^{2}\to 0}
+  hence the spectral sequence degenerates: 
+  
+    
+      
+        
+          e
+          
+            ∞
+          
+        
+        =
+        
+          e
+          
+            2
+          
+        
+      
+    
+    {\displaystyle e^{\infty }=e^{2}}
+  . say, it converges to 
+  
+    
+      
+        
+          h
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle h_{*}}
+   with a filtration
+  
+    
+      
+        0
+        =
+        
+          f
+          
+            −
+            1
+          
+        
+        
+          h
+          
+            n
+          
+        
+        ⊂
+        
+          f
+          
+            0
+          
+        
+        
+          h
+          
+            n
+          
+        
+        ⊂
+        ⋯
+        ⊂
+        
+          f
+          
+            n
+          
+        
+        
+          h
+          
+            n
+          
+        
+        =
+        
+          h
+          
+            n
+          
+        
+      
+    
+    {\displaystyle 0=f_{-1}h_{n}\subset f_{0}h_{n}\subset \dots \subset f_{n}h_{n}=h_{n}}
+  such that 
+  
+    
+      
+        
+          e
+          
+            p
+            ,
+            q
+          
+          
+            ∞
+          
+        
+        =
+        
+          f
+          
+            p
+          
+        
+        
+          h
+          
+            p
+            +
+            q
+          
+        
+        
+          /
+        
+        
+          f
+          
+            p
+            −
+            1
+          
+        
+        
+          h
+          
+            p
+            +
+            q
+          
+        
+      
+    
+    {\displaystyle e_{p,q}^{\infty }=f_{p}h_{p+q}/f_{p-1}h_{p+q}}
+  . then 
+  
+    
+      
+        
+          f
+          
+            0
+          
+        
+        
+          h
+          
+            n
+          
+        
+        =
+        
+          e
+          
+            0
+            ,
+            n
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle f_{0}h_{n}=e_{0,n}^{2}}
+  , 
+  
+    
+      
+        
+          f
+          
+            1
+          
+        
+        
+          h
+          
+            n
+          
+        
+        
+          /
+        
+        
+          f
+          
+            0
+          
+        
+        
+          h
+          
+            n
+          
+        
+        =
+        
+          e
+          
+            1
+            ,
+            n
+            −
+            1
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle f_{1}h_{n}/f_{0}h_{n}=e_{1,n-1}^{2}}
+  , 
+  
+    
+      
+        
+          f
+          
+            2
+          
+        
+        
+          h
+          
+            n
+          
+        
+        
+          /
+        
+        
+          f
+          
+            1
+          
+        
+        
+          h
+          
+            n
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle f_{2}h_{n}/f_{1}h_{n}=0}
+  , 
+  
+    
+      
+        
+          f
+          
+            3
+          
+        
+        
+          h
+          
+            n
+          
+        
+        
+          /
+        
+        
+          f
+          
+            2
+          
+        
+        
+          h
+          
+            n
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle f_{3}h_{n}/f_{2}h_{n}=0}
+  , etc. thus, there is the exact sequence:
+  
+    
+      
+        0
+        →
+        
+          e
+          
+            0
+            ,
+            n
+          
+          
+            2
+          
+        
+        →
+        
+          h
+          
+            n
+          
+        
+        →
+        
+          e
+          
+            1
+            ,
+            n
+            −
+            1
+          
+          
+            2
+          
+        
+        →
+        0
+      
+    
+    {\displaystyle 0\to e_{0,n}^{2}\to h_{n}\to e_{1,n-1}^{2}\to 0}
+  .next, let 
+  
+    
+      
+        
+          e
+          
+            p
+            ,
+            q
+          
+          
+            r
+          
+        
+      
+    
+    {\displaystyle e_{p,q}^{r}}
+   be a spectral sequence whose second page consists only of two lines q = 0, 1. this need not degenerate at the second page but it still degenerates at the third page as the differentials there have degree (-3, 2). note 
+  
+    
+      
+        
+          e
+          
+            p
+            ,
+            0
+          
+          
+            3
+          
+        
+        =
+        ker
+        ⁡
+        (
+        d
+        :
+        
+          e
+          
+            p
+            ,
+            0
+          
+          
+            2
+          
+        
+        →
+        
+          e
+          
+            p
+            −
+            2
+            ,
+            1
+          
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle e_{p,0}^{3}=\operatorname {ker} (d:e_{p,0}^{2}\to e_{p-2,1}^{2})}
+  , as the denominator is zero. similarly, 
+  
+    
+      
+        
+          e
+          
+            p
+            ,
+            1
+          
+          
+            3
+          
+        
+        =
+        coker
+        ⁡
+        (
+        d
+        :
+        
+          e
+          
+            p
+            +
+            2
+            ,
+            0
+          
+          
+            2
+          
+        
+        →
+        
+          e
+          
+            p
+            ,
+            1
+          
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle e_{p,1}^{3}=\operatorname {coker} (d:e_{p+2,0}^{2}\to e_{p,1}^{2})}
+  . thus,
+  
+    
+      
+        0
+        →
+        
+          e
+          
+            p
+            ,
+            0
+          
+          
+            ∞
+          
+        
+        →
+        
+          e
+          
+            p
+            ,
+            0
+          
+          
+            2
+          
+        
+        
+          
+            →
+            d
+          
+        
+        
+          e
+          
+            p
+            −
+            2
+            ,
+            1
+          
+          
+            2
+          
+        
+        →
+        
+          e
+          
+            p
+            −
+            2
+            ,
+            1
+          
+          
+            ∞
+          
+        
+        →
+        0
+      
+    
+    {\displaystyle 0\to e_{p,0}^{\infty }\to e_{p,0}^{2}{\overset {d}{\to }}e_{p-2,1}^{2}\to e_{p-2,1}^{\infty }\to 0}
+  .now, say, the spectral sequence converges to h with a filtration f as in the previous example. since 
+  
+    
+      
+        
+          f
+          
+            p
+            −
+            2
+          
+        
+        
+          h
+          
+            p
+          
+        
+        
+          /
+        
+        
+          f
+          
+            p
+            −
+            3
+          
+        
+        
+          h
+          
+            p
+          
+        
+        =
+        
+          e
+          
+            p
+            −
+            2
+            ,
+            2
+          
+          
+            ∞
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle f_{p-2}h_{p}/f_{p-3}h_{p}=e_{p-2,2}^{\infty }=0}
+  , 
+  
+    
+      
+        
+          f
+          
+            p
+            −
+            3
+          
+        
+        
+          h
+          
+            p
+          
+        
+        
+          /
+        
+        
+          f
+          
+            p
+            −
+            4
+          
+        
+        
+          h
+          
+            p
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle f_{p-3}h_{p}/f_{p-4}h_{p}=0}
+  , etc., we have: 
+  
+    
+      
+        0
+        →
+        
+          e
+          
+            p
+            −
+            1
+            ,
+            1
+          
+          
+            ∞
+          
+        
+        →
+        
+          h
+          
+            p
+          
+        
+        →
+        
+          e
+          
+            p
+            ,
+            0
+          
+          
+            ∞
+          
+        
+        →
+        0
+      
+    
+    {\displaystyle 0\to e_{p-1,1}^{\infty }\to h_{p}\to e_{p,0}^{\infty }\to 0}
+  . putting everything together, one gets:
+  
+    
+      
+        ⋯
+        →
+        
+          h
+          
+            p
+            +
+            1
+          
+        
+        →
+        
+          e
+          
+            p
+            +
+            1
+            ,
+            0
+          
+          
+            2
+          
+        
+        
+          
+            →
+            d
+          
+        
+        
+          e
+          
+            p
+            −
+            1
+            ,
+            1
+          
+          
+            2
+          
+        
+        →
+        
+          h
+          
+            p
+          
+        
+        →
+        
+          e
+          
+            p
+            ,
+            0
+          
+          
+            2
+          
+        
+        
+          
+            →
+            d
+          
+        
+        
+          e
+          
+            p
+            −
+            2
+            ,
+            1
+          
+          
+            2
+          
+        
+        →
+        
+          h
+          
+            p
+            −
+            1
+          
+        
+        →
+        …
+        .
+      
+    
+    {\displaystyle \cdots \to h_{p+1}\to e_{p+1,0}^{2}{\overset {d}{\to }}e_{p-1,1}^{2}\to h_{p}\to e_{p,0}^{2}{\overset {d}{\to }}e_{p-2,1}^{2}\to h_{p-1}\to \dots .}
+  
+
+
+=== wang sequence ===
+the computation in the previous section generalizes in a straightforward way. consider a fibration over a sphere:
+  
+    
+      
+        f
+        
+          
+            →
+            i
+          
+        
+        e
+        
+          
+            →
+            p
+          
+        
+        
+          s
+          
+            n
+          
+        
+      
+    
+    {\displaystyle f{\overset {i}{\to }}e{\overset {p}{\to }}s^{n}}
+  with n at least 2. there is the serre spectral sequence:
+  
+    
+      
+        
+          e
+          
+            p
+            ,
+            q
+          
+          
+            2
+          
+        
+        =
+        
+          h
+          
+            p
+          
+        
+        (
+        
+          s
+          
+            n
+          
+        
+        ;
+        
+          h
+          
+            q
+          
+        
+        (
+        f
+        )
+        )
+        ⇒
+        
+          h
+          
+            p
+            +
+            q
+          
+        
+        (
+        e
+        )
+      
+    
+    {\displaystyle e_{p,q}^{2}=h_{p}(s^{n};h_{q}(f))\rightarrow h_{p+q}(e)}
+  ;that is to say, 
+  
+    
+      
+        
+          e
+          
+            p
+            ,
+            q
+          
+          
+            ∞
+          
+        
+        =
+        
+          f
+          
+            p
+          
+        
+        
+          h
+          
+            p
+            +
+            q
+          
+        
+        (
+        e
+        )
+        
+          /
+        
+        
+          f
+          
+            p
+            −
+            1
+          
+        
+        
+          h
+          
+            p
+            +
+            q
+          
+        
+        (
+        e
+        )
+      
+    
+    {\displaystyle e_{p,q}^{\infty }=f_{p}h_{p+q}(e)/f_{p-1}h_{p+q}(e)}
+   with some filtration 
+  
+    
+      
+        
+          f
+          
+            ∙
+          
+        
+      
+    
+    {\displaystyle f_{\bullet }}
+  .
+since 
+  
+    
+      
+        
+          h
+          
+            p
+          
+        
+        (
+        
+          s
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle h_{p}(s^{n})}
+   is nonzero only when p is zero or n and equal to z in that case, we see 
+  
+    
+      
+        
+          e
+          
+            p
+            ,
+            q
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle e_{p,q}^{2}}
+   consists of only two lines 
+  
+    
+      
+        p
+        =
+        0
+        ,
+        n
+      
+    
+    {\displaystyle p=0,n}
+  , hence the 
+  
+    
+      
+        
+          e
+          
+            2
+          
+        
+      
+    
+    {\displaystyle e^{2}}
+  -page is given by
+  
+    
+      
+        
+          
+            
+              
+              
+                ⋮
+              
+              
+                ⋮
+              
+              
+                ⋮
+              
+              
+              
+                ⋮
+              
+              
+                ⋮
+              
+              
+                ⋮
+              
+              
+            
+            
+              
+                ⋯
+              
+              
+                0
+              
+              
+                
+                  e
+                  
+                    0
+                    ,
+                    2
+                  
+                  
+                    2
+                  
+                
+              
+              
+                0
+              
+              
+                ⋯
+              
+              
+                0
+              
+              
+                
+                  e
+                  
+                    n
+                    ,
+                    2
+                  
+                  
+                    2
+                  
+                
+              
+              
+                0
+              
+              
+                ⋯
+              
+            
+            
+              
+                ⋯
+              
+              
+                0
+              
+              
+                
+                  e
+                  
+                    0
+                    ,
+                    1
+                  
+                  
+                    2
+                  
+                
+              
+              
+                0
+              
+              
+                ⋯
+              
+              
+                0
+              
+              
+                
+                  e
+                  
+                    n
+                    ,
+                    1
+                  
+                  
+                    2
+                  
+                
+              
+              
+                0
+              
+              
+                ⋯
+              
+            
+            
+              
+                ⋯
+              
+              
+                0
+              
+              
+                
+                  e
+                  
+                    0
+                    ,
+                    0
+                  
+                  
+                    2
+                  
+                
+              
+              
+                0
+              
+              
+                ⋯
+              
+              
+                0
+              
+              
+                
+                  e
+                  
+                    n
+                    ,
+                    0
+                  
+                  
+                    2
+                  
+                
+              
+              
+                0
+              
+              
+                ⋯
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{matrix}&\vdots &\vdots &\vdots &&\vdots &\vdots &\vdots &\\\cdots &0&e_{0,2}^{2}&0&\cdots &0&e_{n,2}^{2}&0&\cdots \\\cdots &0&e_{0,1}^{2}&0&\cdots &0&e_{n,1}^{2}&0&\cdots \\\cdots &0&e_{0,0}^{2}&0&\cdots &0&e_{n,0}^{2}&0&\cdots \\\end{matrix}}}
+  moreover, since
+  
+    
+      
+        
+          e
+          
+            p
+            ,
+            q
+          
+          
+            2
+          
+        
+        =
+        
+          h
+          
+            p
+          
+        
+        (
+        
+          s
+          
+            n
+          
+        
+        ;
+        
+          h
+          
+            q
+          
+        
+        (
+        f
+        )
+        )
+        =
+        
+          h
+          
+            q
+          
+        
+        (
+        f
+        )
+      
+    
+    {\displaystyle e_{p,q}^{2}=h_{p}(s^{n};h_{q}(f))=h_{q}(f)}
+  for 
+  
+    
+      
+        p
+        =
+        0
+        ,
+        n
+      
+    
+    {\displaystyle p=0,n}
+   by the universal coefficient theorem, the 
+  
+    
+      
+        
+          e
+          
+            2
+          
+        
+      
+    
+    {\displaystyle e^{2}}
+   page looks like
+  
+    
+      
+        
+          
+            
+              
+              
+                ⋮
+              
+              
+                ⋮
+              
+              
+                ⋮
+              
+              
+              
+                ⋮
+              
+              
+                ⋮
+              
+              
+                ⋮
+              
+              
+            
+            
+              
+                ⋯
+              
+              
+                0
+              
+              
+                
+                  h
+                  
+                    2
+                  
+                
+                (
+                f
+                )
+              
+              
+                0
+              
+              
+                ⋯
+              
+              
+                0
+              
+              
+                
+                  h
+                  
+                    2
+                  
+                
+                (
+                f
+                )
+              
+              
+                0
+              
+              
+                ⋯
+              
+            
+            
+              
+                ⋯
+              
+              
+                0
+              
+              
+                
+                  h
+                  
+                    1
+                  
+                
+                (
+                f
+                )
+              
+              
+                0
+              
+              
+                ⋯
+              
+              
+                0
+              
+              
+                
+                  h
+                  
+                    1
+                  
+                
+                (
+                f
+                )
+              
+              
+                0
+              
+              
+                ⋯
+              
+            
+            
+              
+                ⋯
+              
+              
+                0
+              
+              
+                
+                  h
+                  
+                    0
+                  
+                
+                (
+                f
+                )
+              
+              
+                0
+              
+              
+                ⋯
+              
+              
+                0
+              
+              
+                
+                  h
+                  
+                    0
+                  
+                
+                (
+                f
+                )
+              
+              
+                0
+              
+              
+                ⋯
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{matrix}&\vdots &\vdots &\vdots &&\vdots &\vdots &\vdots &\\\cdots &0&h_{2}(f)&0&\cdots &0&h_{2}(f)&0&\cdots \\\cdots &0&h_{1}(f)&0&\cdots &0&h_{1}(f)&0&\cdots \\\cdots &0&h_{0}(f)&0&\cdots &0&h_{0}(f)&0&\cdots \\\end{matrix}}}
+  since the only non-zero differentials are on the 
+  
+    
+      
+        
+          e
+          
+            n
+          
+        
+      
+    
+    {\displaystyle e^{n}}
+  -page, given by
+  
+    
+      
+        
+          d
+          
+            n
+            ,
+            q
+          
+          
+            n
+          
+        
+        :
+        
+          e
+          
+            n
+            ,
+            q
+          
+          
+            n
+          
+        
+        →
+        
+          e
+          
+            0
+            ,
+            q
+            +
+            n
+            −
+            1
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle d_{n,q}^{n}:e_{n,q}^{n}\to e_{0,q+n-1}^{n}}
+  which is
+  
+    
+      
+        
+          d
+          
+            n
+            ,
+            q
+          
+          
+            n
+          
+        
+        :
+        
+          h
+          
+            q
+          
+        
+        (
+        f
+        )
+        →
+        
+          h
+          
+            q
+            +
+            n
+            −
+            1
+          
+        
+        (
+        f
+        )
+      
+    
+    {\displaystyle d_{n,q}^{n}:h_{q}(f)\to h_{q+n-1}(f)}
+  the spectral sequence converges on 
+  
+    
+      
+        
+          e
+          
+            n
+            +
+            1
+          
+        
+        =
+        
+          e
+          
+            ∞
+          
+        
+      
+    
+    {\displaystyle e^{n+1}=e^{\infty }}
+  . by computing 
+  
+    
+      
+        
+          e
+          
+            n
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle e^{n+1}}
+   we get an exact sequence
+  
+    
+      
+        0
+        →
+        
+          e
+          
+            n
+            ,
+            q
+            −
+            n
+          
+          
+            ∞
+          
+        
+        →
+        
+          e
+          
+            n
+            ,
+            q
+            −
+            n
+          
+          
+            n
+          
+        
+        
+          
+            →
+            d
+          
+        
+        
+          e
+          
+            0
+            ,
+            q
+            −
+            1
+          
+          
+            n
+          
+        
+        →
+        
+          e
+          
+            0
+            ,
+            q
+            −
+            1
+          
+          
+            ∞
+          
+        
+        →
+        0.
+      
+    
+    {\displaystyle 0\to e_{n,q-n}^{\infty }\to e_{n,q-n}^{n}{\overset {d}{\to }}e_{0,q-1}^{n}\to e_{0,q-1}^{\infty }\to 0.}
+  and written out using the homology groups, this is
+  
+    
+      
+        0
+        →
+        
+          e
+          
+            n
+            ,
+            q
+            −
+            n
+          
+          
+            ∞
+          
+        
+        →
+        
+          h
+          
+            q
+            −
+            n
+          
+        
+        (
+        f
+        )
+        
+          
+            →
+            d
+          
+        
+        
+          h
+          
+            q
+            −
+            1
+          
+        
+        (
+        f
+        )
+        →
+        
+          e
+          
+            0
+            ,
+            q
+            −
+            1
+          
+          
+            ∞
+          
+        
+        →
+        0.
+      
+    
+    {\displaystyle 0\to e_{n,q-n}^{\infty }\to h_{q-n}(f){\overset {d}{\to }}h_{q-1}(f)\to e_{0,q-1}^{\infty }\to 0.}
+  to establish what the two 
+  
+    
+      
+        
+          e
+          
+            ∞
+          
+        
+      
+    
+    {\displaystyle e^{\infty }}
+  -terms are, write 
+  
+    
+      
+        h
+        =
+        h
+        (
+        e
+        )
+      
+    
+    {\displaystyle h=h(e)}
+  , and since 
+  
+    
+      
+        
+          f
+          
+            1
+          
+        
+        
+          h
+          
+            q
+          
+        
+        
+          /
+        
+        
+          f
+          
+            0
+          
+        
+        
+          h
+          
+            q
+          
+        
+        =
+        
+          e
+          
+            1
+            ,
+            q
+            −
+            1
+          
+          
+            ∞
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle f_{1}h_{q}/f_{0}h_{q}=e_{1,q-1}^{\infty }=0}
+  , etc., we have: 
+  
+    
+      
+        
+          e
+          
+            n
+            ,
+            q
+            −
+            n
+          
+          
+            ∞
+          
+        
+        =
+        
+          f
+          
+            n
+          
+        
+        
+          h
+          
+            q
+          
+        
+        
+          /
+        
+        
+          f
+          
+            0
+          
+        
+        
+          h
+          
+            q
+          
+        
+      
+    
+    {\displaystyle e_{n,q-n}^{\infty }=f_{n}h_{q}/f_{0}h_{q}}
+   and thus, since 
+  
+    
+      
+        
+          f
+          
+            n
+          
+        
+        
+          h
+          
+            q
+          
+        
+        =
+        
+          h
+          
+            q
+          
+        
+      
+    
+    {\displaystyle f_{n}h_{q}=h_{q}}
+  ,
+  
+    
+      
+        0
+        →
+        
+          e
+          
+            0
+            ,
+            q
+          
+          
+            ∞
+          
+        
+        →
+        
+          h
+          
+            q
+          
+        
+        →
+        
+          e
+          
+            n
+            ,
+            q
+            −
+            n
+          
+          
+            ∞
+          
+        
+        →
+        0.
+      
+    
+    {\displaystyle 0\to e_{0,q}^{\infty }\to h_{q}\to e_{n,q-n}^{\infty }\to 0.}
+  this is the exact sequence
+  
+    
+      
+        0
+        →
+        
+          h
+          
+            q
+          
+        
+        (
+        f
+        )
+        →
+        
+          h
+          
+            q
+          
+        
+        (
+        e
+        )
+        →
+        
+          h
+          
+            q
+            −
+            n
+          
+        
+        (
+        f
+        )
+        →
+        0.
+      
+    
+    {\displaystyle 0\to h_{q}(f)\to h_{q}(e)\to h_{q-n}(f)\to 0.}
+  putting all calculations together, one gets:
+  
+    
+      
+        ⋯
+        →
+        
+          h
+          
+            q
+          
+        
+        (
+        f
+        )
+        
+          
+            →
+            
+              i
+              
+                ∗
+              
+            
+          
+        
+        
+          h
+          
+            q
+          
+        
+        (
+        e
+        )
+        →
+        
+          h
+          
+            q
+            −
+            n
+          
+        
+        (
+        f
+        )
+        
+          
+            →
+            d
+          
+        
+        
+          h
+          
+            q
+            −
+            1
+          
+        
+        (
+        f
+        )
+        
+          
+            →
+            
+              i
+              
+                ∗
+              
+            
+          
+        
+        
+          h
+          
+            q
+            −
+            1
+          
+        
+        (
+        e
+        )
+        →
+        
+          h
+          
+            q
+            −
+            n
+            −
+            1
+          
+        
+        (
+        f
+        )
+        →
+        …
+      
+    
+    {\displaystyle \dots \to h_{q}(f){\overset {i_{*}}{\to }}h_{q}(e)\to h_{q-n}(f){\overset {d}{\to }}h_{q-1}(f){\overset {i_{*}}{\to }}h_{q-1}(e)\to h_{q-n-1}(f)\to \dots }
+  (the gysin sequence is obtained in a similar way.)
+
+
+=== low-degree terms ===
+with an obvious notational change, the type of the computations in the previous examples can also be carried out for cohomological spectral sequence. let 
+  
+    
+      
+        
+          e
+          
+            r
+          
+          
+            p
+            ,
+            q
+          
+        
+      
+    
+    {\displaystyle e_{r}^{p,q}}
+   be a first-quadrant spectral sequence converging to h with the decreasing filtration
+
+  
+    
+      
+        0
+        =
+        
+          f
+          
+            n
+            +
+            1
+          
+        
+        
+          h
+          
+            n
+          
+        
+        ⊂
+        
+          f
+          
+            n
+          
+        
+        
+          h
+          
+            n
+          
+        
+        ⊂
+        ⋯
+        ⊂
+        
+          f
+          
+            0
+          
+        
+        
+          h
+          
+            n
+          
+        
+        =
+        
+          h
+          
+            n
+          
+        
+      
+    
+    {\displaystyle 0=f^{n+1}h^{n}\subset f^{n}h^{n}\subset \dots \subset f^{0}h^{n}=h^{n}}
+  so that 
+  
+    
+      
+        
+          e
+          
+            ∞
+          
+          
+            p
+            ,
+            q
+          
+        
+        =
+        
+          f
+          
+            p
+          
+        
+        
+          h
+          
+            p
+            +
+            q
+          
+        
+        
+          /
+        
+        
+          f
+          
+            p
+            +
+            1
+          
+        
+        
+          h
+          
+            p
+            +
+            q
+          
+        
+        .
+      
+    
+    {\displaystyle e_{\infty }^{p,q}=f^{p}h^{p+q}/f^{p+1}h^{p+q}.}
+  
+since 
+  
+    
+      
+        
+          e
+          
+            2
+          
+          
+            p
+            ,
+            q
+          
+        
+      
+    
+    {\displaystyle e_{2}^{p,q}}
+   is zero if p or q is negative, we have:
+
+  
+    
+      
+        0
+        →
+        
+          e
+          
+            ∞
+          
+          
+            0
+            ,
+            1
+          
+        
+        →
+        
+          e
+          
+            2
+          
+          
+            0
+            ,
+            1
+          
+        
+        
+          
+            →
+            d
+          
+        
+        
+          e
+          
+            2
+          
+          
+            2
+            ,
+            0
+          
+        
+        →
+        
+          e
+          
+            ∞
+          
+          
+            2
+            ,
+            0
+          
+        
+        →
+        0.
+      
+    
+    {\displaystyle 0\to e_{\infty }^{0,1}\to e_{2}^{0,1}{\overset {d}{\to }}e_{2}^{2,0}\to e_{\infty }^{2,0}\to 0.}
+  since 
+  
+    
+      
+        
+          e
+          
+            ∞
+          
+          
+            1
+            ,
+            0
+          
+        
+        =
+        
+          e
+          
+            2
+          
+          
+            1
+            ,
+            0
+          
+        
+      
+    
+    {\displaystyle e_{\infty }^{1,0}=e_{2}^{1,0}}
+   for the same reason and since 
+  
+    
+      
+        
+          f
+          
+            2
+          
+        
+        
+          h
+          
+            1
+          
+        
+        =
+        0
+        ,
+      
+    
+    {\displaystyle f^{2}h^{1}=0,}
+  
+
+  
+    
+      
+        0
+        →
+        
+          e
+          
+            2
+          
+          
+            1
+            ,
+            0
+          
+        
+        →
+        
+          h
+          
+            1
+          
+        
+        →
+        
+          e
+          
+            ∞
+          
+          
+            0
+            ,
+            1
+          
+        
+        →
+        0
+      
+    
+    {\displaystyle 0\to e_{2}^{1,0}\to h^{1}\to e_{\infty }^{0,1}\to 0}
+  .since 
+  
+    
+      
+        
+          f
+          
+            3
+          
+        
+        
+          h
+          
+            2
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle f^{3}h^{2}=0}
+  , 
+  
+    
+      
+        
+          e
+          
+            ∞
+          
+          
+            2
+            ,
+            0
+          
+        
+        ⊂
+        
+          h
+          
+            2
+          
+        
+      
+    
+    {\displaystyle e_{\infty }^{2,0}\subset h^{2}}
+  . stacking the sequences together, we get the so-called five-term exact sequence:
+
+  
+    
+      
+        0
+        →
+        
+          e
+          
+            2
+          
+          
+            1
+            ,
+            0
+          
+        
+        →
+        
+          h
+          
+            1
+          
+        
+        →
+        
+          e
+          
+            2
+          
+          
+            0
+            ,
+            1
+          
+        
+        
+          
+            →
+            d
+          
+        
+        
+          e
+          
+            2
+          
+          
+            2
+            ,
+            0
+          
+        
+        →
+        
+          h
+          
+            2
+          
+        
+        .
+      
+    
+    {\displaystyle 0\to e_{2}^{1,0}\to h^{1}\to e_{2}^{0,1}{\overset {d}{\to }}e_{2}^{2,0}\to h^{2}.}
+  
+
+
+== edge maps and transgressions ==
+
+
+=== homological spectral sequences ===
+let 
+  
+    
+      
+        
+          e
+          
+            p
+            ,
+            q
+          
+          
+            r
+          
+        
+      
+    
+    {\displaystyle e_{p,q}^{r}}
+   be a spectral sequence. if 
+  
+    
+      
+        
+          e
+          
+            p
+            ,
+            q
+          
+          
+            r
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle e_{p,q}^{r}=0}
+   for every q < 0, then it must be that: for r ≥ 2,
+
+  
+    
+      
+        
+          e
+          
+            p
+            ,
+            0
+          
+          
+            r
+            +
+            1
+          
+        
+        =
+        ker
+        ⁡
+        (
+        d
+        :
+        
+          e
+          
+            p
+            ,
+            0
+          
+          
+            r
+          
+        
+        →
+        
+          e
+          
+            p
+            −
+            r
+            ,
+            r
+            −
+            1
+          
+          
+            r
+          
+        
+        )
+      
+    
+    {\displaystyle e_{p,0}^{r+1}=\operatorname {ker} (d:e_{p,0}^{r}\to e_{p-r,r-1}^{r})}
+  as the denominator is zero. hence, there is a sequence of monomorphisms:
+
+  
+    
+      
+        
+          e
+          
+            p
+            ,
+            0
+          
+          
+            r
+          
+        
+        →
+        
+          e
+          
+            p
+            ,
+            0
+          
+          
+            r
+            −
+            1
+          
+        
+        →
+        ⋯
+        →
+        
+          e
+          
+            p
+            ,
+            0
+          
+          
+            3
+          
+        
+        →
+        
+          e
+          
+            p
+            ,
+            0
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle e_{p,0}^{r}\to e_{p,0}^{r-1}\to \dots \to e_{p,0}^{3}\to e_{p,0}^{2}}
+  .they are called the edge maps. similarly, if 
+  
+    
+      
+        
+          e
+          
+            p
+            ,
+            q
+          
+          
+            r
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle e_{p,q}^{r}=0}
+   for every p < 0, then there is a sequence of epimorphisms (also called the edge maps):
+
+  
+    
+      
+        
+          e
+          
+            0
+            ,
+            q
+          
+          
+            2
+          
+        
+        →
+        
+          e
+          
+            0
+            ,
+            q
+          
+          
+            3
+          
+        
+        →
+        ⋯
+        →
+        
+          e
+          
+            0
+            ,
+            q
+          
+          
+            r
+            −
+            1
+          
+        
+        →
+        
+          e
+          
+            0
+            ,
+            q
+          
+          
+            r
+          
+        
+      
+    
+    {\displaystyle e_{0,q}^{2}\to e_{0,q}^{3}\to \dots \to e_{0,q}^{r-1}\to e_{0,q}^{r}}
+  .the transgression is a partially-defined map (more precisely, a map from a subobject to a quotient)
+
+  
+    
+      
+        τ
+        :
+        
+          e
+          
+            p
+            ,
+            0
+          
+          
+            2
+          
+        
+        →
+        
+          e
+          
+            0
+            ,
+            p
+            −
+            1
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \tau :e_{p,0}^{2}\to e_{0,p-1}^{2}}
+  given as a composition 
+  
+    
+      
+        
+          e
+          
+            p
+            ,
+            0
+          
+          
+            2
+          
+        
+        →
+        
+          e
+          
+            p
+            ,
+            0
+          
+          
+            p
+          
+        
+        
+          
+            →
+            d
+          
+        
+        
+          e
+          
+            0
+            ,
+            p
+            −
+            1
+          
+          
+            p
+          
+        
+        →
+        
+          e
+          
+            0
+            ,
+            p
+            −
+            1
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle e_{p,0}^{2}\to e_{p,0}^{p}{\overset {d}{\to }}e_{0,p-1}^{p}\to e_{0,p-1}^{2}}
+  , the first and last maps being the inverses of the edge maps.
+
+
+=== cohomological spectral sequences ===
+for a spectral sequence 
+  
+    
+      
+        
+          e
+          
+            r
+          
+          
+            p
+            ,
+            q
+          
+        
+      
+    
+    {\displaystyle e_{r}^{p,q}}
+   of cohomological type, the analogous statements hold. if 
+  
+    
+      
+        
+          e
+          
+            r
+          
+          
+            p
+            ,
+            q
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle e_{r}^{p,q}=0}
+   for every q < 0, then there is a sequence of epimorphisms
+
+  
+    
+      
+        
+          e
+          
+            2
+          
+          
+            p
+            ,
+            0
+          
+        
+        →
+        
+          e
+          
+            3
+          
+          
+            p
+            ,
+            0
+          
+        
+        →
+        ⋯
+        →
+        
+          e
+          
+            r
+            −
+            1
+          
+          
+            p
+            ,
+            0
+          
+        
+        →
+        
+          e
+          
+            r
+          
+          
+            p
+            ,
+            0
+          
+        
+      
+    
+    {\displaystyle e_{2}^{p,0}\to e_{3}^{p,0}\to \dots \to e_{r-1}^{p,0}\to e_{r}^{p,0}}
+  .and if 
+  
+    
+      
+        
+          e
+          
+            r
+          
+          
+            p
+            ,
+            q
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle e_{r}^{p,q}=0}
+   for every p < 0, then there is a sequence of monomorphisms:
+
+  
+    
+      
+        
+          e
+          
+            r
+          
+          
+            0
+            ,
+            q
+          
+        
+        →
+        
+          e
+          
+            r
+            −
+            1
+          
+          
+            0
+            ,
+            q
+          
+        
+        →
+        ⋯
+        →
+        
+          e
+          
+            3
+          
+          
+            0
+            ,
+            q
+          
+        
+        →
+        
+          e
+          
+            2
+          
+          
+            0
+            ,
+            q
+          
+        
+      
+    
+    {\displaystyle e_{r}^{0,q}\to e_{r-1}^{0,q}\to \dots \to e_{3}^{0,q}\to e_{2}^{0,q}}
+  .the transgression is a not necessarily well-defined map:
+
+  
+    
+      
+        τ
+        :
+        
+          e
+          
+            2
+          
+          
+            0
+            ,
+            q
+            −
+            1
+          
+        
+        →
+        
+          e
+          
+            2
+          
+          
+            q
+            ,
+            0
+          
+        
+      
+    
+    {\displaystyle \tau :e_{2}^{0,q-1}\to e_{2}^{q,0}}
+  induced by 
+  
+    
+      
+        d
+        :
+        
+          e
+          
+            q
+          
+          
+            0
+            ,
+            q
+            −
+            1
+          
+        
+        →
+        
+          e
+          
+            q
+          
+          
+            q
+            ,
+            0
+          
+        
+      
+    
+    {\displaystyle d:e_{q}^{0,q-1}\to e_{q}^{q,0}}
+  .
+
+
+=== application ===
+determining these maps are fundamental for computing many differentials in the serre spectral sequence. for instance the transgression map determines the differential
+  
+    
+      
+        
+          d
+          
+            n
+          
+        
+        :
+        
+          e
+          
+            n
+            ,
+            0
+          
+          
+            n
+          
+        
+        →
+        
+          e
+          
+            0
+            ,
+            n
+            −
+            1
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle d_{n}:e_{n,0}^{n}\to e_{0,n-1}^{n}}
+  for the homological spectral spectral sequence, hence on the serre spectral sequence for a fibration 
+  
+    
+      
+        f
+        →
+        e
+        →
+        b
+      
+    
+    {\displaystyle f\to e\to b}
+   gives the map
+  
+    
+      
+        
+          d
+          
+            n
+          
+        
+        :
+        
+          h
+          
+            n
+          
+        
+        (
+        b
+        )
+        →
+        
+          h
+          
+            n
+            −
+            1
+          
+        
+        (
+        f
+        )
+      
+    
+    {\displaystyle d_{n}:h_{n}(b)\to h_{n-1}(f)}
+  
+
+
+== further examples ==
+some notable spectral sequences are:
+
+
+=== topology and geometry ===
+atiyah–hirzebruch spectral sequence of an extraordinary cohomology theory
+bar spectral sequence for the homology of the classifying space of a group.
+bockstein spectral sequence relating the homology with mod p coefficients and the homology reduced mod p.
+cartan–leray spectral sequence converging to the homology of a quotient space.
+eilenberg–moore spectral sequence for the singular cohomology of the pullback of a fibration
+serre spectral sequence of a fibration
+
+
+=== homotopy theory ===
+adams spectral sequence in stable homotopy theory
+adams–novikov spectral sequence, a generalization to extraordinary cohomology theories.
+barratt spectral sequence converging to the homotopy of the initial space of a cofibration.
+bousfield–kan spectral sequence converging to the homotopy colimit of a functor.
+chromatic spectral sequence for calculating the initial terms of the adams–novikov spectral sequence.
+cobar spectral sequence
+ehp spectral sequence converging to stable homotopy groups of spheres
+federer spectral sequence converging to homotopy groups of a function space.
+homotopy fixed point spectral sequence
+hurewicz spectral sequence for calculating the homology of a space from its homotopy.
+miller spectral sequence converging to the mod p stable homology of a space.
+milnor spectral sequence is another name for the bar spectral sequence.
+moore spectral sequence is another name for the bar spectral sequence.
+quillen spectral sequence for calculating the homotopy of a simplicial group.
+rothenberg–steenrod spectral sequence is another name for the bar spectral sequence.
+van kampen spectral sequence for calculating the homotopy of a wedge of spaces.
+
+
+=== algebra ===
+čech-to-derived functor spectral sequence from čech cohomology to sheaf cohomology.
+change of rings spectral sequences for calculating tor and ext groups of modules.
+connes spectral sequences converging to the cyclic homology of an algebra.
+gersten–witt spectral sequence
+green's spectral sequence for koszul cohomology
+grothendieck spectral sequence for composing derived functors
+hyperhomology spectral sequence for calculating hyperhomology.
+künneth spectral sequence for calculating the homology of a tensor product of differential algebras.
+leray spectral sequence converging to the cohomology of a sheaf.
+local-to-global ext spectral sequence
+lyndon–hochschild–serre spectral sequence in group (co)homology
+may spectral sequence for calculating the tor or ext groups of an algebra.
+spectral sequence of a differential filtered group: described in this article.
+spectral sequence of a double complex: described in this article.
+spectral sequence of an exact couple: described in this article.
+universal coefficient spectral sequence
+van est spectral sequence converging to relative lie algebra cohomology.
+
+
+=== complex and algebraic geometry ===
+arnold's spectral sequence in singularity theory.
+bloch–lichtenbaum spectral sequence converging to the algebraic k-theory of a field.
+frölicher spectral sequence starting from the dolbeault cohomology and converging to the algebraic de rham cohomology of a variety.
+hodge–de rham spectral sequence converging to the algebraic de rham cohomology of a variety.
+motivic-to-k-theory spectral sequence
+
+
+== notes ==
+
+
+== references ==
+
+
+=== introductory ===
+fomenko, anatoly; fuchs, dmitry, homotopical topology
+hatcher, allen. "spectral sequences in algebraic topology" (pdf).
+
+
+=== references ===
+leray, jean (1946a), "l'anneau d'homologie d'une représentation", les comptes rendus de l'académie des sciences, 222: 1366–1368
+leray, jean (1946b), "structure de l'anneau d'homologie d'une représentation", les comptes rendus de l'académie des sciences, 222: 1419–1422
+koszul, jean-louis (1947). "sur les opérateurs de dérivation dans un anneau". comptes rendus de l'académie des sciences. 225: 217–219.
+massey, william s. (1952). "exact couples in algebraic topology. i, ii". annals of mathematics. second series. annals of mathematics. 56 (2): 363–396. doi:10.2307/1969805. jstor 1969805.
+massey, william s. (1953). "exact couples in algebraic topology. iii, iv, v". annals of mathematics. second series. annals of mathematics. 57 (2): 248–286. doi:10.2307/1969858. jstor 1969858.
+may, j. peter. "a primer on spectral sequences" (pdf). archived (pdf) from the original on 21 jun 2020. retrieved 21 jun 2020.
+mccleary, john (2001). a user's guide to spectral sequences. cambridge studies in advanced mathematics. vol. 58 (2nd ed.). cambridge university press. doi:10.2277/0521567599. isbn 978-0-521-56759-6. mr 1793722.
+mosher, robert; tangora, martin (1968), cohomology operations and applications in homotopy theory, harper and row, isbn 978-0-06-044627-7
+weibel, charles a. (1994). an introduction to homological algebra. cambridge studies in advanced mathematics. vol. 38. cambridge university press. isbn 978-0-521-55987-4. mr 1269324. oclc 36131259.
+
+
+== further reading ==
+chow, timothy y. (2006). "you could have invented spectral sequences" (pdf). notices of the american mathematical society. 53: 15–19.
+
+
+== external links ==
+"what is so "spectral" about spectral sequences?". mathoverflow.
+"spectralsequences — a package for working with filtered complexes and spectral sequences". macaulay2.

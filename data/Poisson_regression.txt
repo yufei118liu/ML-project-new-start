@@ -1,0 +1,1037 @@
+in statistics, poisson regression is a generalized linear model form of regression analysis used to model count data and contingency tables. poisson regression assumes the response variable y has a poisson distribution, and assumes the logarithm of its expected value can be modeled by a linear combination of unknown parameters. a poisson regression model is sometimes known as a log-linear model, especially when used to model contingency tables.
+negative binomial regression is a popular generalization of poisson regression because it loosens the highly restrictive assumption that the variance is equal to the mean made by the poisson model. the traditional negative binomial regression model is based on the poisson-gamma mixture distribution. this model is popular because it models the poisson heterogeneity with a gamma distribution.
+poisson regression models are generalized linear models with the logarithm as the (canonical) link function, and the poisson distribution function as the assumed probability distribution of the response.
+
+
+== regression models ==
+if 
+  
+    
+      
+        
+          x
+        
+        ∈
+        
+          
+            r
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \mathbf {x} \in \mathbb {r} ^{n}}
+   is a vector of independent variables, then the model takes the form
+
+  
+    
+      
+        log
+        ⁡
+        (
+        e
+        ⁡
+        (
+        y
+        ∣
+        
+          x
+        
+        )
+        )
+        =
+        α
+        +
+        
+          
+            β
+          
+          ′
+        
+        
+          x
+        
+        ,
+      
+    
+    {\displaystyle \log(\operatorname {e} (y\mid \mathbf {x} ))=\alpha +\mathbf {\beta } '\mathbf {x} ,}
+  where 
+  
+    
+      
+        α
+        ∈
+        
+          r
+        
+      
+    
+    {\displaystyle \alpha \in \mathbb {r} }
+   and 
+  
+    
+      
+        
+          β
+        
+        ∈
+        
+          
+            r
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \mathbf {\beta } \in \mathbb {r} ^{n}}
+  . sometimes this is written more compactly as
+
+  
+    
+      
+        log
+        ⁡
+        (
+        e
+        ⁡
+        (
+        y
+        ∣
+        
+          x
+        
+        )
+        )
+        =
+        
+          
+            θ
+          
+          ′
+        
+        
+          x
+        
+        ,
+        
+      
+    
+    {\displaystyle \log(\operatorname {e} (y\mid \mathbf {x} ))={\boldsymbol {\theta }}'\mathbf {x} ,\,}
+  where x is now an (n + 1)-dimensional vector consisting of n independent variables concatenated to the number one. here θ is simply α concatenated to β.
+thus, when given a poisson regression model θ and an input vector x, the predicted mean of the associated poisson distribution is given by
+
+  
+    
+      
+        e
+        ⁡
+        (
+        y
+        ∣
+        
+          x
+        
+        )
+        =
+        
+          e
+          
+            
+              
+                θ
+              
+              ′
+            
+            
+              x
+            
+          
+        
+        .
+        
+      
+    
+    {\displaystyle \operatorname {e} (y\mid \mathbf {x} )=e^{{\boldsymbol {\theta }}'\mathbf {x} }.\,}
+  if yi are independent observations with corresponding values xi of the predictor variables, then θ can be estimated by maximum likelihood.  the maximum-likelihood estimates lack a closed-form expression and must be found by numerical methods.  the probability surface for maximum-likelihood poisson regression is always concave, making newton–raphson or other gradient-based methods appropriate estimation techniques.
+
+
+== maximum likelihood-based parameter estimation ==
+given a set of parameters θ and an input vector x, the mean of the predicted poisson distribution, as stated above, is given by
+
+  
+    
+      
+        λ
+        :=
+        e
+        ⁡
+        (
+        y
+        ∣
+        x
+        )
+        =
+        
+          e
+          
+            
+              θ
+              ′
+            
+            x
+          
+        
+        ,
+        
+      
+    
+    {\displaystyle \lambda :=\operatorname {e} (y\mid x)=e^{\theta 'x},\,}
+  and thus, the poisson distribution's probability mass function is given by
+
+  
+    
+      
+        p
+        (
+        y
+        ∣
+        x
+        ;
+        θ
+        )
+        =
+        
+          
+            
+              λ
+              
+                y
+              
+            
+            
+              y
+              !
+            
+          
+        
+        
+          e
+          
+            −
+            λ
+          
+        
+        =
+        
+          
+            
+              
+                e
+                
+                  y
+                  
+                    θ
+                    ′
+                  
+                  x
+                
+              
+              
+                e
+                
+                  −
+                  
+                    e
+                    
+                      
+                        θ
+                        ′
+                      
+                      x
+                    
+                  
+                
+              
+            
+            
+              y
+              !
+            
+          
+        
+      
+    
+    {\displaystyle p(y\mid x;\theta )={\frac {\lambda ^{y}}{y!}}e^{-\lambda }={\frac {e^{y\theta 'x}e^{-e^{\theta 'x}}}{y!}}}
+  now suppose we are given a data set consisting of m vectors 
+  
+    
+      
+        
+          x
+          
+            i
+          
+        
+        ∈
+        
+          
+            r
+          
+          
+            n
+            +
+            1
+          
+        
+        ,
+        
+        i
+        =
+        1
+        ,
+        …
+        ,
+        m
+      
+    
+    {\displaystyle x_{i}\in \mathbb {r} ^{n+1},\,i=1,\ldots ,m}
+  , along with a set of m values 
+  
+    
+      
+        
+          y
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          y
+          
+            m
+          
+        
+        ∈
+        
+          n
+        
+      
+    
+    {\displaystyle y_{1},\ldots ,y_{m}\in \mathbb {n} }
+  . then, for a given set of parameters θ, the probability of attaining this particular set of data is given by
+
+  
+    
+      
+        p
+        (
+        
+          y
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          y
+          
+            m
+          
+        
+        ∣
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            m
+          
+        
+        ;
+        θ
+        )
+        =
+        
+          ∏
+          
+            i
+            =
+            1
+          
+          
+            m
+          
+        
+        
+          
+            
+              
+                e
+                
+                  
+                    y
+                    
+                      i
+                    
+                  
+                  
+                    θ
+                    ′
+                  
+                  
+                    x
+                    
+                      i
+                    
+                  
+                
+              
+              
+                e
+                
+                  −
+                  
+                    e
+                    
+                      
+                        θ
+                        ′
+                      
+                      
+                        x
+                        
+                          i
+                        
+                      
+                    
+                  
+                
+              
+            
+            
+              
+                y
+                
+                  i
+                
+              
+              !
+            
+          
+        
+        .
+      
+    
+    {\displaystyle p(y_{1},\ldots ,y_{m}\mid x_{1},\ldots ,x_{m};\theta )=\prod _{i=1}^{m}{\frac {e^{y_{i}\theta 'x_{i}}e^{-e^{\theta 'x_{i}}}}{y_{i}!}}.}
+  by the method of maximum likelihood, we wish to find the set of parameters θ that makes this probability as large as possible. to do this, the equation is first rewritten as a likelihood function in terms of θ:
+
+  
+    
+      
+        l
+        (
+        θ
+        ∣
+        x
+        ,
+        y
+        )
+        =
+        
+          ∏
+          
+            i
+            =
+            1
+          
+          
+            m
+          
+        
+        
+          
+            
+              
+                e
+                
+                  
+                    y
+                    
+                      i
+                    
+                  
+                  
+                    θ
+                    ′
+                  
+                  
+                    x
+                    
+                      i
+                    
+                  
+                
+              
+              
+                e
+                
+                  −
+                  
+                    e
+                    
+                      
+                        θ
+                        ′
+                      
+                      
+                        x
+                        
+                          i
+                        
+                      
+                    
+                  
+                
+              
+            
+            
+              
+                y
+                
+                  i
+                
+              
+              !
+            
+          
+        
+        .
+      
+    
+    {\displaystyle l(\theta \mid x,y)=\prod _{i=1}^{m}{\frac {e^{y_{i}\theta 'x_{i}}e^{-e^{\theta 'x_{i}}}}{y_{i}!}}.}
+  note that the expression on the right hand side has not actually changed. a formula in this form is typically difficult to work with; instead, one uses the log-likelihood:
+
+  
+    
+      
+        ℓ
+        (
+        θ
+        ∣
+        x
+        ,
+        y
+        )
+        =
+        log
+        ⁡
+        l
+        (
+        θ
+        ∣
+        x
+        ,
+        y
+        )
+        =
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            m
+          
+        
+        
+          (
+          
+            
+              y
+              
+                i
+              
+            
+            
+              θ
+              ′
+            
+            
+              x
+              
+                i
+              
+            
+            −
+            
+              e
+              
+                
+                  θ
+                  ′
+                
+                
+                  x
+                  
+                    i
+                  
+                
+              
+            
+            −
+            log
+            ⁡
+            (
+            
+              y
+              
+                i
+              
+            
+            !
+            )
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle \ell (\theta \mid x,y)=\log l(\theta \mid x,y)=\sum _{i=1}^{m}\left(y_{i}\theta 'x_{i}-e^{\theta 'x_{i}}-\log(y_{i}!)\right).}
+  notice that the parameters θ only appear in the first two terms of each term in the summation. therefore, given that we are only interested in finding the best value for θ we may drop the yi! and simply write
+
+  
+    
+      
+        ℓ
+        (
+        θ
+        ∣
+        x
+        ,
+        y
+        )
+        =
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            m
+          
+        
+        
+          (
+          
+            
+              y
+              
+                i
+              
+            
+            
+              θ
+              ′
+            
+            
+              x
+              
+                i
+              
+            
+            −
+            
+              e
+              
+                
+                  θ
+                  ′
+                
+                
+                  x
+                  
+                    i
+                  
+                
+              
+            
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle \ell (\theta \mid x,y)=\sum _{i=1}^{m}\left(y_{i}\theta 'x_{i}-e^{\theta 'x_{i}}\right).}
+  to find a maximum, we need to solve an equation 
+  
+    
+      
+        
+          
+            
+              ∂
+              ℓ
+              (
+              θ
+              ∣
+              x
+              ,
+              y
+              )
+            
+            
+              ∂
+              θ
+            
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle {\frac {\partial \ell (\theta \mid x,y)}{\partial \theta }}=0}
+   which has no closed-form solution. however, the negative log-likelihood, 
+  
+    
+      
+        −
+        ℓ
+        (
+        θ
+        ∣
+        x
+        ,
+        y
+        )
+      
+    
+    {\displaystyle -\ell (\theta \mid x,y)}
+  , is a convex function, and so standard convex optimization techniques such as gradient descent can be applied to find the optimal value of θ.
+
+
+== poisson regression in practice ==
+poisson regression may be appropriate when the dependent variable is a count, for instance of events such as the arrival of a telephone call at a call centre. the events must be independent in the sense that the arrival of one call will not make another more or less likely, but the probability per unit time of events is understood to be related to covariates such as time of day.
+
+
+=== "exposure" and offset ===
+poisson regression may also be appropriate for rate data, where the rate is a count of events divided by some measure of that unit's exposure (a particular unit of observation). for example, biologists may count the number of tree species in a forest:  events would be tree observations, exposure would be unit area, and rate would be the number of species per unit area. demographers may model death rates in geographic areas as the count of deaths divided by person−years. more generally, event rates can be calculated as events per unit time, which allows the observation window to vary for each unit. in these examples, exposure is respectively unit area, person−years and unit time. in poisson regression this is handled as an offset. if the rate is count/exposure, multiplying both sides of the equation by exposure moves it to the right side of the equation.  when both sides of the equation are then logged, the final model contains log(exposure) as a term that is added to the regression coefficients. this logged variable, log(exposure), is called the offset variable and enters on the right-hand side of the equation with a parameter estimate (for log(exposure)) constrained to 1. 
+
+  
+    
+      
+        log
+        ⁡
+        (
+        e
+        ⁡
+        (
+        y
+        ∣
+        x
+        )
+        )
+        =
+        log
+        ⁡
+        (
+        
+          exposure
+        
+        )
+        +
+        
+          θ
+          ′
+        
+        x
+      
+    
+    {\displaystyle \log(\operatorname {e} (y\mid x))=\log({\text{exposure}})+\theta 'x}
+  which implies
+
+  
+    
+      
+        log
+        ⁡
+        (
+        e
+        ⁡
+        (
+        y
+        ∣
+        x
+        )
+        )
+        −
+        log
+        ⁡
+        (
+        
+          exposure
+        
+        )
+        =
+        log
+        ⁡
+        
+          (
+          
+            
+              
+                e
+                ⁡
+                (
+                y
+                ∣
+                x
+                )
+              
+              exposure
+            
+          
+          )
+        
+        =
+        
+          θ
+          ′
+        
+        x
+      
+    
+    {\displaystyle \log(\operatorname {e} (y\mid x))-\log({\text{exposure}})=\log \left({\frac {\operatorname {e} (y\mid x)}{\text{exposure}}}\right)=\theta 'x}
+  offset in the case of a glm in r can be achieved using the offset() function:
+
+
+=== overdispersion and zero inflation ===
+a characteristic of the poisson distribution is that its mean is equal to its variance. in certain circumstances, it will be found that the observed variance is greater than the mean;  this is known as overdispersion and indicates that the model is not appropriate. a common reason is the omission of relevant explanatory variables, or dependent observations. under some circumstances, the problem of overdispersion can be solved by using quasi-likelihood estimation or a negative binomial distribution instead.ver hoef and boveng described the difference between quasi-poisson (also called overdispersion with quasi-likelihood) and negative binomial (equivalent to gamma-poisson) as follows:  if e(y) = μ, the quasi-poisson model assumes var(y) = θμ while the gamma-poisson assumes var(y) = μ(1 + κμ), where θ is the quasi-poisson overdispersion parameter, and κ is the shape parameter of the negative binomial distribution.  for both models, parameters are estimated using iteratively reweighted least squares.  for quasi-poisson, the weights are μ/θ.  for negative binomial, the weights are μ/(1 + κμ).  with large μ and substantial extra-poisson variation, the negative binomial weights are capped at 1/κ.  ver hoef and boveng discussed an example where they selected between the two by plotting mean squared residuals vs. the mean.another common problem with poisson regression is excess zeros: if there are two processes at work, one determining whether there are zero events or any events, and a poisson process determining how many events there are, there will be more zeros than a poisson regression would predict. an example would be the distribution of cigarettes smoked in an hour by members of a group where some individuals are non-smokers.
+other generalized linear models such as the negative binomial model or zero-inflated model may function better in these cases.
+on the contrary, underdispersion may pose an issue for parameter estimation.
+
+
+=== use in survival analysis ===
+poisson regression creates proportional hazards models, one class of survival analysis: see proportional hazards models for descriptions of cox models.
+
+
+== extensions ==
+
+
+=== regularized poisson regression ===
+when estimating the parameters for poisson regression, one typically tries to find values for θ that maximize the likelihood of an expression of the form
+
+  
+    
+      
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            m
+          
+        
+        log
+        ⁡
+        (
+        p
+        (
+        
+          y
+          
+            i
+          
+        
+        ;
+        
+          e
+          
+            
+              θ
+              ′
+            
+            
+              x
+              
+                i
+              
+            
+          
+        
+        )
+        )
+        ,
+      
+    
+    {\displaystyle \sum _{i=1}^{m}\log(p(y_{i};e^{\theta 'x_{i}})),}
+  where m is the number of examples in the data set, and 
+  
+    
+      
+        p
+        (
+        
+          y
+          
+            i
+          
+        
+        ;
+        
+          e
+          
+            
+              θ
+              ′
+            
+            
+              x
+              
+                i
+              
+            
+          
+        
+        )
+      
+    
+    {\displaystyle p(y_{i};e^{\theta 'x_{i}})}
+   is the probability mass function of the poisson distribution with the mean set to 
+  
+    
+      
+        
+          e
+          
+            
+              θ
+              ′
+            
+            
+              x
+              
+                i
+              
+            
+          
+        
+      
+    
+    {\displaystyle e^{\theta 'x_{i}}}
+  . regularization can be added to this optimization problem by instead maximizing
+
+  
+    
+      
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            m
+          
+        
+        log
+        ⁡
+        (
+        p
+        (
+        
+          y
+          
+            i
+          
+        
+        ;
+        
+          e
+          
+            
+              θ
+              ′
+            
+            
+              x
+              
+                i
+              
+            
+          
+        
+        )
+        )
+        −
+        λ
+        
+          
+            ‖
+            θ
+            ‖
+          
+          
+            2
+          
+          
+            2
+          
+        
+        ,
+      
+    
+    {\displaystyle \sum _{i=1}^{m}\log(p(y_{i};e^{\theta 'x_{i}}))-\lambda \left\|\theta \right\|_{2}^{2},}
+  for some positive constant 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+  . this technique, similar to ridge regression, can reduce overfitting.
+
+
+== see also ==
+zero-inflated model
+poisson distribution
+fixed-effect poisson model
+partial likelihood methods for panel data § pooled qmle for poisson models
+control function (econometrics) § endogeneity in poisson regression
+
+
+== references ==
+
+
+== further reading ==
+cameron, a. c.; trivedi, p. k. (1998). regression analysis of count data. cambridge university press. isbn 978-0-521-63201-0.
+christensen, ronald (1997). log-linear models and logistic regression. springer texts in statistics (second ed.). new york: springer-verlag. isbn 978-0-387-98247-2. mr 1633357.
+gouriéroux, christian (2000). "the econometrics of discrete positive variables: the poisson model". econometrics of qualitative dependent variables. new york: cambridge university press. pp. 270–83. isbn 978-0-521-58985-7.
+greene, william h. (2008). "models for event counts and duration". econometric analysis (8th ed.). upper saddle river: prentice hall. pp. 906–944. isbn 978-0-13-600383-0.
+hilbe, j. m. (2007). negative binomial regression. cambridge university press. isbn 978-0-521-85772-7.
+jones, andrew m.;  et al. (2013). "models for count data". applied health economics. london: routledge. pp. 295–341. isbn 978-0-415-67682-3.
+myers, raymond h.;  et al. (2010). "logistic and poisson regression models". generalized linear models with applications in engineering and the sciences (second ed.). new jersey: wiley. pp. 176–183. isbn 978-0-470-45463-3.

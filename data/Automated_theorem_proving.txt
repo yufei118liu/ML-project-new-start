@@ -1,0 +1,117 @@
+automated theorem proving (also known as atp or automated deduction) is a subfield of automated reasoning and mathematical logic dealing with proving mathematical theorems by computer programs.  automated reasoning over mathematical proof was a major impetus for the development of computer science.
+
+
+== logical foundations ==
+while the roots of formalised logic go back to aristotle, the end of the 19th and early 20th centuries saw the development of modern logic and formalised mathematics. frege's begriffsschrift (1879) introduced both a complete propositional calculus and what is essentially modern predicate logic.  his foundations of arithmetic, published 1884, expressed (parts of) mathematics in formal logic. this approach was continued by russell and whitehead in their influential principia mathematica, first published 1910–1913, and with a revised second edition in 1927. russell and whitehead thought they could derive all mathematical truth using axioms and inference rules of formal logic, in principle opening up the process to automatisation. in 1920, thoralf skolem simplified a previous result by leopold löwenheim, leading to the löwenheim–skolem theorem and, in 1930, to the notion of a herbrand universe and a herbrand interpretation that allowed (un)satisfiability of first-order formulas (and hence the validity of a theorem) to be reduced to (potentially infinitely many) propositional satisfiability problems.in 1929, mojżesz presburger showed that the theory of natural numbers with addition and equality (now called presburger arithmetic in his honor) is decidable and gave an algorithm that could determine if a given sentence in the language was true or false.
+however, shortly after this positive result, kurt gödel published on formally undecidable propositions of principia mathematica and related systems (1931), showing that in any sufficiently strong axiomatic system there are true statements which cannot be proved in the system. this topic was further developed in the 1930s by alonzo church and alan turing, who on the one hand gave two independent but equivalent definitions of computability, and on the other gave concrete examples for undecidable questions.
+
+
+== first implementations ==
+shortly after world war ii, the first general purpose computers became available. in 1954, martin davis programmed presburger's algorithm for a johnniac vacuum tube computer at the institute for advanced study in princeton, new jersey. according to davis, "its great triumph was to prove that the sum of two even numbers is even". more ambitious was the logic theory machine in 1956, a deduction system for the propositional logic of the principia mathematica, developed by allen newell, herbert a. simon and j. c. shaw. also running on a johnniac, the logic theory machine constructed proofs from a small set of propositional axioms and three deduction rules: modus ponens, (propositional) variable substitution, and the replacement of formulas by their definition. the system used heuristic guidance, and managed to prove 38 of the first 52 theorems of the principia.the "heuristic" approach of the logic theory machine tried to emulate human mathematicians, and could not guarantee that a proof could be found for every valid theorem even in principle.  in contrast, other, more systematic algorithms achieved, at least theoretically, completeness for first-order logic. initial approaches relied on the results of herbrand and skolem to convert a first-order formula into successively larger sets of propositional formulae by instantiating variables with terms from the herbrand universe. the propositional formulas could then be checked for unsatisfiability using a number of methods. gilmore's program used conversion to disjunctive normal form, a form in which the satisfiability of a formula is obvious.
+
+
+== decidability of the problem ==
+depending on the underlying logic, the problem of deciding the validity of a formula varies from trivial to impossible. for the frequent case of propositional logic, the problem is decidable but co-np-complete, and hence only exponential-time algorithms are believed to exist for general proof tasks. for a first order predicate calculus, gödel's completeness theorem states that the theorems (provable statements) are exactly the logically valid well-formed formulas, so identifying valid formulas is recursively enumerable: given unbounded resources, any valid formula can eventually be proven. however, invalid formulas (those that are not entailed by a given theory), cannot always be recognized.
+the above applies to first order theories, such as peano arithmetic. however, for a specific model that may be described by a first order theory, some statements may be true but undecidable in the theory used to describe the model. for example, by gödel's incompleteness theorem, we know that any theory whose proper axioms are true for the natural numbers cannot prove all first order statements true for the natural numbers, even if the list of proper axioms is allowed to be infinite enumerable. it follows that an automated theorem prover will fail to terminate while searching for a proof precisely when the statement being investigated is undecidable in the theory being used, even if it is true in the model of interest. despite this theoretical limit, in practice, theorem provers can solve many hard problems, even in models that are not fully described by any first order theory (such as the integers).
+
+
+== related problems ==
+a simpler, but related, problem is proof verification, where an existing proof for a theorem is certified valid. for this, it is generally required that each individual proof step can be verified by a primitive recursive function or program, and hence the problem is always decidable.
+since the proofs generated by automated theorem provers are typically very large, the problem of proof compression is crucial and various techniques aiming at making the prover's output smaller, and consequently more easily understandable and checkable, have been developed.
+proof assistants require a human user to give hints to the system. depending on the degree of automation, the prover can essentially be reduced to a proof checker, with the user providing the proof in a formal way, or significant proof tasks can be performed automatically. interactive provers are used for a variety of tasks, but even fully automatic systems have proved a number of interesting and hard theorems, including at least one that has eluded human mathematicians for a long time, namely the robbins conjecture. however, these successes are sporadic, and work on hard problems usually requires a proficient user.
+another distinction is sometimes drawn between theorem proving and other techniques, where a process is considered to be theorem proving if it consists of a traditional proof, starting with axioms and producing new inference steps using rules of inference.  other techniques would include model checking, which, in the simplest case, involves brute-force enumeration of many possible states (although the actual implementation of model checkers requires much cleverness, and does not simply reduce to brute force).
+there are hybrid theorem proving systems which use model checking as an inference rule. there are also programs which were written to prove a particular theorem, with a (usually informal) proof that if the program finishes with a certain result, then the theorem is true. a good example of this was the machine-aided proof of the four color theorem, which was very controversial as the first claimed mathematical proof which was essentially impossible to verify by humans due to the enormous size of the program's calculation (such proofs are called non-surveyable proofs).  another example of a program-assisted proof is the one that shows that the game of connect four can always be won by the first player.
+
+
+== industrial uses ==
+commercial use of automated theorem proving is mostly concentrated in integrated circuit design and verification.  since the pentium fdiv bug, the complicated floating point units of modern microprocessors have been designed with extra scrutiny. amd, intel and others use automated theorem proving to verify that division and other operations are correctly implemented in their processors.
+
+
+== first-order theorem proving ==
+in the late 1960s agencies funding research in automated deduction began to emphasize the need for practical applications. one of the first fruitful areas was that of program verification whereby first-order theorem provers were applied to the problem of verifying the correctness of computer programs in languages such as pascal, ada, etc. notable among early program verification systems was the stanford pascal verifier developed by david luckham at stanford university. this was based on the stanford resolution prover also developed at stanford using john alan robinson's resolution principle. this was the first automated deduction system to demonstrate an ability to solve mathematical problems that were announced in the notices of the american mathematical society before solutions were formally published.first-order theorem proving is one of the most mature subfields of automated theorem proving. the logic is expressive enough to allow the specification of arbitrary problems, often in a reasonably natural and intuitive way. on the other hand, it is still semi-decidable, and a number of sound and complete calculi have been developed, enabling fully automated systems. more expressive logics, such as higher-order logics, allow the convenient expression of a wider range of problems than first order logic, but theorem proving for these logics is less well developed.
+
+
+== benchmarks, competitions, and sources ==
+the quality of implemented systems has benefited from the existence of a large library of standard benchmark examples — the thousands of problems for theorem provers (tptp) problem library  — as well as from the cade atp system competition (casc), a yearly competition of first-order systems for many important classes of first-order problems.
+some important systems (all have won at least one casc competition division) are listed below.
+
+e is a high-performance prover for full first-order logic, but built on a purely equational calculus, originally developed in the automated reasoning group of technical university of munich under the direction of wolfgang bibel, and now at baden-württemberg cooperative state university in stuttgart.
+otter, developed at the argonne national laboratory, is based on first-order resolution and paramodulation. otter has since been replaced by prover9, which is paired with mace4.
+setheo is a high-performance system based on the goal-directed model elimination calculus, originally developed by a team under direction of wolfgang bibel. e and setheo have been combined (with other systems) in the composite theorem prover e-setheo.
+vampire was originally developed and implemented at manchester university by andrei voronkov and krystof hoder. it is now developed by a growing international team. it has won the fof division (among other divisions) at the cade atp system competition regularly since 2001.
+waldmeister is a specialized system for unit-equational first-order logic developed by arnim buch and thomas hillenbrand. it won the casc ueq division for fourteen consecutive years (1997–2010).
+spass is a first order logic theorem prover with equality. this is developed by the research group automation of logic, max planck institute for computer science.the theorem prover museum is an initiative to conserve the sources of theorem prover systems for future analysis, since they are important cultural/scientific artefacts. it has the sources of many of the systems mentioned above.
+
+
+== popular techniques ==
+first-order resolution with unification
+model elimination
+method of analytic tableaux
+superposition and term rewriting
+model checking
+mathematical induction
+binary decision diagrams
+dpll
+higher-order unification
+
+
+== software systems ==
+
+
+=== free software ===
+alt-ergo
+automath
+cvc
+e
+gkc
+gödel machine
+iprover
+isaplanner
+ked theorem prover
+leancop
+leo ii
+lcf
+logictools online theorem prover
+lotrec
+metaprl
+mizar
+nuprl
+paradox
+prover9
+pvs
+simplify
+spark (programming language)
+twelf
+z3 theorem prover
+
+
+=== proprietary software ===
+acumen rulemanager (commercial product)
+alligator (cc by-nc-sa 2.0 uk)
+carine
+kiv (freely available as a plugin for eclipse)
+prover plug-in (commercial proof engine product)
+proverbox
+wolfram mathematica
+researchcyc
+spear modular arithmetic theorem prover
+
+
+== see also ==
+
+
+== notes ==
+
+
+== references ==
+chin-liang chang; richard char-tung lee (1973). symbolic logic and mechanical theorem proving. academic press.
+loveland, donald w. (1978). automated theorem proving: a logical basis. fundamental studies in computer science volume 6. north-holland publishing.
+luckham, david (1990). programming with specifications: an introduction to anna, a language for specifying ada programs. springer-verlag texts and monographs in computer science, 421 pp. isbn 978-1461396871.gallier, jean h. (1986). logic for computer science: foundations of automatic theorem proving. harper & row publishers (available for free download).
+duffy, david a. (1991). principles of automated theorem proving. john wiley & sons.
+wos, larry; overbeek, ross; lusk, ewing; boyle, jim (1992). automated reasoning: introduction and applications (2nd ed.). mcgraw–hill.
+alan robinson; andrei voronkov, eds. (2001). handbook of automated reasoning volume i & ii. elsevier and mit press.
+fitting, melvin (1996). first-order logic and automated theorem proving (2nd ed.). springer.
+
+
+== external links ==
+a list of theorem proving tools

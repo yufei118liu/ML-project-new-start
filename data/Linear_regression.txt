@@ -1,0 +1,2280 @@
+in statistics, linear regression is a linear approach for modelling the relationship between a scalar response and one or more explanatory variables (also known as dependent and independent variables). the case of one explanatory variable is called simple linear regression; for more than one, the process is called multiple linear regression. this term is distinct from multivariate linear regression, where multiple correlated dependent variables are predicted, rather than a single scalar variable.in linear regression, the relationships are modeled using linear predictor functions whose unknown model parameters are estimated from the data. such models are called linear models. most commonly, the conditional mean of the response given the values of the explanatory variables (or predictors) is assumed to be an affine function of those values; less commonly, the conditional median or some other quantile is used. like all forms of regression analysis, linear regression focuses on the conditional probability distribution of the response given the values of the predictors, rather than on the joint probability distribution of all of these variables, which is the domain of multivariate analysis.
+linear regression was the first type of regression analysis to be studied rigorously, and to be used extensively in practical applications. this is because models which depend linearly on their unknown parameters are easier to fit than models which are non-linearly related to their parameters and because the statistical properties of the resulting estimators are easier to determine.
+linear regression has many practical uses. most applications fall into one of the following two broad categories:
+
+if the goal is prediction, forecasting, or error reduction, linear regression can be used to fit a predictive model to an observed data set of values of the response and explanatory variables. after developing such a model, if additional values of the explanatory variables are collected without an accompanying response value, the fitted model can be used to make a prediction of the response.
+if the goal is to explain variation in the response variable that can be attributed to variation in the explanatory variables, linear regression analysis can be applied to quantify the strength of the relationship between the response and the explanatory variables, and in particular to determine whether some explanatory variables may have no linear relationship with the response at all, or to identify which subsets of explanatory variables may contain redundant information about the response.linear regression models are often fitted using the least squares approach, but they may also be fitted in other ways, such as by minimizing the "lack of fit" in some other norm (as with least absolute deviations regression), or by minimizing a penalized version of the least squares cost function as in ridge regression (l2-norm penalty) and lasso (l1-norm penalty). conversely, the least squares approach can be used to fit models that are not linear models. thus, although the terms "least squares" and "linear model" are closely linked, they are not synonymous.
+
+
+== formulation ==
+
+given a data set 
+  
+    
+      
+        {
+        
+          y
+          
+            i
+          
+        
+        ,
+        
+        
+          x
+          
+            i
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            i
+            p
+          
+        
+        
+          }
+          
+            i
+            =
+            1
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \{y_{i},\,x_{i1},\ldots ,x_{ip}\}_{i=1}^{n}}
+   of n statistical units, a linear regression model assumes that the relationship between the dependent variable y and the p-vector of regressors x is linear. this relationship is modeled through a disturbance term or error variable ε — an unobserved random variable that adds "noise" to the linear relationship between the dependent variable and regressors. thus the model takes the form
+
+  
+    
+      
+        
+          y
+          
+            i
+          
+        
+        =
+        
+          β
+          
+            0
+          
+        
+        +
+        
+          β
+          
+            1
+          
+        
+        
+          x
+          
+            i
+            1
+          
+        
+        +
+        ⋯
+        +
+        
+          β
+          
+            p
+          
+        
+        
+          x
+          
+            i
+            p
+          
+        
+        +
+        
+          ε
+          
+            i
+          
+        
+        =
+        
+          
+            x
+          
+          
+            i
+          
+          
+            
+              t
+            
+          
+        
+        
+          β
+        
+        +
+        
+          ε
+          
+            i
+          
+        
+        ,
+        
+        i
+        =
+        1
+        ,
+        …
+        ,
+        n
+        ,
+      
+    
+    {\displaystyle y_{i}=\beta _{0}+\beta _{1}x_{i1}+\cdots +\beta _{p}x_{ip}+\varepsilon _{i}=\mathbf {x} _{i}^{\mathsf {t}}{\boldsymbol {\beta }}+\varepsilon _{i},\qquad i=1,\ldots ,n,}
+  where t denotes the transpose, so that xitβ is the inner product between vectors xi and β.
+often these n equations are stacked together and written in matrix notation as
+
+  
+    
+      
+        
+          y
+        
+        =
+        x
+        
+          β
+        
+        +
+        
+          ε
+        
+        ,
+        
+      
+    
+    {\displaystyle \mathbf {y} =x{\boldsymbol {\beta }}+{\boldsymbol {\varepsilon }},\,}
+  where
+
+  
+    
+      
+        
+          y
+        
+        =
+        
+          
+            (
+            
+              
+                
+                  
+                    y
+                    
+                      1
+                    
+                  
+                
+              
+              
+                
+                  
+                    y
+                    
+                      2
+                    
+                  
+                
+              
+              
+                
+                  ⋮
+                
+              
+              
+                
+                  
+                    y
+                    
+                      n
+                    
+                  
+                
+              
+            
+            )
+          
+        
+        ,
+        
+      
+    
+    {\displaystyle \mathbf {y} ={\begin{pmatrix}y_{1}\\y_{2}\\\vdots \\y_{n}\end{pmatrix}},\quad }
+  
+  
+    
+      
+        x
+        =
+        
+          
+            (
+            
+              
+                
+                  
+                    
+                      x
+                    
+                    
+                      1
+                    
+                    
+                      
+                        t
+                      
+                    
+                  
+                
+              
+              
+                
+                  
+                    
+                      x
+                    
+                    
+                      2
+                    
+                    
+                      
+                        t
+                      
+                    
+                  
+                
+              
+              
+                
+                  ⋮
+                
+              
+              
+                
+                  
+                    
+                      x
+                    
+                    
+                      n
+                    
+                    
+                      
+                        t
+                      
+                    
+                  
+                
+              
+            
+            )
+          
+        
+        =
+        
+          
+            (
+            
+              
+                
+                  1
+                
+                
+                  
+                    x
+                    
+                      11
+                    
+                  
+                
+                
+                  ⋯
+                
+                
+                  
+                    x
+                    
+                      1
+                      p
+                    
+                  
+                
+              
+              
+                
+                  1
+                
+                
+                  
+                    x
+                    
+                      21
+                    
+                  
+                
+                
+                  ⋯
+                
+                
+                  
+                    x
+                    
+                      2
+                      p
+                    
+                  
+                
+              
+              
+                
+                  ⋮
+                
+                
+                  ⋮
+                
+                
+                  ⋱
+                
+                
+                  ⋮
+                
+              
+              
+                
+                  1
+                
+                
+                  
+                    x
+                    
+                      n
+                      1
+                    
+                  
+                
+                
+                  ⋯
+                
+                
+                  
+                    x
+                    
+                      n
+                      p
+                    
+                  
+                
+              
+            
+            )
+          
+        
+        ,
+      
+    
+    {\displaystyle x={\begin{pmatrix}\mathbf {x} _{1}^{\mathsf {t}}\\\mathbf {x} _{2}^{\mathsf {t}}\\\vdots \\\mathbf {x} _{n}^{\mathsf {t}}\end{pmatrix}}={\begin{pmatrix}1&x_{11}&\cdots &x_{1p}\\1&x_{21}&\cdots &x_{2p}\\\vdots &\vdots &\ddots &\vdots \\1&x_{n1}&\cdots &x_{np}\end{pmatrix}},}
+  
+  
+    
+      
+        
+          β
+        
+        =
+        
+          
+            (
+            
+              
+                
+                  
+                    β
+                    
+                      0
+                    
+                  
+                
+              
+              
+                
+                  
+                    β
+                    
+                      1
+                    
+                  
+                
+              
+              
+                
+                  
+                    β
+                    
+                      2
+                    
+                  
+                
+              
+              
+                
+                  ⋮
+                
+              
+              
+                
+                  
+                    β
+                    
+                      p
+                    
+                  
+                
+              
+            
+            )
+          
+        
+        ,
+        
+        
+          ε
+        
+        =
+        
+          
+            (
+            
+              
+                
+                  
+                    ε
+                    
+                      1
+                    
+                  
+                
+              
+              
+                
+                  
+                    ε
+                    
+                      2
+                    
+                  
+                
+              
+              
+                
+                  ⋮
+                
+              
+              
+                
+                  
+                    ε
+                    
+                      n
+                    
+                  
+                
+              
+            
+            )
+          
+        
+        .
+      
+    
+    {\displaystyle {\boldsymbol {\beta }}={\begin{pmatrix}\beta _{0}\\\beta _{1}\\\beta _{2}\\\vdots \\\beta _{p}\end{pmatrix}},\quad {\boldsymbol {\varepsilon }}={\begin{pmatrix}\varepsilon _{1}\\\varepsilon _{2}\\\vdots \\\varepsilon _{n}\end{pmatrix}}.}
+  
+
+
+=== notation and terminology ===
+
+  
+    
+      
+        
+          y
+        
+      
+    
+    {\displaystyle \mathbf {y} }
+   is a vector of observed values 
+  
+    
+      
+        
+          y
+          
+            i
+          
+        
+         
+        (
+        i
+        =
+        1
+        ,
+        …
+        ,
+        n
+        )
+      
+    
+    {\displaystyle y_{i}\ (i=1,\ldots ,n)}
+   of the variable called the regressand, endogenous variable, response variable, measured variable, criterion variable, or dependent variable. this variable is also sometimes known as the predicted variable, but this should not be confused with predicted values, which are denoted 
+  
+    
+      
+        
+          
+            
+              y
+              ^
+            
+          
+        
+      
+    
+    {\displaystyle {\hat {y}}}
+  . the decision as to which variable in a data set is modeled as the dependent variable and which are modeled as the independent variables may be based on a presumption that the value of one of the variables is caused by, or directly influenced by the other variables. alternatively, there may be an operational reason to model one of the variables in terms of the others, in which case there need be no presumption of causality.
+
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   may be seen as a matrix of row-vectors 
+  
+    
+      
+        
+          
+            x
+          
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \mathbf {x} _{i}}
+   or of n-dimensional column-vectors 
+  
+    
+      
+        
+          x
+          
+            j
+          
+        
+      
+    
+    {\displaystyle x_{j}}
+  , which are known as regressors, exogenous variables, explanatory variables, covariates, input variables, predictor variables, or independent variables (not to be confused with the concept of independent random variables). the matrix 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   is sometimes called the design matrix.
+usually a constant is included as one of the regressors. in particular, 
+  
+    
+      
+        
+          
+            x
+          
+          
+            i
+            0
+          
+        
+        =
+        1
+      
+    
+    {\displaystyle \mathbf {x} _{i0}=1}
+   for 
+  
+    
+      
+        i
+        =
+        1
+        ,
+        …
+        ,
+        n
+      
+    
+    {\displaystyle i=1,\ldots ,n}
+  . the corresponding element of β is called the intercept. many statistical inference procedures for linear models require an intercept to be present, so it is often included even if theoretical considerations suggest that its value should be zero.
+sometimes one of the regressors can be a non-linear function of another regressor or of the data, as in polynomial regression and segmented regression. the model remains linear as long as it is linear in the parameter vector β.
+the values xij may be viewed as either observed values of random variables xj or as fixed values chosen prior to observing the dependent variable. both interpretations may be appropriate in different cases, and they generally lead to the same estimation procedures; however different approaches to asymptotic analysis are used in these two situations.
+
+  
+    
+      
+        
+          β
+        
+      
+    
+    {\displaystyle {\boldsymbol {\beta }}}
+   is a 
+  
+    
+      
+        (
+        p
+        +
+        1
+        )
+      
+    
+    {\displaystyle (p+1)}
+  -dimensional parameter vector, where 
+  
+    
+      
+        
+          β
+          
+            0
+          
+        
+      
+    
+    {\displaystyle \beta _{0}}
+   is the intercept term (if one is included in the model—otherwise 
+  
+    
+      
+        
+          β
+        
+      
+    
+    {\displaystyle {\boldsymbol {\beta }}}
+   is p-dimensional). its elements are known as effects or regression coefficients (although the latter term is sometimes reserved for the estimated effects). in simple linear regression, p=1, and the coefficient is known as regression slope. statistical estimation and inference in linear regression focuses on β. the elements of this parameter vector are interpreted as the partial derivatives of the dependent variable with respect to the various independent variables.
+
+  
+    
+      
+        
+          ε
+        
+      
+    
+    {\displaystyle {\boldsymbol {\varepsilon }}}
+   is a vector of values 
+  
+    
+      
+        
+          ε
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \varepsilon _{i}}
+  . this part of the model is called the error term, disturbance term, or sometimes noise (in contrast with the "signal" provided by the rest of the model). this variable captures all other factors which influence the dependent variable y other than the regressors x. the relationship between the error term and the regressors, for example their correlation, is a crucial consideration in formulating a linear regression model, as it will determine the appropriate estimation method.fitting a linear model to a given data set usually requires estimating the regression coefficients  
+  
+    
+      
+        
+          β
+        
+      
+    
+    {\displaystyle {\boldsymbol {\beta }}}
+   such that the error term 
+  
+    
+      
+        
+          ε
+        
+        =
+        
+          y
+        
+        −
+        x
+        
+          β
+        
+      
+    
+    {\displaystyle {\boldsymbol {\varepsilon }}=\mathbf {y} -x{\boldsymbol {\beta }}}
+   is minimized. for example, it is common to use the sum of squared errors 
+  
+    
+      
+        
+          |
+        
+        
+          |
+        
+        
+          ε
+        
+        
+          |
+        
+        
+          
+            |
+          
+          
+            2
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle ||{\boldsymbol {\varepsilon }}||_{2}^{2}}
+   as a measure of 
+  
+    
+      
+        
+          ε
+        
+      
+    
+    {\displaystyle {\boldsymbol {\varepsilon }}}
+   for minimization.
+
+
+=== example ===
+consider a situation where a small ball is being tossed up in the air and then we measure its heights of ascent hi at various moments in time ti. physics tells us that, ignoring the drag, the relationship can be modeled as
+
+  
+    
+      
+        
+          h
+          
+            i
+          
+        
+        =
+        
+          β
+          
+            1
+          
+        
+        
+          t
+          
+            i
+          
+        
+        +
+        
+          β
+          
+            2
+          
+        
+        
+          t
+          
+            i
+          
+          
+            2
+          
+        
+        +
+        
+          ε
+          
+            i
+          
+        
+        ,
+      
+    
+    {\displaystyle h_{i}=\beta _{1}t_{i}+\beta _{2}t_{i}^{2}+\varepsilon _{i},}
+  where β1 determines the initial velocity of the ball, β2 is proportional to the standard gravity, and εi is due to measurement errors. linear regression can be used to estimate the values of β1 and β2 from the measured data. this model is non-linear in the time variable, but it is linear in the parameters β1 and β2; if we take regressors xi = (xi1, xi2)  = (ti, ti2), the model takes on the standard form
+
+  
+    
+      
+        
+          h
+          
+            i
+          
+        
+        =
+        
+          
+            x
+          
+          
+            i
+          
+          
+            
+              t
+            
+          
+        
+        
+          β
+        
+        +
+        
+          ε
+          
+            i
+          
+        
+        .
+      
+    
+    {\displaystyle h_{i}=\mathbf {x} _{i}^{\mathsf {t}}{\boldsymbol {\beta }}+\varepsilon _{i}.}
+  
+
+
+=== assumptions ===
+
+standard linear regression models with standard estimation techniques make a number of assumptions about the predictor variables, the response variables and their relationship.  numerous extensions have been developed that allow each of these assumptions to be relaxed (i.e. reduced to a weaker form), and in some cases eliminated entirely. generally these extensions make the estimation procedure more complex and time-consuming, and may also require more data in order to produce an equally precise model.
+
+the following are the major assumptions made by standard linear regression models with standard estimation techniques (e.g. ordinary least squares):
+
+weak exogeneity.  this essentially means that the predictor variables x can be treated as fixed values, rather than random variables.  this means, for example, that the predictor variables are assumed to be error-free—that is, not contaminated with measurement errors. although this assumption is not realistic in many settings, dropping it leads to significantly more difficult errors-in-variables models.
+linearity.  this means that the mean of the response variable is a linear combination of the parameters (regression coefficients) and the predictor variables.  note that this assumption is much less restrictive than it may at first seem.  because the predictor variables are treated as fixed values (see above), linearity is really only a restriction on the parameters.  the predictor variables themselves can be arbitrarily transformed, and in fact multiple copies of the same underlying predictor variable can be added, each one transformed differently.  this technique is used, for example, in polynomial regression, which uses linear regression to fit the response variable as an arbitrary polynomial function (up to a given degree) of a predictor variable. with this much flexibility, models such as polynomial regression often have "too much power", in that they tend to overfit the data.  as a result, some kind of regularization must typically be used to prevent unreasonable solutions coming out of the estimation process.  common examples are ridge regression and lasso regression.  bayesian linear regression can also be used, which by its nature is more or less immune to the problem of overfitting. (in fact, ridge regression and lasso regression can both be viewed as    special cases of bayesian linear regression, with particular types of prior distributions placed on the regression coefficients.)
+constant variance (a.k.a. homoscedasticity). this means that the variance of the errors does not depend on the values of the predictor variables. thus the variability of the responses for given fixed values of the predictors is the same regardless of how large or small the responses are. this is often not the case, as a variable whose mean is large will typically have a greater variance than one whose mean is small. for example, a person whose income is predicted to be $100,000 may easily have an actual income of $80,000 or $120,000—i.e., a standard deviation of around $20,000—while another person with a predicted income of $10,000 is unlikely to have the same $20,000 standard deviation, since that would imply their actual income could vary anywhere between −$10,000 and $30,000. (in fact, as this shows, in many cases—often the same cases where the assumption of normally distributed errors fails—the variance or standard deviation should be predicted to be proportional to the mean, rather than constant.) the absence of homoscedasticity is called heteroscedasticity. in order to check this assumption, a plot of residuals versus predicted values (or the values of each individual predictor) can be examined for a "fanning effect" (i.e., increasing or decreasing vertical spread as one moves left to right on the plot). a plot of the absolute or squared residuals versus the predicted values (or each predictor) can also be examined for a trend or curvature. formal tests can also be used; see heteroscedasticity. the presence of heteroscedasticity will result in an overall "average" estimate of variance being used instead of one that takes into account the true variance structure. this leads to less precise (but in the case of ordinary least squares, not biased) parameter estimates and biased standard errors, resulting in misleading tests and interval estimates. the mean squared error for the model will also be wrong. various estimation techniques including weighted least squares and the use of heteroscedasticity-consistent standard errors can handle heteroscedasticity in a quite general way. bayesian linear regression techniques can also be used when the variance is assumed to be a function of the mean. it is also possible in some cases to fix the problem by applying a transformation to the response variable (e.g., fitting the logarithm of the response variable using a linear regression model, which implies that the response variable itself has a log-normal distribution rather than a normal distribution).
+independence of errors.  this assumes that the errors of the response variables are uncorrelated with each other. (actual statistical independence is a stronger condition than mere lack of correlation and is often not needed, although it can be exploited if it is known to hold.) some methods such as generalized least squares are capable of handling correlated errors, although they typically require significantly more data unless some sort of regularization is used to bias the model towards assuming uncorrelated errors. bayesian linear regression is a general way of handling this issue.
+lack of perfect multicollinearity in the predictors. for standard least squares estimation methods, the design matrix x must have full column rank p; otherwise perfect multicollinearity exists in the predictor variables, meaning a linear relationship exists between two or more predictor variables. this can be caused by accidentally duplicating a variable in the data, using a linear transformation of a variable along with the original (e.g., the same temperature measurements expressed in fahrenheit and celsius), or including a linear combination of multiple variables in the model, such as their mean. it can also happen if there is too little data available compared to the number of parameters to be estimated (e.g., fewer data points than regression coefficients). near violations of this assumption, where predictors are highly but not perfectly correlated, can reduce the precision of parameter estimates (see variance inflation factor). in the case of perfect multicollinearity, the parameter vector β will be non-identifiable—it has no unique solution. in such a case, only some of the parameters can be identified (i.e., their values can only be estimated within some linear subspace of the full parameter space rp). see partial least squares regression. methods for fitting linear models with multicollinearity have been developed, some of which require additional assumptions such as "effect sparsity"—that a large fraction of the effects are exactly zero. note that the more computationally expensive iterated algorithms for parameter estimation, such as those used in generalized linear models, do not suffer from this problem.beyond these assumptions, several other statistical properties of the data strongly influence the performance of different estimation methods:
+
+the statistical relationship between the error terms and the regressors plays an important role in determining whether an estimation procedure has desirable sampling properties such as being unbiased and consistent.
+the arrangement, or probability distribution of the predictor variables x has a major influence on the precision of estimates of β. sampling and design of experiments are highly developed subfields of statistics that provide guidance for collecting data in such a way to achieve a precise estimate of β.
+
+
+=== interpretation ===
+
+a fitted linear regression model can be used to identify the relationship between a single predictor variable xj and the response variable y when all the other predictor variables in the model are "held fixed". specifically, the interpretation of βj is the expected change in y for a one-unit change in xj when the other covariates are held fixed—that is, the expected value of the partial derivative of y with respect to xj. this is sometimes called the unique effect of xj on y. in contrast, the marginal effect of xj on y can be assessed using a correlation coefficient or simple linear regression model relating only xj to y; this effect is the total derivative of y with respect to xj.
+care must be taken when interpreting regression results, as some of the regressors may not allow for marginal changes (such as dummy variables, or the intercept term), while others cannot be held fixed (recall the example from the introduction: it would be impossible to "hold ti fixed" and at the same time change the value of ti2).
+it is possible that the unique effect can be nearly zero even when the marginal effect is large. this may imply that some other covariate captures all the information in xj, so that once that variable is in the model, there is no contribution of xj to the variation in y. conversely, the unique effect of xj can be large while its marginal effect is nearly zero. this would happen if the other covariates explained a great deal of the variation of y, but they mainly explain variation in a way that is complementary to what is captured by xj. in this case, including the other variables in the model reduces the part of the variability of y that is unrelated to xj, thereby strengthening the apparent relationship with xj.
+the meaning of the expression "held fixed" may depend on how the values of the predictor variables arise. if the experimenter directly sets the values of the predictor variables according to a study design, the comparisons of interest may literally correspond to comparisons among units whose predictor variables have been "held fixed" by the experimenter. alternatively, the expression "held fixed" can refer to a selection that takes place in the context of data analysis. in this case, we "hold a variable fixed" by restricting our attention to the subsets of the data that happen to have a common value for the given predictor variable. this is the only interpretation of "held fixed" that can be used in an observational study.
+the notion of a "unique effect" is appealing when studying a complex system where multiple interrelated components influence the response variable. in some cases, it can literally be interpreted as the causal effect of an intervention that is linked to the value of a predictor variable. however, it has been argued that in many cases multiple regression analysis fails to clarify the relationships between the predictor variables and the response variable when the predictors are correlated with each other and are not assigned following a study design.
+
+
+== extensions ==
+numerous extensions of linear regression have been developed, which allow some or all of the assumptions underlying the basic model to be relaxed.
+
+
+=== simple and multiple linear regression ===
+
+the very simplest case of a single scalar predictor variable x and a single scalar response variable y is known as simple linear regression.  the extension to multiple and/or vector-valued predictor variables (denoted with a capital x) is known as multiple linear regression, also known as multivariable linear regression (not to be confused with multivariate linear regression ).
+multiple linear regression is a generalization of simple linear regression to the case of more than one independent variable, and a special case of general linear models, restricted to one dependent variable. the basic model for multiple linear regression is
+
+  
+    
+      
+        
+          y
+          
+            i
+          
+        
+        =
+        
+          β
+          
+            0
+          
+        
+        +
+        
+          β
+          
+            1
+          
+        
+        
+          x
+          
+            i
+            1
+          
+        
+        +
+        
+          β
+          
+            2
+          
+        
+        
+          x
+          
+            i
+            2
+          
+        
+        +
+        …
+        +
+        
+          β
+          
+            p
+          
+        
+        
+          x
+          
+            i
+            p
+          
+        
+        +
+        
+          ϵ
+          
+            i
+          
+        
+      
+    
+    {\displaystyle y_{i}=\beta _{0}+\beta _{1}x_{i1}+\beta _{2}x_{i2}+\ldots +\beta _{p}x_{ip}+\epsilon _{i}}
+  for each observation i = 1, ... , n.
+in the formula above we consider n observations of one dependent variable and p independent variables. thus, yi is the ith observation of the dependent variable, xij is ith observation of the jth independent variable, j = 1, 2, ..., p. the values βj represent parameters to be estimated, and εi is the ith independent identically distributed normal error.
+in the more general multivariate linear regression, there is one equation of the above form for each of m > 1 dependent variables that share the same set of explanatory variables and hence are estimated simultaneously with each other:
+
+  
+    
+      
+        
+          y
+          
+            i
+            j
+          
+        
+        =
+        
+          β
+          
+            0
+            j
+          
+        
+        +
+        
+          β
+          
+            1
+            j
+          
+        
+        
+          x
+          
+            i
+            1
+          
+        
+        +
+        
+          β
+          
+            2
+            j
+          
+        
+        
+          x
+          
+            i
+            2
+          
+        
+        +
+        …
+        +
+        
+          β
+          
+            p
+            j
+          
+        
+        
+          x
+          
+            i
+            p
+          
+        
+        +
+        
+          ϵ
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle y_{ij}=\beta _{0j}+\beta _{1j}x_{i1}+\beta _{2j}x_{i2}+\ldots +\beta _{pj}x_{ip}+\epsilon _{ij}}
+  for all observations indexed as i = 1, ... , n and for all dependent variables indexed as j = 1, ... , m.
+nearly all real-world regression models involve multiple predictors, and basic descriptions of linear regression are often phrased in terms of the multiple regression model.  note, however, that in these cases the response variable y is still a scalar. another term, multivariate linear regression, refers to cases where y is a vector, i.e., the same as general linear regression.
+
+
+=== general linear models ===
+the general linear model considers the situation when the response variable is not a scalar (for each observation) but a vector, yi. conditional linearity of 
+  
+    
+      
+        e
+        (
+        
+          y
+        
+        ∣
+        
+          
+            x
+          
+          
+            i
+          
+        
+        )
+        =
+        
+          
+            x
+          
+          
+            i
+          
+          
+            
+              t
+            
+          
+        
+        b
+      
+    
+    {\displaystyle e(\mathbf {y} \mid \mathbf {x} _{i})=\mathbf {x} _{i}^{\mathsf {t}}b}
+   is still assumed, with a matrix b replacing the vector β of the classical linear regression model. multivariate analogues of ordinary least squares (ols) and generalized least squares (gls) have been developed. "general linear models" are also called "multivariate linear models". these are not the same as multivariable linear models (also called "multiple linear models").
+
+
+=== heteroscedastic models ===
+various models have been created that allow for heteroscedasticity, i.e. the errors for different response variables may have different variances.  for example, weighted least squares is a method for estimating linear regression models when the response variables may have different error variances, possibly with correlated errors. (see also weighted linear least squares, and generalized least squares.) heteroscedasticity-consistent standard errors is an improved method for use with uncorrelated but potentially heteroscedastic errors.
+
+
+=== generalized linear models ===
+generalized linear models (glms) are a framework for modeling response variables that are bounded or discrete. this is used, for example:
+
+when modeling positive quantities (e.g. prices or populations) that vary over a large scale—which are better described using a skewed distribution such as the log-normal distribution or poisson distribution (although glms are not used for log-normal data, instead the response variable is simply transformed using the logarithm function);
+when modeling categorical data, such as the choice of a given candidate in an election (which is better described using a bernoulli distribution/binomial distribution for binary choices, or a categorical distribution/multinomial distribution for multi-way choices), where there are a fixed number of choices that cannot be meaningfully ordered;
+when modeling ordinal data, e.g. ratings on a scale from 0 to 5, where the different outcomes can be ordered but where the quantity itself may not have any absolute meaning (e.g. a rating of 4 may not be "twice as good" in any objective sense as a rating of 2, but simply indicates that it is better than 2 or 3 but not as good as 5).generalized linear models allow for an arbitrary link function, g, that relates the mean of the response variable(s) to the predictors: 
+  
+    
+      
+        e
+        (
+        y
+        )
+        =
+        
+          g
+          
+            −
+            1
+          
+        
+        (
+        x
+        b
+        )
+      
+    
+    {\displaystyle e(y)=g^{-1}(xb)}
+  . the link function is often related to the distribution of the response, and in particular it typically has the effect of transforming between the 
+  
+    
+      
+        (
+        −
+        ∞
+        ,
+        ∞
+        )
+      
+    
+    {\displaystyle (-\infty ,\infty )}
+   range of the linear predictor and the range of the response variable.
+some common examples of glms are:
+
+poisson regression for count data.
+logistic regression and probit regression for binary data.
+multinomial logistic regression and multinomial probit regression for categorical data.
+ordered logit and ordered probit regression for ordinal data.single index models allow some degree of nonlinearity in the relationship between x and y, while preserving the central role of the linear predictor β′x as in the classical linear regression model. under certain conditions, simply applying ols to data from a single-index model will consistently estimate β up to a proportionality constant.
+
+
+=== hierarchical linear models ===
+hierarchical linear models (or multilevel regression) organizes the data into a hierarchy of regressions, for example where a is regressed on b, and b is regressed on c. it is often used where the variables of interest have a natural hierarchical structure such as in educational statistics, where students are nested in classrooms, classrooms are nested in schools, and schools are nested in some administrative grouping, such as a school district. the response variable might be a measure of student achievement such as a test score, and different covariates would be collected at the classroom, school, and school district levels.
+
+
+=== errors-in-variables ===
+errors-in-variables models (or "measurement error models") extend the traditional linear regression model to allow the predictor variables x to be observed with error. this error causes standard estimators of β to become biased. generally, the form of bias is an attenuation, meaning that the effects are biased toward zero.
+
+
+=== others ===
+in dempster–shafer theory, or a linear belief function in particular, a linear regression model may be represented as a partially swept matrix, which can be combined with similar matrices representing observations and other assumed normal distributions and state equations. the combination of swept or unswept matrices provides an alternative method for estimating linear regression models.
+
+
+== estimation methods ==
+a large number of procedures have been developed for parameter estimation and inference in linear regression. these methods differ in computational simplicity of algorithms, presence of a closed-form solution, robustness with respect to heavy-tailed distributions, and theoretical assumptions needed to validate desirable statistical properties such as consistency and asymptotic efficiency.
+some of the more common estimation techniques for linear regression are summarized below.
+
+
+=== least-squares estimation and related techniques ===
+
+assuming that the independent variable is 
+  
+    
+      
+        
+          
+            
+              
+                x
+                
+                  i
+                
+              
+              →
+            
+          
+        
+        =
+        
+          [
+          
+            
+              x
+              
+                1
+              
+              
+                i
+              
+            
+            ,
+            
+              x
+              
+                2
+              
+              
+                i
+              
+            
+            ,
+            …
+            ,
+            
+              x
+              
+                m
+              
+              
+                i
+              
+            
+          
+          ]
+        
+      
+    
+    {\displaystyle {\vec {x_{i}}}=\left[x_{1}^{i},x_{2}^{i},\ldots ,x_{m}^{i}\right]}
+   and the model's parameters are 
+  
+    
+      
+        
+          
+            
+              β
+              →
+            
+          
+        
+        =
+        
+          [
+          
+            
+              β
+              
+                0
+              
+            
+            ,
+            
+              β
+              
+                1
+              
+            
+            ,
+            …
+            ,
+            
+              β
+              
+                m
+              
+            
+          
+          ]
+        
+      
+    
+    {\displaystyle {\vec {\beta }}=\left[\beta _{0},\beta _{1},\ldots ,\beta _{m}\right]}
+  , then the model's prediction would be
+
+  
+    
+      
+        
+          y
+          
+            i
+          
+        
+        ≈
+        
+          β
+          
+            0
+          
+        
+        +
+        
+          ∑
+          
+            j
+            =
+            1
+          
+          
+            m
+          
+        
+        
+          β
+          
+            j
+          
+        
+        ×
+        
+          x
+          
+            j
+          
+          
+            i
+          
+        
+      
+    
+    {\displaystyle y_{i}\approx \beta _{0}+\sum _{j=1}^{m}\beta _{j}\times x_{j}^{i}}
+  .if 
+  
+    
+      
+        
+          
+            
+              
+                x
+                
+                  i
+                
+              
+              →
+            
+          
+        
+      
+    
+    {\displaystyle {\vec {x_{i}}}}
+   is extended to 
+  
+    
+      
+        
+          
+            
+              
+                x
+                
+                  i
+                
+              
+              →
+            
+          
+        
+        =
+        
+          [
+          
+            1
+            ,
+            
+              x
+              
+                1
+              
+              
+                i
+              
+            
+            ,
+            
+              x
+              
+                2
+              
+              
+                i
+              
+            
+            ,
+            …
+            ,
+            
+              x
+              
+                m
+              
+              
+                i
+              
+            
+          
+          ]
+        
+      
+    
+    {\displaystyle {\vec {x_{i}}}=\left[1,x_{1}^{i},x_{2}^{i},\ldots ,x_{m}^{i}\right]}
+   then 
+  
+    
+      
+        
+          y
+          
+            i
+          
+        
+      
+    
+    {\displaystyle y_{i}}
+   would become a dot product of the parameter and the independent variable, i.e.
+
+  
+    
+      
+        
+          y
+          
+            i
+          
+        
+        ≈
+        
+          ∑
+          
+            j
+            =
+            0
+          
+          
+            m
+          
+        
+        
+          β
+          
+            j
+          
+        
+        ×
+        
+          x
+          
+            j
+          
+          
+            i
+          
+        
+        =
+        
+          
+            
+              β
+              →
+            
+          
+        
+        ⋅
+        
+          
+            
+              
+                x
+                
+                  i
+                
+              
+              →
+            
+          
+        
+      
+    
+    {\displaystyle y_{i}\approx \sum _{j=0}^{m}\beta _{j}\times x_{j}^{i}={\vec {\beta }}\cdot {\vec {x_{i}}}}
+  .in the least-squares setting, the optimum parameter is defined as such that minimizes the sum of mean squared loss:
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  β
+                  ^
+                
+              
+              →
+            
+          
+        
+        =
+        
+          
+            
+              arg min
+            
+            
+              
+                β
+                →
+              
+            
+          
+        
+        
+        l
+        
+          (
+          
+            d
+            ,
+            
+              
+                
+                  β
+                  →
+                
+              
+            
+          
+          )
+        
+        =
+        
+          
+            
+              arg min
+            
+            
+              
+                β
+                →
+              
+            
+          
+        
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            n
+          
+        
+        
+          
+            (
+            
+              
+                
+                  
+                    β
+                    →
+                  
+                
+              
+              ⋅
+              
+                
+                  
+                    
+                      x
+                      
+                        i
+                      
+                    
+                    →
+                  
+                
+              
+              −
+              
+                y
+                
+                  i
+                
+              
+            
+            )
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle {\vec {\hat {\beta }}}={\underset {\vec {\beta }}{\mbox{arg min}}}\,l\left(d,{\vec {\beta }}\right)={\underset {\vec {\beta }}{\mbox{arg min}}}\sum _{i=1}^{n}\left({\vec {\beta }}\cdot {\vec {x_{i}}}-y_{i}\right)^{2}}
+  now putting the independent and dependent variables in matrices 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   and 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   respectively, the loss function can be rewritten as:
+
+  
+    
+      
+        
+          
+            
+              
+                l
+                
+                  (
+                  
+                    d
+                    ,
+                    
+                      
+                        
+                          β
+                          →
+                        
+                      
+                    
+                  
+                  )
+                
+              
+              
+                
+                =
+                ‖
+                x
+                
+                  
+                    
+                      β
+                      →
+                    
+                  
+                
+                −
+                y
+                
+                  ‖
+                  
+                    2
+                  
+                
+              
+            
+            
+              
+              
+                
+                =
+                
+                  
+                    (
+                    
+                      x
+                      
+                        
+                          
+                            β
+                            →
+                          
+                        
+                      
+                      −
+                      y
+                    
+                    )
+                  
+                  
+                    
+                      t
+                    
+                  
+                
+                
+                  (
+                  
+                    x
+                    
+                      
+                        
+                          β
+                          →
+                        
+                      
+                    
+                    −
+                    y
+                  
+                  )
+                
+              
+            
+            
+              
+              
+                
+                =
+                
+                  y
+                  
+                    
+                      t
+                    
+                  
+                
+                y
+                −
+                
+                  y
+                  
+                    
+                      t
+                    
+                  
+                
+                x
+                
+                  
+                    
+                      β
+                      →
+                    
+                  
+                
+                −
+                
+                  
+                    
+                      
+                        β
+                        →
+                      
+                    
+                  
+                  
+                    
+                      t
+                    
+                  
+                
+                
+                  x
+                  
+                    
+                      t
+                    
+                  
+                
+                y
+                +
+                
+                  
+                    
+                      
+                        β
+                        →
+                      
+                    
+                  
+                  
+                    
+                      t
+                    
+                  
+                
+                
+                  x
+                  
+                    
+                      t
+                    
+                  
+                
+                x
+                
+                  
+                    
+                      β
+                      →
+                    
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}l\left(d,{\vec {\beta }}\right)&=\|x{\vec {\beta }}-y\|^{2}\\&=\left(x{\vec {\beta }}-y\right)^{\textsf {t}}\left(x{\vec {\beta }}-y\right)\\&=y^{\textsf {t}}y-y^{\textsf {t}}x{\vec {\beta }}-{\vec {\beta }}^{\textsf {t}}x^{\textsf {t}}y+{\vec {\beta }}^{\textsf {t}}x^{\textsf {t}}x{\vec {\beta }}\end{aligned}}}
+  as the loss is convex the optimum solution lies at gradient zero. the gradient of the loss function is (using denominator layout convention):
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  
+                    
+                      ∂
+                      l
+                      
+                        (
+                        
+                          d
+                          ,
+                          
+                            
+                              
+                                β
+                                →
+                              
+                            
+                          
+                        
+                        )
+                      
+                    
+                    
+                      ∂
+                      
+                        
+                          
+                            β
+                            →
+                          
+                        
+                      
+                    
+                  
+                
+              
+              
+                
+                =
+                
+                  
+                    
+                      ∂
+                      
+                        (
+                        
+                          
+                            y
+                            
+                              
+                                t
+                              
+                            
+                          
+                          y
+                          −
+                          
+                            y
+                            
+                              
+                                t
+                              
+                            
+                          
+                          x
+                          
+                            
+                              
+                                β
+                                →
+                              
+                            
+                          
+                          −
+                          
+                            
+                              
+                                
+                                  β
+                                  →
+                                
+                              
+                            
+                            
+                              
+                                t
+                              
+                            
+                          
+                          
+                            x
+                            
+                              
+                                t
+                              
+                            
+                          
+                          y
+                          +
+                          
+                            
+                              
+                                
+                                  β
+                                  →
+                                
+                              
+                            
+                            
+                              
+                                t
+                              
+                            
+                          
+                          
+                            x
+                            
+                              
+                                t
+                              
+                            
+                          
+                          x
+                          
+                            
+                              
+                                β
+                                →
+                              
+                            
+                          
+                        
+                        )
+                      
+                    
+                    
+                      ∂
+                      
+                        
+                          
+                            β
+                            →
+                          
+                        
+                      
+                    
+                  
+                
+              
+            
+            
+              
+              
+                
+                =
+                −
+                2
+                
+                  x
+                  
+                    
+                      t
+                    
+                  
+                
+                y
+                +
+                2
+                
+                  x
+                  
+                    
+                      t
+                    
+                  
+                
+                x
+                
+                  
+                    
+                      β
+                      →
+                    
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}{\frac {\partial l\left(d,{\vec {\beta }}\right)}{\partial {\vec {\beta }}}}&={\frac {\partial \left(y^{\textsf {t}}y-y^{\textsf {t}}x{\vec {\beta }}-{\vec {\beta }}^{\textsf {t}}x^{\textsf {t}}y+{\vec {\beta }}^{\textsf {t}}x^{\textsf {t}}x{\vec {\beta }}\right)}{\partial {\vec {\beta }}}}\\&=-2x^{\textsf {t}}y+2x^{\textsf {t}}x{\vec {\beta }}\end{aligned}}}
+  setting the gradient to zero produces the optimum parameter:
+
+  
+    
+      
+        
+          
+            
+              
+                −
+                2
+                
+                  x
+                  
+                    
+                      t
+                    
+                  
+                
+                y
+                +
+                2
+                
+                  x
+                  
+                    
+                      t
+                    
+                  
+                
+                x
+                
+                  
+                    
+                      β
+                      →
+                    
+                  
+                
+              
+              
+                
+                =
+                0
+              
+            
+            
+              
+                ⇒
+                
+                  x
+                  
+                    
+                      t
+                    
+                  
+                
+                y
+              
+              
+                
+                =
+                
+                  x
+                  
+                    
+                      t
+                    
+                  
+                
+                x
+                
+                  
+                    
+                      β
+                      →
+                    
+                  
+                
+              
+            
+            
+              
+                ⇒
+                
+                  
+                    
+                      
+                        
+                          β
+                          ^
+                        
+                      
+                      →
+                    
+                  
+                
+              
+              
+                
+                =
+                
+                  
+                    (
+                    
+                      
+                        x
+                        
+                          
+                            t
+                          
+                        
+                      
+                      x
+                    
+                    )
+                  
+                  
+                    −
+                    1
+                  
+                
+                
+                  x
+                  
+                    
+                      t
+                    
+                  
+                
+                y
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}-2x^{\textsf {t}}y+2x^{\textsf {t}}x{\vec {\beta }}&=0\\\rightarrow x^{\textsf {t}}y&=x^{\textsf {t}}x{\vec {\beta }}\\\rightarrow {\vec {\hat {\beta }}}&=\left(x^{\textsf {t}}x\right)^{-1}x^{\textsf {t}}y\end{aligned}}}
+  note: to prove that the 
+  
+    
+      
+        
+          
+            
+              β
+              ^
+            
+          
+        
+      
+    
+    {\displaystyle {\hat {\beta }}}
+   obtained is indeed the local minimum, one needs to differentiate once more to obtain the hessian matrix and show that it is positive definite. this is provided by the gauss–markov theorem.
+linear least squares methods include mainly:
+
+ordinary least squares
+weighted least squares
+generalized least squares
+
+
+=== maximum-likelihood estimation and related techniques ===
+maximum likelihood estimation can be performed when the distribution of the error terms is known to belong to a certain parametric family ƒθ of probability distributions. when fθ is a normal distribution with zero mean and variance θ, the resulting estimate is identical to the ols estimate. gls estimates are maximum likelihood estimates when ε follows a multivariate normal distribution with a known covariance matrix.
+ridge regression and other forms of penalized estimation, such as lasso regression, deliberately introduce bias into the estimation of β in order to reduce the variability of the estimate. the resulting estimates generally have lower mean squared error than the ols estimates, particularly when multicollinearity is present or when overfitting is a problem. they are generally used when the goal is to predict the value of the response variable y for values of the predictors x that have not yet been observed. these methods are not as commonly used when the goal is inference, since it is difficult to account for the bias.
+least absolute deviation (lad) regression is a robust estimation technique in that it is less sensitive to the presence of outliers than ols (but is less efficient than ols when no outliers are present). it is equivalent to maximum likelihood estimation under a laplace distribution model for ε.
+adaptive estimation. if we assume that error terms are independent of the regressors, 
+  
+    
+      
+        
+          ε
+          
+            i
+          
+        
+        ⊥
+        
+          
+            x
+          
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \varepsilon _{i}\perp \mathbf {x} _{i}}
+  , then the optimal estimator is the 2-step mle, where the first step is used to non-parametrically estimate the distribution of the error term.
+
+
+=== other estimation techniques ===
+
+bayesian linear regression applies the framework of bayesian statistics to linear regression. (see also bayesian multivariate linear regression.) in particular, the regression coefficients β are assumed to be random variables with a specified prior distribution.  the prior distribution can bias the solutions for the regression coefficients, in a way similar to (but more general than) ridge regression or lasso regression.  in addition, the bayesian estimation process produces not a single point estimate for the "best" values of the regression coefficients but an entire posterior distribution, completely describing the uncertainty surrounding the quantity.  this can be used to estimate the "best" coefficients using the mean, mode, median, any quantile (see quantile regression), or any other function of the posterior distribution.
+quantile regression focuses on the conditional quantiles of y given x rather than the conditional mean of y given x. linear quantile regression models a particular conditional quantile, for example the conditional median, as a linear function βtx of the predictors.
+mixed models are widely used to analyze linear regression relationships involving dependent data when the dependencies have a known structure. common applications of mixed models include analysis of data involving repeated measurements, such as longitudinal data, or data obtained from cluster sampling. they are generally fit as parametric models, using maximum likelihood or bayesian estimation. in the case where the errors are modeled as normal random variables, there is a close connection between mixed models and generalized least squares. fixed effects estimation is an alternative approach to analyzing this type of data.
+principal component regression (pcr) is used when the number of predictor variables is large, or when strong correlations exist among the predictor variables. this two-stage procedure first reduces the predictor variables using principal component analysis then uses the reduced variables in an ols regression fit. while it often works well in practice, there is no general theoretical reason that the most informative linear function of the predictor variables should lie among the dominant principal components of the multivariate distribution of the predictor variables. the partial least squares regression is the extension of the pcr method which does not suffer from the mentioned deficiency.
+least-angle regression is an estimation procedure for linear regression models that was developed to handle high-dimensional covariate vectors, potentially with more covariates than observations.
+the theil–sen estimator is a simple robust estimation technique that chooses the slope of the fit line to be the median of the slopes of the lines through pairs of sample points. it has similar statistical efficiency properties to simple linear regression but is much less sensitive to outliers.
+other robust estimation techniques, including the α-trimmed mean approach, and l-, m-, s-, and r-estimators have been introduced.
+
+
+== applications ==
+
+linear regression is widely used in biological, behavioral and social sciences to describe possible relationships between variables. it ranks as one of the most important tools used in these disciplines.
+
+
+=== trend line ===
+
+a trend line represents a trend, the long-term movement in time series data after other components have been accounted for. it tells whether a particular data set (say gdp, oil prices or stock prices) have increased or decreased over the period of time. a trend line could simply be drawn by eye through a set of data points, but more properly their position and slope is calculated using statistical techniques like linear regression. trend lines typically are straight lines, although some variations use higher degree polynomials depending on the degree of curvature desired in the line.
+trend lines are sometimes used in business analytics to show changes in data over time. this has the advantage of being simple. trend lines are often used to argue that a particular action or event (such as training, or an advertising campaign) caused observed changes at a point in time. this is a simple technique, and does not require a control group, experimental design, or a sophisticated analysis technique. however, it suffers from a lack of scientific validity in cases where other potential changes can affect the data.
+
+
+=== epidemiology ===
+early evidence relating tobacco smoking to mortality and morbidity came from observational studies employing regression analysis. in order to reduce spurious correlations when analyzing observational data, researchers usually include several variables in their regression models in addition to the variable of primary interest. for example, in a regression model in which cigarette smoking is the independent variable of primary interest and the dependent variable is lifespan measured in years, researchers might include education and income as additional independent variables, to ensure that any observed effect of smoking on lifespan is not due to those other socio-economic factors. however, it is never possible to include all possible confounding variables in an empirical analysis. for example, a hypothetical gene might increase mortality and also cause people to smoke more. for this reason, randomized controlled trials are often able to generate more compelling evidence of causal relationships than can be obtained using regression analyses of observational data. when controlled experiments are not feasible, variants of regression analysis such as instrumental variables regression may be used to attempt to estimate causal relationships from observational data.
+
+
+=== finance ===
+the capital asset pricing model uses linear regression as well as the concept of beta for analyzing and quantifying the systematic risk of an investment. this comes directly from the beta coefficient of the linear regression model that relates the return on the investment to the return on all risky assets.
+
+
+=== economics ===
+
+linear regression is the predominant empirical tool in economics.  for example, it is used to predict consumption spending, fixed investment spending, inventory investment, purchases of a country's exports, spending on imports, the demand to hold liquid assets, labor demand, and labor supply.
+
+
+=== environmental science ===
+linear regression finds application in a wide range of environmental science applications. in canada, the environmental effects monitoring program uses statistical analyses on fish and benthic surveys to measure the effects of pulp mill or metal mine effluent on the aquatic ecosystem.
+
+
+=== machine learning ===
+linear regression plays an important role in the subfield of artificial intelligence known as machine learning. the linear regression algorithm is one of the fundamental supervised machine-learning algorithms due to its relative simplicity and well-known properties.
+
+
+== history ==
+least squares linear regression, as a means of finding a good rough linear fit to a set of points was performed by legendre (1805) and gauss (1809) for the prediction of planetary movement. quetelet was responsible for making the procedure well-known and for using it extensively in the social sciences.
+
+
+== see also ==
+
+
+== references ==
+
+
+=== citations ===
+
+
+=== sources ===
+
+
+== further reading ==
+pedhazur, elazar j (1982). multiple regression in behavioral research: explanation and prediction (2nd ed.). new york: holt, rinehart and winston. isbn 978-0-03-041760-3.
+mathieu rouaud, 2013: probability, statistics and estimation chapter 2: linear regression, linear regression with error bars and nonlinear regression.
+national physical laboratory (1961). "chapter 1: linear equations and matrices: direct methods". modern computing methods. notes on applied science. vol. 16 (2nd ed.). her majesty's stationery office.
+
+
+== external links ==
+least-squares regression, phet interactive simulations, university of colorado at boulder
+diy linear fit

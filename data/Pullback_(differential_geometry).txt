@@ -1,0 +1,750 @@
+suppose that φ : m → n is a smooth map between smooth manifolds m and n. then there is an associated linear map from the space of 1-forms on n (the linear space of sections of the cotangent bundle) to the space of 1-forms on m. this linear map is known as the pullback (by φ), and is frequently denoted by φ∗.  more generally, any covariant tensor field – in particular any differential form – on n may be pulled back to m using φ.
+when the map φ is a diffeomorphism, then the pullback, together with the pushforward, can be used to transform any tensor field from n to m or vice versa. in particular, if φ is a diffeomorphism between open subsets of rn and rn, viewed as a change of coordinates (perhaps between different charts on a manifold m), then the pullback and pushforward describe the transformation properties of covariant and contravariant tensors used in more traditional (coordinate dependent) approaches to the subject.
+the idea behind the pullback is essentially the notion of precomposition of one function with another. however, by combining this idea in several different contexts, quite elaborate pullback operations can be constructed. this article begins with the simplest operations, then uses them to construct more sophisticated ones. roughly speaking, the pullback mechanism (using precomposition) turns several constructions in differential geometry into contravariant functors.
+
+
+== pullback of smooth functions and smooth maps ==
+let φ : m → n be a smooth map between (smooth) manifolds m and n, and suppose f : n → r is a smooth function on n. then the pullback of f by φ is the smooth function φ∗f on m defined by (φ∗f)(x) = f(φ(x)). similarly, if f is a smooth function on an open set u in n, then the same formula defines a smooth function on the open set φ−1(u) in m. (in the language of sheaves, pullback defines a morphism from the sheaf of smooth functions on n to the direct image by φ of the sheaf of smooth functions on m.)
+more generally, if f : n → a is a smooth map from n to any other manifold a, then φ∗f(x) = f(φ(x)) is a smooth map from m to a.
+
+
+== pullback of bundles and sections ==
+if e is a vector bundle (or indeed any fiber bundle) over n and φ : m → n is a smooth map, then the pullback bundle φ∗e is a vector bundle (or fiber bundle) over m whose fiber over x in m is given by (φ*e)x = eφ(x).
+in this situation, precomposition defines a pullback operation on sections of e: if s is a section of e over n, then the pullback section φ∗s = s ∘ φ is a section of φ∗e over m.
+
+
+== pullback of multilinear forms ==
+let φ: v → w be a linear map between vector spaces v and w (i.e., φ is an element of l(v, w), also denoted hom(v, w)), and let
+
+  
+    
+      
+        f
+        :
+        w
+        ×
+        w
+        ×
+        ⋯
+        ×
+        w
+        →
+        
+          r
+        
+      
+    
+    {\displaystyle f:w\times w\times \cdots \times w\rightarrow \mathbf {r} }
+  be a multilinear form on w (also known as a tensor – not to be confused with a tensor field – of rank (0, s), where s is the number of factors of w in the product). then the pullback φ∗f of f by φ is a multilinear form on v defined by precomposing f with φ. more precisely, given vectors v1, v2, ..., vs in v, φ∗f is defined by the formula
+
+  
+    
+      
+        (
+        
+          φ
+          
+            ∗
+          
+        
+        f
+        )
+        (
+        
+          v
+          
+            1
+          
+        
+        ,
+        
+          v
+          
+            2
+          
+        
+        ,
+        …
+        ,
+        
+          v
+          
+            s
+          
+        
+        )
+        =
+        f
+        (
+        φ
+        (
+        
+          v
+          
+            1
+          
+        
+        )
+        ,
+        φ
+        (
+        
+          v
+          
+            2
+          
+        
+        )
+        ,
+        …
+        ,
+        φ
+        (
+        
+          v
+          
+            s
+          
+        
+        )
+        )
+        ,
+      
+    
+    {\displaystyle (\phi ^{*}f)(v_{1},v_{2},\ldots ,v_{s})=f(\phi (v_{1}),\phi (v_{2}),\ldots ,\phi (v_{s})),}
+  which is a multilinear form on v. hence φ∗ is a (linear) operator from multilinear forms on w to multilinear forms on v. as a special case, note that if f is a linear form (or (0,1)-tensor) on w, so that f is an element of w∗, the dual space of w, then φ∗f is an element of v∗, and so pullback by φ defines a linear map between dual spaces which acts in the opposite direction to the linear map φ itself:
+
+  
+    
+      
+        φ
+        :
+        v
+        →
+        w
+        ,
+        
+        
+          φ
+          
+            ∗
+          
+        
+        :
+        
+          w
+          
+            ∗
+          
+        
+        →
+        
+          v
+          
+            ∗
+          
+        
+        .
+      
+    
+    {\displaystyle \phi \colon v\rightarrow w,\qquad \phi ^{*}\colon w^{*}\rightarrow v^{*}.}
+  from a tensorial point of view, it is natural to try to extend the notion of pullback to tensors of arbitrary rank, i.e., to multilinear maps on w taking values in a tensor product of r copies of w, i.e., w ⊗ w ⊗ ⋅⋅⋅ ⊗ w. however, elements of such a tensor product do not pull back naturally: instead there is a pushforward operation from v ⊗ v ⊗ ⋅⋅⋅ ⊗ v to w ⊗ w ⊗ ⋅⋅⋅ ⊗ w given by
+
+  
+    
+      
+        
+          φ
+          
+            ∗
+          
+        
+        (
+        
+          v
+          
+            1
+          
+        
+        ⊗
+        
+          v
+          
+            2
+          
+        
+        ⊗
+        ⋯
+        ⊗
+        
+          v
+          
+            r
+          
+        
+        )
+        =
+        φ
+        (
+        
+          v
+          
+            1
+          
+        
+        )
+        ⊗
+        φ
+        (
+        
+          v
+          
+            2
+          
+        
+        )
+        ⊗
+        ⋯
+        ⊗
+        φ
+        (
+        
+          v
+          
+            r
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle \phi _{*}(v_{1}\otimes v_{2}\otimes \cdots \otimes v_{r})=\phi (v_{1})\otimes \phi (v_{2})\otimes \cdots \otimes \phi (v_{r}).}
+  nevertheless, it follows from this that if φ is invertible, pullback can be defined using pushforward by the inverse function φ−1. combining these two constructions yields a pushforward operation, along an invertible linear map, for tensors of any rank (r, s).
+
+
+== pullback of cotangent vectors and 1-forms ==
+let φ : m → n be a smooth map between smooth manifolds. then the differential of φ, written φ*, dφ, or dφ, is a vector bundle morphism (over m) from the tangent bundle tm of m to the pullback bundle φ*tn. the transpose of φ* is therefore a bundle map from φ*t*n to t*m, the cotangent bundle of m.
+now suppose that α is a section of t*n (a 1-form on n), and precompose α with φ to obtain a pullback section of φ*t*n. applying the above bundle map (pointwise) to this section yields the pullback of α by φ, which is the 1-form φ*α on m defined by
+
+  
+    
+      
+        (
+        
+          φ
+          
+            ∗
+          
+        
+        α
+        
+          )
+          
+            x
+          
+        
+        (
+        x
+        )
+        =
+        
+          α
+          
+            φ
+            (
+            x
+            )
+          
+        
+        (
+        d
+        
+          φ
+          
+            x
+          
+        
+        (
+        x
+        )
+        )
+      
+    
+    {\displaystyle (\varphi ^{*}\alpha )_{x}(x)=\alpha _{\varphi (x)}(d\varphi _{x}(x))}
+  for x in m and x in txm.
+
+
+== pullback of (covariant) tensor fields ==
+the construction of the previous section generalizes immediately to tensor bundles of rank (0,s) for any natural number s: a (0,s) tensor field on a manifold n is a section of the tensor bundle on n whose fiber at y in n is the space of multilinear s-forms
+
+  
+    
+      
+        f
+        :
+        
+          t
+          
+            y
+          
+        
+        n
+        ×
+        ⋯
+        ×
+        
+          t
+          
+            y
+          
+        
+        n
+        →
+        
+          r
+        
+        .
+      
+    
+    {\displaystyle f\colon t_{y}n\times \cdots \times t_{y}n\to \mathbf {r} .}
+  by taking φ equal to the (pointwise) differential of a smooth map φ from m to n, the pullback of multilinear forms can be combined with the pullback of sections to yield a pullback (0,s) tensor field on m. more precisely if s is a (0,s)-tensor field on n, then the pullback of s by φ is the (0,s)-tensor field φ*s on m defined by
+
+  
+    
+      
+        (
+        
+          φ
+          
+            ∗
+          
+        
+        s
+        
+          )
+          
+            x
+          
+        
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            s
+          
+        
+        )
+        =
+        
+          s
+          
+            φ
+            (
+            x
+            )
+          
+        
+        (
+        d
+        
+          φ
+          
+            x
+          
+        
+        (
+        
+          x
+          
+            1
+          
+        
+        )
+        ,
+        …
+        ,
+        d
+        
+          φ
+          
+            x
+          
+        
+        (
+        
+          x
+          
+            s
+          
+        
+        )
+        )
+      
+    
+    {\displaystyle (\varphi ^{*}s)_{x}(x_{1},\ldots ,x_{s})=s_{\varphi (x)}(d\varphi _{x}(x_{1}),\ldots ,d\varphi _{x}(x_{s}))}
+  for x in m and xj in txm.
+
+
+== pullback of differential forms ==
+a particular important case of the pullback of covariant tensor fields is the pullback of differential forms. if α is a differential k-form, i.e., a section of the exterior bundle λkt*n of (fiberwise) alternating k-forms on tn, then the pullback of α is the differential k-form on m defined by the same formula as in the previous section:
+
+  
+    
+      
+        (
+        
+          φ
+          
+            ∗
+          
+        
+        α
+        
+          )
+          
+            x
+          
+        
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            k
+          
+        
+        )
+        =
+        
+          α
+          
+            φ
+            (
+            x
+            )
+          
+        
+        (
+        d
+        
+          φ
+          
+            x
+          
+        
+        (
+        
+          x
+          
+            1
+          
+        
+        )
+        ,
+        …
+        ,
+        d
+        
+          φ
+          
+            x
+          
+        
+        (
+        
+          x
+          
+            k
+          
+        
+        )
+        )
+      
+    
+    {\displaystyle (\varphi ^{*}\alpha )_{x}(x_{1},\ldots ,x_{k})=\alpha _{\varphi (x)}(d\varphi _{x}(x_{1}),\ldots ,d\varphi _{x}(x_{k}))}
+  for x in m and xj in txm.
+the pullback of differential forms has two properties which make it extremely useful.
+
+it is compatible with the wedge product in the sense that for differential forms α and β on n,
+
+  
+    
+      
+        
+          φ
+          
+            ∗
+          
+        
+        (
+        α
+        ∧
+        β
+        )
+        =
+        
+          φ
+          
+            ∗
+          
+        
+        α
+        ∧
+        
+          φ
+          
+            ∗
+          
+        
+        β
+        .
+      
+    
+    {\displaystyle \varphi ^{*}(\alpha \wedge \beta )=\varphi ^{*}\alpha \wedge \varphi ^{*}\beta .}
+  
+it is compatible with the exterior derivative d: if α is a differential form on n then
+
+  
+    
+      
+        
+          φ
+          
+            ∗
+          
+        
+        (
+        d
+        α
+        )
+        =
+        d
+        (
+        
+          φ
+          
+            ∗
+          
+        
+        α
+        )
+        .
+      
+    
+    {\displaystyle \varphi ^{*}(d\alpha )=d(\varphi ^{*}\alpha ).}
+  
+
+
+== pullback by diffeomorphisms ==
+when the map φ between manifolds is a diffeomorphism, that is, it has a smooth inverse, then pullback can be defined for the vector fields as well as for 1-forms, and thus, by extension, for an arbitrary mixed tensor field on the manifold. the linear map
+
+  
+    
+      
+        φ
+        =
+        d
+        
+          φ
+          
+            x
+          
+        
+        ∈
+        gl
+        ⁡
+        
+          (
+          
+            
+              t
+              
+                x
+              
+            
+            m
+            ,
+            
+              t
+              
+                φ
+                (
+                x
+                )
+              
+            
+            n
+          
+          )
+        
+      
+    
+    {\displaystyle \phi =d\varphi _{x}\in \operatorname {gl} \left(t_{x}m,t_{\varphi (x)}n\right)}
+  can be inverted to give
+
+  
+    
+      
+        
+          φ
+          
+            −
+            1
+          
+        
+        =
+        
+          
+            (
+            
+              d
+              
+                φ
+                
+                  x
+                
+              
+            
+            )
+          
+          
+            −
+            1
+          
+        
+        ∈
+        gl
+        ⁡
+        
+          (
+          
+            
+              t
+              
+                φ
+                (
+                x
+                )
+              
+            
+            n
+            ,
+            
+              t
+              
+                x
+              
+            
+            m
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle \phi ^{-1}=\left({d\varphi _{x}}\right)^{-1}\in \operatorname {gl} \left(t_{\varphi (x)}n,t_{x}m\right).}
+  a general mixed tensor field will then transform using φ and φ−1 according to the tensor product decomposition of the tensor bundle into copies of tn and t*n. when m = n, then the pullback and the pushforward describe the transformation properties of a tensor on the manifold m.  in traditional terms, the pullback describes the transformation properties of the covariant indices of a tensor; by contrast, the transformation of the contravariant indices is given by a pushforward.
+
+
+== pullback by automorphisms ==
+the construction of the previous section has a representation-theoretic interpretation when φ is a diffeomorphism from a manifold m to itself. in this case the derivative dφ is a section of gl(tm, φ*tm). this induces a pullback action on sections of any bundle associated to the frame bundle gl(m) of m by a representation of the general linear group gl(m) (where m = dim m).
+
+
+== pullback and lie derivative ==
+see lie derivative. by applying the preceding ideas to the local 1-parameter group of diffeomorphisms defined by a vector field on m, and differentiating with respect to the parameter, a notion of lie derivative on any associated bundle is obtained.
+
+
+== pullback of connections (covariant derivatives) ==
+if ∇ is a connection (or covariant derivative) on a vector bundle e over n and φ is a smooth map from m to n, then there is a pullback connection φ∗∇ on φ∗e over m, determined uniquely by the condition that
+
+  
+    
+      
+        
+          
+            (
+            
+              
+                φ
+                
+                  ∗
+                
+              
+              ∇
+            
+            )
+          
+          
+            x
+          
+        
+        
+          (
+          
+            
+              φ
+              
+                ∗
+              
+            
+            s
+          
+          )
+        
+        =
+        
+          φ
+          
+            ∗
+          
+        
+        
+          (
+          
+            
+              ∇
+              
+                d
+                φ
+                (
+                x
+                )
+              
+            
+            s
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle \left(\varphi ^{*}\nabla \right)_{x}\left(\varphi ^{*}s\right)=\varphi ^{*}\left(\nabla _{d\varphi (x)}s\right).}
+  
+
+
+== see also ==
+pushforward (differential)
+pullback bundle
+pullback (category theory)
+
+
+== references ==
+jost, jürgen (2002). riemannian geometry and geometric analysis. berlin: springer-verlag. isbn 3-540-42627-2. see sections 1.5 and 1.6.
+abraham, ralph; marsden, jerrold e. (1978). foundations of mechanics. london: benjamin-cummings. isbn 0-8053-0102-x. see section 1.7 and 2.3.

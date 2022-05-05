@@ -1,0 +1,1794 @@
+in mathematics, the étale cohomology groups of an algebraic variety or scheme are algebraic analogues of the usual cohomology groups with finite coefficients of a topological space, introduced by grothendieck in order to prove the weil conjectures. étale cohomology theory can be used to construct ℓ-adic cohomology, which is an example of a weil cohomology theory in algebraic geometry. this has many applications, such as the proof of the weil conjectures and the construction of representations of finite groups of lie type.
+
+
+== history ==
+étale cohomology was introduced by alexander grothendieck (1960), using some suggestions by jean-pierre serre, and was motivated by the attempt to construct a weil cohomology theory in order to prove the weil conjectures. the foundations were soon after worked out by grothendieck together with michael artin, and published as (artin 1962) and sga 4. grothendieck used étale cohomology to prove some of the weil conjectures (bernard dwork had already managed to prove the rationality part of the conjectures in 1960 using p-adic methods), and the remaining conjecture, the analogue of the riemann hypothesis was proved by pierre deligne (1974) using ℓ-adic cohomology.
+further contact with classical theory was found in the shape of the grothendieck version of the brauer group; this was applied in short order to diophantine geometry, by yuri manin. the burden and success of the general theory was certainly both to integrate all this information, and to prove general results such as poincaré duality and the lefschetz fixed-point theorem in this context.
+grothendieck originally developed étale cohomology in an extremely general setting, working with concepts such as grothendieck toposes and grothendieck universes. with hindsight, much of this machinery proved unnecessary for most practical applications of the étale theory, and deligne (1977) gave a simplified exposition of étale cohomology theory. grothendieck's use of these universes (whose existence cannot be proved in zermelo–fraenkel set theory) led to some speculation that étale cohomology and its applications (such as the proof of fermat's last theorem) require axioms beyond zfc. however, in practice étale cohomology is used mainly in the case of constructible sheaves over schemes of finite type over the integers, and this needs no deep axioms of set theory: with care the necessary objects can be constructed without using any uncountable sets, and this can be done in zfc, and even in much weaker theories.
+étale cohomology quickly found other applications, for example deligne and george lusztig used it to construct representations of finite groups of lie type; see deligne–lusztig theory.
+
+
+== motivation ==
+for complex algebraic varieties, invariants from algebraic topology such as the fundamental group and cohomology groups are very useful, and one would like to have analogues of these for varieties over other fields, such as finite fields. (one reason for this is that weil suggested that the weil conjectures could be proved using such a cohomology theory.) in the case of cohomology of coherent sheaves, serre showed that one could get a satisfactory theory just by using the zariski topology of the algebraic variety, and in the case of complex varieties this gives the same cohomology groups (for coherent sheaves) as the much finer complex topology. however, for constant sheaves such as the sheaf of integers this does not work: the cohomology groups defined using the zariski topology are badly behaved. for example, weil envisioned a cohomology theory for varieties over finite fields with similar power as the usual singular cohomology of topological spaces, but in fact, any constant sheaf on an irreducible variety has trivial cohomology (all higher cohomology groups vanish).
+the reason that the zariski topology does not work well is that it is too coarse: it has too few open sets. there seems to be no good way to fix this by using a finer topology on a general algebraic variety. grothendieck's key insight was to realize that there is no reason why the more general open sets should be subsets of the algebraic variety: the definition of a sheaf works perfectly well for any category, not just the category of open subsets of a space. he defined étale cohomology by replacing the category of open subsets of a space by the category of étale mappings to a space: roughly speaking, these can be thought of as open subsets of finite unbranched covers of the space. these turn out (after a lot of work) to give just enough extra open sets that one can get reasonable cohomology groups for some constant coefficients, in particular for coefficients z/nz when n is coprime to the characteristic of the field one is working over.
+some basic intuitions of the theory are these:
+
+the étale requirement is the condition that would allow one to apply the implicit function theorem if it were true in algebraic geometry (but it isn't — implicit algebraic functions are called algebroid in older literature).
+there are certain basic cases, of dimension 0 and 1, and for an abelian variety, where the answers with constant sheaves of coefficients can be predicted (via galois cohomology and tate modules).
+
+
+== definitions ==
+for any scheme x the category et(x) is the category of all étale morphisms from a scheme to x.  it is an analogue of the category of open subsets of a topological space, and its objects can be thought of informally as "étale open subsets" of x. the intersection of two open sets of a topological space corresponds to the pullback of two étale maps to x. there is a rather minor set-theoretical problem here, since et(x) is a "large" category: its objects do not form a set.
+a presheaf on a topological space x is a contravariant functor from the category of open subsets to sets. by analogy we define an étale presheaf on a scheme x to be a contravariant functor from et(x) to sets.
+a presheaf f on a topological space is called a sheaf if it satisfies the sheaf condition: whenever an open subset is covered by open subsets ui, and we are given elements of f(ui) for all i whose restrictions to ui ∩ uj agree for all i, j, then they are images of a unique element of f(u). by analogy, an étale presheaf is called a sheaf if it satisfies the same condition (with intersections of open sets replaced by pullbacks of étale morphisms, and where a set of étale maps to u is said to cover u if the topological space underlying u is the union of their images). more generally, one can define a sheaf for any grothendieck topology on a category in a similar way.
+the category of sheaves of abelian groups over a scheme has enough injective objects, so one can define right derived functors of left exact functors. the étale cohomology groups hi(f) of the sheaf f of abelian groups are defined as the right derived functors of the functor of sections,
+
+  
+    
+      
+        f
+        →
+        γ
+        (
+        f
+        )
+      
+    
+    {\displaystyle f\to \gamma (f)}
+  (where the space of sections γ(f) of f is f(x)).  the sections of a sheaf can be thought of as hom(z, f) where z is the sheaf that returns the integers as an abelian group. the idea of derived functor here is that the functor of sections doesn't respect exact sequences as it is not right exact; according to general principles of homological algebra there will be a sequence of functors h 0, h 1, ... that represent the 'compensations' that must be made in order to restore some measure of exactness (long exact sequences arising from short ones). the h 0 functor coincides with the section functor γ.
+more generally, a morphism of schemes f : x → y induces a map f∗ from étale sheaves over x to étale sheaves over y, and its right derived functors are denoted by rqf∗, for q a non-negative integer. in the special case when y is the spectrum of an algebraically closed field (a point), rqf∗(f ) is the same as hq(f ).
+suppose that x is a noetherian scheme.  an abelian étale sheaf f over x is called finite locally constant if it is represented by an étale cover of x. it is called constructible if x can be covered by a finite family of subschemes on each of which the restriction of f is finite locally constant. it is called torsion if f(u) is a torsion group for all étale covers u of x. finite locally constant sheaves are constructible, and constructible sheaves are torsion. every torsion sheaf is a filtered inductive limit of constructible sheaves.
+
+
+== ℓ-adic cohomology groups ==
+in applications to algebraic geometry over a finite field fq with characteristic p, the main objective was to find a replacement for the singular cohomology groups with integer (or rational) coefficients, which are not available in the same way as for geometry of an algebraic variety over the complex number field. étale cohomology works fine for coefficients z/nz for n co-prime to p, but gives unsatisfactory results for non-torsion coefficients. to get cohomology groups without torsion from étale cohomology one has to take an inverse limit of étale cohomology groups with certain torsion coefficients; this is called ℓ-adic cohomology, where ℓ stands for any prime number different from p. one considers, for schemes v, the cohomology groups
+
+  
+    
+      
+        
+          h
+          
+            i
+          
+        
+        (
+        v
+        ,
+        
+          z
+        
+        
+          /
+        
+        
+          ℓ
+          
+            k
+          
+        
+        
+          z
+        
+        )
+      
+    
+    {\displaystyle h^{i}(v,\mathbf {z} /\ell ^{k}\mathbf {z} )}
+  and defines the ℓ-adic cohomology group
+
+  
+    
+      
+        
+          h
+          
+            i
+          
+        
+        (
+        v
+        ,
+        
+          
+            z
+          
+          
+            ℓ
+          
+        
+        )
+        =
+        
+          
+            lim
+            ←
+          
+        
+        ⁡
+        
+          h
+          
+            i
+          
+        
+        (
+        v
+        ,
+        
+          z
+        
+        
+          /
+        
+        
+          ℓ
+          
+            k
+          
+        
+        
+          z
+        
+        )
+      
+    
+    {\displaystyle h^{i}(v,\mathbf {z} _{\ell })=\varprojlim h^{i}(v,\mathbf {z} /\ell ^{k}\mathbf {z} )}
+  as their inverse limit. here zℓ denotes the ℓ-adic integers, but the definition is by means of the system of 'constant' sheaves with the finite coefficients z/ℓkz. (there is a notorious trap here: cohomology does not commute with taking inverse limits, and the ℓ-adic cohomology group, defined as an inverse limit, is not the cohomology with coefficients in the étale sheaf zℓ; the latter cohomology group exists but gives the "wrong" cohomology groups.)
+more generally, if f is an inverse system of étale sheaves fi, then the cohomology of f is defined to be the inverse limit of the cohomology of the sheaves fi
+
+  
+    
+      
+        
+          h
+          
+            q
+          
+        
+        (
+        x
+        ,
+        f
+        )
+        =
+        
+          
+            lim
+            ←
+          
+        
+        ⁡
+        
+          h
+          
+            q
+          
+        
+        (
+        x
+        ,
+        
+          f
+          
+            i
+          
+        
+        )
+        ,
+      
+    
+    {\displaystyle h^{q}(x,f)=\varprojlim h^{q}(x,f_{i}),}
+  and though there is a natural map
+
+  
+    
+      
+        
+          h
+          
+            q
+          
+        
+        (
+        x
+        ,
+        
+          
+            lim
+            ←
+          
+        
+        ⁡
+        
+          f
+          
+            i
+          
+        
+        )
+        →
+        
+          
+            lim
+            ←
+          
+        
+        ⁡
+        
+          h
+          
+            q
+          
+        
+        (
+        x
+        ,
+        
+          f
+          
+            i
+          
+        
+        )
+        ,
+      
+    
+    {\displaystyle h^{q}(x,\varprojlim f_{i})\to \varprojlim h^{q}(x,f_{i}),}
+  this is not usually an isomorphism.  an ℓ-adic sheaf is a special sort of inverse system of étale sheaves fi, where  i runs through positive integers, and fi is a module over z/ℓi z and the map from fi+1 to fi is just reduction mod z/ℓi z.
+when v is a non-singular algebraic curve of genus g, h1 is a free zℓ-module of rank 2g, dual to the tate module of the jacobian variety of v. since the first betti number of a riemann surface of genus g is 2g, this is isomorphic to the usual singular cohomology with zℓ coefficients for complex algebraic curves. it also shows one reason why the condition ℓ ≠ p is required: when ℓ = p the rank of the tate module is at most g.
+torsion subgroups can occur, and were applied by michael artin and david mumford to geometric questions.  to remove any torsion subgroup from the ℓ-adic cohomology groups and get cohomology groups that are vector spaces over fields of characteristic 0 one defines
+
+  
+    
+      
+        
+          h
+          
+            i
+          
+        
+        (
+        v
+        ,
+        
+          
+            q
+          
+          
+            ℓ
+          
+        
+        )
+        =
+        
+          h
+          
+            i
+          
+        
+        (
+        v
+        ,
+        
+          
+            z
+          
+          
+            ℓ
+          
+        
+        )
+        ⊗
+        
+          
+            q
+          
+          
+            ℓ
+          
+        
+        .
+      
+    
+    {\displaystyle h^{i}(v,\mathbf {q} _{\ell })=h^{i}(v,\mathbf {z} _{\ell })\otimes \mathbf {q} _{\ell }.}
+  this notation is misleading: the symbol qℓ on the left represents  neither an étale sheaf nor an ℓ-adic sheaf. the etale cohomology with coefficients in the constant etale sheaf qℓ does also exist but is quite different from 
+  
+    
+      
+        
+          h
+          
+            i
+          
+        
+        (
+        v
+        ,
+        
+          
+            z
+          
+          
+            ℓ
+          
+        
+        )
+        ⊗
+        
+          
+            q
+          
+          
+            ℓ
+          
+        
+      
+    
+    {\displaystyle h^{i}(v,\mathbf {z} _{\ell })\otimes \mathbf {q} _{\ell }}
+  . confusing these two groups is a common mistake.
+
+
+== properties ==
+in general the ℓ-adic cohomology groups of a variety tend to have similar properties to the singular cohomology groups of complex varieties, except that they are modules over the ℓ-adic integers (or numbers) rather than the integers (or rationals). they satisfy a form of poincaré duality on non-singular projective varieties, and the ℓ-adic cohomology groups of a "reduction mod p" of a complex variety tend to have the same rank as the singular cohomology groups. a künneth formula also holds.
+for example, the first cohomology group of a complex elliptic curve is a free module of rank 2 over the integers, while the first ℓ-adic cohomology group of an elliptic curve over a finite field is a free module of rank 2 over the ℓ-adic integers, provided ℓ is not the characteristic of the field concerned, and is dual to its tate module.
+there is one way in which ℓ-adic cohomology groups are better than singular cohomology groups: they tend to be acted on by galois groups. for example, if a complex variety is defined over the rational numbers, its ℓ-adic cohomology groups are acted on by the absolute galois group of the rational numbers: they afford galois representations.
+elements of the galois group of the rationals, other than the identity and complex conjugation, do not usually act continuously on a complex variety defined over the rationals, so do not act on the singular cohomology groups. this phenomenon of galois representations is related to the fact that the fundamental group of a topological space acts on the singular cohomology groups, because grothendieck showed that the galois group can be regarded as a sort of fundamental group. (see also grothendieck's galois theory.)
+
+
+== calculation of étale cohomology groups for algebraic curves ==
+the main initial step in calculating étale cohomology groups of a variety is to calculate them for complete connected smooth algebraic curves x over algebraically closed fields k. the étale cohomology groups of arbitrary varieties can then be controlled using analogues of the usual machinery of algebraic topology, such as the spectral sequence of a fibration. for curves the calculation takes several steps, as follows (artin 1962). let gm denote the sheaf of non-vanishing functions.
+
+
+=== calculation of h1(x, gm) ===
+the exact sequence of étale sheaves
+
+  
+    
+      
+        1
+        →
+        
+          
+            g
+          
+          
+            m
+          
+        
+        →
+        
+          j
+          
+            ∗
+          
+        
+        
+          
+            g
+          
+          
+            m
+            ,
+            k
+          
+        
+        →
+        
+          ⨁
+          
+            x
+            ∈
+            
+              |
+            
+            x
+            
+              |
+            
+          
+        
+        
+          i
+          
+            x
+            ∗
+          
+        
+        
+          z
+        
+        →
+        1
+      
+    
+    {\displaystyle 1\to \mathbf {g} _{m}\to j_{*}\mathbf {g} _{m,k}\to \bigoplus _{x\in |x|}i_{x*}\mathbf {z} \to 1}
+  gives a long exact sequence of cohomology groups
+
+  
+    
+      
+        
+          
+            
+              
+                0
+              
+              
+                
+                →
+                
+                  h
+                  
+                    0
+                  
+                
+                (
+                
+                  
+                    g
+                  
+                  
+                    m
+                  
+                
+                )
+                →
+                
+                  h
+                  
+                    0
+                  
+                
+                (
+                
+                  j
+                  
+                    ∗
+                  
+                
+                
+                  
+                    g
+                  
+                  
+                    m
+                    ,
+                    k
+                  
+                
+                )
+                →
+                
+                  ⨁
+                  
+                    x
+                    ∈
+                    
+                      |
+                    
+                    x
+                    
+                      |
+                    
+                  
+                
+                
+                  h
+                  
+                    0
+                  
+                
+                (
+                
+                  i
+                  
+                    x
+                    ∗
+                  
+                
+                
+                  z
+                
+                )
+                →
+              
+            
+            
+              
+              
+                
+                →
+                
+                  h
+                  
+                    1
+                  
+                
+                (
+                
+                  
+                    g
+                  
+                  
+                    m
+                  
+                
+                )
+                →
+                
+                  h
+                  
+                    1
+                  
+                
+                (
+                
+                  j
+                  
+                    ∗
+                  
+                
+                
+                  
+                    g
+                  
+                  
+                    m
+                    ,
+                    k
+                  
+                
+                )
+                →
+                
+                  ⨁
+                  
+                    x
+                    ∈
+                    
+                      |
+                    
+                    x
+                    
+                      |
+                    
+                  
+                
+                
+                  h
+                  
+                    1
+                  
+                
+                (
+                
+                  i
+                  
+                    x
+                    ∗
+                  
+                
+                
+                  z
+                
+                )
+                →
+              
+            
+            
+              
+              
+                
+                →
+                ⋯
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}0&\to h^{0}(\mathbf {g} _{m})\to h^{0}(j_{*}\mathbf {g} _{m,k})\to \bigoplus \nolimits _{x\in |x|}h^{0}(i_{x*}\mathbf {z} )\to \\&\to h^{1}(\mathbf {g} _{m})\to h^{1}(j_{*}\mathbf {g} _{m,k})\to \bigoplus \nolimits _{x\in |x|}h^{1}(i_{x*}\mathbf {z} )\to \\&\to \cdots \end{aligned}}}
+  here j is the injection of the generic point, ix is the injection of a closed point x, gm,k is the sheaf gm on spec k (the generic point of x), and zx is a copy of z for each closed point of x. the groups h i(ix* z) vanish if i > 0 (because ix* z is a skyscraper sheaf) and for i = 0 they are z so their sum is just the divisor group of x. moreover, the first cohomology group h 1(x, j∗gm,k) is isomorphic to the galois cohomology group h 1(k, k*) which vanishes by hilbert's theorem 90. therefore, the long exact sequence of étale cohomology groups gives an exact sequence
+
+  
+    
+      
+        k
+        →
+        div
+        ⁡
+        (
+        x
+        )
+        →
+        
+          h
+          
+            1
+          
+        
+        (
+        
+          
+            g
+          
+          
+            m
+          
+        
+        )
+        →
+        1
+      
+    
+    {\displaystyle k\to \operatorname {div} (x)\to h^{1}(\mathbf {g} _{m})\to 1}
+  where div(x) is the group of divisors of x and k is its function field. in particular h 1(x, gm) is the picard group pic(x) (and the first cohomology groups of gm are the same for the étale and zariski topologies). this step works for varieties x of any dimension (with points replaced by codimension 1 subvarieties), not just curves.
+
+
+=== calculation of hi(x, gm) ===
+the same long exact sequence above shows that if i ≥ 2 then the cohomology group h i(x, gm) is isomorphic to h i(x, j*gm,k), which is isomorphic to the galois cohomology group h i(k, k*). tsen's theorem implies that the brauer group of a function field k in one variable over an algebraically closed field vanishes. this in turn implies that all the galois cohomology groups h i(k, k*) vanish for i ≥ 1, so all the cohomology groups h i(x, gm) vanish if i ≥ 2.
+
+
+=== calculation of hi(x, μn) ===
+if μn is the sheaf of n-th roots of unity and n and the characteristic of the field k are coprime integers, then:
+
+  
+    
+      
+        
+          h
+          
+            i
+          
+        
+        (
+        x
+        ,
+        
+          μ
+          
+            n
+          
+        
+        )
+        =
+        
+          
+            {
+            
+              
+                
+                  
+                    μ
+                    
+                      n
+                    
+                  
+                  (
+                  k
+                  )
+                
+                
+                  i
+                  =
+                  0
+                
+              
+              
+                
+                  
+                    pic
+                    
+                      n
+                    
+                  
+                  ⁡
+                  (
+                  x
+                  )
+                
+                
+                  i
+                  =
+                  1
+                
+              
+              
+                
+                  
+                    z
+                  
+                  
+                    /
+                  
+                  n
+                  
+                    z
+                  
+                
+                
+                  i
+                  =
+                  2
+                
+              
+              
+                
+                  0
+                
+                
+                  i
+                  ⩾
+                  3
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle h^{i}(x,\mu _{n})={\begin{cases}\mu _{n}(k)&i=0\\\operatorname {pic} _{n}(x)&i=1\\\mathbf {z} /n\mathbf {z} &i=2\\0&i\geqslant 3\end{cases}}}
+  where picn(x) is group of n-torsion points of pic(x). this follows from the previous results using the long exact sequence
+
+  
+    
+      
+        
+          
+            
+              
+                0
+              
+              
+                
+                →
+                
+                  h
+                  
+                    0
+                  
+                
+                (
+                x
+                ,
+                
+                  μ
+                  
+                    n
+                  
+                
+                )
+                →
+                
+                  h
+                  
+                    0
+                  
+                
+                (
+                x
+                ,
+                
+                  
+                    g
+                  
+                  
+                    m
+                  
+                
+                )
+                →
+                
+                  h
+                  
+                    0
+                  
+                
+                (
+                x
+                ,
+                
+                  
+                    g
+                  
+                  
+                    m
+                  
+                
+                )
+                →
+              
+            
+            
+              
+              
+                
+                →
+                
+                  h
+                  
+                    1
+                  
+                
+                (
+                x
+                ,
+                
+                  μ
+                  
+                    n
+                  
+                
+                )
+                →
+                
+                  h
+                  
+                    1
+                  
+                
+                (
+                x
+                ,
+                
+                  
+                    g
+                  
+                  
+                    m
+                  
+                
+                )
+                →
+                
+                  h
+                  
+                    1
+                  
+                
+                (
+                x
+                ,
+                
+                  
+                    g
+                  
+                  
+                    m
+                  
+                
+                )
+                →
+              
+            
+            
+              
+              
+                
+                →
+                
+                  h
+                  
+                    2
+                  
+                
+                (
+                x
+                ,
+                
+                  μ
+                  
+                    n
+                  
+                
+                )
+                →
+                
+                  h
+                  
+                    2
+                  
+                
+                (
+                x
+                ,
+                
+                  
+                    g
+                  
+                  
+                    m
+                  
+                
+                )
+                →
+                
+                  h
+                  
+                    2
+                  
+                
+                (
+                x
+                ,
+                
+                  
+                    g
+                  
+                  
+                    m
+                  
+                
+                )
+                →
+              
+            
+            
+              
+              
+                
+                →
+                ⋯
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}0&\to h^{0}(x,\mu _{n})\to h^{0}(x,\mathbf {g} _{m})\to h^{0}(x,\mathbf {g} _{m})\to \\&\to h^{1}(x,\mu _{n})\to h^{1}(x,\mathbf {g} _{m})\to h^{1}(x,\mathbf {g} _{m})\to \\&\to h^{2}(x,\mu _{n})\to h^{2}(x,\mathbf {g} _{m})\to h^{2}(x,\mathbf {g} _{m})\to \\&\to \cdots \end{aligned}}}
+  of the kummer exact sequence of étale sheaves
+
+  
+    
+      
+        1
+        →
+        
+          μ
+          
+            n
+          
+        
+        →
+        
+          
+            g
+          
+          
+            m
+          
+        
+        
+          
+            →
+            
+              (
+              ⋅
+              
+                )
+                
+                  n
+                
+              
+            
+          
+        
+        
+          
+            g
+          
+          
+            m
+          
+        
+        →
+        1.
+      
+    
+    {\displaystyle 1\to \mu _{n}\to \mathbf {g} _{m}{\xrightarrow {(\cdot )^{n}}}\mathbf {g} _{m}\to 1.}
+  and inserting the known values
+
+  
+    
+      
+        
+          h
+          
+            i
+          
+        
+        (
+        x
+        ,
+        
+          
+            g
+          
+          
+            m
+          
+        
+        )
+        =
+        
+          
+            {
+            
+              
+                
+                  
+                    k
+                    
+                      ∗
+                    
+                  
+                
+                
+                  i
+                  =
+                  0
+                
+              
+              
+                
+                  pic
+                  ⁡
+                  (
+                  x
+                  )
+                
+                
+                  i
+                  =
+                  1
+                
+              
+              
+                
+                  0
+                
+                
+                  i
+                  ⩾
+                  2
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle h^{i}(x,\mathbf {g} _{m})={\begin{cases}k^{*}&i=0\\\operatorname {pic} (x)&i=1\\0&i\geqslant 2\end{cases}}}
+  in particular we get an exact sequence
+
+  
+    
+      
+        1
+        →
+        
+          h
+          
+            1
+          
+        
+        (
+        x
+        ,
+        
+          μ
+          
+            n
+          
+        
+        )
+        →
+        pic
+        ⁡
+        (
+        x
+        )
+        
+          →
+          
+            ×
+            n
+          
+        
+        pic
+        ⁡
+        (
+        x
+        )
+        →
+        
+          h
+          
+            2
+          
+        
+        (
+        x
+        ,
+        
+          μ
+          
+            n
+          
+        
+        )
+        →
+        1.
+      
+    
+    {\displaystyle 1\to h^{1}(x,\mu _{n})\to \operatorname {pic} (x)\xrightarrow {\times n} \operatorname {pic} (x)\to h^{2}(x,\mu _{n})\to 1.}
+  if n is divisible by p this argument breaks down because p-th roots of unity behave strangely over fields of characteristic p. in the zariski topology the kummer sequence is not exact on the right, as a non-vanishing function does not usually have an n-th root locally for the zariski topology, so this is one place where the use of the étale topology rather than the zariski topology is essential.
+
+
+=== calculation of h i(x, z/nz) ===
+by fixing a primitive n-th root of unity we can identify the group z/nz with the group μn of n-th roots of unity. the étale group h i(x, z/nz) is then a free module over the ring z/nz and its rank is given by:
+
+  
+    
+      
+        rank
+        ⁡
+        (
+        
+          h
+          
+            i
+          
+        
+        (
+        x
+        ,
+        
+          z
+        
+        
+          /
+        
+        n
+        
+          z
+        
+        )
+        )
+        =
+        
+          
+            {
+            
+              
+                
+                  1
+                
+                
+                  i
+                  =
+                  0
+                
+              
+              
+                
+                  2
+                  g
+                
+                
+                  i
+                  =
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  i
+                  =
+                  2
+                
+              
+              
+                
+                  0
+                
+                
+                  i
+                  ⩾
+                  3
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle \operatorname {rank} (h^{i}(x,\mathbf {z} /n\mathbf {z} ))={\begin{cases}1&i=0\\2g&i=1\\1&i=2\\0&i\geqslant 3\end{cases}}}
+  where g is the genus of the curve x. this follows from the previous result, using the fact that the picard group of a curve is the points of its jacobian variety, an abelian variety of dimension g, and if n is coprime to the characteristic then the points of order dividing n in an abelian variety of dimension g over an algebraically closed field form a group isomorphic to (z/nz)2g. these values for the étale group h i(x, z/nz) are the same as the corresponding singular cohomology groups when x is a complex curve.
+
+
+=== calculation of h i(x, z/pz) ===
+it is possible to calculate étale cohomology groups with constant coefficients of order divisible by the characteristic in a similar way, using the artin–schreier sequence
+
+  
+    
+      
+        0
+        →
+        
+          z
+        
+        
+          /
+        
+        p
+        
+          z
+        
+        →
+        k
+         
+        
+          
+            →
+            
+              
+                
+
+                
+                
+                  x
+                  ↦
+                  
+                    x
+                    
+                      p
+                    
+                  
+                  −
+                  x
+                
+              
+            
+          
+        
+         
+        k
+        →
+        0
+      
+    
+    {\displaystyle 0\to \mathbf {z} /p\mathbf {z} \to k\ {\xrightarrow {{} \atop x\mapsto x^{p}-x}}\ k\to 0}
+  instead of the kummer sequence. (for coefficients in z/pnz there is a similar sequence involving witt vectors.)  the resulting cohomology groups usually have ranks less than that of the corresponding groups in characteristic 0.
+
+
+== examples of étale cohomology groups ==
+if x is the spectrum of a field k with absolute galois group g, then étale sheaves over x correspond to continuous sets (or abelian groups) acted on by the (profinite) group g, and étale cohomology of the sheaf is the same as the group cohomology of g, i.e. the galois cohomology of k.
+if x is a complex variety, then étale cohomology with finite coefficients is isomorphic to singular cohomology with finite coefficients. (this does not hold for integer coefficients.) more generally the cohomology with coefficients in any constructible sheaf is the same.
+if f is a coherent sheaf (or gm) then the étale cohomology of f is the same as serre's coherent sheaf cohomology calculated with the zariski topology (and if x is a complex variety this is the same as the sheaf cohomology calculated with the usual complex topology).
+for abelian varieties and curves there is an elementary description of ℓ-adic cohomology. for abelian varieties the first ℓ-adic cohomology group is the dual of the tate module, and the higher cohomology groups are given by its exterior powers. for curves the first cohomology group is the first cohomology group of its jacobian. this explains why weil was able to give a more elementary proof of the weil conjectures in these two cases: in general one expects to find an elementary proof whenever there is an elementary description of the ℓ-adic cohomology.
+
+
+== poincaré duality and cohomology with compact support ==
+the étale cohomology groups with compact support of a variety x are defined to be
+
+  
+    
+      
+        
+          h
+          
+            c
+          
+          
+            q
+          
+        
+        (
+        x
+        ,
+        f
+        )
+        =
+        
+          h
+          
+            q
+          
+        
+        (
+        y
+        ,
+        
+          j
+          
+            !
+          
+        
+        f
+        )
+      
+    
+    {\displaystyle h_{c}^{q}(x,f)=h^{q}(y,j_{!}f)}
+  where j is an open immersion of x into a proper variety y and j! is the extension by 0 of the étale sheaf f to y. this is independent of the immersion j. if x has dimension at most n and f is a torsion sheaf then these cohomology groups 
+  
+    
+      
+        
+          h
+          
+            c
+          
+          
+            q
+          
+        
+        (
+        x
+        ,
+        f
+        )
+      
+    
+    {\displaystyle h_{c}^{q}(x,f)}
+   with compact support vanish if q > 2n, and if in addition x is affine of finite type over a separably closed field the cohomology groups 
+  
+    
+      
+        
+          h
+          
+            q
+          
+        
+        (
+        x
+        ,
+        f
+        )
+      
+    
+    {\displaystyle h^{q}(x,f)}
+   vanish for q > n (for the last statement, see sga 4, xiv, cor.3.2).
+more generally if f is a separated morphism of finite type from x to s (with x and s noetherian) then the higher direct images with compact support rqf! are defined by
+
+  
+    
+      
+        
+          r
+          
+            q
+          
+        
+        
+          f
+          
+            !
+          
+        
+        (
+        f
+        )
+        =
+        
+          r
+          
+            q
+          
+        
+        
+          g
+          
+            ∗
+          
+        
+        (
+        
+          j
+          
+            !
+          
+        
+        f
+        )
+      
+    
+    {\displaystyle r^{q}f_{!}(f)=r^{q}g_{*}(j_{!}f)}
+  for any torsion sheaf f. here j is any open immersion of x into a scheme y  with a proper morphism g to  s (with f = gj), and as before the definition does not depend on the choice of j and y. cohomology with compact support is the special case of this with s a point. if f is a separated morphism of finite type then rqf! takes constructible sheaves on x to constructible sheaves on s. if in addition the fibers of f have dimension at most n then rqf! vanishes on torsion sheaves for q > 2n. if x is a complex variety then rqf! is the same as the usual higher direct image with compact support (for the complex topology) for torsion sheaves.
+if x is a smooth algebraic variety of dimension n and n is coprime to the characteristic then there is a trace map
+
+  
+    
+      
+        tr
+        :
+        
+          h
+          
+            c
+          
+          
+            2
+            n
+          
+        
+        (
+        x
+        ,
+        
+          μ
+          
+            n
+          
+          
+            n
+          
+        
+        )
+        →
+        
+          z
+        
+        
+          /
+        
+        n
+        
+          z
+        
+      
+    
+    {\displaystyle \operatorname {tr} :h_{c}^{2n}(x,\mu _{n}^{n})\rightarrow \mathbf {z} /n\mathbf {z} }
+  and the bilinear form tr(a ∪ b) with values in z/nz identifies each of the groups
+
+  
+    
+      
+        
+          h
+          
+            c
+          
+          
+            i
+          
+        
+        (
+        x
+        ,
+        
+          μ
+          
+            n
+          
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle h_{c}^{i}(x,\mu _{n}^{n})}
+  and
+
+  
+    
+      
+        
+          h
+          
+            2
+            n
+            −
+            i
+          
+        
+        (
+        x
+        ,
+        
+          z
+        
+        
+          /
+        
+        n
+        
+          z
+        
+        )
+      
+    
+    {\displaystyle h^{2n-i}(x,\mathbf {z} /n\mathbf {z} )}
+  with the dual of the other. this is the analogue of poincaré duality for étale cohomology.
+
+
+== an application to curves ==
+
+this is how the theory could be applied to the local zeta-function of an algebraic curve.
+theorem.  let x be a curve of genus g defined over fp, the finite field with p elements. then for n ≥ 1
+
+  
+    
+      
+        #
+        x
+        
+          (
+          
+            
+              f
+            
+            
+              
+                p
+                
+                  n
+                
+              
+            
+          
+          )
+        
+        =
+        
+          p
+          
+            n
+          
+        
+        +
+        1
+        −
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            2
+            g
+          
+        
+        
+          α
+          
+            i
+          
+          
+            n
+          
+        
+        ,
+      
+    
+    {\displaystyle \#x\left(\mathbf {f} _{p^{n}}\right)=p^{n}+1-\sum _{i=1}^{2g}\alpha _{i}^{n},}
+  where αi are certain algebraic numbers satisfying |αi| = √p.
+this agrees with p1(fpn) being a curve of genus 0 with pn + 1 points.  it also shows that the number of points on any curve is rather close (within 2gpn / 2) to that of the projective line; in particular, it generalizes hasse's theorem on elliptic curves.
+
+
+=== idea of proof ===
+according to the lefschetz fixed-point theorem, the number of fixed points of any morphism f : x → x is equal to the sum
+
+  
+    
+      
+        
+          ∑
+          
+            i
+            =
+            0
+          
+          
+            2
+            dim
+            ⁡
+            (
+            x
+            )
+          
+        
+        (
+        −
+        1
+        
+          )
+          
+            i
+          
+        
+        tr
+        ⁡
+        
+          (
+          
+            f
+            
+              
+                |
+              
+              
+                
+                  h
+                  
+                    i
+                  
+                
+                (
+                x
+                )
+              
+            
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle \sum _{i=0}^{2\dim(x)}(-1)^{i}\operatorname {tr} \left(f|_{h^{i}(x)}\right).}
+  this formula is valid for ordinary topological varieties and ordinary topology, but it is wrong for most algebraic topologies. however, this formula does hold for étale cohomology (though this is not so simple to prove).
+the points of x that are defined over fpn are those fixed by fn, where f is the frobenius automorphism in characteristic p.
+the étale cohomology betti numbers of x in dimensions 0, 1, 2 are 1, 2g, and 1 respectively.
+according to all of these,
+
+  
+    
+      
+        #
+        x
+        
+          (
+          
+            
+              f
+            
+            
+              
+                p
+                
+                  n
+                
+              
+            
+          
+          )
+        
+        =
+        tr
+        ⁡
+        
+          (
+          
+            
+              f
+              
+                n
+              
+            
+            
+              
+                |
+              
+              
+                
+                  h
+                  
+                    0
+                  
+                
+                (
+                x
+                )
+              
+            
+          
+          )
+        
+        −
+        tr
+        ⁡
+        
+          (
+          
+            
+              f
+              
+                n
+              
+            
+            
+              
+                |
+              
+              
+                
+                  h
+                  
+                    1
+                  
+                
+                (
+                x
+                )
+              
+            
+          
+          )
+        
+        +
+        tr
+        ⁡
+        
+          (
+          
+            
+              f
+              
+                n
+              
+            
+            
+              
+                |
+              
+              
+                
+                  h
+                  
+                    2
+                  
+                
+                (
+                x
+                )
+              
+            
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle \#x\left(\mathbf {f} _{p^{n}}\right)=\operatorname {tr} \left(f^{n}|_{h^{0}(x)}\right)-\operatorname {tr} \left(f^{n}|_{h^{1}(x)}\right)+\operatorname {tr} \left(f^{n}|_{h^{2}(x)}\right).}
+  this gives the general form of the theorem.
+the assertion on the absolute values of the αi is the 1-dimensional riemann hypothesis of the weil conjectures.
+the whole idea fits into the framework of motives: formally [x] = [point] + [line] + [1-part], and [1-part] has something like √p points.
+
+
+== see also ==
+locally acyclic morphism
+theorem of absolute purity
+
+
+== references ==
+artin, michael (1962), grothendieck topologies, harvard university, dept. of mathematics
+artin, michael (1972),  alexandre grothendieck; jean-louis verdier (eds.), séminaire de géométrie algébrique du bois marie – 1963–64 – théorie des topos et cohomologie étale des schémas – (sga 4) – vol. 1, lecture notes in mathematics (in french), vol. 269, berlin; new york: springer-verlag, xix, 525
+artin, michael (1972),  alexandre grothendieck; jean-louis verdier (eds.), séminaire de géométrie algébrique du bois marie – 1963–64 – théorie des topos et cohomologie étale des schémas - (sga 4) – vol. 2, lecture notes in mathematics (in french), vol. 270, berlin; new york: springer-verlag, pp. iv, 418
+artin, michael (1972),  alexandre grothendieck; jean-louis verdier (eds.), séminaire de géométrie algébrique du bois marie – 1963–64 – théorie des topos et cohomologie étale des schémas - (sga 4) - vol. 3, lecture notes in mathematics (in french), vol. 305, berlin; new york: springer-verlag, pp. vi, 640
+danilov, v.i. (2001) [1994], "étale cohomology", encyclopedia of mathematics, ems press
+deligne, pierre (1974), "la conjecture de weil. i", inst. hautes études sci. publ. math., 43: 273–307, doi:10.1007/bf02684373
+deligne, pierre (1980), "la conjecture de weil : ii", publications mathématiques de l'ihés, 52: 137–252, doi:10.1007/bf02684780
+deligne, pierre, ed. (1977), séminaire de géométrie algébrique du bois marie — cohomologie étale (sga 4.5), lecture notes in mathematics (in french), vol. 569, berlin: springer-verlag, doi:10.1007/bfb0091516, isbn 978-0-387-08066-6, archived from the original on 2009-05-15, retrieved 2007-03-17chapter1: doi: 10.1007/bfb0091518
+i.v. dolgachev (2001) [1994], "ℓ-adic cohomology", encyclopedia of mathematics, ems press
+freitag, e.; kiehl, reinhardt (1988), etale cohomology and the weil conjecture, berlin, new york: springer-verlag, isbn 978-0-387-12175-8
+fu, lei (2011), etale cohomology theory. (2011), nankai tracts in mathematics, vol. 13, world scientific publishing, doi:10.1142/7773, isbn 9789814307727
+grothendieck, alexander (1960), "the cohomology theory of abstract algebraic varieties", proc. internat. congress math. (edinburgh, 1958), cambridge university press, pp. 103–118, mr 0130879
+milne, james s. (1980), étale cohomology, princeton mathematical series, vol. 33, princeton university press, isbn 978-0-691-08238-7, mr 0559531
+tamme, günter (1994), introduction to étale cohomology, universitext, berlin, new york: springer-verlag, isbn 978-3-540-57116-2
+
+
+== external links ==
+archibald and savitt étale cohomology
+goresky langlands program for physicists
+milne, james s. (1998), lectures on étale cohomology
+dolgachev, i.v. (2001) [1994], "l-adic-cohomology", encyclopedia of mathematics, ems press

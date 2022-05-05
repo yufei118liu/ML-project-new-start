@@ -1,0 +1,2330 @@
+in analysis, numerical integration comprises a broad family of algorithms for calculating the numerical value of a definite integral, and by extension, the term is also sometimes used to describe the numerical solution of differential equations. this article focuses on calculation of definite integrals.
+the term numerical quadrature (often abbreviated to quadrature) is more or less a synonym for numerical integration, especially as applied to one-dimensional integrals. some authors refer to numerical integration over more than one dimension as cubature; others take quadrature to include higher-dimensional integration.
+the basic problem in numerical integration is to compute an approximate solution to a definite integral
+
+  
+    
+      
+        
+          ∫
+          
+            a
+          
+          
+            b
+          
+        
+        f
+        (
+        x
+        )
+        
+        d
+        x
+      
+    
+    {\displaystyle \int _{a}^{b}f(x)\,dx}
+  to a given degree of accuracy. if f(x) is a smooth function integrated over a small number of dimensions, and the domain of integration is bounded, there are many methods for approximating the integral to the desired precision.
+
+
+== reasons for numerical integration ==
+there are several reasons for carrying out numerical integration, as opposed to analytical integration by finding the antiderivative:
+
+the integrand f(x) may be known only at certain points, such as obtained by sampling. some embedded systems and other computer applications may need numerical integration for this reason.
+a formula for the integrand may be known, but it may be difficult or impossible to find an antiderivative that is an elementary function. an example of such an integrand is f(x) = exp(−x2), the antiderivative of which (the error function, times a constant) cannot be written in elementary form. 
+it may be possible to find an antiderivative symbolically, but it may be easier to compute a numerical approximation than to compute the antiderivative. that may be the case if the antiderivative is given as an infinite series or product, or if its evaluation requires a special function that is not available.
+
+
+== history ==
+
+the term "numerical integration" first appears in 1915 in the publication a course in interpolation and numeric integration for the mathematical laboratory by david gibb.quadrature is a historical mathematical term that means calculating area. quadrature problems have served as one of the main sources of mathematical analysis. mathematicians of ancient greece, according to the pythagorean doctrine, understood calculation of area as the process of constructing geometrically a square having the same area (squaring). that is why the process was named quadrature. for example, a quadrature of the circle, lune of hippocrates, the quadrature of the parabola. this construction must be performed only by means of compass and straightedge.
+the ancient babylonians used the trapezoidal rule to integrate the motion of jupiter along the ecliptic.
+
+for a quadrature of a rectangle with the sides a and b it is necessary to construct a square with the side 
+  
+    
+      
+        x
+        =
+        
+          
+            a
+            b
+          
+        
+      
+    
+    {\displaystyle x={\sqrt {ab}}}
+   (the geometric mean of a and b). for this purpose it is possible to use the following fact: if we draw the circle with the sum of a and b as the diameter, then the height bh (from a point of their connection to crossing with a circle) equals their geometric mean. the similar geometrical construction solves a problem of a quadrature for a parallelogram and a triangle.
+
+problems of quadrature for curvilinear figures are much more difficult. the quadrature of the circle with compass and straightedge had been proved in the 19th century to be impossible. nevertheless, for some figures (for example the lune of hippocrates) a quadrature can be performed. the quadratures of a sphere surface and a parabola segment done by archimedes became the highest achievement of the antique analysis.
+
+the area of the surface of a sphere is equal to quadruple the area of a great circle of this sphere.
+the area of a segment of the parabola cut from it by a straight line is 4/3 the area of the triangle inscribed in this segment.for the proof of the results archimedes used the method of exhaustion of eudoxus.
+in medieval europe the quadrature meant calculation of area by any method. more often the method of indivisibles was used; it was less rigorous, but more simple and powerful. with its help galileo galilei and gilles de roberval found the area of a cycloid arch, grégoire de saint-vincent investigated the area under a hyperbola (opus geometricum, 1647), and alphonse antonio de sarasa, de saint-vincent's pupil and commentator, noted the relation of this area to logarithms.
+john wallis algebrised this method: he wrote in his arithmetica infinitorum (1656) series that we now call the definite integral, and he calculated their values. isaac barrow and james gregory made further progress: quadratures for some algebraic curves and spirals. christiaan huygens successfully performed a quadrature of some solids of revolution.
+the quadrature of the hyperbola by saint-vincent and de sarasa provided a new function, the natural logarithm, of critical importance.
+with the invention of integral calculus came a universal method for area calculation. in response, the term quadrature has become traditional, and instead the modern phrase "computation of a univariate definite integral" is more common.
+
+
+== methods for one-dimensional integrals ==
+numerical integration methods can generally be described as combining evaluations of the integrand to get an approximation to the integral. the integrand is evaluated at a finite set of points called integration points and a weighted sum of these values is used to approximate the integral. the integration points and weights depend on the specific method used and the accuracy required from the approximation.
+an important part of the analysis of any numerical integration method is to study the behavior of the approximation error as a function of the number of integrand evaluations. a method that yields a small error for a small number of evaluations is usually considered superior. reducing the number of evaluations of the integrand reduces the number of arithmetic operations involved, and therefore reduces the total round-off error. also, each evaluation takes time, and the integrand may be arbitrarily complicated.
+a 'brute force' kind of numerical integration can be done, if the integrand is reasonably well-behaved (i.e. piecewise continuous and of bounded variation), by evaluating the integrand with very small increments.
+
+
+=== quadrature rules based on interpolating functions ===
+a large class of quadrature rules can be derived by constructing interpolating functions that are easy to integrate. typically these interpolating functions are polynomials.  in practice, since polynomials of very high degree tend to oscillate wildly, only polynomials of low degree are used, typically linear and quadratic.
+
+the simplest method of this type is to let the interpolating function be a constant function (a polynomial of degree zero) that passes through the point 
+  
+    
+      
+        
+          (
+          
+            
+              
+                
+                  a
+                  +
+                  b
+                
+                2
+              
+            
+            ,
+            f
+            
+              (
+              
+                
+                  
+                    a
+                    +
+                    b
+                  
+                  2
+                
+              
+              )
+            
+          
+          )
+        
+      
+    
+    {\textstyle \left({\frac {a+b}{2}},f\left({\frac {a+b}{2}}\right)\right)}
+  . this is called the midpoint rule or rectangle rule
+
+  
+    
+      
+        
+          ∫
+          
+            a
+          
+          
+            b
+          
+        
+        f
+        (
+        x
+        )
+        
+        d
+        x
+        ≈
+        (
+        b
+        −
+        a
+        )
+        f
+        
+          (
+          
+            
+              
+                a
+                +
+                b
+              
+              2
+            
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle \int _{a}^{b}f(x)\,dx\approx (b-a)f\left({\frac {a+b}{2}}\right).}
+  
+the interpolating function may be a straight line (an affine function, i.e. a polynomial of degree 1)
+passing through the points 
+  
+    
+      
+        
+          (
+          
+            a
+            ,
+            f
+            (
+            a
+            )
+          
+          )
+        
+      
+    
+    {\displaystyle \left(a,f(a)\right)}
+   and 
+  
+    
+      
+        
+          (
+          
+            b
+            ,
+            f
+            (
+            b
+            )
+          
+          )
+        
+      
+    
+    {\displaystyle \left(b,f(b)\right)}
+  .
+this is called the trapezoidal rule
+
+  
+    
+      
+        
+          ∫
+          
+            a
+          
+          
+            b
+          
+        
+        f
+        (
+        x
+        )
+        
+        d
+        x
+        ≈
+        (
+        b
+        −
+        a
+        )
+        
+          (
+          
+            
+              
+                f
+                (
+                a
+                )
+                +
+                f
+                (
+                b
+                )
+              
+              2
+            
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle \int _{a}^{b}f(x)\,dx\approx (b-a)\left({\frac {f(a)+f(b)}{2}}\right).}
+  
+for either one of these rules, we can make a more accurate approximation by breaking up the interval 
+  
+    
+      
+        [
+        a
+        ,
+        b
+        ]
+      
+    
+    {\displaystyle [a,b]}
+   into some number 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   of subintervals, computing an approximation for each subinterval, then adding up all the results. this is called a composite rule, extended rule, or iterated rule. for example, the composite trapezoidal rule can be stated as
+
+  
+    
+      
+        
+          ∫
+          
+            a
+          
+          
+            b
+          
+        
+        f
+        (
+        x
+        )
+        
+        d
+        x
+        ≈
+        
+          
+            
+              b
+              −
+              a
+            
+            n
+          
+        
+        
+          (
+          
+            
+              
+                
+                  f
+                  (
+                  a
+                  )
+                
+                2
+              
+            
+            +
+            
+              ∑
+              
+                k
+                =
+                1
+              
+              
+                n
+                −
+                1
+              
+            
+            
+              (
+              
+                f
+                
+                  (
+                  
+                    a
+                    +
+                    k
+                    
+                      
+                        
+                          b
+                          −
+                          a
+                        
+                        n
+                      
+                    
+                  
+                  )
+                
+              
+              )
+            
+            +
+            
+              
+                
+                  f
+                  (
+                  b
+                  )
+                
+                2
+              
+            
+          
+          )
+        
+        ,
+      
+    
+    {\displaystyle \int _{a}^{b}f(x)\,dx\approx {\frac {b-a}{n}}\left({f(a) \over 2}+\sum _{k=1}^{n-1}\left(f\left(a+k{\frac {b-a}{n}}\right)\right)+{f(b) \over 2}\right),}
+  where the subintervals have the form 
+  
+    
+      
+        [
+        a
+        +
+        k
+        h
+        ,
+        a
+        +
+        (
+        k
+        +
+        1
+        )
+        h
+        ]
+        ⊂
+        [
+        a
+        ,
+        b
+        ]
+        ,
+      
+    
+    {\displaystyle [a+kh,a+(k+1)h]\subset [a,b],}
+   with 
+  
+    
+      
+        h
+        =
+        
+          
+            
+              b
+              −
+              a
+            
+            n
+          
+        
+      
+    
+    {\textstyle h={\frac {b-a}{n}}}
+   and 
+  
+    
+      
+        k
+        =
+        0
+        ,
+        …
+        ,
+        n
+        −
+        1.
+      
+    
+    {\displaystyle k=0,\ldots ,n-1.}
+   here we used subintervals of the same length 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   but one could also use intervals of varying length 
+  
+    
+      
+        
+          
+            (
+            
+              h
+              
+                k
+              
+            
+            )
+          
+          
+            k
+          
+        
+      
+    
+    {\displaystyle \left(h_{k}\right)_{k}}
+  .
+interpolation with polynomials evaluated at equally spaced points in 
+  
+    
+      
+        [
+        a
+        ,
+        b
+        ]
+      
+    
+    {\displaystyle [a,b]}
+   yields the newton–cotes formulas, of which the rectangle rule and the trapezoidal rule are examples. simpson's rule, which is based on a polynomial of order 2, is also a newton–cotes formula.
+quadrature rules with equally spaced points have the very convenient property of nesting.  the corresponding rule with each interval subdivided includes all the current points, so those integrand values can be re-used.
+if we allow the intervals between interpolation points to vary, we find another group of quadrature formulas, such as the gaussian quadrature formulas. a gaussian quadrature rule is typically more accurate than a newton–cotes rule, which requires the same number of function evaluations, if the integrand is smooth (i.e., if it is sufficiently differentiable). other quadrature methods with varying intervals include clenshaw–curtis quadrature (also called fejér quadrature) methods, which do nest.
+gaussian quadrature rules do not nest, but the related gauss–kronrod quadrature formulas do.
+
+
+=== generalized midpoint rule formula ===
+a generalized midpoint rule formula is given by
+
+  
+    
+      
+        
+          ∫
+          
+            0
+          
+          
+            1
+          
+        
+        
+          f
+          (
+          x
+          )
+          
+          d
+          x
+        
+        =
+        
+          ∑
+          
+            m
+            =
+            1
+          
+          
+            m
+          
+        
+        
+          
+            ∑
+            
+              n
+              =
+              0
+            
+            
+              ∞
+            
+          
+          
+            
+              
+                
+                  
+                    
+                      (
+                      
+                        −
+                        1
+                      
+                      )
+                    
+                    
+                      n
+                    
+                  
+                  +
+                  1
+                
+                
+                  
+                    
+                      
+                        (
+                        
+                          2
+                          m
+                        
+                        )
+                      
+                      
+                        n
+                        +
+                        1
+                      
+                    
+                  
+                  
+                    (
+                    
+                      n
+                      +
+                      1
+                    
+                    )
+                  
+                  !
+                
+              
+            
+            
+              
+                
+                  
+                    
+                    
+                      
+                        f
+                        
+                          (
+                          n
+                          )
+                        
+                      
+                      (
+                      x
+                      )
+                    
+                    |
+                  
+                
+                
+                  x
+                  =
+                  
+                    
+                      
+                        m
+                        −
+                        1
+                        
+                          /
+                        
+                        2
+                      
+                      m
+                    
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle \int _{0}^{1}{f(x)\,dx}=\sum _{m=1}^{m}{\sum _{n=0}^{\infty }{{\frac {\left({-1}\right)^{n}+1}{{\left(2m\right)^{n+1}}\left({n+1}\right)!}}{{\left.f^{(n)}(x)\right|}_{x={\frac {m-1/2}{m}}}}}}}
+  or
+
+  
+    
+      
+        
+          ∫
+          
+            0
+          
+          
+            1
+          
+        
+        
+          f
+          (
+          x
+          )
+          
+          d
+          x
+        
+        =
+        
+          lim
+          
+            n
+            →
+            ∞
+          
+        
+        
+          ∑
+          
+            m
+            =
+            1
+          
+          
+            m
+          
+        
+        
+          
+            ∑
+            
+              n
+              =
+              0
+            
+            
+              n
+            
+          
+          
+            
+              
+                
+                  
+                    
+                      (
+                      
+                        −
+                        1
+                      
+                      )
+                    
+                    
+                      n
+                    
+                  
+                  +
+                  1
+                
+                
+                  
+                    
+                      
+                        
+                          (
+                          
+                            2
+                            m
+                          
+                          )
+                        
+                      
+                      
+                        n
+                        +
+                        1
+                      
+                    
+                  
+                  
+                    (
+                    
+                      n
+                      +
+                      1
+                    
+                    )
+                  
+                  !
+                
+              
+            
+            
+              
+                
+                  
+                  
+                    
+                      f
+                      
+                        (
+                        n
+                        )
+                      
+                    
+                    (
+                    x
+                    )
+                  
+                  |
+                
+                
+                  x
+                  =
+                  
+                    
+                      
+                        m
+                        −
+                        1
+                        
+                          /
+                        
+                        2
+                      
+                      m
+                    
+                  
+                
+              
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle \int _{0}^{1}{f(x)\,dx}=\lim _{n\to \infty }\sum _{m=1}^{m}{\sum _{n=0}^{n}{{\frac {\left({-1}\right)^{n}+1}{{{\left({2m}\right)}^{n+1}}\left({n+1}\right)!}}{\left.f^{(n)}(x)\right|_{x={\frac {m-1/2}{m}}}}}},}
+  where 
+  
+    
+      
+        
+          f
+          
+            (
+            n
+            )
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle f^{(n)}(x)}
+   denotes 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  -th derivative. for example, substituting 
+  
+    
+      
+        m
+        =
+        1
+      
+    
+    {\displaystyle m=1}
+   and
+
+  
+    
+      
+        f
+        (
+        x
+        )
+        =
+        
+          
+            θ
+            
+              1
+              +
+              
+                θ
+                
+                  2
+                
+              
+              
+                x
+                
+                  2
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle f(x)={\frac {\theta }{1+\theta ^{2}x^{2}}}}
+  in the generalized midpoint rule formula, we obtain an equation of the inverse tangent
+
+  
+    
+      
+        
+          tan
+          
+            −
+            1
+          
+        
+        ⁡
+        (
+        θ
+        )
+        =
+        i
+        
+          ∑
+          
+            n
+            =
+            1
+          
+          
+            ∞
+          
+        
+        
+          
+            1
+            
+              2
+              n
+              −
+              1
+            
+          
+        
+        
+          (
+          
+            
+              
+                1
+                
+                  
+                    (
+                    
+                      1
+                      +
+                      2
+                      i
+                      
+                        /
+                      
+                      θ
+                    
+                    )
+                  
+                  
+                    2
+                    n
+                    −
+                    1
+                  
+                
+              
+            
+            −
+            
+              
+                1
+                
+                  
+                    (
+                    
+                      1
+                      −
+                      2
+                      i
+                      
+                        /
+                      
+                      θ
+                    
+                    )
+                  
+                  
+                    2
+                    n
+                    −
+                    1
+                  
+                
+              
+            
+          
+          )
+        
+        =
+        2
+        
+          ∑
+          
+            n
+            =
+            1
+          
+          
+            ∞
+          
+        
+        
+          
+            
+              1
+              
+                2
+                n
+                −
+                1
+              
+            
+          
+          
+            
+              
+                
+                  a
+                  
+                    n
+                  
+                
+                
+                  (
+                  θ
+                  )
+                
+              
+              
+                
+                  a
+                  
+                    n
+                  
+                  
+                    2
+                  
+                
+                
+                  (
+                  θ
+                  )
+                
+                +
+                
+                  b
+                  
+                    n
+                  
+                  
+                    2
+                  
+                
+                
+                  (
+                  θ
+                  )
+                
+              
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle \tan ^{-1}(\theta )=i\sum _{n=1}^{\infty }{\frac {1}{2n-1}}\left({\frac {1}{\left(1+2i/\theta \right)^{2n-1}}}-{\frac {1}{\left(1-2i/\theta \right)^{2n-1}}}\right)=2\sum _{n=1}^{\infty }{{\frac {1}{2n-1}}{\frac {a_{n}\left(\theta \right)}{a_{n}^{2}\left(\theta \right)+b_{n}^{2}\left(\theta \right)}}},}
+  where 
+  
+    
+      
+        i
+        =
+        
+          
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle i={\sqrt {-1}}}
+   is imaginary unit and
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  a
+                  
+                    1
+                  
+                
+                (
+                θ
+                )
+              
+              
+                
+                =
+                
+                  
+                    2
+                    θ
+                  
+                
+                ,
+              
+            
+            
+              
+                
+                  b
+                  
+                    1
+                  
+                
+                (
+                θ
+                )
+              
+              
+                
+                =
+                1
+                ,
+              
+            
+            
+              
+                
+                  a
+                  
+                    n
+                  
+                
+                (
+                θ
+                )
+              
+              
+                
+                =
+                
+                  (
+                  
+                    1
+                    −
+                    
+                      
+                        4
+                        
+                          θ
+                          
+                            2
+                          
+                        
+                      
+                    
+                  
+                  )
+                
+                
+                
+                  a
+                  
+                    n
+                    −
+                    1
+                  
+                
+                (
+                θ
+                )
+                +
+                
+                  
+                    4
+                    θ
+                  
+                
+                
+                
+                  b
+                  
+                    n
+                    −
+                    1
+                  
+                
+                (
+                θ
+                )
+                ,
+              
+            
+            
+              
+                
+                  b
+                  
+                    n
+                  
+                
+                (
+                θ
+                )
+              
+              
+                
+                =
+                
+                  (
+                  
+                    1
+                    −
+                    
+                      
+                        4
+                        
+                          θ
+                          
+                            2
+                          
+                        
+                      
+                    
+                  
+                  )
+                
+                
+                
+                  b
+                  
+                    n
+                    −
+                    1
+                  
+                
+                (
+                θ
+                )
+                −
+                
+                  
+                    4
+                    θ
+                  
+                
+                
+                
+                  a
+                  
+                    n
+                    −
+                    1
+                  
+                
+                (
+                θ
+                )
+                .
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}a_{1}(\theta )&={\frac {2}{\theta }},\\b_{1}(\theta )&=1,\\a_{n}(\theta )&=\left(1-{\frac {4}{\theta ^{2}}}\right)\,a_{n-1}(\theta )+{\frac {4}{\theta }}\,b_{n-1}(\theta ),\\b_{n}(\theta )&=\left(1-{\frac {4}{\theta ^{2}}}\right)\,b_{n-1}(\theta )-{\frac {4}{\theta }}\,a_{n-1}(\theta ).\end{aligned}}}
+  since at each odd 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   the numerator of the integrand becomes 
+  
+    
+      
+        (
+        −
+        1
+        
+          )
+          
+            n
+          
+        
+        +
+        1
+        =
+        0
+      
+    
+    {\displaystyle (-1)^{n}+1=0}
+  , the generalized midpoint rule formula can be reorganized as
+
+  
+    
+      
+        
+          ∫
+          
+            0
+          
+          
+            1
+          
+        
+        
+          f
+          (
+          x
+          )
+          
+          d
+          x
+        
+        =
+        2
+        
+          ∑
+          
+            m
+            =
+            1
+          
+          
+            m
+          
+        
+        
+          
+            ∑
+            
+              n
+              =
+              0
+            
+            
+              ∞
+            
+          
+          
+            
+              
+                1
+                
+                  
+                    
+                      
+                        (
+                        
+                          2
+                          m
+                        
+                        )
+                      
+                      
+                        2
+                        n
+                        +
+                        1
+                      
+                    
+                  
+                  
+                    (
+                    
+                      2
+                      n
+                      +
+                      1
+                    
+                    )
+                  
+                  !
+                
+              
+            
+            
+              
+                
+                  
+                    
+                    
+                      
+                        f
+                        
+                          (
+                          2
+                          n
+                          )
+                        
+                      
+                      (
+                      x
+                      )
+                    
+                    |
+                  
+                
+                
+                  x
+                  =
+                  
+                    
+                      
+                        m
+                        −
+                        1
+                        
+                          /
+                        
+                        2
+                      
+                      m
+                    
+                  
+                
+              
+            
+          
+        
+        
+        
+        .
+      
+    
+    {\displaystyle \int _{0}^{1}{f(x)\,dx}=2\sum _{m=1}^{m}{\sum _{n=0}^{\infty }{{\frac {1}{{\left(2m\right)^{2n+1}}\left({2n+1}\right)!}}{{\left.f^{(2n)}(x)\right|}_{x={\frac {m-1/2}{m}}}}}}\,\,.}
+  the following example of mathematica code generates the plot showing difference between inverse tangent and its approximation truncated at 
+  
+    
+      
+        m
+        =
+        5
+      
+    
+    {\displaystyle m=5}
+   and 
+  
+    
+      
+        n
+        =
+        10
+      
+    
+    {\displaystyle n=10}
+  :
+
+for a function 
+  
+    
+      
+        g
+        (
+        t
+        )
+      
+    
+    {\displaystyle g(t)}
+   defined over interval 
+  
+    
+      
+        (
+        a
+        ,
+        b
+        )
+      
+    
+    {\displaystyle (a,b)}
+  , its integral is
+
+  
+    
+      
+        
+          ∫
+          
+            a
+          
+          
+            b
+          
+        
+        
+          g
+          (
+          t
+          )
+          
+          d
+          t
+        
+        =
+        
+          ∫
+          
+            0
+          
+          
+            b
+            −
+            a
+          
+        
+        
+          g
+          (
+          τ
+          +
+          a
+          )
+          
+          d
+          τ
+        
+        =
+        (
+        b
+        −
+        a
+        )
+        
+          ∫
+          
+            0
+          
+          
+            1
+          
+        
+        
+          g
+          (
+          (
+          b
+          −
+          a
+          )
+          x
+          +
+          a
+          )
+          
+          d
+          x
+        
+        .
+      
+    
+    {\displaystyle \int _{a}^{b}{g(t)\,dt}=\int _{0}^{b-a}{g(\tau +a)\,d\tau }=(b-a)\int _{0}^{1}{g((b-a)x+a)\,dx}.}
+  therefore, we can apply the generalized midpoint integration formula above by assuming that 
+  
+    
+      
+        f
+        (
+        x
+        )
+        =
+        (
+        b
+        −
+        a
+        )
+        
+        g
+        (
+        (
+        b
+        −
+        a
+        )
+        x
+        +
+        a
+        )
+      
+    
+    {\displaystyle f(x)=(b-a)\,g((b-a)x+a)}
+  .
+
+
+=== adaptive algorithms ===
+
+if f(x) does not have many derivatives at all points, or if the derivatives become large, then gaussian quadrature is often insufficient. in this case, an algorithm similar to the following will perform better:
+
+some details of the algorithm require careful thought. for many cases, estimating the error from quadrature over an interval for a function f(x) isn't obvious. one popular solution is to use two different rules of quadrature, and use their difference as an estimate of the error from quadrature. the other problem is deciding what "too large" or "very small" signify. a local criterion for "too large" is that the quadrature error should not be larger than t ⋅ h where t, a real number, is the tolerance we wish to set for global error. then again, if h is already tiny, it may not be worthwhile to make it even smaller even if the quadrature error is apparently large. a global criterion is that the sum of errors on all the intervals should be less than t.  this type of error analysis is usually called "a posteriori" since we compute the error after having computed the approximation.
+heuristics for adaptive quadrature are discussed by forsythe et al. (section 5.4).
+
+
+=== extrapolation methods ===
+the accuracy of a quadrature rule of the newton–cotes type is generally a function of the number of evaluation points. the result is usually more accurate as the number of evaluation points increases, or, equivalently, as the width of the step size between the points decreases. it is natural to ask what the result would be if the step size were allowed to approach zero. this can be answered by extrapolating the result from two or more nonzero step sizes, using series acceleration methods such as richardson extrapolation. the extrapolation function may be a polynomial or rational function. extrapolation methods are described in more detail by stoer and bulirsch (section 3.4) and are implemented in many of the routines in the quadpack library.
+
+
+=== conservative (a priori) error estimation ===
+let 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   have a bounded first derivative over 
+  
+    
+      
+        [
+        a
+        ,
+        b
+        ]
+        ,
+      
+    
+    {\displaystyle [a,b],}
+   i.e. 
+  
+    
+      
+        f
+        ∈
+        
+          c
+          
+            1
+          
+        
+        (
+        [
+        a
+        ,
+        b
+        ]
+        )
+        .
+      
+    
+    {\displaystyle f\in c^{1}([a,b]).}
+   the mean value theorem for 
+  
+    
+      
+        f
+        ,
+      
+    
+    {\displaystyle f,}
+   where 
+  
+    
+      
+        x
+        ∈
+        [
+        a
+        ,
+        b
+        )
+        ,
+      
+    
+    {\displaystyle x\in [a,b),}
+   gives
+
+  
+    
+      
+        (
+        x
+        −
+        a
+        )
+        
+          f
+          ′
+        
+        (
+        
+          ξ
+          
+            x
+          
+        
+        )
+        =
+        f
+        (
+        x
+        )
+        −
+        f
+        (
+        a
+        )
+        ,
+      
+    
+    {\displaystyle (x-a)f'(\xi _{x})=f(x)-f(a),}
+  for some 
+  
+    
+      
+        
+          ξ
+          
+            x
+          
+        
+        ∈
+        (
+        a
+        ,
+        x
+        ]
+      
+    
+    {\displaystyle \xi _{x}\in (a,x]}
+   depending on 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  .
+if we integrate in 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   from 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   to 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   on both sides and take the absolute values, we obtain
+
+  
+    
+      
+        
+          |
+          
+            
+              ∫
+              
+                a
+              
+              
+                b
+              
+            
+            f
+            (
+            x
+            )
+            
+            d
+            x
+            −
+            (
+            b
+            −
+            a
+            )
+            f
+            (
+            a
+            )
+          
+          |
+        
+        =
+        
+          |
+          
+            
+              ∫
+              
+                a
+              
+              
+                b
+              
+            
+            (
+            x
+            −
+            a
+            )
+            
+              f
+              ′
+            
+            (
+            
+              ξ
+              
+                x
+              
+            
+            )
+            
+            d
+            x
+          
+          |
+        
+        .
+      
+    
+    {\displaystyle \left|\int _{a}^{b}f(x)\,dx-(b-a)f(a)\right|=\left|\int _{a}^{b}(x-a)f'(\xi _{x})\,dx\right|.}
+  we can further approximate the integral on the right-hand side by bringing the absolute value into the integrand, and replacing the term in 
+  
+    
+      
+        
+          f
+          ′
+        
+      
+    
+    {\displaystyle f'}
+   by an upper bound
+
+where the supremum was used to approximate.
+hence, if we approximate the integral 
+  
+    
+      
+        
+          ∫
+          
+            a
+          
+          
+            b
+          
+        
+        f
+        (
+        x
+        )
+        
+        d
+        x
+      
+    
+    {\textstyle \int _{a}^{b}f(x)\,dx}
+   by the quadrature rule 
+  
+    
+      
+        (
+        b
+        −
+        a
+        )
+        f
+        (
+        a
+        )
+      
+    
+    {\displaystyle (b-a)f(a)}
+   our error is no greater than the right hand side of 1. we can convert this into an error analysis for the riemann sum, giving an upper bound of
+
+  
+    
+      
+        
+          
+            
+              n
+              
+                −
+                1
+              
+            
+            2
+          
+        
+        
+          sup
+          
+            0
+            ≤
+            x
+            ≤
+            1
+          
+        
+        
+          |
+          
+            
+              f
+              ′
+            
+            (
+            x
+            )
+          
+          |
+        
+      
+    
+    {\displaystyle {\frac {n^{-1}}{2}}\sup _{0\leq x\leq 1}\left|f'(x)\right|}
+  for the error term of that particular approximation. (note that this is precisely the error we calculated for the example 
+  
+    
+      
+        f
+        (
+        x
+        )
+        =
+        x
+      
+    
+    {\displaystyle f(x)=x}
+  .) using more derivatives, and by tweaking the quadrature, we can do a similar error analysis using a taylor series (using a partial sum with remainder term) for f. this error analysis gives a strict upper bound on the error, if the derivatives of f are available.
+this integration method can be combined with interval arithmetic to produce computer proofs and verified calculations.
+
+
+=== integrals over infinite intervals ===
+several methods exist for approximate integration over unbounded intervals. the standard technique involves specially derived quadrature rules, such as gauss-hermite quadrature for integrals on the whole real line and gauss-laguerre quadrature for integrals on the positive reals. monte carlo methods can also be used, or a change of variables to a finite interval; e.g., for the whole line one could use
+
+  
+    
+      
+        
+          ∫
+          
+            −
+            ∞
+          
+          
+            ∞
+          
+        
+        f
+        (
+        x
+        )
+        
+        d
+        x
+        =
+        
+          ∫
+          
+            −
+            1
+          
+          
+            +
+            1
+          
+        
+        f
+        
+          (
+          
+            
+              t
+              
+                1
+                −
+                
+                  t
+                  
+                    2
+                  
+                
+              
+            
+          
+          )
+        
+        
+          
+            
+              1
+              +
+              
+                t
+                
+                  2
+                
+              
+            
+            
+              
+                (
+                
+                  1
+                  −
+                  
+                    t
+                    
+                      2
+                    
+                  
+                
+                )
+              
+              
+                2
+              
+            
+          
+        
+        
+        d
+        t
+        ,
+      
+    
+    {\displaystyle \int _{-\infty }^{\infty }f(x)\,dx=\int _{-1}^{+1}f\left({\frac {t}{1-t^{2}}}\right){\frac {1+t^{2}}{\left(1-t^{2}\right)^{2}}}\,dt,}
+  and for semi-infinite intervals one could use
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  ∫
+                  
+                    a
+                  
+                  
+                    ∞
+                  
+                
+                f
+                (
+                x
+                )
+                
+                d
+                x
+              
+              
+                
+                =
+                
+                  ∫
+                  
+                    0
+                  
+                  
+                    1
+                  
+                
+                f
+                
+                  (
+                  
+                    a
+                    +
+                    
+                      
+                        t
+                        
+                          1
+                          −
+                          t
+                        
+                      
+                    
+                  
+                  )
+                
+                
+                  
+                    
+                      d
+                      t
+                    
+                    
+                      (
+                      1
+                      −
+                      t
+                      
+                        )
+                        
+                          2
+                        
+                      
+                    
+                  
+                
+                ,
+              
+            
+            
+              
+                
+                  ∫
+                  
+                    −
+                    ∞
+                  
+                  
+                    a
+                  
+                
+                f
+                (
+                x
+                )
+                
+                d
+                x
+              
+              
+                
+                =
+                
+                  ∫
+                  
+                    0
+                  
+                  
+                    1
+                  
+                
+                f
+                
+                  (
+                  
+                    a
+                    −
+                    
+                      
+                        
+                          1
+                          −
+                          t
+                        
+                        t
+                      
+                    
+                  
+                  )
+                
+                
+                  
+                    
+                      d
+                      t
+                    
+                    
+                      t
+                      
+                        2
+                      
+                    
+                  
+                
+                ,
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}\int _{a}^{\infty }f(x)\,dx&=\int _{0}^{1}f\left(a+{\frac {t}{1-t}}\right){\frac {dt}{(1-t)^{2}}},\\\int _{-\infty }^{a}f(x)\,dx&=\int _{0}^{1}f\left(a-{\frac {1-t}{t}}\right){\frac {dt}{t^{2}}},\end{aligned}}}
+  as possible transformations.
+
+
+== multidimensional integrals ==
+the quadrature rules discussed so far are all designed to compute one-dimensional integrals. to compute integrals in multiple dimensions, one approach is to phrase the multiple integral as repeated one-dimensional integrals by applying fubini's theorem (the tensor product rule). this approach requires the function evaluations to grow exponentially as the number of dimensions increases. three methods are known to overcome this so-called curse of dimensionality.
+a great many additional techniques for forming multidimensional cubature integration rules for a variety of weighting functions are given in the monograph by stroud.
+integration on the sphere has been reviewed by hesse et al. (2015).
+
+
+=== monte carlo ===
+
+monte carlo methods and quasi-monte carlo methods are easy to apply to multi-dimensional integrals. they may yield greater accuracy for the same number of function evaluations than repeated integrations using one-dimensional methods.a large class of useful monte carlo methods are the so-called markov chain monte carlo algorithms, which include the metropolis–hastings algorithm and gibbs sampling.
+
+
+=== sparse grids ===
+sparse grids were originally developed by smolyak for the quadrature of high-dimensional functions. the method is always based on a one-dimensional quadrature rule, but performs a more sophisticated combination of univariate results. however, whereas the tensor product rule guarantees that the weights of all of the cubature points will be positive if the weights of the quadrature points were positive, smolyak's rule does not guarantee that the weights will all be positive.
+
+
+=== bayesian quadrature ===
+bayesian quadrature is a statistical approach to the numerical problem of computing integrals and falls under the field of probabilistic numerics. it can provide a full handling of the uncertainty over the solution of the integral expressed as a gaussian process posterior variance.
+
+
+== connection with differential equations ==
+the problem of evaluating the integral
+
+  
+    
+      
+        f
+        (
+        x
+        )
+        =
+        
+          ∫
+          
+            a
+          
+          
+            x
+          
+        
+        f
+        (
+        u
+        )
+        
+        d
+        u
+      
+    
+    {\displaystyle f(x)=\int _{a}^{x}f(u)\,du}
+  can be reduced to an initial value problem for an ordinary differential equation by applying the first part of the fundamental theorem of calculus. by differentiating both sides of the above with respect to the argument x, it is seen that the function f satisfies
+
+  
+    
+      
+        
+          
+            
+              d
+              f
+              (
+              x
+              )
+            
+            
+              d
+              x
+            
+          
+        
+        =
+        f
+        (
+        x
+        )
+        ,
+        
+        f
+        (
+        a
+        )
+        =
+        0.
+      
+    
+    {\displaystyle {\frac {df(x)}{dx}}=f(x),\quad f(a)=0.}
+  methods developed for ordinary differential equations, such as runge–kutta methods, can be applied to the restated problem and thus be used to evaluate the integral. for instance, the standard fourth-order runge–kutta method applied to the differential equation yields simpson's rule from above.
+the differential equation 
+  
+    
+      
+        
+          f
+          ′
+        
+        (
+        x
+        )
+        =
+        f
+        (
+        x
+        )
+      
+    
+    {\displaystyle f'(x)=f(x)}
+   has a special form: the right-hand side contains only the independent variable (here 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  ) and not the dependent variable (here 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+  ). this simplifies the theory and algorithms considerably. the problem of evaluating integrals is thus best studied in its own right.
+
+
+== see also ==
+numerical methods for ordinary differential equations
+truncation error (numerical integration)
+clenshaw–curtis quadrature
+gauss-kronrod quadrature
+riemann sum or riemann integral
+trapezoidal rule
+romberg's method
+tanh-sinh quadrature
+nonelementary integral
+
+
+== references ==
+
+philip j. davis and philip rabinowitz, methods of numerical integration.
+george e. forsythe, michael a. malcolm, and cleve b. moler, computer methods for mathematical computations. englewood cliffs, nj: prentice-hall, 1977. (see chapter 5.)
+press, w.h.; teukolsky, s.a.; vetterling, w.t.; flannery, b.p. (2007), "chapter 4. integration of functions", numerical recipes: the art of scientific computing (3rd ed.), new york: cambridge university press, isbn 978-0-521-88068-8
+josef stoer and roland bulirsch, introduction to numerical analysis. new york: springer-verlag, 1980. (see chapter 3.)
+boyer, c. b., a history of mathematics, 2nd ed. rev. by uta c. merzbach, new york: wiley, 1989 isbn 0-471-09763-2 (1991 pbk ed. isbn 0-471-54397-7).
+eves, howard, an introduction to the history of mathematics, saunders, 1990, isbn 0-03-029558-0,
+
+
+== external links ==
+integration: background, simulations, etc. at holistic numerical methods institute
+lobatto quadrature from wolfram mathworld
+lobatto quadrature formula from encyclopedia of mathematics
+implementations of many quadrature and cubature formulae within the free tracker component library.
+sagemath online integrator

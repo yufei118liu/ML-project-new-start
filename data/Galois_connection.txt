@@ -1,0 +1,339 @@
+in mathematics, especially in order theory, a galois connection is a particular correspondence (typically) between two partially ordered sets (posets).  galois connections find applications in various mathematical theories. they generalize the fundamental theorem of galois theory about the correspondence between subgroups and subfields, discovered by the french mathematician évariste galois.
+a galois connection can also be defined on preordered sets or classes; this article presents the common case of posets.
+the literature contains two closely related notions of "galois connection". in this article, we will refer to them as (monotone) galois connections and antitone galois connections.
+a galois connection is rather weak compared to an order isomorphism between the involved posets, but every galois connection gives rise to an isomorphism of certain sub-posets, as will be explained below.
+the term galois correspondence is sometimes used to mean a bijective galois connection; this is simply an order isomorphism (or dual order isomorphism, depending on whether we take monotone or antitone galois connections).
+
+
+== definitions ==
+
+
+=== (monotone) galois connection ===
+let (a, ≤) and (b, ≤) be two partially ordered sets. a monotone galois connection between these posets consists of two monotone functions: f : a → b and g : b → a, such that for all a in a and b in b, we have
+
+f(a) ≤ b if and only if a ≤ g(b).in this situation, f is called the lower adjoint of g and g is called the upper adjoint of f. mnemonically, the upper/lower terminology refers to where the function application appears relative to ≤. the term "adjoint" refers to the fact that monotone galois connections are special cases of pairs of adjoint functors in category theory as discussed further below. other terminology encountered here is left adjoint (resp. right adjoint) for the lower (resp. upper) adjoint.
+an essential property of a galois connection is that an upper/lower adjoint of a galois connection uniquely determines the other:
+
+f(a) is the least element ~b  with a ≤ g(~b), and
+g(b) is the largest element ~a with f(~a) ≤ b.a consequence of this is that if f or g is invertible, then each is the inverse of the other, i.e. f = g −1.
+given a galois connection with lower adjoint f and upper adjoint g, we can consider the compositions gf : a → a, known as the associated closure operator, and fg : b → b, known as the associated kernel operator. both are monotone and idempotent, and we have a ≤ gf(a) for all a in a and fg(b) ≤ b for all b in b.
+a galois insertion of b into a is a galois connection in which the kernel operator fg is the identity on b, and hence g is an order isomorphism of b onto the set of closed elements gf [a] of a.
+
+
+=== antitone galois connection ===
+the above definition is common in many applications today, and prominent in lattice and domain theory. however the original notion in galois theory is slightly different. in this alternative definition, a galois connection is a pair of antitone, i.e. order-reversing, functions f : a → b and g : b → a between two posets a and b, such that
+
+b ≤ f(a) if and only if a ≤ g(b).the symmetry of f and g in this version erases the distinction between upper and lower, and the two functions are then called polarities rather than adjoints. each polarity uniquely determines the other, since
+
+f(a) is the largest element b with a ≤ g(b), and
+g(b) is the largest element a with b ≤ f(a).the compositions gf : a → a and fg : b → b are the associated closure operators; they are monotone idempotent maps with the property a ≤ gf(a) for all a in a and b ≤ fg(b) for all b in b.
+the implications of the two definitions of galois connections are very similar, since an antitone galois connection between a and b is just a monotone galois connection between a and the order dual bop of b. all of the below statements on galois connections can thus easily be converted into statements about antitone galois connections.
+
+
+== examples ==
+
+
+=== monotone galois connections ===
+
+
+==== power set; implication and conjunction ====
+for an order-theoretic example, let u be some set, and let a and b both be the power set of u, ordered by inclusion. pick a fixed subset l of u. then the maps f and g, where f(m ) = l ∩ m, and g(n ) = n ∪ (u \ l), form a monotone galois connection, with f being the lower adjoint. a similar galois connection whose lower adjoint is given by the meet (infimum) operation can be found in any heyting algebra. especially, it is present in any boolean algebra, where the two mappings can be described by f(x) = (a ∧ x) and g( y) = ( y ∨ ¬a) = (a ⇒ y). in logical terms: "implication from a" is the upper adjoint of "conjunction with a".
+
+
+==== lattices ====
+further interesting examples for galois connections are described in the article on completeness properties. roughly speaking, it turns out that the usual functions ∨ and ∧ are lower and upper adjoints to the diagonal map x → x × x. the least and greatest elements of a partial order are given by lower and upper adjoints to the unique function x → {1}. going further, even complete lattices can be characterized by the existence of suitable adjoints. these considerations give some impression of the ubiquity of galois connections in order theory.
+
+
+==== transitive group actions ====
+let g act transitively on x and pick some point x in x. consider
+
+  
+    
+      
+        
+          
+            b
+          
+        
+        =
+        {
+        b
+        ⊆
+        x
+        :
+        x
+        ∈
+        b
+        ;
+        ∀
+        g
+        ∈
+        g
+        ,
+        g
+        b
+        =
+        b
+         
+        
+          o
+          r
+        
+         
+        g
+        b
+        ∩
+        b
+        =
+        ∅
+        }
+        ,
+      
+    
+    {\displaystyle {\mathcal {b}}=\{b\subseteq x:x\in b;\forall g\in g,gb=b\ \mathrm {or} \ gb\cap b=\emptyset \},}
+  the set of blocks containing x. further, let 
+  
+    
+      
+        
+          
+            g
+          
+        
+      
+    
+    {\displaystyle {\mathcal {g}}}
+   consist of the subgroups of g containing the stabilizer of x.
+then, the correspondence 
+  
+    
+      
+        
+          
+            b
+          
+        
+        →
+        
+          
+            g
+          
+        
+      
+    
+    {\displaystyle {\mathcal {b}}\to {\mathcal {g}}}
+  :
+
+  
+    
+      
+        b
+        ↦
+        
+          h
+          
+            b
+          
+        
+        =
+        {
+        g
+        ∈
+        g
+        :
+        g
+        x
+        ∈
+        b
+        }
+      
+    
+    {\displaystyle b\mapsto h_{b}=\{g\in g:gx\in b\}}
+  is a monotone, one-to-one galois connection. as a corollary, one can establish that doubly transitive actions have no blocks other than the trivial ones (singletons or the whole of x): this follows from the stabilizers being maximal in g in that case. see doubly transitive group for further discussion.
+
+
+==== image and inverse image ====
+if  f : x → y is a function, then for any subset m of x we can form the image f(m ) =  f m = { f (m) | m ∈ m}  and for any subset n of y we can form the inverse image g(n ) =  f −1n = {x ∈ x |  f (x) ∈ n}. then f and g form a monotone galois connection between the power set of x and the power set of y, both ordered by inclusion ⊆. there is a further adjoint pair in this situation: for a subset m of x, define h(m) = {y ∈ y |  f −1{y} ⊆ m}. then g and h form a monotone galois connection between the power set of y and the power set of x. in the first galois connection, g is the upper adjoint, while in the second galois connection it serves as the lower adjoint.
+in the case of a quotient map between algebraic objects (such as groups), this connection is called the lattice theorem: subgroups of g connect to subgroups of g/n, and the closure operator on subgroups of g is given by h = hn.
+
+
+==== span and closure ====
+pick some mathematical object x that has an underlying set, for instance a group, ring, vector space, etc. for any subset s of x, let f(s ) be the smallest subobject of x that contains s, i.e. the subgroup, subring or subspace generated by s. for any subobject u of x, let g(u ) be the underlying set of u. (we can even take x to be a topological space, let f(s ) the closure of s, and take as "subobjects of x " the closed subsets of x.) now f and g form a monotone galois connection between subsets of x and subobjects of x, if both are ordered by inclusion. f is the lower adjoint.
+
+
+==== syntax and semantics ====
+a very general comment of william lawvere is that syntax and semantics are adjoint: take a to be the set of all logical theories (axiomatizations), and b the power set of the set of all mathematical structures. for a theory t ∈ a, let mod(t ) be the set of all structures that satisfy the axioms t ; for a set of mathematical structures s ∈ b, let th(s ) be the minimum of the axiomatizations which approximate s (in first-order logic, this is the set of sentences which are true in all structures in s). we can then say that mod(t ) is a subset of s if and only if t logically implies th(s ): the "semantics functor" mod and the "syntax functor" th form a monotone galois connection, with semantics being the upper adjoint.
+
+
+=== antitone galois connections ===
+
+
+==== galois theory ====
+the motivating example comes from galois theory: suppose l/k is a field extension. let a be the set of all subfields of l that contain k, ordered by inclusion ⊆. if e is  such a subfield, write gal(l/e) for the group of field automorphisms of l that hold e fixed. let b be the set of subgroups of gal(l/k), ordered by inclusion ⊆. for such a subgroup g, define fix(g) to be the field consisting of all elements of l that are held fixed by all elements of g. then the maps e ↦ gal(l/e) and g ↦ fix(g) form an antitone galois connection.
+
+
+==== algebraic topology: covering spaces ====
+analogously, given a path-connected topological space x, there is an antitone galois connection between subgroups of the fundamental group π1(x) and path-connected covering spaces of x. in particular, if x is semi-locally simply connected, then for every subgroup g of π1(x), there is a covering space with g as its fundamental group.
+
+
+==== linear algebra: annihilators and orthogonal complements ====
+given an inner product space v, we can form the orthogonal complement f(x ) of any subspace x of v. this yields an antitone galois connection between the set of subspaces of v and itself, ordered by inclusion; both polarities are equal to f.
+given a vector space v and a subset x of v we can define its annihilator f(x ), consisting of all elements of the dual space v ∗ of v that vanish on x. similarly, given a subset y of v ∗, we define its annihilator g(y ) = { x ∈ v | φ(x) = 0 ∀φ ∈ y }. this gives an antitone galois connection between the subsets of v and the subsets of v ∗.
+
+
+==== algebraic geometry ====
+in algebraic geometry, the relation between sets of polynomials and their zero sets is an antitone galois connection.
+fix a natural number n and a field k and let a be the set of all subsets of the polynomial ring k[x1, ..., xn] ordered by inclusion ⊆, and let b be the set of all subsets of k n ordered by inclusion ⊆. if s is a set of polynomials, define the variety of zeros as
+
+  
+    
+      
+        v
+        (
+        s
+        )
+        =
+        {
+        x
+        ∈
+        
+          k
+          
+            n
+          
+        
+        :
+        f
+        (
+        x
+        )
+        =
+        0
+        
+          
+             for all 
+          
+        
+        f
+        ∈
+        s
+        }
+        ,
+      
+    
+    {\displaystyle v(s)=\{x\in k^{n}:f(x)=0{\mbox{ for all }}f\in s\},}
+  the set of common zeros of the polynomials in s. if u is a subset of k n, define i(u ) as the ideal of polynomials vanishing on u, that is
+
+  
+    
+      
+        i
+        (
+        u
+        )
+        =
+        {
+        f
+        ∈
+        k
+        [
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+        ]
+        :
+        f
+        (
+        x
+        )
+        =
+        0
+        
+          
+             for all 
+          
+        
+        x
+        ∈
+        u
+        }
+        .
+      
+    
+    {\displaystyle i(u)=\{f\in k[x_{1},\dots ,x_{n}]:f(x)=0{\mbox{ for all }}x\in u\}.}
+  then v and i form an antitone galois connection.
+the closure on k n is the closure in the zariski topology, and if the field k is algebraically closed, then the closure on the polynomial ring is the radical of ideal generated by s.
+more generally, given a commutative ring r (not necessarily a polynomial ring), there is an antitone galois connection between radical ideals in the ring and subvarieties of the affine variety spec(r).
+more generally, there is an antitone galois connection between ideals in the ring and subschemes of the corresponding affine variety.
+
+
+==== connections on power sets arising from binary relations ====
+suppose x and y are arbitrary sets and a binary relation r over x and y is given. for any subset m of x, we define f(m ) = { y ∈ y | mry ∀m ∈ m }. similarly, for any subset n of y, define g(n ) = { x ∈ x | xrn ∀n ∈ n }. then f and g yield an antitone galois connection between the power sets of x and y, both ordered by inclusion ⊆.up to isomorphism all antitone galois connections between power sets arise in this way. this follows from the "basic theorem on concept lattices". theory and applications of galois connections arising from binary relations are studied in formal concept analysis. that field uses galois connections for mathematical data analysis.  many algorithms for galois connections can be found in the respective literature, e.g., in.
+
+
+== properties ==
+in the following, we consider a (monotone) galois connection  f = ( f ∗,  f∗), where  f ∗ : a → b is the lower adjoint as introduced above. some helpful and instructive basic properties can be obtained immediately. by the defining property of galois connections,  f ∗(x) ≤  f ∗(x) is equivalent to x ≤  f∗( f ∗(x)), for all x in a. by a similar reasoning (or just by applying the duality principle for order theory), one finds that  f ∗( f∗(y)) ≤ y, for all y in b. these properties can be described by saying the composite  f ∗∘ f∗ is deflationary, while  f∗∘ f ∗ is inflationary (or extensive).
+now consider x, y ∈ a such that x ≤ y. then using the above one obtains x ≤  f∗( f ∗(y)). applying the basic property of galois connections, one can now conclude that  f ∗(x) ≤  f ∗(y). but this just shows that  f ∗ preserves the order of any two elements, i.e. it is monotone. again, a similar reasoning yields monotonicity of  f∗. thus monotonicity does not have to be included in the definition explicitly. however, mentioning monotonicity helps to avoid confusion about the two alternative notions of galois connections.
+another basic property of galois connections is the fact that  f∗( f ∗( f∗(x))) =  f∗(x), for all x in b. clearly we find that
+
+ f∗( f ∗( f∗(x))) ≥  f∗(x).because  f∗∘ f ∗ is inflationary as shown above. on the other hand, since  f ∗∘ f∗ is deflationary, while  f∗ is monotonic, one finds that
+
+ f∗( f ∗( f∗(x))) ≤  f∗(x).this shows the desired equality. furthermore, we can use this property to conclude that
+
+ f ∗( f∗( f ∗( f∗(x)))) =  f ∗( f∗(x))and
+
+ f∗( f ∗( f∗( f ∗(x)))) =  f∗( f ∗(x))i.e.,  f ∗∘ f∗ and  f∗∘ f ∗ are idempotent.
+it can be shown (see blyth or erné for proofs) that a function  f  is a lower (resp. upper) adjoint if and only if  f  is a residuated mapping (resp. residual mapping). therefore, the notion of residuated mapping and monotone galois connection are essentially the same.
+
+
+== closure operators and galois connections ==
+the above findings can be summarized as follows: for a galois connection, the composite  f∗∘ f ∗ is monotone (being the composite of monotone functions), inflationary, and idempotent. this states that  f∗∘ f ∗ is in fact a closure operator on a. dually,  f ∗∘ f∗ is monotone, deflationary, and idempotent. such mappings are sometimes called kernel operators. in the context of frames and locales, the composite  f∗∘ f ∗ is called the nucleus induced by  f . nuclei induce frame homomorphisms; a subset of a locale is called a sublocale if it is given by a nucleus.
+conversely, any closure operator c on some poset a gives rise to the galois connection with lower adjoint  f ∗ being just the corestriction of c to the image of c (i.e. as a surjective mapping the closure system c(a)). the upper adjoint  f∗ is then given by the inclusion of c(a) into a, that maps each closed element to itself, considered as an element of a. in this way, closure operators and galois connections are seen to be closely related, each specifying an instance of the other. similar conclusions hold true for kernel operators.
+the above considerations also show that closed elements of a (elements x with  f∗( f ∗(x)) = x) are mapped to elements within the range of the kernel operator  f ∗∘ f∗, and vice versa.
+
+
+== existence and uniqueness of galois connections ==
+another important property of galois connections is that lower adjoints preserve all suprema that exist within their domain. dually, upper adjoints preserve all existing infima. from these properties, one can also conclude monotonicity of the adjoints immediately. the adjoint functor theorem for order theory states that the converse implication is also valid in certain cases: especially, any mapping between complete lattices that preserves all suprema is the lower adjoint of a galois connection.
+in this situation, an important feature of galois connections is that one adjoint uniquely determines the other. hence one can strengthen the above statement to guarantee that any supremum-preserving map between complete lattices is the lower adjoint of a unique galois connection. the main property to derive this uniqueness is the following: for every x in a,  f ∗(x) is the least element y of b such that x ≤  f∗(y). dually, for every y in b,  f∗(y) is the greatest x in a such that  f ∗(x) ≤ y. the existence of a certain galois connection now implies the existence of the respective least or greatest elements, no matter whether the corresponding posets satisfy any completeness properties. thus, when one upper adjoint of a galois connection is given, the other upper adjoint can be defined via this same property.
+on the other hand, some monotone function  f  is a lower adjoint if and only if each set of the form { x ∈ a |  f (x) ≤ b }, for b in b, contains a greatest element. again, this can be dualized for the upper adjoint.
+
+
+== galois connections as morphisms ==
+galois connections also provide an interesting class of mappings between posets which can be used to obtain categories of posets. especially, it is possible to compose galois connections: given galois connections ( f ∗,  f∗) between posets a and b and (g∗, g∗) between b and c, the composite (g∗ ∘  f ∗,  f∗ ∘ g∗) is also a galois connection. when considering categories of complete lattices, this can be simplified to considering just mappings preserving all suprema (or, alternatively, infima). mapping complete lattices to their duals, these categories display auto duality, that are quite fundamental for obtaining other duality theorems. more special kinds of morphisms that induce adjoint mappings in the other direction are the morphisms usually considered for frames (or locales).
+
+
+== connection to category theory ==
+every partially ordered set can be viewed as a category in a natural way: there is a unique morphism from x to y if and only if x ≤ y. a monotone galois connection is then nothing but a pair of adjoint functors between two categories that arise from partially ordered sets. in this context, the upper adjoint is the right adjoint while the lower adjoint is the left adjoint. however, this terminology is avoided for galois connections, since there was a time when posets were transformed into categories in a dual fashion, i.e. with morphisms pointing in the opposite direction. this led to a complementary notation concerning left and right adjoints, which today is ambiguous.
+
+
+== applications in the theory of programming ==
+galois connections may be used to describe many forms of abstraction in the theory of abstract interpretation of programming languages.
+
+
+== notes ==
+
+
+== references ==
+the following books and survey articles include galois connections using the monotone definition:
+
+brian a. davey and hilary a. priestley: introduction to lattices and order, cambridge university press, 2002.
+gerhard gierz, karl h. hofmann, klaus keimel, jimmie d. lawson, michael w. mislove, dana s. scott: continuous lattices and domains, cambridge university press, 2003.
+marcel erné, jürgen koslowski, austin melton, george e. strecker, a primer on galois connections, in: proceedings of the 1991 summer conference on general topology and applications in honor of mary ellen rudin and her work, annals of the new york academy of sciences, vol. 704, 1993, pp. 103–125. (freely available online in various file formats ps.gz ps, it presents many examples and results, as well as  notes on the different notations and definitions that arose in this area.)some publications using the original (antitone) definition:
+
+mac lane, saunders (september 1998). categories for the working mathematician (second ed.). springer. isbn 0-387-98403-8.
+thomas scott blyth, lattices and ordered algebraic structures, springer, 2005, isbn 1-85233-905-5.
+nikolaos galatos, peter jipsen, tomasz kowalski, and hiroakira ono (2007), residuated lattices. an algebraic glimpse at substructural logics, elsevier, isbn 978-0-444-52141-5.
+garrett birkhoff: lattice theory, amer. math. soc. coll. pub., vol 25, 1940
+ore, øystein (1944), "galois connexions", transactions of the american mathematical society, 55 (3): 493–513, doi:10.2307/1990305, jstor 1990305

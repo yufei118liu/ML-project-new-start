@@ -1,0 +1,1763 @@
+in number theory, the partition function p(n) represents the number of possible partitions of a non-negative integer n. for instance, p(4) = 5 because the integer 4 has the five partitions 1 + 1 + 1 + 1, 1 + 1 + 2, 1 + 3, 2 + 2, and 4.
+no closed-form expression for the partition function is known, but it has both asymptotic expansions that accurately approximate it and recurrence relations by which it can be calculated exactly. it grows as an exponential function of the square root of its argument. the multiplicative inverse of its generating function is the euler function; by euler's pentagonal number theorem this function is an alternating sum of pentagonal number powers of its argument.
+srinivasa ramanujan first discovered that the partition function has nontrivial patterns in modular arithmetic, now known as ramanujan's congruences. for instance, whenever the decimal representation of n ends in the digit 4 or 9, the number of partitions of n will be divisible by 5.
+
+
+== definition and examples ==
+for a positive integer n, p(n) is the number of distinct ways of representing n as a sum of positive integers. for the purposes of this definition, the order of the terms in the sum is irrelevant: two sums with the same terms in a different order are not considered to be distinct.
+by convention p(0) = 1, as there is one way (the empty sum) of representing zero as a sum of positive integers. furthermore p(n) = 0 when n is negative.
+the first few values of the partition function, starting with p(0) = 1, are:
+
+1, 1, 2, 3, 5, 7, 11, 15, 22, 30, 42, 56, 77, 101, 135, 176, 231, 297, 385, 490, 627, 792, 1002, 1255, 1575, 1958, 2436, 3010, 3718, 4565, 5604, ... (sequence a000041 in the oeis).some exact values of p(n) for larger values of n include:
+as of february 2020, the largest known prime number among the values of p(n) is p(1289844341), with 40,000 decimal digits; this is also the largest prime that has been proved using elliptic curve primality proving.
+
+
+== generating function ==
+
+the generating function for p(n) is given by
+the equality between the products on the first and second lines of this formula
+is obtained by expanding each factor 
+  
+    
+      
+        1
+        
+          /
+        
+        (
+        1
+        −
+        
+          x
+          
+            k
+          
+        
+        )
+      
+    
+    {\displaystyle 1/(1-x^{k})}
+   into the geometric series 
+  
+    
+      
+        (
+        1
+        +
+        
+          x
+          
+            k
+          
+        
+        +
+        
+          x
+          
+            2
+            k
+          
+        
+        +
+        
+          x
+          
+            3
+            k
+          
+        
+        +
+        ⋯
+        )
+        .
+      
+    
+    {\displaystyle (1+x^{k}+x^{2k}+x^{3k}+\cdots ).}
+  
+to see that the expanded product equals the sum on the first line,
+apply the distributive law to the product. this expands the product into a sum of monomials of the form 
+  
+    
+      
+        
+          x
+          
+            
+              a
+              
+                1
+              
+            
+          
+        
+        
+          x
+          
+            2
+            
+              a
+              
+                2
+              
+            
+          
+        
+        
+          x
+          
+            3
+            
+              a
+              
+                3
+              
+            
+          
+        
+        ⋯
+      
+    
+    {\displaystyle x^{a_{1}}x^{2a_{2}}x^{3a_{3}}\cdots }
+   for some sequence of coefficients
+
+  
+    
+      
+        
+          a
+          
+            i
+          
+        
+      
+    
+    {\displaystyle a_{i}}
+  , only finitely many of which can be non-zero.
+the exponent of the term is 
+  
+    
+      
+        n
+        =
+        ∑
+        i
+        
+          a
+          
+            i
+          
+        
+      
+    
+    {\displaystyle n=\sum ia_{i}}
+  , and this sum can be interpreted
+as a representation of 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   as a partition into 
+  
+    
+      
+        
+          a
+          
+            i
+          
+        
+      
+    
+    {\displaystyle a_{i}}
+   copies of each number 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  . therefore, the number of terms of the product that have exponent 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   is exactly 
+  
+    
+      
+        p
+        (
+        n
+        )
+      
+    
+    {\displaystyle p(n)}
+  , the same
+as the coefficient of 
+  
+    
+      
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x^{n}}
+   in the sum on the left.
+therefore, the sum equals the product.
+the function that appears in the denominator in the third and fourth lines of the formula is the euler function. the equality between the product on the first line and the formulas in the third and fourth lines is euler's pentagonal number theorem.
+the exponents of 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   in these lines are the pentagonal numbers 
+  
+    
+      
+        
+          p
+          
+            k
+          
+        
+        =
+        k
+        (
+        3
+        k
+        −
+        1
+        )
+        
+          /
+        
+        2
+      
+    
+    {\displaystyle p_{k}=k(3k-1)/2}
+   for 
+  
+    
+      
+        k
+        ∈
+        {
+        0
+        ,
+        1
+        ,
+        −
+        1
+        ,
+        2
+        ,
+        −
+        2
+        ,
+        …
+        }
+      
+    
+    {\displaystyle k\in \{0,1,-1,2,-2,\dots \}}
+   (generalized somewhat from the usual pentagonal numbers, which come from the same formula for the positive values of 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  ). the pattern of positive and negative signs in the third line comes from the term 
+  
+    
+      
+        (
+        −
+        1
+        
+          )
+          
+            k
+          
+        
+      
+    
+    {\displaystyle (-1)^{k}}
+   in the fourth line: even choices of 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   produce positive terms, and odd choices produce negative terms.
+more generally, the generating function for the partitions of 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   into numbers selected from a set 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   of positive integers can be found by taking only those terms in the first product for which 
+  
+    
+      
+        k
+        ∈
+        a
+      
+    
+    {\displaystyle k\in a}
+  . this result is due to leonhard euler. the formulation of euler's generating function is a special case of a 
+  
+    
+      
+        q
+      
+    
+    {\displaystyle q}
+  -pochhammer symbol and is similar to the product formulation of many modular forms, and specifically the dedekind eta function.
+
+
+== recurrence relations ==
+the same sequence of pentagonal numbers appears in a recurrence relation for the partition function:
+
+  
+    
+      
+        
+          
+            
+              
+                p
+                (
+                n
+                )
+              
+              
+                
+                =
+                
+                  ∑
+                  
+                    k
+                    ∈
+                    
+                      z
+                    
+                    ∖
+                    {
+                    0
+                    }
+                  
+                
+                (
+                −
+                1
+                
+                  )
+                  
+                    k
+                    +
+                    1
+                  
+                
+                p
+                (
+                n
+                −
+                k
+                (
+                3
+                k
+                −
+                1
+                )
+                
+                  /
+                
+                2
+                )
+              
+            
+            
+              
+              
+                
+                =
+                p
+                (
+                n
+                −
+                1
+                )
+                +
+                p
+                (
+                n
+                −
+                2
+                )
+                −
+                p
+                (
+                n
+                −
+                5
+                )
+                −
+                p
+                (
+                n
+                −
+                7
+                )
+                +
+                p
+                (
+                n
+                −
+                12
+                )
+                +
+                p
+                (
+                n
+                −
+                15
+                )
+                −
+                p
+                (
+                n
+                −
+                22
+                )
+                −
+                ⋯
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}p(n)&=\sum _{k\in \mathbb {z} \setminus \{0\}}(-1)^{k+1}p(n-k(3k-1)/2)\\&=p(n-1)+p(n-2)-p(n-5)-p(n-7)+p(n-12)+p(n-15)-p(n-22)-\cdots \\\end{aligned}}}
+  as base cases, 
+  
+    
+      
+        p
+        (
+        0
+        )
+      
+    
+    {\displaystyle p(0)}
+   is taken to equal 
+  
+    
+      
+        1
+      
+    
+    {\displaystyle 1}
+  , and 
+  
+    
+      
+        p
+        (
+        k
+        )
+      
+    
+    {\displaystyle p(k)}
+   is taken to be zero for negative 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  . although the sum on the right side appears infinite, it has only finitely many nonzero terms,
+coming from the nonzero values of 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   in the range
+
+  
+    
+      
+        −
+        
+          
+            
+              
+                
+                  24
+                  n
+                  +
+                  1
+                
+              
+              −
+              1
+            
+            6
+          
+        
+        ≤
+        k
+        ≤
+        
+          
+            
+              
+                
+                  24
+                  n
+                  +
+                  1
+                
+              
+              +
+              1
+            
+            6
+          
+        
+      
+    
+    {\displaystyle -{\frac {{\sqrt {24n+1}}-1}{6}}\leq k\leq {\frac {{\sqrt {24n+1}}+1}{6}}}
+  .another recurrence relation for 
+  
+    
+      
+        p
+        (
+        n
+        )
+      
+    
+    {\displaystyle p(n)}
+   can be given in terms of the sum of divisors function σ:
+
+  
+    
+      
+        p
+        (
+        n
+        )
+        =
+        
+          
+            1
+            n
+          
+        
+        
+          ∑
+          
+            k
+            =
+            0
+          
+          
+            n
+            −
+            1
+          
+        
+        σ
+        (
+        n
+        −
+        k
+        )
+        p
+        (
+        k
+        )
+        .
+      
+    
+    {\displaystyle p(n)={\frac {1}{n}}\sum _{k=0}^{n-1}\sigma (n-k)p(k).}
+  if 
+  
+    
+      
+        q
+        (
+        n
+        )
+      
+    
+    {\displaystyle q(n)}
+   denotes the number of partitions of 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   with no repeated parts then it follows by splitting each partition into its even parts and odd parts, and dividing the even parts by two, that
+
+  
+    
+      
+        p
+        (
+        n
+        )
+        =
+        
+          ∑
+          
+            k
+            =
+            0
+          
+          
+            
+              ⌊
+              
+                n
+                
+                  /
+                
+                2
+              
+              ⌋
+            
+          
+        
+        q
+        (
+        n
+        −
+        2
+        k
+        )
+        p
+        (
+        k
+        )
+        .
+      
+    
+    {\displaystyle p(n)=\sum _{k=0}^{\left\lfloor n/2\right\rfloor }q(n-2k)p(k).}
+  
+
+
+== congruences ==
+
+srinivasa ramanujan is credited with discovering that the partition function has nontrivial patterns in modular arithmetic.
+for instance the number of partitions is divisible by five whenever the decimal representation of 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   ends in the digit 4 or 9, as expressed by the congruence
+
+  
+    
+      
+        p
+        (
+        5
+        k
+        +
+        4
+        )
+        ≡
+        0
+        
+          
+          (
+          mod
+          
+          5
+          )
+        
+      
+    
+    {\displaystyle p(5k+4)\equiv 0{\pmod {5}}}
+  for instance, the number of partitions for the integer 4 is 5. 
+for the integer 9, the number of partitions is 30; for 14 there are 135 partitions. this congruence is implied by the more general identity
+
+  
+    
+      
+        
+          ∑
+          
+            k
+            =
+            0
+          
+          
+            ∞
+          
+        
+        p
+        (
+        5
+        k
+        +
+        4
+        )
+        
+          x
+          
+            k
+          
+        
+        =
+        5
+         
+        
+          
+            
+              (
+              
+                x
+                
+                  5
+                
+              
+              
+                )
+                
+                  ∞
+                
+                
+                  5
+                
+              
+            
+            
+              (
+              x
+              
+                )
+                
+                  ∞
+                
+                
+                  6
+                
+              
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle \sum _{k=0}^{\infty }p(5k+4)x^{k}=5~{\frac {(x^{5})_{\infty }^{5}}{(x)_{\infty }^{6}}},}
+  also by ramanujan, where the notation 
+  
+    
+      
+        (
+        x
+        
+          )
+          
+            ∞
+          
+        
+      
+    
+    {\displaystyle (x)_{\infty }}
+   denotes the product defined by
+
+  
+    
+      
+        (
+        x
+        
+          )
+          
+            ∞
+          
+        
+        =
+        
+          ∏
+          
+            m
+            =
+            1
+          
+          
+            ∞
+          
+        
+        (
+        1
+        −
+        
+          x
+          
+            m
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle (x)_{\infty }=\prod _{m=1}^{\infty }(1-x^{m}).}
+  a short proof of this result can be obtained from the partition function generating function.
+ramanujan also discovered congruences modulo 7 and 11:
+
+  
+    
+      
+        
+          
+            
+              
+                p
+                (
+                7
+                k
+                +
+                5
+                )
+              
+              
+                
+                ≡
+                0
+                
+                  
+                  (
+                  mod
+                  
+                  7
+                  )
+                
+                ,
+              
+            
+            
+              
+                p
+                (
+                11
+                k
+                +
+                6
+                )
+              
+              
+                
+                ≡
+                0
+                
+                  
+                  (
+                  mod
+                  
+                  11
+                  )
+                
+                .
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}p(7k+5)&\equiv 0{\pmod {7}},\\p(11k+6)&\equiv 0{\pmod {11}}.\end{aligned}}}
+  the first one comes from ramanujan's identity
+
+  
+    
+      
+        
+          ∑
+          
+            k
+            =
+            0
+          
+          
+            ∞
+          
+        
+        p
+        (
+        7
+        k
+        +
+        5
+        )
+        
+          x
+          
+            k
+          
+        
+        =
+        7
+         
+        
+          
+            
+              (
+              
+                x
+                
+                  7
+                
+              
+              
+                )
+                
+                  ∞
+                
+                
+                  3
+                
+              
+            
+            
+              (
+              x
+              
+                )
+                
+                  ∞
+                
+                
+                  4
+                
+              
+            
+          
+        
+        +
+        49
+        x
+         
+        
+          
+            
+              (
+              
+                x
+                
+                  7
+                
+              
+              
+                )
+                
+                  ∞
+                
+                
+                  7
+                
+              
+            
+            
+              (
+              x
+              
+                )
+                
+                  ∞
+                
+                
+                  8
+                
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle \sum _{k=0}^{\infty }p(7k+5)x^{k}=7~{\frac {(x^{7})_{\infty }^{3}}{(x)_{\infty }^{4}}}+49x~{\frac {(x^{7})_{\infty }^{7}}{(x)_{\infty }^{8}}}.}
+  since 5, 7, and 11 are consecutive primes, one might think that there would be an analogous congruence for the next prime 13, 
+  
+    
+      
+        p
+        (
+        13
+        k
+        +
+        a
+        )
+        ≡
+        0
+        
+          
+          (
+          mod
+          
+          13
+          )
+        
+      
+    
+    {\displaystyle p(13k+a)\equiv 0{\pmod {13}}}
+   for some a. however, there is no congruence of the form 
+  
+    
+      
+        p
+        (
+        b
+        k
+        +
+        a
+        )
+        ≡
+        0
+        
+          
+          (
+          mod
+          
+          b
+          )
+        
+      
+    
+    {\displaystyle p(bk+a)\equiv 0{\pmod {b}}}
+   for any prime b other than 5, 7, or 11. instead, to obtain a congruence, the argument of 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   should take the form 
+  
+    
+      
+        c
+        b
+        k
+        +
+        a
+      
+    
+    {\displaystyle cbk+a}
+   for some 
+  
+    
+      
+        c
+        >
+        1
+      
+    
+    {\displaystyle c>1}
+  . in the 1960s, a. o. l. atkin of the university of illinois at chicago discovered additional congruences of this form for small prime moduli. for example:
+
+  
+    
+      
+        p
+        (
+        
+          11
+          
+            3
+          
+        
+        ⋅
+        13
+        ⋅
+        k
+        +
+        237
+        )
+        ≡
+        0
+        
+          
+          (
+          mod
+          
+          13
+          )
+        
+        .
+      
+    
+    {\displaystyle p(11^{3}\cdot 13\cdot k+237)\equiv 0{\pmod {13}}.}
+  ken ono (2000) proved that there are such congruences for every prime modulus greater than 3. later, ahlgren & ono (2001) showed there are partition congruences modulo every integer coprime to 6.
+
+
+== approximation formulas ==
+approximation formulas exist that are faster to calculate than the exact formula given above.
+an asymptotic expression for p(n) is given by
+
+  
+    
+      
+        p
+        (
+        n
+        )
+        ∼
+        
+          
+            1
+            
+              4
+              n
+              
+                
+                  3
+                
+              
+            
+          
+        
+        exp
+        ⁡
+        
+          (
+          
+            π
+            
+              
+                
+                  
+                    2
+                    n
+                  
+                  3
+                
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle p(n)\sim {\frac {1}{4n{\sqrt {3}}}}\exp \left({\pi {\sqrt {\frac {2n}{3}}}}\right)}
+   as 
+  
+    
+      
+        n
+        →
+        ∞
+      
+    
+    {\displaystyle n\rightarrow \infty }
+  .this asymptotic formula was first obtained by g. h. hardy and ramanujan in 1918 and independently by j. v. uspensky in 1920. considering 
+  
+    
+      
+        p
+        (
+        1000
+        )
+      
+    
+    {\displaystyle p(1000)}
+  , the asymptotic formula gives about 
+  
+    
+      
+        2.4402
+        ×
+        
+          10
+          
+            31
+          
+        
+      
+    
+    {\displaystyle 2.4402\times 10^{31}}
+  , reasonably close to the exact answer given above (1.415% larger than the true value).
+hardy and ramanujan obtained an asymptotic expansion with this approximation as the first term:
+
+  
+    
+      
+        p
+        (
+        n
+        )
+        ∼
+        
+          
+            1
+            
+              2
+              π
+              
+                
+                  2
+                
+              
+            
+          
+        
+        
+          ∑
+          
+            k
+            =
+            1
+          
+          
+            v
+          
+        
+        
+          a
+          
+            k
+          
+        
+        (
+        n
+        )
+        
+          
+            k
+          
+        
+        ⋅
+        
+          
+            d
+            
+              d
+              n
+            
+          
+        
+        
+          (
+          
+            
+              
+                1
+                
+                  n
+                  −
+                  
+                    
+                      1
+                      24
+                    
+                  
+                
+              
+            
+            exp
+            ⁡
+            
+              [
+              
+                
+                  
+                    
+                      π
+                      k
+                    
+                  
+                  
+                    
+                      
+                        
+                          2
+                          3
+                        
+                      
+                      
+                        (
+                        
+                          n
+                          −
+                          
+                            
+                              1
+                              24
+                            
+                          
+                        
+                        )
+                      
+                    
+                  
+                
+                
+                
+                
+              
+              ]
+            
+          
+          )
+        
+        ,
+      
+    
+    {\displaystyle p(n)\sim {\frac {1}{2\pi {\sqrt {2}}}}\sum _{k=1}^{v}a_{k}(n){\sqrt {k}}\cdot {\frac {d}{dn}}\left({{\frac {1}{\sqrt {n-{\frac {1}{24}}}}}\exp \left[{{\frac {\pi }{k}}{\sqrt {{\frac {2}{3}}\left(n-{\frac {1}{24}}\right)}}}\,\,\,\right]}\right),}
+  where
+
+  
+    
+      
+        
+          a
+          
+            k
+          
+        
+        (
+        n
+        )
+        =
+        
+          ∑
+          
+            0
+            ≤
+            m
+            <
+            k
+            ,
+            
+            (
+            m
+            ,
+            k
+            )
+            =
+            1
+          
+        
+        
+          e
+          
+            π
+            i
+            
+              (
+              
+                s
+                (
+                m
+                ,
+                k
+                )
+                −
+                2
+                n
+                m
+                
+                  /
+                
+                k
+              
+              )
+            
+          
+        
+        .
+      
+    
+    {\displaystyle a_{k}(n)=\sum _{0\leq m<k,\;(m,k)=1}e^{\pi i\left(s(m,k)-2nm/k\right)}.}
+  here, the notation 
+  
+    
+      
+        (
+        m
+        ,
+        k
+        )
+        =
+        1
+      
+    
+    {\displaystyle (m,k)=1}
+   means that the sum is taken only over the values of 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   that are relatively prime to 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  . the function 
+  
+    
+      
+        s
+        (
+        m
+        ,
+        k
+        )
+      
+    
+    {\displaystyle s(m,k)}
+   is a dedekind sum.
+the error after 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   terms is of the order of the next term, and 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   may be taken to be of the order of 
+  
+    
+      
+        
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\sqrt {n}}}
+  .  as an example, hardy and ramanujan showed that 
+  
+    
+      
+        p
+        (
+        200
+        )
+      
+    
+    {\displaystyle p(200)}
+   is the nearest integer to the sum of the first 
+  
+    
+      
+        v
+        =
+        5
+      
+    
+    {\displaystyle v=5}
+   terms of the series.in 1937, hans rademacher was able to improve on hardy and ramanujan's results by providing a convergent series expression for 
+  
+    
+      
+        p
+        (
+        n
+        )
+      
+    
+    {\displaystyle p(n)}
+  . it is
+
+  
+    
+      
+        p
+        (
+        n
+        )
+        =
+        
+          
+            1
+            
+              π
+              
+                
+                  2
+                
+              
+            
+          
+        
+        
+          ∑
+          
+            k
+            =
+            1
+          
+          
+            ∞
+          
+        
+        
+          a
+          
+            k
+          
+        
+        (
+        n
+        )
+        
+          
+            k
+          
+        
+        ⋅
+        
+          
+            d
+            
+              d
+              n
+            
+          
+        
+        
+          (
+          
+            
+              
+                1
+                
+                  n
+                  −
+                  
+                    
+                      1
+                      24
+                    
+                  
+                
+              
+            
+            sinh
+            ⁡
+            
+              [
+              
+                
+                  
+                    
+                      π
+                      k
+                    
+                  
+                  
+                    
+                      
+                        
+                          2
+                          3
+                        
+                      
+                      
+                        (
+                        
+                          n
+                          −
+                          
+                            
+                              1
+                              24
+                            
+                          
+                        
+                        )
+                      
+                    
+                  
+                
+                
+                
+                
+              
+              ]
+            
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle p(n)={\frac {1}{\pi {\sqrt {2}}}}\sum _{k=1}^{\infty }a_{k}(n){\sqrt {k}}\cdot {\frac {d}{dn}}\left({{\frac {1}{\sqrt {n-{\frac {1}{24}}}}}\sinh \left[{{\frac {\pi }{k}}{\sqrt {{\frac {2}{3}}\left(n-{\frac {1}{24}}\right)}}}\,\,\,\right]}\right).}
+  the proof of rademacher's formula involves ford circles, farey sequences, modular symmetry and the dedekind eta function.
+it may be shown that the 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  th term of rademacher's series is of the order
+
+  
+    
+      
+        exp
+        ⁡
+        
+          (
+          
+            
+              
+                π
+                k
+              
+            
+            
+              
+                
+                  
+                    2
+                    n
+                  
+                  3
+                
+              
+            
+          
+          )
+        
+        ,
+      
+    
+    {\displaystyle \exp \left({\frac {\pi }{k}}{\sqrt {\frac {2n}{3}}}\right),}
+  so that the first term gives the hardy–ramanujan asymptotic approximation.
+paul erdős (1942) published an elementary proof of the asymptotic formula for 
+  
+    
+      
+        p
+        (
+        n
+        )
+      
+    
+    {\displaystyle p(n)}
+  .techniques for implementing the hardy–ramanujan–rademacher formula efficiently on a computer are discussed by johansson (2012), who shows that 
+  
+    
+      
+        p
+        (
+        n
+        )
+      
+    
+    {\displaystyle p(n)}
+   can be computed in time 
+  
+    
+      
+        o
+        (
+        
+          n
+          
+            1
+            
+              /
+            
+            2
+            +
+            ε
+          
+        
+        )
+      
+    
+    {\displaystyle o(n^{1/2+\varepsilon })}
+   for any 
+  
+    
+      
+        ε
+        >
+        0
+      
+    
+    {\displaystyle \varepsilon >0}
+  . this is near-optimal in that it matches the number of digits of the result. the largest value of the partition function computed exactly is 
+  
+    
+      
+        p
+        (
+        
+          10
+          
+            20
+          
+        
+        )
+      
+    
+    {\displaystyle p(10^{20})}
+  , which has slightly more than 11 billion digits.
+
+
+== references ==
+
+
+== external links ==
+first 4096 values of the partition function

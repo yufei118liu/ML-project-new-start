@@ -1,0 +1,2376 @@
+intuitionistic logic, sometimes more generally called constructive logic, refers to systems of symbolic logic that differ from the systems used for classical logic by more closely mirroring the notion of constructive proof. in particular, systems of intuitionistic logic do not include the law of the excluded middle and double negation elimination, which are fundamental inference rules in classical logic.
+formalized intuitionistic logic was originally developed by arend heyting to provide a formal basis for l. e. j. brouwer's programme of intuitionism. from a proof-theoretic perspective, heyting’s calculus is a restriction of classical logic in which the law of excluded middle and double negation elimination have been removed.  excluded middle and double negation elimination can still be proved for some propositions on a case by case basis, however, but do not hold universally as they do with classical logic. the standard explanation of intuitionistic logic is the bhk interpretation.several systems of semantics for intuitionistic logic have been studied. one of these semantics mirrors classical boolean-valued semantics but uses heyting algebras in place of boolean algebras. another semantics uses kripke models. these, however, are technical means for studying heyting’s deductive system rather than formalizations of brouwer’s original informal semantic intuitions. semantical systems claiming to capture such intuitions, due to offering meaningful concepts of “constructive truth” (rather than merely validity or provability), are kurt gödel’s dialectica interpretation, stephen cole kleene’s realizability, yurii medvedev’s logic of finite problems, or giorgi japaridze’s computability logic.  yet such semantics persistently induce logics properly stronger than heyting’s logic. some authors have argued that this might be an indication of inadequacy of heyting’s calculus itself, deeming the latter incomplete as a constructive logic.
+
+
+== mathematical constructivism ==
+in the semantics of classical logic, propositional formulae are assigned truth values from the two-element set 
+  
+    
+      
+        {
+        ⊤
+        ,
+        ⊥
+        }
+      
+    
+    {\displaystyle \{\top ,\bot \}}
+   ("true" and "false" respectively), regardless of whether we have direct evidence for either case. this is referred to as the 'law of excluded middle', because it excludes the possibility of any truth value besides 'true' or 'false'. in contrast, propositional formulae in intuitionistic logic are not assigned a definite truth value and are only considered "true" when we have direct evidence, hence proof. (we can also say, instead of the propositional formula being "true" due to direct evidence, that it is inhabited by a proof in the curry–howard sense.) operations in intuitionistic logic therefore preserve justification, with respect to evidence and provability, rather than truth-valuation.
+intuitionistic logic is a commonly-used tool in developing approaches to constructivism in mathematics. the use of constructivist logics in general has been a controversial topic among mathematicians and philosophers (see, for example, the brouwer–hilbert controversy). a common objection to their use is the above-cited lack of two central rules of classical logic, the law of excluded middle and double negation elimination. these are considered to be so important to the practice of mathematics that david hilbert wrote of them: "taking the principle of excluded middle from the mathematician would be the same, say, as proscribing the telescope to the astronomer or to the boxer the use of his fists. to prohibit existence statements and the principle of excluded middle is tantamount to relinquishing the science of mathematics altogether."despite the serious challenges presented by the inability to utilize the valuable rules of excluded middle and double negation elimination, intuitionistic logic has practical use. one reason for this is that its restrictions produce proofs that have the existence property, making it also suitable for other forms of mathematical constructivism. informally, this means that if there is a constructive proof that an object exists, that constructive proof may be used as an algorithm for generating an example of that object, a principle known as the curry–howard correspondence between proofs and algorithms. one reason that this particular aspect of intuitionistic logic is so valuable is that it enables practitioners to utilize a wide range of computerized tools, known as proof assistants. these tools assist their users in the verification (and generation) of large-scale proofs, whose size usually precludes the usual human-based checking that goes into publishing and reviewing a mathematical proof. as such, the use of proof assistants (such as agda or coq) is enabling modern mathematicians and logicians to develop and prove extremely complex systems, beyond those that are feasible to create and check solely by hand. one example of a proof that was impossible to satisfactorily verify without formal verification is the famous proof of the four color theorem. this theorem stumped mathematicians for more than a hundred years, until a proof was developed that ruled out large classes of possible counterexamples, yet still left open enough possibilities that a computer program was needed to finish the proof. that proof was controversial for some time, but, later, it was verified using coq.
+
+
+== syntax ==
+
+the syntax of formulas of intuitionistic logic is similar to propositional logic or first-order logic.  however, intuitionistic connectives are not definable in terms of each other in the same way as in classical logic, hence their choice matters. in intuitionistic propositional logic (ipl) it is customary to use →, ∧, ∨, ⊥ as the basic connectives, treating ¬a as an abbreviation for (a → ⊥). in intuitionistic first-order logic both quantifiers ∃, ∀ are needed.
+
+
+=== weaker than classical logic ===
+intuitionistic logic can be understood as a weakening of classical logic, meaning that it is more conservative in what it allows a reasoner to infer, while not permitting any new inferences that could not be made under classical logic. each theorem of intuitionistic logic is a theorem in classical logic, but not conversely. many tautologies in classical logic are not theorems in intuitionistic logic – in particular, as said above, one of intuitionistic logic's chief aims is to not affirm the law of the excluded middle so as to vitiate the use of non-constructive proof by contradiction, which can be used to furnish existence claims without providing explicit examples of the objects that it proves exist. we say "not affirm" because while it is not necessarily true that the law is upheld in any context, no counterexample can be given: such a counterexample would be an inference (inferring the negation of the law for a certain proposition) disallowed under classical logic and thus is not allowed in a strict weakening like intuitionistic logic. indeed, the double negation of the law is retained as a tautology of the system: that is, it is a theorem that 
+  
+    
+      
+        ¬
+        [
+        ¬
+        (
+        p
+        ∨
+        ¬
+        p
+        )
+        ]
+      
+    
+    {\displaystyle \neg [\neg (p\vee \neg p)]}
+   regardless of the proposition 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+  .
+
+
+=== sequent calculus ===
+
+gerhard gentzen discovered that a simple restriction of his system lk (his sequent calculus for classical logic) results in a system that is sound and complete with respect to intuitionistic logic.  he called this system lj.  in lk any number of formulas is allowed to appear on the conclusion side of a sequent; in contrast lj allows at most one formula in this position.
+other derivatives of lk are limited to intuitionistic derivations but still allow multiple conclusions in a sequent.  lj'  is one example.
+
+
+=== hilbert-style calculus ===
+intuitionistic logic can be defined using the following hilbert-style calculus. this is similar to a way of axiomatizing classical propositional logic.
+in propositional logic, the inference rule is modus ponens
+
+mp: from 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   and 
+  
+    
+      
+        ϕ
+        →
+        ψ
+      
+    
+    {\displaystyle \phi \to \psi }
+   infer 
+  
+    
+      
+        ψ
+      
+    
+    {\displaystyle \psi }
+  and the axioms are
+
+then-1: 
+  
+    
+      
+        ϕ
+        →
+        (
+        χ
+        →
+        ϕ
+        )
+      
+    
+    {\displaystyle \phi \to (\chi \to \phi )}
+  
+then-2: 
+  
+    
+      
+        (
+        ϕ
+        →
+        (
+        χ
+        →
+        ψ
+        )
+        )
+        →
+        (
+        (
+        ϕ
+        →
+        χ
+        )
+        →
+        (
+        ϕ
+        →
+        ψ
+        )
+        )
+      
+    
+    {\displaystyle (\phi \to (\chi \to \psi ))\to ((\phi \to \chi )\to (\phi \to \psi ))}
+  
+and-1: 
+  
+    
+      
+        ϕ
+        ∧
+        χ
+        →
+        ϕ
+      
+    
+    {\displaystyle \phi \land \chi \to \phi }
+  
+and-2: 
+  
+    
+      
+        ϕ
+        ∧
+        χ
+        →
+        χ
+      
+    
+    {\displaystyle \phi \land \chi \to \chi }
+  
+and-3: 
+  
+    
+      
+        ϕ
+        →
+        (
+        χ
+        →
+        (
+        ϕ
+        ∧
+        χ
+        )
+        )
+      
+    
+    {\displaystyle \phi \to (\chi \to (\phi \land \chi ))}
+  
+or-1: 
+  
+    
+      
+        ϕ
+        →
+        ϕ
+        ∨
+        χ
+      
+    
+    {\displaystyle \phi \to \phi \lor \chi }
+  
+or-2: 
+  
+    
+      
+        χ
+        →
+        ϕ
+        ∨
+        χ
+      
+    
+    {\displaystyle \chi \to \phi \lor \chi }
+  
+or-3: 
+  
+    
+      
+        (
+        ϕ
+        →
+        ψ
+        )
+        →
+        (
+        (
+        χ
+        →
+        ψ
+        )
+        →
+        (
+        (
+        ϕ
+        ∨
+        χ
+        )
+        →
+        ψ
+        )
+        )
+      
+    
+    {\displaystyle (\phi \to \psi )\to ((\chi \to \psi )\to ((\phi \lor \chi )\to \psi ))}
+  
+false: 
+  
+    
+      
+        ⊥
+        →
+        ϕ
+      
+    
+    {\displaystyle \bot \to \phi }
+  to make this a system of first-order predicate logic, the generalization rules
+
+  
+    
+      
+        ∀
+      
+    
+    {\displaystyle \forall }
+  -gen: from 
+  
+    
+      
+        ψ
+        →
+        ϕ
+      
+    
+    {\displaystyle \psi \to \phi }
+   infer 
+  
+    
+      
+        ψ
+        →
+        (
+        ∀
+        x
+         
+        ϕ
+        )
+      
+    
+    {\displaystyle \psi \to (\forall x\ \phi )}
+  , if 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   is not free in 
+  
+    
+      
+        ψ
+      
+    
+    {\displaystyle \psi }
+  
+
+  
+    
+      
+        ∃
+      
+    
+    {\displaystyle \exists }
+  -gen: from 
+  
+    
+      
+        ϕ
+        →
+        ψ
+      
+    
+    {\displaystyle \phi \to \psi }
+   infer 
+  
+    
+      
+        (
+        ∃
+        x
+         
+        ϕ
+        )
+        →
+        ψ
+      
+    
+    {\displaystyle (\exists x\ \phi )\to \psi }
+  , if 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   is not free in 
+  
+    
+      
+        ψ
+      
+    
+    {\displaystyle \psi }
+  are added, along with the axioms
+
+pred-1: 
+  
+    
+      
+        (
+        ∀
+        x
+         
+        ϕ
+        (
+        x
+        )
+        )
+        →
+        ϕ
+        (
+        t
+        )
+      
+    
+    {\displaystyle (\forall x\ \phi (x))\to \phi (t)}
+  , if the term 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   is free for substitution for the variable 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   in 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   (i.e., if no occurrence of any variable in 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   becomes bound in 
+  
+    
+      
+        ϕ
+        (
+        t
+        )
+      
+    
+    {\displaystyle \phi (t)}
+  )
+pred-2: 
+  
+    
+      
+        ϕ
+        (
+        t
+        )
+        →
+        (
+        ∃
+        x
+         
+        ϕ
+        (
+        x
+        )
+        )
+      
+    
+    {\displaystyle \phi (t)\to (\exists x\ \phi (x))}
+  , with the same restriction as for pred-1
+
+
+==== optional connectives ====
+
+
+===== negation =====
+if one wishes to include a connective 
+  
+    
+      
+        ¬
+      
+    
+    {\displaystyle \lnot }
+   for negation rather than consider it an abbreviation for 
+  
+    
+      
+        ϕ
+        →
+        ⊥
+      
+    
+    {\displaystyle \phi \to \bot }
+  , it is enough to add:
+
+not-1': 
+  
+    
+      
+        (
+        ϕ
+        →
+        ⊥
+        )
+        →
+        ¬
+        ϕ
+      
+    
+    {\displaystyle (\phi \to \bot )\to \lnot \phi }
+  
+not-2': 
+  
+    
+      
+        ¬
+        ϕ
+        →
+        (
+        ϕ
+        →
+        ⊥
+        )
+      
+    
+    {\displaystyle \lnot \phi \to (\phi \to \bot )}
+  there are a number of alternatives available if one wishes to omit the connective 
+  
+    
+      
+        ⊥
+      
+    
+    {\displaystyle \bot }
+   (false). for example, one may replace the three axioms false, not-1', and not-2' with the two axioms
+
+not-1: 
+  
+    
+      
+        (
+        ϕ
+        →
+        χ
+        )
+        →
+        (
+        (
+        ϕ
+        →
+        ¬
+        χ
+        )
+        →
+        ¬
+        ϕ
+        )
+      
+    
+    {\displaystyle (\phi \to \chi )\to ((\phi \to \lnot \chi )\to \lnot \phi )}
+  
+not-2: 
+  
+    
+      
+        ϕ
+        →
+        (
+        ¬
+        ϕ
+        →
+        χ
+        )
+      
+    
+    {\displaystyle \phi \to (\lnot \phi \to \chi )}
+  as at propositional calculus § axioms. alternatives to not-1 are 
+  
+    
+      
+        (
+        ϕ
+        →
+        ¬
+        χ
+        )
+        →
+        (
+        χ
+        →
+        ¬
+        ϕ
+        )
+      
+    
+    {\displaystyle (\phi \to \lnot \chi )\to (\chi \to \lnot \phi )}
+   or 
+  
+    
+      
+        (
+        ϕ
+        →
+        ¬
+        ϕ
+        )
+        →
+        ¬
+        ϕ
+      
+    
+    {\displaystyle (\phi \to \lnot \phi )\to \lnot \phi }
+  .
+
+
+===== equivalence =====
+the connective 
+  
+    
+      
+        ↔
+      
+    
+    {\displaystyle \leftrightarrow }
+   for equivalence may be treated as an abbreviation, with 
+  
+    
+      
+        ϕ
+        ↔
+        χ
+      
+    
+    {\displaystyle \phi \leftrightarrow \chi }
+   standing for 
+  
+    
+      
+        (
+        ϕ
+        →
+        χ
+        )
+        ∧
+        (
+        χ
+        →
+        ϕ
+        )
+      
+    
+    {\displaystyle (\phi \to \chi )\land (\chi \to \phi )}
+  . alternatively, one may add the axioms
+
+iff-1: 
+  
+    
+      
+        (
+        ϕ
+        ↔
+        χ
+        )
+        →
+        (
+        ϕ
+        →
+        χ
+        )
+      
+    
+    {\displaystyle (\phi \leftrightarrow \chi )\to (\phi \to \chi )}
+  
+iff-2: 
+  
+    
+      
+        (
+        ϕ
+        ↔
+        χ
+        )
+        →
+        (
+        χ
+        →
+        ϕ
+        )
+      
+    
+    {\displaystyle (\phi \leftrightarrow \chi )\to (\chi \to \phi )}
+  
+iff-3: 
+  
+    
+      
+        (
+        ϕ
+        →
+        χ
+        )
+        →
+        (
+        (
+        χ
+        →
+        ϕ
+        )
+        →
+        (
+        ϕ
+        ↔
+        χ
+        )
+        )
+      
+    
+    {\displaystyle (\phi \to \chi )\to ((\chi \to \phi )\to (\phi \leftrightarrow \chi ))}
+  iff-1 and iff-2 can, if desired, be combined into a single axiom 
+  
+    
+      
+        (
+        ϕ
+        ↔
+        χ
+        )
+        →
+        (
+        (
+        ϕ
+        →
+        χ
+        )
+        ∧
+        (
+        χ
+        →
+        ϕ
+        )
+        )
+      
+    
+    {\displaystyle (\phi \leftrightarrow \chi )\to ((\phi \to \chi )\land (\chi \to \phi ))}
+   using conjunction.
+
+
+==== relation to classical logic ====
+the system of classical logic is obtained by adding any one of the following axioms:
+
+  
+    
+      
+        ϕ
+        ∨
+        ¬
+        ϕ
+      
+    
+    {\displaystyle \phi \lor \lnot \phi }
+   (law of the excluded middle. may also be formulated as 
+  
+    
+      
+        (
+        ϕ
+        →
+        χ
+        )
+        →
+        (
+        (
+        ¬
+        ϕ
+        →
+        χ
+        )
+        →
+        χ
+        )
+      
+    
+    {\displaystyle (\phi \to \chi )\to ((\lnot \phi \to \chi )\to \chi )}
+  .)
+
+  
+    
+      
+        ¬
+        ¬
+        ϕ
+        →
+        ϕ
+      
+    
+    {\displaystyle \lnot \lnot \phi \to \phi }
+   (double negation elimination)
+
+  
+    
+      
+        (
+        (
+        ϕ
+        →
+        χ
+        )
+        →
+        ϕ
+        )
+        →
+        ϕ
+      
+    
+    {\displaystyle ((\phi \to \chi )\to \phi )\to \phi }
+   (peirce's law)
+
+  
+    
+      
+        (
+        ¬
+        ϕ
+        →
+        ¬
+        χ
+        )
+        →
+        (
+        χ
+        →
+        ϕ
+        )
+      
+    
+    {\displaystyle (\lnot \phi \to \lnot \chi )\to (\chi \to \phi )}
+   (law of contraposition)in general, one may take as the extra axiom any classical tautology that is not valid in the two-element kripke frame 
+  
+    
+      
+        ∘
+        
+          ⟶
+        
+        ∘
+      
+    
+    {\displaystyle \circ {\longrightarrow }\circ }
+   (in other words, that is not included in smetanich's logic).
+another relationship is given by the gödel–gentzen negative translation, which provides an embedding of classical first-order logic into intuitionistic logic: a first-order formula is provable in classical logic if and only if its gödel–gentzen translation is provable intuitionistically. therefore, intuitionistic logic can instead be seen as a means of extending classical logic with constructive semantics.
+in 1932, kurt gödel defined a system of logics intermediate between classical and intuitionistic logic; gödel logics are concomitantly known as intermediate logics.
+
+
+=== non-interdefinability of operators ===
+in classical propositional logic, it is possible to take one of conjunction, disjunction, or implication as primitive, and define the other two in terms of it together with negation, such as in łukasiewicz's three axioms of propositional logic. it is even possible to define all four in terms of a sole sufficient operator such as the peirce arrow (nor) or sheffer stroke (nand). similarly, in classical first-order logic, one of the quantifiers can be defined in terms of the other and negation.
+these are fundamentally consequences of the law of bivalence, which makes all such connectives merely boolean functions. the law of bivalence is not required to hold in intuitionistic logic, only the law of non-contradiction. as a result, none of the basic connectives can be dispensed with, and the above axioms are all necessary. most of the classical identities are only theorems of intuitionistic logic in one direction, although some are theorems in both directions. they are as follows:
+conjunction versus disjunction:
+
+  
+    
+      
+        (
+        ϕ
+        ∧
+        ψ
+        )
+        →
+        ¬
+        (
+        ¬
+        ϕ
+        ∨
+        ¬
+        ψ
+        )
+      
+    
+    {\displaystyle (\phi \wedge \psi )\to \neg (\neg \phi \vee \neg \psi )}
+  
+
+  
+    
+      
+        (
+        ϕ
+        ∨
+        ψ
+        )
+        →
+        ¬
+        (
+        ¬
+        ϕ
+        ∧
+        ¬
+        ψ
+        )
+      
+    
+    {\displaystyle (\phi \vee \psi )\to \neg (\neg \phi \wedge \neg \psi )}
+  
+
+  
+    
+      
+        (
+        ¬
+        ϕ
+        ∨
+        ¬
+        ψ
+        )
+        →
+        ¬
+        (
+        ϕ
+        ∧
+        ψ
+        )
+      
+    
+    {\displaystyle (\neg \phi \vee \neg \psi )\to \neg (\phi \wedge \psi )}
+  
+
+  
+    
+      
+        (
+        ¬
+        ϕ
+        ∧
+        ¬
+        ψ
+        )
+        ↔
+        ¬
+        (
+        ϕ
+        ∨
+        ψ
+        )
+      
+    
+    {\displaystyle (\neg \phi \wedge \neg \psi )\leftrightarrow \neg (\phi \vee \psi )}
+  conjunction versus implication:
+
+  
+    
+      
+        (
+        ϕ
+        ∧
+        ψ
+        )
+        →
+        ¬
+        (
+        ϕ
+        →
+        ¬
+        ψ
+        )
+      
+    
+    {\displaystyle (\phi \wedge \psi )\to \neg (\phi \to \neg \psi )}
+  
+
+  
+    
+      
+        (
+        ϕ
+        →
+        ψ
+        )
+        →
+        ¬
+        (
+        ϕ
+        ∧
+        ¬
+        ψ
+        )
+      
+    
+    {\displaystyle (\phi \to \psi )\to \neg (\phi \wedge \neg \psi )}
+  
+
+  
+    
+      
+        (
+        ϕ
+        ∧
+        ¬
+        ψ
+        )
+        →
+        ¬
+        (
+        ϕ
+        →
+        ψ
+        )
+      
+    
+    {\displaystyle (\phi \wedge \neg \psi )\to \neg (\phi \to \psi )}
+  
+
+  
+    
+      
+        (
+        ϕ
+        →
+        ¬
+        ψ
+        )
+        ↔
+        ¬
+        (
+        ϕ
+        ∧
+        ψ
+        )
+      
+    
+    {\displaystyle (\phi \to \neg \psi )\leftrightarrow \neg (\phi \wedge \psi )}
+  disjunction versus implication:
+
+  
+    
+      
+        (
+        ϕ
+        ∨
+        ψ
+        )
+        →
+        (
+        ¬
+        ϕ
+        →
+        ψ
+        )
+      
+    
+    {\displaystyle (\phi \vee \psi )\to (\neg \phi \to \psi )}
+  
+
+  
+    
+      
+        (
+        ¬
+        ϕ
+        ∨
+        ψ
+        )
+        →
+        (
+        ϕ
+        →
+        ψ
+        )
+      
+    
+    {\displaystyle (\neg \phi \vee \psi )\to (\phi \to \psi )}
+  universal versus existential quantification:
+
+  
+    
+      
+        (
+        ∀
+        x
+         
+        ϕ
+        (
+        x
+        )
+        )
+        →
+        ¬
+        (
+        ∃
+        x
+         
+        ¬
+        ϕ
+        (
+        x
+        )
+        )
+      
+    
+    {\displaystyle (\forall x\ \phi (x))\to \neg (\exists x\ \neg \phi (x))}
+  
+
+  
+    
+      
+        (
+        ∃
+        x
+         
+        ϕ
+        (
+        x
+        )
+        )
+        →
+        ¬
+        (
+        ∀
+        x
+         
+        ¬
+        ϕ
+        (
+        x
+        )
+        )
+      
+    
+    {\displaystyle (\exists x\ \phi (x))\to \neg (\forall x\ \neg \phi (x))}
+  
+
+  
+    
+      
+        (
+        ∃
+        x
+         
+        ¬
+        ϕ
+        (
+        x
+        )
+        )
+        →
+        ¬
+        (
+        ∀
+        x
+         
+        ϕ
+        (
+        x
+        )
+        )
+      
+    
+    {\displaystyle (\exists x\ \neg \phi (x))\to \neg (\forall x\ \phi (x))}
+  
+
+  
+    
+      
+        (
+        ∀
+        x
+         
+        ¬
+        ϕ
+        (
+        x
+        )
+        )
+        ↔
+        ¬
+        (
+        ∃
+        x
+         
+        ϕ
+        (
+        x
+        )
+        )
+      
+    
+    {\displaystyle (\forall x\ \neg \phi (x))\leftrightarrow \neg (\exists x\ \phi (x))}
+  so, for example, "a or b" is a stronger propositional formula than "if not a, then b", whereas these are classically interchangeable. on the other hand, "not (a or b)" is equivalent to "not a, and also not b".
+if we include equivalence in the list of connectives, some of the connectives become definable from others:
+
+  
+    
+      
+        (
+        ϕ
+        ↔
+        ψ
+        )
+        ↔
+        (
+        (
+        ϕ
+        →
+        ψ
+        )
+        ∧
+        (
+        ψ
+        →
+        ϕ
+        )
+        )
+      
+    
+    {\displaystyle (\phi \leftrightarrow \psi )\leftrightarrow ((\phi \to \psi )\land (\psi \to \phi ))}
+  
+
+  
+    
+      
+        (
+        ϕ
+        →
+        ψ
+        )
+        ↔
+        (
+        (
+        ϕ
+        ∨
+        ψ
+        )
+        ↔
+        ψ
+        )
+      
+    
+    {\displaystyle (\phi \to \psi )\leftrightarrow ((\phi \lor \psi )\leftrightarrow \psi )}
+  
+
+  
+    
+      
+        (
+        ϕ
+        →
+        ψ
+        )
+        ↔
+        (
+        (
+        ϕ
+        ∧
+        ψ
+        )
+        ↔
+        ϕ
+        )
+      
+    
+    {\displaystyle (\phi \to \psi )\leftrightarrow ((\phi \land \psi )\leftrightarrow \phi )}
+  
+
+  
+    
+      
+        (
+        ϕ
+        ∧
+        ψ
+        )
+        ↔
+        (
+        (
+        ϕ
+        →
+        ψ
+        )
+        ↔
+        ϕ
+        )
+      
+    
+    {\displaystyle (\phi \land \psi )\leftrightarrow ((\phi \to \psi )\leftrightarrow \phi )}
+  
+
+  
+    
+      
+        (
+        ϕ
+        ∧
+        ψ
+        )
+        ↔
+        (
+        (
+        (
+        ϕ
+        ∨
+        ψ
+        )
+        ↔
+        ψ
+        )
+        ↔
+        ϕ
+        )
+      
+    
+    {\displaystyle (\phi \land \psi )\leftrightarrow (((\phi \lor \psi )\leftrightarrow \psi )\leftrightarrow \phi )}
+  in particular, {∨, ↔, ⊥} and {∨, ↔, ¬} are complete bases of intuitionistic connectives.
+as shown by alexander v. kuznetsov, either of the following connectives – the first one ternary, the second one quinary – is by itself functionally complete: either one can serve the role of a sole sufficient operator for intuitionistic propositional logic, thus forming an analog of the sheffer stroke from classical propositional logic:
+
+  
+    
+      
+        (
+        (
+        p
+        ∨
+        q
+        )
+        ∧
+        ¬
+        r
+        )
+        ∨
+        (
+        ¬
+        p
+        ∧
+        (
+        q
+        ↔
+        r
+        )
+        )
+        ,
+      
+    
+    {\displaystyle ((p\lor q)\land \neg r)\lor (\neg p\land (q\leftrightarrow r)),}
+  
+
+  
+    
+      
+        p
+        →
+        (
+        q
+        ∧
+        ¬
+        r
+        ∧
+        (
+        s
+        ∨
+        t
+        )
+        )
+        .
+      
+    
+    {\displaystyle p\to (q\land \neg r\land (s\lor t)).}
+  
+
+
+== semantics ==
+the semantics are rather more complicated than for the classical case. a model theory can be given by heyting algebras or, equivalently, by kripke semantics. recently, a tarski-like model theory was proved complete by bob constable, but with a different notion of completeness than classically.
+unproved statements in intuitionistic logic are not given an intermediate truth value (as is sometimes mistakenly asserted). one can prove that such statements have no third truth value, a result dating back to glivenko in 1928. instead they remain of unknown truth value, until they are either proved or disproved. statements are disproved by deducing a contradiction from them.
+a consequence of this point of view is that intuitionistic logic has no interpretation as a two-valued logic, nor even as a finite-valued logic, in the familiar sense. although intuitionistic logic retains the trivial propositions 
+  
+    
+      
+        {
+        ⊤
+        ,
+        ⊥
+        }
+      
+    
+    {\displaystyle \{\top ,\bot \}}
+   from classical logic, each proof of a propositional formula is considered a valid propositional value, thus by heyting's notion of propositions-as-sets, propositional formulae are (potentially non-finite) sets of their proofs.
+
+
+=== heyting algebra semantics ===
+in classical logic, we often discuss the truth values that a formula can take. the values are usually chosen as the members of a boolean algebra.  the meet and join operations in the boolean algebra are identified with the ∧ and ∨ logical connectives, so that the value of a formula of the form a ∧ b is the meet of the value of a and the value of b in the boolean algebra.  then we have the useful theorem that a formula is a valid proposition of classical logic if and only if its value is 1 for every valuation—that is, for any assignment of values to its variables.
+a corresponding theorem is true for intuitionistic logic, but instead of assigning each formula a value from  a boolean algebra, one uses values from a heyting algebra, of which boolean algebras are a special case. a formula is valid in intuitionistic logic if and only if it receives the value of the top element for any valuation on any heyting algebra.
+it can be shown that to recognize valid formulas, it is sufficient to consider a single heyting algebra whose elements are the open subsets of the real line r. in this algebra we have:
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  value
+                
+                [
+                ⊥
+                ]
+              
+              
+                
+                =
+                ∅
+              
+            
+            
+              
+                
+                  value
+                
+                [
+                ⊤
+                ]
+              
+              
+                
+                =
+                
+                  r
+                
+              
+            
+            
+              
+                
+                  value
+                
+                [
+                a
+                ∧
+                b
+                ]
+              
+              
+                
+                =
+                
+                  value
+                
+                [
+                a
+                ]
+                ∩
+                
+                  value
+                
+                [
+                b
+                ]
+              
+            
+            
+              
+                
+                  value
+                
+                [
+                a
+                ∨
+                b
+                ]
+              
+              
+                
+                =
+                
+                  value
+                
+                [
+                a
+                ]
+                ∪
+                
+                  value
+                
+                [
+                b
+                ]
+              
+            
+            
+              
+                
+                  value
+                
+                [
+                a
+                →
+                b
+                ]
+              
+              
+                
+                =
+                
+                  int
+                
+                
+                  (
+                  
+                    
+                      value
+                    
+                    [
+                    a
+                    
+                      ]
+                      
+                        ∁
+                      
+                    
+                    ∪
+                    
+                      value
+                    
+                    [
+                    b
+                    ]
+                  
+                  )
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}{\text{value}}[\bot ]&=\emptyset \\{\text{value}}[\top ]&=\mathbf {r} \\{\text{value}}[a\land b]&={\text{value}}[a]\cap {\text{value}}[b]\\{\text{value}}[a\lor b]&={\text{value}}[a]\cup {\text{value}}[b]\\{\text{value}}[a\to b]&={\text{int}}\left({\text{value}}[a]^{\complement }\cup {\text{value}}[b]\right)\end{aligned}}}
+  where int(x) is the interior of x and  x∁ its complement.
+the last identity concerning a → b allows us to calculate the value of ¬a:
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  value
+                
+                [
+                ¬
+                a
+                ]
+              
+              
+                
+                =
+                
+                  value
+                
+                [
+                a
+                →
+                ⊥
+                ]
+              
+            
+            
+              
+              
+                
+                =
+                
+                  int
+                
+                
+                  (
+                  
+                    
+                      value
+                    
+                    [
+                    a
+                    
+                      ]
+                      
+                        ∁
+                      
+                    
+                    ∪
+                    
+                      value
+                    
+                    [
+                    ⊥
+                    ]
+                  
+                  )
+                
+              
+            
+            
+              
+              
+                
+                =
+                
+                  int
+                
+                
+                  (
+                  
+                    
+                      value
+                    
+                    [
+                    a
+                    
+                      ]
+                      
+                        ∁
+                      
+                    
+                    ∪
+                    ∅
+                  
+                  )
+                
+              
+            
+            
+              
+              
+                
+                =
+                
+                  int
+                
+                
+                  (
+                  
+                    
+                      value
+                    
+                    [
+                    a
+                    
+                      ]
+                      
+                        ∁
+                      
+                    
+                  
+                  )
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}{\text{value}}[\neg a]&={\text{value}}[a\to \bot ]\\&={\text{int}}\left({\text{value}}[a]^{\complement }\cup {\text{value}}[\bot ]\right)\\&={\text{int}}\left({\text{value}}[a]^{\complement }\cup \emptyset \right)\\&={\text{int}}\left({\text{value}}[a]^{\complement }\right)\end{aligned}}}
+  with these assignments, intuitionistically valid formulas are precisely those that are assigned the value of the entire line. for example, the formula ¬(a ∧ ¬a) is valid, because no matter what set x is chosen as the value of the formula a, the value of ¬(a ∧ ¬a) can be shown to be the entire line:
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  value
+                
+                [
+                ¬
+                (
+                a
+                ∧
+                ¬
+                a
+                )
+                ]
+              
+              
+                
+                =
+                
+                  int
+                
+                
+                  (
+                  
+                    
+                      value
+                    
+                    [
+                    a
+                    ∧
+                    ¬
+                    a
+                    
+                      ]
+                      
+                        ∁
+                      
+                    
+                  
+                  )
+                
+              
+              
+              
+                
+                  value
+                
+                [
+                ¬
+                b
+                ]
+                =
+                
+                  int
+                
+                
+                  (
+                  
+                    
+                      value
+                    
+                    [
+                    b
+                    
+                      ]
+                      
+                        ∁
+                      
+                    
+                  
+                  )
+                
+              
+            
+            
+              
+              
+                
+                =
+                
+                  int
+                
+                
+                  (
+                  
+                    
+                      (
+                      
+                        
+                          value
+                        
+                        [
+                        a
+                        ]
+                        ∩
+                        
+                          value
+                        
+                        [
+                        ¬
+                        a
+                        ]
+                      
+                      )
+                    
+                    
+                      ∁
+                    
+                  
+                  )
+                
+              
+            
+            
+              
+              
+                
+                =
+                
+                  int
+                
+                
+                  (
+                  
+                    
+                      (
+                      
+                        
+                          value
+                        
+                        [
+                        a
+                        ]
+                        ∩
+                        
+                          int
+                        
+                        
+                          (
+                          
+                            
+                              value
+                            
+                            [
+                            a
+                            
+                              ]
+                              
+                                ∁
+                              
+                            
+                          
+                          )
+                        
+                      
+                      )
+                    
+                    
+                      ∁
+                    
+                  
+                  )
+                
+              
+            
+            
+              
+              
+                
+                =
+                
+                  int
+                
+                
+                  (
+                  
+                    
+                      (
+                      
+                        x
+                        ∩
+                        
+                          int
+                        
+                        
+                          (
+                          
+                            x
+                            
+                              ∁
+                            
+                          
+                          )
+                        
+                      
+                      )
+                    
+                    
+                      ∁
+                    
+                  
+                  )
+                
+              
+            
+            
+              
+              
+                
+                =
+                
+                  int
+                
+                
+                  (
+                  
+                    ∅
+                    
+                      ∁
+                    
+                  
+                  )
+                
+              
+              
+              
+                
+                  int
+                
+                
+                  (
+                  
+                    x
+                    
+                      ∁
+                    
+                  
+                  )
+                
+                ⊆
+                
+                  x
+                  
+                    ∁
+                  
+                
+              
+            
+            
+              
+              
+                
+                =
+                
+                  int
+                
+                (
+                
+                  r
+                
+                )
+              
+            
+            
+              
+              
+                
+                =
+                
+                  r
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}{\text{value}}[\neg (a\land \neg a)]&={\text{int}}\left({\text{value}}[a\land \neg a]^{\complement }\right)&&{\text{value}}[\neg b]={\text{int}}\left({\text{value}}[b]^{\complement }\right)\\&={\text{int}}\left(\left({\text{value}}[a]\cap {\text{value}}[\neg a]\right)^{\complement }\right)\\&={\text{int}}\left(\left({\text{value}}[a]\cap {\text{int}}\left({\text{value}}[a]^{\complement }\right)\right)^{\complement }\right)\\&={\text{int}}\left(\left(x\cap {\text{int}}\left(x^{\complement }\right)\right)^{\complement }\right)\\&={\text{int}}\left(\emptyset ^{\complement }\right)&&{\text{int}}\left(x^{\complement }\right)\subseteq x^{\complement }\\&={\text{int}}(\mathbf {r} )\\&=\mathbf {r} \end{aligned}}}
+  so the valuation of this formula is true, and indeed the formula is valid. but the law of the excluded middle, a ∨ ¬a, can be shown to be invalid by using a specific value of the set of positive real numbers for a:
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  value
+                
+                [
+                a
+                ∨
+                ¬
+                a
+                ]
+              
+              
+                
+                =
+                
+                  value
+                
+                [
+                a
+                ]
+                ∪
+                
+                  value
+                
+                [
+                ¬
+                a
+                ]
+              
+            
+            
+              
+              
+                
+                =
+                
+                  value
+                
+                [
+                a
+                ]
+                ∪
+                
+                  int
+                
+                
+                  (
+                  
+                    
+                      value
+                    
+                    [
+                    a
+                    
+                      ]
+                      
+                        ∁
+                      
+                    
+                  
+                  )
+                
+              
+              
+              
+                
+                  value
+                
+                [
+                ¬
+                b
+                ]
+                =
+                
+                  int
+                
+                
+                  (
+                  
+                    
+                      value
+                    
+                    [
+                    b
+                    
+                      ]
+                      
+                        ∁
+                      
+                    
+                  
+                  )
+                
+              
+            
+            
+              
+              
+                
+                =
+                {
+                x
+                >
+                0
+                }
+                ∪
+                
+                  int
+                
+                
+                  (
+                  
+                    {
+                    x
+                    >
+                    0
+                    
+                      }
+                      
+                        ∁
+                      
+                    
+                  
+                  )
+                
+              
+            
+            
+              
+              
+                
+                =
+                {
+                x
+                >
+                0
+                }
+                ∪
+                
+                  int
+                
+                
+                  (
+                  
+                    {
+                    x
+                    ⩽
+                    0
+                    }
+                  
+                  )
+                
+              
+            
+            
+              
+              
+                
+                =
+                {
+                x
+                >
+                0
+                }
+                ∪
+                {
+                x
+                <
+                0
+                }
+              
+            
+            
+              
+              
+                
+                =
+                {
+                x
+                ≠
+                0
+                }
+              
+            
+            
+              
+              
+                
+                ≠
+                
+                  r
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}{\text{value}}[a\lor \neg a]&={\text{value}}[a]\cup {\text{value}}[\neg a]\\&={\text{value}}[a]\cup {\text{int}}\left({\text{value}}[a]^{\complement }\right)&&{\text{value}}[\neg b]={\text{int}}\left({\text{value}}[b]^{\complement }\right)\\&=\{x>0\}\cup {\text{int}}\left(\{x>0\}^{\complement }\right)\\&=\{x>0\}\cup {\text{int}}\left(\{x\leqslant 0\}\right)\\&=\{x>0\}\cup \{x<0\}\\&=\{x\neq 0\}\\&\neq \mathbf {r} \end{aligned}}}
+  the interpretation of any intuitionistically valid formula in the infinite heyting algebra described above results in the top element, representing true, as the valuation of the formula, regardless of what values from the algebra are assigned to the variables of the formula. conversely, for every invalid formula, there is an assignment of values to the variables that yields a valuation that differs from the top element. no finite heyting algebra has the second of these two properties.
+
+
+=== kripke semantics ===
+
+building upon his work on semantics of modal logic, saul kripke created another semantics for intuitionistic logic, known as kripke semantics or relational semantics.
+
+
+=== tarski-like semantics ===
+it was discovered that tarski-like semantics for intuitionistic logic were not possible to prove complete. however, robert constable has shown that a weaker notion of completeness still holds for intuitionistic logic under a tarski-like model. in this notion of completeness we are concerned not with all of the statements that are true of every model, but with the statements that are true in the same way in every model. that is, a single proof that the model judges a formula to be true must be valid for every model. in this case, there is not only a proof of completeness, but one that is valid according to intuitionistic logic.
+
+
+=== relation to other logics ===
+intuitionistic logic is related by duality to a paraconsistent logic known as brazilian, anti-intuitionistic or dual-intuitionistic logic.the subsystem of intuitionistic logic with the false axiom removed is known as minimal logic.
+
+
+==== relation to many-valued logic ====
+kurt gödel's work involving many-valued logic showed in 1932 that intuitionistic logic is not a finite-valued logic.  (see the section titled heyting algebra semantics above for an infinite-valued logic interpretation of intuitionistic logic.)
+
+
+==== relation to intermediate logics ====
+any finite heyting algebra that is not equivalent to a boolean algebra defines (semantically) an intermediate logic. on the other hand, validity of formulae in pure intuitionistic logic is not tied to any individual heyting algebra but relates to any and all heyting algebras at the same time.
+
+
+==== relation to modal logic ====
+any formula of the intuitionistic propositional logic (ipc) may be translated into the normal modal logic s4 as follows:
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  ⊥
+                  
+                    ∗
+                  
+                
+              
+              
+                
+                =
+                ⊥
+              
+            
+            
+              
+                
+                  a
+                  
+                    ∗
+                  
+                
+              
+              
+                
+                =
+                ◻
+                a
+              
+              
+              
+                
+                  if 
+                
+                a
+                
+                   is prime (a positive literal)
+                
+              
+            
+            
+              
+                (
+                a
+                ∧
+                b
+                
+                  )
+                  
+                    ∗
+                  
+                
+              
+              
+                
+                =
+                
+                  a
+                  
+                    ∗
+                  
+                
+                ∧
+                
+                  b
+                  
+                    ∗
+                  
+                
+              
+            
+            
+              
+                (
+                a
+                ∨
+                b
+                
+                  )
+                  
+                    ∗
+                  
+                
+              
+              
+                
+                =
+                
+                  a
+                  
+                    ∗
+                  
+                
+                ∨
+                
+                  b
+                  
+                    ∗
+                  
+                
+              
+            
+            
+              
+                (
+                a
+                →
+                b
+                
+                  )
+                  
+                    ∗
+                  
+                
+              
+              
+                
+                =
+                ◻
+                
+                  (
+                  
+                    
+                      a
+                      
+                        ∗
+                      
+                    
+                    →
+                    
+                      b
+                      
+                        ∗
+                      
+                    
+                  
+                  )
+                
+              
+            
+            
+              
+                (
+                ¬
+                a
+                
+                  )
+                  
+                    ∗
+                  
+                
+              
+              
+                
+                =
+                ◻
+                (
+                ¬
+                (
+                
+                  a
+                  
+                    ∗
+                  
+                
+                )
+                )
+              
+              
+              
+                ¬
+                a
+                :=
+                a
+                →
+                ⊥
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}\bot ^{*}&=\bot \\a^{*}&=\box a&&{\text{if }}a{\text{ is prime (a positive literal)}}\\(a\wedge b)^{*}&=a^{*}\wedge b^{*}\\(a\vee b)^{*}&=a^{*}\vee b^{*}\\(a\to b)^{*}&=\box \left(a^{*}\to b^{*}\right)\\(\neg a)^{*}&=\box (\neg (a^{*}))&&\neg a:=a\to \bot \end{aligned}}}
+  and it has been demonstrated that the translated formula is valid in the propositional modal logic s4 if and only if the original formula is valid in ipc. the above set of formulae are called the gödel–mckinsey–tarski translation.
+there is also an intuitionistic version of modal logic s4 called constructive modal logic cs4.
+
+
+=== lambda calculus ===
+there is an extended curry–howard isomorphism between ipc and simply-typed lambda calculus.
+
+
+== see also ==
+
+bhk interpretation
+computability logic
+constructive proof
+curry–howard correspondence
+game semantics
+inhabited set
+intermediate logics
+intuitionistic type theory
+kripke semantics
+linear logic
+paraconsistent logic
+relevance theory
+smooth infinitesimal analysis
+
+
+== notes ==
+
+
+== references ==
+
+
+== external links ==
+stanford encyclopedia of philosophy: "intuitionistic logic" by joan moschovakis
+intuitionistic logic by nick bezhanishvili and dick de jongh (from the institute for logic, language and computation at the university of amsterdam)
+semantical analysis of intuitionistic logic i by saul a. kripke from harvard university, cambridge, mass., usa
+intuitionistic logic by dirk van dalen
+the discovery of e. w. beth's semantics for intuitionistic logic by a. s. troelstra and p. van ulsen
+expressing database queries with intuitionistic logic by anthony j. bonner. l. thorne mccarty. kumar vadaparty. rutgers university, department of computer science
+tableaux'method for intuitionistic logic through s4-translation tests the intuitionistic validity of propositional formulae; provided by the laboratoire d'informatique de grenoble
+the oxford handbook of philosophy of mathematics and logic: "intuitionism in mathematics" by david charles mccarty

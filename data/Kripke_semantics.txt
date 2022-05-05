@@ -1,0 +1,1948 @@
+kripke semantics (also known as relational semantics or frame semantics, and often confused with possible world semantics) is a formal semantics for non-classical logic systems created in the late 1950s and early 1960s by saul kripke and andré joyal. it was first conceived for modal logics, and later adapted to intuitionistic logic and other non-classical systems. the development of kripke semantics was a breakthrough in the theory of non-classical logics, because the model theory of such logics was almost non-existent before kripke (algebraic semantics existed, but were considered 'syntax in disguise').
+
+
+== semantics of modal logic ==
+
+the language of propositional  modal logic consists of a countably infinite set of propositional variables, a set of truth-functional connectives (in this article 
+  
+    
+      
+        →
+      
+    
+    {\displaystyle \to }
+   and 
+  
+    
+      
+        ¬
+      
+    
+    {\displaystyle \neg }
+  ), and the modal operator 
+  
+    
+      
+        ◻
+      
+    
+    {\displaystyle \box }
+   ("necessarily"). the modal operator 
+  
+    
+      
+        ◊
+      
+    
+    {\displaystyle \diamond }
+   ("possibly") is (classically) the dual of 
+  
+    
+      
+        ◻
+      
+    
+    {\displaystyle \box }
+   and may be defined in terms of necessity like so: 
+  
+    
+      
+        ◊
+        a
+        :=
+        ¬
+        ◻
+        ¬
+        a
+      
+    
+    {\displaystyle \diamond a:=\neg \box \neg a}
+   ("possibly a" is defined as equivalent to "not necessarily not a").
+
+
+=== basic definitions ===
+a kripke frame or modal frame is a pair 
+  
+    
+      
+        ⟨
+        w
+        ,
+        r
+        ⟩
+      
+    
+    {\displaystyle \langle w,r\rangle }
+  , where w is a (possibly empty) set, and r is a binary relation on w. elements
+of w are called nodes or worlds, and r is known as the accessibility relation.a kripke model is a triple 
+  
+    
+      
+        ⟨
+        w
+        ,
+        r
+        ,
+        ⊩
+        ⟩
+      
+    
+    {\displaystyle \langle w,r,\vdash \rangle }
+  , where
+
+  
+    
+      
+        ⟨
+        w
+        ,
+        r
+        ⟩
+      
+    
+    {\displaystyle \langle w,r\rangle }
+   is a kripke frame, and 
+  
+    
+      
+        ⊩
+      
+    
+    {\displaystyle \vdash }
+   is a relation between nodes of w and modal formulas, such that for all w ∈ w and modal formulas a and b:
+
+  
+    
+      
+        w
+        ⊩
+        ¬
+        a
+      
+    
+    {\displaystyle w\vdash \neg a}
+   if and only if 
+  
+    
+      
+        w
+        ⊮
+        a
+      
+    
+    {\displaystyle w\nvdash a}
+  ,
+
+  
+    
+      
+        w
+        ⊩
+        a
+        →
+        b
+      
+    
+    {\displaystyle w\vdash a\to b}
+   if and only if 
+  
+    
+      
+        w
+        ⊮
+        a
+      
+    
+    {\displaystyle w\nvdash a}
+   or 
+  
+    
+      
+        w
+        ⊩
+        b
+      
+    
+    {\displaystyle w\vdash b}
+  ,
+
+  
+    
+      
+        w
+        ⊩
+        ◻
+        a
+      
+    
+    {\displaystyle w\vdash \box a}
+   if and only if 
+  
+    
+      
+        u
+        ⊩
+        a
+      
+    
+    {\displaystyle u\vdash a}
+   for all 
+  
+    
+      
+        u
+      
+    
+    {\displaystyle u}
+   such that 
+  
+    
+      
+        w
+        
+        r
+        
+        u
+      
+    
+    {\displaystyle w\;r\;u}
+  .we read 
+  
+    
+      
+        w
+        ⊩
+        a
+      
+    
+    {\displaystyle w\vdash a}
+   as “w satisfies
+a”, “a is satisfied in w”, or
+“w forces a”. the relation 
+  
+    
+      
+        ⊩
+      
+    
+    {\displaystyle \vdash }
+   is called the
+satisfaction relation, evaluation, or forcing relation.
+the satisfaction relation is uniquely determined by its
+value on propositional variables.
+a formula a is valid in:
+
+a model 
+  
+    
+      
+        ⟨
+        w
+        ,
+        r
+        ,
+        ⊩
+        ⟩
+      
+    
+    {\displaystyle \langle w,r,\vdash \rangle }
+  , if 
+  
+    
+      
+        w
+        ⊩
+        a
+      
+    
+    {\displaystyle w\vdash a}
+   for all w ∈ w,
+a frame 
+  
+    
+      
+        ⟨
+        w
+        ,
+        r
+        ⟩
+      
+    
+    {\displaystyle \langle w,r\rangle }
+  , if it is valid in 
+  
+    
+      
+        ⟨
+        w
+        ,
+        r
+        ,
+        ⊩
+        ⟩
+      
+    
+    {\displaystyle \langle w,r,\vdash \rangle }
+   for all possible choices of 
+  
+    
+      
+        ⊩
+      
+    
+    {\displaystyle \vdash }
+  ,
+a class c of frames or models, if it is valid in every member of c.we define thm(c) to be the set of all formulas that are valid in
+c.  conversely, if x is a set of formulas, let mod(x) be the
+class of all frames which validate every formula from x.
+a modal logic (i.e., a set of formulas) l is sound with
+respect to a class of frames c, if l ⊆ thm(c). l is
+complete wrt c if l ⊇ thm(c).
+
+
+=== correspondence and completeness ===
+semantics is useful for investigating a logic (i.e. a derivation system) only if the semantic consequence relation reflects its syntactical counterpart, the syntactic consequence relation (derivability). it is vital to know which modal logics are sound and complete with respect to a class of kripke frames, and to determine also which class that is.
+for any class c of kripke frames, thm(c) is a normal modal logic (in particular, theorems of the minimal normal modal logic, k, are valid in every kripke model). however, the converse does not hold in general: while most of the modal systems studied are complete of classes of frames described by simple conditions, 
+kripke incomplete normal modal logics do exist. a natural example of such a system is japaridze's polymodal logic.
+a normal modal logic l corresponds to a class of frames c, if c = mod(l). in other words, c is the largest class of frames such that l is sound wrt c. it follows that l is kripke complete if and only if it is complete of its corresponding class.
+consider the schema t : 
+  
+    
+      
+        ◻
+        a
+        →
+        a
+      
+    
+    {\displaystyle \box a\to a}
+  .
+t is valid in any reflexive frame 
+  
+    
+      
+        ⟨
+        w
+        ,
+        r
+        ⟩
+      
+    
+    {\displaystyle \langle w,r\rangle }
+  : if
+
+  
+    
+      
+        w
+        ⊩
+        ◻
+        a
+      
+    
+    {\displaystyle w\vdash \box a}
+  , then 
+  
+    
+      
+        w
+        ⊩
+        a
+      
+    
+    {\displaystyle w\vdash a}
+  
+since w r w. on the other hand, a frame which
+validates t has to be reflexive: fix w ∈ w, and
+define satisfaction of a propositional variable p as follows:
+
+  
+    
+      
+        u
+        ⊩
+        p
+      
+    
+    {\displaystyle u\vdash p}
+   if and only if w r u. then
+
+  
+    
+      
+        w
+        ⊩
+        ◻
+        p
+      
+    
+    {\displaystyle w\vdash \box p}
+  , thus 
+  
+    
+      
+        w
+        ⊩
+        p
+      
+    
+    {\displaystyle w\vdash p}
+  
+by t, which means w r w using the definition of
+
+  
+    
+      
+        ⊩
+      
+    
+    {\displaystyle \vdash }
+  . t corresponds to the class of reflexive
+kripke frames.
+it is often much easier to characterize the corresponding class of
+l than to prove its completeness, thus correspondence serves as a
+guide to completeness proofs. correspondence is also used to show
+incompleteness of modal logics: suppose 
+l1 ⊆ l2 are normal modal logics that
+correspond to the same class of frames, but l1 does not
+prove all theorems of l2. then l1 is
+kripke incomplete. for example, the schema 
+  
+    
+      
+        ◻
+        (
+        a
+        ↔
+        ◻
+        a
+        )
+        →
+        ◻
+        a
+      
+    
+    {\displaystyle \box (a\leftrightarrow \box a)\to \box a}
+   generates an incomplete logic, as it
+corresponds to the same class of frames as gl (viz. transitive and
+converse well-founded frames), but does not prove the gl-tautology 
+  
+    
+      
+        ◻
+        a
+        →
+        ◻
+        ◻
+        a
+      
+    
+    {\displaystyle \box a\to \box \box a}
+  .
+
+
+==== common modal axiom schemata ====
+the following table lists common modal axioms together with their corresponding classes. the naming of the axioms often varies; here, axiom k is named after saul kripke; axiom t is named after the truth axiom in epistemic logic; axiom d is named after deontic logic; axiom b is named after l. e. j. brouwer; and axioms 4 and 5 are named based on c. i. lewis's numbering of symbolic logic systems. 
+
+axiom k can also be rewritten as 
+  
+    
+      
+        ◻
+        [
+        (
+        a
+        →
+        b
+        )
+        ∧
+        a
+        ]
+        →
+        ◻
+        b
+      
+    
+    {\displaystyle \box [(a\to b)\land a]\to \box b}
+  , which logically establishes modus ponens as a rule of inference in every possible world.
+note that for axiom d, 
+  
+    
+      
+        ◊
+        a
+      
+    
+    {\displaystyle \diamond a}
+   implicity implies 
+  
+    
+      
+        ◊
+        ⊤
+      
+    
+    {\displaystyle \diamond \top }
+  , which means that for every possible world in the model, there is always at least one possible world accessible from it (which could be itself). this implicit implication 
+  
+    
+      
+        ◊
+        a
+        →
+        ◊
+        ⊤
+      
+    
+    {\displaystyle \diamond a\rightarrow \diamond \top }
+   is similar to the implicit implication by existential quantifier on the range of quantification.
+
+
+==== common modal systems ====
+the following table lists several common normal modal systems. frame conditions for some of the systems were simplified: the logics are complete with respect to the frame classes given in the table, but they may correspond to a larger class of frames.
+
+
+=== canonical models ===
+for any normal modal logic, l, a kripke model (called the canonical model) can be constructed that refutes precisely the non-theorems of
+l, by an adaptation of the standard technique of using maximal consistent sets as models. canonical kripke models play a 
+role similar to the lindenbaum–tarski algebra construction in algebraic
+semantics.
+a set of formulas is l-consistent if no contradiction can be derived from it using the theorems of l, and modus ponens. a maximal l-consistent set (an l-mcs
+for short) is an l-consistent set that has no proper l-consistent superset.
+the canonical model of l is a kripke model
+
+  
+    
+      
+        ⟨
+        w
+        ,
+        r
+        ,
+        ⊩
+        ⟩
+      
+    
+    {\displaystyle \langle w,r,\vdash \rangle }
+  , where w is the set of all l-mcs,
+and the relations r and 
+  
+    
+      
+        ⊩
+      
+    
+    {\displaystyle \vdash }
+   are as follows:
+
+  
+    
+      
+        x
+        
+        r
+        
+        y
+      
+    
+    {\displaystyle x\;r\;y}
+   if and only if for every formula 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  , if 
+  
+    
+      
+        ◻
+        a
+        ∈
+        x
+      
+    
+    {\displaystyle \box a\in x}
+   then 
+  
+    
+      
+        a
+        ∈
+        y
+      
+    
+    {\displaystyle a\in y}
+  ,
+
+  
+    
+      
+        x
+        ⊩
+        a
+      
+    
+    {\displaystyle x\vdash a}
+   if and only if 
+  
+    
+      
+        a
+        ∈
+        x
+      
+    
+    {\displaystyle a\in x}
+  .the canonical model is a model of l, as every l-mcs contains
+all theorems of l. by zorn's lemma, each l-consistent set
+is contained in an l-mcs, in particular every formula
+unprovable in l has a counterexample in the canonical model.
+the main application of canonical models are completeness proofs. properties of the canonical model of k immediately imply completeness of k with respect to the class of all kripke frames.
+this argument does not work for arbitrary l, because there is no guarantee that the underlying frame of the canonical model satisfies the frame conditions of l.
+we say that a formula or a set x of formulas is canonical
+with respect to a property p of kripke frames, if
+
+x is valid in every frame that satisfies p,
+for any normal modal logic l that contains x, the underlying frame of the canonical model of l satisfies p.a union of canonical sets of formulas is itself canonical.
+it follows from the preceding discussion that any logic axiomatized by
+a canonical set of formulas is kripke complete, and
+compact.
+the axioms t, 4, d, b, 5, h, g (and thus
+any combination of them) are canonical. gl and grz are not
+canonical, because they are not compact. the axiom m by itself is
+not canonical (goldblatt, 1991), but the combined logic s4.1 (in
+fact, even k4.1) is canonical.
+in general, it is undecidable whether a given axiom is
+canonical. we know a nice sufficient condition: henrik sahlqvist identified a broad class of formulas (now called
+sahlqvist formulas) such that
+
+a sahlqvist formula is canonical,
+the class of frames corresponding to a sahlqvist formula is first-order definable,
+there is an algorithm that computes the corresponding frame condition to a given sahlqvist formula.this is a powerful criterion: for example, all axioms
+listed above as canonical are (equivalent to) sahlqvist formulas.
+
+
+=== finite model property ===
+a logic has the finite model property (fmp) if it is complete
+with respect to a class of finite frames. an application of this
+notion is the decidability question: it
+follows from
+post's theorem that a recursively axiomatized modal logic l
+which has fmp is decidable, provided it is decidable whether a given
+finite frame is a model of l. in particular, every finitely
+axiomatizable logic with fmp is decidable.
+there are various methods for establishing fmp for a given logic.
+refinements and extensions of the canonical model construction often
+work, using tools such as filtration or
+unravelling. as another possibility,
+completeness proofs based on cut-free
+sequent calculi usually produce finite models
+directly.
+most of the modal systems used in practice (including all listed
+above) have fmp.
+in some cases, we can use fmp to prove kripke completeness of a logic:
+every normal modal logic is complete with respect to a class of
+modal algebras, and a finite modal algebra can be transformed
+into a kripke frame. as an example, robert bull proved using this method
+that every normal extension of s4.3 has fmp, and is kripke
+complete.
+
+
+=== multimodal logics ===
+
+kripke semantics has a straightforward generalization to logics with
+more than one modality. a kripke frame for a language with
+
+  
+    
+      
+        {
+        
+          ◻
+          
+            i
+          
+        
+        ∣
+        
+        i
+        ∈
+        i
+        }
+      
+    
+    {\displaystyle \{\box _{i}\mid \,i\in i\}}
+   as the set of its necessity operators
+consists of a non-empty set w equipped with binary relations
+ri for each i ∈ i. the definition of a
+satisfaction relation is modified as follows:
+
+  
+    
+      
+        w
+        ⊩
+        
+          ◻
+          
+            i
+          
+        
+        a
+      
+    
+    {\displaystyle w\vdash \box _{i}a}
+   if and only if 
+  
+    
+      
+        ∀
+        u
+        
+        (
+        w
+        
+        
+          r
+          
+            i
+          
+        
+        
+        u
+        ⇒
+        u
+        ⊩
+        a
+        )
+        .
+      
+    
+    {\displaystyle \forall u\,(w\;r_{i}\;u\rightarrow u\vdash a).}
+  a simplified semantics, discovered by tim carlson, is often used for
+polymodal provability logics. a carlson model is a structure
+
+  
+    
+      
+        ⟨
+        w
+        ,
+        r
+        ,
+        {
+        
+          d
+          
+            i
+          
+        
+        
+          }
+          
+            i
+            ∈
+            i
+          
+        
+        ,
+        ⊩
+        ⟩
+      
+    
+    {\displaystyle \langle w,r,\{d_{i}\}_{i\in i},\vdash \rangle }
+  
+with a single accessibility relation r, and subsets
+di ⊆ w for each modality. satisfaction is
+defined as
+
+  
+    
+      
+        w
+        ⊩
+        
+          ◻
+          
+            i
+          
+        
+        a
+      
+    
+    {\displaystyle w\vdash \box _{i}a}
+   if and only if 
+  
+    
+      
+        ∀
+        u
+        ∈
+        
+          d
+          
+            i
+          
+        
+        
+        (
+        w
+        
+        r
+        
+        u
+        ⇒
+        u
+        ⊩
+        a
+        )
+        .
+      
+    
+    {\displaystyle \forall u\in d_{i}\,(w\;r\;u\rightarrow u\vdash a).}
+  carlson models are easier to visualize and to work with than usual
+polymodal kripke models; there are, however, kripke complete polymodal
+logics which are carlson incomplete.
+
+
+== semantics of intuitionistic logic ==
+kripke semantics for intuitionistic logic follows the same
+principles as the semantics of modal logic, but it uses a different
+definition of satisfaction.
+an intuitionistic kripke model is a triple
+
+  
+    
+      
+        ⟨
+        w
+        ,
+        ≤
+        ,
+        ⊩
+        ⟩
+      
+    
+    {\displaystyle \langle w,\leq ,\vdash \rangle }
+  , where 
+  
+    
+      
+        ⟨
+        w
+        ,
+        ≤
+        ⟩
+      
+    
+    {\displaystyle \langle w,\leq \rangle }
+   is a preordered kripke frame, and 
+  
+    
+      
+        ⊩
+      
+    
+    {\displaystyle \vdash }
+   satisfies the following conditions:
+
+if p is a propositional variable, 
+  
+    
+      
+        w
+        ≤
+        u
+      
+    
+    {\displaystyle w\leq u}
+  , and 
+  
+    
+      
+        w
+        ⊩
+        p
+      
+    
+    {\displaystyle w\vdash p}
+  , then 
+  
+    
+      
+        u
+        ⊩
+        p
+      
+    
+    {\displaystyle u\vdash p}
+   (persistency condition (cf. monotonicity)),
+
+  
+    
+      
+        w
+        ⊩
+        a
+        ∧
+        b
+      
+    
+    {\displaystyle w\vdash a\land b}
+   if and only if 
+  
+    
+      
+        w
+        ⊩
+        a
+      
+    
+    {\displaystyle w\vdash a}
+   and 
+  
+    
+      
+        w
+        ⊩
+        b
+      
+    
+    {\displaystyle w\vdash b}
+  ,
+
+  
+    
+      
+        w
+        ⊩
+        a
+        ∨
+        b
+      
+    
+    {\displaystyle w\vdash a\lor b}
+   if and only if 
+  
+    
+      
+        w
+        ⊩
+        a
+      
+    
+    {\displaystyle w\vdash a}
+   or 
+  
+    
+      
+        w
+        ⊩
+        b
+      
+    
+    {\displaystyle w\vdash b}
+  ,
+
+  
+    
+      
+        w
+        ⊩
+        a
+        →
+        b
+      
+    
+    {\displaystyle w\vdash a\to b}
+   if and only if for all 
+  
+    
+      
+        u
+        ≥
+        w
+      
+    
+    {\displaystyle u\geq w}
+  , 
+  
+    
+      
+        u
+        ⊩
+        a
+      
+    
+    {\displaystyle u\vdash a}
+   implies 
+  
+    
+      
+        u
+        ⊩
+        b
+      
+    
+    {\displaystyle u\vdash b}
+  ,
+not 
+  
+    
+      
+        w
+        ⊩
+        ⊥
+      
+    
+    {\displaystyle w\vdash \bot }
+  .the negation of a, ¬a, could be defined as an abbreviation for a → ⊥.  if for all u such that w ≤ u, not u ⊩ a, then w ⊩ a → ⊥ is vacuously true, so w ⊩ ¬a.
+intuitionistic logic is sound and complete with respect to its kripke
+semantics, and it has the finite model property.
+
+
+=== intuitionistic first-order logic ===
+let l be a first-order language. a kripke
+model of l is a triple
+
+  
+    
+      
+        ⟨
+        w
+        ,
+        ≤
+        ,
+        {
+        
+          m
+          
+            w
+          
+        
+        
+          }
+          
+            w
+            ∈
+            w
+          
+        
+        ⟩
+      
+    
+    {\displaystyle \langle w,\leq ,\{m_{w}\}_{w\in w}\rangle }
+  , where
+
+  
+    
+      
+        ⟨
+        w
+        ,
+        ≤
+        ⟩
+      
+    
+    {\displaystyle \langle w,\leq \rangle }
+   is an intuitionistic kripke frame, mw is a
+(classical) l-structure for each node w ∈ w, and
+the following compatibility conditions hold whenever u ≤ v:
+
+the domain of mu is included in the domain of mv,
+realizations of function symbols in mu and mv agree on elements of mu,
+for each n-ary predicate p and elements a1,...,an ∈ mu: if p(a1,...,an) holds in mu, then it holds in mv.given an evaluation e of variables by elements of mw, we
+define the satisfaction relation 
+  
+    
+      
+        w
+        ⊩
+        a
+        [
+        e
+        ]
+      
+    
+    {\displaystyle w\vdash a[e]}
+  :
+
+  
+    
+      
+        w
+        ⊩
+        p
+        (
+        
+          t
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          t
+          
+            n
+          
+        
+        )
+        [
+        e
+        ]
+      
+    
+    {\displaystyle w\vdash p(t_{1},\dots ,t_{n})[e]}
+   if and only if 
+  
+    
+      
+        p
+        (
+        
+          t
+          
+            1
+          
+        
+        [
+        e
+        ]
+        ,
+        …
+        ,
+        
+          t
+          
+            n
+          
+        
+        [
+        e
+        ]
+        )
+      
+    
+    {\displaystyle p(t_{1}[e],\dots ,t_{n}[e])}
+   holds in mw,
+
+  
+    
+      
+        w
+        ⊩
+        (
+        a
+        ∧
+        b
+        )
+        [
+        e
+        ]
+      
+    
+    {\displaystyle w\vdash (a\land b)[e]}
+   if and only if 
+  
+    
+      
+        w
+        ⊩
+        a
+        [
+        e
+        ]
+      
+    
+    {\displaystyle w\vdash a[e]}
+   and 
+  
+    
+      
+        w
+        ⊩
+        b
+        [
+        e
+        ]
+      
+    
+    {\displaystyle w\vdash b[e]}
+  ,
+
+  
+    
+      
+        w
+        ⊩
+        (
+        a
+        ∨
+        b
+        )
+        [
+        e
+        ]
+      
+    
+    {\displaystyle w\vdash (a\lor b)[e]}
+   if and only if 
+  
+    
+      
+        w
+        ⊩
+        a
+        [
+        e
+        ]
+      
+    
+    {\displaystyle w\vdash a[e]}
+   or 
+  
+    
+      
+        w
+        ⊩
+        b
+        [
+        e
+        ]
+      
+    
+    {\displaystyle w\vdash b[e]}
+  ,
+
+  
+    
+      
+        w
+        ⊩
+        (
+        a
+        →
+        b
+        )
+        [
+        e
+        ]
+      
+    
+    {\displaystyle w\vdash (a\to b)[e]}
+   if and only if for all 
+  
+    
+      
+        u
+        ≥
+        w
+      
+    
+    {\displaystyle u\geq w}
+  , 
+  
+    
+      
+        u
+        ⊩
+        a
+        [
+        e
+        ]
+      
+    
+    {\displaystyle u\vdash a[e]}
+   implies 
+  
+    
+      
+        u
+        ⊩
+        b
+        [
+        e
+        ]
+      
+    
+    {\displaystyle u\vdash b[e]}
+  ,
+not 
+  
+    
+      
+        w
+        ⊩
+        ⊥
+        [
+        e
+        ]
+      
+    
+    {\displaystyle w\vdash \bot [e]}
+  ,
+
+  
+    
+      
+        w
+        ⊩
+        (
+        ∃
+        x
+        
+        a
+        )
+        [
+        e
+        ]
+      
+    
+    {\displaystyle w\vdash (\exists x\,a)[e]}
+   if and only if there exists an 
+  
+    
+      
+        a
+        ∈
+        
+          m
+          
+            w
+          
+        
+      
+    
+    {\displaystyle a\in m_{w}}
+   such that 
+  
+    
+      
+        w
+        ⊩
+        a
+        [
+        e
+        (
+        x
+        →
+        a
+        )
+        ]
+      
+    
+    {\displaystyle w\vdash a[e(x\to a)]}
+  ,
+
+  
+    
+      
+        w
+        ⊩
+        (
+        ∀
+        x
+        
+        a
+        )
+        [
+        e
+        ]
+      
+    
+    {\displaystyle w\vdash (\forall x\,a)[e]}
+   if and only if for every 
+  
+    
+      
+        u
+        ≥
+        w
+      
+    
+    {\displaystyle u\geq w}
+   and every 
+  
+    
+      
+        a
+        ∈
+        
+          m
+          
+            u
+          
+        
+      
+    
+    {\displaystyle a\in m_{u}}
+   , 
+  
+    
+      
+        u
+        ⊩
+        a
+        [
+        e
+        (
+        x
+        →
+        a
+        )
+        ]
+      
+    
+    {\displaystyle u\vdash a[e(x\to a)]}
+  .here e(x→a) is the evaluation which gives x the
+value a, and otherwise agrees with e.
+see a slightly different formalization in.
+
+
+=== kripke–joyal semantics ===
+as part of the independent development of sheaf theory, it was realised around 1965 that kripke semantics was intimately related to the treatment of existential quantification in  topos theory. that is, the 'local' aspect of existence for sections of a sheaf was a kind of logic of the 'possible'. though this development was the work of a number of people, the name kripke–joyal semantics is often used in this connection.
+
+
+== model constructions ==
+as in classical model theory, there are methods for
+constructing a new kripke model from other models.
+the natural homomorphisms in kripke semantics are called
+p-morphisms (which is short for pseudo-epimorphism, but the
+latter term is rarely used). a p-morphism of kripke frames
+
+  
+    
+      
+        ⟨
+        w
+        ,
+        r
+        ⟩
+      
+    
+    {\displaystyle \langle w,r\rangle }
+   and 
+  
+    
+      
+        ⟨
+        
+          w
+          ′
+        
+        ,
+        
+          r
+          ′
+        
+        ⟩
+      
+    
+    {\displaystyle \langle w',r'\rangle }
+   is a mapping
+
+  
+    
+      
+        f
+        :
+        w
+        →
+        
+          w
+          ′
+        
+      
+    
+    {\displaystyle f\colon w\to w'}
+   such that
+
+f preserves the accessibility relation, i.e., u r v implies f(u) r’ f(v),
+whenever f(u) r’ v’, there is a v ∈ w such that u r v and f(v) = v’.a p-morphism of kripke models 
+  
+    
+      
+        ⟨
+        w
+        ,
+        r
+        ,
+        ⊩
+        ⟩
+      
+    
+    {\displaystyle \langle w,r,\vdash \rangle }
+   and
+
+  
+    
+      
+        ⟨
+        
+          w
+          ′
+        
+        ,
+        
+          r
+          ′
+        
+        ,
+        
+          ⊩
+          ′
+        
+        ⟩
+      
+    
+    {\displaystyle \langle w',r',\vdash '\rangle }
+   is a p-morphism of their
+underlying frames 
+  
+    
+      
+        f
+        :
+        w
+        →
+        
+          w
+          ′
+        
+      
+    
+    {\displaystyle f\colon w\to w'}
+  , which
+satisfies
+
+  
+    
+      
+        w
+        ⊩
+        p
+      
+    
+    {\displaystyle w\vdash p}
+   if and only if 
+  
+    
+      
+        f
+        (
+        w
+        )
+        
+          ⊩
+          ′
+        
+        p
+      
+    
+    {\displaystyle f(w)\vdash 'p}
+  , for any propositional variable p.p-morphisms are a special kind of bisimulations. in general, a
+bisimulation between frames 
+  
+    
+      
+        ⟨
+        w
+        ,
+        r
+        ⟩
+      
+    
+    {\displaystyle \langle w,r\rangle }
+   and
+
+  
+    
+      
+        ⟨
+        
+          w
+          ′
+        
+        ,
+        
+          r
+          ′
+        
+        ⟩
+      
+    
+    {\displaystyle \langle w',r'\rangle }
+   is a relation
+b ⊆ w × w’, which satisfies
+the following “zig-zag” property:
+
+if u b u’ and u r v, there exists v’ ∈ w’ such that v b v’ and u’ r’ v’,
+if u b u’ and u’ r’ v’, there exists v ∈ w such that v b v’ and u r v.a bisimulation of models is additionally required to preserve forcing
+of atomic formulas:
+
+if w b w’, then 
+  
+    
+      
+        w
+        ⊩
+        p
+      
+    
+    {\displaystyle w\vdash p}
+   if and only if 
+  
+    
+      
+        
+          w
+          ′
+        
+        
+          ⊩
+          ′
+        
+        p
+      
+    
+    {\displaystyle w'\vdash 'p}
+  , for any propositional variable p.the key property which follows from this definition is that
+bisimulations (hence also p-morphisms) of models preserve the
+satisfaction of all formulas, not only propositional variables.
+we can transform a kripke model into a tree using
+unravelling. given a model 
+  
+    
+      
+        ⟨
+        w
+        ,
+        r
+        ,
+        ⊩
+        ⟩
+      
+    
+    {\displaystyle \langle w,r,\vdash \rangle }
+   and a fixed
+node w0 ∈ w, we define a model
+
+  
+    
+      
+        ⟨
+        
+          w
+          ′
+        
+        ,
+        
+          r
+          ′
+        
+        ,
+        
+          ⊩
+          ′
+        
+        ⟩
+      
+    
+    {\displaystyle \langle w',r',\vdash '\rangle }
+  , where w’ is the
+set of all finite sequences
+
+  
+    
+      
+        s
+        =
+        ⟨
+        
+          w
+          
+            0
+          
+        
+        ,
+        
+          w
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          w
+          
+            n
+          
+        
+        ⟩
+      
+    
+    {\displaystyle s=\langle w_{0},w_{1},\dots ,w_{n}\rangle }
+   such
+that wi r wi+1 for all
+i < n, and 
+  
+    
+      
+        s
+        ⊩
+        p
+      
+    
+    {\displaystyle s\vdash p}
+   if and only if
+
+  
+    
+      
+        
+          w
+          
+            n
+          
+        
+        ⊩
+        p
+      
+    
+    {\displaystyle w_{n}\vdash p}
+   for a propositional variable
+p. the definition of the accessibility relation r’
+varies; in the simplest case we put
+
+  
+    
+      
+        ⟨
+        
+          w
+          
+            0
+          
+        
+        ,
+        
+          w
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          w
+          
+            n
+          
+        
+        ⟩
+        
+        
+          r
+          ′
+        
+        
+        ⟨
+        
+          w
+          
+            0
+          
+        
+        ,
+        
+          w
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          w
+          
+            n
+          
+        
+        ,
+        
+          w
+          
+            n
+            +
+            1
+          
+        
+        ⟩
+      
+    
+    {\displaystyle \langle w_{0},w_{1},\dots ,w_{n}\rangle \;r'\;\langle w_{0},w_{1},\dots ,w_{n},w_{n+1}\rangle }
+  ,but many applications need the reflexive and/or transitive closure of
+this relation, or similar modifications.
+filtration is a useful construction which uses to prove fmp for many logics. let x be a set of
+formulas closed under taking subformulas. an x-filtration of a
+model 
+  
+    
+      
+        ⟨
+        w
+        ,
+        r
+        ,
+        ⊩
+        ⟩
+      
+    
+    {\displaystyle \langle w,r,\vdash \rangle }
+   is a mapping f from w to a model
+
+  
+    
+      
+        ⟨
+        
+          w
+          ′
+        
+        ,
+        
+          r
+          ′
+        
+        ,
+        
+          ⊩
+          ′
+        
+        ⟩
+      
+    
+    {\displaystyle \langle w',r',\vdash '\rangle }
+   such that
+
+f is a surjection,
+f preserves the accessibility relation, and (in both directions) satisfaction of variables p ∈ x,
+if f(u) r’ f(v) and 
+  
+    
+      
+        u
+        ⊩
+        ◻
+        a
+      
+    
+    {\displaystyle u\vdash \box a}
+  , where 
+  
+    
+      
+        ◻
+        a
+        ∈
+        x
+      
+    
+    {\displaystyle \box a\in x}
+  , then 
+  
+    
+      
+        v
+        ⊩
+        a
+      
+    
+    {\displaystyle v\vdash a}
+  .it follows that f preserves satisfaction of all formulas from
+x. in typical applications, we take f as the projection
+onto the quotient of w over the relation
+
+u ≡x v if and only if for all a ∈ x, 
+  
+    
+      
+        u
+        ⊩
+        a
+      
+    
+    {\displaystyle u\vdash a}
+   if and only if 
+  
+    
+      
+        v
+        ⊩
+        a
+      
+    
+    {\displaystyle v\vdash a}
+  .as in the case of unravelling, the definition of the accessibility
+relation on the quotient varies.
+
+
+== general frame semantics ==
+the main defect of kripke semantics is the existence of kripke incomplete logics, and logics which are complete but not compact. it can be remedied by equipping kripke frames with extra structure which restricts the set of possible valuations, using ideas from algebraic semantics. this gives rise to the general frame semantics.
+
+
+== computer science applications ==
+
+blackburn et al. (2001) point out that because a relational structure is simply a set together with a collection of relations on that set, it is unsurprising that relational structures are to be found just about everywhere. as an example from theoretical computer science, they give labeled transition systems, which model program execution. blackburn et al. thus claim because of this connection that modal languages are ideally suited in providing "internal, local perspective on relational structures." (p. xii)
+
+
+== history and terminology ==
+similar work that predated kripke's revolutionary semantic breakthroughs:
+rudolf carnap seems to have been the first to have the idea that one can give a possible world semantics for the modalities of necessity and possibility by means of giving the valuation function a parameter that ranges over leibnizian possible worlds.  bayart develops this idea further, but neither gave recursive definitions of satisfaction in the style introduced by tarski;
+j.c.c. mckinsey and alfred tarski developed an approach to modeling modal logics that is still influential in modern research, namely the algebraic approach, in which boolean algebras with operators are used as models. bjarni jónsson and tarski established the representability of boolean algebras with operators in terms of frames. if the two ideas had been put together, the result would have been precisely frame models, which is to say kripke models, years before kripke. but no one (not even tarski) saw the connection at the time.
+arthur prior, building on unpublished work of c. a. meredith, developed a translation of sentential modal logic into classical predicate logic that, if he had combined it with the usual model theory for the latter, would have produced a model theory equivalent to kripke models for the former. but his approach was resolutely syntactic and anti-model-theoretic.
+stig kanger gave a rather more complex approach to the interpretation of modal logic, but one that contains many of the key ideas of kripke's approach.  he first noted the relationship between conditions on accessibility relations and lewis-style axioms for modal logic.  kanger failed, however, to give a completeness proof for his system;
+jaakko hintikka gave a semantics in his papers introducing epistemic logic that is a simple variation of kripke's semantics, equivalent to the characterisation of valuations by means of maximal consistent sets.  he doesn't give inference rules for epistemic logic, and so cannot give a completeness proof;
+richard montague had many of the key ideas contained in kripke's work, but he did not regard them as significant, because he had no completeness proof, and so did not publish until after kripke's papers had created a sensation in the logic community;
+evert willem beth presented a semantics of intuitionistic logic based on trees, which closely resembles kripke semantics, except for using a more cumbersome definition of satisfaction.
+
+
+== see also ==
+alexandrov topology
+normal modal logic
+two-dimensionalism
+muddy children puzzle
+
+
+== notes ==
+a^ after andrzej grzegorczyk.
+
+
+== references ==
+blackburn, p.; de rijke, m.; venema, yde (2002). modal logic. cambridge university press. isbn 978-1-316-10195-7.
+bull, robert a.; segerberg, k. (2012) [1984]. "basic modal logic".  in gabbay, d.m.; guenthner, f. (eds.). extensions of classical logic. handbook of philosophical logic. vol. 2. springer. pp. 1–88. isbn 978-94-009-6259-0.
+chagrov, a.; zakharyaschev, m. (1997). modal logic. clarendon press. isbn 978-0-19-853779-3.
+dummett, michael a. e. (2000). elements of intuitionism (2nd ed.). clarendon press. isbn 978-0-19-850524-2.
+fitting, melvin (1969). intuitionistic logic, model theory and forcing. north-holland. isbn 978-0-444-53418-7.
+goldblatt, robert (2006). "mathematical modal logic: a view of its evolution" (pdf).  in gabbay, dov m.; woods, john (eds.). logic and the modalities in the twentieth century (pdf). handbook of the history of logic. vol. 7. elsevier. pp. 1–98. isbn 978-0-08-046303-2.
+cresswell, m.j.; hughes, g.e. (2012) [1996]. a new introduction to modal logic. routledge. isbn 978-1-134-80028-5.
+mac lane, saunders; moerdijk, ieke (2012) [1991]. sheaves in geometry and logic: a first introduction to topos theory. springer. isbn 978-1-4612-0927-0.
+van dalen, dirk (2013) [1986]. "intuitionistic logic".  in gabbay, dov m.; guenthner, franz (eds.). alternatives to classical logic. handbook of philosophical logic. vol. 3. springer. pp. 225–339. isbn 978-94-009-5203-4.
+
+
+== external links ==
+garson, james. "modal logic". the stanford encyclopedia of philosophy.
+moschovakis, joan (2018). "intuitionistic logic". stanford encyclopedia of philosophy. metaphysics research lab, stanford university.
+detlovs, v.; podnieks, k. "4.4 constructive propositional logic — kripke semantics". introduction to mathematical logic. university of latvia. n.b: constructive = intuitionistic.
+burgess, john p. "kripke models". archived from the original on 2004-10-20.
+"kripke models", encyclopedia of mathematics, ems press, 2001 [1994]

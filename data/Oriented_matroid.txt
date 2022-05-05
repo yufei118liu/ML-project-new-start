@@ -1,0 +1,2789 @@
+an oriented matroid is a mathematical structure that abstracts the properties of directed graphs, vector arrangements over ordered fields, and hyperplane arrangements over ordered fields. in comparison, an ordinary (i.e., non-oriented) matroid abstracts the dependence properties that are common both to graphs, which are not necessarily directed, and to arrangements of vectors over fields, which are not necessarily ordered.all oriented matroids have an underlying matroid. thus, results on ordinary matroids can be applied to oriented matroids. however, the converse is false; some matroids cannot become an oriented matroid by orienting an underlying structure (e.g., circuits or independent sets).
+the distinction between matroids and oriented matroids is discussed further below.
+matroids are often useful in areas such as dimension theory and algorithms.
+because of an oriented matroid's inclusion of additional details about the oriented nature of a structure,
+its usefulness extends further into several areas including geometry and optimization.
+
+
+== background ==
+
+in order to abstract the concept of orientation on the edges of a graph to sets, one needs the ability to assign "direction" to the elements of a set. the way this achieved is with the following definition of signed sets.
+
+a signed set, 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  , combines a set of objects, 
+  
+    
+      
+        
+          
+            x
+            _
+          
+        
+      
+    
+    {\displaystyle {\underline {x}}}
+  , with a partition of that set into two subsets: 
+  
+    
+      
+        
+          x
+          
+            +
+          
+        
+      
+    
+    {\displaystyle x^{+}}
+   and 
+  
+    
+      
+        
+          x
+          
+            −
+          
+        
+      
+    
+    {\displaystyle x^{-}}
+  .the members of 
+  
+    
+      
+        
+          x
+          
+            +
+          
+        
+      
+    
+    {\displaystyle x^{+}}
+   are called the positive elements; members of 
+  
+    
+      
+        
+          x
+          
+            −
+          
+        
+      
+    
+    {\displaystyle x^{-}}
+   are the negative elements.the set 
+  
+    
+      
+        
+          
+            x
+            _
+          
+        
+        =
+        
+          x
+          
+            +
+          
+        
+        ∪
+        
+          x
+          
+            −
+          
+        
+      
+    
+    {\displaystyle {\underline {x}}=x^{+}\cup x^{-}}
+   is called the support of 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  .
+the empty signed set, 
+  
+    
+      
+        ∅
+      
+    
+    {\displaystyle \emptyset }
+  , is defined as the empty set 
+  
+    
+      
+        
+          
+            ∅
+            _
+          
+        
+      
+    
+    {\displaystyle {\underline {\emptyset }}}
+   combined with a "partition" of it into two empty sets:  
+  
+    
+      
+        
+          ∅
+          
+            +
+          
+        
+      
+    
+    {\displaystyle \emptyset ^{+}}
+   and 
+  
+    
+      
+        
+          ∅
+          
+            −
+          
+        
+      
+    
+    {\displaystyle \emptyset ^{-}}
+  .
+the signed set 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   is the opposite of 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  , i.e., 
+  
+    
+      
+        y
+        =
+        −
+        x
+      
+    
+    {\displaystyle y=-x}
+  , if and only if 
+  
+    
+      
+        
+          y
+          
+            +
+          
+        
+        =
+        
+          x
+          
+            −
+          
+        
+      
+    
+    {\displaystyle y^{+}=x^{-}}
+   and 
+  
+    
+      
+        
+          y
+          
+            −
+          
+        
+        =
+        
+          x
+          
+            +
+          
+        
+      
+    
+    {\displaystyle y^{-}=x^{+}}
+  given an element of the support 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  , we will write 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   for a positive element and 
+  
+    
+      
+        −
+        x
+      
+    
+    {\displaystyle -x}
+   for a negative element. in this way, a signed set is just adding negative signs to distinguished elements. this will make sense as a "direction" only when we consider orientations of larger structures. then the sign of each element will encode its direction relative to this orientation.
+
+
+== axiomatizations ==
+
+like ordinary matroids, several equivalent systems of axioms exist. (such structures that possess multiple equivalent axiomatizations are called cryptomorphic.)
+
+
+=== circuit axioms ===
+let 
+  
+    
+      
+        e
+      
+    
+    {\displaystyle e}
+   be any set.  we refer to 
+  
+    
+      
+        e
+      
+    
+    {\displaystyle e}
+   as the ground set. let 
+  
+    
+      
+        
+          
+            c
+          
+        
+      
+    
+    {\displaystyle {\mathcal {c}}}
+   be a collection of signed sets, each of which is supported by a subset of 
+  
+    
+      
+        e
+      
+    
+    {\displaystyle e}
+  .
+if the following axioms hold for 
+  
+    
+      
+        
+          
+            c
+          
+        
+      
+    
+    {\displaystyle {\mathcal {c}}}
+  , then equivalently 
+  
+    
+      
+        
+          
+            c
+          
+        
+      
+    
+    {\displaystyle {\mathcal {c}}}
+   is the set of signed circuits
+for an oriented matroid on 
+  
+    
+      
+        e
+      
+    
+    {\displaystyle e}
+  .
+
+(c0) 
+  
+    
+      
+        ∅
+        ∉
+        
+          
+            c
+          
+        
+      
+    
+    {\displaystyle \emptyset \notin {\mathcal {c}}}
+  
+(c1) (symmetric) 
+  
+    
+      
+        
+           for all 
+        
+        x
+        ∈
+        
+          
+            c
+          
+        
+        ,
+         
+        −
+        
+        x
+        ∈
+        
+          
+            c
+          
+        
+        .
+      
+    
+    {\displaystyle {\text{ for all }}x\in {\mathcal {c}},~-\!x\in {\mathcal {c}}.}
+  
+(c2) (incomparable) 
+  
+    
+      
+        
+           for all 
+        
+        x
+        ,
+        y
+        ∈
+        
+          
+            c
+          
+        
+        ,
+         
+         
+        
+           if 
+        
+        
+          
+            x
+            _
+          
+        
+        ⊆
+        
+          
+            y
+            _
+          
+        
+        
+           then 
+        
+        (
+        x
+        =
+        y
+        
+           or 
+        
+        x
+        =
+        −
+        y
+        )
+        .
+      
+    
+    {\displaystyle {\text{ for all }}x,y\in {\mathcal {c}},~~{\text{ if }}{\underline {x}}\subseteq {\underline {y}}{\text{ then }}(x=y{\text{ or }}x=-y).}
+  
+(c3)  (weak elimination) 
+  
+    
+      
+        
+           for all 
+        
+        x
+        ,
+        y
+        ∈
+        
+          
+            c
+          
+        
+        ,
+        x
+        ≠
+        −
+        y
+        
+           with an 
+        
+        e
+        ∈
+        
+          x
+          
+            +
+          
+        
+        ∩
+        
+          y
+          
+            −
+          
+        
+        
+           there is a 
+        
+        z
+        ∈
+        
+          
+            c
+          
+        
+        
+           such that 
+        
+      
+    
+    {\displaystyle {\text{ for all }}x,y\in {\mathcal {c}},x\neq -y{\text{ with an }}e\in x^{+}\cap y^{-}{\text{ there is a }}z\in {\mathcal {c}}{\text{ such that }}}
+  
+
+  
+    
+      
+        
+          z
+          
+            +
+          
+        
+        ⊆
+        (
+        
+          x
+          
+            +
+          
+        
+        ∪
+        
+          y
+          
+            +
+          
+        
+        )
+        ∖
+        {
+        e
+        }
+        
+           and 
+        
+      
+    
+    {\displaystyle z^{+}\subseteq (x^{+}\cup y^{+})\setminus \{e\}{\text{ and }}}
+  
+
+  
+    
+      
+        
+          z
+          
+            −
+          
+        
+        ⊆
+        (
+        
+          x
+          
+            −
+          
+        
+        ∪
+        
+          y
+          
+            −
+          
+        
+        )
+        ∖
+        {
+        e
+        }
+        .
+      
+    
+    {\displaystyle z^{-}\subseteq (x^{-}\cup y^{-})\setminus \{e\}.}
+  
+
+
+=== vector axioms ===
+the composition of signed sets 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   and 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   is the signed set 
+  
+    
+      
+        x
+        ∘
+        y
+      
+    
+    {\displaystyle x\circ y}
+   defined by  
+  
+    
+      
+        
+          
+            
+              x
+              ∘
+              y
+            
+            _
+          
+        
+        =
+        
+          
+            x
+            _
+          
+        
+        ∪
+        
+          
+            y
+            _
+          
+        
+      
+    
+    {\displaystyle {\underline {x\circ y}}={\underline {x}}\cup {\underline {y}}}
+  , 
+  
+    
+      
+        (
+        x
+        ∘
+        y
+        
+          )
+          
+            +
+          
+        
+        =
+        
+          x
+          
+            +
+          
+        
+        ∪
+        
+          (
+          
+            
+              y
+              
+                +
+              
+            
+            ∖
+            
+              x
+              
+                −
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle (x\circ y)^{+}=x^{+}\cup \left(y^{+}\setminus x^{-}\right)}
+  , and 
+  
+    
+      
+        (
+        x
+        ∘
+        y
+        
+          )
+          
+            −
+          
+        
+        =
+        
+          x
+          
+            −
+          
+        
+        ∪
+        
+          (
+          
+            
+              y
+              
+                −
+              
+            
+            ∖
+            
+              x
+              
+                +
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle (x\circ y)^{-}=x^{-}\cup \left(y^{-}\setminus x^{+}\right)}
+  .  the vectors of an oriented matroid are the compositions of circuits. the vectors 
+  
+    
+      
+        
+          
+            v
+          
+        
+      
+    
+    {\displaystyle {\mathcal {v}}}
+   of an oriented matroid satisfy the following axioms:
+
+  
+    
+      
+        ∅
+        ∈
+        
+          
+            v
+          
+        
+      
+    
+    {\displaystyle \emptyset \in {\mathcal {v}}}
+  
+
+  
+    
+      
+        
+          
+            v
+          
+        
+        =
+        −
+        
+          
+            v
+          
+        
+      
+    
+    {\displaystyle {\mathcal {v}}=-{\mathcal {v}}}
+  
+for all 
+  
+    
+      
+        x
+        ,
+        y
+        ∈
+        
+          
+            v
+          
+        
+      
+    
+    {\displaystyle x,y\in {\mathcal {v}}}
+  , 
+  
+    
+      
+        x
+        ∘
+        y
+        ∈
+        
+          
+            v
+          
+        
+      
+    
+    {\displaystyle x\circ y\in {\mathcal {v}}}
+  
+for all 
+  
+    
+      
+        x
+        ,
+        y
+        ∈
+        
+          
+            v
+          
+        
+      
+    
+    {\displaystyle x,y\in {\mathcal {v}}}
+  , 
+  
+    
+      
+        e
+        ∈
+        
+          x
+          
+            +
+          
+        
+        ∩
+        
+          y
+          
+            −
+          
+        
+      
+    
+    {\displaystyle e\in x^{+}\cap y^{-}}
+  and 
+  
+    
+      
+        f
+        ∈
+        (
+        
+          
+            x
+            _
+          
+        
+        ∖
+        
+          
+            y
+            _
+          
+        
+        )
+        ∪
+        (
+        
+          
+            y
+            _
+          
+        
+        ∖
+        
+          
+            x
+            _
+          
+        
+        )
+        ∪
+        (
+        
+          x
+          
+            +
+          
+        
+        ∩
+        
+          y
+          
+            +
+          
+        
+        )
+        ∪
+        (
+        
+          x
+          
+            −
+          
+        
+        ∩
+        
+          y
+          
+            −
+          
+        
+        )
+      
+    
+    {\displaystyle f\in ({\underline {x}}\setminus {\underline {y}})\cup ({\underline {y}}\setminus {\underline {x}})\cup (x^{+}\cap y^{+})\cup (x^{-}\cap y^{-})}
+   , there is a 
+  
+    
+      
+        z
+        ∈
+        
+          
+            v
+          
+        
+      
+    
+    {\displaystyle z\in {\mathcal {v}}}
+  , such that
+
+  
+    
+      
+        
+          z
+          
+            +
+          
+        
+        ⊂
+        
+          x
+          
+            +
+          
+        
+        ∪
+        
+          y
+          
+            +
+          
+        
+        ∖
+        e
+      
+    
+    {\displaystyle z^{+}\subset x^{+}\cup y^{+}\setminus e}
+  ,
+
+  
+    
+      
+        
+          z
+          
+            −
+          
+        
+        ⊂
+        
+          x
+          
+            −
+          
+        
+        ∪
+        
+          y
+          
+            −
+          
+        
+        ∖
+        e
+      
+    
+    {\displaystyle z^{-}\subset x^{-}\cup y^{-}\setminus e}
+  , and
+
+  
+    
+      
+        f
+        ∈
+        
+          
+            z
+            _
+          
+        
+      
+    
+    {\displaystyle f\in {\underline {z}}}
+  .
+
+
+=== chirotope axioms ===
+let 
+  
+    
+      
+        e
+      
+    
+    {\displaystyle e}
+   be as above.  for each non-negative integer  
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+  , a chirotope of rank 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+   is a function 
+  
+    
+      
+        χ
+        :
+        
+          e
+          
+            r
+          
+        
+        →
+        {
+        −
+        1
+        ,
+        0
+        ,
+        1
+        }
+      
+    
+    {\displaystyle \chi \colon e^{r}\to \{-1,0,1\}}
+   that satisfies the following axioms:
+
+(b0) (non-trivial): 
+  
+    
+      
+        χ
+      
+    
+    {\displaystyle \chi }
+   is not identically zero
+(b1) (alternating): for any permutation 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+   and 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            r
+          
+        
+        ∈
+        e
+      
+    
+    {\displaystyle x_{1},\dots ,x_{r}\in e}
+  , 
+  
+    
+      
+        χ
+        
+          (
+          
+            
+              x
+              
+                σ
+                (
+                1
+                )
+              
+            
+            ,
+            …
+            ,
+            
+              x
+              
+                σ
+                (
+                r
+                )
+              
+            
+          
+          )
+        
+        =
+        sgn
+        ⁡
+        (
+        σ
+        )
+        χ
+        
+          (
+          
+            
+              x
+              
+                1
+              
+            
+            ,
+            …
+            ,
+            
+              x
+              
+                r
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \chi \left(x_{\sigma (1)},\dots ,x_{\sigma (r)}\right)=\operatorname {sgn} (\sigma )\chi \left(x_{1},\dots ,x_{r}\right)}
+  , where 
+  
+    
+      
+        sgn
+        ⁡
+        (
+        σ
+        )
+      
+    
+    {\displaystyle \operatorname {sgn} (\sigma )}
+   is the sign of the permutation.
+(b2) (exchange): for any 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            r
+          
+        
+        ,
+        
+          y
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          y
+          
+            r
+          
+        
+        ∈
+        e
+      
+    
+    {\displaystyle x_{1},\dots ,x_{r},y_{1},\dots ,y_{r}\in e}
+   such that 
+  
+    
+      
+        χ
+        (
+        
+          y
+          
+            i
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            r
+          
+        
+        )
+        χ
+        (
+        
+          y
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          y
+          
+            i
+            −
+            1
+          
+        
+        ,
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          y
+          
+            i
+            +
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          y
+          
+            r
+          
+        
+        )
+        ≥
+        0
+      
+    
+    {\displaystyle \chi (y_{i},x_{2},\dots ,x_{r})\chi (y_{1},\dots ,y_{i-1},x_{1},y_{i+1},\dots ,y_{r})\geq 0}
+   for each 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  , then we also have 
+  
+    
+      
+        χ
+        
+          (
+          
+            
+              x
+              
+                1
+              
+            
+            ,
+            …
+            ,
+            
+              x
+              
+                r
+              
+            
+          
+          )
+        
+        χ
+        
+          (
+          
+            
+              y
+              
+                1
+              
+            
+            ,
+            …
+            ,
+            
+              y
+              
+                r
+              
+            
+          
+          )
+        
+        ≥
+        0
+      
+    
+    {\displaystyle \chi \left(x_{1},\dots ,x_{r}\right)\chi \left(y_{1},\dots ,y_{r}\right)\geq 0}
+  .the term chirotope is derived from the mathematical notion of chirality, which is a concept abstracted from chemistry, where it is used to distinguish molecules that have the same structure except for a reflection.
+
+
+=== equivalence ===
+every chirotope of rank 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+   gives rise to a set of bases of a matroid on 
+  
+    
+      
+        e
+      
+    
+    {\displaystyle e}
+   consisting of those 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+  -element subsets that 
+  
+    
+      
+        χ
+      
+    
+    {\displaystyle \chi }
+   assigns a nonzero value. the chirotope can then sign the circuits of that matroid. if 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+   is a circuit of the described matroid, then 
+  
+    
+      
+        c
+        ⊂
+        {
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            r
+          
+        
+        ,
+        
+          x
+          
+            r
+            +
+            1
+          
+        
+        }
+      
+    
+    {\displaystyle c\subset \{x_{1},\dots ,x_{r},x_{r+1}\}}
+   where 
+  
+    
+      
+        {
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            r
+          
+        
+        }
+      
+    
+    {\displaystyle \{x_{1},\dots ,x_{r}\}}
+   is a basis. then 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+   can be signed with positive elements
+
+  
+    
+      
+        
+          c
+          
+            +
+          
+        
+        =
+        {
+        
+          x
+          
+            i
+          
+        
+        :
+        (
+        −
+        1
+        
+          )
+          
+            i
+          
+        
+        χ
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            i
+            −
+            1
+          
+        
+        ,
+        
+          x
+          
+            i
+            +
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            r
+            +
+            1
+          
+        
+        )
+        =
+        1
+        }
+      
+    
+    {\displaystyle c^{+}=\{x_{i}:(-1)^{i}\chi (x_{1},\dots ,x_{i-1},x_{i+1},\dots ,x_{r+1})=1\}}
+  and negative elements the complement. thus a chirotope gives rise to the oriented bases of an oriented matroid. in this sense, (b0) is the nonempty axiom for bases and (b2) is the basis exchange property.
+
+
+== examples ==
+oriented matroids are often introduced (e.g., bachem and kern) as an abstraction for directed graphs or systems of linear inequalities. below are the explicit constructions.
+
+
+=== directed graphs ===
+
+given a digraph, we define a signed circuit from the standard circuit of the graph by the following method. the support of the signed circuit 
+  
+    
+      
+        
+          
+            
+              x
+              _
+            
+          
+        
+      
+    
+    {\displaystyle \textstyle {\underline {x}}}
+   is the standard set of edges in a minimal cycle. we go along the cycle in the clockwise or anticlockwise direction assigning those edges whose orientation agrees with the direction to the positive elements 
+  
+    
+      
+        
+          
+            x
+            
+              +
+            
+          
+        
+      
+    
+    {\displaystyle \textstyle x^{+}}
+   and those edges whose orientation disagrees with the direction to the negative elements 
+  
+    
+      
+        
+          
+            x
+            
+              −
+            
+          
+        
+      
+    
+    {\displaystyle \textstyle x^{-}}
+  . if 
+  
+    
+      
+        
+          
+            
+              c
+            
+          
+        
+      
+    
+    {\displaystyle \textstyle {\mathcal {c}}}
+   is the set of all such 
+  
+    
+      
+        
+          x
+        
+      
+    
+    {\displaystyle \textstyle x}
+  , then 
+  
+    
+      
+        
+          
+            
+              c
+            
+          
+        
+      
+    
+    {\displaystyle \textstyle {\mathcal {c}}}
+   is the set of signed circuits of an oriented matroid on the set of edges of the directed graph.
+
+if we consider the directed graph on the right, then we can see that there are only two circuits, namely 
+  
+    
+      
+        
+          {
+          (
+          1
+          ,
+          2
+          )
+          ,
+          (
+          1
+          ,
+          3
+          )
+          ,
+          (
+          3
+          ,
+          2
+          )
+          }
+        
+      
+    
+    {\displaystyle \textstyle \{(1,2),(1,3),(3,2)\}}
+   and 
+  
+    
+      
+        
+          {
+          (
+          3
+          ,
+          4
+          )
+          ,
+          (
+          4
+          ,
+          3
+          )
+          }
+        
+      
+    
+    {\displaystyle \textstyle \{(3,4),(4,3)\}}
+  . then there are only four possible signed circuits corresponding to clockwise and anticlockwise orientations, namely 
+  
+    
+      
+        
+          {
+          (
+          1
+          ,
+          2
+          )
+          ,
+          −
+          (
+          1
+          ,
+          3
+          )
+          ,
+          −
+          (
+          3
+          ,
+          2
+          )
+          }
+        
+      
+    
+    {\displaystyle \textstyle \{(1,2),-(1,3),-(3,2)\}}
+  ,  
+  
+    
+      
+        
+          {
+          −
+          (
+          1
+          ,
+          2
+          )
+          ,
+          (
+          1
+          ,
+          3
+          )
+          ,
+          (
+          3
+          ,
+          2
+          )
+          }
+        
+      
+    
+    {\displaystyle \textstyle \{-(1,2),(1,3),(3,2)\}}
+  , 
+  
+    
+      
+        
+          {
+          (
+          3
+          ,
+          4
+          )
+          ,
+          (
+          4
+          ,
+          3
+          )
+          }
+        
+      
+    
+    {\displaystyle \textstyle \{(3,4),(4,3)\}}
+  , and 
+  
+    
+      
+        
+          {
+          −
+          (
+          3
+          ,
+          4
+          )
+          ,
+          −
+          (
+          4
+          ,
+          3
+          )
+          }
+        
+      
+    
+    {\displaystyle \textstyle \{-(3,4),-(4,3)\}}
+  . these four sets form the set of signed circuits of an oriented matroid on the set 
+  
+    
+      
+        
+          {
+          (
+          1
+          ,
+          2
+          )
+          ,
+          (
+          1
+          ,
+          3
+          )
+          ,
+          (
+          3
+          ,
+          2
+          )
+          ,
+          (
+          3
+          ,
+          4
+          )
+          ,
+          (
+          4
+          ,
+          3
+          )
+          }
+        
+      
+    
+    {\displaystyle \textstyle \{(1,2),(1,3),(3,2),(3,4),(4,3)\}}
+  .
+
+
+=== linear algebra ===
+
+if 
+  
+    
+      
+        
+          e
+        
+      
+    
+    {\displaystyle \textstyle e}
+   is any finite subset of 
+  
+    
+      
+        
+          
+            
+              r
+            
+            
+              n
+            
+          
+        
+      
+    
+    {\displaystyle \textstyle \mathbb {r} ^{n}}
+  , then the set of minimal linearly dependent sets forms the circuit set of a matroid on 
+  
+    
+      
+        
+          e
+        
+      
+    
+    {\displaystyle \textstyle e}
+  . to extend this construction to oriented matroids, for each circuit 
+  
+    
+      
+        
+          {
+          
+            v
+            
+              1
+            
+          
+          ,
+          …
+          ,
+          
+            v
+            
+              m
+            
+          
+          }
+        
+      
+    
+    {\displaystyle \textstyle \{v_{1},\dots ,v_{m}\}}
+   there is a minimal linear dependence
+
+  
+    
+      
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            m
+          
+        
+        
+          λ
+          
+            i
+          
+        
+        
+          v
+          
+            i
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle \sum _{i=1}^{m}\lambda _{i}v_{i}=0}
+  with 
+  
+    
+      
+        
+          
+            λ
+            
+              i
+            
+          
+          ∈
+          
+            r
+          
+        
+      
+    
+    {\displaystyle \textstyle \lambda _{i}\in \mathbb {r} }
+  . then the signed circuit 
+  
+    
+      
+        
+          x
+          =
+          {
+          
+            x
+            
+              +
+            
+          
+          ,
+          
+            x
+            
+              −
+            
+          
+          }
+        
+      
+    
+    {\displaystyle \textstyle x=\{x^{+},x^{-}\}}
+   has positive elements 
+  
+    
+      
+        
+          
+            x
+            
+              +
+            
+          
+          =
+          {
+          
+            v
+            
+              i
+            
+          
+          :
+          
+            λ
+            
+              i
+            
+          
+          >
+          0
+          }
+        
+      
+    
+    {\displaystyle \textstyle x^{+}=\{v_{i}:\lambda _{i}>0\}}
+   and negative elements 
+  
+    
+      
+        
+          
+            x
+            
+              −
+            
+          
+          =
+          {
+          
+            v
+            
+              i
+            
+          
+          :
+          
+            λ
+            
+              i
+            
+          
+          <
+          0
+          }
+        
+      
+    
+    {\displaystyle \textstyle x^{-}=\{v_{i}:\lambda _{i}<0\}}
+  . the set of all such 
+  
+    
+      
+        
+          x
+        
+      
+    
+    {\displaystyle \textstyle x}
+   forms the set of signed circuits of an oriented matroid on 
+  
+    
+      
+        
+          e
+        
+      
+    
+    {\displaystyle \textstyle e}
+  . oriented matroids that can be realized this way are called representable.
+given the same set of vectors 
+  
+    
+      
+        e
+      
+    
+    {\displaystyle e}
+  , we can define the same oriented matroid with a chirotope 
+  
+    
+      
+        χ
+        :
+        
+          e
+          
+            r
+          
+        
+        →
+        {
+        −
+        1
+        ,
+        0
+        ,
+        1
+        }
+      
+    
+    {\displaystyle \chi :e^{r}\rightarrow \{-1,0,1\}}
+  . for any 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            r
+          
+        
+        ∈
+        e
+      
+    
+    {\displaystyle x_{1},\dots ,x_{r}\in e}
+   let
+
+  
+    
+      
+        χ
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            r
+          
+        
+        )
+        =
+        sgn
+        ⁡
+        (
+        det
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            r
+          
+        
+        )
+        )
+      
+    
+    {\displaystyle \chi (x_{1},\dots ,x_{r})=\operatorname {sgn} (\det(x_{1},\dots ,x_{r}))}
+  where the right hand side of the equation is the sign of the determinant. then 
+  
+    
+      
+        χ
+      
+    
+    {\displaystyle \chi }
+   is the chirotope of the same oriented matroid on the set 
+  
+    
+      
+        e
+      
+    
+    {\displaystyle e}
+  .
+
+
+=== hyperplane arrangements ===
+a real hyperplane arrangement 
+  
+    
+      
+        
+          
+            a
+          
+        
+        =
+        {
+        
+          h
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          h
+          
+            n
+          
+        
+        }
+      
+    
+    {\displaystyle {\mathcal {a}}=\{h_{1},\ldots ,h_{n}\}}
+   is a finite set of hyperplanes in 
+  
+    
+      
+        
+          
+            r
+          
+          
+            d
+          
+        
+      
+    
+    {\displaystyle \mathbb {r} ^{d}}
+  , each containing the origin. by picking one side of each hyperplane to be the positive side, we obtain an arrangement of half-spaces. a half-space arrangement breaks down the ambient space into a finite collection of cells, each defined by which side of each hyperplane it lands on. that is, assign each point 
+  
+    
+      
+        x
+        ∈
+        
+          
+            r
+          
+          
+            d
+          
+        
+      
+    
+    {\displaystyle x\in \mathbb {r} ^{d}}
+  to the signed set 
+  
+    
+      
+        x
+        =
+        (
+        
+          x
+          
+            +
+          
+        
+        ,
+        
+          x
+          
+            −
+          
+        
+        )
+      
+    
+    {\displaystyle x=(x^{+},x^{-})}
+  with  
+  
+    
+      
+        i
+        ∈
+        
+          x
+          
+            +
+          
+        
+      
+    
+    {\displaystyle i\in x^{+}}
+   if 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   is on the positive side of 
+  
+    
+      
+        
+          h
+          
+            i
+          
+        
+      
+    
+    {\displaystyle h_{i}}
+  and 
+  
+    
+      
+        i
+        ∈
+        
+          x
+          
+            −
+          
+        
+      
+    
+    {\displaystyle i\in x^{-}}
+  if 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   is on the negative side of 
+  
+    
+      
+        
+          h
+          
+            i
+          
+        
+      
+    
+    {\displaystyle h_{i}}
+  . this collection of signed sets defines the set of covectors of the oriented matroid, which are the vectors of the dual oriented matroid.
+
+
+=== convex polytope ===
+
+günter m. ziegler introduces oriented matroids via convex polytopes.
+
+
+== results ==
+
+
+=== orientability ===
+a standard matroid is called orientable if its circuits are the supports of signed circuits of some oriented matroid. it is known that all real representable matroids are orientable. it is also known that the class of orientable matroids is closed under taking minors, however the list of forbidden minors for orientable matroids is known to be infinite. in this sense, oriented matroids is a much stricter formalization than regular matroids.
+
+
+=== duality ===
+
+much like matroids have unique dual, oriented matroids have unique orthogonal dual. what this means is the underlying matroids are dual and that the cocircuits are signed so that they are orthogonal to every circuit. two signed sets are said to be orthogonal if the intersection of their supports is empty or if the restriction of their positive elements to the intersection and negative elements to the intersection form two nonidentical and non-opposite signed sets. the existence and uniqueness of the dual oriented matroid depends on the fact that every signed circuit is orthogonal to every signed cocircuit.  to see why orthogonality is necessary for uniqueness one needs only to look to the digraph example above. we know that for planar graphs, that the dual of the circuit matroid is the circuit matroid of the graph's planar dual. thus there are as many different oriented matroids that are dual as there are ways to orient a graph and its dual.
+to see the explicit construction of this unique orthogonal dual oriented matroid, consider an oriented matroid's chirotope 
+  
+    
+      
+        χ
+        :
+        
+          e
+          
+            r
+          
+        
+        →
+        {
+        −
+        1
+        ,
+        0
+        ,
+        1
+        }
+      
+    
+    {\displaystyle \chi :e^{r}\rightarrow \{-1,0,1\}}
+  . if we consider a list of elements of 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            k
+          
+        
+        ∈
+        e
+      
+    
+    {\displaystyle x_{1},\dots ,x_{k}\in e}
+   as a cyclic permutation then we define 
+  
+    
+      
+        sgn
+        ⁡
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            k
+          
+        
+        )
+      
+    
+    {\displaystyle \operatorname {sgn} (x_{1},\dots ,x_{k})}
+   to be the sign of the associated permutation. if 
+  
+    
+      
+        
+          χ
+          
+            ∗
+          
+        
+        :
+        
+          e
+          
+            
+              |
+            
+            e
+            
+              |
+            
+            −
+            r
+          
+        
+        →
+        {
+        −
+        1
+        ,
+        0
+        ,
+        1
+        }
+      
+    
+    {\displaystyle \chi ^{*}:e^{|e|-r}\rightarrow \{-1,0,1\}}
+   is defined as
+
+  
+    
+      
+        
+          χ
+          
+            ∗
+          
+        
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            r
+          
+        
+        )
+        ↦
+        χ
+        (
+        
+          x
+          
+            r
+            +
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            
+              |
+            
+            e
+            
+              |
+            
+          
+        
+        )
+        sgn
+        ⁡
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            r
+          
+        
+        ,
+        
+          x
+          
+            r
+            +
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            
+              |
+            
+            e
+            
+              |
+            
+          
+        
+        )
+        ,
+      
+    
+    {\displaystyle \chi ^{*}(x_{1},\dots ,x_{r})\mapsto \chi (x_{r+1},\dots ,x_{|e|})\operatorname {sgn} (x_{1},\dots ,x_{r},x_{r+1},\dots ,x_{|e|}),}
+  then 
+  
+    
+      
+        
+          χ
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle \chi ^{*}}
+   is the chirotope of the unique orthogonal dual oriented matroid.
+
+
+=== topological representation ===
+
+not all oriented matroids are representable—that is, not all have realizations as point configurations, or, equivalently, hyperplane arrangements. however, in some sense, all oriented matroids come close to having realizations are hyperplane arrangements. in particular, the folkman–lawrence topological representation theorem states that any oriented matroid has a realization as an arrangement of pseudospheres. a 
+  
+    
+      
+        d
+      
+    
+    {\displaystyle d}
+  -dimensional pseudosphere is an embedding of 
+  
+    
+      
+        e
+        :
+        
+          s
+          
+            d
+          
+        
+        ↪
+        
+          s
+          
+            d
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle e:s^{d}\hookrightarrow s^{d+1}}
+   such that there exists a homeomorphism 
+  
+    
+      
+        h
+        :
+        
+          s
+          
+            d
+            +
+            1
+          
+        
+        →
+        
+          s
+          
+            d
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle h:s^{d+1}\rightarrow s^{d+1}}
+   so that 
+  
+    
+      
+        h
+        ∘
+        e
+      
+    
+    {\displaystyle h\circ e}
+   embeds 
+  
+    
+      
+        
+          s
+          
+            d
+          
+        
+      
+    
+    {\displaystyle s^{d}}
+   as an equator of 
+  
+    
+      
+        
+          s
+          
+            d
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle s^{d+1}}
+  . in this sense a pseudosphere is just a tame sphere (as opposed to wild spheres). a pseudosphere arrangement in 
+  
+    
+      
+        
+          s
+          
+            d
+          
+        
+      
+    
+    {\displaystyle s^{d}}
+   is a collection of pseudospheres that intersect along pseudospheres. finally, the folkman lawrence topological representation theorem states that every oriented matroid of rank 
+  
+    
+      
+        d
+        +
+        1
+      
+    
+    {\displaystyle d+1}
+   can be obtained from a pseudosphere arrangement in 
+  
+    
+      
+        
+          s
+          
+            d
+          
+        
+      
+    
+    {\displaystyle s^{d}}
+  . it is named after jon folkman and jim lawrence, who published it in 1978.
+
+
+=== geometry ===
+
+the theory of oriented matroids has influenced the development of combinatorial geometry, especially the theory of  convex polytopes, zonotopes, and of configurations of vectors (arrangements of hyperplanes). many results—carathéodory's theorem, helly's theorem, radon's theorem, the hahn–banach theorem, the krein–milman theorem, the lemma of farkas—can be formulated using appropriate oriented matroids.
+
+
+=== optimization ===
+
+the development of an axiom system for oriented matroids was initiated by r. tyrrell rockafellar to describe the sign patterns of the matrices arising through the pivoting operations of dantzig's simplex algorithm; rockafellar was inspired by albert w. tucker's studies of such sign patterns in "tucker tableaux".
+the theory of oriented matroids has led to breakthroughs in combinatorial optimization. in linear programming, it was the language in which robert g. bland formulated his pivoting rule, by which the simplex algorithm avoids cycles. similarly, it was used by terlaky and zhang to prove that their  criss-cross algorithms have finite termination for linear programming problems.  similar results were made in convex quadratic programming by todd and terlaky. it has been applied to linear-fractional programming, quadratic-programming problems, and linear complementarity problems.outside of combinatorial optimization, om theory also appears in convex minimization in rockafellar's theory of "monotropic programming" and related notions of "fortified descent". similarly, matroid theory has influenced the development of combinatorial algorithms, particularly the greedy algorithm. more generally, a greedoid is useful for studying the finite termination of algorithms.
+
+
+== references ==
+
+
+== further reading ==
+
+
+=== books ===
+bachem, achim; kern, walter (1992). linear programming duality: an introduction to oriented matroids. universitext. springer-verlag. doi:10.1007/978-3-642-58152-6. isbn 978-3-540-55417-2. mr 1230380.
+björner, anders; las vergnas, michel; sturmfels, bernd; white, neil; ziegler, günter (1999). oriented matroids. encyclopedia of mathematics and its applications. vol. 46 (2nd ed.). cambridge university press. isbn 978-0-521-77750-6. zbl 0944.52006.
+bokowski, jürgen (2006). computational oriented matroids. equivalence classes of matrices within a natural framework. cambridge university press. isbn 978-0-521-84930-2. zbl 1120.52011.
+lawler, eugene (2001). combinatorial optimization: networks and matroids. dover. isbn 978-0-486-41453-9. zbl 1058.90057.
+evar d. nering and albert w. tucker, 1993, linear programs and related problems, academic press. (elementary)
+rockafellar, r. tyrrell (1984). network flows and monotropic optimization. wiley-interscience. republished by athena scientific of dimitri bertsekas, 1998.
+ziegler, günter m. (1994). lectures on polytopes. new york: springer-verlag.
+richter-gebert, jürgen; ziegler, günter m. (1997). "oriented matroids".  in goodman, jacob e.; o'rourke, joseph (eds.). handbook of discrete and computational geometry. boca raton: crc press. pp. 111–132. isbn 9780849385247.
+
+
+=== articles ===
+a. bachem, a. wanka, separation theorems for oriented matroids, discrete math. 70 (1988) 303—310.
+robert g. bland, new finite pivoting rules for the simplex method, math. oper. res. 2 (1977) 103–107.
+folkman, jon; lawrence, jim (october 1978). "oriented matroids". j. combin. theory ser. b. 25 (2): 199–236. doi:10.1016/0095-8956(78)90039-4.
+fukuda, komei; terlaky, tamás (1997).  thomas m. liebling; dominique de werra (eds.). "criss-cross methods: a fresh view on pivot algorithms" (pdf). mathematical programming, series b. amsterdam: north-holland publishing co. 79 (1–3): 369–395. doi:10.1007/bf02614325. mr 1464775. s2cid 2794181.
+fukuda, komei; namiki, makoto (march 1994). "on extremal behaviors of murty's least index method". mathematical programming. 64 (1): 365–370. doi:10.1007/bf01582581. mr 1286455. s2cid 21476636.
+illés, tibor; szirmai, ákos; terlaky, tamás (1999). "the finite criss-cross method for hyperbolic programming". european journal of operational research. 114 (1): 198–214. citeseerx 10.1.1.36.7090. doi:10.1016/s0377-2217(98)00049-6. issn 0377-2217.
+r. tyrrell rockafellar. the elementary vectors of a subspace of 
+  
+    
+      
+        
+          r
+          
+            n
+          
+        
+      
+    
+    {\displaystyle r^{n}}
+  , in combinatorial mathematics and its applications, r. c. bose and t. a. dowling (eds.), univ. of north carolina press, 1969, 104-127.
+roos, c. (1990). "an exponential example for terlaky's pivoting rule for the criss-cross simplex method". mathematical programming. series a. 46 (1): 79–84. doi:10.1007/bf01585729. mr 1045573. s2cid 33463483.
+terlaky, t. (1985). "a convergent criss-cross method". optimization: a journal of mathematical programming and operations research. 16 (5): 683–690. doi:10.1080/02331938508843067. issn 0233-1934. mr 0798939.
+terlaky, tamás (1987). "a finite crisscross method for oriented matroids". journal of combinatorial theory. series b. 42 (3): 319–327. doi:10.1016/0095-8956(87)90049-9. issn 0095-8956. mr 0888684.
+terlaky, tamás; zhang, shu zhong (1993). "pivot rules for linear programming: a survey on recent theoretical developments". annals of operations research. 46–47 (1): 203–233. citeseerx 10.1.1.36.7658. doi:10.1007/bf02096264. issn 0254-5330. mr 1260019. s2cid 6058077.
+michael j. todd, linear and quadratic programming in oriented matroids, j. combin. theory ser. b 39 (1985) 105—133.
+wang, zhe min (1987). "a finite conformal-elimination free algorithm over oriented matroid programming". chinese annals of mathematics (shuxue niankan b ji). series b. 8 (1): 120–125. issn 0252-9599. mr 0886756.
+
+
+=== on the web ===
+ziegler, günter (1998). "oriented matroids today". the electronic journal of combinatorics: ds4: sep 10–1998. doi:10.37236/25.
+malkevitch, joseph. "oriented matroids: the power of unification". feature column. american mathematical society. retrieved 2009-09-14.
+
+
+== external links ==
+komei fukuda (eth zentrum, zurich) with publications including oriented matroid programming (1982 ph.d. thesis)
+tamás terlaky  (lehigh university) with publications

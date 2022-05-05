@@ -1,0 +1,3766 @@
+in mathematics and computing, universal hashing (in a randomized algorithm or data structure) refers to selecting a hash function at random from a family of hash functions with a certain mathematical property (see definition below). this guarantees a low number of collisions in expectation, even if the data is chosen by an adversary. many universal families are known (for hashing integers, vectors, strings), and their evaluation is often very efficient. universal hashing has numerous uses in computer science, for example in implementations of hash tables, randomized algorithms, and cryptography.
+
+
+== introduction ==
+
+assume we want to map keys from some universe 
+  
+    
+      
+        u
+      
+    
+    {\displaystyle u}
+   into 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   bins (labelled 
+  
+    
+      
+        [
+        m
+        ]
+        =
+        {
+        0
+        ,
+        …
+        ,
+        m
+        −
+        1
+        }
+      
+    
+    {\displaystyle [m]=\{0,\dots ,m-1\}}
+  ). the algorithm will have to handle some data set 
+  
+    
+      
+        s
+        ⊆
+        u
+      
+    
+    {\displaystyle s\subseteq u}
+   of 
+  
+    
+      
+        
+          |
+        
+        s
+        
+          |
+        
+        =
+        n
+      
+    
+    {\displaystyle |s|=n}
+   keys, which is not known in advance. usually, the goal of hashing is to obtain a low number of collisions (keys from 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+   that land in the same bin). a deterministic hash function cannot offer any guarantee in an adversarial setting if the size of 
+  
+    
+      
+        u
+      
+    
+    {\displaystyle u}
+   is greater than 
+  
+    
+      
+        m
+        ⋅
+        n
+      
+    
+    {\displaystyle m\cdot n}
+  , since the adversary may choose 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+   to be precisely the preimage of a bin. this means that all data keys land in the same bin, making hashing useless. furthermore, a deterministic hash function does not allow for rehashing: sometimes the input data turns out to be bad for the hash function (e.g. there are too many collisions), so one would like to change the hash function.
+the solution to these problems is to pick a function randomly from a family of hash functions. a family of functions 
+  
+    
+      
+        h
+        =
+        {
+        h
+        :
+        u
+        →
+        [
+        m
+        ]
+        }
+      
+    
+    {\displaystyle h=\{h:u\to [m]\}}
+   is called a universal family if, 
+  
+    
+      
+        ∀
+        x
+        ,
+        y
+        ∈
+        u
+        ,
+         
+        x
+        ≠
+        y
+        :
+         
+         
+        
+          pr
+          
+            h
+            ∈
+            h
+          
+        
+        [
+        h
+        (
+        x
+        )
+        =
+        h
+        (
+        y
+        )
+        ]
+        ≤
+        
+          
+            1
+            m
+          
+        
+      
+    
+    {\displaystyle \forall x,y\in u,~x\neq y:~~\pr _{h\in h}[h(x)=h(y)]\leq {\frac {1}{m}}}
+  .
+in other words, any two keys of the universe collide with probability at most 
+  
+    
+      
+        1
+        
+          /
+        
+        m
+      
+    
+    {\displaystyle 1/m}
+   when the hash function 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   is drawn randomly from 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+  . this is exactly the probability of collision we would expect if the hash function assigned truly random hash codes to every key. sometimes, the definition is relaxed to allow collision probability 
+  
+    
+      
+        o
+        (
+        1
+        
+          /
+        
+        m
+        )
+      
+    
+    {\displaystyle o(1/m)}
+  . this concept was introduced by carter and wegman in 1977, and has found numerous applications in computer science (see, for example ). if we have an upper bound of 
+  
+    
+      
+        ϵ
+        <
+        1
+      
+    
+    {\displaystyle \epsilon <1}
+   on the collision probability, we say that we have 
+  
+    
+      
+        ϵ
+      
+    
+    {\displaystyle \epsilon }
+  -almost universality.
+many, but not all, universal families have the following stronger uniform difference property:
+
+  
+    
+      
+        ∀
+        x
+        ,
+        y
+        ∈
+        u
+        ,
+         
+        x
+        ≠
+        y
+      
+    
+    {\displaystyle \forall x,y\in u,~x\neq y}
+  , when 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   is drawn randomly from the family 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+  , the difference 
+  
+    
+      
+        h
+        (
+        x
+        )
+        −
+        h
+        (
+        y
+        )
+         
+        
+          mod
+          
+             
+          
+        
+        m
+      
+    
+    {\displaystyle h(x)-h(y)~{\bmod {~}}m}
+   is uniformly distributed in 
+  
+    
+      
+        [
+        m
+        ]
+      
+    
+    {\displaystyle [m]}
+  .note that the definition of universality is only concerned with whether 
+  
+    
+      
+        h
+        (
+        x
+        )
+        −
+        h
+        (
+        y
+        )
+        =
+        0
+      
+    
+    {\displaystyle h(x)-h(y)=0}
+  , which counts collisions. the uniform difference property is stronger.
+(similarly, a universal family can be xor universal if 
+  
+    
+      
+        ∀
+        x
+        ,
+        y
+        ∈
+        u
+        ,
+         
+        x
+        ≠
+        y
+      
+    
+    {\displaystyle \forall x,y\in u,~x\neq y}
+  , the value 
+  
+    
+      
+        h
+        (
+        x
+        )
+        ⊕
+        h
+        (
+        y
+        )
+         
+        
+          mod
+          
+             
+          
+        
+        m
+      
+    
+    {\displaystyle h(x)\oplus h(y)~{\bmod {~}}m}
+   is uniformly distributed in 
+  
+    
+      
+        [
+        m
+        ]
+      
+    
+    {\displaystyle [m]}
+   where 
+  
+    
+      
+        ⊕
+      
+    
+    {\displaystyle \oplus }
+   is the bitwise exclusive or operation. this is only possible if 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   is a power of two.)
+an even stronger condition is pairwise independence: we have this property when  
+  
+    
+      
+        ∀
+        x
+        ,
+        y
+        ∈
+        u
+        ,
+         
+        x
+        ≠
+        y
+      
+    
+    {\displaystyle \forall x,y\in u,~x\neq y}
+   we have the probability that 
+  
+    
+      
+        x
+        ,
+        y
+      
+    
+    {\displaystyle x,y}
+   will hash to any pair of hash values 
+  
+    
+      
+        
+          z
+          
+            1
+          
+        
+        ,
+        
+          z
+          
+            2
+          
+        
+      
+    
+    {\displaystyle z_{1},z_{2}}
+   is as if they were perfectly random: 
+  
+    
+      
+        p
+        (
+        h
+        (
+        x
+        )
+        =
+        
+          z
+          
+            1
+          
+        
+        ∧
+        h
+        (
+        y
+        )
+        =
+        
+          z
+          
+            2
+          
+        
+        )
+        =
+        1
+        
+          /
+        
+        
+          m
+          
+            2
+          
+        
+      
+    
+    {\displaystyle p(h(x)=z_{1}\land h(y)=z_{2})=1/m^{2}}
+  . pairwise independence is sometimes called strong universality.
+another property is uniformity. we say that a family is uniform if all hash values are equally likely: 
+  
+    
+      
+        p
+        (
+        h
+        (
+        x
+        )
+        =
+        z
+        )
+        =
+        1
+        
+          /
+        
+        m
+      
+    
+    {\displaystyle p(h(x)=z)=1/m}
+   for any hash value 
+  
+    
+      
+        z
+      
+    
+    {\displaystyle z}
+  . universality does not imply uniformity. however, strong  universality does imply uniformity.
+given a family with the uniform distance property, one can produce a pairwise independent or strongly universal hash family by adding a uniformly distributed random constant with values in 
+  
+    
+      
+        [
+        m
+        ]
+      
+    
+    {\displaystyle [m]}
+   to the hash functions. (similarly, if 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   is a power of two, we can achieve pairwise independence from an xor universal hash family by doing an exclusive or with a uniformly distributed random constant.) since a shift by a constant is sometimes irrelevant in applications (e.g. hash tables), a careful distinction between the uniform distance property and pairwise independent is sometimes not made.for some applications (such as hash tables), it is important for the least significant bits of the hash values to be also universal. when a family is strongly universal, this is guaranteed: if 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   is a strongly universal family with 
+  
+    
+      
+        m
+        =
+        
+          2
+          
+            l
+          
+        
+      
+    
+    {\displaystyle m=2^{l}}
+  , then the family made of the functions 
+  
+    
+      
+        h
+        
+          mod
+          
+            
+              2
+              
+                
+                  l
+                  ′
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle h{\bmod {2^{l'}}}}
+   for all 
+  
+    
+      
+        h
+        ∈
+        h
+      
+    
+    {\displaystyle h\in h}
+   is also strongly universal for 
+  
+    
+      
+        
+          l
+          ′
+        
+        ≤
+        l
+      
+    
+    {\displaystyle l'\leq l}
+  . unfortunately, the same is not true of (merely) universal families. for example, the family made of the identity function 
+  
+    
+      
+        h
+        (
+        x
+        )
+        =
+        x
+      
+    
+    {\displaystyle h(x)=x}
+   is clearly universal, but the family made of the function 
+  
+    
+      
+        h
+        (
+        x
+        )
+        =
+        x
+        
+          mod
+          
+            
+              2
+              
+                
+                  l
+                  ′
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle h(x)=x{\bmod {2^{l'}}}}
+   fails to be universal.
+umac and poly1305-aes and several other message authentication code algorithms are based on universal hashing.
+in such applications, the software chooses a new hash function for every message, based on a unique nonce for that message.
+several hash table implementations are based on universal hashing.
+in such applications, typically the software chooses a new hash function only after it notices that "too many" keys have collided; until then, the same hash function continues to be used over and over.
+(some collision resolution schemes, such as dynamic perfect hashing, pick a new hash function every time there is a collision. other collision resolution schemes, such as cuckoo hashing and 2-choice hashing, allow a number of collisions before picking a new hash function). a survey of fastest known universal and strongly universal hash functions for integers, vectors, and
+strings is found in.
+
+
+== mathematical guarantees ==
+for any fixed set 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+   of 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   keys, using a universal family guarantees the following properties.
+
+for any fixed 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   in 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+  , the expected number of keys in the bin 
+  
+    
+      
+        h
+        (
+        x
+        )
+      
+    
+    {\displaystyle h(x)}
+   is 
+  
+    
+      
+        n
+        
+          /
+        
+        m
+      
+    
+    {\displaystyle n/m}
+  . when implementing hash tables by chaining, this number is proportional to the expected running time of an operation involving the key 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   (for example a query, insertion or deletion).
+the expected number of pairs of keys 
+  
+    
+      
+        x
+        ,
+        y
+      
+    
+    {\displaystyle x,y}
+   in 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+   with 
+  
+    
+      
+        x
+        ≠
+        y
+      
+    
+    {\displaystyle x\neq y}
+   that collide (
+  
+    
+      
+        h
+        (
+        x
+        )
+        =
+        h
+        (
+        y
+        )
+      
+    
+    {\displaystyle h(x)=h(y)}
+  ) is bounded above by 
+  
+    
+      
+        n
+        (
+        n
+        −
+        1
+        )
+        
+          /
+        
+        2
+        m
+      
+    
+    {\displaystyle n(n-1)/2m}
+  , which is of order 
+  
+    
+      
+        o
+        (
+        
+          n
+          
+            2
+          
+        
+        
+          /
+        
+        m
+        )
+      
+    
+    {\displaystyle o(n^{2}/m)}
+  . when the number of bins, 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   is chosen linear in 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   (i.e., is determined by a function in 
+  
+    
+      
+        ω
+        (
+        n
+        )
+      
+    
+    {\displaystyle \omega (n)}
+  ), the expected number of collisions is 
+  
+    
+      
+        o
+        (
+        n
+        )
+      
+    
+    {\displaystyle o(n)}
+  . when hashing into 
+  
+    
+      
+        
+          n
+          
+            2
+          
+        
+      
+    
+    {\displaystyle n^{2}}
+   bins, there are no collisions at all with probability at least a half.
+the expected number of keys in bins with at least 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   keys in them is bounded above by 
+  
+    
+      
+        2
+        n
+        
+          /
+        
+        (
+        t
+        −
+        2
+        (
+        n
+        
+          /
+        
+        m
+        )
+        +
+        1
+        )
+      
+    
+    {\displaystyle 2n/(t-2(n/m)+1)}
+  . thus, if the capacity of each bin is capped to three times the average size (
+  
+    
+      
+        t
+        =
+        3
+        n
+        
+          /
+        
+        m
+      
+    
+    {\displaystyle t=3n/m}
+  ), the total number of keys in overflowing bins is at most 
+  
+    
+      
+        o
+        (
+        m
+        )
+      
+    
+    {\displaystyle o(m)}
+  . this only holds with a hash family whose collision probability is bounded above by 
+  
+    
+      
+        1
+        
+          /
+        
+        m
+      
+    
+    {\displaystyle 1/m}
+  . if a weaker definition is used, bounding it by 
+  
+    
+      
+        o
+        (
+        1
+        
+          /
+        
+        m
+        )
+      
+    
+    {\displaystyle o(1/m)}
+  , this result is no longer true.as the above guarantees hold for any fixed set 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+  , they hold if the data set is chosen by an adversary. however, the adversary has to make this choice before (or independent of) the algorithm's random choice of a hash function. if the adversary can observe the random choice of the algorithm, randomness serves no purpose, and the situation is the same as deterministic hashing.
+the second and third guarantee are typically used in conjunction with rehashing. for instance, a randomized algorithm may be prepared to handle some 
+  
+    
+      
+        o
+        (
+        n
+        )
+      
+    
+    {\displaystyle o(n)}
+   number of collisions. if it observes too many collisions, it chooses another random 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   from the family and repeats. universality guarantees that the number of repetitions is a geometric random variable.
+
+
+== constructions ==
+since any computer data can be represented as one or more machine words, one generally needs hash functions for three types of domains: machine words ("integers"); fixed-length vectors of machine words; and variable-length vectors ("strings").
+
+
+=== hashing integers ===
+this section refers to the case of hashing integers that fit in machines words; thus, operations like multiplication, addition, division, etc. are cheap machine-level instructions. let the universe to be hashed be 
+  
+    
+      
+        {
+        0
+        ,
+        …
+        ,
+        
+          |
+        
+        u
+        
+          |
+        
+        −
+        1
+        }
+      
+    
+    {\displaystyle \{0,\dots ,|u|-1\}}
+  .
+the original proposal of carter and wegman was to pick a prime 
+  
+    
+      
+        p
+        ≥
+        
+          |
+        
+        u
+        
+          |
+        
+      
+    
+    {\displaystyle p\geq |u|}
+   and define
+
+  
+    
+      
+        
+          h
+          
+            a
+            ,
+            b
+          
+        
+        (
+        x
+        )
+        =
+        (
+        (
+        a
+        x
+        +
+        b
+        )
+         
+        
+          mod
+          
+             
+          
+        
+        p
+        )
+         
+        
+          mod
+          
+             
+          
+        
+        m
+      
+    
+    {\displaystyle h_{a,b}(x)=((ax+b)~{\bmod {~}}p)~{\bmod {~}}m}
+  where 
+  
+    
+      
+        a
+        ,
+        b
+      
+    
+    {\displaystyle a,b}
+   are randomly chosen integers modulo 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   with 
+  
+    
+      
+        a
+        ≠
+        0
+      
+    
+    {\displaystyle a\neq 0}
+  .  (this is a single iteration of a linear congruential generator.)
+to see that 
+  
+    
+      
+        h
+        =
+        {
+        
+          h
+          
+            a
+            ,
+            b
+          
+        
+        }
+      
+    
+    {\displaystyle h=\{h_{a,b}\}}
+   is a universal family, note that 
+  
+    
+      
+        h
+        (
+        x
+        )
+        =
+        h
+        (
+        y
+        )
+      
+    
+    {\displaystyle h(x)=h(y)}
+   only holds when
+
+  
+    
+      
+        a
+        x
+        +
+        b
+        ≡
+        a
+        y
+        +
+        b
+        +
+        i
+        ⋅
+        m
+        
+          
+          (
+          mod
+          
+          p
+          )
+        
+      
+    
+    {\displaystyle ax+b\equiv ay+b+i\cdot m{\pmod {p}}}
+  for some integer 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   between 
+  
+    
+      
+        0
+      
+    
+    {\displaystyle 0}
+   and 
+  
+    
+      
+        (
+        p
+        −
+        1
+        )
+        
+          /
+        
+        m
+      
+    
+    {\displaystyle (p-1)/m}
+  . since 
+  
+    
+      
+        p
+        ≥
+        
+          |
+        
+        u
+        
+          |
+        
+      
+    
+    {\displaystyle p\geq |u|}
+  , if 
+  
+    
+      
+        x
+        ≠
+        y
+      
+    
+    {\displaystyle x\neq y}
+   their difference 
+  
+    
+      
+        x
+        −
+        y
+      
+    
+    {\displaystyle x-y}
+   is nonzero and has an inverse modulo 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+  . solving for 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   yields
+
+  
+    
+      
+        a
+        ≡
+        i
+        ⋅
+        m
+        ⋅
+        (
+        x
+        −
+        y
+        
+          )
+          
+            −
+            1
+          
+        
+        
+          
+          (
+          mod
+          
+          p
+          )
+        
+      
+    
+    {\displaystyle a\equiv i\cdot m\cdot (x-y)^{-1}{\pmod {p}}}
+  .there are 
+  
+    
+      
+        p
+        −
+        1
+      
+    
+    {\displaystyle p-1}
+   possible choices for 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   (since 
+  
+    
+      
+        a
+        =
+        0
+      
+    
+    {\displaystyle a=0}
+   is excluded) and, varying 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   in the allowed range, 
+  
+    
+      
+        ⌊
+        (
+        p
+        −
+        1
+        )
+        
+          /
+        
+        m
+        ⌋
+      
+    
+    {\displaystyle \lfloor (p-1)/m\rfloor }
+   possible non-zero values for the right hand side. thus the collision probability is
+
+  
+    
+      
+        ⌊
+        (
+        p
+        −
+        1
+        )
+        
+          /
+        
+        m
+        ⌋
+        
+          /
+        
+        (
+        p
+        −
+        1
+        )
+        ≤
+        (
+        (
+        p
+        −
+        1
+        )
+        
+          /
+        
+        m
+        )
+        
+          /
+        
+        (
+        p
+        −
+        1
+        )
+        =
+        1
+        
+          /
+        
+        m
+      
+    
+    {\displaystyle \lfloor (p-1)/m\rfloor /(p-1)\leq ((p-1)/m)/(p-1)=1/m}
+  .another way to see 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   is a universal family is via the notion of statistical distance. write the difference 
+  
+    
+      
+        h
+        (
+        x
+        )
+        −
+        h
+        (
+        y
+        )
+      
+    
+    {\displaystyle h(x)-h(y)}
+   as
+
+  
+    
+      
+        h
+        (
+        x
+        )
+        −
+        h
+        (
+        y
+        )
+        ≡
+        (
+        a
+        (
+        x
+        −
+        y
+        )
+         
+        
+          mod
+          
+             
+          
+        
+        p
+        )
+        
+          
+          (
+          mod
+          
+          m
+          )
+        
+      
+    
+    {\displaystyle h(x)-h(y)\equiv (a(x-y)~{\bmod {~}}p){\pmod {m}}}
+  .since 
+  
+    
+      
+        x
+        −
+        y
+      
+    
+    {\displaystyle x-y}
+   is nonzero and 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   is uniformly distributed in 
+  
+    
+      
+        {
+        1
+        ,
+        …
+        ,
+        p
+        −
+        1
+        }
+      
+    
+    {\displaystyle \{1,\dots ,p-1\}}
+  , it follows that 
+  
+    
+      
+        a
+        (
+        x
+        −
+        y
+        )
+      
+    
+    {\displaystyle a(x-y)}
+   modulo 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   is also uniformly distributed in 
+  
+    
+      
+        {
+        1
+        ,
+        …
+        ,
+        p
+        −
+        1
+        }
+      
+    
+    {\displaystyle \{1,\dots ,p-1\}}
+  . the distribution of 
+  
+    
+      
+        (
+        h
+        (
+        x
+        )
+        −
+        h
+        (
+        y
+        )
+        )
+         
+        
+          mod
+          
+             
+          
+        
+        m
+      
+    
+    {\displaystyle (h(x)-h(y))~{\bmod {~}}m}
+   is thus almost uniform, up to a difference in probability of 
+  
+    
+      
+        ±
+        1
+        
+          /
+        
+        p
+      
+    
+    {\displaystyle \pm 1/p}
+   between the samples. as a result, the statistical distance to a uniform family is 
+  
+    
+      
+        o
+        (
+        m
+        
+          /
+        
+        p
+        )
+      
+    
+    {\displaystyle o(m/p)}
+  , which becomes negligible when 
+  
+    
+      
+        p
+        ≫
+        m
+      
+    
+    {\displaystyle p\gg m}
+  .
+the family of simpler hash functions
+
+  
+    
+      
+        
+          h
+          
+            a
+          
+        
+        (
+        x
+        )
+        =
+        (
+        a
+        x
+         
+        
+          mod
+          
+             
+          
+        
+        p
+        )
+         
+        
+          mod
+          
+             
+          
+        
+        m
+      
+    
+    {\displaystyle h_{a}(x)=(ax~{\bmod {~}}p)~{\bmod {~}}m}
+  is only approximately universal: 
+  
+    
+      
+        pr
+        {
+        
+          h
+          
+            a
+          
+        
+        (
+        x
+        )
+        =
+        
+          h
+          
+            a
+          
+        
+        (
+        y
+        )
+        }
+        ≤
+        2
+        
+          /
+        
+        m
+      
+    
+    {\displaystyle \pr\{h_{a}(x)=h_{a}(y)\}\leq 2/m}
+   for all 
+  
+    
+      
+        x
+        ≠
+        y
+      
+    
+    {\displaystyle x\neq y}
+  .  moreover, this analysis is nearly tight; carter and wegman  show that 
+  
+    
+      
+        pr
+        {
+        
+          h
+          
+            a
+          
+        
+        (
+        1
+        )
+        =
+        
+          h
+          
+            a
+          
+        
+        (
+        m
+        +
+        1
+        )
+        }
+        ≥
+        2
+        
+          /
+        
+        (
+        m
+        −
+        1
+        )
+      
+    
+    {\displaystyle \pr\{h_{a}(1)=h_{a}(m+1)\}\geq 2/(m-1)}
+   whenever 
+  
+    
+      
+        (
+        p
+        −
+        1
+        )
+         
+        
+          mod
+          
+             
+          
+        
+        m
+        =
+        1
+      
+    
+    {\displaystyle (p-1)~{\bmod {~}}m=1}
+  .
+
+
+==== avoiding modular arithmetic ====
+the state of the art for hashing integers is the multiply-shift scheme described by dietzfelbinger et al. in 1997. by avoiding modular arithmetic, this method is much easier to implement and also runs significantly faster in practice (usually by at least a factor of four). the scheme assumes the number of bins is a power of two, 
+  
+    
+      
+        m
+        =
+        
+          2
+          
+            m
+          
+        
+      
+    
+    {\displaystyle m=2^{m}}
+  . let 
+  
+    
+      
+        w
+      
+    
+    {\displaystyle w}
+   be the number of bits in a machine word. then the hash functions are parametrised over odd positive integers 
+  
+    
+      
+        a
+        <
+        
+          2
+          
+            w
+          
+        
+      
+    
+    {\displaystyle a<2^{w}}
+   (that fit in a word of 
+  
+    
+      
+        w
+      
+    
+    {\displaystyle w}
+   bits). to evaluate 
+  
+    
+      
+        
+          h
+          
+            a
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle h_{a}(x)}
+  , multiply 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   by 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   modulo 
+  
+    
+      
+        
+          2
+          
+            w
+          
+        
+      
+    
+    {\displaystyle 2^{w}}
+   and then keep the high order 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   bits as the hash code. in mathematical notation, this is
+
+  
+    
+      
+        
+          h
+          
+            a
+          
+        
+        (
+        x
+        )
+        =
+        (
+        a
+        ⋅
+        x
+        
+        
+        
+          mod
+          
+            
+          
+        
+        
+          2
+          
+            w
+          
+        
+        )
+        
+        
+        
+          d
+          i
+          v
+        
+        
+        
+        
+          2
+          
+            w
+            −
+            m
+          
+        
+      
+    
+    {\displaystyle h_{a}(x)=(a\cdot x\,\,{\bmod {\,}}2^{w})\,\,\mathrm {div} \,\,2^{w-m}}
+  and it can be implemented in c-like programming languages by
+
+  
+    
+      
+        
+          h
+          
+            a
+          
+        
+        (
+        x
+        )
+        =
+      
+    
+    {\displaystyle h_{a}(x)=}
+   (size_t) (a*x) >> (w-m)this scheme does not satisfy the uniform difference property and is only 
+  
+    
+      
+        2
+        
+          /
+        
+        m
+      
+    
+    {\displaystyle 2/m}
+  -almost-universal; for any 
+  
+    
+      
+        x
+        ≠
+        y
+      
+    
+    {\displaystyle x\neq y}
+  , 
+  
+    
+      
+        pr
+        {
+        
+          h
+          
+            a
+          
+        
+        (
+        x
+        )
+        =
+        
+          h
+          
+            a
+          
+        
+        (
+        y
+        )
+        }
+        ≤
+        2
+        
+          /
+        
+        m
+      
+    
+    {\displaystyle \pr\{h_{a}(x)=h_{a}(y)\}\leq 2/m}
+  .
+to understand the behavior of the hash function, 
+notice that, if 
+  
+    
+      
+        a
+        x
+        
+          
+            mod
+            
+              2
+            
+          
+          
+            w
+          
+        
+      
+    
+    {\displaystyle ax{\bmod {2}}^{w}}
+   and 
+  
+    
+      
+        a
+        y
+        
+          
+            mod
+            
+              2
+            
+          
+          
+            w
+          
+        
+      
+    
+    {\displaystyle ay{\bmod {2}}^{w}}
+   have the same highest-order 'm' bits, then 
+  
+    
+      
+        a
+        (
+        x
+        −
+        y
+        )
+        
+          
+            mod
+            
+              2
+            
+          
+          
+            w
+          
+        
+      
+    
+    {\displaystyle a(x-y){\bmod {2}}^{w}}
+   has either all 1's or all 0's as its highest order m bits (depending on whether 
+  
+    
+      
+        a
+        x
+        
+          
+            mod
+            
+              2
+            
+          
+          
+            w
+          
+        
+      
+    
+    {\displaystyle ax{\bmod {2}}^{w}}
+   or 
+  
+    
+      
+        a
+        y
+        
+          
+            mod
+            
+              2
+            
+          
+          
+            w
+          
+        
+      
+    
+    {\displaystyle ay{\bmod {2}}^{w}}
+   is larger).
+assume that the least significant set bit of 
+  
+    
+      
+        x
+        −
+        y
+      
+    
+    {\displaystyle x-y}
+   appears on position 
+  
+    
+      
+        w
+        −
+        c
+      
+    
+    {\displaystyle w-c}
+  . since 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   is a random odd integer and odd integers have inverses in the ring 
+  
+    
+      
+        
+          z
+          
+            
+              2
+              
+                w
+              
+            
+          
+        
+      
+    
+    {\displaystyle z_{2^{w}}}
+  , it follows that 
+  
+    
+      
+        a
+        (
+        x
+        −
+        y
+        )
+        
+          
+            mod
+            
+              2
+            
+          
+          
+            w
+          
+        
+      
+    
+    {\displaystyle a(x-y){\bmod {2}}^{w}}
+   will be uniformly distributed among 
+  
+    
+      
+        w
+      
+    
+    {\displaystyle w}
+  -bit integers with the least significant set bit on position 
+  
+    
+      
+        w
+        −
+        c
+      
+    
+    {\displaystyle w-c}
+  .  the probability that these bits are all 0's or all 1's is therefore at most 
+  
+    
+      
+        2
+        
+          /
+        
+        
+          2
+          
+            m
+          
+        
+        =
+        2
+        
+          /
+        
+        m
+      
+    
+    {\displaystyle 2/2^{m}=2/m}
+  .
+on the other hand, if 
+  
+    
+      
+        c
+        <
+        m
+      
+    
+    {\displaystyle c<m}
+  , then higher-order m bits of 
+
+  
+    
+      
+        a
+        (
+        x
+        −
+        y
+        )
+        
+          
+            mod
+            
+              2
+            
+          
+          
+            w
+          
+        
+      
+    
+    {\displaystyle a(x-y){\bmod {2}}^{w}}
+   contain both 0's and 1's, so 
+it is certain that 
+  
+    
+      
+        h
+        (
+        x
+        )
+        ≠
+        h
+        (
+        y
+        )
+      
+    
+    {\displaystyle h(x)\neq h(y)}
+  .  finally, if 
+  
+    
+      
+        c
+        =
+        m
+      
+    
+    {\displaystyle c=m}
+   then bit 
+  
+    
+      
+        w
+        −
+        m
+      
+    
+    {\displaystyle w-m}
+   of 
+
+  
+    
+      
+        a
+        (
+        x
+        −
+        y
+        )
+        
+          
+            mod
+            
+              2
+            
+          
+          
+            w
+          
+        
+      
+    
+    {\displaystyle a(x-y){\bmod {2}}^{w}}
+   is 1 and 
+  
+    
+      
+        
+          h
+          
+            a
+          
+        
+        (
+        x
+        )
+        =
+        
+          h
+          
+            a
+          
+        
+        (
+        y
+        )
+      
+    
+    {\displaystyle h_{a}(x)=h_{a}(y)}
+   if and only if bits 
+  
+    
+      
+        w
+        −
+        1
+        ,
+        …
+        ,
+        w
+        −
+        m
+        +
+        1
+      
+    
+    {\displaystyle w-1,\ldots ,w-m+1}
+   are also 1, which happens with probability 
+  
+    
+      
+        1
+        
+          /
+        
+        
+          2
+          
+            m
+            −
+            1
+          
+        
+        =
+        2
+        
+          /
+        
+        m
+      
+    
+    {\displaystyle 1/2^{m-1}=2/m}
+  .
+this analysis is tight, as can be shown with the example 
+  
+    
+      
+        x
+        =
+        
+          2
+          
+            w
+            −
+            m
+            −
+            2
+          
+        
+      
+    
+    {\displaystyle x=2^{w-m-2}}
+   and 
+  
+    
+      
+        y
+        =
+        3
+        x
+      
+    
+    {\displaystyle y=3x}
+  .  to obtain a truly 'universal' hash function, one can use the multiply-add-shift scheme
+
+  
+    
+      
+        
+          h
+          
+            a
+            ,
+            b
+          
+        
+        (
+        x
+        )
+        =
+        (
+        (
+        a
+        x
+        +
+        b
+        )
+        
+          
+            mod
+            
+              2
+            
+          
+          
+            w
+          
+        
+        )
+        
+        
+          d
+          i
+          v
+        
+        
+        
+          2
+          
+            w
+            −
+            m
+          
+        
+      
+    
+    {\displaystyle h_{a,b}(x)=((ax+b){\bmod {2}}^{w})\,\mathrm {div} \,2^{w-m}}
+  which can be implemented in c-like programming languages by
+
+  
+    
+      
+        
+          h
+          
+            a
+            ,
+            b
+          
+        
+        (
+        x
+        )
+        =
+      
+    
+    {\displaystyle h_{a,b}(x)=}
+   (size_t) (a*x+b) >> (w-m)where 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   is a random odd positive integer with 
+  
+    
+      
+        a
+        <
+        
+          2
+          
+            w
+          
+        
+      
+    
+    {\displaystyle a<2^{w}}
+   and 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   is a random non-negative integer with 
+  
+    
+      
+        b
+        <
+        
+          2
+          
+            w
+            −
+            m
+          
+        
+      
+    
+    {\displaystyle b<2^{w-m}}
+  .  with these choices of 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   and 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+  , 
+  
+    
+      
+        pr
+        {
+        
+          h
+          
+            a
+            ,
+            b
+          
+        
+        (
+        x
+        )
+        =
+        
+          h
+          
+            a
+            ,
+            b
+          
+        
+        (
+        y
+        )
+        }
+        ≤
+        1
+        
+          /
+        
+        m
+      
+    
+    {\displaystyle \pr\{h_{a,b}(x)=h_{a,b}(y)\}\leq 1/m}
+   for all 
+  
+    
+      
+        x
+        ≢
+        y
+        
+          
+          (
+          mod
+          
+          
+            2
+            
+              w
+            
+          
+          )
+        
+      
+    
+    {\displaystyle x\not \equiv y{\pmod {2^{w}}}}
+  . this differs slightly but importantly from the mistranslation in the english paper.
+
+
+=== hashing vectors ===
+this section is concerned with hashing a fixed-length vector of machine words. interpret the input as a vector 
+  
+    
+      
+        
+          
+            
+              x
+              ¯
+            
+          
+        
+        =
+        (
+        
+          x
+          
+            0
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            k
+            −
+            1
+          
+        
+        )
+      
+    
+    {\displaystyle {\bar {x}}=(x_{0},\dots ,x_{k-1})}
+   of 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   machine words (integers of 
+  
+    
+      
+        w
+      
+    
+    {\displaystyle w}
+   bits each). if 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   is a universal family with the uniform difference property, the following family (dating back to carter and wegman) also has the uniform difference property (and hence is universal):
+
+  
+    
+      
+        h
+        (
+        
+          
+            
+              x
+              ¯
+            
+          
+        
+        )
+        =
+        
+          (
+          
+            
+              ∑
+              
+                i
+                =
+                0
+              
+              
+                k
+                −
+                1
+              
+            
+            
+              h
+              
+                i
+              
+            
+            (
+            
+              x
+              
+                i
+              
+            
+            )
+          
+          )
+        
+        
+        
+          mod
+          
+             
+          
+        
+        m
+      
+    
+    {\displaystyle h({\bar {x}})=\left(\sum _{i=0}^{k-1}h_{i}(x_{i})\right)\,{\bmod {~}}m}
+  , where each 
+  
+    
+      
+        
+          h
+          
+            i
+          
+        
+        ∈
+        h
+      
+    
+    {\displaystyle h_{i}\in h}
+   is chosen independently at random.if 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   is a power of two, one may replace summation by exclusive or.in practice, if double-precision arithmetic is available, this is instantiated with the multiply-shift hash family of hash functions. initialize the hash function with a vector 
+  
+    
+      
+        
+          
+            
+              a
+              ¯
+            
+          
+        
+        =
+        (
+        
+          a
+          
+            0
+          
+        
+        ,
+        …
+        ,
+        
+          a
+          
+            k
+            −
+            1
+          
+        
+        )
+      
+    
+    {\displaystyle {\bar {a}}=(a_{0},\dots ,a_{k-1})}
+   of random odd integers on 
+  
+    
+      
+        2
+        w
+      
+    
+    {\displaystyle 2w}
+   bits each. then if the number of bins is 
+  
+    
+      
+        m
+        =
+        
+          2
+          
+            m
+          
+        
+      
+    
+    {\displaystyle m=2^{m}}
+   for 
+  
+    
+      
+        m
+        ≤
+        w
+      
+    
+    {\displaystyle m\leq w}
+  :
+
+  
+    
+      
+        
+          h
+          
+            
+              
+                a
+                ¯
+              
+            
+          
+        
+        (
+        
+          
+            
+              x
+              ¯
+            
+          
+        
+        )
+        =
+        
+          (
+          
+            
+              
+                (
+              
+            
+            
+              ∑
+              
+                i
+                =
+                0
+              
+              
+                k
+                −
+                1
+              
+            
+            
+              x
+              
+                i
+              
+            
+            ⋅
+            
+              a
+              
+                i
+              
+            
+            
+              
+                )
+              
+            
+             
+            
+              mod
+              
+                 
+              
+            
+            
+              2
+              
+                2
+                w
+              
+            
+          
+          )
+        
+        
+        
+        
+          d
+          i
+          v
+        
+        
+        
+        
+          2
+          
+            2
+            w
+            −
+            m
+          
+        
+      
+    
+    {\displaystyle h_{\bar {a}}({\bar {x}})=\left({\big (}\sum _{i=0}^{k-1}x_{i}\cdot a_{i}{\big )}~{\bmod {~}}2^{2w}\right)\,\,\mathrm {div} \,\,2^{2w-m}}
+  .it is possible to halve the number of multiplications, which roughly translates to a two-fold speed-up in practice. initialize the hash function with a vector 
+  
+    
+      
+        
+          
+            
+              a
+              ¯
+            
+          
+        
+        =
+        (
+        
+          a
+          
+            0
+          
+        
+        ,
+        …
+        ,
+        
+          a
+          
+            k
+            −
+            1
+          
+        
+        )
+      
+    
+    {\displaystyle {\bar {a}}=(a_{0},\dots ,a_{k-1})}
+   of random odd integers on 
+  
+    
+      
+        2
+        w
+      
+    
+    {\displaystyle 2w}
+   bits each. the following hash family is universal:
+
+  
+    
+      
+        
+          h
+          
+            
+              
+                a
+                ¯
+              
+            
+          
+        
+        (
+        
+          
+            
+              x
+              ¯
+            
+          
+        
+        )
+        =
+        
+          (
+          
+            
+              
+                (
+              
+            
+            
+              ∑
+              
+                i
+                =
+                0
+              
+              
+                ⌈
+                k
+                
+                  /
+                
+                2
+                ⌉
+              
+            
+            (
+            
+              x
+              
+                2
+                i
+              
+            
+            +
+            
+              a
+              
+                2
+                i
+              
+            
+            )
+            ⋅
+            (
+            
+              x
+              
+                2
+                i
+                +
+                1
+              
+            
+            +
+            
+              a
+              
+                2
+                i
+                +
+                1
+              
+            
+            )
+            
+              
+                )
+              
+            
+            
+              mod
+              
+                 
+              
+            
+            
+              2
+              
+                2
+                w
+              
+            
+          
+          )
+        
+        
+        
+        
+          d
+          i
+          v
+        
+        
+        
+        
+          2
+          
+            2
+            w
+            −
+            m
+          
+        
+      
+    
+    {\displaystyle h_{\bar {a}}({\bar {x}})=\left({\big (}\sum _{i=0}^{\lceil k/2\rceil }(x_{2i}+a_{2i})\cdot (x_{2i+1}+a_{2i+1}){\big )}{\bmod {~}}2^{2w}\right)\,\,\mathrm {div} \,\,2^{2w-m}}
+  .if double-precision operations are not available, one can interpret the input as a vector of half-words (
+  
+    
+      
+        w
+        
+          /
+        
+        2
+      
+    
+    {\displaystyle w/2}
+  -bit integers). the algorithm will then use 
+  
+    
+      
+        ⌈
+        k
+        
+          /
+        
+        2
+        ⌉
+      
+    
+    {\displaystyle \lceil k/2\rceil }
+   multiplications, where 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   was the number of half-words in the vector. thus, the algorithm runs at a "rate" of one multiplication per word of input.
+the same scheme can also be used for hashing integers, by interpreting their bits as vectors of bytes. in this variant, the vector technique is known as tabulation hashing and it provides a practical alternative to multiplication-based universal hashing schemes.strong universality at high speed is also possible. initialize the hash function with a vector 
+  
+    
+      
+        
+          
+            
+              a
+              ¯
+            
+          
+        
+        =
+        (
+        
+          a
+          
+            0
+          
+        
+        ,
+        …
+        ,
+        
+          a
+          
+            k
+          
+        
+        )
+      
+    
+    {\displaystyle {\bar {a}}=(a_{0},\dots ,a_{k})}
+   of random  integers on 
+  
+    
+      
+        2
+        w
+      
+    
+    {\displaystyle 2w}
+   bits. compute
+
+  
+    
+      
+        
+          h
+          
+            
+              
+                a
+                ¯
+              
+            
+          
+        
+        (
+        
+          
+            
+              x
+              ¯
+            
+          
+        
+        
+          )
+          
+            
+              s
+              t
+              r
+              o
+              n
+              g
+            
+          
+        
+        =
+        (
+        
+          a
+          
+            0
+          
+        
+        +
+        
+          ∑
+          
+            i
+            =
+            0
+          
+          
+            k
+            −
+            1
+          
+        
+        
+          a
+          
+            i
+            +
+            1
+          
+        
+        
+          x
+          
+            i
+          
+        
+        
+          mod
+          
+             
+          
+        
+        
+          2
+          
+            2
+            w
+          
+        
+        )
+        
+        
+        
+          d
+          i
+          v
+        
+        
+        
+        
+          2
+          
+            w
+          
+        
+      
+    
+    {\displaystyle h_{\bar {a}}({\bar {x}})^{\mathrm {strong} }=(a_{0}+\sum _{i=0}^{k-1}a_{i+1}x_{i}{\bmod {~}}2^{2w})\,\,\mathrm {div} \,\,2^{w}}
+  .the result is strongly universal on 
+  
+    
+      
+        w
+      
+    
+    {\displaystyle w}
+   bits. experimentally, it was found to run at  0.2 cpu cycle per byte on recent intel processors for 
+  
+    
+      
+        w
+        =
+        32
+      
+    
+    {\displaystyle w=32}
+  .
+
+
+=== hashing strings ===
+this refers to hashing a variable-sized vector of machine words. if the length of the string can be bounded by a small number, it is best to use the vector solution from above (conceptually padding the vector with zeros up to the upper bound). the space required is the maximal length of the string, but the time to evaluate 
+  
+    
+      
+        h
+        (
+        s
+        )
+      
+    
+    {\displaystyle h(s)}
+   is just the length of 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+  . as long as zeroes are forbidden in the string, the zero-padding can be ignored when evaluating the hash function without affecting universality. note that if zeroes are allowed in the string, then it might be best to append a fictitious non-zero (e.g., 1) character to all strings prior to padding: this will ensure that universality is not affected.now assume we want to hash 
+  
+    
+      
+        
+          
+            
+              x
+              ¯
+            
+          
+        
+        =
+        (
+        
+          x
+          
+            0
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            ℓ
+          
+        
+        )
+      
+    
+    {\displaystyle {\bar {x}}=(x_{0},\dots ,x_{\ell })}
+  , where a good bound on 
+  
+    
+      
+        ℓ
+      
+    
+    {\displaystyle \ell }
+   is not known a priori. a universal family proposed by  
+treats the string 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   as the coefficients of a polynomial modulo a large prime. if 
+  
+    
+      
+        
+          x
+          
+            i
+          
+        
+        ∈
+        [
+        u
+        ]
+      
+    
+    {\displaystyle x_{i}\in [u]}
+  , let 
+  
+    
+      
+        p
+        ≥
+        max
+        {
+        u
+        ,
+        m
+        }
+      
+    
+    {\displaystyle p\geq \max\{u,m\}}
+   be a prime and define:
+
+  
+    
+      
+        
+          h
+          
+            a
+          
+        
+        (
+        
+          
+            
+              x
+              ¯
+            
+          
+        
+        )
+        =
+        
+          h
+          
+            
+              i
+              n
+              t
+            
+          
+        
+        
+          (
+          
+            
+              
+                (
+              
+            
+            
+              ∑
+              
+                i
+                =
+                0
+              
+              
+                ℓ
+              
+            
+            
+              x
+              
+                i
+              
+            
+            ⋅
+            
+              a
+              
+                ℓ
+                −
+                i
+              
+            
+            
+              
+                )
+              
+            
+            
+              mod
+              
+                 
+              
+            
+            p
+          
+          )
+        
+      
+    
+    {\displaystyle h_{a}({\bar {x}})=h_{\mathrm {int} }\left({\big (}\sum _{i=0}^{\ell }x_{i}\cdot a^{\ell -i}{\big )}{\bmod {~}}p\right)}
+  , where 
+  
+    
+      
+        a
+        ∈
+        [
+        p
+        ]
+      
+    
+    {\displaystyle a\in [p]}
+   is uniformly random and 
+  
+    
+      
+        
+          h
+          
+            
+              i
+              n
+              t
+            
+          
+        
+      
+    
+    {\displaystyle h_{\mathrm {int} }}
+   is chosen randomly from a universal family mapping integer domain 
+  
+    
+      
+        [
+        p
+        ]
+        ↦
+        [
+        m
+        ]
+      
+    
+    {\displaystyle [p]\mapsto [m]}
+  .using properties of modular arithmetic, above can be computed without producing large numbers for large strings as follows:
+
+this rabin-karp rolling hash is based on a linear congruential generator.
+above algorithm is also known as multiplicative hash function. in practice, the mod operator and the parameter p can be avoided altogether by simply allowing integer to overflow because it is equivalent to mod (max-int-value + 1) in many programming languages. below table shows values chosen to initialize h and a for some of the popular implementations.
+
+consider two strings 
+  
+    
+      
+        
+          
+            
+              x
+              ¯
+            
+          
+        
+        ,
+        
+          
+            
+              y
+              ¯
+            
+          
+        
+      
+    
+    {\displaystyle {\bar {x}},{\bar {y}}}
+   and let 
+  
+    
+      
+        ℓ
+      
+    
+    {\displaystyle \ell }
+   be length of the longer one; for the analysis, the shorter string is conceptually padded with zeros up to length 
+  
+    
+      
+        ℓ
+      
+    
+    {\displaystyle \ell }
+  . a collision before applying 
+  
+    
+      
+        
+          h
+          
+            
+              i
+              n
+              t
+            
+          
+        
+      
+    
+    {\displaystyle h_{\mathrm {int} }}
+   implies that 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   is a root of the polynomial with coefficients 
+  
+    
+      
+        
+          
+            
+              x
+              ¯
+            
+          
+        
+        −
+        
+          
+            
+              y
+              ¯
+            
+          
+        
+      
+    
+    {\displaystyle {\bar {x}}-{\bar {y}}}
+  . this polynomial has at most 
+  
+    
+      
+        ℓ
+      
+    
+    {\displaystyle \ell }
+   roots modulo 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+  , so the collision probability is at most 
+  
+    
+      
+        ℓ
+        
+          /
+        
+        p
+      
+    
+    {\displaystyle \ell /p}
+  . the probability of collision through the random 
+  
+    
+      
+        
+          h
+          
+            
+              i
+              n
+              t
+            
+          
+        
+      
+    
+    {\displaystyle h_{\mathrm {int} }}
+   brings the total collision probability to 
+  
+    
+      
+        
+          
+            1
+            m
+          
+        
+        +
+        
+          
+            ℓ
+            p
+          
+        
+      
+    
+    {\displaystyle {\frac {1}{m}}+{\frac {\ell }{p}}}
+  . thus, if the prime 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   is sufficiently large compared to the length of strings hashed, the family is very close to universal (in statistical distance).
+other universal families of hash functions used to hash unknown-length strings to fixed-length hash values include the rabin fingerprint and the buzhash.
+
+
+==== avoiding modular arithmetic ====
+to mitigate the computational penalty of modular arithmetic, three tricks are used in practice:
+one chooses the prime 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   to be close to a power of two, such as a mersenne prime. this allows arithmetic modulo 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   to be implemented without division (using faster operations like addition and shifts). for instance, on modern architectures one can work with 
+  
+    
+      
+        p
+        =
+        
+          2
+          
+            61
+          
+        
+        −
+        1
+      
+    
+    {\displaystyle p=2^{61}-1}
+  , while 
+  
+    
+      
+        
+          x
+          
+            i
+          
+        
+      
+    
+    {\displaystyle x_{i}}
+  's are 32-bit values.
+one can apply vector hashing to blocks. for instance, one applies vector hashing to each 16-word block of the string, and applies string hashing to the 
+  
+    
+      
+        ⌈
+        k
+        
+          /
+        
+        16
+        ⌉
+      
+    
+    {\displaystyle \lceil k/16\rceil }
+   results. since the slower string hashing is applied on a substantially smaller vector, this will essentially be as fast as vector hashing.
+one chooses a power-of-two as the divisor, allowing arithmetic modulo 
+  
+    
+      
+        
+          2
+          
+            w
+          
+        
+      
+    
+    {\displaystyle 2^{w}}
+   to be implemented without division (using faster operations of bit masking). the nh hash-function family takes this approach.
+
+
+== see also ==
+k-independent hashing
+rolling hashing
+tabulation hashing
+min-wise independence
+universal one-way hash function
+low-discrepancy sequence
+perfect hashing
+
+
+== references ==
+
+
+== further reading ==
+knuth, donald ervin (1998). the art of computer programming, vol. iii: sorting and searching (3rd ed.). reading, mass; london: addison-wesley. isbn 0-201-89685-0.
+
+
+== external links ==
+open data structures - section 5.1.1 - multiplicative hashing, pat morin

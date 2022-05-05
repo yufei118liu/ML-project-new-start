@@ -1,0 +1,1978 @@
+in system analysis, among other fields of study, a linear time-invariant system (lti system) is a system that produces an output signal from any input signal subject to the constraints of linearity and time-invariance; these terms are briefly defined below. these properties apply (exactly or approximately) to many important physical systems, in which case the response y(t) of the system to an arbitrary input x(t) can be found directly using convolution: y(t) = x(t) ∗ h(t) where h(t) is called the system's impulse response and ∗ represents convolution (not to be confused with multiplication, as is frequently employed by the symbol in computer languages). what's more, there are systematic methods for solving any such system (determining h(t)), whereas systems not meeting both properties are generally more difficult (or impossible) to solve analytically. a good example of an lti system is any electrical circuit consisting of resistors, capacitors, inductors and linear amplifiers.linear time-invariant system theory is also used in image processing, where the systems have spatial dimensions instead of, or in addition to, a temporal dimension. these systems may be referred to as linear translation-invariant to give the terminology the most general reach. in the case of generic discrete-time (i.e., sampled) systems, linear shift-invariant is the corresponding term. lti system theory is an area of applied mathematics which has direct applications in electrical circuit analysis and design, signal processing and filter design, control theory, mechanical engineering, image processing, the design of measuring instruments of many sorts, nmr spectroscopy, and many other technical areas where systems of ordinary differential equations present themselves.
+
+
+== overview ==
+the defining properties of any lti system are linearity and time invariance.
+
+linearity means that the relationship between the input 
+  
+    
+      
+        x
+        (
+        t
+        )
+      
+    
+    {\displaystyle x(t)}
+   and the output 
+  
+    
+      
+        y
+        (
+        t
+        )
+      
+    
+    {\displaystyle y(t)}
+  , both being regarded as functions, is a linear mapping: if 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   is a constant then the system output to 
+  
+    
+      
+        a
+        x
+        (
+        t
+        )
+      
+    
+    {\displaystyle ax(t)}
+   is 
+  
+    
+      
+        a
+        y
+        (
+        t
+        )
+      
+    
+    {\displaystyle ay(t)}
+  ; if 
+  
+    
+      
+        
+          x
+          ′
+        
+        (
+        t
+        )
+      
+    
+    {\displaystyle x'(t)}
+   is a further input with system output 
+  
+    
+      
+        
+          y
+          ′
+        
+        (
+        t
+        )
+      
+    
+    {\displaystyle y'(t)}
+   then the output of the system to 
+  
+    
+      
+        x
+        (
+        t
+        )
+        +
+        
+          x
+          ′
+        
+        (
+        t
+        )
+      
+    
+    {\displaystyle x(t)+x'(t)}
+   is 
+  
+    
+      
+        y
+        (
+        t
+        )
+        +
+        
+          y
+          ′
+        
+        (
+        t
+        )
+      
+    
+    {\displaystyle y(t)+y'(t)}
+  , this applying for all choices of 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  , 
+  
+    
+      
+        x
+        (
+        t
+        )
+      
+    
+    {\displaystyle x(t)}
+  , 
+  
+    
+      
+        
+          x
+          ′
+        
+        (
+        t
+        )
+      
+    
+    {\displaystyle x'(t)}
+  . the latter condition is often referred to as the superposition principle.
+time invariance means that whether we apply an input to the system now or t seconds from now, the output will be identical except for a time delay of t seconds. that is, if the output due to input 
+  
+    
+      
+        x
+        (
+        t
+        )
+      
+    
+    {\displaystyle x(t)}
+   is 
+  
+    
+      
+        y
+        (
+        t
+        )
+      
+    
+    {\displaystyle y(t)}
+  , then the output due to input 
+  
+    
+      
+        x
+        (
+        t
+        −
+        t
+        )
+      
+    
+    {\displaystyle x(t-t)}
+   is 
+  
+    
+      
+        y
+        (
+        t
+        −
+        t
+        )
+      
+    
+    {\displaystyle y(t-t)}
+  . hence, the system is time invariant because the output does not depend on the particular time the input is applied.the fundamental result in lti system theory is that any lti system can be characterized entirely by a single function called the system's impulse response.  the output of the system 
+  
+    
+      
+        y
+        (
+        t
+        )
+      
+    
+    {\displaystyle y(t)}
+   is simply the convolution of the input to the system 
+  
+    
+      
+        x
+        (
+        t
+        )
+      
+    
+    {\displaystyle x(t)}
+   with the system's impulse response 
+  
+    
+      
+        h
+        (
+        t
+        )
+      
+    
+    {\displaystyle h(t)}
+  . this is called a continuous time system. similarly, a discrete-time linear time-invariant (or, more generally, "shift-invariant") system is defined as one operating in discrete time: 
+  
+    
+      
+        
+          y
+          
+            i
+          
+        
+        =
+        
+          x
+          
+            i
+          
+        
+        ∗
+        
+          h
+          
+            i
+          
+        
+      
+    
+    {\displaystyle y_{i}=x_{i}*h_{i}}
+    where y, x, and h are sequences and the convolution, in discrete time, uses a discrete summation rather than an integral.
+
+lti systems can also be characterized in the frequency domain by the system's transfer function, which is the laplace transform of the system's impulse response (or z transform in the case of discrete-time systems).  as a result of the properties of these transforms, the output of the system in the frequency domain is the product of the transfer function and the transform of the input. in other words, convolution in the time domain is equivalent to multiplication in the frequency domain.
+for all lti systems, the eigenfunctions, and the basis functions of the transforms, are complex exponentials.  this is, if the input to a system is the complex waveform 
+  
+    
+      
+        
+          a
+          
+            s
+          
+        
+        
+          e
+          
+            s
+            t
+          
+        
+      
+    
+    {\displaystyle a_{s}e^{st}}
+   for some complex amplitude 
+  
+    
+      
+        
+          a
+          
+            s
+          
+        
+      
+    
+    {\displaystyle a_{s}}
+   and complex frequency 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+  , the output will be some complex constant times the input, say 
+  
+    
+      
+        
+          b
+          
+            s
+          
+        
+        
+          e
+          
+            s
+            t
+          
+        
+      
+    
+    {\displaystyle b_{s}e^{st}}
+   for some new complex amplitude 
+  
+    
+      
+        
+          b
+          
+            s
+          
+        
+      
+    
+    {\displaystyle b_{s}}
+  .  the ratio 
+  
+    
+      
+        
+          b
+          
+            s
+          
+        
+        
+          /
+        
+        
+          a
+          
+            s
+          
+        
+      
+    
+    {\displaystyle b_{s}/a_{s}}
+   is the transfer function at frequency 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+  .
+since sinusoids are a sum of complex exponentials with complex-conjugate frequencies, if the input to the system is a sinusoid, then the output of the system will also be a sinusoid, perhaps with a different amplitude and a different phase, but always with the same frequency upon reaching steady-state. lti systems cannot produce frequency components that are not in the input.
+lti system theory is good at describing many important systems.  most lti systems are considered "easy" to analyze, at least compared to the time-varying and/or nonlinear case.  any system that can be modeled as a linear differential equation with constant coefficients is an lti system.  examples of such systems are electrical circuits made up of resistors, inductors, and capacitors (rlc circuits).  ideal spring–mass–damper systems are also lti systems, and are mathematically equivalent to rlc circuits.
+most lti system concepts are similar between the continuous-time and discrete-time (linear shift-invariant) cases.  in image processing, the time variable is replaced with two space variables, and the notion of time invariance is replaced by two-dimensional shift invariance.  when analyzing filter banks and mimo systems, it is often useful to consider vectors of signals.
+a linear system that is not time-invariant can be solved using other approaches such as the green function method.
+
+
+== continuous-time systems ==
+
+
+=== impulse response and convolution ===
+the behavior of a linear, continuous-time, time-invariant system with input signal x(t) and output signal y(t) is described by the convolution integral:
+where 
+  
+    
+      
+        h
+        (
+        t
+        )
+      
+    
+    {\textstyle h(t)}
+   is the system's response to an impulse: 
+  
+    
+      
+        x
+        (
+        τ
+        )
+        =
+        δ
+        (
+        τ
+        )
+      
+    
+    {\textstyle x(\tau )=\delta (\tau )}
+  . 
+  
+    
+      
+        y
+        (
+        t
+        )
+      
+    
+    {\textstyle y(t)}
+   is therefore proportional to a weighted average of the input function 
+  
+    
+      
+        x
+        (
+        τ
+        )
+      
+    
+    {\textstyle x(\tau )}
+  . the weighting function is 
+  
+    
+      
+        h
+        (
+        −
+        τ
+        )
+      
+    
+    {\textstyle h(-\tau )}
+  , simply shifted by amount 
+  
+    
+      
+        t
+      
+    
+    {\textstyle t}
+  . as 
+  
+    
+      
+        t
+      
+    
+    {\textstyle t}
+   changes, the weighting function emphasizes different parts of the input function. when 
+  
+    
+      
+        h
+        (
+        τ
+        )
+      
+    
+    {\textstyle h(\tau )}
+   is zero for all negative 
+  
+    
+      
+        τ
+      
+    
+    {\textstyle \tau }
+  , 
+  
+    
+      
+        y
+        (
+        t
+        )
+      
+    
+    {\textstyle y(t)}
+   depends only on values of 
+  
+    
+      
+        x
+      
+    
+    {\textstyle x}
+   prior to time 
+  
+    
+      
+        t
+      
+    
+    {\textstyle t}
+  , and the system is said to be causal.
+to understand why the convolution produces the output of an lti system, let the notation 
+  
+    
+      
+        {
+        x
+        (
+        u
+        −
+        τ
+        )
+        ;
+         
+        u
+        }
+      
+    
+    {\textstyle \{x(u-\tau );\ u\}}
+   represent the function 
+  
+    
+      
+        x
+        (
+        u
+        −
+        τ
+        )
+      
+    
+    {\textstyle x(u-\tau )}
+   with variable 
+  
+    
+      
+        u
+      
+    
+    {\textstyle u}
+   and constant 
+  
+    
+      
+        τ
+      
+    
+    {\textstyle \tau }
+  . and let the shorter notation 
+  
+    
+      
+        {
+        x
+        }
+      
+    
+    {\textstyle \{x\}}
+   represent 
+  
+    
+      
+        {
+        x
+        (
+        u
+        )
+        ;
+         
+        u
+        }
+      
+    
+    {\textstyle \{x(u);\ u\}}
+  . then a continuous-time system transforms an input function, 
+  
+    
+      
+        {
+        x
+        }
+        ,
+      
+    
+    {\textstyle \{x\},}
+   into an output function, 
+  
+    
+      
+        {
+        y
+        }
+      
+    
+    {\textstyle \{y\}}
+  . and in general, every value of the output can depend on every value of the input. this concept is represented by:
+
+where 
+  
+    
+      
+        
+          o
+          
+            t
+          
+        
+      
+    
+    {\textstyle o_{t}}
+   is the transformation operator for time 
+  
+    
+      
+        t
+      
+    
+    {\textstyle t}
+  . in a typical system, 
+  
+    
+      
+        y
+        (
+        t
+        )
+      
+    
+    {\textstyle y(t)}
+   depends most heavily on the values of 
+  
+    
+      
+        x
+      
+    
+    {\textstyle x}
+   that occurred near time 
+  
+    
+      
+        t
+      
+    
+    {\textstyle t}
+  . unless the transform itself changes with 
+  
+    
+      
+        t
+      
+    
+    {\textstyle t}
+  , the output function is just constant, and the system is uninteresting.
+for a linear system, 
+  
+    
+      
+        o
+      
+    
+    {\textstyle o}
+   must satisfy eq.1:
+
+and the time-invariance requirement is:
+
+in this notation, we can write the impulse response as 
+  
+    
+      
+        h
+        (
+        t
+        )
+        
+          
+            
+              
+                =
+              
+              
+                def
+              
+            
+          
+        
+        
+          o
+          
+            t
+          
+        
+        {
+        δ
+        (
+        u
+        )
+        ;
+         
+        u
+        }
+        .
+      
+    
+    {\textstyle h(t)\mathrel {\stackrel {\text{def}}{=}} o_{t}\{\delta (u);\ u\}.}
+  
+similarly:
+
+substituting this result into the convolution integral:
+
+which has the form of the right side of eq.2 for the case 
+  
+    
+      
+        
+          c
+          
+            τ
+          
+        
+        =
+        x
+        (
+        τ
+        )
+      
+    
+    {\textstyle c_{\tau }=x(\tau )}
+   and 
+  
+    
+      
+        
+          x
+          
+            τ
+          
+        
+        (
+        u
+        )
+        =
+        δ
+        (
+        u
+        −
+        τ
+        )
+        .
+      
+    
+    {\textstyle x_{\tau }(u)=\delta (u-\tau ).}
+  
+eq.2 then allows this continuation:
+
+in summary, the input function, 
+  
+    
+      
+        {
+        x
+        }
+      
+    
+    {\textstyle \{x\}}
+  , can be represented by a continuum of time-shifted impulse functions, combined "linearly", as shown at eq.1.  the system's linearity property allows the system's response to be represented by the corresponding continuum of impulse responses, combined in the same way. and the time-invariance property allows that combination to be represented by the convolution integral.
+the mathematical operations above have a simple graphical simulation.
+
+
+=== exponentials as eigenfunctions ===
+an eigenfunction is a function for which the output of the operator is a scaled version of the same function. that is,
+
+where f is the eigenfunction and 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+   is the eigenvalue, a constant.
+the exponential functions 
+  
+    
+      
+        a
+        
+          e
+          
+            s
+            t
+          
+        
+      
+    
+    {\displaystyle ae^{st}}
+  , where 
+  
+    
+      
+        a
+        ,
+        s
+        ∈
+        
+          c
+        
+      
+    
+    {\displaystyle a,s\in \mathbb {c} }
+  , are eigenfunctions of a linear, time-invariant operator. a simple proof illustrates this concept. suppose the input is 
+  
+    
+      
+        x
+        (
+        t
+        )
+        =
+        a
+        
+          e
+          
+            s
+            t
+          
+        
+      
+    
+    {\displaystyle x(t)=ae^{st}}
+  . the output of the system with impulse response 
+  
+    
+      
+        h
+        (
+        t
+        )
+      
+    
+    {\displaystyle h(t)}
+   is then
+
+which, by the commutative property of convolution, is equivalent to
+
+where the scalar
+
+is dependent only on the parameter s.
+so the system's response is a scaled version of the input. in particular, for any 
+  
+    
+      
+        a
+        ,
+        s
+        ∈
+        
+          c
+        
+      
+    
+    {\displaystyle a,s\in \mathbb {c} }
+  , the system output is the product of the input 
+  
+    
+      
+        a
+        
+          e
+          
+            s
+            t
+          
+        
+      
+    
+    {\displaystyle ae^{st}}
+   and the constant 
+  
+    
+      
+        h
+        (
+        s
+        )
+      
+    
+    {\displaystyle h(s)}
+  . hence, 
+  
+    
+      
+        a
+        
+          e
+          
+            s
+            t
+          
+        
+      
+    
+    {\displaystyle ae^{st}}
+   is an eigenfunction of an lti system, and the corresponding eigenvalue is 
+  
+    
+      
+        h
+        (
+        s
+        )
+      
+    
+    {\displaystyle h(s)}
+  .
+
+
+==== direct proof ====
+it is also possible to directly derive complex exponentials as eigenfunctions of lti systems.
+let's set 
+  
+    
+      
+        v
+        (
+        t
+        )
+        =
+        
+          e
+          
+            i
+            ω
+            t
+          
+        
+      
+    
+    {\displaystyle v(t)=e^{i\omega t}}
+   some complex exponential and 
+  
+    
+      
+        
+          v
+          
+            a
+          
+        
+        (
+        t
+        )
+        =
+        
+          e
+          
+            i
+            ω
+            (
+            t
+            +
+            a
+            )
+          
+        
+      
+    
+    {\displaystyle v_{a}(t)=e^{i\omega (t+a)}}
+   a time-shifted version of it.
+
+  
+    
+      
+        h
+        [
+        
+          v
+          
+            a
+          
+        
+        ]
+        (
+        t
+        )
+        =
+        
+          e
+          
+            i
+            ω
+            a
+          
+        
+        h
+        [
+        v
+        ]
+        (
+        t
+        )
+      
+    
+    {\displaystyle h[v_{a}](t)=e^{i\omega a}h[v](t)}
+   by linearity with respect to the constant 
+  
+    
+      
+        
+          e
+          
+            i
+            ω
+            a
+          
+        
+      
+    
+    {\displaystyle e^{i\omega a}}
+  .
+
+  
+    
+      
+        h
+        [
+        
+          v
+          
+            a
+          
+        
+        ]
+        (
+        t
+        )
+        =
+        h
+        [
+        v
+        ]
+        (
+        t
+        +
+        a
+        )
+      
+    
+    {\displaystyle h[v_{a}](t)=h[v](t+a)}
+   by time invariance of 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+  .
+so 
+  
+    
+      
+        h
+        [
+        v
+        ]
+        (
+        t
+        +
+        a
+        )
+        =
+        
+          e
+          
+            i
+            ω
+            a
+          
+        
+        h
+        [
+        v
+        ]
+        (
+        t
+        )
+      
+    
+    {\displaystyle h[v](t+a)=e^{i\omega a}h[v](t)}
+  . setting 
+  
+    
+      
+        t
+        =
+        0
+      
+    
+    {\displaystyle t=0}
+   and renaming we get:
+
+i.e. that a complex exponential 
+  
+    
+      
+        
+          e
+          
+            i
+            ω
+            τ
+          
+        
+      
+    
+    {\displaystyle e^{i\omega \tau }}
+   as input will give a complex exponential of same frequency as output.
+
+
+=== fourier and laplace transforms ===
+the eigenfunction property of exponentials is very useful for both analysis and insight into lti systems.  the one-sided laplace transform
+
+is exactly the way to get the eigenvalues from the impulse response.  of particular interest are pure sinusoids (i.e., exponential functions of the form 
+  
+    
+      
+        
+          e
+          
+            j
+            ω
+            t
+          
+        
+      
+    
+    {\displaystyle e^{j\omega t}}
+   where 
+  
+    
+      
+        ω
+        ∈
+        
+          r
+        
+      
+    
+    {\displaystyle \omega \in \mathbb {r} }
+   and 
+  
+    
+      
+        j
+        
+          
+            
+              
+                =
+              
+              
+                def
+              
+            
+          
+        
+        
+          
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle j\mathrel {\stackrel {\text{def}}{=}} {\sqrt {-1}}}
+  ). the fourier transform 
+  
+    
+      
+        h
+        (
+        j
+        ω
+        )
+        =
+        
+          
+            f
+          
+        
+        {
+        h
+        (
+        t
+        )
+        }
+      
+    
+    {\displaystyle h(j\omega )={\mathcal {f}}\{h(t)\}}
+   gives the eigenvalues for pure complex sinusoids. both of 
+  
+    
+      
+        h
+        (
+        s
+        )
+      
+    
+    {\displaystyle h(s)}
+   and 
+  
+    
+      
+        h
+        (
+        j
+        ω
+        )
+      
+    
+    {\displaystyle h(j\omega )}
+   are called the system function, system response, or transfer function.
+the laplace transform is usually used in the context of one-sided signals, i.e. signals that are zero for all values of t less than some value. usually, this "start time" is set to zero, for convenience and without loss of generality, with the transform integral being taken from zero to infinity (the transform shown above with lower limit of integration of negative infinity is formally known as the bilateral laplace transform).
+the fourier transform is used for analyzing systems that process signals that are infinite in extent, such as modulated sinusoids, even though it cannot be directly applied to input and output signals that are not square integrable.  the laplace transform actually works directly for these signals if they are zero before a start time, even if they are not square integrable, for stable systems.  the fourier transform is often applied to spectra of infinite signals via the  wiener–khinchin theorem even when fourier transforms of the signals do not exist.
+due to the convolution property of both of these transforms, the convolution that gives the output of the system can be transformed to a multiplication in the transform domain, given signals for which the transforms exist
+
+one can use the system response directly to determine how any particular frequency component is handled by a system with that laplace transform. if we evaluate the system response (laplace transform of the impulse response) at complex frequency s = jω, where ω = 2πf, we obtain |h(s)| which is the system gain for frequency f. the relative phase shift between the output and input for that frequency component is likewise given by arg(h(s)).
+
+
+=== examples ===
+
+
+=== important system properties ===
+some of the most important properties of a system are causality and stability.  causality is a necessity for a physical system whose independent variable is time, however this restriction is not present in other cases such as image processing.
+
+
+==== causality ====
+
+a system is causal if the output depends only on present and past, but not future inputs.  a necessary and sufficient condition for causality is
+
+where 
+  
+    
+      
+        h
+        (
+        t
+        )
+      
+    
+    {\displaystyle h(t)}
+   is the impulse response.  it is not possible in general to determine causality from the two-sided laplace transform. however when working in the time domain one normally uses the one-sided laplace transform which requires causality.
+
+
+==== stability ====
+
+a system is bounded-input, bounded-output stable (bibo stable) if, for every bounded input, the output is finite.  mathematically, if every input satisfying
+
+leads to an output satisfying
+
+(that is, a finite maximum absolute value of 
+  
+    
+      
+        x
+        (
+        t
+        )
+      
+    
+    {\displaystyle x(t)}
+   implies a finite maximum absolute value of 
+  
+    
+      
+        y
+        (
+        t
+        )
+      
+    
+    {\displaystyle y(t)}
+  ), then the system is stable.  a necessary and sufficient condition is that 
+  
+    
+      
+        h
+        (
+        t
+        )
+      
+    
+    {\displaystyle h(t)}
+  , the impulse response, is in l1 (has a finite l1 norm):
+
+in the frequency domain, the region of convergence must contain the imaginary axis 
+  
+    
+      
+        s
+        =
+        j
+        ω
+      
+    
+    {\displaystyle s=j\omega }
+  .
+as an example, the ideal low-pass filter with impulse response equal to a sinc function is not bibo stable, because the sinc function does not have a finite l1 norm.  thus, for some bounded input, the output of the ideal low-pass filter is unbounded.  in particular, if the input is zero for 
+  
+    
+      
+        t
+        <
+        0
+      
+    
+    {\displaystyle t<0}
+   and equal to a sinusoid at the cut-off frequency for 
+  
+    
+      
+        t
+        >
+        0
+      
+    
+    {\displaystyle t>0}
+  , then the output will be unbounded for all times other than the zero crossings.
+
+
+== discrete-time systems ==
+almost everything in continuous-time systems has a counterpart in discrete-time systems.
+
+
+=== discrete-time systems from continuous-time systems ===
+in many contexts, a discrete time (dt) system is really part of a larger continuous time (ct) system.  for example, a digital recording system takes an analog sound, digitizes it, possibly processes the digital signals, and plays back an analog sound for people to listen to.
+in practical systems, dt signals obtained are usually uniformly sampled versions of ct signals.  if 
+  
+    
+      
+        x
+        (
+        t
+        )
+      
+    
+    {\displaystyle x(t)}
+   is a ct signal, then the sampling circuit used before an analog-to-digital converter will transform it to a dt signal:
+
+where t is the sampling period. before sampling, the input signal is normally run through a so-called nyquist filter which removes frequencies above the "folding frequency" 1/(2t); this guarantees that no information in the filtered signal will be lost. without filtering, any frequency component above the folding frequency (or nyquist frequency) is aliased to a different frequency (thus distorting the original signal), since a dt signal can only support frequency components lower than the folding frequency.
+
+
+=== impulse response and convolution ===
+let 
+  
+    
+      
+        {
+        x
+        [
+        m
+        −
+        k
+        ]
+        ;
+         
+        m
+        }
+      
+    
+    {\displaystyle \{x[m-k];\ m\}}
+   represent the sequence 
+  
+    
+      
+        {
+        x
+        [
+        m
+        −
+        k
+        ]
+        ;
+        
+           for all integer values of 
+        
+        m
+        }
+        .
+      
+    
+    {\displaystyle \{x[m-k];{\text{ for all integer values of }}m\}.}
+  
+and let the shorter notation 
+  
+    
+      
+        {
+        x
+        }
+      
+    
+    {\displaystyle \{x\}}
+   represent 
+  
+    
+      
+        {
+        x
+        [
+        m
+        ]
+        ;
+         
+        m
+        }
+        .
+      
+    
+    {\displaystyle \{x[m];\ m\}.}
+  
+a discrete system transforms an input sequence, 
+  
+    
+      
+        {
+        x
+        }
+      
+    
+    {\displaystyle \{x\}}
+   into an output sequence, 
+  
+    
+      
+        {
+        y
+        }
+        .
+      
+    
+    {\displaystyle \{y\}.}
+   in general, every element of the output can depend on every element of the input.  representing the transformation operator by 
+  
+    
+      
+        o
+      
+    
+    {\displaystyle o}
+  , we can write:
+
+note that unless the transform itself changes with n, the output sequence is just constant, and the system is uninteresting. (thus the subscript, n.) in a typical system, y[n] depends most heavily on the elements of x whose indices are near n.
+for the special case of the kronecker delta function, 
+  
+    
+      
+        x
+        [
+        m
+        ]
+        =
+        δ
+        [
+        m
+        ]
+        ,
+      
+    
+    {\displaystyle x[m]=\delta [m],}
+   the output sequence is the impulse response:
+
+for a linear system, 
+  
+    
+      
+        o
+      
+    
+    {\displaystyle o}
+   must satisfy:
+
+and the time-invariance requirement is:
+
+in such a system, the impulse response, 
+  
+    
+      
+        {
+        h
+        }
+      
+    
+    {\displaystyle \{h\}}
+  , characterizes the system completely. that is, for any input sequence, the output sequence can be calculated in terms of the input and the impulse response. to see how that is done, consider the identity:
+
+which expresses 
+  
+    
+      
+        {
+        x
+        }
+      
+    
+    {\displaystyle \{x\}}
+   in terms of a sum of weighted delta functions.
+therefore:
+
+where we have invoked eq.4 for the case 
+  
+    
+      
+        
+          c
+          
+            k
+          
+        
+        =
+        x
+        [
+        k
+        ]
+      
+    
+    {\displaystyle c_{k}=x[k]}
+   and 
+  
+    
+      
+        
+          x
+          
+            k
+          
+        
+        [
+        m
+        ]
+        =
+        δ
+        [
+        m
+        −
+        k
+        ]
+      
+    
+    {\displaystyle x_{k}[m]=\delta [m-k]}
+  .
+and because of eq.5, we may write:
+
+therefore:
+
+which is the familiar discrete convolution formula.  the operator 
+  
+    
+      
+        
+          o
+          
+            n
+          
+        
+      
+    
+    {\displaystyle o_{n}}
+   can therefore be interpreted as proportional to a weighted average of the function x[k].
+the weighting function is h[−k], simply shifted by amount n. as n changes, the weighting function emphasizes different parts of the input function.  equivalently, the system's response to an impulse at n=0 is a "time" reversed copy of the unshifted weighting function.  when h[k] is zero for all negative k, the system is said to be causal.
+
+
+=== exponentials as eigenfunctions ===
+an eigenfunction is a function for which the output of the operator is the same function, scaled by some constant.  in symbols,
+
+where f is the eigenfunction and 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+   is the eigenvalue, a constant.
+the exponential functions 
+  
+    
+      
+        
+          z
+          
+            n
+          
+        
+        =
+        
+          e
+          
+            s
+            t
+            n
+          
+        
+      
+    
+    {\displaystyle z^{n}=e^{stn}}
+  , where 
+  
+    
+      
+        n
+        ∈
+        
+          z
+        
+      
+    
+    {\displaystyle n\in \mathbb {z} }
+  , are eigenfunctions of a linear, time-invariant operator. 
+  
+    
+      
+        t
+        ∈
+        
+          r
+        
+      
+    
+    {\displaystyle t\in \mathbb {r} }
+   is the sampling interval, and 
+  
+    
+      
+        z
+        =
+        
+          e
+          
+            s
+            t
+          
+        
+        ,
+         
+        z
+        ,
+        s
+        ∈
+        
+          c
+        
+      
+    
+    {\displaystyle z=e^{st},\ z,s\in \mathbb {c} }
+  .  a simple proof illustrates this concept.
+suppose the input is 
+  
+    
+      
+        x
+        [
+        n
+        ]
+        =
+        
+          z
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x[n]=z^{n}}
+  . the output of the system with impulse response 
+  
+    
+      
+        h
+        [
+        n
+        ]
+      
+    
+    {\displaystyle h[n]}
+   is then
+
+which is equivalent to the following by the commutative property of convolution
+
+where
+
+is dependent only on the parameter z.
+so 
+  
+    
+      
+        
+          z
+          
+            n
+          
+        
+      
+    
+    {\displaystyle z^{n}}
+   is an eigenfunction of an lti system because the system response is the same as the input times the constant 
+  
+    
+      
+        h
+        (
+        z
+        )
+      
+    
+    {\displaystyle h(z)}
+  .
+
+
+=== z and discrete-time fourier transforms ===
+the eigenfunction property of exponentials is very useful for both analysis and insight into lti systems.  the z transform
+
+is exactly the way to get the eigenvalues from the impulse response.  of particular interest are pure sinusoids; i.e. exponentials of the form 
+  
+    
+      
+        
+          e
+          
+            j
+            ω
+            n
+          
+        
+      
+    
+    {\displaystyle e^{j\omega n}}
+  , where 
+  
+    
+      
+        ω
+        ∈
+        
+          r
+        
+      
+    
+    {\displaystyle \omega \in \mathbb {r} }
+  .  these can also be written as 
+  
+    
+      
+        
+          z
+          
+            n
+          
+        
+      
+    
+    {\displaystyle z^{n}}
+   with 
+  
+    
+      
+        z
+        =
+        
+          e
+          
+            j
+            ω
+          
+        
+      
+    
+    {\displaystyle z=e^{j\omega }}
+  . the discrete-time fourier transform (dtft) 
+  
+    
+      
+        h
+        (
+        
+          e
+          
+            j
+            ω
+          
+        
+        )
+        =
+        
+          
+            f
+          
+        
+        {
+        h
+        [
+        n
+        ]
+        }
+      
+    
+    {\displaystyle h(e^{j\omega })={\mathcal {f}}\{h[n]\}}
+   gives the eigenvalues of pure sinusoids.  both of 
+  
+    
+      
+        h
+        (
+        z
+        )
+      
+    
+    {\displaystyle h(z)}
+   and 
+  
+    
+      
+        h
+        (
+        
+          e
+          
+            j
+            ω
+          
+        
+        )
+      
+    
+    {\displaystyle h(e^{j\omega })}
+   are called the system function, system response, or transfer function.
+like the one-sided laplace transform, the z transform is usually used in the context of one-sided signals, i.e. signals that are zero for t<0. the discrete-time fourier transform fourier series may be used for analyzing periodic signals.
+due to the convolution property of both of these transforms, the convolution that gives the output of the system can be transformed to a multiplication in the transform domain. that is,
+
+just as with the laplace transform transfer function in continuous-time system analysis, the z transform makes it easier to analyze systems and gain insight into their behavior.
+
+
+=== examples ===
+
+
+=== important system properties ===
+the input-output characteristics of discrete-time lti system are completely described  by its impulse response 
+  
+    
+      
+        h
+        [
+        n
+        ]
+      
+    
+    {\displaystyle h[n]}
+  .
+two of the most important properties of a system are causality and stability. non-causal (in time) systems can be defined and analyzed as above, but cannot be realized in real-time. unstable systems can also be analyzed and built, but are only useful as part of a larger system whose overall transfer function is stable.
+
+
+==== causality ====
+
+a discrete-time lti system is causal if the current value of the output depends on only the current value and past values of the input.   a necessary and sufficient condition for causality is
+
+where 
+  
+    
+      
+        h
+        [
+        n
+        ]
+      
+    
+    {\displaystyle h[n]}
+   is the impulse response.  it is not possible in general to determine causality from the z transform, because the inverse transform is not unique.  when a region of convergence is specified, then causality can be determined.
+
+
+==== stability ====
+
+a system is bounded input, bounded output stable (bibo stable) if, for every bounded input, the output is finite.  mathematically, if
+
+implies that
+
+(that is, if bounded input implies bounded output, in the sense that the maximum absolute values of 
+  
+    
+      
+        x
+        [
+        n
+        ]
+      
+    
+    {\displaystyle x[n]}
+   and 
+  
+    
+      
+        y
+        [
+        n
+        ]
+      
+    
+    {\displaystyle y[n]}
+   are finite), then the system is stable.  a necessary and sufficient condition is that 
+  
+    
+      
+        h
+        [
+        n
+        ]
+      
+    
+    {\displaystyle h[n]}
+  , the impulse response, satisfies
+
+in the frequency domain, the region of convergence must contain the unit circle (i.e., the locus satisfying 
+  
+    
+      
+        
+          |
+        
+        z
+        
+          |
+        
+        =
+        1
+      
+    
+    {\displaystyle |z|=1}
+   for complex z).
+
+
+== notes ==
+
+
+== see also ==
+circulant matrix
+frequency response
+impulse response
+system analysis
+green function
+signal-flow graph
+
+
+== references ==
+phillips, c.l., parr, j.m., & riskin, e.a (2007). signals, systems and transforms. prentice hall. isbn 978-0-13-041207-2.{{cite book}}:  cs1 maint: multiple names: authors list (link)
+hespanha, j.p. (2009). linear system theory. princeton university press. isbn 978-0-691-14021-6.
+crutchfield, steve (october 12, 2010), "the joy of convolution", johns hopkins university, retrieved november 21, 2010
+vaidyanathan, p. p.; chen, t. (may 1995). "role of anticausal inverses in multirate filter banks — part i: system theoretic fundamentals" (pdf). ieee trans. signal process. 43 (6): 1090. bibcode:1995itsp...43.1090v. doi:10.1109/78.382395.
+
+
+== further reading ==
+
+
+== external links ==
+ece 209: review of circuits as lti systems – short primer on the mathematical analysis of (electrical) lti systems.
+ece 209: sources of phase shift – gives an intuitive explanation of the source of phase shift in two common electrical lti systems.
+jhu 520.214 signals and systems course notes. an encapsulated course on lti system theory. adequate for self teaching.
+lti system example: rc low-pass filter. amplitude and phase response.

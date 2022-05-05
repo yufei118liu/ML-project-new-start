@@ -1,0 +1,649 @@
+an interpretation is an assignment of meaning to the symbols of a formal language. many formal languages used in mathematics, logic, and theoretical computer science are defined in solely syntactic terms, and as such do not have any meaning until they are given some interpretation. the general study of interpretations of formal languages is called formal semantics.
+the most commonly studied formal logics are propositional logic, predicate logic and their modal analogs, and for these there are standard ways of presenting an interpretation. in these contexts an interpretation is a function that provides the extension of symbols and strings of symbols of an object language. for example, an interpretation function could take the predicate t (for "tall") and assign it the extension {a} (for "abraham lincoln"). note that all our interpretation does is assign the extension {a} to the non-logical constant t, and does not make a claim about whether t is to stand for tall and 'a' for abraham lincoln. nor does logical interpretation have anything to say about logical connectives like 'and', 'or' and 'not'.  though we may take these symbols to stand for certain things or concepts, this is not determined by the interpretation function.
+an interpretation often (but not always) provides a way to determine the truth values of sentences in a language. if a given interpretation assigns the value true to a sentence or theory, the interpretation is called a model of that sentence or theory.
+
+
+== formal languages ==
+
+a formal language consists of a possibly infinite set of sentences (variously  called words or formulas) built from a fixed set of letters or symbols. the inventory from which these letters are taken is called the alphabet over which the language is defined. to distinguish the strings of symbols that are in a formal language from arbitrary strings of symbols, the former are sometimes called well-formed formulæ (wff). the essential feature of a formal language is that its syntax can be defined without reference to interpretation. for example, we can determine that (p or q) is a well-formed formula even without knowing whether it is true or false.
+
+
+=== example ===
+a formal language 
+  
+    
+      
+        
+          
+            w
+          
+        
+      
+    
+    {\displaystyle {\mathcal {w}}}
+   can be defined with the
+alphabet 
+  
+    
+      
+        α
+        =
+        {
+        △
+        ,
+        ◻
+        }
+      
+    
+    {\displaystyle \alpha =\{\triangle ,\square \}}
+  , and with a word being in 
+  
+    
+      
+        
+          
+            w
+          
+        
+      
+    
+    {\displaystyle {\mathcal {w}}}
+   if it begins with 
+  
+    
+      
+        △
+      
+    
+    {\displaystyle \triangle }
+   and is composed solely of the symbols 
+  
+    
+      
+        △
+      
+    
+    {\displaystyle \triangle }
+   and 
+  
+    
+      
+        ◻
+      
+    
+    {\displaystyle \square }
+  .
+a possible interpretation of 
+  
+    
+      
+        
+          
+            w
+          
+        
+      
+    
+    {\displaystyle {\mathcal {w}}}
+   could assign the decimal digit '1' to 
+  
+    
+      
+        △
+      
+    
+    {\displaystyle \triangle }
+   and '0' to 
+  
+    
+      
+        ◻
+      
+    
+    {\displaystyle \square }
+  . then 
+  
+    
+      
+        △
+        ◻
+        △
+      
+    
+    {\displaystyle \triangle \square \triangle }
+   would denote 101 under this interpretation of 
+  
+    
+      
+        
+          
+            w
+          
+        
+      
+    
+    {\displaystyle {\mathcal {w}}}
+  .
+
+
+=== logical constants ===
+in the specific cases of propositional logic and predicate logic, the formal languages considered have alphabets that are divided into two sets: the logical symbols (logical constants) and the non-logical symbols.  the idea behind this terminology is that logical symbols have the same meaning regardless of the subject matter being studied, while non-logical symbols change in meaning depending on the area of investigation.
+logical constants are always given the same meaning by every interpretation of the standard kind, so that only the meanings of the non-logical symbols are changed. logical constants include quantifier symbols ∀ ("all") and ∃ ("some"), symbols for logical connectives ∧ ("and"), ∨ ("or"), ¬ ("not"), parentheses and other grouping symbols, and (in many treatments) the equality symbol =.
+
+
+== general properties of truth-functional interpretations ==
+many of the commonly studied interpretations associate each sentence in a formal language with a single truth value, either true or false. these interpretations are called truth functional; they include the usual interpretations of propositional and first-order logic. the sentences that are made true by a particular assignment are said to be satisfied by that assignment.
+in classical logic, no sentence can be made both true and false by the same interpretation, although this is not true of glut logics such as lp. even in classical logic, however, it is possible that the truth value of the same sentence can be different under different interpretations.  a sentence is consistent if it is true under at least one interpretation; otherwise it is inconsistent. a sentence φ is said to be logically valid if it is satisfied by every interpretation (if φ is satisfied by every interpretation that satisfies ψ then φ is said to be a logical consequence of ψ).
+
+
+=== logical connectives ===
+some of the logical symbols of a language (other than quantifiers) are truth-functional connectives that represent truth functions — functions that take truth values as arguments and return truth values as outputs (in other words, these are operations on truth values of sentences).
+the truth-functional connectives enable compound sentences to be built up from simpler sentences. in this way, the truth value of the compound sentence is defined as a certain truth function of the truth values of the simpler sentences. the connectives are usually taken to be logical constants, meaning that the meaning of the connectives is always the same, independent of what interpretations are given to the other symbols in a formula.
+this is how we define logical connectives in propositional logic:
+
+¬φ is true iff φ is false.
+(φ ∧ ψ) is true iff φ is true and ψ is true.
+(φ ∨ ψ) is true iff φ is true or ψ is true (or both are true).
+(φ → ψ) is true iff ¬φ is true or ψ is true (or both are true).
+(φ ↔ ψ) is true iff (φ → ψ) is true and (ψ → φ) is true.so under a given interpretation of all the sentence letters φ and ψ (i.e., after assigning a truth-value to each sentence letter), we can determine the truth-values of all formulas that have them as constituents, as a function of the logical connectives. the following table shows how this kind of thing looks. the first two columns show the truth-values of the sentence letters as determined by the four possible interpretations. the other columns show the truth-values of formulas built from these sentence letters, with truth-values determined recursively.
+
+now it is easier to see what makes a formula logically valid. take the formula f: (φ ∨ ¬φ). if our interpretation function makes φ true, then ¬φ is made false by the negation connective. since the disjunct φ of f is true under that interpretation, f is true. now the only other possible interpretation of φ makes it false, and if so, ¬φ is made true by the negation function. that would make f true again, since one of fs disjuncts, ¬φ, would be true under this interpretation. since these two interpretations for f are the only possible logical interpretations, and since f comes out true for both, we say that it is logically valid or tautologous.
+
+
+== interpretation of a theory ==
+
+an interpretation of a theory is the relationship between a theory and some subject matter when there is a many-to-one correspondence between certain elementary statements of the theory, and certain statements related to the subject matter. if every elementary statement in the theory has a correspondent it is called a full interpretation, otherwise it is called a partial interpretation.
+
+
+== interpretations for propositional logic ==
+the formal language for propositional logic consists of formulas built up from propositional symbols (also called sentential symbols, sentential variables, propositional variables) and logical connectives.  the only non-logical symbols in a formal language for propositional logic are the propositional symbols, which are often denoted by capital letters. to make the formal language precise, a specific set of propositional symbols must be fixed.
+the standard kind of interpretation in this setting is a function that maps each propositional symbol to one of the truth values true and false. this function is known as a truth assignment or valuation function. in many presentations, it is literally a truth value that is assigned, but some presentations assign truthbearers instead.
+for a language with n distinct propositional variables there are 2n distinct possible interpretations. for any particular variable a, for example, there are 21=2 possible interpretations: 1) a is assigned t, or 2) a is assigned f. for the pair a, b there are 22=4 possible interpretations: 1) both are assigned t, 2) both are assigned f, 3) a is assigned t and b is assigned f, or 4) a is assigned f and b is assigned t.
+given any truth assignment for a set of propositional symbols, there is a unique extension to an interpretation for all the propositional formulas built up from those variables. this extended interpretation is defined inductively, using the truth-table definitions of the logical connectives discussed above.
+
+
+== first-order logic ==
+unlike propositional logic, where every language is the same apart from a choice of a different set of propositional variables, there are many different first-order languages. each first-order language is defined by a signature.  the signature consists of a set of non-logical symbols and an identification of each of these symbols as a constant symbol, a function symbol, or a predicate symbol.  in the case of function and predicate symbols, a natural number arity is also assigned. the alphabet for the formal language consists of logical constants, the equality relation symbol =, all the symbols from the signature, and an additional infinite set of symbols known as variables.
+for example, in the language of rings, there are constant symbols 0 and 1, two binary function symbols + and ·, and no binary relation symbols. (here the equality relation is taken as a logical constant.)
+again, we might define a first-order language l, as consisting of individual symbols a, b, and c; predicate symbols f, g, h, i and j; variables x, y, z; no function letters; no sentential symbols.
+
+
+=== formal languages for first-order logic ===
+given a signature σ, the corresponding formal language is known as the set of σ-formulas. each σ-formula is built up out of atomic formulas by means of logical connectives; atomic formulas are built from terms using predicate symbols.  the formal definition of the set of σ-formulas proceeds in the other direction: first, terms are assembled from the constant and function symbols together with the variables. then, terms can be combined into an atomic formula using a predicate symbol (relation symbol) from the signature or the special predicate symbol "=" for equality (see the section "interpreting equality" below). finally, the formulas of the language are assembled from atomic formulas using the logical connectives and quantifiers.
+
+
+=== interpretations of a first-order language ===
+to ascribe meaning to all sentences of a first-order language, the following information is needed.
+
+a domain of discourse d, usually required to be non-empty (see below).
+for every constant symbol, an element of d as its interpretation.
+for every n-ary function symbol, an n-ary function from d to d as its interpretation (that is, a function dn → d).
+for every n-ary predicate symbol, an n-ary relation on d as its interpretation (that is, a subset of dn).an object carrying this information is known as a structure (of signature σ), or σ-structure, or l-structure (of language l), or as a "model".
+the information specified in the interpretation provides enough information to give a truth value to any atomic formula, after each of its free variables, if any, has been replaced by an element of the domain. the truth value of an arbitrary sentence is then defined inductively using the t-schema, which is a definition of first-order semantics developed by alfred tarski. the t-schema interprets the logical connectives using truth tables, as discussed above. thus, for example, φ & ψ is satisfied if and only if both φ and ψ are satisfied.
+this leaves the issue of how to interpret formulas of the form ∀ x φ(x) and ∃ x φ(x). the domain of discourse forms the range for these quantifiers. the idea is that the sentence ∀ x φ(x) is true under an interpretation exactly when every substitution instance of φ(x), where x is replaced by some element of the domain, is satisfied. the formula ∃ x φ(x) is satisfied if there is at least one element d of the domain such that φ(d) is satisfied.
+strictly speaking, a substitution instance such as the formula φ(d) mentioned above is not a formula in the original formal language of φ, because d is an element of the domain. there are two ways of handling this technical issue. the first is to pass to a larger language in which each element of the domain is named by a constant symbol. the second is to add to the interpretation a function that assigns each variable to an element of the domain. then the t-schema can quantify over variations of the original interpretation in which this variable assignment function is changed, instead of quantifying over substitution instances.
+some authors also admit propositional variables in first-order logic, which must then also be interpreted. a propositional variable can stand on its own as an atomic formula. the interpretation of a propositional variable is one of the two truth values true and false.because the first-order interpretations described here are defined in set theory, they do not associate each predicate symbol with a property (or relation), but rather with the extension of that property (or relation). in other words, these first-order interpretations are extensional not intensional.
+
+
+=== example of a first-order interpretation ===
+an example of interpretation 
+  
+    
+      
+        
+          
+            i
+          
+        
+      
+    
+    {\displaystyle {\mathcal {i}}}
+   of the language l described above is as follows.
+
+domain: a chess set
+individual constants: a: the white king b: the black queen c: the white king's pawn
+f(x): x is a piece
+g(x): x is a pawn
+h(x): x is black
+i(x): x is white
+j(x, y): x can capture yin the interpretation 
+  
+    
+      
+        
+          
+            i
+          
+        
+      
+    
+    {\displaystyle {\mathcal {i}}}
+   of l:
+
+the following are true sentences: f(a), g(c), h(b), i(a) j(b, c),
+the following are false sentences: j(a, c), g(a).
+
+
+=== non-empty domain requirement ===
+as stated above, a first-order interpretation is usually required to specify a nonempty set as the domain of discourse. the reason for this requirement is to guarantee that equivalences such as
+
+  
+    
+      
+        (
+        ϕ
+        ∨
+        ∃
+        x
+        ψ
+        )
+        ↔
+        ∃
+        x
+        (
+        ϕ
+        ∨
+        ψ
+        )
+      
+    
+    {\displaystyle (\phi \lor \exists x\psi )\leftrightarrow \exists x(\phi \lor \psi )}
+  ,where x is not a free variable of φ, are logically valid. this equivalence holds in every interpretation with a nonempty domain, but does not always hold when empty domains are permitted. for example, the equivalence
+
+  
+    
+      
+        [
+        ∀
+        y
+        (
+        y
+        =
+        y
+        )
+        ∨
+        ∃
+        x
+        (
+        x
+        =
+        x
+        )
+        ]
+        ≡
+        ∃
+        x
+        [
+        ∀
+        y
+        (
+        y
+        =
+        y
+        )
+        ∨
+        x
+        =
+        x
+        ]
+      
+    
+    {\displaystyle [\forall y(y=y)\lor \exists x(x=x)]\equiv \exists x[\forall y(y=y)\lor x=x]}
+  fails in any structure with an empty domain.  thus the proof theory of first-order logic becomes more complicated when empty structures are permitted. however, the gain in allowing them is negligible, as both the intended interpretations and the interesting interpretations of the theories people study have non-empty domains.empty relations do not cause any problem for first-order interpretations, because there is no similar notion of passing a relation symbol across a logical connective, enlarging its scope in the process. thus it is acceptable for relation symbols to be interpreted as being identically false. however, the interpretation of a function symbol must always assign a well-defined and total function to the symbol.
+
+
+=== interpreting equality ===
+the equality relation is often treated specially in first order logic and other predicate logics. there are two general approaches.
+the first approach is to treat equality as no different than any other binary relation. in this case, if an equality symbol is included in the signature, it is usually necessary to add various axioms about equality to axiom systems (for example, the substitution axiom saying that if a = b and r(a) holds then r(b) holds as well). this approach to equality is most useful when studying signatures that do not include the equality relation, such as the signature for set theory or the signature for second-order arithmetic in which there is only an equality relation for numbers, but not an equality relation for set of numbers.
+the second approach is to treat the equality relation symbol as a logical constant that must be interpreted by the real equality relation in any interpretation. an interpretation that interprets equality this way is known as a normal model, so this second approach is the same as only studying interpretations that happen to be normal models. the advantage of this approach is that the axioms related to equality are automatically satisfied by every normal model, and so they do not need to be explicitly included in first-order theories when equality is treated this way. this second approach is sometimes called first order logic with equality, but many authors adopt it for the general study of first-order logic without comment.
+there are a few other reasons to restrict study of first-order logic to normal models. first, it is known that any first-order interpretation in which equality is interpreted by an equivalence relation and satisfies the substitution axioms for equality can be cut down to an elementarily equivalent interpretation on a subset of the original domain. thus there is little additional generality in studying non-normal models. second, if non-normal models are considered, then every consistent theory has an infinite model; this affects the statements of results such as the löwenheim–skolem theorem, which are usually stated under the assumption that only normal models are considered.
+
+
+=== many-sorted first-order logic ===
+a generalization of first order logic considers languages with more than one sort of variables. the idea is different sorts of variables represent different types of objects. every sort of variable can be quantified; thus an interpretation for a many-sorted language has a separate domain for each of the sorts of variables to range over (there is an infinite collection of variables of each of the different sorts). function and relation symbols, in addition to having arities, are specified so that each of their arguments must come from a certain sort.
+one example of many-sorted logic is for planar euclidean geometry. there are two sorts; points and lines. there is an equality relation symbol for points, an equality relation symbol for lines, and a binary incidence relation e which takes one point variable and one line variable. the intended interpretation of this language has the point variables range over all points on the euclidean plane, the line variable range over all lines on the plane, and the incidence relation e(p,l) holds if and only if point p is on line l.
+
+
+== higher-order predicate logics ==
+a formal language for higher-order predicate logic looks much the same as a formal language for first-order logic. the difference is that there are now many different types of variables. some variables correspond to elements of the domain, as in first-order logic. other variables correspond to objects of higher type: subsets of the domain, functions from the domain, functions that take a subset of the domain and return a function from the domain to subsets of the domain, etc.  all of these types of variables can be quantified.
+there are two kinds of interpretations commonly employed for higher-order logic. full semantics require that, once the domain of discourse is satisfied, the higher-order variables range over all possible elements of the correct type (all subsets of the domain, all functions from the domain to itself, etc.). thus the specification of a full interpretation is the same as the specification of a first-order interpretation. henkin semantics, which are essentially multi-sorted first-order semantics, require the interpretation to specify a separate domain for each type of higher-order variable to range over. thus an interpretation in henkin semantics includes a domain d, a collection of subsets of d, a collection of functions from d to d, etc.  the relationship between these two semantics is an important topic in higher order logic.
+
+
+== non-classical interpretations ==
+the interpretations of propositional logic and predicate logic described above are not the only possible interpretations. in particular, there are other types of interpretations that are used in the study of non-classical logic (such as intuitionistic logic), and in the study of modal logic.
+interpretations used to study non-classical logic include topological models, boolean-valued models, and kripke models.  modal logic is also studied using kripke models.
+
+
+== intended interpretations ==
+many formal languages are associated with a particular interpretation that is used to motivate them. for example, the first-order signature for set theory includes only one binary relation, ∈, which is intended to represent set membership, and the domain of discourse in a first-order theory of the natural numbers is intended to be the set of natural numbers.
+the intended interpretation is called the standard model (a term introduced by abraham robinson in 1960). in the context of peano arithmetic, it consists of the natural numbers with their ordinary arithmetical operations. all models that are isomorphic to the one just given are also called standard; these models all satisfy the peano axioms. there are also non-standard models of the (first-order version of the) peano axioms, which contain elements not correlated with any natural number.
+while the intended interpretation can have no explicit indication in the strictly formal syntactical rules, it naturally affects the choice of the formation and transformation rules of the syntactical system. for example, primitive signs must permit expression of the concepts to be modeled; sentential formulas are chosen so that their counterparts in the intended interpretation are meaningful declarative sentences; primitive sentences need to come out as true sentences in the interpretation; rules of inference must be such that, if the sentence 
+  
+    
+      
+        
+          
+            
+              i
+            
+          
+          
+            j
+          
+        
+      
+    
+    {\displaystyle {\mathcal {i}}_{j}}
+   is directly derivable from a sentence 
+  
+    
+      
+        
+          
+            
+              i
+            
+          
+          
+            i
+          
+        
+      
+    
+    {\displaystyle {\mathcal {i}}_{i}}
+  , then 
+  
+    
+      
+        
+          
+            
+              i
+            
+          
+          
+            i
+          
+        
+        →
+        
+          
+            
+              i
+            
+          
+          
+            j
+          
+        
+      
+    
+    {\displaystyle {\mathcal {i}}_{i}\to {\mathcal {i}}_{j}}
+   turns out to be a true sentence, with 
+  
+    
+      
+        →
+      
+    
+    {\displaystyle \to }
+   meaning implication, as usual. these requirements ensure that all provable sentences also come out to be true.most formal systems have many more models than they were intended to have (the existence of non-standard models is an example). when we speak about 'models' in empirical sciences, we mean, if we want reality to be a model of our science, to speak about an intended model. a model in the empirical sciences is an intended factually-true descriptive interpretation (or in other contexts: a non-intended arbitrary interpretation used to clarify such an intended factually-true descriptive interpretation.) all models are interpretations that have the same domain of discourse as the intended one, but other assignments for non-logical constants.
+
+
+=== example ===
+given a simple formal system (we shall call this one 
+  
+    
+      
+        
+          
+            f
+            
+              s
+              ′
+            
+          
+        
+      
+    
+    {\displaystyle {\mathcal {fs'}}}
+  ) whose alphabet α consists only of three symbols 
+  
+    
+      
+        {
+        ◼
+        ,
+        ★
+        ,
+        ⧫
+        }
+      
+    
+    {\displaystyle \{\blacksquare ,\bigstar ,\blacklozenge \}}
+   and whose formation rule for formulas is:
+
+'any string of symbols of 
+  
+    
+      
+        
+          
+            f
+            
+              s
+              ′
+            
+          
+        
+      
+    
+    {\displaystyle {\mathcal {fs'}}}
+   which is at least 6 symbols long, and which is not infinitely long, is a formula of 
+  
+    
+      
+        
+          
+            f
+            
+              s
+              ′
+            
+          
+        
+      
+    
+    {\displaystyle {\mathcal {fs'}}}
+  . nothing else is a formula of 
+  
+    
+      
+        
+          
+            f
+            
+              s
+              ′
+            
+          
+        
+      
+    
+    {\displaystyle {\mathcal {fs'}}}
+  .'the single axiom schema of 
+  
+    
+      
+        
+          
+            f
+            
+              s
+              ′
+            
+          
+        
+      
+    
+    {\displaystyle {\mathcal {fs'}}}
+   is:
+
+" 
+  
+    
+      
+        ◼
+         
+        ★
+        ∗
+        ⧫
+         
+        ◼
+        ∗
+      
+    
+    {\displaystyle \blacksquare \ \bigstar \ast \blacklozenge \ \blacksquare \ast }
+   " (where " 
+  
+    
+      
+        ∗
+      
+    
+    {\displaystyle \ast }
+   " is a metasyntactic variable standing for a finite string of " 
+  
+    
+      
+        ◼
+      
+    
+    {\displaystyle \blacksquare }
+   "s )a formal proof can be constructed as follows:
+
+  
+    
+      
+        ◼
+         
+        ★
+         
+        ◼
+         
+        ⧫
+         
+        ◼
+         
+        ◼
+      
+    
+    {\displaystyle \blacksquare \ \bigstar \ \blacksquare \ \blacklozenge \ \blacksquare \ \blacksquare }
+  
+
+  
+    
+      
+        ◼
+         
+        ★
+         
+        ◼
+         
+        ◼
+         
+        ⧫
+         
+        ◼
+         
+        ◼
+         
+        ◼
+      
+    
+    {\displaystyle \blacksquare \ \bigstar \ \blacksquare \ \blacksquare \ \blacklozenge \ \blacksquare \ \blacksquare \ \blacksquare }
+  
+
+  
+    
+      
+        ◼
+         
+        ★
+         
+        ◼
+         
+        ◼
+         
+        ◼
+         
+        ⧫
+         
+        ◼
+         
+        ◼
+         
+        ◼
+         
+        ◼
+      
+    
+    {\displaystyle \blacksquare \ \bigstar \ \blacksquare \ \blacksquare \ \blacksquare \ \blacklozenge \ \blacksquare \ \blacksquare \ \blacksquare \ \blacksquare }
+  in this example the theorem produced " 
+  
+    
+      
+        ◼
+         
+        ★
+         
+        ◼
+         
+        ◼
+         
+        ◼
+         
+        ⧫
+         
+        ◼
+         
+        ◼
+         
+        ◼
+         
+        ◼
+      
+    
+    {\displaystyle \blacksquare \ \bigstar \ \blacksquare \ \blacksquare \ \blacksquare \ \blacklozenge \ \blacksquare \ \blacksquare \ \blacksquare \ \blacksquare }
+   " can be interpreted as meaning "one plus three equals four." a different interpretation would be to read it backwards as "four minus three equals one."
+
+
+== other concepts of interpretation ==
+there are other uses of the term "interpretation" that are commonly used, which do not refer to the assignment of meanings to formal languages.
+in model theory, a structure a is said to interpret a structure b if there is a definable subset d of a, and definable relations and functions on d, such that b is isomorphic to the structure with domain d and these functions and relations. in some settings, it is not the domain d that is used, but rather d modulo an equivalence relation definable in a.  for additional information, see interpretation (model theory).
+a theory t is said to interpret another theory s if there is a finite extension by definitions t′ of t such that s is contained in t′.
+
+
+== see also ==
+free variables and name binding
+herbrand interpretation
+interpretation (model theory)
+logical system
+löwenheim–skolem theorem
+modal logic
+conceptual model
+model theory
+satisfiable
+truth
+
+
+== references ==
+
+
+== external links ==
+stanford enc. phil: classical logic, 4. semantics
+mathworld.wolfram.com: formallanguage
+mathworld.wolfram.com: connective
+mathworld.wolfram.com:  interpretation
+mathworld.wolfram.com: propositional calculus
+mathworld.wolfram.com: first order logic

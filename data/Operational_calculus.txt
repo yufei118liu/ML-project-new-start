@@ -1,0 +1,328 @@
+operational calculus, also known as operational analysis, is a technique by which problems in analysis, in particular differential equations, are transformed into algebraic problems, usually the problem of solving a polynomial equation.
+
+
+== history ==
+the idea of representing the processes of calculus, differentiation and integration, as operators 
+has a long history that goes back to gottfried wilhelm leibniz. the mathematician louis françois antoine arbogast was one of the first to manipulate these symbols independently of the function to which they were applied.this approach was further developed by francois-joseph servois who developed convenient notations. servois was followed by a school of british and irish mathematicians including  charles james hargreave, george boole, bownin, carmichael, doukin, graves, murphy, william spottiswoode and sylvester.
+treatises describing the application of operator methods to ordinary and partial differential equations  were written by robert bell carmichael in 1855 and by boole in 1859.this technique was fully developed by the physicist oliver heaviside in 1893, in connection with his work in telegraphy. 
+
+guided greatly by intuition and his wealth of knowledge on the physics behind his circuit studies,  [heaviside] developed the operational calculus now ascribed to his name.at the time, heaviside's methods were not rigorous, and his work was not further developed by mathematicians. 
+operational calculus first found applications in electrical engineering problems, for 
+the calculation of transients in linear circuits after 1910, under the impulse of ernst julius berg, john renshaw carson and vannevar bush.
+a rigorous mathematical justification of heaviside's operational methods came only  
+after the work of bromwich that related operational calculus with 
+laplace transformation methods (see the books by jeffreys, by carslaw or by maclachlan for a detailed exposition). 
+other ways of justifying the operational methods of heaviside were introduced in the mid-1920s using 
+integral equation techniques (as done by carson) or fourier transformation (as done by norbert wiener).
+a different approach to operational calculus was developed in the 1930s by polish mathematician 
+jan mikusiński, using algebraic reasoning.
+norbert wiener laid the foundations for operator theory in his review of the existential status of the operational calculus in 1926:
+the brilliant work of heaviside is purely heuristic, devoid of even the pretense to mathematical rigor. its operators apply to electric voltages and currents, which may be discontinuous and certainly need not be analytic. for example, the favorite corpus vile on which he tries out his operators is a function which vanishes to the left of the origin and is 1 to the right. this excludes any direct application of the methods of pincherle…
+although heaviside’s developments have not been justified by the present state of the purely mathematical theory of operators, there is a great deal of what we may call experimental evidence of their validity, and they are very valuable to the electrical engineers. there are cases, however, where they lead to ambiguous or contradictory results.
+
+
+== principle ==
+the key element of the operational calculus is to consider differentiation as an operator p = d/dt acting on functions. linear differential equations can then be recast in the form of "functions" f(p) of the operator  p  acting on the unknown function equaling the known function. here, f is defining something that takes in an operator  p  and returns another operator f(p). 
+solutions are then obtained by making the inverse operator of f act on the known function. the operational calculus generally is typified by two symbols, the operator  p,  and the unit function 1. the operator in its use probably is more mathematical than physical, the unit function more physical than mathematical. the operator  p  in the heaviside calculus initially is to represent the time differentiator d/dt. further, it is desired this operator bear the reciprocal relation such that  p−1  denotes the operation of integration.in electrical circuit theory, one is trying to determine the response of an electrical circuit to an impulse. due to linearity, it is enough to consider a unit step:
+
+heaviside step function: h(t)  such that h(t) = 0 if t < 0  and  h(t) = 1 if t > 0.the simplest example of application of the operational calculus is to solve: p y = h(t), which gives
+
+  
+    
+      
+        y
+        =
+        
+          p
+          
+            −
+            1
+          
+        
+        ⁡
+        h
+        =
+        
+          ∫
+          
+            0
+          
+          
+            t
+          
+        
+        h
+        (
+        u
+        )
+        
+        d
+        u
+        =
+        t
+         
+        h
+        (
+        t
+        )
+      
+    
+    {\displaystyle y=\operatorname {p} ^{-1}h=\int _{0}^{t}h(u)\,du=t\ h(t)}
+  .from this example, one sees that 
+  
+    
+      
+        
+          p
+          
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle \operatorname {p} ^{-1}}
+   represents integration. furthermore n  iterated integrations is represented by 
+  
+    
+      
+        
+          p
+          
+            −
+            n
+          
+        
+        ,
+      
+    
+    {\displaystyle \operatorname {p} ^{-n},}
+   so that 
+
+  
+    
+      
+        
+          p
+          
+            −
+            n
+          
+        
+        ⁡
+        h
+        (
+        t
+        )
+        =
+        
+          
+            
+              t
+              
+                n
+              
+            
+            
+              n
+              !
+            
+          
+        
+        h
+        (
+        t
+        )
+        .
+      
+    
+    {\displaystyle \operatorname {p} ^{-n}h(t)={\frac {t^{n}}{n!}}h(t).}
+  continuing to treat  p  as if it were a variable,
+
+  
+    
+      
+        
+          
+            p
+            
+              p
+              −
+              a
+            
+          
+        
+        h
+        (
+        t
+        )
+        =
+        
+          
+            1
+            
+              1
+              −
+              
+                
+                  a
+                  p
+                
+              
+            
+          
+        
+         
+        h
+        (
+        t
+        )
+        ,
+      
+    
+    {\displaystyle {\frac {\operatorname {p} }{\operatorname {p} -a}}h(t)={\frac {1}{1-{\frac {a}{\operatorname {p} }}}}\ h(t),}
+  which can be rewritten by using a geometric series expansion, 
+
+using partial fraction decomposition, one can define any fraction in the operator  p  and compute its action on h(t). 
+moreover, if the function 1/f(p) has a series expansion of the form
+
+  
+    
+      
+        
+          
+            1
+            
+               
+              f
+              (
+              p
+              )
+               
+            
+          
+        
+        =
+        
+          ∑
+          
+            n
+            =
+            0
+          
+          
+            ∞
+          
+        
+        
+          a
+          
+            n
+          
+        
+        
+          p
+          
+            −
+            n
+          
+        
+        ,
+      
+    
+    {\displaystyle {\frac {1}{\ f(\operatorname {p} )\ }}=\sum _{n=0}^{\infty }a_{n}\operatorname {p} ^{-n},}
+  it is straightforward to find
+
+  
+    
+      
+        
+          
+            1
+            
+              f
+              (
+              p
+              )
+            
+          
+        
+        h
+        (
+        t
+        )
+        =
+        
+          ∑
+          
+            n
+            =
+            0
+          
+          
+            ∞
+          
+        
+        
+          a
+          
+            n
+          
+        
+        
+          
+            
+              t
+              
+                n
+              
+            
+            
+              n
+              !
+            
+          
+        
+        h
+        (
+        t
+        )
+        .
+      
+    
+    {\displaystyle {\frac {1}{f(\operatorname {p} )}}h(t)=\sum _{n=0}^{\infty }a_{n}{\frac {t^{n}}{n!}}h(t).}
+  applying this rule, solving any linear differential equation is  reduced to a purely algebraic problem.
+heaviside went further, and defined fractional power of p, thus establishing a connection between operational calculus and fractional calculus.  
+using the taylor expansion, one can also verify the lagrange-boole translation formula,  ea p f(t) = f(t + a), so the operational
+calculus is also applicable to finite difference equations and to electrical engineering problems with delayed signals.
+
+
+== references ==
+
+terquem and gerono (1855) nouvelles annales de mathematiques: journal des candidats aux écoles polytechnique et normale 14, 83 [some historical references on the precursor work till carmichael].
+o. heaviside (1892) electrical papers, london
+o. heaviside (1893, 1899, 1902) electromagnetic theory, london
+o. heaviside (1893) proc. roy. soc. (london) 52: 504-529, 54: 105-143 (1894)
+j. r. carson (1926) bull. amer. math. soc. 32, 43.
+j. r. carson (1926) electric circuit theory and the operational calculus, mcgraw hill).
+h. jeffreys (1927) operational methods in mathematical physics cambridge university press, also at internet archive
+h. w. march (1927) bull. amer. math. soc. 33, 311, 33, 492 .
+ernst berg (1929) heaviside's operational calculus, mcgraw hill via internet archive
+vannevar bush (1929) operational circuit analysis with an appendix by norbert wiener, john wiley & sons
+h. t. davis (1936) the theory of linear operators (principia press, bloomington).
+n. w. mc lachlan (1941) modern operational calculus (macmillan).
+h. s. carslaw (1941) operational methods in applied mathematics oxford university press.
+balthasar van der pol & h. bremmer (1950) operational calculus cambridge university press
+b. van der pol (1950) "heaviside's operational calculus" in heaviside centenary volume by the institute of electrical engineers
+r. v. churchill (1958) operational mathematics mcgraw-hill
+j. mikusinski (1960) operational calculus elsevier
+rota, g. c.; kahaner, d.; odlyzko, a. (1973). "on the foundations of combinatorial theory. viii. finite operator calculus". journal of mathematical analysis and applications. 42 (3): 684. doi:10.1016/0022-247x(73)90172-8.
+jesper lützen (1979) "heaviside's operational calculus and attempts to rigorize it", archive for history of exact sciences 21(2): 161–200 doi:10.1007/bf00330405
+paul j. nahin (1985) oliver heaviside, fractional operators, and the age of the earth, ieee transactions on education e-28(2): 94–104, link from ieee explore.
+james b. calvert (2002) heaviside, laplace, and the inversion integral, from university of denver.
+
+
+== external links ==
+iv lindell heaviside operational rules applicable to electromagnetic problems
+ron doerfler heaviside's calculus
+jack crenshaw essay showing use of operators more on the rosetta stone

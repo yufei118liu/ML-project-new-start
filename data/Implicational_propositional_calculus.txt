@@ -1,0 +1,612 @@
+in mathematical logic, the implicational propositional calculus is a version of classical propositional calculus which uses only one connective, called implication or conditional. in formulas, this binary operation is indicated by "implies", "if ..., then ...", "→", "
+  
+    
+      
+        →
+      
+    
+    {\displaystyle \rightarrow }
+  ", etc..
+
+
+== functional (in)completeness ==
+implication alone is not functionally complete as a logical operator because one cannot form all other two-valued truth functions from it.
+for example, the two-place truth function that always returns false is not definable from → and arbitrary sentence variables: any formula constructed from → and propositional variables must receive the value true when all of its variables are evaluated to true.
+it follows that {→} is not functionally complete.
+however, if one adds a nullary connective ⊥ for falsity, then one can define all other truth functions. formulas over the resulting set of connectives {→, ⊥} are called f-implicational. if p and q are propositions, then:
+
+¬p is equivalent to p → ⊥
+p ∧ q is equivalent to (p → (q → ⊥)) → ⊥
+p ∨ q is equivalent to (p → q) → q
+p ↔ q is equivalent to ((p → q) → ((q → p) → ⊥)) → ⊥since the above operators are known to be functionally complete, it follows that any truth function can be expressed in terms of → and ⊥.
+
+
+== axiom system ==
+the following statements are considered tautologies (irreducible and intuitively true, by definition).
+
+axiom schema 1 is p → (q → p).
+axiom schema 2 is (p → (q → r)) → ((p → q) → (p → r)).
+axiom schema 3 (peirce's law) is ((p → q) → p) → p.
+the one non-nullary rule of inference (modus ponens) is: from p and p → q infer q.where in each case, p, q, and r may be replaced by any formulas which contain only "→" as a connective. if γ is a set of formulas and a a formula, then 
+  
+    
+      
+        γ
+        ⊢
+        a
+      
+    
+    {\displaystyle \gamma \vdash a}
+   means that a is derivable using the axioms and rules above and formulas from γ as additional hypotheses.
+łukasiewicz (1948) found an axiom system for the implicational calculus, which replaces the schemas 1–3 above with a single schema
+
+((p → q) → r) → ((r → p) → (s → p)).he also argued that there is no shorter axiom system.
+
+
+== basic properties of derivation ==
+since all axioms and rules of the calculus are schemata, derivation is closed under substitution:
+
+if 
+  
+    
+      
+        γ
+        ⊢
+        a
+        ,
+      
+    
+    {\displaystyle \gamma \vdash a,}
+   then 
+  
+    
+      
+        σ
+        (
+        γ
+        )
+        ⊢
+        σ
+        (
+        a
+        )
+        ,
+      
+    
+    {\displaystyle \sigma (\gamma )\vdash \sigma (a),}
+  where σ is any substitution (of formulas using only implication).
+the implicational propositional calculus also satisfies the deduction theorem:
+
+if 
+  
+    
+      
+        γ
+        ,
+        a
+        ⊢
+        b
+      
+    
+    {\displaystyle \gamma ,a\vdash b}
+  , then 
+  
+    
+      
+        γ
+        ⊢
+        a
+        →
+        b
+        .
+      
+    
+    {\displaystyle \gamma \vdash a\to b.}
+  as explained in the deduction theorem article, this holds for any axiomatic extension of the system containing axiom schemas 1 and 2 above and modus ponens.
+
+
+== completeness ==
+the implicational propositional calculus is semantically complete with respect to the usual two-valued semantics of classical propositional logic. that is, if γ is a set of implicational formulas, and a is an implicational formula entailed by γ, then 
+  
+    
+      
+        γ
+        ⊢
+        a
+      
+    
+    {\displaystyle \gamma \vdash a}
+  .
+
+
+=== proof ===
+a proof of the completeness theorem is outlined below. first, using the compactness theorem and the deduction theorem, we may reduce the completeness theorem to its special case with empty γ, i.e., we only need to show that every tautology is derivable in the system.
+the proof is similar to completeness of full propositional logic, but it also uses the following idea to overcome the functional incompleteness of implication. if a and f are formulas, then a → f is equivalent to (¬a*) ∨ f, where a* is the result of replacing in a all, some, or none of the occurrences of f by falsity. similarly, (a → f) → f is equivalent to a* ∨ f. so under some conditions, one can use them as substitutes for saying a* is false or a* is true respectively.
+we first observe some basic facts about derivability:
+
+indeed, we can derive a → (b → c) using axiom 1, and then derive a → c by modus ponens (twice) from ax. 2.
+this follows from (1) by the deduction theorem.
+if we further assume c → b, we can derive a → b using (1), then we derive c by modus ponens. this shows 
+  
+    
+      
+        a
+        →
+        c
+        ,
+        (
+        a
+        →
+        b
+        )
+        →
+        c
+        ,
+        c
+        →
+        b
+        ⊢
+        c
+      
+    
+    {\displaystyle a\to c,(a\to b)\to c,c\to b\vdash c}
+  , and the deduction theorem gives 
+  
+    
+      
+        a
+        →
+        c
+        ,
+        (
+        a
+        →
+        b
+        )
+        →
+        c
+        ⊢
+        (
+        c
+        →
+        b
+        )
+        →
+        c
+      
+    
+    {\displaystyle a\to c,(a\to b)\to c\vdash (c\to b)\to c}
+  . we apply ax. 3 to obtain (3).let f be an arbitrary fixed formula. for any formula a, we define a0 = (a → f) and a1 = ((a → f) → f). consider only formulas in propositional variables p1, ..., pn. we claim that for every formula a in these variables and every truth assignment e,
+
+we prove (4) by induction on a. the base case a = pi is trivial. let a = (b → c). we distinguish three cases:
+
+e(c) = 1. then also e(a) = 1. we have
+
+  
+    
+      
+        (
+        c
+        →
+        f
+        )
+        →
+        f
+        ⊢
+        (
+        (
+        b
+        →
+        c
+        )
+        →
+        f
+        )
+        →
+        f
+      
+    
+    {\displaystyle (c\to f)\to f\vdash ((b\to c)\to f)\to f}
+  
+by applying (2) twice to the axiom c → (b → c). since we have derived (c → f) → f by the induction hypothesis, we can infer ((b → c) → f) → f.
+e(b) = 0. then again e(a) = 1. the deduction theorem applied to (3) gives
+
+  
+    
+      
+        b
+        →
+        f
+        ⊢
+        (
+        (
+        b
+        →
+        c
+        )
+        →
+        f
+        )
+        →
+        f
+        .
+      
+    
+    {\displaystyle b\to f\vdash ((b\to c)\to f)\to f.}
+  
+since we have derived b → f by the induction hypothesis, we can infer ((b → c) → f) → f.
+e(b) = 1 and e(c) = 0. then e(a) = 0. we have
+
+  
+    
+      
+        
+          
+            
+              
+                (
+                b
+                →
+                f
+                )
+                →
+                f
+                ,
+                c
+                →
+                f
+                ,
+                b
+                →
+                c
+              
+              
+                
+                ⊢
+                b
+                →
+                f
+              
+              
+              
+                
+                  by (1)
+                
+              
+            
+            
+              
+              
+                
+                ⊢
+                f
+              
+              
+              
+                
+                  by modus ponens,
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}(b\to f)\to f,c\to f,b\to c&\vdash b\to f&&{\text{by (1)}}\\&\vdash f&&{\text{by modus ponens,}}\end{aligned}}}
+  
+thus 
+  
+    
+      
+        (
+        b
+        →
+        f
+        )
+        →
+        f
+        ,
+        c
+        →
+        f
+        ⊢
+        (
+        b
+        →
+        c
+        )
+        →
+        f
+      
+    
+    {\displaystyle (b\to f)\to f,c\to f\vdash (b\to c)\to f}
+   by the deduction theorem. we have derived (b → f) → f and c → f by the induction hypothesis, hence we can infer (b → c) → f. this completes the proof of (4).now let f be a tautology in variables p1, ..., pn. we will prove by reverse induction on k = n,...,0 that for every assignment e,
+
+the base case k = n follows from a special case of (4) using
+
+  
+    
+      
+        
+          f
+          
+            e
+            (
+            f
+            )
+          
+        
+        =
+        
+          f
+          
+            1
+          
+        
+        =
+        (
+        (
+        f
+        →
+        f
+        )
+        →
+        f
+        )
+      
+    
+    {\displaystyle f^{e(f)}=f^{1}=((f\to f)\to f)}
+  and the fact that f→f is a theorem by the deduction theorem.
+assume that (5) holds for k + 1, we will show it for k. by applying deduction theorem to the induction hypothesis, we obtain
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  p
+                  
+                    1
+                  
+                  
+                    e
+                    (
+                    
+                      p
+                      
+                        1
+                      
+                    
+                    )
+                  
+                
+                ,
+                …
+                ,
+                
+                  p
+                  
+                    k
+                  
+                  
+                    e
+                    (
+                    
+                      p
+                      
+                        k
+                      
+                    
+                    )
+                  
+                
+              
+              
+                
+                ⊢
+                (
+                
+                  p
+                  
+                    k
+                    +
+                    1
+                  
+                
+                →
+                f
+                )
+                →
+                f
+                ,
+              
+            
+            
+              
+                
+                  p
+                  
+                    1
+                  
+                  
+                    e
+                    (
+                    
+                      p
+                      
+                        1
+                      
+                    
+                    )
+                  
+                
+                ,
+                …
+                ,
+                
+                  p
+                  
+                    k
+                  
+                  
+                    e
+                    (
+                    
+                      p
+                      
+                        k
+                      
+                    
+                    )
+                  
+                
+              
+              
+                
+                ⊢
+                (
+                (
+                
+                  p
+                  
+                    k
+                    +
+                    1
+                  
+                
+                →
+                f
+                )
+                →
+                f
+                )
+                →
+                f
+                ,
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}p_{1}^{e(p_{1})},\dots ,p_{k}^{e(p_{k})}&\vdash (p_{k+1}\to f)\to f,\\p_{1}^{e(p_{1})},\dots ,p_{k}^{e(p_{k})}&\vdash ((p_{k+1}\to f)\to f)\to f,\end{aligned}}}
+  by first setting e(pk+1) = 0 and second setting e(pk+1) = 1. from this we derive (5) using modus ponens.
+for k = 0 we obtain that the tautology f is provable without assumptions. this is what was to be proved.
+this proof is constructive. that is, given a tautology, one could actually follow the instructions and create a proof of it from the axioms. however, the length of such a proof increases exponentially with the number of propositional variables in the tautology, hence it is not a practical method for any but the very shortest tautologies.
+
+
+== the bernays–tarski axiom system ==
+the bernays–tarski axiom system is often used. in particular, łukasiewicz's paper derives the bernays–tarski axioms from łukasiewicz's sole axiom as a means of showing its completeness.
+it differs from the axiom schemas above by replacing axiom schema 2, (p→(q→r))→((p→q)→(p→r)), with
+
+axiom schema 2': (p→q)→((q→r)→(p→r))which is called hypothetical syllogism.
+this makes derivation of the deduction meta-theorem a little more difficult, but it can still be done.
+we show that from p→(q→r) and p→q one can derive p→r. this fact can be used in lieu of axiom schema 2 to get the meta-theorem.
+
+p→(q→r) given
+p→q given
+(p→q)→((q→r)→(p→r)) ax 2'
+(q→r)→(p→r) mp 2,3
+(p→(q→r))→(((q→r)→(p→r))→(p→(p→r))) ax 2'
+((q→r)→(p→r))→(p→(p→r)) mp 1,5
+p→(p→r) mp 4,6
+(p→(p→r))→(((p→r)→r)→(p→r)) ax 2'
+((p→r)→r)→(p→r) mp 7,8
+(((p→r)→r)→(p→r))→(p→r) ax 3
+p→r mp 9,10 qed
+
+
+== satisfiability and validity ==
+
+satisfiability in the implicational propositional calculus is trivial, because every formula is satisfiable: just set all variables to true.
+falsifiability in the implicational propositional calculus is np-complete, meaning that validity (tautology) is co-np-complete.
+in this case, a useful technique is to presume that the formula is not a tautology and attempt to find a valuation which makes it false. if one succeeds, then it is indeed not a tautology. if one fails, then it is a tautology.
+example of a non-tautology:
+suppose [(a→b)→((c→a)→e)]→([f→((c→d)→e)]→[(a→f)→(d→e)]) is false.
+then (a→b)→((c→a)→e) is true; f→((c→d)→e) is true; a→f is true; d is true; and e is false.
+since d is true, c→d is true. so the truth of f→((c→d)→e) is equivalent to the truth of f→e.
+then since e is false and f→e is true, we get that f is false.
+since a→f is true, a is false. thus a→b is true and (c→a)→e is true.
+c→a is false, so c is true.
+the value of b does not matter, so we can arbitrarily choose it to be true.
+summing up, the valuation which sets b, c and d to be true and a, e and f to be false will make [(a→b)→((c→a)→e)]→([f→((c→d)→e)]→[(a→f)→(d→e)]) false. so it is not a tautology.
+example of a tautology:
+suppose ((a→b)→c)→((c→a)→(d→a)) is false.
+then (a→b)→c is true; c→a is true; d is true; and a is false.
+since a is false, a→b is true. so c is true. thus a must be true, contradicting the fact that it is false.
+thus there is no valuation which makes ((a→b)→c)→((c→a)→(d→a)) false. consequently, it is a tautology.
+
+
+== adding an axiom schema ==
+what would happen if another axiom schema were added to those listed above? there are two cases: (1) it is a tautology; or (2) it is not a tautology.
+if it is a tautology, then the set of theorems remains the set of tautologies as before. however, in some cases it may be possible to find significantly shorter proofs for theorems. nevertheless, the minimum length of proofs of theorems will remain unbounded, that is, for any natural number n there will still be theorems which cannot be proved in n or fewer steps.
+if the new axiom schema is not a tautology, then every formula becomes a theorem (which makes the concept of a theorem useless in this case). what is more, there is then an upper bound on the minimum length of a proof of every formula, because there is a common method for proving every formula. for example, suppose the new axiom schema were ((b→c)→c)→b. then ((a→(a→a))→(a→a))→a is an instance (one of the new axioms) and also not a tautology. but [((a→(a→a))→(a→a))→a]→a is a tautology and thus a theorem due to the old axioms (using the completeness result above). applying modus ponens, we get that a is a theorem of the extended system. then all one has to do to prove any formula is to replace a by the desired formula throughout the proof of a. this proof will have the same number of steps as the proof of a.
+
+
+== an alternative axiomatization ==
+the axioms listed above primarily work through the deduction metatheorem to arrive at completeness. here is another axiom system which aims directly at completeness without going through the deduction metatheorem.
+first we have axiom schemas which are designed to efficiently prove the subset of tautologies which contain only one propositional variable.
+
+aa 1: ꞈa→a
+aa 2: (a→b)→ꞈ(a→(c→b))
+aa 3: a→((b→c)→ꞈ((a→b)→c))
+aa 4: a→ꞈ(b→a)the proof of each such tautology would begin with two parts (hypothesis and conclusion) which are the same. then insert additional hypotheses between them. then insert additional tautological hypotheses (which are true even when the sole variable is false) into the original hypothesis. then add more hypotheses outside (on the left). this procedure will quickly give every tautology containing only one variable. (the symbol "ꞈ" in each axiom schema indicates where the conclusion used in the completeness proof begins. it is merely a comment, not a part of the formula.)
+consider any formula φ which may contain a, b, c1, ..., cn and ends with a  as its final conclusion. then we take
+
+aa 5: φ−→(φ+→ꞈφ)as an axiom schema where φ− is the result of replacing b by a throughout φ and φ+ is the result of replacing b by (a→a) throughout φ. this is a schema for axiom schemas since there are two level of substitution: in the first φ is substituted (with variations); in the second, any of the variables (including both a and b) may be replaced by arbitrary formulas of the implicational propositional calculus. this schema allows one to prove tautologies with more than one variable by considering the case when b is false φ− and the case when b is true φ+.
+if the variable which is the final conclusion of a formula takes the value true, then the whole formula takes the value true regardless of the values of the other variables. consequently if a is true, then φ, φ−, φ+ and φ−→(φ+→φ) are all true. so without loss of generality, we may assume that a is false. notice that φ is a tautology if and only if both φ− and φ+ are tautologies. but while φ has n+2 distinct variables, φ− and φ+ both have n+1. so the question of whether a formula is a tautology has been reduced to the question of whether certain formulas with one variable each are all tautologies. also notice that φ−→(φ+→φ) is a tautology regardless of whether φ is, because if φ is false then either φ− or φ+ will be false depending on whether b is false or true.
+examples:
+deriving peirce's law
+
+[((p→p)→p)→p]→([((p→(p→p))→p)→p]→[((p→q)→p)→p]) aa 5
+p→p aa 1
+(p→p)→((p→p)→(((p→p)→p)→p)) aa 3
+(p→p)→(((p→p)→p)→p) mp 2,3
+((p→p)→p)→p mp 2,4
+[((p→(p→p))→p)→p]→[((p→q)→p)→p] mp 5,1
+p→(p→p) aa 4
+(p→(p→p))→((p→p)→(((p→(p→p))→p)→p)) aa 3
+(p→p)→(((p→(p→p))→p)→p) mp 7,8
+((p→(p→p))→p)→p mp 2,9
+((p→q)→p)→p mp 10,6 qedderiving łukasiewicz' sole axiom
+
+[((p→q)→p)→((p→p)→(s→p))]→([((p→q)→(p→p))→(((p→p)→p)→(s→p))]→[((p→q)→r)→((r→p)→(s→p))]) aa 5
+[((p→p)→p)→((p→p)→(s→p))]→([((p→(p→p))→p)→((p→p)→(s→p))]→[((p→q)→p)→((p→p)→(s→p))]) aa 5
+p→(s→p) aa 4
+(p→(s→p))→(p→((p→p)→(s→p))) aa 2
+p→((p→p)→(s→p)) mp 3,4
+p→p aa 1
+(p→p)→((p→((p→p)→(s→p)))→[((p→p)→p)→((p→p)→(s→p))]) aa 3
+(p→((p→p)→(s→p)))→[((p→p)→p)→((p→p)→(s→p))] mp 6,7
+((p→p)→p)→((p→p)→(s→p)) mp 5,8
+[((p→(p→p))→p)→((p→p)→(s→p))]→[((p→q)→p)→((p→p)→(s→p))] mp 9,2
+p→(p→p) aa 4
+(p→(p→p))→((p→((p→p)→(s→p)))→[((p→(p→p))→p)→((p→p)→(s→p))]) aa 3
+(p→((p→p)→(s→p)))→[((p→(p→p))→p)→((p→p)→(s→p))] mp 11,12
+((p→(p→p))→p)→((p→p)→(s→p)) mp 5,13
+((p→q)→p)→((p→p)→(s→p)) mp 14,10
+[((p→q)→(p→p))→(((p→p)→p)→(s→p))]→[((p→q)→r)→((r→p)→(s→p))] mp 15,1
+(p→p)→((p→(s→p))→[((p→p)→p)→(s→p)]) aa 3
+(p→(s→p))→[((p→p)→p)→(s→p)] mp 6,17
+((p→p)→p)→(s→p) mp 3,18
+(((p→p)→p)→(s→p))→[((p→q)→(p→p))→(((p→p)→p)→(s→p))] aa 4
+((p→q)→(p→p))→(((p→p)→p)→(s→p)) mp 19,20
+((p→q)→r)→((r→p)→(s→p)) mp 21,16 qedusing a truth table to verify łukasiewicz' sole axiom would require consideration of 16=24 cases since it contains 4 distinct variables. in this derivation, we were able to restrict consideration to merely 3 cases: r is false and q is false, r is false and q is true, and r is true. however because we are working within the formal system of logic (instead of outside it, informally), each case required much more effort.
+
+
+== see also ==
+deduction theorem
+list of logic systems#implicational propositional calculus
+peirce's law
+propositional calculus
+tautology (logic)
+truth table
+valuation (logic)
+
+
+== references ==
+mendelson, elliot (1997) introduction to mathematical logic, 4th ed. london: chapman & hall.
+łukasiewicz, jan (1948) the shortest axiom of the implicational calculus of propositions, proc. royal irish academy, vol. 52, sec. a, no. 3, pp. 25–33.

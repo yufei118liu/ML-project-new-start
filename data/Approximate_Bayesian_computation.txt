@@ -1,0 +1,1927 @@
+approximate bayesian computation (abc) constitutes a class of computational methods rooted in bayesian statistics that can be used to estimate the posterior distributions of model parameters. 
+in all model-based  statistical inference, the likelihood function is of central importance, since it expresses the probability of the observed data under a particular statistical model, and thus quantifies the support data lend to particular values of parameters and to choices among different models. for simple models, an analytical formula for the likelihood function can typically be derived. however, for more complex models, an analytical formula might be elusive or the likelihood function might be computationally very costly to evaluate.
+abc methods bypass the evaluation of the likelihood function. in this way, abc methods widen the realm of models for which statistical inference can be considered. abc methods are mathematically well-founded, but they inevitably make assumptions and approximations whose impact needs to be carefully assessed. furthermore, the wider application domain of abc exacerbates the challenges of parameter estimation and model selection.
+abc has rapidly gained popularity over the last years and in particular for the analysis of complex problems arising in biological sciences, e.g. in population genetics, ecology, epidemiology, systems biology, and in radio propagation.
+
+
+== history ==
+the first abc-related ideas date back to the 1980s. donald rubin, when discussing the interpretation of bayesian statements in 1984, described a hypothetical sampling mechanism that yields a sample from the posterior distribution. this scheme was more of a conceptual thought experiment to demonstrate what type of manipulations are done when inferring the posterior distributions of parameters. the description of the sampling mechanism coincides exactly with that of the abc-rejection scheme, and this article can be considered to be the first to describe approximate bayesian computation. however, a two-stage quincunx was constructed by francis galton in the late 1800s that can be seen as a physical implementation of an abc-rejection scheme for a single unknown (parameter) and a single observation. another prescient point was made by rubin when he argued that in bayesian inference, applied statisticians should not settle for analytically tractable models only, but instead consider computational methods that allow them to estimate the posterior distribution of interest. this way, a wider range of models can be considered. these arguments are particularly relevant in the context of abc.
+in 1984, peter diggle and richard gratton suggested using a systematic simulation scheme to approximate the likelihood function in situations where its analytic form is intractable. their method was based on defining a grid in the parameter space and using it to approximate the likelihood by running several simulations for each grid point. the approximation was then improved by applying smoothing techniques to the outcomes of the simulations. while the idea of using simulation for hypothesis testing was not new, diggle and gratton seemingly introduced the first procedure using simulation to do statistical inference under a circumstance where the likelihood is intractable.
+although diggle and gratton's approach had opened a new frontier, their method was not yet exactly identical to what is now known as abc, as it aimed at approximating the likelihood rather than the posterior distribution. an article of simon tavaré et al. was first to propose an abc algorithm for posterior inference. in their seminal work, inference about the genealogy of dna sequence data was considered, and in particular the problem of deciding the posterior distribution of the time to the most recent common ancestor of the sampled individuals. such inference is analytically intractable for many demographic models, but the authors presented ways of simulating coalescent trees under the putative models. a sample from the posterior of model parameters was obtained by accepting/rejecting proposals based on comparing the number of segregating sites in the synthetic and real data.  this work was followed by an applied study on modeling the variation in human y chromosome by jonathan k. pritchard et al. using the abc method. finally, the term approximate bayesian computation was established by mark beaumont et al., extending further the abc methodology and discussing the suitability of the abc-approach more specifically for problems in population genetics. since then, abc has spread to applications outside population genetics, such as systems biology, epidemiology, and phylogeography.
+
+
+== method ==
+
+
+=== motivation ===
+a common incarnation of bayes’ theorem relates the conditional probability (or density) of a particular parameter value 
+  
+    
+      
+        θ
+      
+    
+    {\displaystyle \theta }
+   given data 
+  
+    
+      
+        d
+      
+    
+    {\displaystyle d}
+   to the probability of 
+  
+    
+      
+        d
+      
+    
+    {\displaystyle d}
+   given 
+  
+    
+      
+        θ
+      
+    
+    {\displaystyle \theta }
+   by the rule
+
+  
+    
+      
+        p
+        (
+        θ
+        
+          |
+        
+        d
+        )
+        =
+        
+          
+            
+              p
+              (
+              d
+              
+                |
+              
+              θ
+              )
+              p
+              (
+              θ
+              )
+            
+            
+              p
+              (
+              d
+              )
+            
+          
+        
+      
+    
+    {\displaystyle p(\theta |d)={\frac {p(d|\theta )p(\theta )}{p(d)}}}
+  ,where 
+  
+    
+      
+        p
+        (
+        θ
+        
+          |
+        
+        d
+        )
+      
+    
+    {\displaystyle p(\theta |d)}
+   denotes the posterior, 
+  
+    
+      
+        p
+        (
+        d
+        
+          |
+        
+        θ
+        )
+      
+    
+    {\displaystyle p(d|\theta )}
+   the likelihood, 
+  
+    
+      
+        p
+        (
+        θ
+        )
+      
+    
+    {\displaystyle p(\theta )}
+   the prior, and 
+  
+    
+      
+        p
+        (
+        d
+        )
+      
+    
+    {\displaystyle p(d)}
+   the evidence (also referred to as the marginal likelihood or the prior predictive probability of the data). note that the denominator 
+  
+    
+      
+        p
+        (
+        d
+        )
+      
+    
+    {\displaystyle p(d)}
+   is normalizing the total probability of the posterior density 
+  
+    
+      
+        p
+        (
+        θ
+        
+          |
+        
+        d
+        )
+      
+    
+    {\displaystyle p(\theta |d)}
+   to one and can be calculated that way.
+the prior represents beliefs or knowledge (such as f.e. physical constraints) about 
+  
+    
+      
+        θ
+      
+    
+    {\displaystyle \theta }
+   before 
+  
+    
+      
+        d
+      
+    
+    {\displaystyle d}
+   is available. since the prior narrows down uncertainty, the posterior estimates have less variance, but might be biased. for convenience the prior is often specified by choosing a particular distribution among a set of well-known and tractable families of distributions, such that both the evaluation of prior probabilities and random generation of values of 
+  
+    
+      
+        θ
+      
+    
+    {\displaystyle \theta }
+   are relatively straightforward. for certain kinds of models, it is more pragmatic to specify the prior 
+  
+    
+      
+        p
+        (
+        θ
+        )
+      
+    
+    {\displaystyle p(\theta )}
+   using a factorization of the joint distribution of all the elements of 
+  
+    
+      
+        θ
+      
+    
+    {\displaystyle \theta }
+   in terms of a sequence of their conditional distributions. if one is only interested in the relative posterior plausibilities of different values of 
+  
+    
+      
+        θ
+      
+    
+    {\displaystyle \theta }
+  , the evidence 
+  
+    
+      
+        p
+        (
+        d
+        )
+      
+    
+    {\displaystyle p(d)}
+   can be ignored, as it constitutes a normalising constant, which cancels for any ratio of posterior probabilities. it remains, however, necessary to evaluate the likelihood 
+  
+    
+      
+        p
+        (
+        d
+        
+          |
+        
+        θ
+        )
+      
+    
+    {\displaystyle p(d|\theta )}
+   and the prior 
+  
+    
+      
+        p
+        (
+        θ
+        )
+      
+    
+    {\displaystyle p(\theta )}
+  . for numerous applications, it is computationally expensive, or even completely infeasible, to evaluate the likelihood, which motivates the use of abc to circumvent this issue.
+
+
+=== the abc rejection algorithm ===
+all abc-based methods approximate the likelihood function by simulations, the outcomes of which are compared with the observed data. more specifically, with the abc rejection algorithm—the most basic form of abc—a set of parameter points is first sampled from the prior distribution. given a sampled parameter point 
+  
+    
+      
+        
+          
+            
+              θ
+              ^
+            
+          
+        
+      
+    
+    {\displaystyle {\hat {\theta }}}
+  , a data set 
+  
+    
+      
+        
+          
+            
+              d
+              ^
+            
+          
+        
+      
+    
+    {\displaystyle {\hat {d}}}
+   is then simulated under the statistical model 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   specified by 
+  
+    
+      
+        
+          
+            
+              θ
+              ^
+            
+          
+        
+      
+    
+    {\displaystyle {\hat {\theta }}}
+  . if the generated 
+  
+    
+      
+        
+          
+            
+              d
+              ^
+            
+          
+        
+      
+    
+    {\displaystyle {\hat {d}}}
+   is too different from the observed data 
+  
+    
+      
+        d
+      
+    
+    {\displaystyle d}
+  , the sampled parameter value is discarded. in precise terms, 
+  
+    
+      
+        
+          
+            
+              d
+              ^
+            
+          
+        
+      
+    
+    {\displaystyle {\hat {d}}}
+   is accepted with tolerance 
+  
+    
+      
+        ϵ
+        ≥
+        0
+      
+    
+    {\displaystyle \epsilon \geq 0}
+   if:
+
+  
+    
+      
+        ρ
+        (
+        
+          
+            
+              d
+              ^
+            
+          
+        
+        ,
+        d
+        )
+        ≤
+        ϵ
+      
+    
+    {\displaystyle \rho ({\hat {d}},d)\leq \epsilon }
+  ,
+where the distance measure 
+  
+    
+      
+        ρ
+        (
+        
+          
+            
+              d
+              ^
+            
+          
+        
+        ,
+        d
+        )
+      
+    
+    {\displaystyle \rho ({\hat {d}},d)}
+   determines the level of discrepancy between 
+  
+    
+      
+        
+          
+            
+              d
+              ^
+            
+          
+        
+      
+    
+    {\displaystyle {\hat {d}}}
+   and 
+  
+    
+      
+        d
+      
+    
+    {\displaystyle d}
+   based on a given metric (e.g. euclidean distance). a strictly positive tolerance is usually necessary, since the probability that the simulation outcome coincides exactly with the data (event 
+  
+    
+      
+        
+          
+            
+              d
+              ^
+            
+          
+        
+        =
+        d
+      
+    
+    {\displaystyle {\hat {d}}=d}
+  ) is negligible for all but trivial applications of abc, which would in practice lead to rejection of nearly all sampled parameter points. the outcome of the abc rejection algorithm is a sample of parameter values approximately distributed according to the desired posterior distribution, and, crucially, obtained without the need to explicitly evaluate the likelihood function.
+
+
+=== summary statistics ===
+the probability of generating a data set 
+  
+    
+      
+        
+          
+            
+              d
+              ^
+            
+          
+        
+      
+    
+    {\displaystyle {\hat {d}}}
+   with a small distance to 
+  
+    
+      
+        d
+      
+    
+    {\displaystyle d}
+   typically decreases as the dimensionality of the data increases. this leads to a substantial decrease in the computational efficiency of the above basic abc rejection algorithm. a common approach to lessen this problem is to replace 
+  
+    
+      
+        d
+      
+    
+    {\displaystyle d}
+   with a set of lower-dimensional summary statistics 
+  
+    
+      
+        s
+        (
+        d
+        )
+      
+    
+    {\displaystyle s(d)}
+  , which are selected to capture the relevant information in 
+  
+    
+      
+        d
+      
+    
+    {\displaystyle d}
+  . the acceptance criterion in abc rejection algorithm becomes:
+
+  
+    
+      
+        ρ
+        (
+        s
+        (
+        
+          
+            
+              d
+              ^
+            
+          
+        
+        )
+        ,
+        s
+        (
+        d
+        )
+        )
+        ≤
+        ϵ
+      
+    
+    {\displaystyle \rho (s({\hat {d}}),s(d))\leq \epsilon }
+  .if the summary statistics are sufficient with respect to the model parameters 
+  
+    
+      
+        θ
+      
+    
+    {\displaystyle \theta }
+  , the efficiency increase obtained in this way does not introduce any error. indeed, by definition, sufficiency implies that all information in 
+  
+    
+      
+        d
+      
+    
+    {\displaystyle d}
+   about 
+  
+    
+      
+        θ
+      
+    
+    {\displaystyle \theta }
+   is captured by 
+  
+    
+      
+        s
+        (
+        d
+        )
+      
+    
+    {\displaystyle s(d)}
+  .
+as elaborated below, it is typically impossible, outside the exponential family of distributions, to identify a finite-dimensional set of sufficient statistics. nevertheless, informative but possibly insufficient summary statistics are often used in applications where inference is performed with abc methods.
+
+
+== example ==
+
+an illustrative example is a bistable system that can be characterized by a hidden markov model (hmm) subject to measurement noise. such models are employed for many biological systems: they have, for example, been used in development, cell signaling, activation/deactivation, logical processing and non-equilibrium thermodynamics. for instance, the behavior of the sonic hedgehog (shh) transcription factor in drosophila melanogaster can be modeled with an hmm. the (biological) dynamical model consists of two states: a and b. if the probability of a transition from one state to the other is defined as 
+  
+    
+      
+        θ
+      
+    
+    {\displaystyle \theta }
+   in both directions, then the probability to remain in the same state at each time step is 
+  
+    
+      
+        
+          1
+          −
+          θ
+        
+      
+    
+    {\displaystyle {1-\theta }}
+  . the probability to measure the state correctly is 
+  
+    
+      
+        γ
+      
+    
+    {\displaystyle \gamma }
+   (and conversely, the probability of an incorrect measurement is 
+  
+    
+      
+        
+          1
+          −
+          γ
+        
+      
+    
+    {\displaystyle {1-\gamma }}
+  ).
+due to the conditional dependencies between states at different time points, calculation of the likelihood of time series data is somewhat tedious, which illustrates the motivation to use abc. a computational issue for basic abc is the large dimensionality of the data in an application like this. the dimensionality can be reduced using the summary statistic 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+  , which is the frequency of switches between the two states. the absolute difference is used as a distance measure 
+  
+    
+      
+        ρ
+        (
+        ⋅
+        ,
+        ⋅
+        )
+      
+    
+    {\displaystyle \rho (\cdot ,\cdot )}
+   with tolerance 
+  
+    
+      
+        ϵ
+        =
+        2
+      
+    
+    {\displaystyle \epsilon =2}
+  . the posterior inference about the parameter 
+  
+    
+      
+        θ
+      
+    
+    {\displaystyle \theta }
+   can be done following the five steps presented in.
+step 1:  assume that the observed data form the state sequence aaaabaabbaaaaaabaaaa, which is generated using 
+  
+    
+      
+        θ
+        =
+        0.25
+      
+    
+    {\displaystyle \theta =0.25}
+   and 
+  
+    
+      
+        γ
+        =
+        0.8
+      
+    
+    {\displaystyle \gamma =0.8}
+  . the associated summary statistic—the number of switches between the states in the experimental data—is 
+  
+    
+      
+        
+          ω
+          
+            e
+          
+        
+        =
+        6
+      
+    
+    {\displaystyle \omega _{e}=6}
+  .
+step 2: assuming nothing is known about 
+  
+    
+      
+        θ
+      
+    
+    {\displaystyle \theta }
+  , a uniform prior in the interval 
+  
+    
+      
+        [
+        0
+        ,
+        1
+        ]
+      
+    
+    {\displaystyle [0,1]}
+   is employed. the parameter 
+  
+    
+      
+        γ
+      
+    
+    {\displaystyle \gamma }
+   is assumed to be known and fixed to the data-generating value 
+  
+    
+      
+        γ
+        =
+        0.8
+      
+    
+    {\displaystyle \gamma =0.8}
+  , but it could in general also be estimated from the observations. a total of 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   parameter points are drawn from the prior, and the model is simulated for each of the parameter points 
+  
+    
+      
+        
+          θ
+          
+            i
+          
+        
+        :
+        
+           
+        
+        i
+        =
+        1
+        ,
+        …
+        ,
+        n
+      
+    
+    {\displaystyle \theta _{i}:{\text{ }}i=1,\ldots ,n}
+  , which results in 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   sequences of simulated data. in this example, 
+  
+    
+      
+        n
+        =
+        5
+      
+    
+    {\displaystyle n=5}
+  , with each drawn parameter and simulated dataset recorded in table 1, columns 2-3. in practice, 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   would need to be much larger to obtain an appropriate approximation.
+
+step 3: the summary statistic is computed for each sequence of simulated data 
+  
+    
+      
+        
+          ω
+          
+            s
+            ,
+            i
+          
+        
+        :
+        
+           
+        
+        i
+        =
+        1
+        ,
+        …
+        ,
+        n
+      
+    
+    {\displaystyle \omega _{s,i}:{\text{ }}i=1,\ldots ,n}
+  .
+
+step 4: the distance between the observed and simulated transition frequencies 
+  
+    
+      
+        ρ
+        (
+        
+          ω
+          
+            s
+            ,
+            i
+          
+        
+        ,
+        
+          ω
+          
+            e
+          
+        
+        )
+        =
+        
+          |
+        
+        
+          ω
+          
+            s
+            ,
+            i
+          
+        
+        −
+        
+          ω
+          
+            e
+          
+        
+        
+          |
+        
+      
+    
+    {\displaystyle \rho (\omega _{s,i},\omega _{e})=|\omega _{s,i}-\omega _{e}|}
+   is computed for all parameter points. parameter points for which the distance is smaller than or equal to 
+  
+    
+      
+        ϵ
+      
+    
+    {\displaystyle \epsilon }
+   are accepted as approximate samples from the posterior.
+step 5: the posterior distribution is approximated with the accepted parameter points. the posterior distribution should have a non-negligible probability for parameter values in a region around the true value of 
+  
+    
+      
+        θ
+      
+    
+    {\displaystyle \theta }
+   in the system if the data are sufficiently informative. in this example, the posterior probability mass is evenly split between the values 0.08 and 0.43.
+the posterior probabilities are obtained via abc with large 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   by utilizing the summary statistic (with 
+  
+    
+      
+        ϵ
+        =
+        0
+      
+    
+    {\displaystyle \epsilon =0}
+   and 
+  
+    
+      
+        ϵ
+        =
+        2
+      
+    
+    {\displaystyle \epsilon =2}
+  ) and the full data sequence (with 
+  
+    
+      
+        ϵ
+        =
+        0
+      
+    
+    {\displaystyle \epsilon =0}
+  ). these are compared with the true posterior, which can be computed exactly and efficiently using the viterbi algorithm. the summary statistic utilized in this example is not sufficient, as the deviation from the theoretical posterior is significant even under the stringent requirement of 
+  
+    
+      
+        ϵ
+        =
+        0
+      
+    
+    {\displaystyle \epsilon =0}
+  . a much longer observed data sequence would be needed to obtain a posterior concentrated around 
+  
+    
+      
+        θ
+        =
+        0.25
+      
+    
+    {\displaystyle \theta =0.25}
+  , the true value of 
+  
+    
+      
+        θ
+      
+    
+    {\displaystyle \theta }
+  .
+this example application of abc uses simplifications for illustrative purposes. more realistic applications of abc are available in a growing number of peer-reviewed articles.
+
+
+== model comparison with abc ==
+outside of parameter estimation, the abc framework can be used to compute the posterior probabilities of different candidate models. in such applications, one possibility is to use rejection sampling in a hierarchical manner. first, a model is sampled from the prior distribution for the models. then, parameters are sampled from the prior distribution assigned to that model. finally, a simulation is performed as in single-model abc. the relative acceptance frequencies for the different models now approximate the posterior distribution for these models. again, computational improvements for abc in the space of models have been proposed, such as constructing a particle filter in the joint space of models and parameters.once the posterior probabilities of the models have been estimated, one can make full use of the techniques of bayesian model comparison. for instance, to compare the relative plausibilities of two models 
+  
+    
+      
+        
+          m
+          
+            1
+          
+        
+      
+    
+    {\displaystyle m_{1}}
+   and 
+  
+    
+      
+        
+          m
+          
+            2
+          
+        
+      
+    
+    {\displaystyle m_{2}}
+  , one can compute their posterior ratio, which is related to the bayes factor 
+  
+    
+      
+        
+          b
+          
+            1
+            ,
+            2
+          
+        
+      
+    
+    {\displaystyle b_{1,2}}
+  :
+
+  
+    
+      
+        
+          
+            
+              p
+              (
+              
+                m
+                
+                  1
+                
+              
+              
+                |
+              
+              d
+              )
+            
+            
+              p
+              (
+              
+                m
+                
+                  2
+                
+              
+              
+                |
+              
+              d
+              )
+            
+          
+        
+        =
+        
+          
+            
+              p
+              (
+              d
+              
+                |
+              
+              
+                m
+                
+                  1
+                
+              
+              )
+            
+            
+              p
+              (
+              d
+              
+                |
+              
+              
+                m
+                
+                  2
+                
+              
+              )
+            
+          
+        
+        
+          
+            
+              p
+              (
+              
+                m
+                
+                  1
+                
+              
+              )
+            
+            
+              p
+              (
+              
+                m
+                
+                  2
+                
+              
+              )
+            
+          
+        
+        =
+        
+          b
+          
+            1
+            ,
+            2
+          
+        
+        
+          
+            
+              p
+              (
+              
+                m
+                
+                  1
+                
+              
+              )
+            
+            
+              p
+              (
+              
+                m
+                
+                  2
+                
+              
+              )
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {p(m_{1}|d)}{p(m_{2}|d)}}={\frac {p(d|m_{1})}{p(d|m_{2})}}{\frac {p(m_{1})}{p(m_{2})}}=b_{1,2}{\frac {p(m_{1})}{p(m_{2})}}}
+  .if the model priors are equal—that is, 
+  
+    
+      
+        p
+        (
+        
+          m
+          
+            1
+          
+        
+        )
+        =
+        p
+        (
+        
+          m
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle p(m_{1})=p(m_{2})}
+  —the bayes factor equals the posterior ratio.
+in practice, as discussed below, these measures can be highly sensitive to the choice of parameter prior distributions and summary statistics, and thus conclusions of model comparison should be drawn with caution.
+
+
+== pitfalls and remedies ==
+as for all statistical methods, a number of assumptions and approximations are inherently required for the application of abc-based methods to real modeling problems. for example, setting the tolerance parameter 
+  
+    
+      
+        ϵ
+      
+    
+    {\displaystyle \epsilon }
+   to zero ensures an exact result, but typically makes computations prohibitively expensive. thus, values of 
+  
+    
+      
+        ϵ
+      
+    
+    {\displaystyle \epsilon }
+   larger than zero are used in practice, which introduces a bias. likewise, sufficient statistics are typically not available and instead, other summary statistics are used, which introduces an additional bias due to the loss of information. additional sources of bias- for example, in the context of model selection—may be more subtle.at the same time, some of the criticisms that have been directed at the abc methods, in particular within the field of phylogeography, are not specific to abc and apply to all bayesian methods or even all statistical methods (e.g., the choice of prior distribution and parameter ranges). however, because of the ability of abc-methods to handle much more complex models, some of these general pitfalls are of particular relevance in the context of abc analyses.
+this section discusses these potential risks and reviews possible ways to address them.
+
+
+=== approximation of the posterior ===
+a non-negligible 
+  
+    
+      
+        ϵ
+      
+    
+    {\displaystyle \epsilon }
+   comes with the price that one samples from 
+  
+    
+      
+        p
+        (
+        θ
+        
+          |
+        
+        ρ
+        (
+        
+          
+            
+              d
+              ^
+            
+          
+        
+        ,
+        d
+        )
+        ≤
+        ϵ
+        )
+      
+    
+    {\displaystyle p(\theta |\rho ({\hat {d}},d)\leq \epsilon )}
+   instead of the true posterior 
+  
+    
+      
+        p
+        (
+        θ
+        
+          |
+        
+        d
+        )
+      
+    
+    {\displaystyle p(\theta |d)}
+  . with a sufficiently small tolerance, and a sensible distance measure, the resulting distribution 
+  
+    
+      
+        p
+        (
+        θ
+        
+          |
+        
+        ρ
+        (
+        
+          
+            
+              d
+              ^
+            
+          
+        
+        ,
+        d
+        )
+        ≤
+        ϵ
+        )
+      
+    
+    {\displaystyle p(\theta |\rho ({\hat {d}},d)\leq \epsilon )}
+   should often approximate the actual target distribution 
+  
+    
+      
+        p
+        (
+        θ
+        
+          |
+        
+        d
+        )
+      
+    
+    {\displaystyle p(\theta |d)}
+   reasonably well. on the other hand, a tolerance that is large enough that every point in the parameter space becomes accepted will yield a replica of the prior distribution. there are empirical studies of the difference between 
+  
+    
+      
+        p
+        (
+        θ
+        
+          |
+        
+        ρ
+        (
+        
+          
+            
+              d
+              ^
+            
+          
+        
+        ,
+        d
+        )
+        ≤
+        ϵ
+        )
+      
+    
+    {\displaystyle p(\theta |\rho ({\hat {d}},d)\leq \epsilon )}
+   and 
+  
+    
+      
+        p
+        (
+        θ
+        
+          |
+        
+        d
+        )
+      
+    
+    {\displaystyle p(\theta |d)}
+   as a function of 
+  
+    
+      
+        ϵ
+      
+    
+    {\displaystyle \epsilon }
+  , and theoretical results for an upper 
+  
+    
+      
+        ϵ
+      
+    
+    {\displaystyle \epsilon }
+  -dependent bound for the error in parameter estimates. the accuracy of the posterior (defined as the expected quadratic loss) delivered by abc as a function of 
+  
+    
+      
+        ϵ
+      
+    
+    {\displaystyle \epsilon }
+   has also been investigated. however, the convergence of the distributions when 
+  
+    
+      
+        ϵ
+      
+    
+    {\displaystyle \epsilon }
+   approaches zero, and how it depends on the distance measure used, is an important topic that has yet to be investigated in greater detail. in particular, it remains difficult to disentangle errors introduced by this approximation from errors due to model mis-specification.as an attempt to correct some of the error due to a non-zero 
+  
+    
+      
+        ϵ
+      
+    
+    {\displaystyle \epsilon }
+  , the usage of local linear weighted regression with abc to reduce the variance of the posterior estimates has been suggested. the method assigns weights to the parameters according to how well simulated summaries adhere to the observed ones and performs linear regression between the summaries and the weighted parameters in the vicinity of observed summaries. the obtained regression coefficients are used to correct sampled parameters in the direction of observed summaries. an improvement was suggested in the form of nonlinear regression using a feed-forward neural network model. however, it has been shown that the posterior distributions obtained with these approaches are not always consistent with the prior distribution, which did lead to a reformulation of the regression adjustment that respects the prior distribution.finally, statistical inference using abc with a non-zero tolerance 
+  
+    
+      
+        ϵ
+      
+    
+    {\displaystyle \epsilon }
+   is not inherently flawed: under the assumption of measurement errors, the optimal 
+  
+    
+      
+        ϵ
+      
+    
+    {\displaystyle \epsilon }
+   can in fact be shown to be not zero. indeed, the bias caused by a non-zero tolerance can be characterized and compensated by introducing a specific form of noise to the summary statistics. asymptotic consistency for such “noisy abc”, has been established, together with formulas for the asymptotic variance of the parameter estimates for a fixed tolerance.
+
+
+=== choice and sufficiency of summary statistics ===
+summary statistics may be used to increase the acceptance rate of abc for high-dimensional data. low-dimensional sufficient statistics are optimal for this purpose, as they capture all relevant information present in the data in the simplest possible form. however, low-dimensional sufficient statistics are typically unattainable for statistical models where abc-based inference is most relevant, and consequently, some heuristic is usually necessary to identify useful low-dimensional summary statistics. the use of a set of poorly chosen summary statistics will often lead to inflated credible intervals due to the implied loss of information, which can also bias the discrimination between models. a review of methods for choosing summary statistics is available, which may provide valuable guidance in practice.
+one approach to capture most of the information present in data would be to use many statistics, but the accuracy and stability of abc appears to decrease rapidly with an increasing numbers of summary statistics. instead, a better strategy is to focus on the relevant statistics only—relevancy depending on the whole inference problem, on the model used, and on the data at hand.an algorithm has been proposed for identifying a representative subset of summary statistics, by iteratively assessing whether an additional statistic introduces a meaningful modification of the posterior. one of the challenges here is that a large abc approximation error may heavily influence the conclusions about the usefulness of a statistic at any stage of the procedure. another method decomposes into two main steps. first, a reference approximation of the posterior is constructed by minimizing the entropy. sets of candidate summaries are then evaluated by comparing the abc-approximated posteriors with the reference posterior.
+with both of these strategies, a subset of statistics is selected from a large set of candidate statistics. instead, the partial least squares regression approach uses information from all the candidate statistics, each being weighted appropriately. recently, a method for constructing summaries in a semi-automatic manner has attained a considerable interest. this method is based on the observation that the optimal choice of summary statistics, when minimizing the quadratic loss of the parameter point estimates, can be obtained through the posterior mean of the parameters, which is approximated by performing a linear regression based on the simulated data.
+methods for the identification of summary statistics that could also simultaneously assess the influence on the approximation of the posterior would be of substantial value. this is because the choice of summary statistics and the choice of tolerance constitute two sources of error in the resulting posterior distribution. these errors may corrupt the ranking of models and may also lead to incorrect model predictions. indeed, none of the methods above assesses the choice of summaries for the purpose of model selection.
+
+
+=== bayes factor with abc and summary statistics ===
+it has been shown that the combination of insufficient summary statistics and abc for model selection can be problematic. indeed, if one lets the bayes factor based on the summary statistic 
+  
+    
+      
+        s
+        (
+        d
+        )
+      
+    
+    {\displaystyle s(d)}
+   be denoted by 
+  
+    
+      
+        
+          b
+          
+            1
+            ,
+            2
+          
+          
+            s
+          
+        
+      
+    
+    {\displaystyle b_{1,2}^{s}}
+  , the relation between 
+  
+    
+      
+        
+          b
+          
+            1
+            ,
+            2
+          
+        
+      
+    
+    {\displaystyle b_{1,2}}
+   and 
+  
+    
+      
+        
+          b
+          
+            1
+            ,
+            2
+          
+          
+            s
+          
+        
+      
+    
+    {\displaystyle b_{1,2}^{s}}
+   takes the form:
+
+  
+    
+      
+        
+          b
+          
+            1
+            ,
+            2
+          
+        
+        =
+        
+          
+            
+              p
+              (
+              d
+              
+                |
+              
+              
+                m
+                
+                  1
+                
+              
+              )
+            
+            
+              p
+              (
+              d
+              
+                |
+              
+              
+                m
+                
+                  2
+                
+              
+              )
+            
+          
+        
+        =
+        
+          
+            
+              p
+              (
+              d
+              
+                |
+              
+              s
+              (
+              d
+              )
+              ,
+              
+                m
+                
+                  1
+                
+              
+              )
+            
+            
+              p
+              (
+              d
+              
+                |
+              
+              s
+              (
+              d
+              )
+              ,
+              
+                m
+                
+                  2
+                
+              
+              )
+            
+          
+        
+        
+          
+            
+              p
+              (
+              s
+              (
+              d
+              )
+              
+                |
+              
+              
+                m
+                
+                  1
+                
+              
+              )
+            
+            
+              p
+              (
+              s
+              (
+              d
+              )
+              
+                |
+              
+              
+                m
+                
+                  2
+                
+              
+              )
+            
+          
+        
+        =
+        
+          
+            
+              p
+              (
+              d
+              
+                |
+              
+              s
+              (
+              d
+              )
+              ,
+              
+                m
+                
+                  1
+                
+              
+              )
+            
+            
+              p
+              (
+              d
+              
+                |
+              
+              s
+              (
+              d
+              )
+              ,
+              
+                m
+                
+                  2
+                
+              
+              )
+            
+          
+        
+        
+          b
+          
+            1
+            ,
+            2
+          
+          
+            s
+          
+        
+      
+    
+    {\displaystyle b_{1,2}={\frac {p(d|m_{1})}{p(d|m_{2})}}={\frac {p(d|s(d),m_{1})}{p(d|s(d),m_{2})}}{\frac {p(s(d)|m_{1})}{p(s(d)|m_{2})}}={\frac {p(d|s(d),m_{1})}{p(d|s(d),m_{2})}}b_{1,2}^{s}}
+  .thus, a summary statistic 
+  
+    
+      
+        s
+        (
+        d
+        )
+      
+    
+    {\displaystyle s(d)}
+   is sufficient for comparing two models 
+  
+    
+      
+        
+          m
+          
+            1
+          
+        
+      
+    
+    {\displaystyle m_{1}}
+   and 
+  
+    
+      
+        
+          m
+          
+            2
+          
+        
+      
+    
+    {\displaystyle m_{2}}
+   if and only if:
+
+  
+    
+      
+        p
+        (
+        d
+        
+          |
+        
+        s
+        (
+        d
+        )
+        ,
+        
+          m
+          
+            1
+          
+        
+        )
+        =
+        p
+        (
+        d
+        
+          |
+        
+        s
+        (
+        d
+        )
+        ,
+        
+          m
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle p(d|s(d),m_{1})=p(d|s(d),m_{2})}
+  ,which results in that 
+  
+    
+      
+        
+          b
+          
+            1
+            ,
+            2
+          
+        
+        =
+        
+          b
+          
+            1
+            ,
+            2
+          
+          
+            s
+          
+        
+      
+    
+    {\displaystyle b_{1,2}=b_{1,2}^{s}}
+  . it is also clear from the equation above that there might be a huge difference between 
+  
+    
+      
+        
+          b
+          
+            1
+            ,
+            2
+          
+        
+      
+    
+    {\displaystyle b_{1,2}}
+   and 
+  
+    
+      
+        
+          b
+          
+            1
+            ,
+            2
+          
+          
+            s
+          
+        
+      
+    
+    {\displaystyle b_{1,2}^{s}}
+   if the condition is not satisfied, as can be demonstrated by toy examples. crucially, it was shown that sufficiency for 
+  
+    
+      
+        
+          m
+          
+            1
+          
+        
+      
+    
+    {\displaystyle m_{1}}
+   or 
+  
+    
+      
+        
+          m
+          
+            2
+          
+        
+      
+    
+    {\displaystyle m_{2}}
+   alone, or for both models, does not guarantee sufficiency for ranking the models. however, it was also shown that any sufficient summary statistic for a model 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   in which both 
+  
+    
+      
+        
+          m
+          
+            1
+          
+        
+      
+    
+    {\displaystyle m_{1}}
+   and 
+  
+    
+      
+        
+          m
+          
+            2
+          
+        
+      
+    
+    {\displaystyle m_{2}}
+   are nested is valid for ranking the nested models.the computation of bayes factors on 
+  
+    
+      
+        s
+        (
+        d
+        )
+      
+    
+    {\displaystyle s(d)}
+   may therefore be misleading for model selection purposes, unless the ratio between the bayes factors on 
+  
+    
+      
+        d
+      
+    
+    {\displaystyle d}
+   and 
+  
+    
+      
+        s
+        (
+        d
+        )
+      
+    
+    {\displaystyle s(d)}
+   would be available, or at least could be approximated reasonably well. alternatively, necessary and sufficient conditions on summary statistics for a consistent bayesian model choice have recently been derived, which can provide useful guidance.
+however, this issue is only relevant for model selection when the dimension of the data has been reduced. abc-based inference, in which the actual data sets are directly compared—as is the case for some systems biology applications (e.g., see )—circumvents this problem.
+
+
+=== indispensable quality controls ===
+as the above discussion makes clear, any abc analysis requires choices and trade-offs that can have a considerable impact on its outcomes. specifically, the choice of competing models/hypotheses, the number of simulations, the choice of summary statistics, or the acceptance threshold cannot currently be based on general rules, but the effect of these choices should be evaluated and tested in each study.a number of heuristic approaches to the quality control of abc have been proposed, such as the quantification of the fraction of parameter variance explained by the summary statistics. a common class of methods aims at assessing whether or not the inference yields valid results, regardless of the actually observed data. for instance, given a set of parameter values, which are typically drawn from the prior or the posterior distributions for a model, one can generate a large number of artificial datasets. in this way, the quality and robustness of abc inference can be assessed in a controlled setting, by gauging how well the chosen abc inference method recovers the true parameter values, and also models if multiple structurally different models are considered simultaneously.
+another class of methods assesses whether the inference was successful in light of the given observed data, for example, by comparing the posterior predictive distribution of summary statistics to the summary statistics observed. beyond that, cross-validation techniques and predictive checks represent promising future strategies to evaluate the stability and out-of-sample predictive validity of abc inferences. this is particularly important when modeling large data sets, because then the posterior support of a particular model can appear overwhelmingly conclusive, even if all proposed models in fact are poor representations of the stochastic system underlying the observation data. out-of-sample predictive checks can reveal potential systematic biases within a model and provide clues on to how to improve its structure or parametrization.
+fundamentally novel approaches for model choice that incorporate quality control as an integral step in the process have recently been proposed. abc allows, by construction, estimation of the discrepancies between the observed data and the model predictions, with respect to a comprehensive set of statistics. these statistics are not necessarily the same as those used in the acceptance criterion. the resulting discrepancy distributions have been used for selecting models that are in agreement with many aspects of the data simultaneously, and model inconsistency is detected from conflicting and co-dependent summaries. another quality-control-based method for model selection employs abc to approximate the effective number of model parameters and the deviance of the posterior predictive distributions of summaries and parameters. the deviance information criterion is then used as measure of model fit. it has also been shown that the models preferred based on this criterion can conflict with those supported by bayes factors. for this reason, it is useful to combine different methods for model selection to obtain correct conclusions.
+quality controls are achievable and indeed performed in many abc-based works, but for certain problems, the assessment of the impact of the method-related parameters can be challenging. however, the rapidly increasing use of abc can be expected to provide a more thorough understanding of the limitations and applicability of the method.
+
+
+=== general risks in statistical inference exacerbated in abc ===
+this section reviews risks that are strictly speaking not specific to abc, but also relevant for other statistical methods as well. however, the flexibility offered by abc to analyze very complex models makes them highly relevant to discuss here.
+
+
+==== prior distribution and parameter ranges ====
+the specification of the range and the prior distribution of parameters strongly benefits from previous knowledge about the properties of the system. one criticism has been that in some studies the “parameter ranges and distributions are only guessed based upon the subjective opinion of the investigators”, which is connected to classical objections of bayesian approaches.with any computational method, it is typically necessary to constrain the investigated parameter ranges. the parameter ranges should if possible be defined based on known properties of the studied system, but may for practical applications necessitate an educated guess. however, theoretical results regarding objective priors are available, which may for example be based on the principle of indifference or the principle of maximum entropy. on the other hand, automated or semi-automated methods for choosing a prior distribution often yield improper densities. as most abc procedures require generating samples from the prior, improper priors are not directly applicable to abc.
+one should also keep the purpose of the analysis in mind when choosing the prior distribution. in principle, uninformative and flat priors, that exaggerate our subjective ignorance about the parameters, may still yield reasonable parameter estimates. however, bayes factors are highly sensitive to the prior distribution of parameters. conclusions on model choice based on bayes factor can be misleading unless the sensitivity of conclusions to the choice of priors is carefully considered.
+
+
+==== small number of models ====
+model-based methods have been criticized for not exhaustively covering the hypothesis space. indeed, model-based studies often revolve around a small number of models, and due to the high computational cost to evaluate a single model in some instances, it may then be difficult to cover a large part of the hypothesis space.
+an upper limit to the number of considered candidate models is typically set by the substantial effort required to define the models and to choose between many alternative options. there is no commonly accepted abc-specific procedure for model construction, so experience and prior knowledge are used instead. although more robust procedures for a priori model choice and formulation would be beneficial, there is no one-size-fits-all strategy for model development in statistics: sensible characterization of complex systems will always necessitate a great deal of detective work and use of expert knowledge from the problem domain.
+some opponents of abc contend that since only few models—subjectively chosen and probably all wrong—can be realistically considered, abc analyses provide only limited insight. however, there is an important distinction between identifying a plausible null hypothesis and assessing the relative fit of alternative hypotheses. since useful null hypotheses, that potentially hold true, can extremely seldom be put forward in the context of complex models, predictive ability of statistical models as explanations of complex phenomena is far more important than the test of a statistical null hypothesis in this context. it is also common to average over the investigated models, weighted based on their relative plausibility, to infer model features (e.g., parameter values) and to make predictions.
+
+
+==== large datasets ====
+large data sets may constitute a computational bottleneck for model-based methods. it was, for example, pointed out that in some abc-based analyses, part of the data have to be omitted. a number of authors have argued that large data sets are not a practical limitation, although the severity of this issue depends strongly on the characteristics of the models. several aspects of a modeling problem can contribute to the computational complexity, such as the sample size, number of observed variables or features, time or spatial resolution, etc. however, with increasing computing power, this issue will potentially be less important.
+instead of sampling parameters for each simulation from the prior, it has been proposed alternatively to combine the metropolis-hastings algorithm with abc, which was reported to result in a higher acceptance rate than for plain abc. naturally, such an approach inherits the general burdens of mcmc methods, such as the difficulty to assess convergence, correlation among the samples from the posterior, and relatively poor parallelizability.likewise, the ideas of sequential monte carlo (smc) and population monte carlo (pmc) methods have been adapted to the abc setting. the general idea is to iteratively approach the posterior from the prior through a sequence of target distributions. an advantage of such methods, compared to abc-mcmc, is that the samples from the resulting posterior are independent. in addition, with sequential methods the tolerance levels must not be specified prior to the analysis, but are adjusted adaptively.it is relatively straightforward to parallelize a number of steps in abc algorithms based on rejection sampling and sequential monte carlo methods. it has also been demonstrated that parallel algorithms may yield significant speedups for mcmc-based inference in phylogenetics, which may be a tractable approach also for abc-based methods. yet an adequate model for a complex system is very likely to require intensive computation irrespectively of the chosen method of inference, and it is up to the user to select a method that is suitable for the particular application in question.
+
+
+==== curse of dimensionality ====
+high-dimensional data sets and high-dimensional parameter spaces can require an extremely large number of parameter points to be simulated in abc-based studies to obtain a reasonable level of accuracy for the posterior inferences. in such situations, the computational cost is severely increased and may in the worst case render the computational analysis intractable. these are examples of well-known phenomena, which are usually referred to with the umbrella term curse of dimensionality.to assess how severely the dimensionality of a data set affects the analysis within the context of abc, analytical formulas have been derived for the error of the abc estimators as functions of the dimension of the summary statistics. in addition, blum and françois have investigated how the dimension of the summary statistics is related to the mean squared error for different correction adjustments to the error of abc estimators. it was also argued that dimension reduction techniques are useful to avoid the curse-of-dimensionality, due to a potentially lower-dimensional underlying structure of summary statistics. motivated by minimizing the quadratic loss of abc estimators, fearnhead and prangle have proposed a scheme to project (possibly high-dimensional) data into estimates of the parameter posterior means; these means, now having the same dimension as the parameters, are then used as summary statistics for abc.abc can be used to infer problems in high-dimensional parameter spaces, although one should account for the possibility of overfitting (e.g., see the model selection methods in  and ). however, the probability of accepting the simulated values for the parameters under a given tolerance with the abc rejection algorithm typically decreases exponentially with increasing dimensionality of the parameter space (due to the global acceptance criterion). although no computational method (based on abc or not) seems to be able to break the curse-of-dimensionality, methods have recently been developed to handle high-dimensional parameter spaces under certain assumptions (e.g., based on polynomial approximation on sparse grids, which could potentially heavily reduce the simulation times for abc). however, the applicability of such methods is problem dependent, and the difficulty of exploring parameter spaces should in general not be underestimated. for example, the introduction of deterministic global parameter estimation led to reports that the global optima obtained in several previous studies of low-dimensional problems were incorrect. for certain problems, it might therefore be difficult to know whether the model is incorrect or, as discussed above, whether the explored region of the parameter space is inappropriate. more pragmatic approaches are to cut the scope of the problem through model reduction, discretisation of variables and the use of canonical models such as noisy models. noisy models exploit information on the conditional independence between variables.
+
+
+== software ==
+a number of software packages are currently available for application of abc to particular classes of statistical models.
+
+the suitability of individual software packages depends on the specific application at hand, the computer system environment, and the algorithms required.
+
+
+== see also ==
+markov chain monte carlo
+empirical bayes
+method of moments (statistics)
+
+
+== references ==
+ this article was adapted from the following source under a cc by 4.0 license (2013) (reviewer reports): 
+mikael sunnåker; alberto giovanni busetto; elina numminen; jukka corander; matthieu foll; christophe dessimoz (2013). "approximate bayesian computation". plos computational biology. 9 (1): e1002803. doi:10.1371/journal.pcbi.1002803. issn 1553-734x. pmc 3547661. pmid 23341757. wikidata q4781761.
+
+
+== external links ==
+darren wilkinson (march 31, 2013). "introduction to approximate bayesian computation". retrieved 2013-03-31.
+rasmus bååth (october 20, 2014). "tiny data, approximate bayesian computation and the socks of karl broman". retrieved 2015-01-22.

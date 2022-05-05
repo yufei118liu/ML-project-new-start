@@ -1,0 +1,164 @@
+algorithms that construct convex hulls of various objects have a broad range of applications in mathematics and computer science.
+in computational geometry, numerous algorithms are proposed for computing the convex hull of a finite set of points, with various computational complexities.
+computing the convex hull means that a non-ambiguous and efficient representation of the required convex shape is constructed. the complexity of the corresponding algorithms is usually estimated in terms of n, the number of input points, and sometimes also in terms of h, the number of points on the convex hull.
+
+
+== planar case ==
+consider the general case when the input to the algorithm is a finite unordered set of points on a cartesian plane. an important special case, in which the points are given in the order of traversal of a simple polygon's boundary, is described later in a separate subsection.
+if not all points are on the same line, then their convex hull is a convex polygon whose vertices are some of the points in the input set. its most common representation is the list of its vertices ordered along its boundary clockwise or counterclockwise. in some applications it is convenient to represent a convex polygon as an intersection of a set of half-planes.
+
+
+=== lower bound on computational complexity ===
+for a finite set of points in the plane the lower bound on the computational complexity of finding the convex hull represented as a convex polygon is easily shown to be the same as for sorting using the following reduction. for the set 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x_{1},\dots ,x_{n}}
+   numbers to sort consider the set 
+  
+    
+      
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            1
+          
+          
+            2
+          
+        
+        )
+        ,
+        …
+        ,
+        (
+        
+          x
+          
+            n
+          
+        
+        ,
+        
+          x
+          
+            n
+          
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle (x_{1},x_{1}^{2}),\dots ,(x_{n},x_{n}^{2})}
+   of points in the plane. since they lie on a parabola, which is a convex curve it is easy to see that the vertices of the convex hull, when traversed along the boundary, produce the sorted order of the numbers 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x_{1},\dots ,x_{n}}
+  . clearly, linear time is required for the described transformation of numbers into points and then extracting their sorted order. therefore, in the general case the convex hull of n points cannot be computed more quickly than sorting.
+the standard ω(n log n) lower bound for sorting is proven in the decision tree model of computing, in which only numerical comparisons but not arithmetic operations can be performed; however, in this model, convex hulls cannot be computed at all. sorting also requires ω(n log n) time in the algebraic decision tree model of computation, a model that is more suitable for convex hulls, and in this model convex hulls also require ω(n log n) time. however, in models of computer arithmetic that allow numbers to be sorted more quickly than o(n log n) time, for instance by using integer sorting algorithms, planar convex hulls can also be computed more quickly: the graham scan algorithm for convex hulls consists of a single sorting step followed by a linear amount of additional work.
+
+
+=== optimal output-sensitive algorithms ===
+as stated above, the complexity of finding a convex hull as a function of the input size n is lower bounded by ω(n log n). however, the complexity of some convex hull algorithms can be characterized in terms of both input size n and the output size h (the number of points in the hull). such algorithms are called output-sensitive algorithms. they may be asymptotically more efficient than θ(n log n) algorithms in cases when h = o(n).
+the lower bound on worst-case running time of output-sensitive convex hull algorithms was established to be ω(n log h) in the planar case. there are several algorithms which attain this optimal time complexity. the earliest one was introduced by kirkpatrick and seidel in 1986 (who called it "the ultimate convex hull algorithm"). a much simpler algorithm was developed by chan in 1996, and is called chan's algorithm.
+
+
+=== algorithms ===
+known convex hull algorithms are listed below, ordered by the date of first publication. time complexity of each algorithm is stated in terms of the number of inputs points n and the number of points on the hull h. note that in the worst case h may be as large as n.
+
+gift wrapping, a.k.a. jarvis march — o(nh)  one of the simplest (although not the most time efficient in the worst case) planar algorithms. created independently by chand & kapur in 1970 and r. a. jarvis in 1973. it has o(nh) time complexity, where n is the number of points in the set, and h is the number of points in the hull. in the worst case the complexity is θ(n2).
+graham scan — o(n log n)  a slightly more sophisticated, but much more efficient algorithm, published by ronald graham in 1972. if the points are already sorted by one of the coordinates or by the angle to a fixed vector, then the algorithm takes o(n) time.
+quickhull  created independently in 1977 by w. eddy and in 1978 by a. bykat. just like the quicksort algorithm, it has the expected time complexity of o(n log n), but may degenerate to o(n2) in the worst case.
+divide and conquer — o(n log n)  another o(n log n) algorithm, published in 1977 by preparata and hong. this algorithm is also applicable to the three dimensional case.
+monotone chain, a.k.a. andrew's algorithm— o(n log n)  published in 1979 by a. m. andrew. the algorithm can be seen as a variant of graham scan which sorts the points lexicographically by their coordinates. when the input is already sorted, the algorithm takes o(n) time.
+incremental convex hull algorithm — o(n log n)  published in 1984 by michael kallay.
+kirkpatrick–seidel algorithm — o(n log h)  the first optimal output-sensitive algorithm. it modifies the divide and conquer algorithm by using the technique of marriage-before-conquest and low-dimensional linear programming. published by kirkpatrick and seidel in 1986.
+chan's algorithm — o(n log h)  a simpler optimal output-sensitive algorithm created by chan in 1996. it combines gift wrapping with the execution of an o(n log n) algorithm (such as graham scan) on small subsets of the input.
+
+
+=== akl–toussaint heuristic ===
+the following simple heuristic is often used as the first step in implementations of convex hull algorithms to improve their performance. it is based on the efficient convex hull algorithm by selim akl and g. t. toussaint, 1978. the idea is to quickly exclude many points that would not be part of the convex hull anyway.  this method is based on the following idea.  find the two points with the lowest and highest x-coordinates, and the two points with the lowest and highest y-coordinates. (each of these operations takes o(n).) these four points form a convex quadrilateral, and all points that lie in this quadrilateral (except for the four initially chosen vertices) are not part of the convex hull.  finding all of these points that lie in this quadrilateral is also o(n), and thus, the entire operation is o(n). optionally, the points with smallest and largest sums of x- and y-coordinates as well as those with smallest and largest differences of x- and y-coordinates can also be added to the quadrilateral, thus forming an irregular convex octagon, whose insides can be safely discarded. if the points are random variables, then for a narrow but commonly encountered class of probability density functions, this throw-away pre-processing step will make a convex hull algorithm run in linear expected time, even if the worst-case complexity of the convex hull algorithm is quadratic in n.
+
+
+=== on-line and dynamic convex hull problems ===
+the discussion above considers the case when all input points are known in advance. one may consider two other settings.
+online convex hull problem: input points are obtained sequentially one by one. after each point arrives on input, the convex hull for the pointset obtained so far must be efficiently computed.
+dynamic convex hull maintenance: the input points may be sequentially inserted or deleted, and the convex hull must be updated after each insert/delete operation.insertion of a point may increase the number of vertices of a convex hull at most by 1, while deletion may convert an n-vertex convex hull into an n-1-vertex one.
+the online version may be handled with o(log n) per point, which is asymptotically optimal. the dynamic version may be handled with o(log2 n) per operation.
+
+
+=== simple polygon ===
+
+the convex hull of a simple polygon is divided by the polygon into pieces, one of which is the polygon itself and the rest are pockets bounded by a piece of the polygon boundary and a single hull edge. although many algorithms have been published for the problem of constructing the convex hull of a simple polygon, nearly half of them are incorrect.
+mccallum and avis provided the first correct algorithm.
+a later simplification by graham & yao (1983) and lee (1983) uses only a single stack data structure. their algorithm traverses the polygon clockwise, starting from its leftmost vertex. as it does, it stores a convex sequence of vertices on the stack, the ones that have not yet been identified as being within pockets. at each step, the algorithm follows a path along the polygon from the stack top to the next vertex that is not in one of the two pockets adjacent to the stack top. then, while the top two vertices on the stack together with this new vertex are not in convex position, it pops the stack, before finally pushing the new vertex onto the stack. when the clockwise traversal reaches the starting point, the algorithm returns the sequence of stack vertices as the hull.
+
+
+== higher dimensions ==
+a number of algorithms are known for the three-dimensional case, as well as for arbitrary dimensions. chan's algorithm is used for dimensions 2 and 3, and quickhull is used for computation of the convex hull in higher dimensions.for a finite set of points, the convex hull is a convex polyhedron in three dimensions, or in general a convex polytope for any number of dimensions, whose vertices are some of the points in the input set.  its representation is not so simple as in the planar case, however. in higher dimensions, even if the vertices of a convex polytope are known, construction of its faces is a non-trivial task, as is the dual problem of constructing the vertices given the faces. the size of the output face information may be exponentially larger than the size of the input vertices, and even in cases where the input and output are both of comparable size the known algorithms for high-dimensional convex hulls are not output-sensitive due both to issues with degenerate inputs and with intermediate results of high complexity.
+
+
+== see also ==
+orthogonal convex hull
+
+
+== references ==
+
+
+== further reading ==
+thomas h. cormen, charles e. leiserson, ronald l. rivest, and clifford stein. introduction to algorithms, second edition. mit press and mcgraw-hill, 2001. isbn 0-262-03293-7. section 33.3: finding the convex hull, pp. 947–957.
+franco p. preparata, s.j. hong. convex hulls of finite sets of points in two and three dimensions, commun. acm, vol. 20, no. 2, pp. 87–93, 1977.
+mark de berg; marc van kreveld; mark overmars & otfried schwarzkopf (2000). computational geometry (2nd revised ed.). springer-verlag. isbn 978-3-540-65620-3. section 1.1: an example: convex hulls (describes classical algorithms for 2-dimensional convex hulls). chapter 11: convex hulls: pp. 235–250 (describes a randomized algorithm for 3-dimensional convex hulls due to clarkson and shor).
+
+
+== external links ==
+weisstein, eric w. "convex hull". mathworld.
+2d, 3d, and dd convex hull in cgal, the computational geometry algorithms library
+qhull code for convex hull, delaunay triangulation, voronoi diagram, and halfspace intersection
+demo as flash swf,  jarvis, graham, quick (divide and conquer) and chan algorithms
+gift wrapping algorithm in c#

@@ -1,0 +1,1526 @@
+representation theory is a branch of mathematics that studies abstract algebraic structures by representing their elements as linear transformations of vector spaces, and studies modules over these abstract algebraic structures. in essence, a representation makes an abstract algebraic object more concrete by describing its elements by matrices and their algebraic operations (for example, matrix addition, matrix multiplication). the theory of matrices and linear operators is well-understood, so representations of more abstract objects in terms of familiar linear algebra objects helps glean properties and sometimes simplify calculations on more abstract theories.the algebraic objects amenable to such a description include groups, associative algebras and lie algebras. the most prominent of these (and historically the first) is the representation theory of groups, in which elements of a group are represented by invertible matrices in such a way that the group operation is matrix multiplication.representation theory is a useful method because it reduces problems in abstract algebra to problems in linear algebra, a subject that is well understood. furthermore, the vector space on which a group (for example) is represented can be infinite-dimensional, and by allowing it to be, for instance, a hilbert space, methods of analysis can be applied to the theory of groups. representation theory is also important in physics because, for example, it describes how the symmetry group of a physical system affects the solutions of equations describing that system.representation theory is pervasive across fields of mathematics for two reasons. first, the applications of representation theory are diverse: in addition to its impact on algebra, representation theory:
+
+illuminates and generalizes fourier analysis via harmonic analysis,
+is connected to geometry via invariant theory and the erlangen program,
+has an impact in number theory via automorphic forms and the langlands program.second, there are diverse approaches to representation theory. the same objects can be studied using methods from algebraic geometry, module theory, analytic number theory, differential geometry, operator theory, algebraic combinatorics and topology.the success of representation theory has led to numerous generalizations. one of the most general is in category theory. the algebraic objects to which representation theory applies can be viewed as particular kinds of categories, and the representations as functors from the object category to the category of vector spaces. this description points to two obvious generalizations: first, the algebraic objects can be replaced by more general categories; second, the target category of vector spaces can be replaced by other well-understood categories.
+
+
+== definitions and concepts ==
+let v be a vector space over a field f. for instance, suppose v is rn or cn, the standard n-dimensional space of column vectors over the real or complex numbers, respectively. in this case, the idea of representation theory is to do abstract algebra concretely by using n × n matrices of real or complex numbers.
+there are three main sorts of algebraic objects for which this can be done: groups, associative algebras and lie algebras.
+the set of all invertible n × n matrices is a group under matrix multiplication, and the representation theory of groups analyzes a group by describing ("representing") its elements in terms of invertible matrices.
+matrix addition and multiplication make the set of all n × n matrices into an associative algebra, and hence there is a corresponding representation theory of associative algebras.
+if we replace matrix multiplication mn by the matrix commutator mn − nm, then the n × n matrices become instead a lie algebra, leading to a representation theory of lie algebras.this generalizes to any field f and any vector space v over f, with linear maps replacing matrices and composition replacing matrix multiplication: there is a group gl(v,f) of automorphisms of v, an associative algebra endf(v) of all endomorphisms of v, and a corresponding lie algebra gl(v,f).
+
+
+=== definition ===
+
+there are two ways to say what a representation is. the first uses the idea of an action, generalizing the way that matrices act on column vectors by matrix multiplication. a representation of a group g or (associative or lie) algebra a on a vector space v is a map
+
+  
+    
+      
+        φ
+        :
+        g
+        ×
+        v
+        →
+        v
+        
+        
+          or
+        
+        
+        φ
+        :
+        a
+        ×
+        v
+        →
+        v
+      
+    
+    {\displaystyle \phi \colon g\times v\to v\quad {\text{or}}\quad \phi \colon a\times v\to v}
+  with two properties. first, for any g in g (or a in a), the map
+
+  
+    
+      
+        
+          
+            
+              
+                φ
+                (
+                g
+                )
+                :
+                v
+              
+              
+                
+                →
+                v
+              
+            
+            
+              
+                v
+              
+              
+                
+                ↦
+                φ
+                (
+                g
+                ,
+                v
+                )
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}\phi (g)\colon v&\to v\\v&\mapsto \phi (g,v)\end{aligned}}}
+  is linear (over f). second, if we introduce the notation g · v for 
+  
+    
+      
+        φ
+      
+    
+    {\displaystyle \phi }
+   (g, v), then for any g1, g2 in g and v in v:
+
+  
+    
+      
+        (
+        1
+        )
+        
+        e
+        ⋅
+        v
+        =
+        v
+      
+    
+    {\displaystyle (1)\quad e\cdot v=v}
+  
+
+  
+    
+      
+        (
+        2
+        )
+        
+        
+          g
+          
+            1
+          
+        
+        ⋅
+        (
+        
+          g
+          
+            2
+          
+        
+        ⋅
+        v
+        )
+        =
+        (
+        
+          g
+          
+            1
+          
+        
+        
+          g
+          
+            2
+          
+        
+        )
+        ⋅
+        v
+      
+    
+    {\displaystyle (2)\quad g_{1}\cdot (g_{2}\cdot v)=(g_{1}g_{2})\cdot v}
+  where e is the identity element of g and g1g2 is the product in g. the requirement for associative algebras is analogous, except that associative algebras do not always have an identity element, in which case equation (1) is ignored. equation (2) is an abstract expression of the associativity of matrix multiplication. this doesn't hold for the matrix commutator and also there is no identity element for the commutator. hence for lie algebras, the only requirement is that for any x1, x2 in a and v in v:
+
+  
+    
+      
+        (
+        
+          2
+          ′
+        
+        )
+        
+        
+          x
+          
+            1
+          
+        
+        ⋅
+        (
+        
+          x
+          
+            2
+          
+        
+        ⋅
+        v
+        )
+        −
+        
+          x
+          
+            2
+          
+        
+        ⋅
+        (
+        
+          x
+          
+            1
+          
+        
+        ⋅
+        v
+        )
+        =
+        [
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        ]
+        ⋅
+        v
+      
+    
+    {\displaystyle (2')\quad x_{1}\cdot (x_{2}\cdot v)-x_{2}\cdot (x_{1}\cdot v)=[x_{1},x_{2}]\cdot v}
+  where [x1, x2] is the lie bracket, which generalizes the matrix commutator mn − nm.
+the second way to define a representation focuses on the map φ sending g in g to a linear map φ(g): v → v, which satisfies
+
+  
+    
+      
+        φ
+        (
+        
+          g
+          
+            1
+          
+        
+        
+          g
+          
+            2
+          
+        
+        )
+        =
+        φ
+        (
+        
+          g
+          
+            1
+          
+        
+        )
+        ∘
+        φ
+        (
+        
+          g
+          
+            2
+          
+        
+        )
+        
+        
+          for all 
+        
+        
+          g
+          
+            1
+          
+        
+        ,
+        
+          g
+          
+            2
+          
+        
+        ∈
+        g
+      
+    
+    {\displaystyle \varphi (g_{1}g_{2})=\varphi (g_{1})\circ \varphi (g_{2})\quad {\text{for all }}g_{1},g_{2}\in g}
+  and similarly in the other cases. this approach is both more concise and more abstract.
+from this point of view:
+
+a representation of a group g on a vector space v is a group homomorphism φ: g → gl(v,f);
+a representation of an associative algebra a on a vector space v is an algebra homomorphism φ: a → endf(v);
+a representation of a lie algebra 𝖆 on a vector space v is a lie algebra homomorphism φ: 𝖆 → gl(v,f).
+
+
+=== terminology ===
+the vector space v is called the representation space of φ and its dimension (if finite) is called the dimension of the representation (sometimes degree, as in ). it is also common practice to refer to v itself as the representation when the homomorphism φ is clear from the context; otherwise the notation (v,φ) can be used to denote a representation.
+when v is of finite dimension n, one can choose a basis for v to identify v with fn, and hence recover a matrix representation with entries in the field f.
+an effective or faithful representation is a representation (v,φ), for which the homomorphism φ is injective.
+
+
+=== equivariant maps and isomorphisms ===
+
+if v and w are vector spaces over f, equipped with representations φ and ψ of a group g, then an equivariant map from v to w is a linear map α: v → w such that
+
+  
+    
+      
+        α
+        (
+        g
+        ⋅
+        v
+        )
+        =
+        g
+        ⋅
+        α
+        (
+        v
+        )
+      
+    
+    {\displaystyle \alpha (g\cdot v)=g\cdot \alpha (v)}
+  for all g in g and v in v. in terms of φ: g → gl(v) and ψ: g → gl(w), this means
+
+  
+    
+      
+        α
+        ∘
+        φ
+        (
+        g
+        )
+        =
+        ψ
+        (
+        g
+        )
+        ∘
+        α
+      
+    
+    {\displaystyle \alpha \circ \varphi (g)=\psi (g)\circ \alpha }
+  for all g in g, that is, the following diagram commutes:
+
+equivariant maps for representations of an associative or lie algebra are defined similarly. if α is invertible, then it is said to be an isomorphism, in which case v and w (or, more precisely, φ and ψ) are isomorphic representations, also phrased as equivalent representations. an equivariant map is often called an intertwining map of representations. also, in the case of a group g, it is on occasion called a g-map.
+isomorphic representations are, for practical purposes, "the same"; they provide the same information about the group or algebra being represented. representation theory therefore seeks to classify representations up to isomorphism.
+
+
+=== subrepresentations, quotients, and irreducible representations ===
+
+if 
+  
+    
+      
+        (
+        v
+        ,
+        ψ
+        )
+      
+    
+    {\displaystyle (v,\psi )}
+   is a representation of (say) a group 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+  , and 
+  
+    
+      
+        w
+      
+    
+    {\displaystyle w}
+   is a linear subspace of 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   that is preserved by the action of 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+   in the sense that for all 
+  
+    
+      
+        w
+        ∈
+        w
+      
+    
+    {\displaystyle w\in w}
+   and 
+  
+    
+      
+        g
+        ∈
+        g
+      
+    
+    {\displaystyle g\in g}
+  , 
+  
+    
+      
+        g
+        ⋅
+        w
+        ∈
+        w
+      
+    
+    {\displaystyle g\cdot w\in w}
+   (serre calls these 
+  
+    
+      
+        w
+      
+    
+    {\displaystyle w}
+   stable under 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+  ), then 
+  
+    
+      
+        w
+      
+    
+    {\displaystyle w}
+   is called a subrepresentation: by defining  where 
+  
+    
+      
+        ϕ
+        (
+        g
+        )
+      
+    
+    {\displaystyle \phi (g)}
+   is the restriction of 
+  
+    
+      
+        ψ
+        (
+        g
+        )
+      
+    
+    {\displaystyle \psi (g)}
+   to 
+  
+    
+      
+        w
+      
+    
+    {\displaystyle w}
+  , 
+  
+    
+      
+        (
+        w
+        ,
+        ϕ
+        )
+      
+    
+    {\displaystyle (w,\phi )}
+   is a representation of 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+   and the inclusion of 
+  
+    
+      
+        w
+        ↪
+        v
+      
+    
+    {\displaystyle w\hookrightarrow v}
+   is an equivariant map. the quotient space 
+  
+    
+      
+        v
+        
+          /
+        
+        w
+      
+    
+    {\displaystyle v/w}
+   can also be made into a representation of 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+  . if 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   has exactly two subrepresentations, namely the trivial subspace {0} and 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   itself, then the representation is said to be irreducible; if 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   has a proper nontrivial subrepresentation, the representation is said to be reducible.the definition of an irreducible representation implies schur's lemma: an equivariant map  between irreducible representations is either the zero map or an isomorphism, since its kernel and image are subrepresentations. in particular, when 
+  
+    
+      
+        v
+        =
+        
+          v
+          ′
+        
+      
+    
+    {\displaystyle v=v'}
+  , this shows that the equivariant endomorphisms of 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   form an associative division algebra over the underlying field f. if f is algebraically closed, the only equivariant endomorphisms of an irreducible representation are the scalar multiples of the identity.
+irreducible representations are the building blocks of representation theory for many groups: if a representation 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   is not irreducible then it is built from a subrepresentation and a quotient that are both "simpler" in some sense; for instance, if 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   is finite-dimensional, then both the subrepresentation and the quotient have smaller dimension. there are counterexamples where a representation has a subrepresentation, but only has one non-trivial irreducible component. for example, the additive group 
+  
+    
+      
+        (
+        
+          r
+        
+        ,
+        +
+        )
+      
+    
+    {\displaystyle (\mathbb {r} ,+)}
+   has a two dimensional representation
+
+this group has the vector 
+  
+    
+      
+        
+          
+            
+              [
+              
+                
+                  
+                    1
+                  
+                  
+                    0
+                  
+                
+              
+              ]
+            
+          
+          
+            
+              t
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{bmatrix}1&0\end{bmatrix}}^{\mathsf {t}}}
+   fixed by this homomorphism, but the complement subspace maps to
+
+giving only one irreducible subreprentation. this is true for all unipotent groups.: 112 
+
+
+=== direct sums and indecomposable representations ===
+
+if (v,φ) and (w,ψ) are representations of (say) a group g, then the direct sum of v and w is a representation, in a canonical way, via the equation
+
+  
+    
+      
+        g
+        ⋅
+        (
+        v
+        ,
+        w
+        )
+        =
+        (
+        g
+        ⋅
+        v
+        ,
+        g
+        ⋅
+        w
+        )
+        .
+      
+    
+    {\displaystyle g\cdot (v,w)=(g\cdot v,g\cdot w).}
+  the direct sum of two representations carries no more information about the group g than the two representations do individually. if a representation is the direct sum of two proper nontrivial subrepresentations, it is said to be decomposable. otherwise, it is said to be indecomposable.
+
+
+=== complete reducibility ===
+in favorable circumstances, every finite-dimensional representation is a direct sum of irreducible representations: such representations are said to be semisimple. in this case, it suffices to understand only the irreducible representations. examples where this "complete reducibility" phenomenon occur include finite groups (see maschke's theorem), compact groups, and semisimple lie algebras. 
+in cases where complete reducibility does not hold, one must understand how indecomposable representations can be built from irreducible representations as extensions of a quotient by a subrepresentation.
+
+
+=== tensor products of representations ===
+
+suppose 
+  
+    
+      
+        
+          ϕ
+          
+            1
+          
+        
+        :
+        g
+        →
+        
+          g
+          l
+        
+        (
+        
+          v
+          
+            1
+          
+        
+        )
+      
+    
+    {\displaystyle \phi _{1}:g\rightarrow \mathrm {gl} (v_{1})}
+   and 
+  
+    
+      
+        
+          ϕ
+          
+            2
+          
+        
+        :
+        g
+        →
+        
+          g
+          l
+        
+        (
+        
+          v
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle \phi _{2}:g\rightarrow \mathrm {gl} (v_{2})}
+   are representations of a group 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+  . then we can form a representation 
+  
+    
+      
+        
+          ϕ
+          
+            1
+          
+        
+        ⊗
+        
+          ϕ
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \phi _{1}\otimes \phi _{2}}
+   of g acting on the tensor product vector space 
+  
+    
+      
+        
+          v
+          
+            1
+          
+        
+        ⊗
+        
+          v
+          
+            2
+          
+        
+      
+    
+    {\displaystyle v_{1}\otimes v_{2}}
+   as follows:
+
+  
+    
+      
+        (
+        
+          ϕ
+          
+            1
+          
+        
+        ⊗
+        
+          ϕ
+          
+            2
+          
+        
+        )
+        (
+        g
+        )
+        =
+        
+          ϕ
+          
+            1
+          
+        
+        (
+        g
+        )
+        ⊗
+        
+          ϕ
+          
+            2
+          
+        
+        (
+        g
+        )
+      
+    
+    {\displaystyle (\phi _{1}\otimes \phi _{2})(g)=\phi _{1}(g)\otimes \phi _{2}(g)}
+  .if 
+  
+    
+      
+        
+          ϕ
+          
+            1
+          
+        
+      
+    
+    {\displaystyle \phi _{1}}
+   and 
+  
+    
+      
+        
+          ϕ
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \phi _{2}}
+   are representations of a lie algebra, then the correct formula to use is
+
+  
+    
+      
+        (
+        
+          ϕ
+          
+            1
+          
+        
+        ⊗
+        
+          ϕ
+          
+            2
+          
+        
+        )
+        (
+        x
+        )
+        =
+        
+          ϕ
+          
+            1
+          
+        
+        (
+        x
+        )
+        ⊗
+        i
+        +
+        i
+        ⊗
+        
+          ϕ
+          
+            2
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle (\phi _{1}\otimes \phi _{2})(x)=\phi _{1}(x)\otimes i+i\otimes \phi _{2}(x)}
+  .this product can be recognized as the coproduct on a coalgebra. in general, the tensor product of irreducible representations is not irreducible; the process of decomposing a tensor product as a direct sum of irreducible representations is known as clebsch–gordan theory.
+in the case of the representation theory of the group su(2) (or equivalently, of its complexified lie algebra 
+  
+    
+      
+        
+          s
+          l
+        
+        (
+        2
+        ;
+        
+          c
+        
+        )
+      
+    
+    {\displaystyle \mathrm {sl} (2;\mathbb {c} )}
+  ), the decomposition is easy to work out. the irreducible representations are labeled by a parameter 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+   that is a non-negative integer or half integer; the representation then has dimension 
+  
+    
+      
+        2
+        l
+        +
+        1
+      
+    
+    {\displaystyle 2l+1}
+  . suppose we take the tensor product of the representation of two representations, with labels 
+  
+    
+      
+        
+          l
+          
+            1
+          
+        
+      
+    
+    {\displaystyle l_{1}}
+   and 
+  
+    
+      
+        
+          l
+          
+            2
+          
+        
+        ,
+      
+    
+    {\displaystyle l_{2},}
+   where we assume 
+  
+    
+      
+        
+          l
+          
+            1
+          
+        
+        ≥
+        
+          l
+          
+            2
+          
+        
+      
+    
+    {\displaystyle l_{1}\geq l_{2}}
+  . then the tensor product decomposes as a direct sum of one copy of each representation with label 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+  , where 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+   ranges from 
+  
+    
+      
+        
+          l
+          
+            1
+          
+        
+        −
+        
+          l
+          
+            2
+          
+        
+      
+    
+    {\displaystyle l_{1}-l_{2}}
+   to 
+  
+    
+      
+        
+          l
+          
+            1
+          
+        
+        +
+        
+          l
+          
+            2
+          
+        
+      
+    
+    {\displaystyle l_{1}+l_{2}}
+   in increments of 1. if, for example, 
+  
+    
+      
+        
+          l
+          
+            1
+          
+        
+        =
+        
+          l
+          
+            2
+          
+        
+        =
+        1
+      
+    
+    {\displaystyle l_{1}=l_{2}=1}
+  , then the values of 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+   that occur are 0, 1, and 2. thus, the tensor product representation of dimension 
+  
+    
+      
+        (
+        2
+        
+          l
+          
+            1
+          
+        
+        +
+        1
+        )
+        ×
+        (
+        2
+        
+          l
+          
+            2
+          
+        
+        +
+        1
+        )
+        =
+        3
+        ×
+        3
+        =
+        9
+      
+    
+    {\displaystyle (2l_{1}+1)\times (2l_{2}+1)=3\times 3=9}
+   decomposes as a direct sum of a 1-dimensional representation 
+  
+    
+      
+        (
+        l
+        =
+        0
+        )
+        ,
+      
+    
+    {\displaystyle (l=0),}
+   a 3-dimensional representation 
+  
+    
+      
+        (
+        l
+        =
+        1
+        )
+        ,
+      
+    
+    {\displaystyle (l=1),}
+   and a 5-dimensional representation 
+  
+    
+      
+        (
+        l
+        =
+        2
+        )
+      
+    
+    {\displaystyle (l=2)}
+  .
+
+
+== branches and topics ==
+
+representation theory is notable for the number of branches it has, and the diversity of the approaches to studying representations of groups and algebras. although, all the theories have in common the basic concepts discussed already, they differ considerably in detail. the differences are at least 3-fold:
+
+representation theory depends upon the type of algebraic object being represented. there are several different classes of groups, associative algebras and lie algebras, and their representation theories all have an individual flavour.
+representation theory depends upon the nature of the vector space on which the algebraic object is represented. the most important distinction is between finite-dimensional representations and infinite-dimensional ones. in the infinite-dimensional case, additional structures are important (for example, whether or not the space is a hilbert space, banach space, etc.). additional algebraic structures can also be imposed in the finite-dimensional case.
+representation theory depends upon the type of field over which the vector space is defined. the most important cases are the field of complex numbers, the field of real numbers, finite fields, and fields of p-adic numbers. additional difficulties arise for fields of positive characteristic and for fields that are not algebraically closed.
+
+
+=== finite groups ===
+
+group representations are a very important tool in the study of finite groups. they also arise in the applications of finite group theory to geometry and crystallography. representations of finite groups exhibit many of the features of the general theory and point the way to other branches and topics in representation theory.
+over a field of characteristic zero, the representation of a finite group g has a number of convenient properties. first, the representations of g are semisimple (completely reducible). this is a consequence of maschke's theorem, which states that any subrepresentation v of a g-representation w has a g-invariant complement. one proof is to choose any projection π from w to v and replace it by its average πg defined by
+
+  
+    
+      
+        
+          π
+          
+            g
+          
+        
+        (
+        x
+        )
+        =
+        
+          
+            1
+            
+              
+                |
+              
+              g
+              
+                |
+              
+            
+          
+        
+        
+          ∑
+          
+            g
+            ∈
+            g
+          
+        
+        g
+        ⋅
+        π
+        (
+        
+          g
+          
+            −
+            1
+          
+        
+        ⋅
+        x
+        )
+        .
+      
+    
+    {\displaystyle \pi _{g}(x)={\frac {1}{|g|}}\sum _{g\in g}g\cdot \pi (g^{-1}\cdot x).}
+  πg is equivariant, and its kernel is the required complement.
+the finite-dimensional g-representations can be understood using character theory: the character of a representation φ: g → gl(v) is the class function χφ: g → f defined by
+
+  
+    
+      
+        
+          χ
+          
+            φ
+          
+        
+        (
+        g
+        )
+        =
+        
+          t
+          r
+        
+        (
+        φ
+        (
+        g
+        )
+        )
+      
+    
+    {\displaystyle \chi _{\varphi }(g)=\mathrm {tr} (\varphi (g))}
+  where 
+  
+    
+      
+        
+          t
+          r
+        
+      
+    
+    {\displaystyle \mathrm {tr} }
+   is the trace. an irreducible representation of g is completely determined by its character.
+maschke's theorem holds more generally for fields of positive characteristic p, such as the finite fields, as long as the prime p is coprime to the order of g. when p and |g| have a common factor, there are g-representations that are not semisimple, which are studied in a subbranch called modular representation theory.
+averaging techniques also show that if f is the real or complex numbers, then any g-representation preserves an inner product 
+  
+    
+      
+        ⟨
+        ⋅
+        ,
+        ⋅
+        ⟩
+      
+    
+    {\displaystyle \langle \cdot ,\cdot \rangle }
+   on v in the sense that
+
+  
+    
+      
+        ⟨
+        g
+        ⋅
+        v
+        ,
+        g
+        ⋅
+        w
+        ⟩
+        =
+        ⟨
+        v
+        ,
+        w
+        ⟩
+      
+    
+    {\displaystyle \langle g\cdot v,g\cdot w\rangle =\langle v,w\rangle }
+  for all g in g and v, w in w. hence any g-representation is unitary.
+unitary representations are automatically semisimple, since maschke's result can be proven by taking the orthogonal complement of a subrepresentation. when studying representations of groups that are not finite, the unitary representations provide a good generalization of the real and complex representations of a finite group.
+results such as maschke's theorem and the unitary property that rely on averaging can be generalized to more general groups by replacing the average with an integral, provided that a suitable notion of integral can be defined. this can be done for compact topological groups (including compact lie groups), using haar measure, and the resulting theory is known as abstract harmonic analysis.
+over arbitrary fields, another class of finite groups that have a good representation theory are the finite groups of lie type. important examples are linear algebraic groups over finite fields. the representation theory of linear algebraic groups and lie groups extends these examples to infinite-dimensional groups, the latter being intimately related to lie algebra representations. the importance of character theory for finite groups has an analogue in the theory of weights for representations of lie groups and lie algebras.
+representations of a finite group g are also linked directly to algebra representations via the group algebra f[g], which is a vector space over f with the elements of g as a basis, equipped with the multiplication operation defined by the group operation, linearity, and the requirement that the group operation and scalar multiplication commute.
+
+
+=== modular representations ===
+
+modular representations of a finite group g are representations over a field whose characteristic is not coprime to |g|, so that maschke's theorem no longer holds (because |g| is not invertible in f and so one cannot divide by it). nevertheless, richard brauer extended much of character theory to modular representations, and this theory played an important role in early progress towards the classification of finite simple groups, especially for simple groups whose characterization was not amenable to purely group-theoretic methods because their sylow 2-subgroups were "too small".as well as having applications to group theory, modular representations arise naturally in other branches of mathematics, such as algebraic geometry, coding theory, combinatorics and number theory.
+
+
+=== unitary representations ===
+
+a unitary representation of a group g is a linear representation φ of g on a real or (usually) complex hilbert space v such that φ(g) is a unitary operator for every g ∈ g. such representations have been widely applied in quantum mechanics since the 1920s, thanks in particular to the influence of hermann weyl, and this has inspired the development of the theory, most notably through the analysis of representations of the poincaré group by eugene wigner. one of the pioneers in constructing a general theory of unitary representations (for any group g rather than just for particular groups useful in applications) was george mackey, and an extensive theory was developed by harish-chandra and others in the 1950s and 1960s.a major goal is to describe the "unitary dual", the space of irreducible unitary representations of g. the theory is most well-developed in the case that g is a locally compact (hausdorff) topological group and the representations are strongly continuous. for g abelian, the unitary dual is just the space of characters, while for g compact, the peter–weyl theorem shows that the irreducible unitary representations are finite-dimensional and the unitary dual is discrete. for example, if g is the circle group s1, then the characters are given by integers, and the unitary dual is z.
+for non-compact g, the question of which representations are unitary is a subtle one. although irreducible unitary representations must be "admissible" (as harish-chandra modules) and it is easy to detect which admissible representations have a nondegenerate invariant sesquilinear form, it is hard to determine when this form is positive definite. an effective description of the unitary dual, even for relatively well-behaved groups such as real reductive lie groups (discussed below), remains an important open problem in representation theory. it has been solved for many particular groups, such as sl(2,r) and the lorentz group.
+
+
+=== harmonic analysis ===
+
+the duality between the circle group s1 and the integers z, or more generally, between a torus tn and zn is well known in analysis as the theory of fourier series, and the fourier transform similarly expresses the fact that the space of characters on a real vector space is the dual vector space. thus unitary representation theory and harmonic analysis are intimately related, and abstract harmonic analysis exploits this relationship, by developing the analysis of functions on locally compact topological groups and related spaces.a major goal is to provide a general form of the fourier transform and the plancherel theorem. this is done by constructing a measure on the unitary dual and an isomorphism between the regular representation of g on the space l2(g) of square integrable functions on g and its representation on the space of l2 functions on the unitary dual. pontrjagin duality and the peter–weyl theorem achieve this for abelian and compact g respectively.another approach involves considering all unitary representations, not just the irreducible ones. these form a category, and tannaka–krein duality provides a way to recover a compact group from its category of unitary representations.
+if the group is neither abelian nor compact, no general theory is known with an analogue of the plancherel theorem or fourier inversion, although alexander grothendieck extended tannaka–krein duality to a relationship between linear algebraic groups and tannakian categories.
+harmonic analysis has also been extended from the analysis of functions on a group g to functions on homogeneous spaces for g. the theory is particularly well developed for symmetric spaces and provides a theory of automorphic forms (discussed below).
+
+
+=== lie groups ===
+
+a lie group is a group that is also a smooth manifold. many classical groups of matrices over the real or complex numbers are lie groups. many of the groups important in physics and chemistry are lie groups, and their representation theory is crucial to the application of group theory in those fields.the representation theory of lie groups can be developed first by considering the compact groups, to which results of compact representation theory apply. this theory can be extended to finite-dimensional representations of semisimple lie groups using weyl's unitary trick: each semisimple real lie group g has a complexification, which is a complex lie group gc, and this complex lie group has a maximal compact subgroup k. the finite-dimensional representations of g closely correspond to those of k.
+a general lie group is a semidirect product of a solvable lie group and a semisimple lie group (the levi decomposition). the classification of representations of solvable lie groups is intractable in general, but often easy in practical cases. representations of semidirect products can then be analysed by means of general results called mackey theory, which is a generalization of the methods used in wigner's classification of representations of the poincaré group.
+
+
+=== lie algebras ===
+
+a lie algebra over a field f is a vector space over f equipped with a skew-symmetric bilinear operation called the lie bracket, which satisfies the jacobi identity. lie algebras arise in particular as tangent spaces to lie groups at the identity element, leading to their interpretation as "infinitesimal symmetries". an important approach to the representation theory of lie groups is to study the corresponding representation theory of lie algebras, but representations of lie algebras also have an intrinsic interest.lie algebras, like lie groups, have a levi decomposition into semisimple and solvable parts, with the representation theory of solvable lie algebras being intractable in general. in contrast, the finite-dimensional representations of semisimple lie algebras are completely understood, after work of élie cartan. a representation of a semisimple lie algebra 𝖌 is analysed by choosing a cartan subalgebra, which is essentially a generic maximal subalgebra 𝖍 of 𝖌 on which the lie bracket is zero ("abelian"). the representation of 𝖌 can be decomposed into weight spaces that are eigenspaces for the action of 𝖍 and the infinitesimal analogue of characters. the structure of semisimple lie algebras then reduces the analysis of representations to easily understood combinatorics of the possible weights that can occur.
+
+
+==== infinite-dimensional lie algebras ====
+
+there are many classes of infinite-dimensional lie algebras whose representations have been studied. among these, an important class are the kac–moody algebras. they are named after victor kac and robert moody, who independently discovered them. these algebras form a generalization of finite-dimensional semisimple lie algebras, and share many of their combinatorial properties. this means that they have a class of representations that can be understood in the same way as representations of semisimple lie algebras.
+affine lie algebras are a special case of kac–moody algebras, which have particular importance in mathematics and theoretical physics, especially conformal field theory and the theory of exactly solvable models. kac discovered an elegant proof of certain combinatorial identities, macdonald identities, which is based on the representation theory of affine kac–moody algebras.
+
+
+==== lie superalgebras ====
+
+lie superalgebras are generalizations of lie algebras in which the underlying vector space has a z2-grading, and skew-symmetry and jacobi identity properties of the lie bracket are modified by signs. their representation theory is similar to the representation theory of lie algebras.
+
+
+=== linear algebraic groups ===
+
+linear algebraic groups (or more generally, affine group schemes) are analogues in algebraic geometry of lie groups, but over more general fields than just r or c. in particular, over finite fields, they give rise to finite groups of lie type. although linear algebraic groups have a classification that is very similar to that of lie groups, their representation theory is rather different (and much less well understood) and requires different techniques, since the zariski topology is relatively weak, and techniques from analysis are no longer available.
+
+
+=== invariant theory ===
+
+invariant theory studies actions on algebraic varieties from the point of view of their effect on functions, which form representations of the group. classically, the theory dealt with the question of explicit description of polynomial functions that do not change, or are invariant, under the transformations from a given linear group. the modern approach analyses the decomposition of these representations into irreducibles.invariant theory of infinite groups is inextricably linked with the development of linear algebra, especially, the theories of quadratic forms and determinants. another subject with strong mutual influence is projective geometry, where invariant theory can be used to organize the subject, and during the 1960s, new life was breathed into the subject by david mumford in the form of his geometric invariant theory.the representation theory of semisimple lie groups has its roots in invariant theory and the strong links between representation theory and algebraic geometry have many parallels in differential geometry, beginning with felix klein's erlangen program and élie cartan's connections, which place groups and symmetry at the heart of geometry. modern developments link representation theory and invariant theory to areas as diverse as holonomy, differential operators and the theory of several complex variables.
+
+
+=== automorphic forms and number theory ===
+
+automorphic forms are a generalization of modular forms to more general analytic functions, perhaps of several complex variables, with similar transformation properties. the generalization involves replacing the modular group psl2 (r) and a chosen congruence subgroup by a semisimple lie group g and a discrete subgroup γ. just as modular forms can be viewed as differential forms on a quotient of the upper half space h = psl2 (r)/so(2), automorphic forms can be viewed as differential forms (or similar objects) on γ\g/k, where k is (typically) a maximal compact subgroup of g. some care is required, however, as the quotient typically has singularities. the quotient of a semisimple lie group by a compact subgroup is a symmetric space and so the theory of automorphic forms is intimately related to harmonic analysis on symmetric spaces.
+before the development of the general theory, many important special cases were worked out in detail, including the hilbert modular forms and siegel modular forms. important results in the theory include the selberg trace formula and the realization by robert langlands that the riemann–roch theorem could be applied to calculate the dimension of the space of automorphic forms. the subsequent notion of "automorphic representation" has proved of great technical value for dealing with the case that g is an algebraic group, treated as an adelic algebraic group. as a result, an entire philosophy, the langlands program has developed around the relation between representation and number theoretic properties of automorphic forms.
+
+
+=== associative algebras ===
+
+in one sense, associative algebra representations generalize both representations of groups and lie algebras. a representation of a group induces a representation of a corresponding group ring or group algebra, while representations of a lie algebra correspond bijectively to representations of its universal enveloping algebra. however, the representation theory of general associative algebras does not have all of the nice properties of the representation theory of groups and lie algebras.
+
+
+==== module theory ====
+
+when considering representations of an associative algebra, one can forget the underlying field, and simply regard the associative algebra as a ring, and its representations as modules. this approach is surprisingly fruitful: many results in representation theory can be interpreted as special cases of results about modules over a ring.
+
+
+==== hopf algebras and quantum groups ====
+
+hopf algebras provide a way to improve the representation theory of associative algebras, while retaining the representation theory of groups and lie algebras as special cases. in particular, the tensor product of two representations is a representation, as is the dual vector space.
+the hopf algebras associated to groups have a commutative algebra structure, and so general hopf algebras are known as quantum groups, although this term is often restricted to certain hopf algebras arising as deformations of groups or their universal enveloping algebras. the representation theory of quantum groups has added surprising insights to the representation theory of lie groups and lie algebras, for instance through the crystal basis of kashiwara.
+
+
+== generalizations ==
+
+
+=== set-theoretic representations ===
+
+a set-theoretic representation (also known as a group action or permutation representation) of a group g on a set x is given by a function ρ from g to xx, the set of functions from x to x, such that for all g1, g2 in g and all x in x:
+
+  
+    
+      
+        ρ
+        (
+        1
+        )
+        [
+        x
+        ]
+        =
+        x
+      
+    
+    {\displaystyle \rho (1)[x]=x}
+  
+
+  
+    
+      
+        ρ
+        (
+        
+          g
+          
+            1
+          
+        
+        
+          g
+          
+            2
+          
+        
+        )
+        [
+        x
+        ]
+        =
+        ρ
+        (
+        
+          g
+          
+            1
+          
+        
+        )
+        [
+        ρ
+        (
+        
+          g
+          
+            2
+          
+        
+        )
+        [
+        x
+        ]
+        ]
+        .
+      
+    
+    {\displaystyle \rho (g_{1}g_{2})[x]=\rho (g_{1})[\rho (g_{2})[x]].}
+  this condition and the axioms for a group imply that ρ(g) is a bijection (or permutation) for all g in g. thus we may equivalently define a permutation representation to be a group homomorphism from g to the symmetric group sx of x.
+
+
+=== representations in other categories ===
+
+every group g can be viewed as a category with a single object; morphisms in this category are just the elements of g. given an arbitrary category c, a representation of g in c is a functor from g to c. such a functor selects an object x in c and a group homomorphism from g to aut(x), the automorphism group of x.
+in the case where c is vectf, the category of vector spaces over a field f, this definition is equivalent to a linear representation. likewise, a set-theoretic representation is just a representation of g in the category of sets.
+for another example consider the category of topological spaces, top. representations in top are homomorphisms from g to the homeomorphism group of a topological space x.
+two types of representations closely related to linear representations are:
+
+projective representations: in the category of projective spaces. these can be described as "linear representations up to scalar transformations".
+affine representations: in the category of affine spaces. for example, the euclidean group acts affinely upon euclidean space.
+corepresentations of unitary and antiunitary groups: in the category of complex vector spaces with morphisms being linear or antilinear transformations.
+
+
+=== representations of categories ===
+
+since groups are categories, one can also consider representation of other categories. the simplest generalization is to monoids, which are categories with one object. groups are monoids for which every morphism is invertible. general monoids have representations in any category. in the category of sets, these are monoid actions, but monoid representations on vector spaces and other objects can be studied.
+more generally, one can relax the assumption that the category being represented has only one object. in full generality, this is simply the theory of functors between categories, and little can be said.
+one special case has had a significant impact on representation theory, namely the representation theory of quivers. a quiver is simply a directed graph (with loops and multiple arrows allowed), but it can be made into a category (and also an algebra) by considering paths in the graph. representations of such categories/algebras have illuminated several aspects of representation theory, for instance by allowing non-semisimple representation theory questions about a group to be reduced in some cases to semisimple representation theory questions about a quiver.
+
+
+== see also ==
+
+
+== notes ==
+
+
+== references ==
+alperin, j. l. (1986), local representation theory: modular representations as an introduction to the local representation theory of finite groups, cambridge university press, isbn 978-0-521-44926-7.
+bargmann, v. (1947), "irreducible unitary representations of the lorenz group", annals of mathematics, 48 (3): 568–640, doi:10.2307/1969129, jstor 1969129.
+borel, armand (2001), essays in the history of lie groups and algebraic groups, american mathematical society, isbn 978-0-8218-0288-5.
+borel, armand; casselman, w. (1979), automorphic forms, representations, and l-functions, american mathematical society, isbn 978-0-8218-1435-2.
+curtis, charles w.; reiner, irving (1962), representation theory of finite groups and associative algebras, john wiley & sons (reedition 2006 by ams bookstore), isbn 978-0-470-18975-7.
+gelbart, stephen (1984), "an elementary introduction to the langlands program", bulletin of the american mathematical society, 10 (2): 177–219, doi:10.1090/s0273-0979-1984-15237-6.
+folland, gerald b. (1995), a course in abstract harmonic analysis, crc press, isbn 978-0-8493-8490-5.
+fulton, william; harris, joe (1991). representation theory. a first course. graduate texts in mathematics, readings in mathematics. vol. 129. new york: springer-verlag. doi:10.1007/978-1-4612-0979-9. isbn 978-0-387-97495-8. mr 1153249. oclc 246650103..
+goodman, roe; wallach, nolan r. (1998), representations and invariants of the classical groups, cambridge university press, isbn 978-0-521-66348-9.
+james, gordon; liebeck, martin (1993), representations and characters of groups, cambridge: cambridge university press, isbn 978-0-521-44590-0.
+hall, brian c. (2015), lie groups, lie algebras, and representations: an elementary introduction, graduate texts in mathematics, vol. 222 (2nd ed.), springer, isbn 978-3319134666
+helgason, sigurdur (1978), differential geometry, lie groups and symmetric spaces, academic press, isbn 978-0-12-338460-7
+humphreys, james e. (1972a), introduction to lie algebras and representation theory, birkhäuser, isbn 978-0-387-90053-7.
+humphreys, james e. (1972b), linear algebraic groups, graduate texts in mathematics, vol. 21, berlin, new york: springer-verlag, isbn 978-0-387-90108-4, mr 0396773
+jantzen, jens carsten (2003), representations of algebraic groups, american mathematical society, isbn 978-0-8218-3527-2.
+kac, victor g. (1977), "lie superalgebras", advances in mathematics, 26 (1): 8–96, doi:10.1016/0001-8708(77)90017-2.
+kac, victor g. (1990), infinite dimensional lie algebras (3rd ed.), cambridge university press, isbn 978-0-521-46693-6.
+knapp, anthony w. (2001), representation theory of semisimple groups: an overview based on examples, princeton university press, isbn 978-0-691-09089-4.
+kim, shoon kyung (1999), group theoretical methods and applications to molecules and crystals: and applications to molecules and crystals, cambridge university press, isbn 978-0-521-64062-6.
+kostrikin, a. i.; manin, yuri i. (1997), linear algebra and geometry, taylor & francis, isbn 978-90-5699-049-7.
+lam, t. y. (1998), "representations of finite groups: a hundred years", notices of the ams, 45 (3, 4): 361–372 (part i), 465–474 (part ii).
+yurii i. lyubich. introduction to the theory of banach representations of groups. translated from the 1985 russian-language edition (kharkov, ukraine). birkhäuser verlag. 1988.
+mumford, david; fogarty, j.; kirwan, f. (1994), geometric invariant theory, ergebnisse der mathematik und ihrer grenzgebiete (2) [results in mathematics and related areas (2)], vol. 34 (3rd ed.), berlin, new york: springer-verlag, isbn 978-3-540-56963-3, mr 0214602; mr0719371 (2nd ed.); mr1304906(3rd ed.)
+olver, peter j. (1999), classical invariant theory, cambridge: cambridge university press, isbn 978-0-521-55821-1.
+peter, f.; weyl, hermann (1927), "die vollständigkeit der primitiven darstellungen einer geschlossenen kontinuierlichen gruppe", mathematische annalen, 97 (1): 737–755, doi:10.1007/bf01447892, s2cid 120013521, archived from the original on 2014-08-19.
+pontrjagin, lev s. (1934), "the theory of topological commutative groups", annals of mathematics, 35 (2): 361–388, doi:10.2307/1968438, jstor 1968438.
+sally, paul; vogan, david a. (1989), representation theory and harmonic analysis on semisimple lie groups, american mathematical society, isbn 978-0-8218-1526-7.
+serre, jean-pierre (1977), linear representations of finite groups, springer-verlag, isbn 978-0387901909.
+sharpe, richard w. (1997), differential geometry: cartan's generalization of klein's erlangen program, springer, isbn 978-0-387-94732-7.
+simson, daniel; skowronski, andrzej; assem, ibrahim (2007), elements of the representation theory of associative algebras, cambridge university press, isbn 978-0-521-88218-7.
+sternberg, shlomo (1994), group theory and physics, cambridge university press, isbn 978-0-521-55885-3.
+tung, wu-ki (1985). group theory in physics (1st ed.). new jersey·london·singapore·hong kong: world scientific. isbn 978-9971966577.
+weyl, hermann (1928), gruppentheorie und quantenmechanik (the theory of groups and quantum mechanics, translated h.p. robertson, 1931 ed.), s. hirzel, leipzig (reprinted 1950, dover), isbn 978-0-486-60269-1.
+weyl, hermann (1946), the classical groups: their invariants and representations (2nd ed.), princeton university press (reprinted 1997), isbn 978-0-691-05756-9.
+wigner, eugene p. (1939), "on unitary representations of the inhomogeneous lorentz group", annals of mathematics, 40 (1): 149–204, doi:10.2307/1968551, jstor 1968551.
+
+
+== external links ==
+
+"representation theory", encyclopedia of mathematics, ems press, 2001 [1994]
+alexander kirillov jr., an introduction to lie groups and lie algebras (2008).  textbook, preliminary version pdf downloadable from author's home page.
+kevin hartnett, (2020), article on representation theory in quanta magazine

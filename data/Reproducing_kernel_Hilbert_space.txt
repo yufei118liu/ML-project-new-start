@@ -1,0 +1,5664 @@
+in functional analysis (a branch of mathematics), a reproducing kernel hilbert space (rkhs) is a hilbert space of functions in which point evaluation is a continuous linear functional. roughly speaking, this means that if two functions 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   and 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+   in the rkhs are close in norm, i.e., 
+  
+    
+      
+        ‖
+        f
+        −
+        g
+        ‖
+      
+    
+    {\displaystyle \|f-g\|}
+   is small, then 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   and 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+   are also pointwise close, i.e., 
+  
+    
+      
+        
+          |
+        
+        f
+        (
+        x
+        )
+        −
+        g
+        (
+        x
+        )
+        
+          |
+        
+      
+    
+    {\displaystyle |f(x)-g(x)|}
+   is small for all 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  . the converse does not need to be true.
+it is not entirely straightforward to construct a hilbert space of functions which is not an rkhs. some examples, however, have been found.note that l2 spaces are not hilbert spaces of functions (and hence not rkhss), but rather hilbert spaces of equivalence classes of functions (for example, the functions 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   and 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+   defined by 
+  
+    
+      
+        f
+        (
+        x
+        )
+        =
+        0
+      
+    
+    {\displaystyle f(x)=0}
+   and 
+  
+    
+      
+        g
+        (
+        x
+        )
+        =
+        
+          1
+          
+            
+              q
+            
+          
+        
+      
+    
+    {\displaystyle g(x)=1_{\mathbb {q} }}
+   are equivalent in l2). however, there are rkhss in which the norm is an l2-norm, such as the space of band-limited functions (see the example below).
+an rkhs is associated with a kernel that reproduces every function in the space in the sense that for every 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   in the set on which the functions are defined, "evaluation at 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  " can be performed by taking an inner product with a function determined by the kernel. such a reproducing kernel exists if and only if every evaluation functional is continuous.
+the reproducing kernel was first introduced in the 1907 work of stanisław zaremba concerning boundary value problems for harmonic and biharmonic functions.  james mercer simultaneously examined functions which satisfy the reproducing property in the theory of integral equations. the idea of the reproducing kernel remained untouched for nearly twenty years until it appeared in the dissertations of gábor szegő, stefan bergman, and salomon bochner.  the subject was eventually systematically developed in the early 1950s by nachman aronszajn and stefan bergman.these spaces have wide applications, including complex analysis, harmonic analysis, and quantum mechanics.  reproducing kernel hilbert spaces are particularly important in the field of statistical learning theory because of the celebrated representer theorem which states that every function in an rkhs that minimises an empirical risk functional can be written as a linear combination of the kernel function evaluated at the training points.  this is a practically useful result as it effectively simplifies the empirical risk minimization problem from an infinite dimensional to a finite dimensional optimization problem.
+for ease of understanding, we provide the framework for real-valued hilbert spaces.  the theory can be easily extended to spaces of complex-valued functions and hence include the many important examples of reproducing kernel hilbert spaces that are spaces of analytic functions.
+
+
+== definition ==
+let 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   be an arbitrary set and 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   a hilbert space of real-valued functions on 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  , equipped with pointwise addition and pointwise scalar multiplication.  the evaluation functional over the hilbert space of functions 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   is a linear functional that evaluates each function at a point 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  ,
+
+  
+    
+      
+        
+          l
+          
+            x
+          
+        
+        :
+        f
+        ↦
+        f
+        (
+        x
+        )
+        
+           
+        
+        ∀
+        f
+        ∈
+        h
+        .
+      
+    
+    {\displaystyle l_{x}:f\mapsto f(x){\text{   }}\forall f\in h.}
+  we say that h is a reproducing kernel hilbert space if, for all 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   in 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  , 
+  
+    
+      
+        
+          l
+          
+            x
+          
+        
+      
+    
+    {\displaystyle l_{x}}
+   is continuous at every 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   in 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   or, equivalently, if 
+  
+    
+      
+        
+          l
+          
+            x
+          
+        
+      
+    
+    {\displaystyle l_{x}}
+   is a bounded operator on 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+  , i.e. there exists some 
+  
+    
+      
+        
+          m
+          
+            x
+          
+        
+        >
+        0
+      
+    
+    {\displaystyle m_{x}>0}
+   such that
+
+although 
+  
+    
+      
+        
+          m
+          
+            x
+          
+        
+        <
+        ∞
+      
+    
+    {\displaystyle m_{x}<\infty }
+   is assumed for all 
+  
+    
+      
+        x
+        ∈
+        x
+      
+    
+    {\displaystyle x\in x}
+  , it might still be the case that 
+  
+    
+      
+        
+          sup
+          
+            x
+          
+        
+        
+          m
+          
+            x
+          
+        
+        =
+        ∞
+      
+    
+    {\textstyle \sup _{x}m_{x}=\infty }
+  .
+while property (1) is the weakest condition that ensures both the existence of an inner product and the evaluation of every function in 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   at every point in the domain, it does not lend itself to easy application in practice.  a more intuitive definition of the rkhs can be obtained by observing that this property guarantees that the evaluation functional can be represented by taking the inner product of 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   with a function 
+  
+    
+      
+        
+          k
+          
+            x
+          
+        
+      
+    
+    {\displaystyle k_{x}}
+   in 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+  .  this function is the so-called reproducing kernel for the hilbert space 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   from which the rkhs takes its name.  more formally, the riesz representation theorem implies that for all 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   in 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   there exists a unique element 
+  
+    
+      
+        
+          k
+          
+            x
+          
+        
+      
+    
+    {\displaystyle k_{x}}
+   of 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   with the reproducing property,
+
+since 
+  
+    
+      
+        
+          k
+          
+            x
+          
+        
+      
+    
+    {\displaystyle k_{x}}
+   is itself a function defined on 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   with values in the field 
+  
+    
+      
+        
+          r
+        
+      
+    
+    {\displaystyle \mathbb {r} }
+   (or 
+  
+    
+      
+        
+          c
+        
+      
+    
+    {\displaystyle \mathbb {c} }
+   in the case of complex hilbert spaces) and as 
+  
+    
+      
+        
+          k
+          
+            x
+          
+        
+      
+    
+    {\displaystyle k_{x}}
+   is in 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   we have that
+
+  
+    
+      
+        
+          k
+          
+            x
+          
+        
+        (
+        y
+        )
+        =
+        
+          l
+          
+            y
+          
+        
+        (
+        
+          k
+          
+            x
+          
+        
+        )
+        =
+        ⟨
+        
+          k
+          
+            x
+          
+        
+        ,
+         
+        
+          k
+          
+            y
+          
+        
+        
+          ⟩
+          
+            h
+          
+        
+        ,
+      
+    
+    {\displaystyle k_{x}(y)=l_{y}(k_{x})=\langle k_{x},\ k_{y}\rangle _{h},}
+  where  
+  
+    
+      
+        
+          k
+          
+            y
+          
+        
+        ∈
+        h
+      
+    
+    {\displaystyle k_{y}\in h}
+   is the element in 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   associated to 
+  
+    
+      
+        
+          l
+          
+            y
+          
+        
+      
+    
+    {\displaystyle l_{y}}
+  .
+this allows us to define the reproducing kernel of 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   as a function 
+  
+    
+      
+        k
+        :
+        x
+        ×
+        x
+        →
+        
+          r
+        
+      
+    
+    {\displaystyle k:x\times x\to \mathbb {r} }
+   by
+
+  
+    
+      
+        k
+        (
+        x
+        ,
+        y
+        )
+        =
+        ⟨
+        
+          k
+          
+            x
+          
+        
+        ,
+         
+        
+          k
+          
+            y
+          
+        
+        
+          ⟩
+          
+            h
+          
+        
+        .
+      
+    
+    {\displaystyle k(x,y)=\langle k_{x},\ k_{y}\rangle _{h}.}
+  from this definition it is easy to see that 
+  
+    
+      
+        k
+        :
+        x
+        ×
+        x
+        →
+        
+          r
+        
+      
+    
+    {\displaystyle k:x\times x\to \mathbb {r} }
+   (or 
+  
+    
+      
+        
+          c
+        
+      
+    
+    {\displaystyle \mathbb {c} }
+   in the complex case) is both symmetric (resp. conjugate symmetric) and positive definite, i.e.
+
+  
+    
+      
+        
+          ∑
+          
+            i
+            ,
+            j
+            =
+            1
+          
+          
+            n
+          
+        
+        
+          c
+          
+            i
+          
+        
+        
+          c
+          
+            j
+          
+        
+        k
+        (
+        
+          x
+          
+            i
+          
+        
+        ,
+        
+          x
+          
+            j
+          
+        
+        )
+        =
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            n
+          
+        
+        
+          c
+          
+            i
+          
+        
+        
+          
+            ⟨
+            
+              
+                k
+                
+                  
+                    x
+                    
+                      i
+                    
+                  
+                
+              
+              ,
+              
+                ∑
+                
+                  j
+                  =
+                  1
+                
+                
+                  n
+                
+              
+              
+                c
+                
+                  j
+                
+              
+              
+                k
+                
+                  
+                    x
+                    
+                      j
+                    
+                  
+                
+              
+            
+            ⟩
+          
+          
+            h
+          
+        
+        =
+        
+          
+            ⟨
+            
+              
+                ∑
+                
+                  i
+                  =
+                  1
+                
+                
+                  n
+                
+              
+              
+                c
+                
+                  i
+                
+              
+              
+                k
+                
+                  
+                    x
+                    
+                      i
+                    
+                  
+                
+              
+              ,
+              
+                ∑
+                
+                  j
+                  =
+                  1
+                
+                
+                  n
+                
+              
+              
+                c
+                
+                  j
+                
+              
+              
+                k
+                
+                  
+                    x
+                    
+                      j
+                    
+                  
+                
+              
+            
+            ⟩
+          
+          
+            h
+          
+        
+        =
+        
+          
+            ‖
+            
+              
+                ∑
+                
+                  i
+                  =
+                  1
+                
+                
+                  n
+                
+              
+              
+                c
+                
+                  i
+                
+              
+              
+                k
+                
+                  
+                    x
+                    
+                      i
+                    
+                  
+                
+              
+            
+            ‖
+          
+          
+            h
+          
+          
+            2
+          
+        
+        ≥
+        0
+      
+    
+    {\displaystyle \sum _{i,j=1}^{n}c_{i}c_{j}k(x_{i},x_{j})=\sum _{i=1}^{n}c_{i}\left\langle k_{x_{i}},\sum _{j=1}^{n}c_{j}k_{x_{j}}\right\rangle _{h}=\left\langle \sum _{i=1}^{n}c_{i}k_{x_{i}},\sum _{j=1}^{n}c_{j}k_{x_{j}}\right\rangle _{h}=\left\|\sum _{i=1}^{n}c_{i}k_{x_{i}}\right\|_{h}^{2}\geq 0}
+  for every 
+  
+    
+      
+        n
+        ∈
+        
+          n
+        
+        ,
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+        ∈
+        x
+        ,
+        
+           and 
+        
+        
+          c
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          c
+          
+            n
+          
+        
+        ∈
+        
+          r
+        
+        .
+      
+    
+    {\displaystyle n\in \mathbb {n} ,x_{1},\dots ,x_{n}\in x,{\text{ and }}c_{1},\dots ,c_{n}\in \mathbb {r} .}
+   the moore–aronszajn theorem (see below) is a sort of converse to this: if a function 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   satisfies these conditions then there is a hilbert space of functions on 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   for which it is a reproducing kernel.
+
+
+== example ==
+the space of bandlimited continuous functions 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   is a rkhs, as we now show.  formally, fix some cutoff frequency 
+  
+    
+      
+        0
+        <
+        a
+        <
+        ∞
+      
+    
+    {\displaystyle 0<a<\infty }
+   and define the hilbert space
+
+  
+    
+      
+        h
+        =
+        {
+        f
+        ∈
+        c
+        (
+        
+          r
+        
+        )
+        ∣
+        supp
+        ⁡
+        (
+        f
+        )
+        ⊂
+        [
+        −
+        a
+        ,
+        a
+        ]
+        }
+      
+    
+    {\displaystyle h=\{f\in c(\mathbb {r} )\mid \operatorname {supp} (f)\subset [-a,a]\}}
+  where 
+  
+    
+      
+        c
+        (
+        
+          r
+        
+        )
+      
+    
+    {\displaystyle c(\mathbb {r} )}
+   is the set of continuous square integrable functions, and 
+  
+    
+      
+        f
+        (
+        ω
+        )
+        =
+        
+          ∫
+          
+            −
+            ∞
+          
+          
+            ∞
+          
+        
+        f
+        (
+        t
+        )
+        
+          e
+          
+            −
+            i
+            ω
+            t
+          
+        
+        
+        d
+        t
+      
+    
+    {\textstyle f(\omega )=\int _{-\infty }^{\infty }f(t)e^{-i\omega t}\,dt}
+   is the fourier transform of 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+  . as the inner product of this hilbert space, we use
+
+  
+    
+      
+        ⟨
+        f
+        ,
+        g
+        
+          ⟩
+          
+            
+              l
+              
+                2
+              
+            
+          
+        
+        =
+        
+          ∫
+          
+            −
+            ∞
+          
+          
+            ∞
+          
+        
+        f
+        (
+        x
+        )
+        ⋅
+        
+          
+            
+              g
+              (
+              x
+              )
+            
+            ¯
+          
+        
+        
+        d
+        x
+        .
+      
+    
+    {\displaystyle \langle f,g\rangle _{l^{2}}=\int _{-\infty }^{\infty }f(x)\cdot {\overline {g(x)}}\,dx.}
+  from the fourier inversion theorem, we have
+
+  
+    
+      
+        f
+        (
+        x
+        )
+        =
+        
+          
+            1
+            
+              2
+              π
+            
+          
+        
+        
+          ∫
+          
+            −
+            a
+          
+          
+            a
+          
+        
+        f
+        (
+        ω
+        )
+        
+          e
+          
+            i
+            x
+            ω
+          
+        
+        
+        d
+        ω
+        .
+      
+    
+    {\displaystyle f(x)={\frac {1}{2\pi }}\int _{-a}^{a}f(\omega )e^{ix\omega }\,d\omega .}
+  it then follows by the cauchy–schwarz inequality and plancherel's theorem that, for all 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  ,
+
+  
+    
+      
+        
+          |
+        
+        f
+        (
+        x
+        )
+        
+          |
+        
+        ≤
+        
+          
+            1
+            
+              2
+              π
+            
+          
+        
+        
+          
+            
+              ∫
+              
+                −
+                a
+              
+              
+                a
+              
+            
+            2
+            a
+            
+              |
+            
+            f
+            (
+            ω
+            )
+            
+              
+                |
+              
+              
+                2
+              
+            
+            
+            d
+            ω
+          
+        
+        =
+        
+          
+            1
+            π
+          
+        
+        
+          
+            
+              
+                a
+                2
+              
+            
+            
+              ∫
+              
+                −
+                ∞
+              
+              
+                ∞
+              
+            
+            
+              |
+            
+            f
+            (
+            ω
+            )
+            
+              
+                |
+              
+              
+                2
+              
+            
+            
+            d
+            ω
+          
+        
+        =
+        
+          
+            
+              a
+              π
+            
+          
+        
+        ‖
+        f
+        
+          ‖
+          
+            
+              l
+              
+                2
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle |f(x)|\leq {\frac {1}{2\pi }}{\sqrt {\int _{-a}^{a}2a|f(\omega )|^{2}\,d\omega }}={\frac {1}{\pi }}{\sqrt {{\frac {a}{2}}\int _{-\infty }^{\infty }|f(\omega )|^{2}\,d\omega }}={\sqrt {\frac {a}{\pi }}}\|f\|_{l^{2}}.}
+  this inequality shows that the evaluation functional is bounded, proving that 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   is indeed a rkhs.
+the kernel function 
+  
+    
+      
+        
+          k
+          
+            x
+          
+        
+      
+    
+    {\displaystyle k_{x}}
+   in this case is given by
+
+  
+    
+      
+        
+          k
+          
+            x
+          
+        
+        (
+        y
+        )
+        =
+        
+          
+            a
+            π
+          
+        
+        sinc
+        ⁡
+        
+          (
+          
+            
+              
+                a
+                π
+              
+            
+            (
+            y
+            −
+            x
+            )
+          
+          )
+        
+        =
+        
+          
+            
+              sin
+              ⁡
+              (
+              a
+              (
+              y
+              −
+              x
+              )
+              )
+            
+            
+              π
+              (
+              y
+              −
+              x
+              )
+            
+          
+        
+        .
+      
+    
+    {\displaystyle k_{x}(y)={\frac {a}{\pi }}\operatorname {sinc} \left({\frac {a}{\pi }}(y-x)\right)={\frac {\sin(a(y-x))}{\pi (y-x)}}.}
+  to see this, we first note that the fourier transform of 
+  
+    
+      
+        
+          k
+          
+            x
+          
+        
+        (
+        y
+        )
+      
+    
+    {\displaystyle k_{x}(y)}
+   defined above is given by
+
+  
+    
+      
+        
+          ∫
+          
+            −
+            ∞
+          
+          
+            ∞
+          
+        
+        
+          k
+          
+            x
+          
+        
+        (
+        y
+        )
+        
+          e
+          
+            −
+            i
+            ω
+            y
+          
+        
+        
+        d
+        y
+        =
+        
+          
+            {
+            
+              
+                
+                  
+                    e
+                    
+                      −
+                      i
+                      ω
+                      x
+                    
+                  
+                
+                
+                  
+                    if 
+                  
+                  ω
+                  ∈
+                  [
+                  −
+                  a
+                  ,
+                  a
+                  ]
+                  ,
+                
+              
+              
+                
+                  0
+                
+                
+                  
+                    
+                      otherwise
+                    
+                  
+                  ,
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle \int _{-\infty }^{\infty }k_{x}(y)e^{-i\omega y}\,dy={\begin{cases}e^{-i\omega x}&{\text{if }}\omega \in [-a,a],\\0&{\textrm {otherwise}},\end{cases}}}
+  which is a consequence of the time-shifting property of the fourier transform. consequently, using plancherel's theorem, we have
+
+  
+    
+      
+        ⟨
+        f
+        ,
+        
+          k
+          
+            x
+          
+        
+        
+          ⟩
+          
+            
+              l
+              
+                2
+              
+            
+          
+        
+        =
+        
+          ∫
+          
+            −
+            ∞
+          
+          
+            ∞
+          
+        
+        f
+        (
+        y
+        )
+        ⋅
+        
+          
+            
+              
+                k
+                
+                  x
+                
+              
+              (
+              y
+              )
+            
+            ¯
+          
+        
+        
+        d
+        y
+        =
+        
+          
+            1
+            
+              2
+              π
+            
+          
+        
+        
+          ∫
+          
+            −
+            a
+          
+          
+            a
+          
+        
+        f
+        (
+        ω
+        )
+        ⋅
+        
+          e
+          
+            i
+            ω
+            x
+          
+        
+        
+        d
+        ω
+        =
+        f
+        (
+        x
+        )
+        .
+      
+    
+    {\displaystyle \langle f,k_{x}\rangle _{l^{2}}=\int _{-\infty }^{\infty }f(y)\cdot {\overline {k_{x}(y)}}\,dy={\frac {1}{2\pi }}\int _{-a}^{a}f(\omega )\cdot e^{i\omega x}\,d\omega =f(x).}
+  thus we obtain the reproducing property of the kernel.
+note that 
+  
+    
+      
+        
+          k
+          
+            x
+          
+        
+      
+    
+    {\displaystyle k_{x}}
+   in this case is the "bandlimited version" of the dirac delta function, and that 
+  
+    
+      
+        
+          k
+          
+            x
+          
+        
+        (
+        y
+        )
+      
+    
+    {\displaystyle k_{x}(y)}
+   converges to 
+  
+    
+      
+        δ
+        (
+        y
+        −
+        x
+        )
+      
+    
+    {\displaystyle \delta (y-x)}
+   in the weak sense as the cutoff frequency 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   tends to infinity.
+
+
+== moore–aronszajn theorem ==
+we have seen how a reproducing kernel hilbert space defines a reproducing kernel function that is both symmetric and positive definite. the moore–aronszajn theorem goes in the other direction; it states that every symmetric, positive definite kernel defines a unique reproducing kernel hilbert space. the theorem first appeared in aronszajn's theory of reproducing kernels, although he attributes it to e. h. moore.
+
+theorem. suppose k is a symmetric, positive definite kernel on a set x. then there is a unique hilbert space of functions on x for which k is a reproducing kernel.proof. for all x in x, define kx = k(x, ⋅ ). let h0 be the linear span of {kx : x ∈ x}. define an inner product on h0 by
+
+  
+    
+      
+        
+          
+            ⟨
+            
+              
+                ∑
+                
+                  j
+                  =
+                  1
+                
+                
+                  n
+                
+              
+              
+                b
+                
+                  j
+                
+              
+              
+                k
+                
+                  
+                    y
+                    
+                      j
+                    
+                  
+                
+              
+              ,
+              
+                ∑
+                
+                  i
+                  =
+                  1
+                
+                
+                  m
+                
+              
+              
+                a
+                
+                  i
+                
+              
+              
+                k
+                
+                  
+                    x
+                    
+                      i
+                    
+                  
+                
+              
+            
+            ⟩
+          
+          
+            
+              h
+              
+                0
+              
+            
+          
+        
+        =
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            m
+          
+        
+        
+          ∑
+          
+            j
+            =
+            1
+          
+          
+            n
+          
+        
+        
+          
+            a
+            
+              i
+            
+          
+        
+        
+          b
+          
+            j
+          
+        
+        k
+        (
+        
+          y
+          
+            j
+          
+        
+        ,
+        
+          x
+          
+            i
+          
+        
+        )
+        ,
+      
+    
+    {\displaystyle \left\langle \sum _{j=1}^{n}b_{j}k_{y_{j}},\sum _{i=1}^{m}a_{i}k_{x_{i}}\right\rangle _{h_{0}}=\sum _{i=1}^{m}\sum _{j=1}^{n}{a_{i}}b_{j}k(y_{j},x_{i}),}
+  which implies 
+  
+    
+      
+        k
+        (
+        x
+        ,
+        y
+        )
+        =
+        
+          
+            ⟨
+            
+              
+                k
+                
+                  x
+                
+              
+              ,
+              
+                k
+                
+                  y
+                
+              
+            
+            ⟩
+          
+          
+            
+              h
+              
+                0
+              
+            
+          
+        
+      
+    
+    {\displaystyle k(x,y)=\left\langle k_{x},k_{y}\right\rangle _{h_{0}}}
+  .
+the symmetry of this inner product follows from the symmetry of k and the non-degeneracy follows from the fact that k is positive definite.
+let h be the completion of h0 with respect to this inner product. then h consists of functions of the form
+
+  
+    
+      
+        f
+        (
+        x
+        )
+        =
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            ∞
+          
+        
+        
+          a
+          
+            i
+          
+        
+        
+          k
+          
+            
+              x
+              
+                i
+              
+            
+          
+        
+        (
+        x
+        )
+        
+        
+          where
+        
+        
+        
+          lim
+          
+            n
+            →
+            ∞
+          
+        
+        
+          sup
+          
+            p
+            ≥
+            0
+          
+        
+        
+          
+            ‖
+            
+              
+                ∑
+                
+                  i
+                  =
+                  n
+                
+                
+                  n
+                  +
+                  p
+                
+              
+              
+                a
+                
+                  i
+                
+              
+              
+                k
+                
+                  
+                    x
+                    
+                      i
+                    
+                  
+                
+              
+            
+            ‖
+          
+          
+            
+              h
+              
+                0
+              
+            
+          
+        
+        =
+        0.
+      
+    
+    {\displaystyle f(x)=\sum _{i=1}^{\infty }a_{i}k_{x_{i}}(x)\quad {\text{where}}\quad \lim _{n\to \infty }\sup _{p\geq 0}\left\|\sum _{i=n}^{n+p}a_{i}k_{x_{i}}\right\|_{h_{0}}=0.}
+  now we can check the reproducing property (2):
+
+  
+    
+      
+        ⟨
+        f
+        ,
+        
+          k
+          
+            x
+          
+        
+        
+          ⟩
+          
+            h
+          
+        
+        =
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            ∞
+          
+        
+        
+          a
+          
+            i
+          
+        
+        
+          
+            ⟨
+            
+              
+                k
+                
+                  
+                    x
+                    
+                      i
+                    
+                  
+                
+              
+              ,
+              
+                k
+                
+                  x
+                
+              
+            
+            ⟩
+          
+          
+            
+              h
+              
+                0
+              
+            
+          
+        
+        =
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            ∞
+          
+        
+        
+          a
+          
+            i
+          
+        
+        k
+        (
+        
+          x
+          
+            i
+          
+        
+        ,
+        x
+        )
+        =
+        f
+        (
+        x
+        )
+        .
+      
+    
+    {\displaystyle \langle f,k_{x}\rangle _{h}=\sum _{i=1}^{\infty }a_{i}\left\langle k_{x_{i}},k_{x}\right\rangle _{h_{0}}=\sum _{i=1}^{\infty }a_{i}k(x_{i},x)=f(x).}
+  to prove uniqueness, let g be another hilbert space of functions for which k is a reproducing kernel. for every x and y in x, (2) implies that
+
+  
+    
+      
+        ⟨
+        
+          k
+          
+            x
+          
+        
+        ,
+        
+          k
+          
+            y
+          
+        
+        
+          ⟩
+          
+            h
+          
+        
+        =
+        k
+        (
+        x
+        ,
+        y
+        )
+        =
+        ⟨
+        
+          k
+          
+            x
+          
+        
+        ,
+        
+          k
+          
+            y
+          
+        
+        
+          ⟩
+          
+            g
+          
+        
+        .
+      
+    
+    {\displaystyle \langle k_{x},k_{y}\rangle _{h}=k(x,y)=\langle k_{x},k_{y}\rangle _{g}.}
+  by linearity, 
+  
+    
+      
+        ⟨
+        ⋅
+        ,
+        ⋅
+        
+          ⟩
+          
+            h
+          
+        
+        =
+        ⟨
+        ⋅
+        ,
+        ⋅
+        
+          ⟩
+          
+            g
+          
+        
+      
+    
+    {\displaystyle \langle \cdot ,\cdot \rangle _{h}=\langle \cdot ,\cdot \rangle _{g}}
+   on the span of 
+  
+    
+      
+        {
+        
+          k
+          
+            x
+          
+        
+        :
+        x
+        ∈
+        x
+        }
+      
+    
+    {\displaystyle \{k_{x}:x\in x\}}
+  . then 
+  
+    
+      
+        h
+        ⊂
+        g
+      
+    
+    {\displaystyle h\subset g}
+   because g is complete and contains h0 and hence contains its completion.
+now we need to prove that every element of g is in h. let 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   be an element of g. since h is a closed subspace of g, we can write 
+  
+    
+      
+        f
+        =
+        
+          f
+          
+            h
+          
+        
+        +
+        
+          f
+          
+            
+              h
+              
+                ⊥
+              
+            
+          
+        
+      
+    
+    {\displaystyle f=f_{h}+f_{h^{\bot }}}
+   where 
+  
+    
+      
+        
+          f
+          
+            h
+          
+        
+        ∈
+        h
+      
+    
+    {\displaystyle f_{h}\in h}
+   and 
+  
+    
+      
+        
+          f
+          
+            
+              h
+              
+                ⊥
+              
+            
+          
+        
+        ∈
+        
+          h
+          
+            ⊥
+          
+        
+      
+    
+    {\displaystyle f_{h^{\bot }}\in h^{\bot }}
+  . now if 
+  
+    
+      
+        x
+        ∈
+        x
+      
+    
+    {\displaystyle x\in x}
+   then, since k is a reproducing kernel of g and h:
+
+  
+    
+      
+        f
+        (
+        x
+        )
+        =
+        ⟨
+        
+          k
+          
+            x
+          
+        
+        ,
+        f
+        
+          ⟩
+          
+            g
+          
+        
+        =
+        ⟨
+        
+          k
+          
+            x
+          
+        
+        ,
+        
+          f
+          
+            h
+          
+        
+        
+          ⟩
+          
+            g
+          
+        
+        +
+        ⟨
+        
+          k
+          
+            x
+          
+        
+        ,
+        
+          f
+          
+            
+              h
+              
+                ⊥
+              
+            
+          
+        
+        
+          ⟩
+          
+            g
+          
+        
+        =
+        ⟨
+        
+          k
+          
+            x
+          
+        
+        ,
+        
+          f
+          
+            h
+          
+        
+        
+          ⟩
+          
+            g
+          
+        
+        =
+        ⟨
+        
+          k
+          
+            x
+          
+        
+        ,
+        
+          f
+          
+            h
+          
+        
+        
+          ⟩
+          
+            h
+          
+        
+        =
+        
+          f
+          
+            h
+          
+        
+        (
+        x
+        )
+        ,
+      
+    
+    {\displaystyle f(x)=\langle k_{x},f\rangle _{g}=\langle k_{x},f_{h}\rangle _{g}+\langle k_{x},f_{h^{\bot }}\rangle _{g}=\langle k_{x},f_{h}\rangle _{g}=\langle k_{x},f_{h}\rangle _{h}=f_{h}(x),}
+  where we have used the fact that 
+  
+    
+      
+        
+          k
+          
+            x
+          
+        
+      
+    
+    {\displaystyle k_{x}}
+   belongs to h so that its inner product with 
+  
+    
+      
+        
+          f
+          
+            
+              h
+              
+                ⊥
+              
+            
+          
+        
+      
+    
+    {\displaystyle f_{h^{\bot }}}
+   in g is zero.
+this shows that 
+  
+    
+      
+        f
+        =
+        
+          f
+          
+            h
+          
+        
+      
+    
+    {\displaystyle f=f_{h}}
+   in g and concludes the proof.
+
+
+== integral operators and mercer's theorem ==
+we may characterize a symmetric positive definite kernel 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   via the integral operator using mercer's theorem and obtain an additional view of the rkhs. let 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   be a compact space equipped with a strictly positive finite borel measure 
+  
+    
+      
+        μ
+      
+    
+    {\displaystyle \mu }
+   and 
+  
+    
+      
+        k
+        :
+        x
+        ×
+        x
+        →
+        
+          r
+        
+      
+    
+    {\displaystyle k:x\times x\to \mathbb {r} }
+   a continuous, symmetric, and positive definite function. define the integral operator 
+  
+    
+      
+        
+          t
+          
+            k
+          
+        
+        :
+        
+          l
+          
+            2
+          
+        
+        (
+        x
+        )
+        →
+        
+          l
+          
+            2
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle t_{k}:l_{2}(x)\to l_{2}(x)}
+   as
+
+  
+    
+      
+        [
+        
+          t
+          
+            k
+          
+        
+        f
+        ]
+        (
+        ⋅
+        )
+        =
+        
+          ∫
+          
+            x
+          
+        
+        k
+        (
+        ⋅
+        ,
+        t
+        )
+        f
+        (
+        t
+        )
+        
+        d
+        μ
+        (
+        t
+        )
+      
+    
+    {\displaystyle [t_{k}f](\cdot )=\int _{x}k(\cdot ,t)f(t)\,d\mu (t)}
+  where 
+  
+    
+      
+        
+          l
+          
+            2
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle l_{2}(x)}
+   is the space of square integrable functions with respect to 
+  
+    
+      
+        μ
+      
+    
+    {\displaystyle \mu }
+  .
+mercer's theorem states that the spectral decomposition of the integral operator 
+  
+    
+      
+        
+          t
+          
+            k
+          
+        
+      
+    
+    {\displaystyle t_{k}}
+   of 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   yields a series representation of 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   in terms of the eigenvalues and eigenfunctions of 
+  
+    
+      
+        
+          t
+          
+            k
+          
+        
+      
+    
+    {\displaystyle t_{k}}
+  . this then implies that 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   is a reproducing kernel so that the corresponding rkhs can be defined in terms of these eigenvalues and eigenfunctions. we provide the details below.
+under these assumptions 
+  
+    
+      
+        
+          t
+          
+            k
+          
+        
+      
+    
+    {\displaystyle t_{k}}
+   is a compact, continuous, self-adjoint, and positive operator.  the spectral theorem for self-adjoint operators implies that there is an at most countable decreasing sequence 
+  
+    
+      
+        (
+        
+          σ
+          
+            i
+          
+        
+        
+          )
+          
+            i
+          
+        
+        ≥
+        0
+      
+    
+    {\displaystyle (\sigma _{i})_{i}\geq 0}
+   such that 
+  
+    
+      
+        
+          lim
+          
+            i
+            →
+            ∞
+          
+        
+        
+          σ
+          
+            i
+          
+        
+        =
+        0
+      
+    
+    {\textstyle \lim _{i\to \infty }\sigma _{i}=0}
+   and
+
+  
+    
+      
+        
+          t
+          
+            k
+          
+        
+        
+          φ
+          
+            i
+          
+        
+        (
+        x
+        )
+        =
+        
+          σ
+          
+            i
+          
+        
+        
+          φ
+          
+            i
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle t_{k}\varphi _{i}(x)=\sigma _{i}\varphi _{i}(x)}
+  , where the 
+  
+    
+      
+        {
+        
+          φ
+          
+            i
+          
+        
+        }
+      
+    
+    {\displaystyle \{\varphi _{i}\}}
+   form an orthonormal basis of 
+  
+    
+      
+        
+          l
+          
+            2
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle l_{2}(x)}
+  . by the positivity of 
+  
+    
+      
+        
+          t
+          
+            k
+          
+        
+        ,
+        
+          σ
+          
+            i
+          
+        
+        >
+        0
+      
+    
+    {\displaystyle t_{k},\sigma _{i}>0}
+   for all 
+  
+    
+      
+        i
+        .
+      
+    
+    {\displaystyle i.}
+   one can also show that 
+  
+    
+      
+        
+          t
+          
+            k
+          
+        
+      
+    
+    {\displaystyle t_{k}}
+   maps continuously into the space of continuous functions 
+  
+    
+      
+        c
+        (
+        x
+        )
+      
+    
+    {\displaystyle c(x)}
+   and therefore we may choose continuous functions as the eigenvectors, that is, 
+  
+    
+      
+        
+          φ
+          
+            i
+          
+        
+        ∈
+        c
+        (
+        x
+        )
+      
+    
+    {\displaystyle \varphi _{i}\in c(x)}
+   for all 
+  
+    
+      
+        i
+        .
+      
+    
+    {\displaystyle i.}
+   then by mercer's theorem  
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   may be written in terms of the eigenvalues and continuous eigenfunctions as
+
+  
+    
+      
+        k
+        (
+        x
+        ,
+        y
+        )
+        =
+        
+          ∑
+          
+            j
+            =
+            1
+          
+          
+            ∞
+          
+        
+        
+          σ
+          
+            j
+          
+        
+        
+        
+          φ
+          
+            j
+          
+        
+        (
+        x
+        )
+        
+        
+          φ
+          
+            j
+          
+        
+        (
+        y
+        )
+      
+    
+    {\displaystyle k(x,y)=\sum _{j=1}^{\infty }\sigma _{j}\,\varphi _{j}(x)\,\varphi _{j}(y)}
+  for all 
+  
+    
+      
+        x
+        ,
+        y
+        ∈
+        x
+      
+    
+    {\displaystyle x,y\in x}
+   such that
+
+  
+    
+      
+        
+          lim
+          
+            n
+            →
+            ∞
+          
+        
+        
+          sup
+          
+            u
+            ,
+            v
+          
+        
+        
+          |
+          
+            k
+            (
+            u
+            ,
+            v
+            )
+            −
+            
+              ∑
+              
+                j
+                =
+                1
+              
+              
+                n
+              
+            
+            
+              σ
+              
+                j
+              
+            
+            
+            
+              φ
+              
+                j
+              
+            
+            (
+            u
+            )
+            
+            
+              φ
+              
+                j
+              
+            
+            (
+            v
+            )
+          
+          |
+        
+        =
+        0.
+      
+    
+    {\displaystyle \lim _{n\to \infty }\sup _{u,v}\left|k(u,v)-\sum _{j=1}^{n}\sigma _{j}\,\varphi _{j}(u)\,\varphi _{j}(v)\right|=0.}
+  this above series representation is referred to as a mercer kernel or mercer representation of 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  .
+furthermore, it can be shown that the rkhs 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   of 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   is given by
+
+  
+    
+      
+        h
+        =
+        
+          {
+          
+            f
+            ∈
+            
+              l
+              
+                2
+              
+            
+            (
+            x
+            )
+            
+            
+              
+                |
+              
+            
+            
+            
+              ∑
+              
+                i
+                =
+                1
+              
+              
+                ∞
+              
+            
+            
+              
+                
+                  
+                    ⟨
+                    
+                      f
+                      ,
+                      
+                        φ
+                        
+                          i
+                        
+                      
+                    
+                    ⟩
+                  
+                  
+                    
+                      l
+                      
+                        2
+                      
+                    
+                  
+                  
+                    2
+                  
+                
+                
+                  σ
+                  
+                    i
+                  
+                
+              
+            
+            <
+            ∞
+          
+          }
+        
+      
+    
+    {\displaystyle h=\left\{f\in l_{2}(x)\,{\bigg \vert }\,\sum _{i=1}^{\infty }{\frac {\left\langle f,\varphi _{i}\right\rangle _{l_{2}}^{2}}{\sigma _{i}}}<\infty \right\}}
+  where the inner product of 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   given by
+
+  
+    
+      
+        
+          
+            ⟨
+            
+              f
+              ,
+              g
+            
+            ⟩
+          
+          
+            h
+          
+        
+        =
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            ∞
+          
+        
+        
+          
+            
+              
+                
+                  ⟨
+                  
+                    f
+                    ,
+                    
+                      φ
+                      
+                        i
+                      
+                    
+                  
+                  ⟩
+                
+                
+                  
+                    l
+                    
+                      2
+                    
+                  
+                
+              
+              
+                
+                  ⟨
+                  
+                    g
+                    ,
+                    
+                      φ
+                      
+                        i
+                      
+                    
+                  
+                  ⟩
+                
+                
+                  
+                    l
+                    
+                      2
+                    
+                  
+                
+              
+            
+            
+              σ
+              
+                i
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle \left\langle f,g\right\rangle _{h}=\sum _{i=1}^{\infty }{\frac {\left\langle f,\varphi _{i}\right\rangle _{l_{2}}\left\langle g,\varphi _{i}\right\rangle _{l_{2}}}{\sigma _{i}}}.}
+  this representation of the rkhs has application in probability and statistics, for example  to the karhunen-loève representation for stochastic processes and kernel pca.
+
+
+== feature maps ==
+a feature map is a map 
+  
+    
+      
+        φ
+        :
+        x
+        →
+        f
+      
+    
+    {\displaystyle \varphi \colon x\rightarrow f}
+  , where 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   is a hilbert space which we will call the feature space.  the first sections presented the connection between bounded/continuous evaluation functions, positive definite functions, and integral operators and in this section we provide another representation of the rkhs in terms of feature maps.
+we first note that every feature map defines a kernel via
+
+clearly 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   is symmetric and positive definiteness follows from the properties of inner product in 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+  .  conversely, every positive definite function and corresponding reproducing kernel hilbert space has infinitely many associated feature maps such that (3) holds.
+for example, we can trivially take 
+  
+    
+      
+        f
+        =
+        h
+      
+    
+    {\displaystyle f=h}
+   and 
+  
+    
+      
+        φ
+        (
+        x
+        )
+        =
+        
+          k
+          
+            x
+          
+        
+      
+    
+    {\displaystyle \varphi (x)=k_{x}}
+   for all 
+  
+    
+      
+        x
+        ∈
+        x
+      
+    
+    {\displaystyle x\in x}
+  .  then (3) is satisfied by the reproducing property. another classical example of a feature map relates to the previous section regarding integral operators by taking 
+  
+    
+      
+        f
+        =
+        
+          ℓ
+          
+            2
+          
+        
+      
+    
+    {\displaystyle f=\ell ^{2}}
+   and 
+  
+    
+      
+        φ
+        (
+        x
+        )
+        =
+        (
+        
+          
+            
+              σ
+              
+                i
+              
+            
+          
+        
+        
+          φ
+          
+            i
+          
+        
+        (
+        x
+        )
+        
+          )
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \varphi (x)=({\sqrt {\sigma _{i}}}\varphi _{i}(x))_{i}}
+  .
+this connection between kernels and feature maps provides us with a new way to understand positive definite functions and hence reproducing kernels as inner products in 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+  . moreover, every feature map can naturally define a rkhs by means of the definition of a positive definite function.
+lastly, feature maps allow us to construct function spaces that reveal another perspective on the rkhs.  consider the linear space
+
+  
+    
+      
+        
+          h
+          
+            φ
+          
+        
+        =
+        {
+        f
+        :
+        x
+        →
+        
+          r
+        
+        ∣
+        ∃
+        w
+        ∈
+        f
+        ,
+        f
+        (
+        x
+        )
+        =
+        ⟨
+        w
+        ,
+        φ
+        (
+        x
+        )
+        
+          ⟩
+          
+            f
+          
+        
+        ,
+        ∀
+        
+           
+        
+        x
+        ∈
+        x
+        }
+        .
+      
+    
+    {\displaystyle h_{\varphi }=\{f:x\to \mathbb {r} \mid \exists w\in f,f(x)=\langle w,\varphi (x)\rangle _{f},\forall {\text{  }}x\in x\}.}
+  we can define a norm on 
+  
+    
+      
+        
+          h
+          
+            φ
+          
+        
+      
+    
+    {\displaystyle h_{\varphi }}
+    by
+
+  
+    
+      
+        ‖
+        f
+        
+          ‖
+          
+            φ
+          
+        
+        =
+        inf
+        {
+        ‖
+        w
+        
+          ‖
+          
+            f
+          
+        
+        :
+        w
+        ∈
+        f
+        ,
+        f
+        (
+        x
+        )
+        =
+        ⟨
+        w
+        ,
+        φ
+        (
+        x
+        )
+        
+          ⟩
+          
+            f
+          
+        
+        ,
+        ∀
+        
+           
+        
+        x
+        ∈
+        x
+        }
+        .
+      
+    
+    {\displaystyle \|f\|_{\varphi }=\inf\{\|w\|_{f}:w\in f,f(x)=\langle w,\varphi (x)\rangle _{f},\forall {\text{  }}x\in x\}.}
+  it can be shown that 
+  
+    
+      
+        
+          h
+          
+            φ
+          
+        
+      
+    
+    {\displaystyle h_{\varphi }}
+   is a rkhs with kernel defined by 
+  
+    
+      
+        k
+        (
+        x
+        ,
+        y
+        )
+        =
+        ⟨
+        φ
+        (
+        x
+        )
+        ,
+        φ
+        (
+        y
+        )
+        
+          ⟩
+          
+            f
+          
+        
+      
+    
+    {\displaystyle k(x,y)=\langle \varphi (x),\varphi (y)\rangle _{f}}
+  .  this representation implies that the elements of the reproducing kernel are inner products of elements in the feature space.  this view of the rkhs is related to the kernel trick in machine learning.
+
+
+== properties ==
+the following properties of rkhss may be useful to readers.
+
+let 
+  
+    
+      
+        (
+        
+          x
+          
+            i
+          
+        
+        
+          )
+          
+            i
+            =
+            1
+          
+          
+            p
+          
+        
+      
+    
+    {\displaystyle (x_{i})_{i=1}^{p}}
+   be a sequence of sets and 
+  
+    
+      
+        (
+        
+          k
+          
+            i
+          
+        
+        
+          )
+          
+            i
+            =
+            1
+          
+          
+            p
+          
+        
+      
+    
+    {\displaystyle (k_{i})_{i=1}^{p}}
+   be a collection of corresponding positive definite functions on 
+  
+    
+      
+        (
+        
+          x
+          
+            i
+          
+        
+        
+          )
+          
+            i
+            =
+            1
+          
+          
+            p
+          
+        
+        .
+      
+    
+    {\displaystyle (x_{i})_{i=1}^{p}.}
+   it then follows that
+
+  
+    
+      
+        k
+        (
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            p
+          
+        
+        )
+        ,
+        (
+        
+          y
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          y
+          
+            p
+          
+        
+        )
+        )
+        =
+        
+          k
+          
+            1
+          
+        
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          y
+          
+            1
+          
+        
+        )
+        ⋯
+        
+          k
+          
+            p
+          
+        
+        (
+        
+          x
+          
+            p
+          
+        
+        ,
+        
+          y
+          
+            p
+          
+        
+        )
+      
+    
+    {\displaystyle k((x_{1},\ldots ,x_{p}),(y_{1},\ldots ,y_{p}))=k_{1}(x_{1},y_{1})\cdots k_{p}(x_{p},y_{p})}
+  
+is a kernel on 
+  
+    
+      
+        x
+        =
+        
+          x
+          
+            1
+          
+        
+        ×
+        ⋯
+        ×
+        
+          x
+          
+            p
+          
+        
+        .
+      
+    
+    {\displaystyle x=x_{1}\times \dots \times x_{p}.}
+  
+let 
+  
+    
+      
+        
+          x
+          
+            0
+          
+        
+        ⊂
+        x
+        ,
+      
+    
+    {\displaystyle x_{0}\subset x,}
+   then the restriction of 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   to 
+  
+    
+      
+        
+          x
+          
+            0
+          
+        
+        ×
+        
+          x
+          
+            0
+          
+        
+      
+    
+    {\displaystyle x_{0}\times x_{0}}
+   is also a reproducing kernel.
+consider a normalized kernel 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   such that 
+  
+    
+      
+        k
+        (
+        x
+        ,
+        x
+        )
+        =
+        1
+      
+    
+    {\displaystyle k(x,x)=1}
+   for all 
+  
+    
+      
+        x
+        ∈
+        x
+      
+    
+    {\displaystyle x\in x}
+  . define a pseudo-metric on x as
+
+  
+    
+      
+        
+          d
+          
+            k
+          
+        
+        (
+        x
+        ,
+        y
+        )
+        =
+        ‖
+        
+          k
+          
+            x
+          
+        
+        −
+        
+          k
+          
+            y
+          
+        
+        
+          ‖
+          
+            h
+          
+          
+            2
+          
+        
+        =
+        2
+        (
+        1
+        −
+        k
+        (
+        x
+        ,
+        y
+        )
+        )
+        
+        ∀
+        x
+        ∈
+        x
+        .
+      
+    
+    {\displaystyle d_{k}(x,y)=\|k_{x}-k_{y}\|_{h}^{2}=2(1-k(x,y))\qquad \forall x\in x.}
+  
+by the cauchy–schwarz inequality,
+
+  
+    
+      
+        k
+        (
+        x
+        ,
+        y
+        
+          )
+          
+            2
+          
+        
+        ≤
+        k
+        (
+        x
+        ,
+        x
+        )
+        k
+        (
+        y
+        ,
+        y
+        )
+        =
+        1
+        
+        ∀
+        x
+        ,
+        y
+        ∈
+        x
+        .
+      
+    
+    {\displaystyle k(x,y)^{2}\leq k(x,x)k(y,y)=1\qquad \forall x,y\in x.}
+  
+this inequality allows us to view 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   as a measure of similarity between inputs. if 
+  
+    
+      
+        x
+        ,
+        y
+        ∈
+        x
+      
+    
+    {\displaystyle x,y\in x}
+   are similar then 
+  
+    
+      
+        k
+        (
+        x
+        ,
+        y
+        )
+      
+    
+    {\displaystyle k(x,y)}
+   will be closer to 1 while if 
+  
+    
+      
+        x
+        ,
+        y
+        ∈
+        x
+      
+    
+    {\displaystyle x,y\in x}
+   are dissimilar then 
+  
+    
+      
+        k
+        (
+        x
+        ,
+        y
+        )
+      
+    
+    {\displaystyle k(x,y)}
+   will be closer to 0.the closure of the span of 
+  
+    
+      
+        {
+        
+          k
+          
+            x
+          
+        
+        ∣
+        x
+        ∈
+        x
+        }
+      
+    
+    {\displaystyle \{k_{x}\mid x\in x\}}
+   coincides with 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+  .
+
+
+== common examples ==
+
+
+=== bilinear kernels ===
+
+  
+    
+      
+        k
+        (
+        x
+        ,
+        y
+        )
+        =
+        ⟨
+        x
+        ,
+        y
+        ⟩
+      
+    
+    {\displaystyle k(x,y)=\langle x,y\rangle }
+  the rkhs 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   corresponding to this kernel is the dual space, consisting of functions 
+  
+    
+      
+        f
+        (
+        x
+        )
+        =
+        ⟨
+        x
+        ,
+        β
+        ⟩
+      
+    
+    {\displaystyle f(x)=\langle x,\beta \rangle }
+   satisfying 
+  
+    
+      
+        ‖
+        f
+        
+          ‖
+          
+            h
+          
+          
+            2
+          
+        
+        =
+        ‖
+        β
+        
+          ‖
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \|f\|_{h}^{2}=\|\beta \|^{2}}
+  .
+
+
+=== polynomial kernels ===
+
+  
+    
+      
+        k
+        (
+        x
+        ,
+        y
+        )
+        =
+        (
+        α
+        ⟨
+        x
+        ,
+        y
+        ⟩
+        +
+        1
+        
+          )
+          
+            d
+          
+        
+        ,
+        
+        α
+        ∈
+        
+          r
+        
+        ,
+        d
+        ∈
+        
+          n
+        
+      
+    
+    {\displaystyle k(x,y)=(\alpha \langle x,y\rangle +1)^{d},\qquad \alpha \in \mathbb {r} ,d\in \mathbb {n} }
+  
+
+
+=== radial basis function kernels ===
+these are another common class of kernels which satisfy 
+  
+    
+      
+        k
+        (
+        x
+        ,
+        y
+        )
+        =
+        k
+        (
+        ‖
+        x
+        −
+        y
+        ‖
+        )
+      
+    
+    {\displaystyle k(x,y)=k(\|x-y\|)}
+  . some examples include:
+
+gaussian or squared exponential kernel:
+
+  
+    
+      
+        k
+        (
+        x
+        ,
+        y
+        )
+        =
+        
+          e
+          
+            −
+            
+              
+                
+                  ‖
+                  x
+                  −
+                  y
+                  
+                    ‖
+                    
+                      2
+                    
+                  
+                
+                
+                  2
+                  
+                    σ
+                    
+                      2
+                    
+                  
+                
+              
+            
+          
+        
+        ,
+        
+        σ
+        >
+        0
+      
+    
+    {\displaystyle k(x,y)=e^{-{\frac {\|x-y\|^{2}}{2\sigma ^{2}}}},\qquad \sigma >0}
+  
+laplacian kernel:
+
+  
+    
+      
+        k
+        (
+        x
+        ,
+        y
+        )
+        =
+        
+          e
+          
+            −
+            
+              
+                
+                  ‖
+                  x
+                  −
+                  y
+                  ‖
+                
+                σ
+              
+            
+          
+        
+        ,
+        
+        σ
+        >
+        0
+      
+    
+    {\displaystyle k(x,y)=e^{-{\frac {\|x-y\|}{\sigma }}},\qquad \sigma >0}
+  
+the squared norm of a function 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   in the rkhs 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   with this kernel is:
+  
+    
+      
+        ‖
+        f
+        
+          ‖
+          
+            h
+          
+          
+            2
+          
+        
+        =
+        ∫
+        f
+        (
+        x
+        
+          )
+          
+            2
+          
+        
+        
+        d
+        x
+        +
+        ∫
+        
+          f
+          ′
+        
+        (
+        x
+        
+          )
+          
+            2
+          
+        
+        
+        d
+        x
+        .
+      
+    
+    {\displaystyle \|f\|_{h}^{2}=\int f(x)^{2}\,dx+\int f'(x)^{2}\,dx.}
+  
+
+
+=== bergman kernels ===
+we also provide examples of bergman kernels. let x be finite and let h consist of all complex-valued functions on x.  then an element of h can be represented as an array of complex numbers. if the usual inner product is used, then kx is the function whose value is 1 at x and 0 everywhere else, and 
+  
+    
+      
+        k
+        (
+        x
+        ,
+        y
+        )
+      
+    
+    {\displaystyle k(x,y)}
+   can be thought of as an identity matrix since
+
+  
+    
+      
+        k
+        (
+        x
+        ,
+        y
+        )
+        =
+        
+          
+            {
+            
+              
+                
+                  1
+                
+                
+                  x
+                  =
+                  y
+                
+              
+              
+                
+                  0
+                
+                
+                  x
+                  ≠
+                  y
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle k(x,y)={\begin{cases}1&x=y\\0&x\neq y\end{cases}}}
+  in this case, h is isomorphic to 
+  
+    
+      
+        
+          
+            c
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \mathbb {c} ^{n}}
+  .
+the case of 
+  
+    
+      
+        x
+        =
+        
+          d
+        
+      
+    
+    {\displaystyle x=\mathbb {d} }
+   (where 
+  
+    
+      
+        
+          d
+        
+      
+    
+    {\displaystyle \mathbb {d} }
+   denotes the unit disc) is more sophisticated. here the bergman space 
+  
+    
+      
+        
+          h
+          
+            2
+          
+        
+        (
+        
+          d
+        
+        )
+      
+    
+    {\displaystyle h^{2}(\mathbb {d} )}
+   is the space of square-integrable holomorphic functions on 
+  
+    
+      
+        
+          d
+        
+      
+    
+    {\displaystyle \mathbb {d} }
+  . it can be shown that the reproducing kernel for 
+  
+    
+      
+        
+          h
+          
+            2
+          
+        
+        (
+        
+          d
+        
+        )
+      
+    
+    {\displaystyle h^{2}(\mathbb {d} )}
+   is
+
+  
+    
+      
+        k
+        (
+        x
+        ,
+        y
+        )
+        =
+        
+          
+            1
+            π
+          
+        
+        
+          
+            1
+            
+              (
+              1
+              −
+              x
+              
+                
+                  y
+                  ¯
+                
+              
+              
+                )
+                
+                  2
+                
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle k(x,y)={\frac {1}{\pi }}{\frac {1}{(1-x{\overline {y}})^{2}}}.}
+  lastly, the space of band limited functions in 
+  
+    
+      
+        
+          l
+          
+            2
+          
+        
+        (
+        
+          r
+        
+        )
+      
+    
+    {\displaystyle l^{2}(\mathbb {r} )}
+   with bandwidth 
+  
+    
+      
+        2
+        a
+      
+    
+    {\displaystyle 2a}
+   is a rkhs with reproducing kernel
+
+  
+    
+      
+        k
+        (
+        x
+        ,
+        y
+        )
+        =
+        
+          
+            
+              sin
+              ⁡
+              a
+              (
+              x
+              −
+              y
+              )
+            
+            
+              π
+              (
+              x
+              −
+              y
+              )
+            
+          
+        
+        .
+      
+    
+    {\displaystyle k(x,y)={\frac {\sin a(x-y)}{\pi (x-y)}}.}
+  
+
+
+== extension to vector-valued functions ==
+in this section we extend the definition of the rkhs to spaces of vector-valued functions as this extension is particularly important in multi-task learning and manifold regularization.  the main difference is that the reproducing kernel 
+  
+    
+      
+        γ
+      
+    
+    {\displaystyle \gamma }
+   is a symmetric function that is now a positive semi-definite matrix for every 
+  
+    
+      
+        x
+        ,
+        y
+      
+    
+    {\displaystyle x,y}
+   in 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  .  more formally, we define a vector-valued rkhs (vvrkhs) as a hilbert space of functions 
+  
+    
+      
+        f
+        :
+        x
+        →
+        
+          
+            r
+          
+          
+            t
+          
+        
+      
+    
+    {\displaystyle f:x\to \mathbb {r} ^{t}}
+   such that for all 
+  
+    
+      
+        c
+        ∈
+        
+          
+            r
+          
+          
+            t
+          
+        
+      
+    
+    {\displaystyle c\in \mathbb {r} ^{t}}
+   and 
+  
+    
+      
+        x
+        ∈
+        x
+      
+    
+    {\displaystyle x\in x}
+  
+
+  
+    
+      
+        
+          γ
+          
+            x
+          
+        
+        c
+        (
+        y
+        )
+        =
+        γ
+        (
+        x
+        ,
+        y
+        )
+        c
+        ∈
+        h
+        
+           for 
+        
+        y
+        ∈
+        x
+      
+    
+    {\displaystyle \gamma _{x}c(y)=\gamma (x,y)c\in h{\text{ for }}y\in x}
+  and
+
+  
+    
+      
+        ⟨
+        f
+        ,
+        
+          γ
+          
+            x
+          
+        
+        c
+        
+          ⟩
+          
+            h
+          
+        
+        =
+        f
+        (
+        x
+        
+          )
+          
+            ⊺
+          
+        
+        c
+        .
+      
+    
+    {\displaystyle \langle f,\gamma _{x}c\rangle _{h}=f(x)^{\intercal }c.}
+  this second property parallels the reproducing property for the scalar-valued case.   we note that this definition can also be connected to integral operators, bounded evaluation functions, and feature maps as we saw for the scalar-valued rkhs.  we can equivalently define the vvrkhs as a vector-valued hilbert space with a bounded evaluation functional and show that this implies the existence of a unique reproducing kernel by the riesz representation theorem.  mercer's theorem can also be extended to address the vector-valued setting and we can therefore obtain a feature map view of the vvrkhs. lastly, it can also be shown that the closure of the span of 
+  
+    
+      
+        {
+        
+          γ
+          
+            x
+          
+        
+        c
+        :
+        x
+        ∈
+        x
+        ,
+        c
+        ∈
+        
+          
+            r
+          
+          
+            t
+          
+        
+        }
+      
+    
+    {\displaystyle \{\gamma _{x}c:x\in x,c\in \mathbb {r} ^{t}\}}
+   coincides with 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+  , another property similar to the scalar-valued case.
+we can gain intuition for the vvrkhs by taking a component-wise perspective on these spaces.  in particular, we find that every vvrkhs is isometrically isomorphic to a scalar-valued rkhs on a particular input space. let 
+  
+    
+      
+        λ
+        =
+        {
+        1
+        ,
+        …
+        ,
+        t
+        }
+      
+    
+    {\displaystyle \lambda =\{1,\dots ,t\}}
+  .  consider the space 
+  
+    
+      
+        x
+        ×
+        λ
+      
+    
+    {\displaystyle x\times \lambda }
+   and the corresponding reproducing kernel
+
+as noted above, the rkhs associated to this reproducing kernel is given by the closure of the span of 
+  
+    
+      
+        {
+        
+          γ
+          
+            (
+            x
+            ,
+            t
+            )
+          
+        
+        :
+        x
+        ∈
+        x
+        ,
+        t
+        ∈
+        λ
+        }
+      
+    
+    {\displaystyle \{\gamma _{(x,t)}:x\in x,t\in \lambda \}}
+   where 
+
+  
+    
+      
+        
+          γ
+          
+            (
+            x
+            ,
+            t
+            )
+          
+        
+        (
+        y
+        ,
+        s
+        )
+        =
+        γ
+        (
+        (
+        x
+        ,
+        t
+        )
+        ,
+        (
+        y
+        ,
+        s
+        )
+        )
+      
+    
+    {\displaystyle \gamma _{(x,t)}(y,s)=\gamma ((x,t),(y,s))}
+   for every set of pairs 
+  
+    
+      
+        (
+        x
+        ,
+        t
+        )
+        ,
+        (
+        y
+        ,
+        s
+        )
+        ∈
+        x
+        ×
+        λ
+      
+    
+    {\displaystyle (x,t),(y,s)\in x\times \lambda }
+  .
+the connection to the scalar-valued rkhs can then be made by the fact that every matrix-valued kernel can be identified with a kernel of the form of (4) via
+
+  
+    
+      
+        γ
+        (
+        x
+        ,
+        y
+        
+          )
+          
+            (
+            t
+            ,
+            s
+            )
+          
+        
+        =
+        γ
+        (
+        (
+        x
+        ,
+        t
+        )
+        ,
+        (
+        y
+        ,
+        s
+        )
+        )
+        .
+      
+    
+    {\displaystyle \gamma (x,y)_{(t,s)}=\gamma ((x,t),(y,s)).}
+  moreover, every kernel with the form of (4) defines a matrix-valued kernel with the above expression.  now letting the map 
+  
+    
+      
+        d
+        :
+        
+          h
+          
+            γ
+          
+        
+        →
+        
+          h
+          
+            γ
+          
+        
+      
+    
+    {\displaystyle d:h_{\gamma }\to h_{\gamma }}
+   be defined as
+
+  
+    
+      
+        (
+        d
+        f
+        )
+        (
+        x
+        ,
+        t
+        )
+        =
+        ⟨
+        f
+        (
+        x
+        )
+        ,
+        
+          e
+          
+            t
+          
+        
+        
+          ⟩
+          
+            
+              
+                r
+              
+              
+                t
+              
+            
+          
+        
+      
+    
+    {\displaystyle (df)(x,t)=\langle f(x),e_{t}\rangle _{\mathbb {r} ^{t}}}
+  where 
+  
+    
+      
+        
+          e
+          
+            t
+          
+        
+      
+    
+    {\displaystyle e_{t}}
+   is the 
+  
+    
+      
+        
+          t
+          
+            th
+          
+        
+      
+    
+    {\displaystyle t^{\text{th}}}
+   component of the canonical basis for 
+  
+    
+      
+        
+          
+            r
+          
+          
+            t
+          
+        
+      
+    
+    {\displaystyle \mathbb {r} ^{t}}
+  , one can show that 
+  
+    
+      
+        d
+      
+    
+    {\displaystyle d}
+   is bijective and an isometry between 
+  
+    
+      
+        
+          h
+          
+            γ
+          
+        
+      
+    
+    {\displaystyle h_{\gamma }}
+   and 
+  
+    
+      
+        
+          h
+          
+            γ
+          
+        
+      
+    
+    {\displaystyle h_{\gamma }}
+  .
+while this view of the vvrkhs can be useful in multi-task learning, this isometry does not reduce the study of the vector-valued case to that of the scalar-valued case.  in fact, this isometry procedure can make both the scalar-valued kernel and the input space too difficult to work with in practice as properties of the original kernels are often lost.an important class of matrix-valued reproducing kernels are separable kernels which can factorized as the product of a scalar valued kernel and a 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+  -dimensional symmetric positive semi-definite matrix.  in light of our previous discussion these kernels are of the form
+
+  
+    
+      
+        γ
+        (
+        (
+        x
+        ,
+        t
+        )
+        ,
+        (
+        y
+        ,
+        s
+        )
+        )
+        =
+        k
+        (
+        x
+        ,
+        y
+        )
+        
+          k
+          
+            t
+          
+        
+        (
+        t
+        ,
+        s
+        )
+      
+    
+    {\displaystyle \gamma ((x,t),(y,s))=k(x,y)k_{t}(t,s)}
+  for all 
+  
+    
+      
+        x
+        ,
+        y
+      
+    
+    {\displaystyle x,y}
+   in 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   and 
+  
+    
+      
+        t
+        ,
+        s
+      
+    
+    {\displaystyle t,s}
+   in 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+  .  as the scalar-valued kernel encodes dependencies between the inputs, we can observe that the matrix-valued kernel encodes dependencies among both the inputs and the outputs.
+we lastly remark that the above theory can be further extended to spaces of functions with values in function spaces but obtaining kernels for these spaces is a more difficult task.
+
+
+== connection between rkhs with relu function ==
+the relu function is commonly defined as 
+  
+    
+      
+        f
+        (
+        x
+        )
+        =
+        max
+        {
+        0
+        ,
+        x
+        }
+      
+    
+    {\displaystyle f(x)=\max\{0,x\}}
+   and is a mainstay in the architecture of neural networks where it is used as an activation function. one can construct a relu-like nonlinear function using the theory of reproducing kernel hilbert spaces. below, we derive this construction and show how it implies the representation power of neural networks with relu activations. 
+we will work with the hilbert space 
+  
+    
+      
+        
+          
+            h
+          
+        
+        =
+        
+          l
+          
+            2
+          
+          
+            1
+          
+        
+        (
+        0
+        )
+        [
+        0
+        ,
+        ∞
+        )
+      
+    
+    {\displaystyle {\mathcal {h}}=l_{2}^{1}(0)[0,\infty )}
+   of absolutely continuous functions with 
+  
+    
+      
+        f
+        (
+        0
+        )
+        =
+        0
+      
+    
+    {\displaystyle f(0)=0}
+   and square integrable (i.e. 
+  
+    
+      
+        
+          l
+          
+            2
+          
+        
+      
+    
+    {\displaystyle l_{2}}
+  ) derivative. it has the inner product 
+
+  
+    
+      
+        ⟨
+        f
+        ,
+        g
+        
+          ⟩
+          
+            
+              h
+            
+          
+        
+        =
+        
+          ∫
+          
+            0
+          
+          
+            ∞
+          
+        
+        
+          f
+          ′
+        
+        (
+        x
+        )
+        
+          g
+          ′
+        
+        (
+        x
+        )
+        
+        d
+        x
+        .
+      
+    
+    {\displaystyle \langle f,g\rangle _{\mathcal {h}}=\int _{0}^{\infty }f'(x)g'(x)\,dx.}
+  to construct the reproducing kernel it suffices to consider a dense subspace, so let 
+  
+    
+      
+        f
+        ∈
+        
+          c
+          
+            1
+          
+        
+        [
+        0
+        ,
+        ∞
+        )
+      
+    
+    {\displaystyle f\in c^{1}[0,\infty )}
+   and 
+  
+    
+      
+        f
+        (
+        0
+        )
+        =
+        0
+      
+    
+    {\displaystyle f(0)=0}
+  . 
+the fundamental theorem of calculus then gives 
+
+  
+    
+      
+        f
+        (
+        y
+        )
+        =
+        
+          ∫
+          
+            0
+          
+          
+            y
+          
+        
+        
+          f
+          ′
+        
+        (
+        x
+        )
+        
+        d
+        x
+        =
+        
+          ∫
+          
+            0
+          
+          
+            ∞
+          
+        
+        g
+        (
+        x
+        ,
+        y
+        )
+        
+          f
+          ′
+        
+        (
+        x
+        )
+        
+        d
+        x
+        =
+        ⟨
+        
+          k
+          
+            y
+          
+        
+        ,
+        f
+        ⟩
+      
+    
+    {\displaystyle f(y)=\int _{0}^{y}f'(x)\,dx=\int _{0}^{\infty }g(x,y)f'(x)\,dx=\langle k_{y},f\rangle }
+  where
+
+  
+    
+      
+        g
+        (
+        x
+        ,
+        y
+        )
+        =
+        
+          
+            {
+            
+              
+                
+                  1
+                  ,
+                
+                
+                  x
+                  <
+                  y
+                
+              
+              
+                
+                  0
+                  ,
+                
+                
+                  
+                    otherwise
+                  
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle g(x,y)={\begin{cases}1,&x<y\\0,&{\text{otherwise}}\end{cases}}}
+  and 
+  
+    
+      
+        
+          k
+          
+            y
+          
+          ′
+        
+        (
+        x
+        )
+        =
+        g
+        (
+        x
+        ,
+        y
+        )
+        ,
+         
+        
+          k
+          
+            y
+          
+        
+        (
+        0
+        )
+        =
+        0
+      
+    
+    {\displaystyle k_{y}'(x)=g(x,y),\ k_{y}(0)=0}
+   i.e.
+
+  
+    
+      
+        k
+        (
+        x
+        ,
+        y
+        )
+        =
+        
+          k
+          
+            y
+          
+        
+        (
+        x
+        )
+        =
+        
+          ∫
+          
+            0
+          
+          
+            x
+          
+        
+        g
+        (
+        z
+        ,
+        y
+        )
+        
+        d
+        z
+        =
+        
+          
+            {
+            
+              
+                
+                  x
+                  ,
+                
+                
+                  0
+                  ≤
+                  x
+                  <
+                  y
+                
+              
+              
+                
+                  y
+                  ,
+                
+                
+                  
+                    otherwise.
+                  
+                
+              
+            
+            
+          
+        
+        =
+        min
+        (
+        x
+        ,
+        y
+        )
+      
+    
+    {\displaystyle k(x,y)=k_{y}(x)=\int _{0}^{x}g(z,y)\,dz={\begin{cases}x,&0\leq x<y\\y,&{\text{otherwise.}}\end{cases}}=\min(x,y)}
+  this implies 
+  
+    
+      
+        
+          k
+          
+            y
+          
+        
+        =
+        k
+        (
+        ⋅
+        ,
+        y
+        )
+      
+    
+    {\displaystyle k_{y}=k(\cdot ,y)}
+   reproduces 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+  .
+by taking the limit 
+  
+    
+      
+        y
+        →
+        ∞
+      
+    
+    {\displaystyle y\to \infty }
+  , we obtain the relu function,
+
+  
+    
+      
+        
+          k
+          
+            ∞
+          
+        
+        (
+        x
+        )
+        =
+        
+          
+            {
+            
+              
+                
+                  x
+                  ,
+                
+                
+                  
+                    if 
+                  
+                  x
+                  ≥
+                  0
+                
+              
+              
+                
+                  0
+                  ,
+                
+                
+                  
+                    otherwise
+                  
+                
+              
+            
+            
+          
+        
+        =
+        relu
+        ⁡
+        (
+        x
+        )
+      
+    
+    {\displaystyle k_{\infty }(x)={\begin{cases}x,&{\text{if }}x\geq 0\\0,&{\text{otherwise}}\end{cases}}=\operatorname {relu} (x)}
+  using this formulation, we can apply the representer theorem to the rkhs, letting one prove the optimality of using relu activations in neural network settings.
+
+
+== see also ==
+positive definite kernel
+mercer's theorem
+kernel trick
+kernel embedding of distributions
+representer theorem
+
+
+== notes ==
+
+
+== references ==
+alvarez, mauricio, rosasco, lorenzo and lawrence, neil, “kernels for vector-valued functions: a review,” https://arxiv.org/abs/1106.6251, june 2011.
+aronszajn, nachman (1950). "theory of reproducing kernels". transactions of the american mathematical society. 68 (3): 337–404. doi:10.1090/s0002-9947-1950-0051437-7. jstor 1990404. mr 0051437.
+berlinet, alain and thomas, christine. reproducing kernel hilbert spaces in probability and statistics, kluwer academic publishers, 2004.
+cucker, felipe; smale, steve (2002). "on the mathematical foundations of learning". bulletin of the american mathematical society. 39 (1): 1–49. doi:10.1090/s0273-0979-01-00923-5. mr 1864085.
+de vito, ernest, umanita, veronica, and villa, silvia. "an extension of mercer theorem to vector-valued measurable kernels," arxiv:1110.4017, june 2013.
+durrett, greg.  9.520 course notes, massachusetts institute of technology, https://www.mit.edu/~9.520/scribe-notes/class03_gdurett.pdf, february 2010.
+kimeldorf, george; wahba, grace (1971). "some results on tchebycheffian spline functions" (pdf). journal of mathematical analysis and applications. 33 (1): 82–95. doi:10.1016/0022-247x(71)90184-3. mr 0290013.
+okutmustur, baver.   “reproducing kernel hilbert spaces,” m.s. dissertation, bilkent university, http://www.thesis.bilkent.edu.tr/0002953.pdf, august 2005.
+paulsen, vern. “an introduction to the theory of reproducing kernel hilbert spaces,” http://www.math.uh.edu/~vern/rkhs.pdf.
+steinwart, ingo; scovel, clint (2012). "mercer's theorem on general domains: on the interaction between measures, kernels, and rkhss". constr. approx. 35 (3): 363–417. doi:10.1007/s00365-012-9153-3. mr 2914365.
+rosasco, lorenzo and poggio, thomas.  "a regularization tour of machine learning – mit 9.520 lecture notes" manuscript, dec. 2014.
+wahba, grace,  spline models for observational data, siam, 1990.
+zhang, haizhang; xu, yuesheng; zhang, qinghui (2012). "refinement of operator-valued reproducing kernels" (pdf). journal of machine learning research. 13: 91–136.

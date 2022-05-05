@@ -1,0 +1,3583 @@
+in statistics, the gauss–markov theorem (or simply gauss theorem for some authors) states that the ordinary least squares (ols) estimator has the lowest sampling variance within the class of linear unbiased estimators, if the errors in the linear regression model are uncorrelated, have equal variances and expectation value of zero. the errors do not need to be normal, nor do they need to be independent and identically distributed (only uncorrelated with mean zero and homoscedastic with finite variance). the requirement that the estimator be unbiased cannot be dropped, since biased estimators exist with lower variance. see, for example, the james–stein estimator (which also drops linearity), ridge regression, or simply any degenerate estimator.
+the theorem was named after carl friedrich gauss and andrey markov, although gauss' work significantly predates markov's. but while gauss derived the result under the assumption of independence and normality, markov reduced the assumptions to the form stated above. a further generalization to non-spherical errors was given by alexander aitken.
+
+
+== statement ==
+suppose we have in matrix notation,
+
+  
+    
+      
+        
+          
+            y
+            _
+          
+        
+        =
+        x
+        
+          
+            β
+            _
+          
+        
+        +
+        
+          
+            ε
+            _
+          
+        
+        ,
+        
+        (
+        
+          
+            y
+            _
+          
+        
+        ,
+        
+          
+            ε
+            _
+          
+        
+        ∈
+        
+          
+            r
+          
+          
+            n
+          
+        
+        ,
+        
+          
+            β
+            _
+          
+        
+        ∈
+        
+          
+            r
+          
+          
+            k
+          
+        
+        
+           and 
+        
+        x
+        ∈
+        
+          
+            r
+          
+          
+            n
+            ×
+            k
+          
+        
+        )
+      
+    
+    {\displaystyle {\underline {y}}=x{\underline {\beta }}+{\underline {\varepsilon }},\quad ({\underline {y}},{\underline {\varepsilon }}\in \mathbb {r} ^{n},{\underline {\beta }}\in \mathbb {r} ^{k}{\text{ and }}x\in \mathbb {r} ^{n\times k})}
+  expanding to,
+
+  
+    
+      
+        
+          y
+          
+            i
+          
+        
+        =
+        
+          ∑
+          
+            j
+            =
+            1
+          
+          
+            k
+          
+        
+        
+          β
+          
+            j
+          
+        
+        
+          x
+          
+            i
+            j
+          
+        
+        +
+        
+          ε
+          
+            i
+          
+        
+        
+        ∀
+        i
+        =
+        1
+        ,
+        2
+        ,
+        …
+        ,
+        n
+      
+    
+    {\displaystyle y_{i}=\sum _{j=1}^{k}\beta _{j}x_{ij}+\varepsilon _{i}\quad \forall i=1,2,\ldots ,n}
+  where 
+  
+    
+      
+        
+          β
+          
+            j
+          
+        
+      
+    
+    {\displaystyle \beta _{j}}
+   are non-random but unobservable parameters, 
+  
+    
+      
+        
+          x
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle x_{ij}}
+   are non-random and observable (called the "explanatory variables"), 
+  
+    
+      
+        
+          ε
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \varepsilon _{i}}
+   are random, and so 
+  
+    
+      
+        
+          y
+          
+            i
+          
+        
+      
+    
+    {\displaystyle y_{i}}
+   are random. the random variables 
+  
+    
+      
+        
+          ε
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \varepsilon _{i}}
+   are called the "disturbance", "noise" or simply "error" (will be contrasted with "residual" later in the article; see errors and residuals in statistics). note that to include a constant in the model above, one can choose to introduce the constant as a variable 
+  
+    
+      
+        
+          β
+          
+            k
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle \beta _{k+1}}
+    with a newly introduced last column of x being unity i.e., 
+  
+    
+      
+        
+          x
+          
+            i
+            (
+            k
+            +
+            1
+            )
+          
+        
+        =
+        1
+      
+    
+    {\displaystyle x_{i(k+1)}=1}
+   for all 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  . note that though 
+  
+    
+      
+        
+          y
+          
+            i
+          
+        
+        ,
+      
+    
+    {\displaystyle y_{i},}
+   as sample responses, are observable, the following statements and arguments including assumptions, proofs and the others assume under the only condition of knowing 
+  
+    
+      
+        
+          x
+          
+            i
+            j
+          
+        
+        ,
+      
+    
+    {\displaystyle x_{ij},}
+   but not  
+  
+    
+      
+        
+          y
+          
+            i
+          
+        
+        .
+      
+    
+    {\displaystyle y_{i}.}
+  
+the gauss–markov assumptions concern the set of error random variables, 
+  
+    
+      
+        
+          ε
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \varepsilon _{i}}
+  :
+
+they have mean zero: 
+  
+    
+      
+        e
+        ⁡
+        [
+        
+          ε
+          
+            i
+          
+        
+        ]
+        =
+        0.
+      
+    
+    {\displaystyle \operatorname {e} [\varepsilon _{i}]=0.}
+  
+they are homoscedastic, that is all have the same finite variance: 
+  
+    
+      
+        var
+        ⁡
+        (
+        
+          ε
+          
+            i
+          
+        
+        )
+        =
+        
+          σ
+          
+            2
+          
+        
+        <
+        ∞
+      
+    
+    {\displaystyle \operatorname {var} (\varepsilon _{i})=\sigma ^{2}<\infty }
+   for all 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   and
+distinct error terms are uncorrelated: 
+  
+    
+      
+        
+          cov
+        
+        (
+        
+          ε
+          
+            i
+          
+        
+        ,
+        
+          ε
+          
+            j
+          
+        
+        )
+        =
+        0
+        ,
+        ∀
+        i
+        ≠
+        j
+        .
+      
+    
+    {\displaystyle {\text{cov}}(\varepsilon _{i},\varepsilon _{j})=0,\forall i\neq j.}
+  a linear estimator of 
+  
+    
+      
+        
+          β
+          
+            j
+          
+        
+      
+    
+    {\displaystyle \beta _{j}}
+   is a linear combination
+
+  
+    
+      
+        
+          
+            
+              
+                β
+                ^
+              
+            
+          
+          
+            j
+          
+        
+        =
+        
+          c
+          
+            1
+            j
+          
+        
+        
+          y
+          
+            1
+          
+        
+        +
+        ⋯
+        +
+        
+          c
+          
+            n
+            j
+          
+        
+        
+          y
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\widehat {\beta }}_{j}=c_{1j}y_{1}+\cdots +c_{nj}y_{n}}
+  in which the coefficients 
+  
+    
+      
+        
+          c
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle c_{ij}}
+    are not allowed to depend on the underlying coefficients 
+  
+    
+      
+        
+          β
+          
+            j
+          
+        
+      
+    
+    {\displaystyle \beta _{j}}
+  , since those are not observable, but are allowed to depend on the values 
+  
+    
+      
+        
+          x
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle x_{ij}}
+  , since these data are observable.  (the dependence of the coefficients on each 
+  
+    
+      
+        
+          x
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle x_{ij}}
+   is typically nonlinear; the estimator is linear in each 
+  
+    
+      
+        
+          y
+          
+            i
+          
+        
+      
+    
+    {\displaystyle y_{i}}
+   and hence in each random 
+  
+    
+      
+        ε
+        ,
+      
+    
+    {\displaystyle \varepsilon ,}
+   which is why this is "linear" regression.)  the estimator is said to be unbiased if and only if
+
+  
+    
+      
+        e
+        ⁡
+        
+          [
+          
+            
+              
+                
+                  β
+                  ^
+                
+              
+            
+            
+              j
+            
+          
+          ]
+        
+        =
+        
+          β
+          
+            j
+          
+        
+      
+    
+    {\displaystyle \operatorname {e} \left[{\widehat {\beta }}_{j}\right]=\beta _{j}}
+  regardless of the values of 
+  
+    
+      
+        
+          x
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle x_{ij}}
+  . now, let 
+  
+    
+      
+        
+          ∑
+          
+            j
+            =
+            1
+          
+          
+            k
+          
+        
+        
+          λ
+          
+            j
+          
+        
+        
+          β
+          
+            j
+          
+        
+      
+    
+    {\textstyle \sum _{j=1}^{k}\lambda _{j}\beta _{j}}
+   be some linear combination of the coefficients. then the mean squared error of the corresponding estimation is
+
+  
+    
+      
+        e
+        ⁡
+        
+          [
+          
+            
+              (
+              
+                
+                  ∑
+                  
+                    j
+                    =
+                    1
+                  
+                  
+                    k
+                  
+                
+                
+                  λ
+                  
+                    j
+                  
+                
+                
+                  (
+                  
+                    
+                      
+                        
+                          
+                            β
+                            ^
+                          
+                        
+                      
+                      
+                        j
+                      
+                    
+                    −
+                    
+                      β
+                      
+                        j
+                      
+                    
+                  
+                  )
+                
+              
+              )
+            
+            
+              2
+            
+          
+          ]
+        
+        ,
+      
+    
+    {\displaystyle \operatorname {e} \left[\left(\sum _{j=1}^{k}\lambda _{j}\left({\widehat {\beta }}_{j}-\beta _{j}\right)\right)^{2}\right],}
+  in other words it is the expectation of the square of the weighted sum (across parameters) of the differences between the estimators and the corresponding parameters to be estimated. (since we are considering the case in which all the parameter estimates are unbiased, this mean squared error is the same as the variance of the linear combination.) the best linear unbiased estimator (blue) of the vector 
+  
+    
+      
+        β
+      
+    
+    {\displaystyle \beta }
+   of parameters 
+  
+    
+      
+        
+          β
+          
+            j
+          
+        
+      
+    
+    {\displaystyle \beta _{j}}
+   is one with the smallest mean squared error for every vector 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+   of linear combination parameters.  this is equivalent to the condition that
+
+  
+    
+      
+        var
+        ⁡
+        
+          (
+          
+            
+              
+                β
+                ~
+              
+            
+          
+          )
+        
+        −
+        var
+        ⁡
+        
+          (
+          
+            
+              
+                β
+                ^
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \operatorname {var} \left({\widetilde {\beta }}\right)-\operatorname {var} \left({\widehat {\beta }}\right)}
+  is a positive semi-definite matrix for every other linear unbiased estimator 
+  
+    
+      
+        
+          
+            
+              β
+              ~
+            
+          
+        
+      
+    
+    {\displaystyle {\widetilde {\beta }}}
+  .
+the ordinary least squares estimator (ols) is the function
+
+  
+    
+      
+        
+          
+            
+              β
+              ^
+            
+          
+        
+        =
+        (
+        
+          x
+          ′
+        
+        x
+        
+          )
+          
+            −
+            1
+          
+        
+        
+          x
+          ′
+        
+        y
+      
+    
+    {\displaystyle {\widehat {\beta }}=(x'x)^{-1}x'y}
+  of 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   and 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   (where 
+  
+    
+      
+        
+          x
+          ′
+        
+      
+    
+    {\displaystyle x'}
+   denotes the transpose of 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  ) that minimizes the sum of squares of residuals (misprediction amounts):
+
+  
+    
+      
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            n
+          
+        
+        
+          
+            (
+            
+              
+                y
+                
+                  i
+                
+              
+              −
+              
+                
+                  
+                    
+                      y
+                      ^
+                    
+                  
+                
+                
+                  i
+                
+              
+            
+            )
+          
+          
+            2
+          
+        
+        =
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            n
+          
+        
+        
+          
+            (
+            
+              
+                y
+                
+                  i
+                
+              
+              −
+              
+                ∑
+                
+                  j
+                  =
+                  1
+                
+                
+                  k
+                
+              
+              
+                
+                  
+                    
+                      β
+                      ^
+                    
+                  
+                
+                
+                  j
+                
+              
+              
+                x
+                
+                  i
+                  j
+                
+              
+            
+            )
+          
+          
+            2
+          
+        
+        .
+      
+    
+    {\displaystyle \sum _{i=1}^{n}\left(y_{i}-{\widehat {y}}_{i}\right)^{2}=\sum _{i=1}^{n}\left(y_{i}-\sum _{j=1}^{k}{\widehat {\beta }}_{j}x_{ij}\right)^{2}.}
+  the theorem now states that the ols estimator is a blue. the main idea of the proof is that the least-squares estimator is uncorrelated with every linear unbiased estimator of zero, i.e., with every linear combination 
+  
+    
+      
+        
+          a
+          
+            1
+          
+        
+        
+          y
+          
+            1
+          
+        
+        +
+        ⋯
+        +
+        
+          a
+          
+            n
+          
+        
+        
+          y
+          
+            n
+          
+        
+      
+    
+    {\displaystyle a_{1}y_{1}+\cdots +a_{n}y_{n}}
+   whose coefficients do not depend upon the unobservable 
+  
+    
+      
+        β
+      
+    
+    {\displaystyle \beta }
+   but whose expected value is always zero.
+
+
+=== remark ===
+proof that the ols indeed minimizes the sum of squares of residuals may proceed as follows with a calculation of the hessian matrix and showing that it is positive definite. 
+the mse function we want to minimize is 
+
+for a multiple regression model with p variables. the first derivative is 
+
+where x is the design matrix 
+
+the hessian matrix of second derivatives is 
+
+assuming the columns of 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   are linearly independent so that 
+  
+    
+      
+        
+          x
+          
+            t
+          
+        
+        x
+      
+    
+    {\displaystyle x^{t}x}
+   is invertible, let 
+  
+    
+      
+        x
+        =
+        
+          
+            [
+            
+              
+                
+                  
+                    
+                      v
+                      
+                        1
+                      
+                    
+                  
+                
+                
+                  
+                    
+                      v
+                      
+                        2
+                      
+                    
+                  
+                
+                
+                  ⋯
+                
+                
+                  
+                    
+                      v
+                    
+                    
+                      p
+                      +
+                      1
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+      
+    
+    {\displaystyle x={\begin{bmatrix}\mathbf {v_{1}} &\mathbf {v_{2}} &\cdots &\mathbf {v} _{p+1}\end{bmatrix}}}
+  , then 
+
+now let 
+  
+    
+      
+        
+          k
+        
+        =
+        (
+        
+          k
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          k
+          
+            p
+            +
+            1
+          
+        
+        
+          )
+          
+            t
+          
+        
+        ∈
+        
+          
+            r
+          
+          
+            (
+            p
+            +
+            1
+            )
+            ×
+            1
+          
+        
+      
+    
+    {\displaystyle \mathbf {k} =(k_{1},\dots ,k_{p+1})^{t}\in \mathbb {r} ^{(p+1)\times 1}}
+   be an eigenvector of 
+  
+    
+      
+        
+          
+            h
+          
+        
+      
+    
+    {\displaystyle {\mathcal {h}}}
+  . 
+
+in terms of vector multiplication, this means 
+
+where 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+   is the eigenvalue corresponding to 
+  
+    
+      
+        
+          k
+        
+      
+    
+    {\displaystyle \mathbf {k} }
+  . moreover, 
+
+finally, as eigenvector 
+  
+    
+      
+        
+          k
+        
+      
+    
+    {\displaystyle \mathbf {k} }
+   was arbitrary, it means all eigenvalues of 
+  
+    
+      
+        
+          
+            h
+          
+        
+      
+    
+    {\displaystyle {\mathcal {h}}}
+   are positive, therefore 
+  
+    
+      
+        
+          
+            h
+          
+        
+      
+    
+    {\displaystyle {\mathcal {h}}}
+   is positive definite. thus, 
+
+is indeed a global minimum.
+
+
+== proof ==
+let 
+  
+    
+      
+        
+          
+            
+              β
+              ~
+            
+          
+        
+        =
+        c
+        y
+      
+    
+    {\displaystyle {\tilde {\beta }}=cy}
+   be another linear estimator of 
+  
+    
+      
+        β
+      
+    
+    {\displaystyle \beta }
+   with 
+  
+    
+      
+        c
+        =
+        (
+        
+          x
+          ′
+        
+        x
+        
+          )
+          
+            −
+            1
+          
+        
+        
+          x
+          ′
+        
+        +
+        d
+      
+    
+    {\displaystyle c=(x'x)^{-1}x'+d}
+   where 
+  
+    
+      
+        d
+      
+    
+    {\displaystyle d}
+   is a 
+  
+    
+      
+        k
+        ×
+        n
+      
+    
+    {\displaystyle k\times n}
+   non-zero matrix. as we're restricting to unbiased estimators, minimum mean squared error implies minimum variance. the goal is therefore to show that such an estimator has a variance no smaller than that of 
+  
+    
+      
+        
+          
+            
+              β
+              ^
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle {\widehat {\beta }},}
+   the ols estimator. we calculate:
+
+  
+    
+      
+        
+          
+            
+              
+                e
+                ⁡
+                
+                  [
+                  
+                    
+                      
+                        β
+                        ~
+                      
+                    
+                  
+                  ]
+                
+              
+              
+                
+                =
+                e
+                ⁡
+                [
+                c
+                y
+                ]
+              
+            
+            
+              
+              
+                
+                =
+                e
+                ⁡
+                
+                  [
+                  
+                    
+                      (
+                      
+                        (
+                        
+                          x
+                          ′
+                        
+                        x
+                        
+                          )
+                          
+                            −
+                            1
+                          
+                        
+                        
+                          x
+                          ′
+                        
+                        +
+                        d
+                      
+                      )
+                    
+                    (
+                    x
+                    β
+                    +
+                    ε
+                    )
+                  
+                  ]
+                
+              
+            
+            
+              
+              
+                
+                =
+                
+                  (
+                  
+                    (
+                    
+                      x
+                      ′
+                    
+                    x
+                    
+                      )
+                      
+                        −
+                        1
+                      
+                    
+                    
+                      x
+                      ′
+                    
+                    +
+                    d
+                  
+                  )
+                
+                x
+                β
+                +
+                
+                  (
+                  
+                    (
+                    
+                      x
+                      ′
+                    
+                    x
+                    
+                      )
+                      
+                        −
+                        1
+                      
+                    
+                    
+                      x
+                      ′
+                    
+                    +
+                    d
+                  
+                  )
+                
+                e
+                ⁡
+                [
+                ε
+                ]
+              
+            
+            
+              
+              
+                
+                =
+                
+                  (
+                  
+                    (
+                    
+                      x
+                      ′
+                    
+                    x
+                    
+                      )
+                      
+                        −
+                        1
+                      
+                    
+                    
+                      x
+                      ′
+                    
+                    +
+                    d
+                  
+                  )
+                
+                x
+                β
+              
+              
+              
+                e
+                ⁡
+                [
+                ε
+                ]
+                =
+                0
+              
+            
+            
+              
+              
+                
+                =
+                (
+                
+                  x
+                  ′
+                
+                x
+                
+                  )
+                  
+                    −
+                    1
+                  
+                
+                
+                  x
+                  ′
+                
+                x
+                β
+                +
+                d
+                x
+                β
+              
+            
+            
+              
+              
+                
+                =
+                (
+                
+                  i
+                  
+                    k
+                  
+                
+                +
+                d
+                x
+                )
+                β
+                .
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}\operatorname {e} \left[{\tilde {\beta }}\right]&=\operatorname {e} [cy]\\&=\operatorname {e} \left[\left((x'x)^{-1}x'+d\right)(x\beta +\varepsilon )\right]\\&=\left((x'x)^{-1}x'+d\right)x\beta +\left((x'x)^{-1}x'+d\right)\operatorname {e} [\varepsilon ]\\&=\left((x'x)^{-1}x'+d\right)x\beta &&\operatorname {e} [\varepsilon ]=0\\&=(x'x)^{-1}x'x\beta +dx\beta \\&=(i_{k}+dx)\beta .\\\end{aligned}}}
+  therefore, since 
+  
+    
+      
+        β
+      
+    
+    {\displaystyle \beta }
+   is unobservable, 
+  
+    
+      
+        
+          
+            
+              β
+              ~
+            
+          
+        
+      
+    
+    {\displaystyle {\tilde {\beta }}}
+   is unbiased if and only if 
+  
+    
+      
+        d
+        x
+        =
+        0
+      
+    
+    {\displaystyle dx=0}
+  . then:
+
+  
+    
+      
+        
+          
+            
+              
+                var
+                ⁡
+                
+                  (
+                  
+                    
+                      
+                        β
+                        ~
+                      
+                    
+                  
+                  )
+                
+              
+              
+                
+                =
+                var
+                ⁡
+                (
+                c
+                y
+                )
+              
+            
+            
+              
+              
+                
+                =
+                c
+                
+                   var
+                
+                (
+                y
+                )
+                
+                  c
+                  ′
+                
+              
+            
+            
+              
+              
+                
+                =
+                
+                  σ
+                  
+                    2
+                  
+                
+                c
+                
+                  c
+                  ′
+                
+              
+            
+            
+              
+              
+                
+                =
+                
+                  σ
+                  
+                    2
+                  
+                
+                
+                  (
+                  
+                    (
+                    
+                      x
+                      ′
+                    
+                    x
+                    
+                      )
+                      
+                        −
+                        1
+                      
+                    
+                    
+                      x
+                      ′
+                    
+                    +
+                    d
+                  
+                  )
+                
+                
+                  (
+                  
+                    x
+                    (
+                    
+                      x
+                      ′
+                    
+                    x
+                    
+                      )
+                      
+                        −
+                        1
+                      
+                    
+                    +
+                    
+                      d
+                      ′
+                    
+                  
+                  )
+                
+              
+            
+            
+              
+              
+                
+                =
+                
+                  σ
+                  
+                    2
+                  
+                
+                
+                  (
+                  
+                    (
+                    
+                      x
+                      ′
+                    
+                    x
+                    
+                      )
+                      
+                        −
+                        1
+                      
+                    
+                    
+                      x
+                      ′
+                    
+                    x
+                    (
+                    
+                      x
+                      ′
+                    
+                    x
+                    
+                      )
+                      
+                        −
+                        1
+                      
+                    
+                    +
+                    (
+                    
+                      x
+                      ′
+                    
+                    x
+                    
+                      )
+                      
+                        −
+                        1
+                      
+                    
+                    
+                      x
+                      ′
+                    
+                    
+                      d
+                      ′
+                    
+                    +
+                    d
+                    x
+                    (
+                    
+                      x
+                      ′
+                    
+                    x
+                    
+                      )
+                      
+                        −
+                        1
+                      
+                    
+                    +
+                    d
+                    
+                      d
+                      ′
+                    
+                  
+                  )
+                
+              
+            
+            
+              
+              
+                
+                =
+                
+                  σ
+                  
+                    2
+                  
+                
+                (
+                
+                  x
+                  ′
+                
+                x
+                
+                  )
+                  
+                    −
+                    1
+                  
+                
+                +
+                
+                  σ
+                  
+                    2
+                  
+                
+                (
+                
+                  x
+                  ′
+                
+                x
+                
+                  )
+                  
+                    −
+                    1
+                  
+                
+                (
+                d
+                x
+                
+                  )
+                  ′
+                
+                +
+                
+                  σ
+                  
+                    2
+                  
+                
+                d
+                x
+                (
+                
+                  x
+                  ′
+                
+                x
+                
+                  )
+                  
+                    −
+                    1
+                  
+                
+                +
+                
+                  σ
+                  
+                    2
+                  
+                
+                d
+                
+                  d
+                  ′
+                
+              
+            
+            
+              
+              
+                
+                =
+                
+                  σ
+                  
+                    2
+                  
+                
+                (
+                
+                  x
+                  ′
+                
+                x
+                
+                  )
+                  
+                    −
+                    1
+                  
+                
+                +
+                
+                  σ
+                  
+                    2
+                  
+                
+                d
+                
+                  d
+                  ′
+                
+              
+              
+              
+                d
+                x
+                =
+                0
+              
+            
+            
+              
+              
+                
+                =
+                var
+                ⁡
+                
+                  (
+                  
+                    
+                      
+                        β
+                        ^
+                      
+                    
+                  
+                  )
+                
+                +
+                
+                  σ
+                  
+                    2
+                  
+                
+                d
+                
+                  d
+                  ′
+                
+              
+              
+              
+                
+                  σ
+                  
+                    2
+                  
+                
+                (
+                
+                  x
+                  ′
+                
+                x
+                
+                  )
+                  
+                    −
+                    1
+                  
+                
+                =
+                var
+                ⁡
+                
+                  (
+                  
+                    
+                      
+                        β
+                        ^
+                      
+                    
+                  
+                  )
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}\operatorname {var} \left({\tilde {\beta }}\right)&=\operatorname {var} (cy)\\&=c{\text{ var}}(y)c'\\&=\sigma ^{2}cc'\\&=\sigma ^{2}\left((x'x)^{-1}x'+d\right)\left(x(x'x)^{-1}+d'\right)\\&=\sigma ^{2}\left((x'x)^{-1}x'x(x'x)^{-1}+(x'x)^{-1}x'd'+dx(x'x)^{-1}+dd'\right)\\&=\sigma ^{2}(x'x)^{-1}+\sigma ^{2}(x'x)^{-1}(dx)'+\sigma ^{2}dx(x'x)^{-1}+\sigma ^{2}dd'\\&=\sigma ^{2}(x'x)^{-1}+\sigma ^{2}dd'&&dx=0\\&=\operatorname {var} \left({\widehat {\beta }}\right)+\sigma ^{2}dd'&&\sigma ^{2}(x'x)^{-1}=\operatorname {var} \left({\widehat {\beta }}\right)\end{aligned}}}
+  since dd' is a positive semidefinite matrix, 
+  
+    
+      
+        var
+        ⁡
+        
+          (
+          
+            
+              
+                β
+                ~
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \operatorname {var} \left({\tilde {\beta }}\right)}
+   exceeds 
+  
+    
+      
+        var
+        ⁡
+        
+          (
+          
+            
+              
+                β
+                ^
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \operatorname {var} \left({\widehat {\beta }}\right)}
+   by a positive semidefinite matrix.
+
+
+== remarks on the proof ==
+as it has been stated before, the condition of 
+  
+    
+      
+        var
+        ⁡
+        
+          (
+          
+            
+              
+                β
+                ~
+              
+            
+          
+          )
+        
+        −
+        var
+        ⁡
+        
+          (
+          
+            
+              
+                β
+                ^
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \operatorname {var} \left({\tilde {\beta }}\right)-\operatorname {var} \left({\widehat {\beta }}\right)}
+   is a positive semidefinite matrix is equivalent to the property that the best linear unbiased estimator of 
+  
+    
+      
+        
+          ℓ
+          
+            t
+          
+        
+        β
+      
+    
+    {\displaystyle \ell ^{t}\beta }
+   is 
+  
+    
+      
+        
+          ℓ
+          
+            t
+          
+        
+        
+          
+            
+              β
+              ^
+            
+          
+        
+      
+    
+    {\displaystyle \ell ^{t}{\widehat {\beta }}}
+   (best in the sense that it has minimum variance). to see this, let 
+  
+    
+      
+        
+          ℓ
+          
+            t
+          
+        
+        
+          
+            
+              β
+              ~
+            
+          
+        
+      
+    
+    {\displaystyle \ell ^{t}{\tilde {\beta }}}
+   another linear unbiased estimator of 
+  
+    
+      
+        
+          ℓ
+          
+            t
+          
+        
+        β
+      
+    
+    {\displaystyle \ell ^{t}\beta }
+  .
+
+  
+    
+      
+        
+          
+            
+              
+                var
+                ⁡
+                
+                  (
+                  
+                    
+                      ℓ
+                      
+                        t
+                      
+                    
+                    
+                      
+                        
+                          β
+                          ~
+                        
+                      
+                    
+                  
+                  )
+                
+              
+              
+                
+                =
+                
+                  ℓ
+                  
+                    t
+                  
+                
+                var
+                ⁡
+                
+                  (
+                  
+                    
+                      
+                        β
+                        ~
+                      
+                    
+                  
+                  )
+                
+                ℓ
+              
+            
+            
+              
+              
+                
+                =
+                
+                  σ
+                  
+                    2
+                  
+                
+                
+                  ℓ
+                  
+                    t
+                  
+                
+                (
+                
+                  x
+                  ′
+                
+                x
+                
+                  )
+                  
+                    −
+                    1
+                  
+                
+                ℓ
+                +
+                
+                  ℓ
+                  
+                    t
+                  
+                
+                d
+                
+                  d
+                  
+                    t
+                  
+                
+                ℓ
+              
+            
+            
+              
+              
+                
+                =
+                var
+                ⁡
+                
+                  (
+                  
+                    
+                      ℓ
+                      
+                        t
+                      
+                    
+                    
+                      
+                        
+                          β
+                          ^
+                        
+                      
+                    
+                  
+                  )
+                
+                +
+                (
+                
+                  d
+                  
+                    t
+                  
+                
+                ℓ
+                
+                  )
+                  
+                    t
+                  
+                
+                (
+                
+                  d
+                  
+                    t
+                  
+                
+                ℓ
+                )
+              
+              
+              
+                
+                  σ
+                  
+                    2
+                  
+                
+                
+                  ℓ
+                  
+                    t
+                  
+                
+                (
+                
+                  x
+                  ′
+                
+                x
+                
+                  )
+                  
+                    −
+                    1
+                  
+                
+                ℓ
+                =
+                var
+                ⁡
+                
+                  (
+                  
+                    
+                      ℓ
+                      
+                        t
+                      
+                    
+                    
+                      
+                        
+                          β
+                          ^
+                        
+                      
+                    
+                  
+                  )
+                
+              
+            
+            
+              
+              
+                
+                =
+                var
+                ⁡
+                
+                  (
+                  
+                    
+                      ℓ
+                      
+                        t
+                      
+                    
+                    
+                      
+                        
+                          β
+                          ^
+                        
+                      
+                    
+                  
+                  )
+                
+                +
+                ‖
+                
+                  d
+                  
+                    t
+                  
+                
+                ℓ
+                ‖
+              
+            
+            
+              
+              
+                
+                ≥
+                var
+                ⁡
+                
+                  (
+                  
+                    
+                      ℓ
+                      
+                        t
+                      
+                    
+                    
+                      
+                        
+                          β
+                          ^
+                        
+                      
+                    
+                  
+                  )
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}\operatorname {var} \left(\ell ^{t}{\tilde {\beta }}\right)&=\ell ^{t}\operatorname {var} \left({\tilde {\beta }}\right)\ell \\&=\sigma ^{2}\ell ^{t}(x'x)^{-1}\ell +\ell ^{t}dd^{t}\ell \\&=\operatorname {var} \left(\ell ^{t}{\widehat {\beta }}\right)+(d^{t}\ell )^{t}(d^{t}\ell )&&\sigma ^{2}\ell ^{t}(x'x)^{-1}\ell =\operatorname {var} \left(\ell ^{t}{\widehat {\beta }}\right)\\&=\operatorname {var} \left(\ell ^{t}{\widehat {\beta }}\right)+\|d^{t}\ell \|\\&\geq \operatorname {var} \left(\ell ^{t}{\widehat {\beta }}\right)\end{aligned}}}
+  moreover, equality holds if and only if 
+  
+    
+      
+        
+          d
+          
+            t
+          
+        
+        ℓ
+        =
+        0
+      
+    
+    {\displaystyle d^{t}\ell =0}
+  . we calculate
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  ℓ
+                  
+                    t
+                  
+                
+                
+                  
+                    
+                      β
+                      ~
+                    
+                  
+                
+              
+              
+                
+                =
+                
+                  ℓ
+                  
+                    t
+                  
+                
+                
+                  (
+                  
+                    (
+                    (
+                    
+                      x
+                      ′
+                    
+                    x
+                    
+                      )
+                      
+                        −
+                        1
+                      
+                    
+                    
+                      x
+                      ′
+                    
+                    +
+                    d
+                    )
+                    y
+                  
+                  )
+                
+              
+              
+              
+                
+                   from above
+                
+              
+            
+            
+              
+              
+                
+                =
+                
+                  ℓ
+                  
+                    t
+                  
+                
+                (
+                
+                  x
+                  ′
+                
+                x
+                
+                  )
+                  
+                    −
+                    1
+                  
+                
+                
+                  x
+                  ′
+                
+                y
+                +
+                
+                  ℓ
+                  
+                    t
+                  
+                
+                d
+                y
+              
+            
+            
+              
+              
+                
+                =
+                
+                  ℓ
+                  
+                    t
+                  
+                
+                
+                  
+                    
+                      β
+                      ^
+                    
+                  
+                
+                +
+                (
+                
+                  d
+                  
+                    t
+                  
+                
+                ℓ
+                
+                  )
+                  
+                    t
+                  
+                
+                y
+              
+            
+            
+              
+              
+                
+                =
+                
+                  ℓ
+                  
+                    t
+                  
+                
+                
+                  
+                    
+                      β
+                      ^
+                    
+                  
+                
+              
+              
+              
+                
+                  d
+                  
+                    t
+                  
+                
+                ℓ
+                =
+                0
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}\ell ^{t}{\tilde {\beta }}&=\ell ^{t}\left(((x'x)^{-1}x'+d)y\right)&&{\text{ from above}}\\&=\ell ^{t}(x'x)^{-1}x'y+\ell ^{t}dy\\&=\ell ^{t}{\widehat {\beta }}+(d^{t}\ell )^{t}y\\&=\ell ^{t}{\widehat {\beta }}&&d^{t}\ell =0\end{aligned}}}
+  this proves that the equality holds if and only if 
+  
+    
+      
+        
+          ℓ
+          
+            t
+          
+        
+        
+          
+            
+              β
+              ~
+            
+          
+        
+        =
+        
+          ℓ
+          
+            t
+          
+        
+        
+          
+            
+              β
+              ^
+            
+          
+        
+      
+    
+    {\displaystyle \ell ^{t}{\tilde {\beta }}=\ell ^{t}{\widehat {\beta }}}
+   which gives the uniqueness of the ols estimator as a blue.
+
+
+== generalized least squares estimator ==
+the generalized least squares (gls), developed by aitken, extends the gauss–markov theorem to the case where the error vector has a non-scalar covariance matrix. the aitken estimator is also a blue.
+
+
+== gauss–markov theorem as stated in econometrics ==
+in most treatments of ols, the regressors (parameters of interest) in the design matrix 
+  
+    
+      
+        
+          x
+        
+      
+    
+    {\displaystyle \mathbf {x} }
+   are assumed to be fixed in repeated samples. this assumption is considered inappropriate for a predominantly nonexperimental science like econometrics. instead, the assumptions of the gauss–markov theorem are stated conditional on 
+  
+    
+      
+        
+          x
+        
+      
+    
+    {\displaystyle \mathbf {x} }
+  .
+
+
+=== linearity ===
+the dependent variable is assumed to be a linear function of the variables specified in the model. the specification must be linear in its parameters. this does not mean that there must be a linear relationship between the independent and dependent variables. the independent variables can take non-linear forms as long as the parameters are linear.  the equation 
+  
+    
+      
+        y
+        =
+        
+          β
+          
+            0
+          
+        
+        +
+        
+          β
+          
+            1
+          
+        
+        
+          x
+          
+            2
+          
+        
+        ,
+      
+    
+    {\displaystyle y=\beta _{0}+\beta _{1}x^{2},}
+   qualifies as linear while 
+  
+    
+      
+        y
+        =
+        
+          β
+          
+            0
+          
+        
+        +
+        
+          β
+          
+            1
+          
+          
+            2
+          
+        
+        x
+      
+    
+    {\displaystyle y=\beta _{0}+\beta _{1}^{2}x}
+   can be transformed to be linear by replacing 
+  
+    
+      
+        
+          β
+          
+            1
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \beta _{1}^{2}}
+   by another parameter, say 
+  
+    
+      
+        γ
+      
+    
+    {\displaystyle \gamma }
+  . an equation with a parameter dependent on an independent variable does not qualify as linear, for example 
+  
+    
+      
+        y
+        =
+        
+          β
+          
+            0
+          
+        
+        +
+        
+          β
+          
+            1
+          
+        
+        (
+        x
+        )
+        ⋅
+        x
+      
+    
+    {\displaystyle y=\beta _{0}+\beta _{1}(x)\cdot x}
+  , where 
+  
+    
+      
+        
+          β
+          
+            1
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle \beta _{1}(x)}
+   is a function of 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  .
+data transformations are often used to convert an equation into a linear form. for example, the cobb–douglas function—often used in economics—is nonlinear:
+
+  
+    
+      
+        y
+        =
+        a
+        
+          l
+          
+            α
+          
+        
+        
+          k
+          
+            1
+            −
+            α
+          
+        
+        
+          e
+          
+            ε
+          
+        
+      
+    
+    {\displaystyle y=al^{\alpha }k^{1-\alpha }e^{\varepsilon }}
+  but it can be expressed in linear form by taking the natural logarithm of both sides:
+
+  
+    
+      
+        ln
+        ⁡
+        y
+        =
+        ln
+        ⁡
+        a
+        +
+        α
+        ln
+        ⁡
+        l
+        +
+        (
+        1
+        −
+        α
+        )
+        ln
+        ⁡
+        k
+        +
+        ε
+        =
+        
+          β
+          
+            0
+          
+        
+        +
+        
+          β
+          
+            1
+          
+        
+        ln
+        ⁡
+        l
+        +
+        
+          β
+          
+            2
+          
+        
+        ln
+        ⁡
+        k
+        +
+        ε
+      
+    
+    {\displaystyle \ln y=\ln a+\alpha \ln l+(1-\alpha )\ln k+\varepsilon =\beta _{0}+\beta _{1}\ln l+\beta _{2}\ln k+\varepsilon }
+  this assumption also covers specification issues: assuming that the proper functional form has been selected and there are no omitted variables.
+one should be aware, however, that the parameters that minimize the residuals of the transformed equation do not necessarily minimize the residuals of the original equation.
+
+
+=== strict exogeneity ===
+for all 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   observations, the expectation—conditional on the regressors—of the error term is zero:
+
+  
+    
+      
+        e
+        ⁡
+        [
+        
+        
+          ε
+          
+            i
+          
+        
+        ∣
+        
+          x
+        
+        ]
+        =
+        e
+        ⁡
+        [
+        
+        
+          ε
+          
+            i
+          
+        
+        ∣
+        
+          
+            x
+          
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          
+            x
+          
+          
+            n
+          
+        
+        ]
+        =
+        0.
+      
+    
+    {\displaystyle \operatorname {e} [\,\varepsilon _{i}\mid \mathbf {x} ]=\operatorname {e} [\,\varepsilon _{i}\mid \mathbf {x} _{1},\dots ,\mathbf {x} _{n}]=0.}
+  where 
+  
+    
+      
+        
+          
+            x
+          
+          
+            i
+          
+        
+        =
+        
+          
+            
+              [
+              
+                
+                  
+                    
+                      x
+                      
+                        i
+                        1
+                      
+                    
+                  
+                  
+                    
+                      x
+                      
+                        i
+                        2
+                      
+                    
+                  
+                  
+                    ⋯
+                  
+                  
+                    
+                      x
+                      
+                        i
+                        k
+                      
+                    
+                  
+                
+              
+              ]
+            
+          
+          
+            
+              t
+            
+          
+        
+      
+    
+    {\displaystyle \mathbf {x} _{i}={\begin{bmatrix}x_{i1}&x_{i2}&\cdots &x_{ik}\end{bmatrix}}^{\mathsf {t}}}
+   is the data vector of regressors for the ith observation, and consequently 
+  
+    
+      
+        
+          x
+        
+        =
+        
+          
+            
+              [
+              
+                
+                  
+                    
+                      
+                        x
+                      
+                      
+                        1
+                      
+                      
+                        
+                          t
+                        
+                      
+                    
+                  
+                  
+                    
+                      
+                        x
+                      
+                      
+                        2
+                      
+                      
+                        
+                          t
+                        
+                      
+                    
+                  
+                  
+                    ⋯
+                  
+                  
+                    
+                      
+                        x
+                      
+                      
+                        n
+                      
+                      
+                        
+                          t
+                        
+                      
+                    
+                  
+                
+              
+              ]
+            
+          
+          
+            
+              t
+            
+          
+        
+      
+    
+    {\displaystyle \mathbf {x} ={\begin{bmatrix}\mathbf {x} _{1}^{\mathsf {t}}&\mathbf {x} _{2}^{\mathsf {t}}&\cdots &\mathbf {x} _{n}^{\mathsf {t}}\end{bmatrix}}^{\mathsf {t}}}
+   is the data matrix or design matrix.
+geometrically, this assumption implies that 
+  
+    
+      
+        
+          
+            x
+          
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \mathbf {x} _{i}}
+   and 
+  
+    
+      
+        
+          ε
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \varepsilon _{i}}
+   are orthogonal to each other, so that their inner product (i.e., their cross moment) is zero.
+
+  
+    
+      
+        e
+        ⁡
+        [
+        
+        
+          
+            x
+          
+          
+            j
+          
+        
+        ⋅
+        
+          ε
+          
+            i
+          
+        
+        
+        ]
+        =
+        
+          
+            [
+            
+              
+                
+                  e
+                  ⁡
+                  [
+                  
+                  
+                    
+                      x
+                    
+                    
+                      j
+                      1
+                    
+                  
+                  ⋅
+                  
+                    ε
+                    
+                      i
+                    
+                  
+                  
+                  ]
+                
+              
+              
+                
+                  e
+                  ⁡
+                  [
+                  
+                  
+                    
+                      x
+                    
+                    
+                      j
+                      2
+                    
+                  
+                  ⋅
+                  
+                    ε
+                    
+                      i
+                    
+                  
+                  
+                  ]
+                
+              
+              
+                
+                  ⋮
+                
+              
+              
+                
+                  e
+                  ⁡
+                  [
+                  
+                  
+                    
+                      x
+                    
+                    
+                      j
+                      k
+                    
+                  
+                  ⋅
+                  
+                    ε
+                    
+                      i
+                    
+                  
+                  
+                  ]
+                
+              
+            
+            ]
+          
+        
+        =
+        
+          0
+        
+        
+        
+          for all 
+        
+        i
+        ,
+        j
+        ∈
+        n
+      
+    
+    {\displaystyle \operatorname {e} [\,\mathbf {x} _{j}\cdot \varepsilon _{i}\,]={\begin{bmatrix}\operatorname {e} [\,{x}_{j1}\cdot \varepsilon _{i}\,]\\\operatorname {e} [\,{x}_{j2}\cdot \varepsilon _{i}\,]\\\vdots \\\operatorname {e} [\,{x}_{jk}\cdot \varepsilon _{i}\,]\end{bmatrix}}=\mathbf {0} \quad {\text{for all }}i,j\in n}
+  this assumption is violated if the explanatory variables are stochastic, for instance when they are measured with error, or are endogenous. endogeneity can be the result of simultaneity, where causality flows back and forth between both the dependent and independent variable. instrumental variable techniques are commonly used to address this problem.
+
+
+=== full rank ===
+the sample data matrix 
+  
+    
+      
+        
+          x
+        
+      
+    
+    {\displaystyle \mathbf {x} }
+   must have full column rank.
+
+  
+    
+      
+        rank
+        ⁡
+        (
+        
+          x
+        
+        )
+        =
+        k
+      
+    
+    {\displaystyle \operatorname {rank} (\mathbf {x} )=k}
+  otherwise 
+  
+    
+      
+        
+          
+            x
+          
+          ′
+        
+        
+          x
+        
+      
+    
+    {\displaystyle \mathbf {x} '\mathbf {x} }
+   is not invertible and the ols estimator cannot be computed.
+a violation of this assumption is perfect multicollinearity, i.e. some explanatory variables are linearly dependent. one scenario in which this will occur is called "dummy variable trap," when a base dummy variable is not omitted resulting in perfect correlation between the dummy variables and the constant term.multicollinearity (as long as it is not "perfect") can be present resulting in a less efficient, but still unbiased estimate. the estimates will be less precise and highly sensitive to particular sets of data. multicollinearity can be detected from condition number or the variance inflation factor, among other tests.
+
+
+=== spherical errors ===
+the outer product of the error vector must be spherical.
+
+  
+    
+      
+        e
+        ⁡
+        [
+        
+        
+          ε
+        
+        
+          
+            ε
+            
+              
+                t
+              
+            
+          
+        
+        ∣
+        
+          x
+        
+        ]
+        =
+        var
+        ⁡
+        [
+        
+        
+          ε
+        
+        ∣
+        
+          x
+        
+        ]
+        =
+        
+          
+            [
+            
+              
+                
+                  
+                    σ
+                    
+                      2
+                    
+                  
+                
+                
+                  0
+                
+                
+                  ⋯
+                
+                
+                  0
+                
+              
+              
+                
+                  0
+                
+                
+                  
+                    σ
+                    
+                      2
+                    
+                  
+                
+                
+                  ⋯
+                
+                
+                  0
+                
+              
+              
+                
+                  ⋮
+                
+                
+                  ⋮
+                
+                
+                  ⋱
+                
+                
+                  ⋮
+                
+              
+              
+                
+                  0
+                
+                
+                  0
+                
+                
+                  ⋯
+                
+                
+                  
+                    σ
+                    
+                      2
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        =
+        
+          σ
+          
+            2
+          
+        
+        
+          i
+        
+        
+        
+          with 
+        
+        
+          σ
+          
+            2
+          
+        
+        >
+        0
+      
+    
+    {\displaystyle \operatorname {e} [\,{\boldsymbol {\varepsilon }}{\boldsymbol {\varepsilon ^{\mathsf {t}}}}\mid \mathbf {x} ]=\operatorname {var} [\,{\boldsymbol {\varepsilon }}\mid \mathbf {x} ]={\begin{bmatrix}\sigma ^{2}&0&\cdots &0\\0&\sigma ^{2}&\cdots &0\\\vdots &\vdots &\ddots &\vdots \\0&0&\cdots &\sigma ^{2}\end{bmatrix}}=\sigma ^{2}\mathbf {i} \quad {\text{with }}\sigma ^{2}>0}
+  this implies the error term has uniform variance (homoscedasticity) and no serial dependence. if this assumption is violated, ols is still unbiased, but inefficient. the term "spherical errors" will describe the multivariate normal distribution: if 
+  
+    
+      
+        var
+        ⁡
+        [
+        
+        
+          ε
+        
+        ∣
+        
+          x
+        
+        ]
+        =
+        
+          σ
+          
+            2
+          
+        
+        
+          i
+        
+      
+    
+    {\displaystyle \operatorname {var} [\,{\boldsymbol {\varepsilon }}\mid \mathbf {x} ]=\sigma ^{2}\mathbf {i} }
+   in the multivariate normal density, then the equation 
+  
+    
+      
+        f
+        (
+        ε
+        )
+        =
+        c
+      
+    
+    {\displaystyle f(\varepsilon )=c}
+   is the formula for a ball centered at μ with radius σ in n-dimensional space.heteroskedasticity occurs when the amount of error is correlated with an independent variable. for example, in a regression on food expenditure and income, the error is correlated with income.  low income people generally spend a similar amount on food, while high income people may spend a very large amount or as little as low income people spend. heteroskedastic can also be caused by changes in measurement practices. for example, as statistical offices improve their data, measurement error decreases, so the error term declines over time.
+this assumption is violated when there is autocorrelation.  autocorrelation can be visualized on a data plot when a given observation is more likely to lie above a fitted line if adjacent observations also lie above the fitted regression line. autocorrelation is common in time series data where a data series may experience "inertia." if a dependent variable takes a while to fully absorb a shock. spatial autocorrelation can also occur geographic areas are likely to have similar errors. autocorrelation may be the result of misspecification such as choosing the wrong functional form. in these cases, correcting the specification is one possible way to deal with autocorrelation.
+in the presence of spherical errors, the generalized least squares estimator can be shown to be blue.
+
+
+== see also ==
+independent and identically distributed random variables
+linear regression
+measurement uncertainty
+
+
+=== other unbiased statistics ===
+best linear unbiased prediction (blup)
+minimum-variance unbiased estimator (mvue)
+
+
+== references ==
+
+
+== further reading ==
+davidson, james (2000). "statistical analysis of the regression model". econometric theory. oxford: blackwell. pp. 17–36. isbn 0-631-17837-6.
+goldberger, arthur (1991). "classical regression". a course in econometrics. cambridge: harvard university press. pp. 160–169. isbn 0-674-17544-1.
+theil, henri (1971). "least squares and the standard linear model". principles of econometrics. new york: john wiley & sons. pp. 101–162. isbn 0-471-85845-5.
+
+
+== external links ==
+earliest known uses of some of the words of mathematics: g (brief history and explanation of the name)
+proof of the gauss markov theorem for multiple linear regression (makes use of matrix algebra)
+a proof of the gauss markov theorem using geometry

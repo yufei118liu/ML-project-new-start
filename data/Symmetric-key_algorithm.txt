@@ -1,0 +1,64 @@
+symmetric-key algorithms are algorithms for cryptography that use the same cryptographic keys for both the encryption of plaintext and the decryption of ciphertext. the keys may be identical, or there may be a simple transformation to go between the two keys. the keys, in practice, represent a shared secret between two or more parties that can be used to maintain a private information link. the requirement that both parties have access to the secret key is one of the main drawbacks of symmetric-key encryption, in comparison to public-key encryption (also known as asymmetric-key encryption). however, symmetric-key encryption algorithms are usually better for bulk encryption. they have a smaller key size, which means less storage space and faster transmission. due to this, asymmetric-key encryption is often used to exchange the secret key for symmetric-key encryption.
+
+
+== types ==
+symmetric-key encryption can use either stream ciphers or block ciphers.
+stream ciphers encrypt the digits (typically bytes), or letters (in substitution ciphers) of a message one at a time. an example is chacha20.
+substitution ciphers are well-known ciphers, but can be easily decrypted using a frequency table.
+block ciphers take a number of bits and encrypt them as a single unit, padding the plaintext so that it is a multiple of the block size. the advanced encryption standard (aes) algorithm, approved by nist in december 2001, uses 128-bit blocks.
+
+
+== implementations ==
+examples of popular symmetric-key algorithms include twofish, serpent, aes (rijndael), camellia, salsa20, chacha20, blowfish, cast5, kuznyechik, rc4, des, 3des, skipjack, safer, and idea.
+
+
+== use as a cryptographic primitive ==
+symmetric ciphers are commonly used to achieve other cryptographic primitives than just encryption.encrypting a message does not guarantee that it will remain unchanged while encrypted. hence, often a message authentication code is added to a ciphertext to ensure that changes to the ciphertext will be noted by the receiver. message authentication codes can be constructed from an aead cipher (e.g. aes-gcm).
+however, symmetric ciphers cannot be used for non-repudiation purposes except by involving additional parties. see the iso/iec 13888-2 standard.
+another application is to build hash functions from block ciphers. see one-way compression function for descriptions of several such methods.
+
+
+== construction of symmetric ciphers ==
+
+many modern block ciphers are based on a construction proposed by horst feistel. feistel's construction makes it possible to build invertible functions from other functions that are themselves not invertible.
+
+
+== security of symmetric ciphers ==
+symmetric ciphers have historically been susceptible to known-plaintext attacks, chosen-plaintext attacks, differential cryptanalysis and linear cryptanalysis. careful construction of the functions for each round can greatly reduce the chances of a successful attack. it is also possible to increase the key length or the rounds in the encryption process to better protect against attack. this, however, tends to increase the processing power and decrease the speed at which the process runs due to the amount of operations the system needs to do.
+
+
+== key management ==
+
+
+== key establishment ==
+
+symmetric-key algorithms require both the sender and the recipient of a message to have the same secret key.
+all early cryptographic systems required either the sender or the recipient to somehow receive a copy of that secret key over a physically secure channel.
+nearly all modern cryptographic systems still use symmetric-key algorithms internally to encrypt the bulk of the messages, but they eliminate the need for a physically secure channel by using diffie–hellman key exchange or some other public-key protocol to securely come to agreement on a fresh new secret key for each session/conversation (forward secrecy).
+
+
+== key generation ==
+
+when used with asymmetric ciphers for key transfer, pseudorandom key generators are nearly always used to generate the symmetric cipher session keys. however, lack of randomness in those generators or in their initialization vectors is disastrous and has led to cryptanalytic breaks in the past. therefore, it is essential that an implementation use a source of high entropy for its initialization.
+
+
+== reciprocal cipher ==
+a reciprocal cipher is a cipher where, just as one enters the plaintext into the cryptography system to get the ciphertext, one could enter the ciphertext into the same place in the system to get the plaintext. a reciprocal cipher is also sometimes referred as self-reciprocal cipher.practically all mechanical cipher machines implement a reciprocal cipher, a mathematical involution on each typed-in letter.
+instead of designing two kinds of machines, one for encrypting and one for decrypting, all the machines can be identical and can be set up (keyed) the same way.examples of reciprocal ciphers include:
+
+atbash
+beaufort cipher
+enigma machine
+marie antoinette and axel von fersen communicated with a self-reciprocal cipher.
+the porta polyalphabetic cipher is self-reciprocal.
+purple cipher
+rc4
+rot13
+xor cipher
+vatsyayana cipherthe majority of all modern ciphers can be classified as either a stream cipher, most of which use a reciprocal xor cipher combiner, or a block cipher, most of which use a feistel cipher or lai–massey scheme with a reciprocal transformation in each round.
+
+
+== notes ==
+
+
+== references ==

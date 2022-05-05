@@ -1,0 +1,111 @@
+in computability theory, a system of data-manipulation rules (such as a computer's instruction set, a programming language, or a cellular automaton) is said to be turing-complete or computationally universal if it can be used to simulate any turing machine (devised by english mathematician and computer scientist alan turing). this means that this system is able to recognize or decide other data-manipulation rule sets. turing completeness is used as a way to express the power of such a data-manipulation rule set. virtually all programming languages today are turing-complete. 
+a related concept is that of turing equivalence –  two computers p and q are called equivalent if p can simulate q and q can simulate p. the church–turing thesis conjectures that any function whose values can be computed by an algorithm can be computed by a turing machine, and therefore that if any real-world computer can simulate a turing machine, it is turing equivalent to a turing machine. a universal turing machine can be used to simulate any turing machine and by extension the computational aspects of any possible real-world computer.to show that something is turing-complete, it is enough to show that it can be used to simulate some turing-complete system. for example, an imperative language is turing-complete if it has conditional branching (e.g., "if" and "goto" statements, or a "branch if zero" instruction; see one-instruction set computer) and the ability to change an arbitrary amount of memory (e.g., the ability to maintain an arbitrary number of data items). no physical system can have infinite memory, but if the limitation of finite memory is ignored, most programming languages are otherwise turing-complete.
+
+
+== non-mathematical usage ==
+in colloquial usage, the terms "turing-complete" and "turing-equivalent" are used to mean that any real-world general-purpose computer or computer language can approximately simulate the computational aspects of any other real-world general-purpose computer or computer language.
+real computers constructed so far can be functionally analyzed like a single-tape turing machine (the "tape" corresponding to their memory); thus the associated mathematics can apply by abstracting their operation far enough.  however, real computers have limited physical resources, so they are only linear bounded automaton complete.  in contrast, a universal computer is defined as a device with a turing-complete instruction set, infinite memory, and infinite available time.
+
+
+== formal definitions ==
+in computability theory, several closely related terms are used to describe the computational power of a computational system (such as an abstract machine or programming language):
+
+turing completeness
+a computational system that can compute every turing-computable function is called turing-complete (or turing-powerful). alternatively, such a system is one that can simulate a universal turing machine.
+turing equivalence
+a turing-complete system is called turing-equivalent if every function it can compute is also turing-computable; i.e., it computes precisely the same class of functions as do turing machines. alternatively, a turing-equivalent system is one that can simulate, and be simulated by, a universal turing machine. (all known physically-implementable turing-complete systems are turing-equivalent, which adds support to the church–turing thesis.)
+(computational) universality
+a system is called universal with respect to a class of systems if it can compute every function computable by systems in that class (or can simulate each of those systems). typically, the term universality is tacitly used with respect to a turing-complete class of systems. the term "weakly universal" is sometimes used to distinguish a system (e.g. a cellular automaton) whose universality is achieved only by modifying the standard definition of turing machine so as to include input streams with infinitely many 1s.
+
+
+== history ==
+turing completeness is significant in that every real-world design for a computing device can be simulated by a universal turing machine. the church–turing thesis states that this is a law of mathematics –  that a universal turing machine can, in principle, perform any calculation that any other programmable computer can. this says nothing about the effort needed to write the program, or the time it may take for the machine to perform the calculation, or any abilities the machine may possess that have nothing to do with computation.
+charles babbage's analytical engine (1830s) would have been the first turing-complete machine if it had been built at the time it was designed. babbage appreciated that the machine was capable of great feats of calculation, including primitive logical reasoning, but he did not appreciate that no other machine could do better. from the 1830s until the 1940s, mechanical calculating machines such as adders and multipliers were built and improved, but they could not perform a conditional branch and therefore were not turing-complete.
+in the late 19th century, leopold kronecker formulated notions of computability, defining primitive recursive functions. these functions can be calculated by rote computation, but they are not enough to make a universal computer, because the instructions that compute them do not allow for an infinite loop. in the early 20th century, david hilbert led a program to axiomatize all of mathematics with precise axioms and precise logical rules of deduction that could be performed by a machine. soon it became clear that a small set of deduction rules are enough to produce the consequences of any set of axioms. these rules were proved by kurt gödel in 1930 to be enough to produce every theorem.
+the actual notion of computation was isolated soon after, starting with gödel's incompleteness theorem. this theorem showed that axiom systems were limited when reasoning about the computation that deduces their theorems. church and turing independently demonstrated that hilbert's entscheidungsproblem (decision problem) was unsolvable, thus identifying the computational core of the incompleteness theorem. this work, along with gödel's work on general recursive functions, established that there are sets of simple instructions, which, when put together, are able to produce any computation. the work of gödel showed that the notion of computation is essentially unique.
+in 1941 konrad zuse completed the z3 computer. zuse was not familiar with turing's work on computability at the time. in particular, the z3 lacked dedicated facilities for a conditional jump, thereby precluding it from being turing complete. however, in 1998, it was shown by rojas that the z3 is capable of simulating conditional jumps, and therefore turing complete in theory. to do this, its tape program would have to be long enough to execute every possible path through both sides of every branch.the first computer capable of conditional branching in practice, and therefore turing complete in practice, was the eniac in 1946. zuse's z4 computer was operational in 1945, but it did not support conditional branching until 1950.
+
+
+== computability theory ==
+computability theory uses models of computation to analyze problems and determine whether they are computable and under what circumstances. the first result of computability theory is that there exist problems for which it is impossible to predict what a (turing-complete) system will do over an arbitrarily long time.
+the classic example is the halting problem: create an algorithm that takes as input a program in some turing-complete language and some data to be fed to that program, and determines whether the program, operating on the input, will eventually stop or will continue forever. it is trivial to create an algorithm that can do this for some inputs, but impossible to do this in general. for any characteristic of the program's eventual output, it is impossible to determine whether this characteristic will hold.
+this impossibility poses problems when analyzing real-world computer programs. for example, one cannot write a tool that entirely protects programmers from writing infinite loops or protects users from supplying input that would cause infinite loops.
+one can instead limit a program to executing only for a fixed period of time (timeout) or limit the power of flow-control instructions (for example, providing only loops that iterate over the items of an existing array). however, another theorem shows that there are problems solvable by turing-complete languages that cannot be solved by any language with only finite looping abilities (i.e., any language guaranteeing that every program will eventually finish to a halt). so any such language is not turing-complete. for example, a language in which programs are guaranteed to complete and halt cannot compute the computable function produced by cantor's diagonal argument on all computable functions in that language.
+
+
+== turing oracles ==
+
+a computer with access to an infinite tape of data may be more powerful than a turing machine: for instance, the tape might contain the solution to the halting problem or some other turing-undecidable problem. such an infinite tape of data is called a turing oracle. even a turing oracle with random data is not computable (with probability 1), since there are only countably many computations but uncountably many oracles. so a computer with a random turing oracle can compute things that a turing machine cannot.
+
+
+== digital physics ==
+
+all known laws of physics have consequences that are computable by a series of approximations on a digital computer. a hypothesis called digital physics states that this is no accident because the universe itself is computable on a universal turing machine. this would imply that no computer more powerful than a universal turing machine can be built physically.
+
+
+== examples ==
+the computational systems (algebras, calculi) that are discussed as turing-complete systems are those intended for studying theoretical computer science. they are intended to be as simple as possible, so that it would be easier to understand the limits of computation. here are a few:
+
+automata theory
+formal grammar (language generators)
+formal language (language recognizers)
+lambda calculus
+post–turing machines
+process calculusmost programming languages (their abstract models, maybe with some particular constructs that assume finite memory omitted), conventional and unconventional, are turing-complete. this includes:
+
+all general-purpose languages in wide use.
+procedural programming languages such as c, pascal.
+object-oriented languages such as java, smalltalk or c#.
+multi-paradigm languages such as ada, c++, common lisp, fortran, javascript, object pascal, perl, python, r.
+most languages using less common paradigms:
+functional languages such as lisp and haskell.
+logic programming languages such as prolog.
+general-purpose macro processor such as m4.
+declarative languages such as xslt.
+vhdl and other hardware description languages.
+tex, a typesetting system.
+esoteric programming languages, a form of mathematical recreation in which programmers work out how to achieve basic programming constructs in an extremely difficult but mathematically turing-equivalent language.some rewrite systems are turing-complete.
+turing completeness is an abstract statement of ability, rather than a prescription of specific language features used to implement that ability. the features used to achieve turing completeness can be quite different; fortran systems would use loop constructs or possibly even goto statements to achieve repetition; haskell and prolog, lacking looping almost entirely, would use recursion. most programming languages are describing computations on von neumann architectures, which have memory (ram and register) and a control unit. these two elements make this architecture turing-complete. even pure functional languages are turing-complete.turing completeness in declarative sql is implemented through recursive common table expressions.  unsurprisingly, procedural extensions to sql (plsql, etc.) are also turing-complete. this illustrates one reason why relatively powerful non-turing-complete languages are rare: the more powerful the language is initially, the more complex are the tasks to which it is applied and the sooner its lack of completeness becomes perceived as a drawback, encouraging its extension until it is turing-complete.
+the untyped lambda calculus is turing-complete, but many typed lambda calculi, including system f, are not. the value of typed systems is based in their ability to represent most typical computer programs while detecting more errors.
+rule 110 and conway's game of life, both cellular automata, are turing-complete.
+
+
+=== unintentional turing completeness ===
+some games and other software are turing-complete by accident, i.e. not by design.
+software:
+
+microsoft excel
+microsoft powerpointvideo games:
+
+dwarf fortress
+cities: skylines
+opus magnumsocial media:
+
+habbo hotelcomputational languages:
+
+c++ templatescomputer hardware:
+
+x86 mov instructionbiology:
+
+chemical reaction networks and enzyme-based dna computers have been shown to be turing-equivalent
+
+
+== non-turing-complete languages ==
+many computational languages exist that are not turing-complete. one such example is the set of regular languages, which are generated by regular expressions and which are recognized by finite automata. a more powerful but still not turing-complete extension of finite automata is the category of pushdown automata and context-free grammars, which are commonly used to generate parse trees in an initial stage of program compiling. further examples include some of the early versions of the pixel shader languages embedded in direct3d and opengl extensions.in total functional programming languages, such as charity and epigram, all functions are total and must terminate. charity uses a type system and control constructs based on category theory, whereas epigram uses dependent types. the loop language is designed so that it computes only the functions that are primitive recursive. all of these compute proper subsets of the total computable functions, since the full set of total computable functions is not computably enumerable. also, since all functions in these languages are total, algorithms for recursively enumerable sets cannot be written in these languages, in contrast with turing machines.
+although (untyped) lambda calculus is turing-complete, simply typed lambda calculus is not.
+
+
+== see also ==
+
+
+== notes ==
+
+
+== references ==
+
+
+== further reading ==
+
+
+== external links ==
+"turing complete". wiki.c2.com.

@@ -1,0 +1,5475 @@
+in mathematics, matrix calculus is a specialized notation for doing multivariable calculus, especially over spaces of matrices.  it collects the various partial derivatives of a single function with respect to many variables, and/or of a multivariate function with respect to a single variable, into vectors and matrices that can be treated as single entities.  this greatly simplifies operations such as finding the maximum or minimum of a multivariate function and solving systems of differential equations. the notation used here is commonly used in statistics and engineering, while the tensor index notation is preferred in physics.
+two competing notational conventions split the field of matrix calculus into two separate groups. the two groups can be distinguished by whether they write the derivative of a scalar with respect to a vector as a column vector or a row vector. both of these conventions are possible even when the common assumption is made that vectors should be treated as column vectors when combined with matrices (rather than row vectors). a single convention can be somewhat standard throughout a single field that commonly uses matrix calculus (e.g. econometrics, statistics, estimation theory and machine learning). however, even within a given field different authors can be found using competing conventions. authors of both groups often write as though their specific convention were standard. serious mistakes can result when combining results from different authors without carefully verifying that compatible notations have been used. definitions of these two conventions and comparisons between them are collected in the layout conventions section.
+
+
+== scope ==
+matrix calculus refers to a number of different notations that use matrices and vectors to collect the derivative of each component of the dependent variable with respect to each component of the independent variable. in general, the independent variable can be a scalar, a vector, or a matrix while the dependent variable can be any of these as well. each different situation will lead to a different set of rules, or a separate calculus, using the broader sense of the term. matrix notation serves as a convenient way to collect the many derivatives in an organized way.
+as a first example, consider the gradient from vector calculus. for a scalar function of three independent variables, 
+  
+    
+      
+        f
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        ,
+        
+          x
+          
+            3
+          
+        
+        )
+      
+    
+    {\displaystyle f(x_{1},x_{2},x_{3})}
+  , the gradient is given by the vector equation
+
+  
+    
+      
+        ∇
+        f
+        =
+        
+          
+            
+              ∂
+              f
+            
+            
+              ∂
+              
+                x
+                
+                  1
+                
+              
+            
+          
+        
+        
+          
+            
+              
+                x
+                ^
+              
+            
+          
+          
+            1
+          
+        
+        +
+        
+          
+            
+              ∂
+              f
+            
+            
+              ∂
+              
+                x
+                
+                  2
+                
+              
+            
+          
+        
+        
+          
+            
+              
+                x
+                ^
+              
+            
+          
+          
+            2
+          
+        
+        +
+        
+          
+            
+              ∂
+              f
+            
+            
+              ∂
+              
+                x
+                
+                  3
+                
+              
+            
+          
+        
+        
+          
+            
+              
+                x
+                ^
+              
+            
+          
+          
+            3
+          
+        
+      
+    
+    {\displaystyle \nabla f={\frac {\partial f}{\partial x_{1}}}{\hat {x}}_{1}+{\frac {\partial f}{\partial x_{2}}}{\hat {x}}_{2}+{\frac {\partial f}{\partial x_{3}}}{\hat {x}}_{3}}
+  ,where 
+  
+    
+      
+        
+          
+            
+              
+                x
+                ^
+              
+            
+          
+          
+            i
+          
+        
+      
+    
+    {\displaystyle {\hat {x}}_{i}}
+   represents a unit vector in the 
+  
+    
+      
+        
+          x
+          
+            i
+          
+        
+      
+    
+    {\displaystyle x_{i}}
+   direction for 
+  
+    
+      
+        1
+        ≤
+        i
+        ≤
+        3
+      
+    
+    {\displaystyle 1\leq i\leq 3}
+  . this type of generalized derivative can be seen as the derivative of a scalar, f, with respect to a vector, 
+  
+    
+      
+        
+          x
+        
+      
+    
+    {\displaystyle \mathbf {x} }
+  , and its result can be easily collected in vector form.
+
+  
+    
+      
+        ∇
+        f
+        =
+        
+          
+            
+              ∂
+              f
+            
+            
+              ∂
+              
+                x
+              
+            
+          
+        
+        =
+        
+          
+            
+              [
+              
+                
+                  
+                    
+                      
+                        
+                          ∂
+                          f
+                        
+                        
+                          ∂
+                          
+                            x
+                            
+                              1
+                            
+                          
+                        
+                      
+                    
+                  
+                  
+                    
+                      
+                        
+                          ∂
+                          f
+                        
+                        
+                          ∂
+                          
+                            x
+                            
+                              2
+                            
+                          
+                        
+                      
+                    
+                  
+                  
+                    
+                      
+                        
+                          ∂
+                          f
+                        
+                        
+                          ∂
+                          
+                            x
+                            
+                              3
+                            
+                          
+                        
+                      
+                    
+                  
+                
+              
+              ]
+            
+          
+          
+            
+              t
+            
+          
+        
+        .
+      
+    
+    {\displaystyle \nabla f={\frac {\partial f}{\partial \mathbf {x} }}={\begin{bmatrix}{\frac {\partial f}{\partial x_{1}}}&{\frac {\partial f}{\partial x_{2}}}&{\frac {\partial f}{\partial x_{3}}}\\\end{bmatrix}}^{\textsf {t}}.}
+  more complicated examples include the derivative of a scalar function with respect to a matrix, known as the gradient matrix, which collects the derivative with respect to each matrix element in the corresponding position in the resulting matrix. in that case the scalar must be a function of each of the independent variables in the matrix. as another example, if we have an n-vector of dependent variables, or functions, of m independent variables we might consider the derivative of the dependent vector with respect to the independent vector. the result could be collected in an m×n matrix consisting of all of the possible derivative combinations. 
+there are a total of nine possibilities using scalars, vectors, and matrices. notice that as we consider higher numbers of components in each of the independent and dependent variables we can be left with a very large number of possibilities. the six kinds of derivatives that can be most neatly organized in matrix form are collected in the following table.
+here, we have used the term "matrix" in its most general sense, recognizing that vectors and scalars are simply matrices with one column and one row respectively. moreover, we have used bold letters to indicate vectors and bold capital letters for matrices. this notation is used throughout.
+notice that we could also talk about the derivative of a vector with respect to a matrix, or any of the other unfilled cells in our table. however, these derivatives are most naturally organized in a tensor of rank higher than 2, so that they do not fit neatly into a matrix. in the following three sections we will define each one of these derivatives and relate them to other branches of mathematics. see the layout conventions section for a more detailed table.
+
+
+=== relation to other derivatives ===
+the matrix derivative is a convenient notation for keeping track of partial derivatives for doing calculations. the fréchet derivative is the standard way in the setting of functional analysis to take derivatives with respect to vectors. in the case that a matrix function of a matrix is fréchet differentiable, the two derivatives will agree up to translation of notations. as is the case in general for partial derivatives, some formulae may extend under weaker analytic conditions than the existence of the derivative as approximating linear mapping.
+
+
+=== usages ===
+matrix calculus is used for deriving optimal stochastic estimators, often involving the use of lagrange multipliers. this includes the derivation of:
+
+kalman filter
+wiener filter
+expectation-maximization algorithm for gaussian mixture
+gradient descent
+
+
+== notation ==
+the vector and matrix derivatives presented in the sections to follow take full advantage of matrix notation, using a single variable to represent a large number of variables. in what follows we will distinguish scalars, vectors and matrices by their typeface. we will let m(n,m) denote the space of real n×m matrices with n rows and m columns.  such matrices will be denoted using bold capital letters: a, x, y, etc.  an element of m(n,1), that is, a column vector, is denoted with a boldface lowercase letter: a, x, y, etc. an element of m(1,1) is a scalar, denoted with lowercase italic typeface: a, t, x, etc. xt denotes matrix transpose, tr(x) is the trace, and det(x) or |x| is the determinant. all functions are assumed to be of differentiability class c1 unless otherwise noted. generally letters from the first half of the alphabet (a, b, c, ...) will be used to denote constants, and from the second half (t, x, y, ...) to denote variables.
+note: as mentioned above, there are competing notations for laying out systems of partial derivatives in vectors and matrices, and no standard appears to be emerging yet.  the next two introductory sections use the numerator layout convention simply for the purposes of convenience, to avoid overly complicating the discussion.  the section after them discusses layout conventions in more detail.  it is important to realize the following:
+
+despite the use of the terms "numerator layout" and "denominator layout", there are actually more than two possible notational choices involved.  the reason is that the choice of numerator vs. denominator (or in some situations, numerator vs. mixed) can be made independently for scalar-by-vector, vector-by-scalar, vector-by-vector, and scalar-by-matrix derivatives, and a number of authors mix and match their layout choices in various ways.
+the choice of numerator layout in the introductory sections below does not imply that this is the "correct" or "superior" choice.  there are advantages and disadvantages to the various layout types.  serious mistakes can result from carelessly combining formulas written in different layouts, and converting from one layout to another requires care to avoid errors.  as a result, when working with existing formulas the best policy is probably to identify whichever layout is used and maintain consistency with it, rather than attempting to use the same layout in all situations.
+
+
+=== alternatives ===
+the tensor index notation with its einstein summation convention is very similar to the matrix calculus, except one writes only a single component at a time.  it has the advantage that one can easily manipulate arbitrarily high rank tensors, whereas tensors of rank higher than two are quite unwieldy with matrix notation.  all of the work here can be done in this notation without use of the single-variable matrix notation. however, many problems in estimation theory and other areas of applied mathematics would result in too many indices to properly keep track of, pointing in favor of matrix calculus in those areas.  also, einstein notation can be very useful in proving the identities presented here (see section on differentiation) as an alternative to typical element notation, which can become cumbersome when the explicit sums are carried around. note that a matrix can be considered a tensor of rank two.
+
+
+== derivatives with vectors ==
+
+because vectors are matrices with only one column, the simplest matrix derivatives are vector derivatives.
+the notations developed here can accommodate the usual operations of vector calculus by identifying the space m(n,1) of n-vectors with the euclidean space rn, and the scalar m(1,1) is identified with r. the corresponding concept from vector calculus is indicated at the end of each subsection.
+note: the discussion in this section assumes the numerator layout convention for pedagogical purposes.  some authors use different conventions.  the section on layout conventions discusses this issue in greater detail.  the identities given further down are presented in forms that can be used in conjunction with all common layout conventions.
+
+
+=== vector-by-scalar ===
+the derivative of a vector 
+  
+    
+      
+        
+          y
+        
+        =
+        
+          
+            
+              [
+              
+                
+                  
+                    
+                      y
+                      
+                        1
+                      
+                    
+                  
+                  
+                    
+                      y
+                      
+                        2
+                      
+                    
+                  
+                  
+                    ⋯
+                  
+                  
+                    
+                      y
+                      
+                        m
+                      
+                    
+                  
+                
+              
+              ]
+            
+          
+          
+            
+              t
+            
+          
+        
+      
+    
+    {\displaystyle \mathbf {y} ={\begin{bmatrix}y_{1}&y_{2}&\cdots &y_{m}\end{bmatrix}}^{\mathsf {t}}}
+  , by a scalar x is written (in numerator layout notation) as
+
+  
+    
+      
+        
+          
+            
+              ∂
+              
+                y
+              
+            
+            
+              ∂
+              x
+            
+          
+        
+        =
+        
+          
+            [
+            
+              
+                
+                  
+                    
+                      
+                        ∂
+                        
+                          y
+                          
+                            1
+                          
+                        
+                      
+                      
+                        ∂
+                        x
+                      
+                    
+                  
+                
+              
+              
+                
+                  
+                    
+                      
+                        ∂
+                        
+                          y
+                          
+                            2
+                          
+                        
+                      
+                      
+                        ∂
+                        x
+                      
+                    
+                  
+                
+              
+              
+                
+                  ⋮
+                
+              
+              
+                
+                  
+                    
+                      
+                        ∂
+                        
+                          y
+                          
+                            m
+                          
+                        
+                      
+                      
+                        ∂
+                        x
+                      
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        .
+      
+    
+    {\displaystyle {\frac {\partial \mathbf {y} }{\partial x}}={\begin{bmatrix}{\frac {\partial y_{1}}{\partial x}}\\{\frac {\partial y_{2}}{\partial x}}\\\vdots \\{\frac {\partial y_{m}}{\partial x}}\\\end{bmatrix}}.}
+  in vector calculus the derivative of a vector y with respect to a scalar x is known as the tangent vector of the vector y, 
+  
+    
+      
+        
+          
+            
+              ∂
+              
+                y
+              
+            
+            
+              ∂
+              x
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {\partial \mathbf {y} }{\partial x}}}
+  . notice here that y: r1 → rm.
+example simple examples of this include the velocity vector in euclidean space, which is the tangent vector of the position vector (considered as a function of time). also, the acceleration is the tangent vector of the velocity.
+
+
+=== scalar-by-vector ===
+the derivative of a scalar y by a vector 
+  
+    
+      
+        
+          x
+        
+        =
+        
+          
+            
+              [
+              
+                
+                  
+                    
+                      x
+                      
+                        1
+                      
+                    
+                  
+                  
+                    
+                      x
+                      
+                        2
+                      
+                    
+                  
+                  
+                    ⋯
+                  
+                  
+                    
+                      x
+                      
+                        n
+                      
+                    
+                  
+                
+              
+              ]
+            
+          
+          
+            
+              t
+            
+          
+        
+      
+    
+    {\displaystyle \mathbf {x} ={\begin{bmatrix}x_{1}&x_{2}&\cdots &x_{n}\end{bmatrix}}^{\mathsf {t}}}
+  , is written (in numerator layout notation) as
+
+  
+    
+      
+        
+          
+            
+              ∂
+              y
+            
+            
+              ∂
+              
+                x
+              
+            
+          
+        
+        =
+        
+          
+            [
+            
+              
+                
+                  
+                    
+                      
+                        ∂
+                        y
+                      
+                      
+                        ∂
+                        
+                          x
+                          
+                            1
+                          
+                        
+                      
+                    
+                  
+                
+                
+                  
+                    
+                      
+                        ∂
+                        y
+                      
+                      
+                        ∂
+                        
+                          x
+                          
+                            2
+                          
+                        
+                      
+                    
+                  
+                
+                
+                  ⋯
+                
+                
+                  
+                    
+                      
+                        ∂
+                        y
+                      
+                      
+                        ∂
+                        
+                          x
+                          
+                            n
+                          
+                        
+                      
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        .
+      
+    
+    {\displaystyle {\frac {\partial y}{\partial \mathbf {x} }}={\begin{bmatrix}{\frac {\partial y}{\partial x_{1}}}&{\frac {\partial y}{\partial x_{2}}}&\cdots &{\frac {\partial y}{\partial x_{n}}}\end{bmatrix}}.}
+  in vector calculus, the gradient of a scalar field f in the space rn (whose independent coordinates are the components of x) is the transpose of the derivative of a scalar by a vector. 
+
+  
+    
+      
+        ∇
+        f
+        =
+        
+          
+            [
+            
+              
+                
+                  
+                    
+                      
+                        ∂
+                        f
+                      
+                      
+                        ∂
+                        
+                          x
+                          
+                            1
+                          
+                        
+                      
+                    
+                  
+                
+              
+              
+                
+                  ⋮
+                
+              
+              
+                
+                  
+                    
+                      
+                        ∂
+                        f
+                      
+                      
+                        ∂
+                        
+                          x
+                          
+                            n
+                          
+                        
+                      
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        =
+        
+          
+            (
+            
+              
+                
+                  ∂
+                  f
+                
+                
+                  ∂
+                  
+                    x
+                  
+                
+              
+            
+            )
+          
+          
+            
+              t
+            
+          
+        
+      
+    
+    {\displaystyle \nabla f={\begin{bmatrix}{\frac {\partial f}{\partial x_{1}}}\\\vdots \\{\frac {\partial f}{\partial x_{n}}}\end{bmatrix}}=\left({\frac {\partial f}{\partial \mathbf {x} }}\right)^{\mathsf {t}}}
+  by example, in physics, the electric field is the negative vector gradient of the electric potential.
+the directional derivative of a scalar function f(x) of the space vector x in the direction of the unit vector u (represented in this case as a column vector) is defined using the gradient as follows.
+
+  
+    
+      
+        
+          ∇
+          
+            
+              u
+            
+          
+        
+        
+          f
+        
+        (
+        
+          x
+        
+        )
+        =
+        ∇
+        f
+        (
+        
+          x
+        
+        )
+        ⋅
+        
+          u
+        
+      
+    
+    {\displaystyle \nabla _{\mathbf {u} }{f}(\mathbf {x} )=\nabla f(\mathbf {x} )\cdot \mathbf {u} }
+  using the notation just defined for the derivative of a scalar with respect to a vector we can re-write the directional derivative as
+
+  
+    
+      
+        
+          ∇
+          
+            
+              u
+            
+          
+        
+        f
+        =
+        
+          
+            
+              ∂
+              f
+            
+            
+              ∂
+              
+                x
+              
+            
+          
+        
+        
+          u
+        
+        .
+      
+    
+    {\displaystyle \nabla _{\mathbf {u} }f={\frac {\partial f}{\partial \mathbf {x} }}\mathbf {u} .}
+   this type of notation will be nice when proving product rules and chain rules that come out looking similar to what we are familiar with for the scalar derivative.
+
+
+=== vector-by-vector ===
+each of the previous two cases can be considered as an application of the derivative of a vector with respect to a vector, using a vector of size one appropriately. similarly we will find that the derivatives involving matrices will reduce to derivatives involving vectors in a corresponding way.
+the derivative of a vector function (a vector whose components are functions) 
+  
+    
+      
+        
+          y
+        
+        =
+        
+          
+            
+              [
+              
+                
+                  
+                    
+                      y
+                      
+                        1
+                      
+                    
+                  
+                  
+                    
+                      y
+                      
+                        2
+                      
+                    
+                  
+                  
+                    ⋯
+                  
+                  
+                    
+                      y
+                      
+                        m
+                      
+                    
+                  
+                
+              
+              ]
+            
+          
+          
+            
+              t
+            
+          
+        
+      
+    
+    {\displaystyle \mathbf {y} ={\begin{bmatrix}y_{1}&y_{2}&\cdots &y_{m}\end{bmatrix}}^{\mathsf {t}}}
+  , with respect to an input vector, 
+  
+    
+      
+        
+          x
+        
+        =
+        
+          
+            
+              [
+              
+                
+                  
+                    
+                      x
+                      
+                        1
+                      
+                    
+                  
+                  
+                    
+                      x
+                      
+                        2
+                      
+                    
+                  
+                  
+                    ⋯
+                  
+                  
+                    
+                      x
+                      
+                        n
+                      
+                    
+                  
+                
+              
+              ]
+            
+          
+          
+            
+              t
+            
+          
+        
+      
+    
+    {\displaystyle \mathbf {x} ={\begin{bmatrix}x_{1}&x_{2}&\cdots &x_{n}\end{bmatrix}}^{\mathsf {t}}}
+  , is written (in numerator layout notation) as
+
+  
+    
+      
+        
+          
+            
+              ∂
+              
+                y
+              
+            
+            
+              ∂
+              
+                x
+              
+            
+          
+        
+        =
+        
+          
+            [
+            
+              
+                
+                  
+                    
+                      
+                        ∂
+                        
+                          y
+                          
+                            1
+                          
+                        
+                      
+                      
+                        ∂
+                        
+                          x
+                          
+                            1
+                          
+                        
+                      
+                    
+                  
+                
+                
+                  
+                    
+                      
+                        ∂
+                        
+                          y
+                          
+                            1
+                          
+                        
+                      
+                      
+                        ∂
+                        
+                          x
+                          
+                            2
+                          
+                        
+                      
+                    
+                  
+                
+                
+                  ⋯
+                
+                
+                  
+                    
+                      
+                        ∂
+                        
+                          y
+                          
+                            1
+                          
+                        
+                      
+                      
+                        ∂
+                        
+                          x
+                          
+                            n
+                          
+                        
+                      
+                    
+                  
+                
+              
+              
+                
+                  
+                    
+                      
+                        ∂
+                        
+                          y
+                          
+                            2
+                          
+                        
+                      
+                      
+                        ∂
+                        
+                          x
+                          
+                            1
+                          
+                        
+                      
+                    
+                  
+                
+                
+                  
+                    
+                      
+                        ∂
+                        
+                          y
+                          
+                            2
+                          
+                        
+                      
+                      
+                        ∂
+                        
+                          x
+                          
+                            2
+                          
+                        
+                      
+                    
+                  
+                
+                
+                  ⋯
+                
+                
+                  
+                    
+                      
+                        ∂
+                        
+                          y
+                          
+                            2
+                          
+                        
+                      
+                      
+                        ∂
+                        
+                          x
+                          
+                            n
+                          
+                        
+                      
+                    
+                  
+                
+              
+              
+                
+                  ⋮
+                
+                
+                  ⋮
+                
+                
+                  ⋱
+                
+                
+                  ⋮
+                
+              
+              
+                
+                  
+                    
+                      
+                        ∂
+                        
+                          y
+                          
+                            m
+                          
+                        
+                      
+                      
+                        ∂
+                        
+                          x
+                          
+                            1
+                          
+                        
+                      
+                    
+                  
+                
+                
+                  
+                    
+                      
+                        ∂
+                        
+                          y
+                          
+                            m
+                          
+                        
+                      
+                      
+                        ∂
+                        
+                          x
+                          
+                            2
+                          
+                        
+                      
+                    
+                  
+                
+                
+                  ⋯
+                
+                
+                  
+                    
+                      
+                        ∂
+                        
+                          y
+                          
+                            m
+                          
+                        
+                      
+                      
+                        ∂
+                        
+                          x
+                          
+                            n
+                          
+                        
+                      
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        .
+      
+    
+    {\displaystyle {\frac {\partial \mathbf {y} }{\partial \mathbf {x} }}={\begin{bmatrix}{\frac {\partial y_{1}}{\partial x_{1}}}&{\frac {\partial y_{1}}{\partial x_{2}}}&\cdots &{\frac {\partial y_{1}}{\partial x_{n}}}\\{\frac {\partial y_{2}}{\partial x_{1}}}&{\frac {\partial y_{2}}{\partial x_{2}}}&\cdots &{\frac {\partial y_{2}}{\partial x_{n}}}\\\vdots &\vdots &\ddots &\vdots \\{\frac {\partial y_{m}}{\partial x_{1}}}&{\frac {\partial y_{m}}{\partial x_{2}}}&\cdots &{\frac {\partial y_{m}}{\partial x_{n}}}\\\end{bmatrix}}.}
+  in vector calculus, the derivative of a vector function y with respect to a vector x whose components represent a space is known as the pushforward (or differential), or the jacobian matrix.
+the pushforward along a vector function f with respect to vector v in rn is given by 
+  
+    
+      
+        d
+        
+        
+          f
+        
+        (
+        
+          v
+        
+        )
+        =
+        
+          
+            
+              ∂
+              
+                f
+              
+            
+            
+              ∂
+              
+                v
+              
+            
+          
+        
+        d
+        
+        
+          v
+        
+        .
+      
+    
+    {\displaystyle d\,\mathbf {f} (\mathbf {v} )={\frac {\partial \mathbf {f} }{\partial \mathbf {v} }}d\,\mathbf {v} .}
+  
+
+
+== derivatives with matrices ==
+there are two types of derivatives with matrices that can be organized into a matrix of the same size. these are the derivative of a matrix by a scalar and the derivative of a scalar by a matrix. these can be useful in minimization problems found in many areas of applied mathematics and have adopted the names tangent matrix and gradient matrix respectively after their analogs for vectors.
+note: the discussion in this section assumes the numerator layout convention for pedagogical purposes.  some authors use different conventions.  the section on layout conventions discusses this issue in greater detail.  the identities given further down are presented in forms that can be used in conjunction with all common layout conventions.
+
+
+=== matrix-by-scalar ===
+the derivative of a matrix function y by a scalar x is known as the tangent matrix and is given (in numerator layout notation) by
+
+  
+    
+      
+        
+          
+            
+              ∂
+              
+                y
+              
+            
+            
+              ∂
+              x
+            
+          
+        
+        =
+        
+          
+            [
+            
+              
+                
+                  
+                    
+                      
+                        ∂
+                        
+                          y
+                          
+                            11
+                          
+                        
+                      
+                      
+                        ∂
+                        x
+                      
+                    
+                  
+                
+                
+                  
+                    
+                      
+                        ∂
+                        
+                          y
+                          
+                            12
+                          
+                        
+                      
+                      
+                        ∂
+                        x
+                      
+                    
+                  
+                
+                
+                  ⋯
+                
+                
+                  
+                    
+                      
+                        ∂
+                        
+                          y
+                          
+                            1
+                            n
+                          
+                        
+                      
+                      
+                        ∂
+                        x
+                      
+                    
+                  
+                
+              
+              
+                
+                  
+                    
+                      
+                        ∂
+                        
+                          y
+                          
+                            21
+                          
+                        
+                      
+                      
+                        ∂
+                        x
+                      
+                    
+                  
+                
+                
+                  
+                    
+                      
+                        ∂
+                        
+                          y
+                          
+                            22
+                          
+                        
+                      
+                      
+                        ∂
+                        x
+                      
+                    
+                  
+                
+                
+                  ⋯
+                
+                
+                  
+                    
+                      
+                        ∂
+                        
+                          y
+                          
+                            2
+                            n
+                          
+                        
+                      
+                      
+                        ∂
+                        x
+                      
+                    
+                  
+                
+              
+              
+                
+                  ⋮
+                
+                
+                  ⋮
+                
+                
+                  ⋱
+                
+                
+                  ⋮
+                
+              
+              
+                
+                  
+                    
+                      
+                        ∂
+                        
+                          y
+                          
+                            m
+                            1
+                          
+                        
+                      
+                      
+                        ∂
+                        x
+                      
+                    
+                  
+                
+                
+                  
+                    
+                      
+                        ∂
+                        
+                          y
+                          
+                            m
+                            2
+                          
+                        
+                      
+                      
+                        ∂
+                        x
+                      
+                    
+                  
+                
+                
+                  ⋯
+                
+                
+                  
+                    
+                      
+                        ∂
+                        
+                          y
+                          
+                            m
+                            n
+                          
+                        
+                      
+                      
+                        ∂
+                        x
+                      
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        .
+      
+    
+    {\displaystyle {\frac {\partial \mathbf {y} }{\partial x}}={\begin{bmatrix}{\frac {\partial y_{11}}{\partial x}}&{\frac {\partial y_{12}}{\partial x}}&\cdots &{\frac {\partial y_{1n}}{\partial x}}\\{\frac {\partial y_{21}}{\partial x}}&{\frac {\partial y_{22}}{\partial x}}&\cdots &{\frac {\partial y_{2n}}{\partial x}}\\\vdots &\vdots &\ddots &\vdots \\{\frac {\partial y_{m1}}{\partial x}}&{\frac {\partial y_{m2}}{\partial x}}&\cdots &{\frac {\partial y_{mn}}{\partial x}}\\\end{bmatrix}}.}
+  
+
+
+=== scalar-by-matrix ===
+the derivative of a scalar y function of a p×q matrix x of independent variables, with respect to the matrix x, is given (in numerator layout notation) by
+
+  
+    
+      
+        
+          
+            
+              ∂
+              y
+            
+            
+              ∂
+              
+                x
+              
+            
+          
+        
+        =
+        
+          
+            [
+            
+              
+                
+                  
+                    
+                      
+                        ∂
+                        y
+                      
+                      
+                        ∂
+                        
+                          x
+                          
+                            11
+                          
+                        
+                      
+                    
+                  
+                
+                
+                  
+                    
+                      
+                        ∂
+                        y
+                      
+                      
+                        ∂
+                        
+                          x
+                          
+                            21
+                          
+                        
+                      
+                    
+                  
+                
+                
+                  ⋯
+                
+                
+                  
+                    
+                      
+                        ∂
+                        y
+                      
+                      
+                        ∂
+                        
+                          x
+                          
+                            p
+                            1
+                          
+                        
+                      
+                    
+                  
+                
+              
+              
+                
+                  
+                    
+                      
+                        ∂
+                        y
+                      
+                      
+                        ∂
+                        
+                          x
+                          
+                            12
+                          
+                        
+                      
+                    
+                  
+                
+                
+                  
+                    
+                      
+                        ∂
+                        y
+                      
+                      
+                        ∂
+                        
+                          x
+                          
+                            22
+                          
+                        
+                      
+                    
+                  
+                
+                
+                  ⋯
+                
+                
+                  
+                    
+                      
+                        ∂
+                        y
+                      
+                      
+                        ∂
+                        
+                          x
+                          
+                            p
+                            2
+                          
+                        
+                      
+                    
+                  
+                
+              
+              
+                
+                  ⋮
+                
+                
+                  ⋮
+                
+                
+                  ⋱
+                
+                
+                  ⋮
+                
+              
+              
+                
+                  
+                    
+                      
+                        ∂
+                        y
+                      
+                      
+                        ∂
+                        
+                          x
+                          
+                            1
+                            q
+                          
+                        
+                      
+                    
+                  
+                
+                
+                  
+                    
+                      
+                        ∂
+                        y
+                      
+                      
+                        ∂
+                        
+                          x
+                          
+                            2
+                            q
+                          
+                        
+                      
+                    
+                  
+                
+                
+                  ⋯
+                
+                
+                  
+                    
+                      
+                        ∂
+                        y
+                      
+                      
+                        ∂
+                        
+                          x
+                          
+                            p
+                            q
+                          
+                        
+                      
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        .
+      
+    
+    {\displaystyle {\frac {\partial y}{\partial \mathbf {x} }}={\begin{bmatrix}{\frac {\partial y}{\partial x_{11}}}&{\frac {\partial y}{\partial x_{21}}}&\cdots &{\frac {\partial y}{\partial x_{p1}}}\\{\frac {\partial y}{\partial x_{12}}}&{\frac {\partial y}{\partial x_{22}}}&\cdots &{\frac {\partial y}{\partial x_{p2}}}\\\vdots &\vdots &\ddots &\vdots \\{\frac {\partial y}{\partial x_{1q}}}&{\frac {\partial y}{\partial x_{2q}}}&\cdots &{\frac {\partial y}{\partial x_{pq}}}\\\end{bmatrix}}.}
+  important examples of scalar functions of matrices include the trace of a matrix and the determinant.
+in analog with vector calculus this derivative is often written as the following.
+
+  
+    
+      
+        
+          ∇
+          
+            
+              x
+            
+          
+        
+        y
+        (
+        
+          x
+        
+        )
+        =
+        
+          
+            
+              ∂
+              y
+              (
+              
+                x
+              
+              )
+            
+            
+              ∂
+              
+                x
+              
+            
+          
+        
+      
+    
+    {\displaystyle \nabla _{\mathbf {x} }y(\mathbf {x} )={\frac {\partial y(\mathbf {x} )}{\partial \mathbf {x} }}}
+  also in analog with vector calculus, the directional derivative of a scalar f(x) of a matrix x in the direction of matrix y is given by
+
+  
+    
+      
+        
+          ∇
+          
+            
+              y
+            
+          
+        
+        f
+        =
+        tr
+        ⁡
+        
+          (
+          
+            
+              
+                
+                  ∂
+                  f
+                
+                
+                  ∂
+                  
+                    x
+                  
+                
+              
+            
+            
+              y
+            
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle \nabla _{\mathbf {y} }f=\operatorname {tr} \left({\frac {\partial f}{\partial \mathbf {x} }}\mathbf {y} \right).}
+  it is the gradient matrix, in particular, that finds many uses in minimization problems in estimation theory, particularly in the derivation of the kalman filter algorithm, which is of great importance in the field.
+
+
+=== other matrix derivatives ===
+the three types of derivatives that have not been considered are those involving vectors-by-matrices, matrices-by-vectors, and matrices-by-matrices. these are not as widely considered and a notation is not widely agreed upon.
+
+
+== layout conventions ==
+this section discusses the similarities and differences between notational conventions that are used in the various fields that take advantage of matrix calculus. although there are largely two consistent conventions, some authors find it convenient to mix the two conventions in forms that are discussed below. after this section, equations will be listed in both competing forms separately.
+the fundamental issue is that the derivative of a vector with respect to a vector, i.e. 
+  
+    
+      
+        
+          
+            
+              ∂
+              
+                y
+              
+            
+            
+              ∂
+              
+                x
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {\partial \mathbf {y} }{\partial \mathbf {x} }}}
+  , is often written in two competing ways.  if the numerator y is of size m and the denominator x of size n, then the result can be laid out as either an m×n matrix or n×m matrix, i.e. the elements of y laid out in columns and the elements of x laid out in rows, or vice versa.  this leads to the following possibilities:
+
+numerator layout, i.e.  lay out according to y and xt (i.e. contrarily to x).  this is sometimes known as the jacobian formulation. this corresponds to the m×n layout in the previous example.
+denominator layout, i.e. lay out according to yt and x (i.e. contrarily to y).  this is sometimes known as the hessian formulation.  some authors term this layout the gradient, in distinction to the jacobian (numerator layout), which is its transpose. (however, gradient more commonly means the derivative 
+  
+    
+      
+        
+          
+            
+              ∂
+              y
+            
+            
+              ∂
+              
+                x
+              
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle {\frac {\partial y}{\partial \mathbf {x} }},}
+   regardless of layout.). this corresponds to the n×m layout in the previous example.
+a third possibility sometimes seen is to insist on writing the derivative as 
+  
+    
+      
+        
+          
+            
+              ∂
+              
+                y
+              
+            
+            
+              ∂
+              
+                
+                  x
+                
+                ′
+              
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle {\frac {\partial \mathbf {y} }{\partial \mathbf {x} '}},}
+   (i.e. the derivative is taken with respect to the transpose of x) and follow the numerator layout.  this makes it possible to claim that the matrix is laid out according to both numerator and denominator.  in practice this produces results the same as the numerator layout.when handling the gradient 
+  
+    
+      
+        
+          
+            
+              ∂
+              y
+            
+            
+              ∂
+              
+                x
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {\partial y}{\partial \mathbf {x} }}}
+   and the opposite case 
+  
+    
+      
+        
+          
+            
+              ∂
+              
+                y
+              
+            
+            
+              ∂
+              x
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle {\frac {\partial \mathbf {y} }{\partial x}},}
+   we have the same issues.  to be consistent, we should do one of the following:
+
+if we choose numerator layout for 
+  
+    
+      
+        
+          
+            
+              ∂
+              
+                y
+              
+            
+            
+              ∂
+              
+                x
+              
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle {\frac {\partial \mathbf {y} }{\partial \mathbf {x} }},}
+   we should lay out the gradient 
+  
+    
+      
+        
+          
+            
+              ∂
+              y
+            
+            
+              ∂
+              
+                x
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {\partial y}{\partial \mathbf {x} }}}
+   as a row vector, and 
+  
+    
+      
+        
+          
+            
+              ∂
+              
+                y
+              
+            
+            
+              ∂
+              x
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {\partial \mathbf {y} }{\partial x}}}
+   as a column vector.
+if we choose denominator layout for 
+  
+    
+      
+        
+          
+            
+              ∂
+              
+                y
+              
+            
+            
+              ∂
+              
+                x
+              
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle {\frac {\partial \mathbf {y} }{\partial \mathbf {x} }},}
+   we should lay out the gradient 
+  
+    
+      
+        
+          
+            
+              ∂
+              y
+            
+            
+              ∂
+              
+                x
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {\partial y}{\partial \mathbf {x} }}}
+   as a column vector, and 
+  
+    
+      
+        
+          
+            
+              ∂
+              
+                y
+              
+            
+            
+              ∂
+              x
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {\partial \mathbf {y} }{\partial x}}}
+   as a row vector.
+in the third possibility above, we write 
+  
+    
+      
+        
+          
+            
+              ∂
+              y
+            
+            
+              ∂
+              
+                
+                  x
+                
+                ′
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {\partial y}{\partial \mathbf {x} '}}}
+   and 
+  
+    
+      
+        
+          
+            
+              ∂
+              
+                y
+              
+            
+            
+              ∂
+              x
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle {\frac {\partial \mathbf {y} }{\partial x}},}
+   and use numerator layout.not all math textbooks and papers are consistent in this respect throughout. that is, sometimes different conventions are used in different contexts within the same book or paper. for example, some choose denominator layout for gradients (laying them out as column vectors), but numerator layout for the vector-by-vector derivative 
+  
+    
+      
+        
+          
+            
+              ∂
+              
+                y
+              
+            
+            
+              ∂
+              
+                x
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle {\frac {\partial \mathbf {y} }{\partial \mathbf {x} }}.}
+  
+similarly, when it comes to scalar-by-matrix derivatives 
+  
+    
+      
+        
+          
+            
+              ∂
+              y
+            
+            
+              ∂
+              
+                x
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {\partial y}{\partial \mathbf {x} }}}
+   and matrix-by-scalar derivatives 
+  
+    
+      
+        
+          
+            
+              ∂
+              
+                y
+              
+            
+            
+              ∂
+              x
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle {\frac {\partial \mathbf {y} }{\partial x}},}
+   then consistent numerator layout lays out according to y and xt, while consistent denominator layout lays out according to yt and x.  in practice, however, following a denominator layout for 
+  
+    
+      
+        
+          
+            
+              ∂
+              
+                y
+              
+            
+            
+              ∂
+              x
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle {\frac {\partial \mathbf {y} }{\partial x}},}
+   and laying the result out according to yt, is rarely seen because it makes for ugly formulas that do not correspond to the scalar formulas.  as a result, the following layouts can often be found:
+
+consistent numerator layout, which lays out 
+  
+    
+      
+        
+          
+            
+              ∂
+              
+                y
+              
+            
+            
+              ∂
+              x
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {\partial \mathbf {y} }{\partial x}}}
+   according to y and 
+  
+    
+      
+        
+          
+            
+              ∂
+              y
+            
+            
+              ∂
+              
+                x
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {\partial y}{\partial \mathbf {x} }}}
+   according to xt.
+mixed layout, which lays out 
+  
+    
+      
+        
+          
+            
+              ∂
+              
+                y
+              
+            
+            
+              ∂
+              x
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {\partial \mathbf {y} }{\partial x}}}
+   according to y and 
+  
+    
+      
+        
+          
+            
+              ∂
+              y
+            
+            
+              ∂
+              
+                x
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {\partial y}{\partial \mathbf {x} }}}
+   according to x.
+use the notation 
+  
+    
+      
+        
+          
+            
+              ∂
+              y
+            
+            
+              ∂
+              
+                
+                  x
+                
+                ′
+              
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle {\frac {\partial y}{\partial \mathbf {x} '}},}
+   with results the same as consistent numerator layout.in the following formulas, we handle the five possible combinations 
+  
+    
+      
+        
+          
+            
+              ∂
+              y
+            
+            
+              ∂
+              
+                x
+              
+            
+          
+        
+        ,
+        
+          
+            
+              ∂
+              
+                y
+              
+            
+            
+              ∂
+              x
+            
+          
+        
+        ,
+        
+          
+            
+              ∂
+              
+                y
+              
+            
+            
+              ∂
+              
+                x
+              
+            
+          
+        
+        ,
+        
+          
+            
+              ∂
+              y
+            
+            
+              ∂
+              
+                x
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {\partial y}{\partial \mathbf {x} }},{\frac {\partial \mathbf {y} }{\partial x}},{\frac {\partial \mathbf {y} }{\partial \mathbf {x} }},{\frac {\partial y}{\partial \mathbf {x} }}}
+   and 
+  
+    
+      
+        
+          
+            
+              ∂
+              
+                y
+              
+            
+            
+              ∂
+              x
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {\partial \mathbf {y} }{\partial x}}}
+   separately.  we also handle cases of scalar-by-scalar derivatives that involve an intermediate vector or matrix. (this can arise, for example, if a multi-dimensional parametric curve is defined in terms of a scalar variable, and then a derivative of a scalar function of the curve is taken with respect to the scalar that parameterizes the curve.) for each of the various combinations, we give numerator-layout and denominator-layout results, except in the cases above where denominator layout rarely occurs. in cases involving matrices where it makes sense, we give numerator-layout and mixed-layout results.  as noted above, cases where vector and matrix denominators are written in transpose notation are equivalent to numerator layout with the denominators written without the transpose.
+keep in mind that various authors use different combinations of numerator and denominator layouts for different types of derivatives, and there is no guarantee that an author will consistently use either numerator or denominator layout for all types.  match up the formulas below with those quoted in the source to determine the layout used for that particular type of derivative, but be careful not to assume that derivatives of other types necessarily follow the same kind of layout.
+when taking derivatives with an aggregate (vector or matrix) denominator in order to find a maximum or minimum of the aggregate, it should be kept in mind that using numerator layout will produce results that are transposed with respect to the aggregate.  for example, in attempting to find the maximum likelihood estimate of a multivariate normal distribution using matrix calculus, if the domain is a k×1 column vector, then the result using the numerator layout will be in the form of a 1×k row vector. thus, either the results should be transposed at the end or the denominator layout (or mixed layout) should be used.
+
+the results of operations will be transposed when switching between numerator-layout and denominator-layout notation.
+
+
+=== numerator-layout notation ===
+using numerator-layout notation, we have:
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  
+                    
+                      ∂
+                      y
+                    
+                    
+                      ∂
+                      
+                        x
+                      
+                    
+                  
+                
+              
+              
+                
+                =
+                
+                  
+                    [
+                    
+                      
+                        
+                          
+                            
+                              
+                                ∂
+                                y
+                              
+                              
+                                ∂
+                                
+                                  x
+                                  
+                                    1
+                                  
+                                
+                              
+                            
+                          
+                        
+                        
+                          
+                            
+                              
+                                ∂
+                                y
+                              
+                              
+                                ∂
+                                
+                                  x
+                                  
+                                    2
+                                  
+                                
+                              
+                            
+                          
+                        
+                        
+                          ⋯
+                        
+                        
+                          
+                            
+                              
+                                ∂
+                                y
+                              
+                              
+                                ∂
+                                
+                                  x
+                                  
+                                    n
+                                  
+                                
+                              
+                            
+                          
+                        
+                      
+                    
+                    ]
+                  
+                
+                .
+              
+            
+            
+              
+                
+                  
+                    
+                      ∂
+                      
+                        y
+                      
+                    
+                    
+                      ∂
+                      x
+                    
+                  
+                
+              
+              
+                
+                =
+                
+                  
+                    [
+                    
+                      
+                        
+                          
+                            
+                              
+                                ∂
+                                
+                                  y
+                                  
+                                    1
+                                  
+                                
+                              
+                              
+                                ∂
+                                x
+                              
+                            
+                          
+                        
+                      
+                      
+                        
+                          
+                            
+                              
+                                ∂
+                                
+                                  y
+                                  
+                                    2
+                                  
+                                
+                              
+                              
+                                ∂
+                                x
+                              
+                            
+                          
+                        
+                      
+                      
+                        
+                          ⋮
+                        
+                      
+                      
+                        
+                          
+                            
+                              
+                                ∂
+                                
+                                  y
+                                  
+                                    m
+                                  
+                                
+                              
+                              
+                                ∂
+                                x
+                              
+                            
+                          
+                        
+                      
+                    
+                    ]
+                  
+                
+                .
+              
+            
+            
+              
+                
+                  
+                    
+                      ∂
+                      
+                        y
+                      
+                    
+                    
+                      ∂
+                      
+                        x
+                      
+                    
+                  
+                
+              
+              
+                
+                =
+                
+                  
+                    [
+                    
+                      
+                        
+                          
+                            
+                              
+                                ∂
+                                
+                                  y
+                                  
+                                    1
+                                  
+                                
+                              
+                              
+                                ∂
+                                
+                                  x
+                                  
+                                    1
+                                  
+                                
+                              
+                            
+                          
+                        
+                        
+                          
+                            
+                              
+                                ∂
+                                
+                                  y
+                                  
+                                    1
+                                  
+                                
+                              
+                              
+                                ∂
+                                
+                                  x
+                                  
+                                    2
+                                  
+                                
+                              
+                            
+                          
+                        
+                        
+                          ⋯
+                        
+                        
+                          
+                            
+                              
+                                ∂
+                                
+                                  y
+                                  
+                                    1
+                                  
+                                
+                              
+                              
+                                ∂
+                                
+                                  x
+                                  
+                                    n
+                                  
+                                
+                              
+                            
+                          
+                        
+                      
+                      
+                        
+                          
+                            
+                              
+                                ∂
+                                
+                                  y
+                                  
+                                    2
+                                  
+                                
+                              
+                              
+                                ∂
+                                
+                                  x
+                                  
+                                    1
+                                  
+                                
+                              
+                            
+                          
+                        
+                        
+                          
+                            
+                              
+                                ∂
+                                
+                                  y
+                                  
+                                    2
+                                  
+                                
+                              
+                              
+                                ∂
+                                
+                                  x
+                                  
+                                    2
+                                  
+                                
+                              
+                            
+                          
+                        
+                        
+                          ⋯
+                        
+                        
+                          
+                            
+                              
+                                ∂
+                                
+                                  y
+                                  
+                                    2
+                                  
+                                
+                              
+                              
+                                ∂
+                                
+                                  x
+                                  
+                                    n
+                                  
+                                
+                              
+                            
+                          
+                        
+                      
+                      
+                        
+                          ⋮
+                        
+                        
+                          ⋮
+                        
+                        
+                          ⋱
+                        
+                        
+                          ⋮
+                        
+                      
+                      
+                        
+                          
+                            
+                              
+                                ∂
+                                
+                                  y
+                                  
+                                    m
+                                  
+                                
+                              
+                              
+                                ∂
+                                
+                                  x
+                                  
+                                    1
+                                  
+                                
+                              
+                            
+                          
+                        
+                        
+                          
+                            
+                              
+                                ∂
+                                
+                                  y
+                                  
+                                    m
+                                  
+                                
+                              
+                              
+                                ∂
+                                
+                                  x
+                                  
+                                    2
+                                  
+                                
+                              
+                            
+                          
+                        
+                        
+                          ⋯
+                        
+                        
+                          
+                            
+                              
+                                ∂
+                                
+                                  y
+                                  
+                                    m
+                                  
+                                
+                              
+                              
+                                ∂
+                                
+                                  x
+                                  
+                                    n
+                                  
+                                
+                              
+                            
+                          
+                        
+                      
+                    
+                    ]
+                  
+                
+                .
+              
+            
+            
+              
+                
+                  
+                    
+                      ∂
+                      y
+                    
+                    
+                      ∂
+                      
+                        x
+                      
+                    
+                  
+                
+              
+              
+                
+                =
+                
+                  
+                    [
+                    
+                      
+                        
+                          
+                            
+                              
+                                ∂
+                                y
+                              
+                              
+                                ∂
+                                
+                                  x
+                                  
+                                    11
+                                  
+                                
+                              
+                            
+                          
+                        
+                        
+                          
+                            
+                              
+                                ∂
+                                y
+                              
+                              
+                                ∂
+                                
+                                  x
+                                  
+                                    21
+                                  
+                                
+                              
+                            
+                          
+                        
+                        
+                          ⋯
+                        
+                        
+                          
+                            
+                              
+                                ∂
+                                y
+                              
+                              
+                                ∂
+                                
+                                  x
+                                  
+                                    p
+                                    1
+                                  
+                                
+                              
+                            
+                          
+                        
+                      
+                      
+                        
+                          
+                            
+                              
+                                ∂
+                                y
+                              
+                              
+                                ∂
+                                
+                                  x
+                                  
+                                    12
+                                  
+                                
+                              
+                            
+                          
+                        
+                        
+                          
+                            
+                              
+                                ∂
+                                y
+                              
+                              
+                                ∂
+                                
+                                  x
+                                  
+                                    22
+                                  
+                                
+                              
+                            
+                          
+                        
+                        
+                          ⋯
+                        
+                        
+                          
+                            
+                              
+                                ∂
+                                y
+                              
+                              
+                                ∂
+                                
+                                  x
+                                  
+                                    p
+                                    2
+                                  
+                                
+                              
+                            
+                          
+                        
+                      
+                      
+                        
+                          ⋮
+                        
+                        
+                          ⋮
+                        
+                        
+                          ⋱
+                        
+                        
+                          ⋮
+                        
+                      
+                      
+                        
+                          
+                            
+                              
+                                ∂
+                                y
+                              
+                              
+                                ∂
+                                
+                                  x
+                                  
+                                    1
+                                    q
+                                  
+                                
+                              
+                            
+                          
+                        
+                        
+                          
+                            
+                              
+                                ∂
+                                y
+                              
+                              
+                                ∂
+                                
+                                  x
+                                  
+                                    2
+                                    q
+                                  
+                                
+                              
+                            
+                          
+                        
+                        
+                          ⋯
+                        
+                        
+                          
+                            
+                              
+                                ∂
+                                y
+                              
+                              
+                                ∂
+                                
+                                  x
+                                  
+                                    p
+                                    q
+                                  
+                                
+                              
+                            
+                          
+                        
+                      
+                    
+                    ]
+                  
+                
+                .
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}{\frac {\partial y}{\partial \mathbf {x} }}&={\begin{bmatrix}{\frac {\partial y}{\partial x_{1}}}&{\frac {\partial y}{\partial x_{2}}}&\cdots &{\frac {\partial y}{\partial x_{n}}}\end{bmatrix}}.\\{\frac {\partial \mathbf {y} }{\partial x}}&={\begin{bmatrix}{\frac {\partial y_{1}}{\partial x}}\\{\frac {\partial y_{2}}{\partial x}}\\\vdots \\{\frac {\partial y_{m}}{\partial x}}\\\end{bmatrix}}.\\{\frac {\partial \mathbf {y} }{\partial \mathbf {x} }}&={\begin{bmatrix}{\frac {\partial y_{1}}{\partial x_{1}}}&{\frac {\partial y_{1}}{\partial x_{2}}}&\cdots &{\frac {\partial y_{1}}{\partial x_{n}}}\\{\frac {\partial y_{2}}{\partial x_{1}}}&{\frac {\partial y_{2}}{\partial x_{2}}}&\cdots &{\frac {\partial y_{2}}{\partial x_{n}}}\\\vdots &\vdots &\ddots &\vdots \\{\frac {\partial y_{m}}{\partial x_{1}}}&{\frac {\partial y_{m}}{\partial x_{2}}}&\cdots &{\frac {\partial y_{m}}{\partial x_{n}}}\\\end{bmatrix}}.\\{\frac {\partial y}{\partial \mathbf {x} }}&={\begin{bmatrix}{\frac {\partial y}{\partial x_{11}}}&{\frac {\partial y}{\partial x_{21}}}&\cdots &{\frac {\partial y}{\partial x_{p1}}}\\{\frac {\partial y}{\partial x_{12}}}&{\frac {\partial y}{\partial x_{22}}}&\cdots &{\frac {\partial y}{\partial x_{p2}}}\\\vdots &\vdots &\ddots &\vdots \\{\frac {\partial y}{\partial x_{1q}}}&{\frac {\partial y}{\partial x_{2q}}}&\cdots &{\frac {\partial y}{\partial x_{pq}}}\\\end{bmatrix}}.\end{aligned}}}
+  the following definitions are only provided in numerator-layout notation:
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  
+                    
+                      ∂
+                      
+                        y
+                      
+                    
+                    
+                      ∂
+                      x
+                    
+                  
+                
+              
+              
+                
+                =
+                
+                  
+                    [
+                    
+                      
+                        
+                          
+                            
+                              
+                                ∂
+                                
+                                  y
+                                  
+                                    11
+                                  
+                                
+                              
+                              
+                                ∂
+                                x
+                              
+                            
+                          
+                        
+                        
+                          
+                            
+                              
+                                ∂
+                                
+                                  y
+                                  
+                                    12
+                                  
+                                
+                              
+                              
+                                ∂
+                                x
+                              
+                            
+                          
+                        
+                        
+                          ⋯
+                        
+                        
+                          
+                            
+                              
+                                ∂
+                                
+                                  y
+                                  
+                                    1
+                                    n
+                                  
+                                
+                              
+                              
+                                ∂
+                                x
+                              
+                            
+                          
+                        
+                      
+                      
+                        
+                          
+                            
+                              
+                                ∂
+                                
+                                  y
+                                  
+                                    21
+                                  
+                                
+                              
+                              
+                                ∂
+                                x
+                              
+                            
+                          
+                        
+                        
+                          
+                            
+                              
+                                ∂
+                                
+                                  y
+                                  
+                                    22
+                                  
+                                
+                              
+                              
+                                ∂
+                                x
+                              
+                            
+                          
+                        
+                        
+                          ⋯
+                        
+                        
+                          
+                            
+                              
+                                ∂
+                                
+                                  y
+                                  
+                                    2
+                                    n
+                                  
+                                
+                              
+                              
+                                ∂
+                                x
+                              
+                            
+                          
+                        
+                      
+                      
+                        
+                          ⋮
+                        
+                        
+                          ⋮
+                        
+                        
+                          ⋱
+                        
+                        
+                          ⋮
+                        
+                      
+                      
+                        
+                          
+                            
+                              
+                                ∂
+                                
+                                  y
+                                  
+                                    m
+                                    1
+                                  
+                                
+                              
+                              
+                                ∂
+                                x
+                              
+                            
+                          
+                        
+                        
+                          
+                            
+                              
+                                ∂
+                                
+                                  y
+                                  
+                                    m
+                                    2
+                                  
+                                
+                              
+                              
+                                ∂
+                                x
+                              
+                            
+                          
+                        
+                        
+                          ⋯
+                        
+                        
+                          
+                            
+                              
+                                ∂
+                                
+                                  y
+                                  
+                                    m
+                                    n
+                                  
+                                
+                              
+                              
+                                ∂
+                                x
+                              
+                            
+                          
+                        
+                      
+                    
+                    ]
+                  
+                
+                .
+              
+            
+            
+              
+                d
+                
+                  x
+                
+              
+              
+                
+                =
+                
+                  
+                    [
+                    
+                      
+                        
+                          d
+                          
+                            x
+                            
+                              11
+                            
+                          
+                        
+                        
+                          d
+                          
+                            x
+                            
+                              12
+                            
+                          
+                        
+                        
+                          ⋯
+                        
+                        
+                          d
+                          
+                            x
+                            
+                              1
+                              n
+                            
+                          
+                        
+                      
+                      
+                        
+                          d
+                          
+                            x
+                            
+                              21
+                            
+                          
+                        
+                        
+                          d
+                          
+                            x
+                            
+                              22
+                            
+                          
+                        
+                        
+                          ⋯
+                        
+                        
+                          d
+                          
+                            x
+                            
+                              2
+                              n
+                            
+                          
+                        
+                      
+                      
+                        
+                          ⋮
+                        
+                        
+                          ⋮
+                        
+                        
+                          ⋱
+                        
+                        
+                          ⋮
+                        
+                      
+                      
+                        
+                          d
+                          
+                            x
+                            
+                              m
+                              1
+                            
+                          
+                        
+                        
+                          d
+                          
+                            x
+                            
+                              m
+                              2
+                            
+                          
+                        
+                        
+                          ⋯
+                        
+                        
+                          d
+                          
+                            x
+                            
+                              m
+                              n
+                            
+                          
+                        
+                      
+                    
+                    ]
+                  
+                
+                .
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}{\frac {\partial \mathbf {y} }{\partial x}}&={\begin{bmatrix}{\frac {\partial y_{11}}{\partial x}}&{\frac {\partial y_{12}}{\partial x}}&\cdots &{\frac {\partial y_{1n}}{\partial x}}\\{\frac {\partial y_{21}}{\partial x}}&{\frac {\partial y_{22}}{\partial x}}&\cdots &{\frac {\partial y_{2n}}{\partial x}}\\\vdots &\vdots &\ddots &\vdots \\{\frac {\partial y_{m1}}{\partial x}}&{\frac {\partial y_{m2}}{\partial x}}&\cdots &{\frac {\partial y_{mn}}{\partial x}}\\\end{bmatrix}}.\\d\mathbf {x} &={\begin{bmatrix}dx_{11}&dx_{12}&\cdots &dx_{1n}\\dx_{21}&dx_{22}&\cdots &dx_{2n}\\\vdots &\vdots &\ddots &\vdots \\dx_{m1}&dx_{m2}&\cdots &dx_{mn}\\\end{bmatrix}}.\end{aligned}}}
+  
+
+
+=== denominator-layout notation ===
+using denominator-layout notation, we have:
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  
+                    
+                      ∂
+                      y
+                    
+                    
+                      ∂
+                      
+                        x
+                      
+                    
+                  
+                
+              
+              
+                
+                =
+                
+                  
+                    [
+                    
+                      
+                        
+                          
+                            
+                              
+                                ∂
+                                y
+                              
+                              
+                                ∂
+                                
+                                  x
+                                  
+                                    1
+                                  
+                                
+                              
+                            
+                          
+                        
+                      
+                      
+                        
+                          
+                            
+                              
+                                ∂
+                                y
+                              
+                              
+                                ∂
+                                
+                                  x
+                                  
+                                    2
+                                  
+                                
+                              
+                            
+                          
+                        
+                      
+                      
+                        
+                          ⋮
+                        
+                      
+                      
+                        
+                          
+                            
+                              
+                                ∂
+                                y
+                              
+                              
+                                ∂
+                                
+                                  x
+                                  
+                                    n
+                                  
+                                
+                              
+                            
+                          
+                        
+                      
+                    
+                    ]
+                  
+                
+                .
+              
+            
+            
+              
+                
+                  
+                    
+                      ∂
+                      
+                        y
+                      
+                    
+                    
+                      ∂
+                      x
+                    
+                  
+                
+              
+              
+                
+                =
+                
+                  
+                    [
+                    
+                      
+                        
+                          
+                            
+                              
+                                ∂
+                                
+                                  y
+                                  
+                                    1
+                                  
+                                
+                              
+                              
+                                ∂
+                                x
+                              
+                            
+                          
+                        
+                        
+                          
+                            
+                              
+                                ∂
+                                
+                                  y
+                                  
+                                    2
+                                  
+                                
+                              
+                              
+                                ∂
+                                x
+                              
+                            
+                          
+                        
+                        
+                          ⋯
+                        
+                        
+                          
+                            
+                              
+                                ∂
+                                
+                                  y
+                                  
+                                    m
+                                  
+                                
+                              
+                              
+                                ∂
+                                x
+                              
+                            
+                          
+                        
+                      
+                    
+                    ]
+                  
+                
+                .
+              
+            
+            
+              
+                
+                  
+                    
+                      ∂
+                      
+                        y
+                      
+                    
+                    
+                      ∂
+                      
+                        x
+                      
+                    
+                  
+                
+              
+              
+                
+                =
+                
+                  
+                    [
+                    
+                      
+                        
+                          
+                            
+                              
+                                ∂
+                                
+                                  y
+                                  
+                                    1
+                                  
+                                
+                              
+                              
+                                ∂
+                                
+                                  x
+                                  
+                                    1
+                                  
+                                
+                              
+                            
+                          
+                        
+                        
+                          
+                            
+                              
+                                ∂
+                                
+                                  y
+                                  
+                                    2
+                                  
+                                
+                              
+                              
+                                ∂
+                                
+                                  x
+                                  
+                                    1
+                                  
+                                
+                              
+                            
+                          
+                        
+                        
+                          ⋯
+                        
+                        
+                          
+                            
+                              
+                                ∂
+                                
+                                  y
+                                  
+                                    m
+                                  
+                                
+                              
+                              
+                                ∂
+                                
+                                  x
+                                  
+                                    1
+                                  
+                                
+                              
+                            
+                          
+                        
+                      
+                      
+                        
+                          
+                            
+                              
+                                ∂
+                                
+                                  y
+                                  
+                                    1
+                                  
+                                
+                              
+                              
+                                ∂
+                                
+                                  x
+                                  
+                                    2
+                                  
+                                
+                              
+                            
+                          
+                        
+                        
+                          
+                            
+                              
+                                ∂
+                                
+                                  y
+                                  
+                                    2
+                                  
+                                
+                              
+                              
+                                ∂
+                                
+                                  x
+                                  
+                                    2
+                                  
+                                
+                              
+                            
+                          
+                        
+                        
+                          ⋯
+                        
+                        
+                          
+                            
+                              
+                                ∂
+                                
+                                  y
+                                  
+                                    m
+                                  
+                                
+                              
+                              
+                                ∂
+                                
+                                  x
+                                  
+                                    2
+                                  
+                                
+                              
+                            
+                          
+                        
+                      
+                      
+                        
+                          ⋮
+                        
+                        
+                          ⋮
+                        
+                        
+                          ⋱
+                        
+                        
+                          ⋮
+                        
+                      
+                      
+                        
+                          
+                            
+                              
+                                ∂
+                                
+                                  y
+                                  
+                                    1
+                                  
+                                
+                              
+                              
+                                ∂
+                                
+                                  x
+                                  
+                                    n
+                                  
+                                
+                              
+                            
+                          
+                        
+                        
+                          
+                            
+                              
+                                ∂
+                                
+                                  y
+                                  
+                                    2
+                                  
+                                
+                              
+                              
+                                ∂
+                                
+                                  x
+                                  
+                                    n
+                                  
+                                
+                              
+                            
+                          
+                        
+                        
+                          ⋯
+                        
+                        
+                          
+                            
+                              
+                                ∂
+                                
+                                  y
+                                  
+                                    m
+                                  
+                                
+                              
+                              
+                                ∂
+                                
+                                  x
+                                  
+                                    n
+                                  
+                                
+                              
+                            
+                          
+                        
+                      
+                    
+                    ]
+                  
+                
+                .
+              
+            
+            
+              
+                
+                  
+                    
+                      ∂
+                      y
+                    
+                    
+                      ∂
+                      
+                        x
+                      
+                    
+                  
+                
+              
+              
+                
+                =
+                
+                  
+                    [
+                    
+                      
+                        
+                          
+                            
+                              
+                                ∂
+                                y
+                              
+                              
+                                ∂
+                                
+                                  x
+                                  
+                                    11
+                                  
+                                
+                              
+                            
+                          
+                        
+                        
+                          
+                            
+                              
+                                ∂
+                                y
+                              
+                              
+                                ∂
+                                
+                                  x
+                                  
+                                    12
+                                  
+                                
+                              
+                            
+                          
+                        
+                        
+                          ⋯
+                        
+                        
+                          
+                            
+                              
+                                ∂
+                                y
+                              
+                              
+                                ∂
+                                
+                                  x
+                                  
+                                    1
+                                    q
+                                  
+                                
+                              
+                            
+                          
+                        
+                      
+                      
+                        
+                          
+                            
+                              
+                                ∂
+                                y
+                              
+                              
+                                ∂
+                                
+                                  x
+                                  
+                                    21
+                                  
+                                
+                              
+                            
+                          
+                        
+                        
+                          
+                            
+                              
+                                ∂
+                                y
+                              
+                              
+                                ∂
+                                
+                                  x
+                                  
+                                    22
+                                  
+                                
+                              
+                            
+                          
+                        
+                        
+                          ⋯
+                        
+                        
+                          
+                            
+                              
+                                ∂
+                                y
+                              
+                              
+                                ∂
+                                
+                                  x
+                                  
+                                    2
+                                    q
+                                  
+                                
+                              
+                            
+                          
+                        
+                      
+                      
+                        
+                          ⋮
+                        
+                        
+                          ⋮
+                        
+                        
+                          ⋱
+                        
+                        
+                          ⋮
+                        
+                      
+                      
+                        
+                          
+                            
+                              
+                                ∂
+                                y
+                              
+                              
+                                ∂
+                                
+                                  x
+                                  
+                                    p
+                                    1
+                                  
+                                
+                              
+                            
+                          
+                        
+                        
+                          
+                            
+                              
+                                ∂
+                                y
+                              
+                              
+                                ∂
+                                
+                                  x
+                                  
+                                    p
+                                    2
+                                  
+                                
+                              
+                            
+                          
+                        
+                        
+                          ⋯
+                        
+                        
+                          
+                            
+                              
+                                ∂
+                                y
+                              
+                              
+                                ∂
+                                
+                                  x
+                                  
+                                    p
+                                    q
+                                  
+                                
+                              
+                            
+                          
+                        
+                      
+                    
+                    ]
+                  
+                
+                .
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}{\frac {\partial y}{\partial \mathbf {x} }}&={\begin{bmatrix}{\frac {\partial y}{\partial x_{1}}}\\{\frac {\partial y}{\partial x_{2}}}\\\vdots \\{\frac {\partial y}{\partial x_{n}}}\\\end{bmatrix}}.\\{\frac {\partial \mathbf {y} }{\partial x}}&={\begin{bmatrix}{\frac {\partial y_{1}}{\partial x}}&{\frac {\partial y_{2}}{\partial x}}&\cdots &{\frac {\partial y_{m}}{\partial x}}\end{bmatrix}}.\\{\frac {\partial \mathbf {y} }{\partial \mathbf {x} }}&={\begin{bmatrix}{\frac {\partial y_{1}}{\partial x_{1}}}&{\frac {\partial y_{2}}{\partial x_{1}}}&\cdots &{\frac {\partial y_{m}}{\partial x_{1}}}\\{\frac {\partial y_{1}}{\partial x_{2}}}&{\frac {\partial y_{2}}{\partial x_{2}}}&\cdots &{\frac {\partial y_{m}}{\partial x_{2}}}\\\vdots &\vdots &\ddots &\vdots \\{\frac {\partial y_{1}}{\partial x_{n}}}&{\frac {\partial y_{2}}{\partial x_{n}}}&\cdots &{\frac {\partial y_{m}}{\partial x_{n}}}\\\end{bmatrix}}.\\{\frac {\partial y}{\partial \mathbf {x} }}&={\begin{bmatrix}{\frac {\partial y}{\partial x_{11}}}&{\frac {\partial y}{\partial x_{12}}}&\cdots &{\frac {\partial y}{\partial x_{1q}}}\\{\frac {\partial y}{\partial x_{21}}}&{\frac {\partial y}{\partial x_{22}}}&\cdots &{\frac {\partial y}{\partial x_{2q}}}\\\vdots &\vdots &\ddots &\vdots \\{\frac {\partial y}{\partial x_{p1}}}&{\frac {\partial y}{\partial x_{p2}}}&\cdots &{\frac {\partial y}{\partial x_{pq}}}\\\end{bmatrix}}.\end{aligned}}}
+  
+
+
+== identities ==
+as noted above, in general, the results of operations will be transposed when switching between numerator-layout and denominator-layout notation.
+to help make sense of all the identities below, keep in mind the most important rules: the chain rule, product rule and sum rule.  the sum rule applies universally, and the product rule applies in most of the cases below, provided that the order of matrix products is maintained, since matrix products are not commutative.  the chain rule applies in some of the cases, but unfortunately does not apply in matrix-by-scalar derivatives or scalar-by-matrix derivatives (in the latter case, mostly involving the trace operator applied to matrices).  in the latter case, the product rule can't quite be applied directly, either, but the equivalent can be done with a bit more work using the differential identities.
+the following identities adopt the following conventions:
+
+the scalars, a, b, c, d, and e are constant in respect of, and the scalars, u, and v are functions of one of x, x, or x;
+the vectors, a, b, c, d, and e are constant in respect of, and the vectors, u, and v are functions of one of x, x, or x;
+the matrices, a, b, c, d, and e are constant in respect of, and the matrices, u and v are functions of one of x, x, or x.
+
+
+=== vector-by-vector identities ===
+this is presented first because all of the operations that apply to vector-by-vector differentiation apply directly to vector-by-scalar or scalar-by-vector differentiation simply by reducing the appropriate vector in the numerator or denominator to a scalar.
+
+
+=== scalar-by-vector identities ===
+the fundamental identities are placed above the thick black line.
+
+
+=== vector-by-scalar identities ===
+note: the formulas involving the vector-by-vector derivatives 
+  
+    
+      
+        
+          
+            
+              ∂
+              
+                g
+                (
+                u
+                )
+              
+            
+            
+              ∂
+              
+                u
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {\partial \mathbf {g(u)} }{\partial \mathbf {u} }}}
+   and 
+  
+    
+      
+        
+          
+            
+              ∂
+              
+                f
+                (
+                g
+                )
+              
+            
+            
+              ∂
+              
+                g
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {\partial \mathbf {f(g)} }{\partial \mathbf {g} }}}
+   (whose outputs are matrices) assume the matrices are laid out consistent with the vector layout, i.e. numerator-layout matrix when numerator-layout vector and vice versa; otherwise, transpose the vector-by-vector derivatives.
+
+
+=== scalar-by-matrix identities ===
+note that exact equivalents of the scalar product rule and chain rule do not exist when applied to matrix-valued functions of matrices.  however, the product rule of this sort does apply to the differential form (see below), and this is the way to derive many of the identities below involving the trace function, combined with the fact that the trace function allows transposing and cyclic permutation, i.e.:
+
+  
+    
+      
+        
+          
+            
+              
+                tr
+                ⁡
+                (
+                
+                  a
+                
+                )
+              
+              
+                
+                =
+                tr
+                ⁡
+                
+                  (
+                  
+                    
+                      a
+                      
+                        ⊤
+                      
+                    
+                  
+                  )
+                
+              
+            
+            
+              
+                tr
+                ⁡
+                (
+                
+                  a
+                  b
+                  c
+                  d
+                
+                )
+              
+              
+                
+                =
+                tr
+                ⁡
+                (
+                
+                  b
+                  c
+                  d
+                  a
+                
+                )
+                =
+                tr
+                ⁡
+                (
+                
+                  c
+                  d
+                  a
+                  b
+                
+                )
+                =
+                tr
+                ⁡
+                (
+                
+                  d
+                  a
+                  b
+                  c
+                
+                )
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}\operatorname {tr} (\mathbf {a} )&=\operatorname {tr} \left(\mathbf {a^{\top }} \right)\\\operatorname {tr} (\mathbf {abcd} )&=\operatorname {tr} (\mathbf {bcda} )=\operatorname {tr} (\mathbf {cdab} )=\operatorname {tr} (\mathbf {dabc} )\end{aligned}}}
+  for example, to compute 
+  
+    
+      
+        
+          
+            
+              ∂
+              tr
+              ⁡
+              (
+              
+                a
+                x
+                b
+                
+                  x
+                  
+                    ⊤
+                  
+                
+                c
+              
+              )
+            
+            
+              ∂
+              
+                x
+              
+            
+          
+        
+        :
+      
+    
+    {\displaystyle {\frac {\partial \operatorname {tr} (\mathbf {axbx^{\top }c} )}{\partial \mathbf {x} }}:}
+  
+
+  
+    
+      
+        
+          
+            
+              
+                d
+                tr
+                ⁡
+                (
+                
+                  a
+                  x
+                  b
+                  
+                    x
+                    
+                      ⊤
+                    
+                  
+                  c
+                
+                )
+              
+              
+                
+                =
+                d
+                tr
+                ⁡
+                
+                  (
+                  
+                    c
+                    a
+                    x
+                    b
+                    
+                      x
+                      
+                        ⊤
+                      
+                    
+                  
+                  )
+                
+                =
+                tr
+                ⁡
+                
+                  (
+                  
+                    d
+                    
+                      (
+                      
+                        c
+                        a
+                        x
+                        b
+                        
+                          x
+                          
+                            ⊤
+                          
+                        
+                      
+                      )
+                    
+                  
+                  )
+                
+              
+            
+            
+              
+              
+                
+                =
+                tr
+                ⁡
+                
+                  (
+                  
+                    
+                      c
+                      a
+                      x
+                    
+                    d
+                    (
+                    
+                      b
+                      
+                        x
+                        
+                          ⊤
+                        
+                      
+                    
+                  
+                  )
+                
+                +
+                d
+                
+                  (
+                  
+                    
+                      c
+                      a
+                      x
+                    
+                    )
+                    
+                      b
+                      
+                        x
+                        
+                          ⊤
+                        
+                      
+                    
+                  
+                  )
+                
+              
+            
+            
+              
+              
+                
+                =
+                tr
+                ⁡
+                
+                  (
+                  
+                    
+                      c
+                      a
+                      x
+                    
+                    d
+                    
+                      (
+                      
+                        b
+                        
+                          x
+                          
+                            ⊤
+                          
+                        
+                      
+                      )
+                    
+                  
+                  )
+                
+                +
+                tr
+                ⁡
+                
+                  (
+                  
+                    d
+                    (
+                    
+                      c
+                      a
+                      x
+                    
+                    )
+                    
+                      b
+                      
+                        x
+                        
+                          ⊤
+                        
+                      
+                    
+                  
+                  )
+                
+              
+            
+            
+              
+              
+                
+                =
+                tr
+                ⁡
+                
+                  (
+                  
+                    
+                      c
+                      a
+                      x
+                      b
+                    
+                    d
+                    
+                      (
+                      
+                        
+                          x
+                          
+                            ⊤
+                          
+                        
+                      
+                      )
+                    
+                  
+                  )
+                
+                +
+                tr
+                ⁡
+                
+                  (
+                  
+                    
+                      c
+                      a
+                    
+                    (
+                    d
+                    
+                      x
+                    
+                    )
+                    
+                      b
+                      
+                        x
+                        
+                          ⊤
+                        
+                      
+                    
+                  
+                  )
+                
+              
+            
+            
+              
+              
+                
+                =
+                tr
+                ⁡
+                
+                  (
+                  
+                    
+                      c
+                      a
+                      x
+                      b
+                    
+                    (
+                    d
+                    
+                      x
+                    
+                    
+                      )
+                      
+                        ⊤
+                      
+                    
+                  
+                  )
+                
+                +
+                tr
+                ⁡
+                (
+                
+                  c
+                  a
+                
+                
+                  (
+                  
+                    d
+                    
+                      x
+                    
+                    )
+                    
+                      b
+                      
+                        x
+                        
+                          ⊤
+                        
+                      
+                    
+                  
+                  )
+                
+              
+            
+            
+              
+              
+                
+                =
+                tr
+                ⁡
+                
+                  (
+                  
+                    
+                      (
+                      
+                        
+                          c
+                          a
+                          x
+                          b
+                        
+                        (
+                        d
+                        
+                          x
+                        
+                        
+                          )
+                          
+                            ⊤
+                          
+                        
+                      
+                      )
+                    
+                    
+                      ⊤
+                    
+                  
+                  )
+                
+                +
+                tr
+                ⁡
+                
+                  (
+                  
+                    
+                      c
+                      a
+                    
+                    (
+                    d
+                    
+                      x
+                    
+                    )
+                    
+                      b
+                      
+                        x
+                        
+                          ⊤
+                        
+                      
+                    
+                  
+                  )
+                
+              
+            
+            
+              
+              
+                
+                =
+                tr
+                ⁡
+                
+                  (
+                  
+                    (
+                    d
+                    
+                      x
+                    
+                    )
+                    
+                      
+                        b
+                        
+                          ⊤
+                        
+                      
+                      
+                        x
+                        
+                          ⊤
+                        
+                      
+                      
+                        a
+                        
+                          ⊤
+                        
+                      
+                      
+                        c
+                        
+                          ⊤
+                        
+                      
+                    
+                  
+                  )
+                
+                +
+                tr
+                ⁡
+                
+                  (
+                  
+                    
+                      c
+                      a
+                    
+                    (
+                    d
+                    
+                      x
+                    
+                    )
+                    
+                      b
+                      
+                        x
+                        
+                          ⊤
+                        
+                      
+                    
+                  
+                  )
+                
+              
+            
+            
+              
+              
+                
+                =
+                tr
+                ⁡
+                
+                  (
+                  
+                    
+                      
+                        b
+                        
+                          ⊤
+                        
+                      
+                      
+                        x
+                        
+                          ⊤
+                        
+                      
+                      
+                        a
+                        
+                          ⊤
+                        
+                      
+                      
+                        c
+                        
+                          ⊤
+                        
+                      
+                    
+                    (
+                    d
+                    
+                      x
+                    
+                    )
+                  
+                  )
+                
+                +
+                tr
+                ⁡
+                
+                  (
+                  
+                    
+                      b
+                      
+                        x
+                        
+                          ⊤
+                        
+                      
+                    
+                    
+                      c
+                      a
+                    
+                    (
+                    d
+                    
+                      x
+                    
+                    )
+                  
+                  )
+                
+              
+            
+            
+              
+              
+                
+                =
+                tr
+                ⁡
+                
+                  (
+                  
+                    
+                      (
+                      
+                        
+                          
+                            b
+                            
+                              ⊤
+                            
+                          
+                          
+                            x
+                            
+                              ⊤
+                            
+                          
+                          
+                            a
+                            
+                              ⊤
+                            
+                          
+                          
+                            c
+                            
+                              ⊤
+                            
+                          
+                        
+                        +
+                        
+                          b
+                          
+                            x
+                            
+                              ⊤
+                            
+                          
+                        
+                        
+                          c
+                          a
+                        
+                      
+                      )
+                    
+                    d
+                    
+                      x
+                    
+                  
+                  )
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}d\operatorname {tr} (\mathbf {axbx^{\top }c} )&=d\operatorname {tr} \left(\mathbf {caxbx^{\top }} \right)=\operatorname {tr} \left(d\left(\mathbf {caxbx^{\top }} \right)\right)\\&=\operatorname {tr} \left(\mathbf {cax} d(\mathbf {bx^{\top }} \right)+d\left(\mathbf {cax} )\mathbf {bx^{\top }} \right)\\&=\operatorname {tr} \left(\mathbf {cax} d\left(\mathbf {bx^{\top }} \right)\right)+\operatorname {tr} \left(d(\mathbf {cax} )\mathbf {bx^{\top }} \right)\\&=\operatorname {tr} \left(\mathbf {caxb} d\left(\mathbf {x^{\top }} \right)\right)+\operatorname {tr} \left(\mathbf {ca} (d\mathbf {x} )\mathbf {bx^{\top }} \right)\\&=\operatorname {tr} \left(\mathbf {caxb} (d\mathbf {x} )^{\top }\right)+\operatorname {tr} (\mathbf {ca} \left(d\mathbf {x} )\mathbf {bx^{\top }} \right)\\&=\operatorname {tr} \left(\left(\mathbf {caxb} (d\mathbf {x} )^{\top }\right)^{\top }\right)+\operatorname {tr} \left(\mathbf {ca} (d\mathbf {x} )\mathbf {bx^{\top }} \right)\\&=\operatorname {tr} \left((d\mathbf {x} )\mathbf {b^{\top }x^{\top }a^{\top }c^{\top }} \right)+\operatorname {tr} \left(\mathbf {ca} (d\mathbf {x} )\mathbf {bx^{\top }} \right)\\&=\operatorname {tr} \left(\mathbf {b^{\top }x^{\top }a^{\top }c^{\top }} (d\mathbf {x} )\right)+\operatorname {tr} \left(\mathbf {bx^{\top }} \mathbf {ca} (d\mathbf {x} )\right)\\&=\operatorname {tr} \left(\left(\mathbf {b^{\top }x^{\top }a^{\top }c^{\top }} +\mathbf {bx^{\top }} \mathbf {ca} \right)d\mathbf {x} \right)\end{aligned}}}
+  therefore,
+
+  
+    
+      
+        
+          
+            
+              ∂
+              tr
+              ⁡
+              
+                (
+                
+                  a
+                  x
+                  b
+                  
+                    x
+                    
+                      ⊤
+                    
+                  
+                  c
+                
+                )
+              
+            
+            
+              ∂
+              
+                x
+              
+            
+          
+        
+        =
+        
+          
+            b
+            
+              ⊤
+            
+          
+          
+            x
+            
+              ⊤
+            
+          
+          
+            a
+            
+              ⊤
+            
+          
+          
+            c
+            
+              ⊤
+            
+          
+        
+        +
+        
+          b
+          
+            x
+            
+              ⊤
+            
+          
+        
+        
+          c
+          a
+        
+        .
+      
+    
+    {\displaystyle {\frac {\partial \operatorname {tr} \left(\mathbf {axbx^{\top }c} \right)}{\partial \mathbf {x} }}=\mathbf {b^{\top }x^{\top }a^{\top }c^{\top }} +\mathbf {bx^{\top }} \mathbf {ca} .}
+   (numerator layout)(for the last step, see the conversion from differential to derivative form section.)
+
+
+=== matrix-by-scalar identities ===
+further see derivative of the exponential map.
+
+
+=== scalar-by-scalar identities ===
+
+
+==== with vectors involved ====
+
+
+==== with matrices involved ====
+
+
+=== identities in differential form ===
+it is often easier to work in differential form and then convert back to normal derivatives.  this only works well using the numerator layout. in these rules, "a" is a scalar.
+
+in the last row, 
+  
+    
+      
+        
+          δ
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle \delta _{ij}}
+   is the kronecker delta and 
+  
+    
+      
+        (
+        
+          
+            p
+          
+          
+            k
+          
+        
+        
+          )
+          
+            i
+            j
+          
+        
+        =
+        (
+        
+          q
+        
+        
+          )
+          
+            i
+            k
+          
+        
+        (
+        
+          
+            q
+          
+          
+            −
+            1
+          
+        
+        
+          )
+          
+            k
+            j
+          
+        
+      
+    
+    {\displaystyle (\mathbf {p} _{k})_{ij}=(\mathbf {q} )_{ik}(\mathbf {q} ^{-1})_{kj}}
+   is the set of orthogonal projection operators that project onto the k-th eigenvector of x.
+q is the matrix of eigenvectors of 
+  
+    
+      
+        
+          x
+        
+        =
+        
+          q
+        
+        
+          λ
+        
+        
+          
+            q
+          
+          
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle \mathbf {x} =\mathbf {q} \mathbf {\lambda } \mathbf {q} ^{-1}}
+  , and 
+  
+    
+      
+        (
+        
+          λ
+        
+        
+          )
+          
+            i
+            i
+          
+        
+        =
+        
+          λ
+          
+            i
+          
+        
+      
+    
+    {\displaystyle (\mathbf {\lambda } )_{ii}=\lambda _{i}}
+   are the eigenvalues.
+the matrix function 
+  
+    
+      
+        f
+        (
+        
+          x
+        
+        )
+      
+    
+    {\displaystyle f(\mathbf {x} )}
+   is defined in terms of the scalar function 
+  
+    
+      
+        f
+        (
+        x
+        )
+      
+    
+    {\displaystyle f(x)}
+   for diagonalizable matrices by
+
+  
+    
+      
+        f
+        (
+        
+          x
+        
+        )
+        =
+        
+          ∑
+          
+            i
+          
+        
+        f
+        (
+        
+          λ
+          
+            i
+          
+        
+        )
+        
+          
+            p
+          
+          
+            i
+          
+        
+      
+    
+    {\displaystyle f(\mathbf {x} )=\sum _{i}f(\lambda _{i})\mathbf {p} _{i}}
+   where 
+  
+    
+      
+        
+          x
+        
+        =
+        
+          ∑
+          
+            i
+          
+        
+        
+          λ
+          
+            i
+          
+        
+        
+          
+            p
+          
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \mathbf {x} =\sum _{i}\lambda _{i}\mathbf {p} _{i}}
+   with 
+  
+    
+      
+        
+          
+            p
+          
+          
+            i
+          
+        
+        
+          
+            p
+          
+          
+            j
+          
+        
+        =
+        
+          δ
+          
+            i
+            j
+          
+        
+        
+          
+            p
+          
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \mathbf {p} _{i}\mathbf {p} _{j}=\delta _{ij}\mathbf {p} _{i}}
+  .
+to convert to normal derivative form, first convert it to one of the following canonical forms, and then use these identities:
+
+
+== applications ==
+matrix differential calculus is used in statistics, particularly for the statistical analysis of multivariate distributions, especially the multivariate normal distribution and other elliptical distributions.it is used in regression analysis to compute, for example, the ordinary least squares regression formula for the case of multiple explanatory variables.
+
+
+== see also ==
+
+derivative (generalizations)
+product integral
+ricci calculus
+
+
+== notes ==
+
+
+== references ==
+fang, kai-tai; zhang, yao-ting (1990). generalized multivariate analysis. science press (beijing) and springer-verlag (berlin). isbn 3540176519. 9783540176510.
+kollo, tõnu; von rosen, dietrich (2005). advanced multivariate statistics with matrices. dordrecht: springer. isbn 978-1-4020-3418-3.
+pan, jianxin; fang, kaitai (2007). growth curve models and statistical diagnostics. beijing: science press. isbn 9780387950532.
+
+
+== further reading ==
+
+
+== external links ==
+
+
+=== software ===
+matrixcalculus.org, a website for evaluating matrix calculus expressions symbolically
+ncalgebra, an open-source mathematica package that has some matrix calculus functionality
+
+
+=== information ===
+matrix reference manual, mike brookes, imperial college london.
+matrix differentiation (and some other stuff), randal j. barnes, department of civil engineering, university of minnesota.
+notes on matrix calculus, paul l. fackler, north carolina state university.
+matrix differential calculus (slide presentation), zhang le, university of edinburgh.
+introduction to vector and matrix differentiation (notes on matrix differentiation, in the context of econometrics), heino bohn nielsen.
+a note on differentiating matrices (notes on matrix differentiation), pawel koval, from munich personal repec archive.
+vector/matrix calculus more notes on matrix differentiation.
+matrix identities (notes on matrix differentiation), sam roweis.

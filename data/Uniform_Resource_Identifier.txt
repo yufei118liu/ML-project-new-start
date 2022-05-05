@@ -1,0 +1,184 @@
+a uniform resource identifier (uri) is a unique sequence of characters that identifies a logical or physical resource used by web technologies. uris may be used to identify anything, including real-world objects, such as people and places, concepts, or information resources such as web pages and books. some uris provide a means of locating and retrieving information resources on a network (either on the internet or on another private network, such as a computer filesystem or an intranet); these are uniform resource locators (urls). a url provides the location of the resource. a uri identifies the resource by name at the specified location or url. other uris provide only a unique name, without a means of locating or retrieving the resource or information about it, these are uniform resource names (urns). the web technologies that use uris are not limited to web browsers. uris are used to identify anything described using the resource description framework (rdf), for example, concepts that are part of an ontology defined using the web ontology language (owl), and people who are described using the friend of a friend vocabulary would each have an individual uri.
+
+
+== history ==
+
+
+=== conception ===
+uris and urls have a shared history. in 1990, tim berners-lee's proposals for hypertext implicitly introduced the idea of a url as a short string representing a resource that is the target of a hyperlink. at the time, people referred to it as a "hypertext name" or "document name".
+over the next three and a half years, as the world wide web's core technologies of html, http, and web browsers developed, a need to distinguish a string that provided an address for a resource from a string that merely named a resource emerged. although not yet formally defined, the term uniform resource locator came to represent the former, and the more contentious uniform resource name came to represent the latter. in july 1992 berners-lee's report on the ietf "udi (universal document identifiers) bof" mentions urls (as uniform resource locators), urns (originally, as unique resource numbers), and the need to charter a new working group. in november 1992 the ietf "uri working group" met for the first time.during the debate over defining urls and urns, it became evident that the concepts embodied by the two terms were merely aspects of the fundamental, overarching, notion of resource identification. in june 1994, the ietf published berners-lee's first request for comments that acknowledged the existence of urls and urns. most importantly, it defined a formal syntax for universal resource identifiers (i.e. url-like strings whose precise syntaxes and semantics depended on their schemes). in addition, the rfc 1630 attempted to summarize the syntaxes of url schemes in use at the time. it acknowledged -- but did not standardize -- the existence of relative urls and fragment identifiers.
+
+
+=== refinement ===
+in december 1994, rfc 1738 formally defined relative and absolute urls, refined the general url syntax, defined how to resolve relative urls to absolute form, and better enumerated the url schemes then in use.  the agreed definition and syntax of urns had to wait until the publication of ietf rfc 2141 in may 1997.
+the publication of ietf rfc 2396 in august 1998 saw the uri syntax become a separate specification and most of the parts of rfcs 1630 and 1738 relating to uris and urls in general were revised and expanded by the ietf. the new rfc changed the meaning of "u" in "uri" to "uniform" from "universal".
+in december 1999, rfc 2732 provided a minor update to rfc 2396, allowing uris to accommodate ipv6 addresses. a number of shortcomings discovered in the two specifications led to a community effort, coordinated by rfc 2396 co-author roy fielding, that culminated in the publication of ietf rfc 3986 in january 2005. while obsoleting the prior standard, it did not render the details of existing url schemes obsolete; rfc 1738 continues to govern such schemes except where otherwise superseded. ietf rfc 2616 for example, refines the http scheme. simultaneously, the ietf published the content of rfc 3986 as the full standard std 66, reflecting the establishment of the uri generic syntax as an official internet protocol.
+in 2001, the w3c's technical architecture group (tag) published a guide to best practices and canonical uris for publishing multiple versions of a given resource. for example, content might differ by language or by size to adjust for capacity or settings of the device used to access that content.
+in august 2002, ietf rfc 3305 pointed out that the term "url" had, despite widespread public use, faded into near obsolescence, and serves only as a reminder that some uris act as addresses by having schemes implying network accessibility, regardless of any such actual use. as uri-based standards such as resource description framework make evident, resource identification need not suggest the retrieval of resource representations over the internet, nor need they imply network-based resources at all.
+the semantic web uses the http uri scheme to identify both documents and concepts in the real world, a distinction which has caused confusion as to how to distinguish the two. the tag published an e-mail in 2005 on how to solve the problem, which became known as the httprange-14 resolution. the w3c subsequently published an interest group note titled cool uris for the semantic web, which explained the use of content negotiation and the http 303 response code for redirections in more detail.
+
+
+== design ==
+
+
+=== urls and urns ===
+a uniform resource name (urn) is a uri that identifies a resource by name in a particular namespace. a urn may be used to talk about a resource without implying its location or how to access it. for example, in the international standard book number (isbn) system, isbn 0-486-27557-4 identifies a specific edition of shakespeare's play romeo and juliet. the urn for that edition would be urn:isbn:0-486-27557-4. however, it gives no information as to where to find a copy of that book.
+a uniform resource locator (url) is a uri that specifies the means of acting upon or obtaining the representation of a resource, i.e. specifying both its primary access mechanism and network location. for example, the url http://example.org/wiki/main_page refers to a resource identified as /wiki/main_page, whose representation, in the form of html and related code, is obtainable via the hypertext transfer protocol (http:) from a network host whose domain name is example.org.
+a urn may be compared to a person's name, while a url may be compared to their street address. in other words, a urn identifies an item and a url provides a method for finding it.
+
+technical publications, especially standards produced by the ietf and by the w3c, normally reflect a view outlined in a w3c recommendation of 30 july 2001, which acknowledges the precedence of the term uri rather than endorsing any formal subdivision into url and urn. url is a useful but informal concept: a url is a type of uri that identifies a resource via a representation of its primary access mechanism (e.g., its network "location"), rather than by some other attributes it may have.
+as such, a url is simply a uri that happens to point to a resource over a network. however, in non-technical contexts and in software for the world wide web, the term "url" remains widely used. additionally, the term "web address" (which has no formal definition) often occurs in non-technical publications as a synonym for a uri that uses the http or https schemes. such assumptions can lead to confusion, for example, in the case of xml namespaces that have a visual similarity to resolvable uris.
+
+specifications produced by the whatwg prefer url over uri, and so newer html5 apis use url over uri. standardize on the term url. uri and iri [internationalized resource identifier] are just confusing. in practice a single algorithm is used for both so keeping them distinct is not helping anyone. url also easily wins the search result popularity contest.
+while most uri schemes were originally designed to be used with a particular protocol, and often have the same name, they are semantically different from protocols. for example, the scheme http is generally used for interacting with web resources using http, but the scheme file has no protocol.
+
+
+=== syntax ===
+
+each uri begins with a scheme name that refers to a specification for assigning identifiers within that scheme. as such, the uri syntax is a federated and extensible naming system wherein each scheme's specification may further restrict the syntax and semantics of identifiers using that scheme. the uri generic syntax is a superset of the syntax of all uri schemes. it was first defined in rfc 2396, published in august 1998, and finalized in rfc 3986, published in january 2005.the uri generic syntax consists of a hierarchical sequence of five components:
+uri = scheme ":" ["//" authority] path ["?" query] ["#" fragment]
+
+where the authority component divides into three subcomponents:
+
+authority = [userinfo "@"] host [":" port]
+
+this is represented in a syntax diagram as:
+
+the uri comprises:
+
+a non-empty scheme component followed by a colon (:), consisting of a sequence of characters beginning with a letter and followed by any combination of letters, digits, plus (+), period (.), or hyphen (-). although schemes are case-insensitive, the canonical form is lowercase and documents that specify schemes must do so with lowercase letters. examples of popular schemes include http, https, ftp, mailto, file, data and irc. uri schemes should be registered with the internet assigned numbers authority (iana), although non-registered schemes are used in practice.
+an optional authority component preceded by two slashes (//), comprising:
+an optional userinfo subcomponent that may consist of a user name and an optional password preceded by a colon (:), followed by an at symbol (@). use of the format username:password in the userinfo subcomponent is deprecated for security reasons. applications should not render as clear text any data after the first colon (:) found within a userinfo subcomponent unless the data after the colon is the empty string (indicating no password).
+a host subcomponent, consisting of either a registered name (including but not limited to a hostname) or an ip address. ipv4 addresses must be in dot-decimal notation, and ipv6 addresses must be enclosed in brackets ([]).
+an optional port subcomponent preceded by a colon (:).
+a path component, consisting of a sequence of path segments separated by a slash (/). a path is always defined for a uri, though the defined path may be empty (zero length). a segment may also be empty, resulting in two consecutive slashes (//) in the path component. a path component may resemble or map exactly to a file system path but does not always imply a relation to one. if an authority component is present, then the path component must either be empty or begin with a slash (/). if an authority component is absent, then the path cannot begin with an empty segment – that is, with two slashes (//) – since the following characters would be interpreted as an authority component.by convention, in http and https uris, the last part of a path is named pathinfo and it is optional. it is composed by zero or more path segments that do not refer to an existing physical resource name (e.g. a file, an internal module program or an executable program) but to a logical part (e.g. a command or a qualifier part) that has to be passed separately to the first part of the path that identifies an executable module or program managed by a web server;  this is often used to select dynamic content (a document, etc.) or to tailor it as requested (see also: cgi and path_info, etc.).
+example:
+uri: "http://www.example.com/questions/3456/my-document"
+where: "/questions" is the first part of the path (an executable module or program) and "/3456/my-document" is the second part of the path named pathinfo, which is passed to the executable module or program named "/questions" to select the requested document.
+an http or https uri containing a pathinfo part without a query part may also be referred to as a 'clean url' whose last part may be a 'slug'.an optional query component preceded by a question mark (?), containing a query string of non-hierarchical data. its syntax is not well defined, but by convention is most often a sequence of attribute–value pairs separated by a delimiter.
+an optional fragment component preceded by a hash (#). the fragment contains a fragment identifier providing direction to a secondary resource, such as a section heading in an article identified by the remainder of the uri. when the primary resource is an html document, the fragment is often an id attribute of a specific element, and web browsers will scroll this element into view.strings of data octets within a uri are represented as characters. permitted characters within a uri are the ascii characters for the lowercase and uppercase letters of the modern english alphabet, the arabic numerals, hyphen, period, underscore, and tilde. octets represented by any other character must be percent-encoded.
+of the ascii character set, the characters : / ? # [ ] @ are reserved for use as delimiters of the generic uri components and must be percent-encoded – for example, %3f for a question mark. the characters ! $ & ' ( ) * + , ; = are permitted by generic uri syntax to be used unencoded in the user information, host, and path as delimiters. additionally, : and @ may appear unencoded within the path, query, and fragment; and ? and / may appear unencoded as data within the query or fragment.
+
+
+=== example uris ===
+the following figure displays example uris and their component parts.
+
+          userinfo       host      port
+          ┌──┴───┐ ┌──────┴──────┐ ┌┴┐
+  https://john.doe@www.example.com:123/forum/questions/?tag=networking&order=newest#top
+  └─┬─┘   └───────────┬──────────────┘└───────┬───────┘ └───────────┬─────────────┘ └┬┘
+  scheme          authority                  path                 query           fragment
+
+  ldap://[2001:db8::7]/c=gb?objectclass?one
+  └┬─┘   └─────┬─────┘└─┬─┘ └──────┬──────┘
+  scheme   authority   path      query
+
+  mailto:john.doe@example.com
+  └─┬──┘ └────┬─────────────┘
+  scheme     path
+
+  news:comp.infosystems.www.servers.unix
+  └┬─┘ └─────────────┬─────────────────┘
+  scheme            path
+
+  tel:+1-816-555-1212
+  └┬┘ └──────┬──────┘
+  scheme    path
+
+  telnet://192.0.2.16:80/
+  └─┬──┘   └─────┬─────┘│
+  scheme     authority  path
+
+  urn:oasis:names:specification:docbook:dtd:xml:4.1.2
+  └┬┘ └──────────────────────┬──────────────────────┘
+  scheme                    path
+
+
+=== uri references ===
+a uri reference is either a uri or a relative reference when it does not begin with a scheme component followed by a colon (:). a path segment that contains a colon character (e.g., foo:bar) cannot be used as the first path segment of a relative reference if its path component does not begin with a slash (/), as it would be mistaken for a scheme component. such a path segment must be preceded by a dot path segment (e.g., ./foo:bar).web document markup languages frequently use uri references to point to other resources, such as external documents or specific portions of the same logical document:
+in html, the value of the src attribute of the img element provides a uri reference, as does the value of the href attribute of the a or link element;
+in xml, the system identifier appearing after the system keyword in a dtd is a fragmentless uri reference;
+in xslt, the value of the href attribute of the xsl:import element/instruction is a uri reference; likewise the first argument to the document() function.https://example.com/path/resource.txt#fragment
+//example.com/path/resource.txt
+/path/resource.txt
+path/resource.txt
+../resource.txt
+./resource.txt
+resource.txt
+#fragment
+
+
+=== resolution ===
+resolving a uri reference against a base uri results in a target uri. this implies that the base uri exists and is an absolute uri (a uri with no fragment component). the base uri can be obtained, in order of precedence, from:
+the reference uri itself if it is a uri;
+the content of the representation;
+the entity encapsulating the representation;
+the uri used for the actual retrieval of the representation;
+the context of the application.within a representation with a well defined base uri of
+
+http://a/b/c/d;p?q
+
+a relative reference is resolved to its target uri as follows:
+"g:h"     -> "g:h"
+"g"       -> "http://a/b/c/g"
+"./g"     -> "http://a/b/c/g"
+"g/"      -> "http://a/b/c/g/"
+"/g"      -> "http://a/g"
+"//g"     -> "http://g"
+"?y"      -> "http://a/b/c/d;p?y"
+"g?y"     -> "http://a/b/c/g?y"
+"#s"      -> "http://a/b/c/d;p?q#s"
+"g#s"     -> "http://a/b/c/g#s"
+"g?y#s"   -> "http://a/b/c/g?y#s"
+";x"      -> "http://a/b/c/;x"
+"g;x"     -> "http://a/b/c/g;x"
+"g;x?y#s" -> "http://a/b/c/g;x?y#s"
+""        -> "http://a/b/c/d;p?q"
+"."       -> "http://a/b/c/"
+"./"      -> "http://a/b/c/"
+".."      -> "http://a/b/"
+"../"     -> "http://a/b/"
+"../g"    -> "http://a/b/g"
+"../.."   -> "http://a/"
+"../../"  -> "http://a/"
+"../../g" -> "http://a/g"
+
+
+=== url munging ===
+url munging is a technique by which a command is appended to a url, usually at the end, after a "?" token. it's commonly used in webdav as a mechanism of adding functionality to http. in a versioning system, for example, to add a "checkout" command to a url, it's written as http://editing.com/resource/file.php?command=checkout. it has the advantage of both being easy for cgi parsers and also acts as an intermediary between http and underlying resource, in this case.
+
+
+=== relation to xml namespaces ===
+in xml, a namespace is an abstract domain to which a collection of element and attribute names can be assigned. the namespace name is a character string which must adhere to the generic uri syntax. however, the name is generally not considered to be a uri, because the uri specification bases the decision not only on lexical components, but also on their intended use. a namespace name does not necessarily imply any of the semantics of uri schemes; for example, a namespace name beginning with http: may have no connotation to the use of the http.
+originally, the namespace name could match the syntax of any non-empty uri reference, but the use of relative uri references was deprecated by the w3c. a separate w3c specification for namespaces in xml 1.1 permits internationalized resource identifier (iri) references to serve as the basis for namespace names in addition to uri references.
+
+
+== see also ==
+curie
+linked data
+extensible resource identifier
+internationalized resource identifier (iri)
+internet resource locator
+persistent uniform resource locator
+uniform naming convention
+resource directory description language
+universally unique identifier
+list of uri schemes
+
+
+== notes ==
+
+
+== references ==
+
+
+== further reading ==
+
+whitehead, e.j (1998). "webdav: ieft standard for collaborative authoring on the web". ieee internet computing. 2 (5). doi:10.1109/4236.722228. issn 1941-0131. retrieved 2021-10-12.
+
+
+== external links ==
+uri schemes – iana-maintained registry of uri schemes
+uri schemes on the w3c wiki
+architecture of the world wide web, volume one, §2: identification – by w3c
+w3c uri clarification

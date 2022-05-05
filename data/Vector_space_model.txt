@@ -1,0 +1,718 @@
+vector space model or term vector model is an algebraic model for representing text documents (and any objects, in general) as vectors of identifiers (such as index terms). it is used in information filtering, information retrieval, indexing and relevancy rankings.  its first use was in the smart information retrieval system.
+
+
+== definitions ==
+documents and queries are represented as vectors.
+
+  
+    
+      
+        
+          d
+          
+            j
+          
+        
+        =
+        (
+        
+          w
+          
+            1
+            ,
+            j
+          
+        
+        ,
+        
+          w
+          
+            2
+            ,
+            j
+          
+        
+        ,
+        …
+        ,
+        
+          w
+          
+            t
+            ,
+            j
+          
+        
+        )
+      
+    
+    {\displaystyle d_{j}=(w_{1,j},w_{2,j},\dotsc ,w_{t,j})}
+  
+
+  
+    
+      
+        q
+        =
+        (
+        
+          w
+          
+            1
+            ,
+            q
+          
+        
+        ,
+        
+          w
+          
+            2
+            ,
+            q
+          
+        
+        ,
+        …
+        ,
+        
+          w
+          
+            n
+            ,
+            q
+          
+        
+        )
+      
+    
+    {\displaystyle q=(w_{1,q},w_{2,q},\dotsc ,w_{n,q})}
+  each dimension corresponds to a separate term. if a term occurs in the document, its value in the vector is non-zero. several different ways of computing these values, also known as (term) weights, have been developed. one of the best known schemes is tf-idf weighting (see the example below).
+the definition of term depends on the application. typically terms are single words, keywords, or longer phrases. if words are chosen to be the terms, the dimensionality of the vector is the number of words in the vocabulary (the number of distinct words occurring in the corpus).
+vector operations can be used to compare documents with queries.
+
+
+== applications ==
+
+relevance rankings of documents in a keyword search can be calculated, using the assumptions of document similarities theory, by comparing the deviation of angles between each document vector and the original query vector where the query is represented as a vector with same dimension as the vectors that represent the other documents.
+in practice, it is easier to calculate the cosine of the angle between the vectors, instead of the angle itself:
+
+  
+    
+      
+        cos
+        ⁡
+        
+          θ
+        
+        =
+        
+          
+            
+              
+                
+                  d
+                  
+                    2
+                  
+                
+              
+              ⋅
+              
+                q
+              
+            
+            
+              
+                ‖
+                
+                  
+                    d
+                    
+                      2
+                    
+                  
+                
+                ‖
+              
+              
+                ‖
+                
+                  q
+                
+                ‖
+              
+            
+          
+        
+      
+    
+    {\displaystyle \cos {\theta }={\frac {\mathbf {d_{2}} \cdot \mathbf {q} }{\left\|\mathbf {d_{2}} \right\|\left\|\mathbf {q} \right\|}}}
+  where 
+  
+    
+      
+        
+          
+            d
+            
+              2
+            
+          
+        
+        ⋅
+        
+          q
+        
+      
+    
+    {\displaystyle \mathbf {d_{2}} \cdot \mathbf {q} }
+   is the intersection (i.e. the dot product) of the document (d2 in the figure to the right) and the query (q in the figure) vectors, 
+  
+    
+      
+        
+          ‖
+          
+            
+              d
+              
+                2
+              
+            
+          
+          ‖
+        
+      
+    
+    {\displaystyle \left\|\mathbf {d_{2}} \right\|}
+   is the norm of vector d2, and 
+  
+    
+      
+        
+          ‖
+          
+            q
+          
+          ‖
+        
+      
+    
+    {\displaystyle \left\|\mathbf {q} \right\|}
+   is the norm of vector q. the norm of a vector is calculated as such:
+
+  
+    
+      
+        
+          ‖
+          
+            q
+          
+          ‖
+        
+        =
+        
+          
+            
+              ∑
+              
+                i
+                =
+                1
+              
+              
+                n
+              
+            
+            
+              q
+              
+                i
+              
+              
+                2
+              
+            
+          
+        
+      
+    
+    {\displaystyle \left\|\mathbf {q} \right\|={\sqrt {\sum _{i=1}^{n}q_{i}^{2}}}}
+  using the cosine the similarity between document dj and query q can be calculated as:
+
+  
+    
+      
+        
+          c
+          o
+          s
+        
+        (
+        
+          d
+          
+            j
+          
+        
+        ,
+        q
+        )
+        =
+        
+          
+            
+              
+                
+                  d
+                  
+                    j
+                  
+                
+              
+              ⋅
+              
+                q
+              
+            
+            
+              
+                ‖
+                
+                  
+                    d
+                    
+                      j
+                    
+                  
+                
+                ‖
+              
+              
+                ‖
+                
+                  q
+                
+                ‖
+              
+            
+          
+        
+        =
+        
+          
+            
+              
+                ∑
+                
+                  i
+                  =
+                  1
+                
+                
+                  n
+                
+              
+              
+                w
+                
+                  i
+                  ,
+                  j
+                
+              
+              
+                w
+                
+                  i
+                  ,
+                  q
+                
+              
+            
+            
+              
+                
+                  
+                    ∑
+                    
+                      i
+                      =
+                      1
+                    
+                    
+                      n
+                    
+                  
+                  
+                    w
+                    
+                      i
+                      ,
+                      j
+                    
+                    
+                      2
+                    
+                  
+                
+              
+              
+                
+                  
+                    ∑
+                    
+                      i
+                      =
+                      1
+                    
+                    
+                      n
+                    
+                  
+                  
+                    w
+                    
+                      i
+                      ,
+                      q
+                    
+                    
+                      2
+                    
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle \mathrm {cos} (d_{j},q)={\frac {\mathbf {d_{j}} \cdot \mathbf {q} }{\left\|\mathbf {d_{j}} \right\|\left\|\mathbf {q} \right\|}}={\frac {\sum _{i=1}^{n}w_{i,j}w_{i,q}}{{\sqrt {\sum _{i=1}^{n}w_{i,j}^{2}}}{\sqrt {\sum _{i=1}^{n}w_{i,q}^{2}}}}}}
+  as all vectors under consideration by this model are element wise nonnegative, a cosine value of zero means that the query and document vector are orthogonal and have no match (i.e. the query term does not exist in the document being considered). see cosine similarity for further information.
+
+
+== term frequency-inverse document frequency weights ==
+in the classic vector space model proposed by salton, wong and yang  the term-specific weights in the document vectors are products of local and global parameters. the model is known as term frequency-inverse document frequency model. the weight vector for document d is 
+  
+    
+      
+        
+          
+            v
+          
+          
+            d
+          
+        
+        =
+        [
+        
+          w
+          
+            1
+            ,
+            d
+          
+        
+        ,
+        
+          w
+          
+            2
+            ,
+            d
+          
+        
+        ,
+        …
+        ,
+        
+          w
+          
+            n
+            ,
+            d
+          
+        
+        
+          ]
+          
+            t
+          
+        
+      
+    
+    {\displaystyle \mathbf {v} _{d}=[w_{1,d},w_{2,d},\ldots ,w_{n,d}]^{t}}
+  , where
+
+  
+    
+      
+        
+          w
+          
+            t
+            ,
+            d
+          
+        
+        =
+        
+          
+            t
+            f
+          
+          
+            t
+            ,
+            d
+          
+        
+        ⋅
+        log
+        ⁡
+        
+          
+            
+              
+                |
+              
+              d
+              
+                |
+              
+            
+            
+              
+                |
+              
+              {
+              
+                d
+                ′
+              
+              ∈
+              d
+              
+              
+                |
+              
+              
+              t
+              ∈
+              
+                d
+                ′
+              
+              }
+              
+                |
+              
+            
+          
+        
+      
+    
+    {\displaystyle w_{t,d}=\mathrm {tf} _{t,d}\cdot \log {\frac {|d|}{|\{d'\in d\,|\,t\in d'\}|}}}
+  and
+
+  
+    
+      
+        
+          
+            t
+            f
+          
+          
+            t
+            ,
+            d
+          
+        
+      
+    
+    {\displaystyle \mathrm {tf} _{t,d}}
+   is term frequency of term t in document d (a local parameter)
+
+  
+    
+      
+        log
+        ⁡
+        
+          
+            
+              
+                |
+              
+              d
+              
+                |
+              
+            
+            
+              
+                |
+              
+              {
+              
+                d
+                ′
+              
+              ∈
+              d
+              
+              
+                |
+              
+              
+              t
+              ∈
+              
+                d
+                ′
+              
+              }
+              
+                |
+              
+            
+          
+        
+      
+    
+    {\displaystyle \log {\frac {|d|}{|\{d'\in d\,|\,t\in d'\}|}}}
+   is inverse document frequency (a global parameter). 
+  
+    
+      
+        
+          |
+        
+        d
+        
+          |
+        
+      
+    
+    {\displaystyle |d|}
+   is the total number of documents in the document set; 
+  
+    
+      
+        
+          |
+        
+        {
+        
+          d
+          ′
+        
+        ∈
+        d
+        
+        
+          |
+        
+        
+        t
+        ∈
+        
+          d
+          ′
+        
+        }
+        
+          |
+        
+      
+    
+    {\displaystyle |\{d'\in d\,|\,t\in d'\}|}
+   is the number of documents containing the term t.
+
+
+== advantages ==
+the vector space model has the following advantages over the standard boolean model:
+
+simple model based on linear algebra
+term weights not binary
+allows computing a continuous degree of similarity between queries and documents
+allows ranking documents according to their possible relevance
+allows partial matchingmost of these advantages are a consequence of the difference in the density of the document collection representation between boolean and term frequency-inverse document frequency approaches. when using boolean weights, any document lies in a vertex in a n-dimensional hypercube. therefore, the possible document representations are 
+  
+    
+      
+        
+          2
+          
+            n
+          
+        
+      
+    
+    {\displaystyle 2^{n}}
+   and the maximum euclidean distance between pairs is 
+  
+    
+      
+        
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\sqrt {n}}}
+  . as documents are added to the document collection, the region defined by the hypercube's vertices become more populated and hence denser. unlike boolean, when a document is added using term frequency-inverse document frequency weights, the inverse document frequencies of the terms in the new document decrease while that of the remaining terms increase. in average, as documents are added, the region where documents lie expands regulating the density of the entire collection representation. this behavior models the original motivation of salton and his colleagues that a document collection represented in a low density region could yield better retrieval results.
+
+
+== limitations ==
+the vector space model has the following limitations:
+
+long documents are poorly represented because they have poor similarity values (a small scalar product and a large dimensionality)
+search keywords must precisely match document terms; word substrings might result in a "false positive match"
+semantic sensitivity; documents with similar context but different term vocabulary won't be associated, resulting in a "false negative match".
+the order in which the terms appear in the document is lost in the vector space representation.
+theoretically assumes terms are statistically independent.
+weighting is intuitive but not very formal.many of these difficulties can, however, be overcome by the integration of various tools, including mathematical techniques such as singular value decomposition and lexical databases such as wordnet.
+
+
+== models based on and extending the vector space model ==
+models based on and extending the vector space model include:
+
+generalized vector space model
+latent semantic analysis
+term
+rocchio classification
+random indexing
+
+
+== software that implements the vector space model ==
+the following software packages may be of interest to those wishing to experiment with vector models and implement search services based upon them.
+
+
+=== free open source software ===
+apache lucene. apache lucene is a high-performance, open source, full-featured text search engine library written entirely in java.
+opensearch (software) and solr : the 2 most famous search engine software (many smaller exist) based on lucene.
+gensim is a python+numpy framework for vector space modelling. it contains incremental (memory-efficient) algorithms for term frequency-inverse document frequency, latent semantic indexing, random projections and latent dirichlet allocation.
+weka. weka is a popular data mining package for java including wordvectors and bag of words models.
+word2vec. word2vec uses vector spaces for word embeddings.
+
+
+== further reading ==
+g. salton (1962), "some experiments in the generation of word and document associations" proceeding afips '62 (fall) proceedings of the december 4–6, 1962, fall joint computer conference,  pages 234–250. (early paper of salton using the term-document matrix formalization)
+g. salton, a. wong, and c. s. yang (1975), "a vector space model for automatic indexing" communications of the acm, vol. 18, nr. 11, pages 613–620. (article in which a vector space model was presented)
+david dubin (2004), the most influential paper gerard salton never wrote (explains the history of the vector space model and the non-existence of a frequently cited publication)
+description of the vector space model
+description of the classic vector space model by dr e. garcia
+relationship of vector space search to the "k-nearest neighbor" search
+
+
+== see also ==
+
+
+== references ==

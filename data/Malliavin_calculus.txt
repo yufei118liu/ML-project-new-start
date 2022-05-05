@@ -1,0 +1,827 @@
+in probability theory and related fields, malliavin calculus is a set of mathematical techniques and ideas that extend the mathematical field of calculus of variations from  deterministic functions to stochastic processes. in particular, it allows the computation of derivatives of random variables. malliavin calculus is also called the stochastic calculus of variations. p. malliavin first initiated the calculus on infinite dimensional space. then, the significant contributors such as s. kusuoka, d. stroock, bismut, s. watanabe, i. shigekawa, and so on finally completed the foundations.
+malliavin calculus is named after paul malliavin whose ideas led to a proof that hörmander's condition implies the existence and smoothness of a density for the solution of a stochastic differential equation; hörmander's original proof was based on the theory of  partial differential equations. the calculus has been applied to stochastic partial differential equations as well.
+the calculus allows integration by parts with random variables; this operation is used in mathematical finance to compute the sensitivities of financial derivatives. the calculus has applications in, for example, stochastic filtering.
+
+
+== overview and history ==
+malliavin introduced malliavin calculus to provide a stochastic proof that hörmander's condition implies the existence of a density for the solution of a stochastic differential equation; hörmander's original proof was based on the theory of  partial differential equations. his calculus enabled malliavin to prove regularity bounds for the solution's density. the calculus has been applied to stochastic partial differential equations.
+
+
+== invariance principle ==
+the usual invariance principle for lebesgue integration over the whole real line is that, for any real number ε and integrable function f, the
+following holds
+
+  
+    
+      
+        
+          ∫
+          
+            −
+            ∞
+          
+          
+            ∞
+          
+        
+        f
+        (
+        x
+        )
+        
+        d
+        λ
+        (
+        x
+        )
+        =
+        
+          ∫
+          
+            −
+            ∞
+          
+          
+            ∞
+          
+        
+        f
+        (
+        x
+        +
+        ε
+        )
+        
+        d
+        λ
+        (
+        x
+        )
+      
+    
+    {\displaystyle \int _{-\infty }^{\infty }f(x)\,d\lambda (x)=\int _{-\infty }^{\infty }f(x+\varepsilon )\,d\lambda (x)}
+   and hence 
+  
+    
+      
+        
+          ∫
+          
+            −
+            ∞
+          
+          
+            ∞
+          
+        
+        
+          f
+          ′
+        
+        (
+        x
+        )
+        
+        d
+        λ
+        (
+        x
+        )
+        =
+        0.
+      
+    
+    {\displaystyle \int _{-\infty }^{\infty }f'(x)\,d\lambda (x)=0.}
+  this can be used to derive the integration by parts formula since, setting f = gh, it implies
+
+  
+    
+      
+        0
+        =
+        
+          ∫
+          
+            −
+            ∞
+          
+          
+            ∞
+          
+        
+        
+          f
+          ′
+        
+        
+        d
+        λ
+        =
+        
+          ∫
+          
+            −
+            ∞
+          
+          
+            ∞
+          
+        
+        (
+        g
+        h
+        
+          )
+          ′
+        
+        
+        d
+        λ
+        =
+        
+          ∫
+          
+            −
+            ∞
+          
+          
+            ∞
+          
+        
+        g
+        
+          h
+          ′
+        
+        
+        d
+        λ
+        +
+        
+          ∫
+          
+            −
+            ∞
+          
+          
+            ∞
+          
+        
+        
+          g
+          ′
+        
+        h
+        
+        d
+        λ
+        .
+      
+    
+    {\displaystyle 0=\int _{-\infty }^{\infty }f'\,d\lambda =\int _{-\infty }^{\infty }(gh)'\,d\lambda =\int _{-\infty }^{\infty }gh'\,d\lambda +\int _{-\infty }^{\infty }g'h\,d\lambda .}
+  a similar idea can be applied in stochastic analysis for the differentiation along a cameron-martin-girsanov direction. indeed, let 
+  
+    
+      
+        
+          h
+          
+            s
+          
+        
+      
+    
+    {\displaystyle h_{s}}
+   be a square-integrable predictable process and set
+
+  
+    
+      
+        φ
+        (
+        t
+        )
+        =
+        
+          ∫
+          
+            0
+          
+          
+            t
+          
+        
+        
+          h
+          
+            s
+          
+        
+        
+        d
+        s
+        .
+      
+    
+    {\displaystyle \varphi (t)=\int _{0}^{t}h_{s}\,ds.}
+  if 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   is a wiener process, the girsanov theorem then yields the following analogue of the invariance principle:
+
+  
+    
+      
+        e
+        (
+        f
+        (
+        x
+        +
+        ε
+        φ
+        )
+        )
+        =
+        e
+        
+          [
+          
+            f
+            (
+            x
+            )
+            exp
+            ⁡
+            
+              (
+              
+                ε
+                
+                  ∫
+                  
+                    0
+                  
+                  
+                    1
+                  
+                
+                
+                  h
+                  
+                    s
+                  
+                
+                
+                d
+                
+                  x
+                  
+                    s
+                  
+                
+                −
+                
+                  
+                    1
+                    2
+                  
+                
+                
+                  ε
+                  
+                    2
+                  
+                
+                
+                  ∫
+                  
+                    0
+                  
+                  
+                    1
+                  
+                
+                
+                  h
+                  
+                    s
+                  
+                  
+                    2
+                  
+                
+                
+                d
+                s
+              
+              )
+            
+          
+          ]
+        
+        .
+      
+    
+    {\displaystyle e(f(x+\varepsilon \varphi ))=e\left[f(x)\exp \left(\varepsilon \int _{0}^{1}h_{s}\,dx_{s}-{\frac {1}{2}}\varepsilon ^{2}\int _{0}^{1}h_{s}^{2}\,ds\right)\right].}
+  differentiating with respect to ε on both sides and evaluating at ε=0, one obtains the following integration by parts formula:
+
+  
+    
+      
+        e
+        (
+        ⟨
+        d
+        f
+        (
+        x
+        )
+        ,
+        φ
+        ⟩
+        )
+        =
+        e
+        
+          
+            [
+          
+        
+        f
+        (
+        x
+        )
+        
+          ∫
+          
+            0
+          
+          
+            1
+          
+        
+        
+          h
+          
+            s
+          
+        
+        
+        d
+        
+          x
+          
+            s
+          
+        
+        
+          
+            ]
+          
+        
+        .
+      
+    
+    {\displaystyle e(\langle df(x),\varphi \rangle )=e{\bigl [}f(x)\int _{0}^{1}h_{s}\,dx_{s}{\bigr ]}.}
+  here, the left-hand side is the malliavin derivative of the random variable 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   in the direction 
+  
+    
+      
+        φ
+      
+    
+    {\displaystyle \varphi }
+   and the integral appearing on the right hand side should be interpreted as an itô integral. this expression also remains true (by definition) if 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   is not adapted, provided that the right hand side is interpreted as a skorokhod integral.
+
+
+== clark–ocone formula ==
+
+one of the most useful results from malliavin calculus is the clark–ocone theorem, which allows the process in the martingale representation theorem to be identified explicitly. a simplified version of this theorem is as follows:
+for 
+  
+    
+      
+        f
+        :
+        c
+        [
+        0
+        ,
+        1
+        ]
+        →
+        
+          r
+        
+      
+    
+    {\displaystyle f:c[0,1]\to \mathbb {r} }
+   satisfying 
+  
+    
+      
+        e
+        (
+        f
+        (
+        x
+        
+          )
+          
+            2
+          
+        
+        )
+        <
+        ∞
+      
+    
+    {\displaystyle e(f(x)^{2})<\infty }
+   which is lipschitz and such that f has a strong derivative kernel, in the sense that
+for 
+  
+    
+      
+        φ
+      
+    
+    {\displaystyle \varphi }
+   in c[0,1]
+
+  
+    
+      
+        
+          lim
+          
+            ε
+            →
+            0
+          
+        
+        
+          
+            1
+            ε
+          
+        
+        (
+        f
+        (
+        x
+        +
+        ε
+        φ
+        )
+        −
+        f
+        (
+        x
+        )
+        )
+        =
+        
+          ∫
+          
+            0
+          
+          
+            1
+          
+        
+        
+          f
+          ′
+        
+        (
+        x
+        ,
+        d
+        t
+        )
+        φ
+        (
+        t
+        )
+         
+        
+          a
+          .
+          e
+          .
+        
+         
+        x
+      
+    
+    {\displaystyle \lim _{\varepsilon \to 0}{\frac {1}{\varepsilon }}(f(x+\varepsilon \varphi )-f(x))=\int _{0}^{1}f'(x,dt)\varphi (t)\ \mathrm {a.e.} \ x}
+  then
+
+  
+    
+      
+        f
+        (
+        x
+        )
+        =
+        e
+        (
+        f
+        (
+        x
+        )
+        )
+        +
+        
+          ∫
+          
+            0
+          
+          
+            1
+          
+        
+        
+          h
+          
+            t
+          
+        
+        
+        d
+        
+          x
+          
+            t
+          
+        
+        ,
+      
+    
+    {\displaystyle f(x)=e(f(x))+\int _{0}^{1}h_{t}\,dx_{t},}
+  where h is the previsible projection of f'(x, (t,1]) which may be viewed as the derivative of the function f with respect to a suitable parallel shift of the process x over the portion (t,1] of its domain.
+this may be more concisely expressed by
+
+  
+    
+      
+        f
+        (
+        x
+        )
+        =
+        e
+        (
+        f
+        (
+        x
+        )
+        )
+        +
+        
+          ∫
+          
+            0
+          
+          
+            1
+          
+        
+        e
+        (
+        
+          d
+          
+            t
+          
+        
+        f
+        ∣
+        
+          
+            
+              f
+            
+          
+          
+            t
+          
+        
+        )
+        
+        d
+        
+          x
+          
+            t
+          
+        
+        .
+      
+    
+    {\displaystyle f(x)=e(f(x))+\int _{0}^{1}e(d_{t}f\mid {\mathcal {f}}_{t})\,dx_{t}.}
+  much of the work in the formal development of the malliavin calculus involves extending this result to the largest possible class of functionals f by replacing the derivative kernel used above by the "malliavin derivative" denoted 
+  
+    
+      
+        
+          d
+          
+            t
+          
+        
+      
+    
+    {\displaystyle d_{t}}
+   in the above statement of the result.
+
+
+== skorokhod integral ==
+
+the skorokhod integral operator which is conventionally denoted δ is defined as the adjoint of the malliavin derivative thus for u in the domain of the operator which is a subset of 
+  
+    
+      
+        
+          l
+          
+            2
+          
+        
+        (
+        [
+        0
+        ,
+        ∞
+        )
+        ×
+        ω
+        )
+      
+    
+    {\displaystyle l^{2}([0,\infty )\times \omega )}
+  ,
+for f in the domain of the malliavin derivative, we require
+
+  
+    
+      
+        e
+        (
+        ⟨
+        d
+        f
+        ,
+        u
+        ⟩
+        )
+        =
+        e
+        (
+        f
+        δ
+        (
+        u
+        )
+        )
+        ,
+      
+    
+    {\displaystyle e(\langle df,u\rangle )=e(f\delta (u)),}
+  where the inner product is that on 
+  
+    
+      
+        
+          l
+          
+            2
+          
+        
+        [
+        0
+        ,
+        ∞
+        )
+      
+    
+    {\displaystyle l^{2}[0,\infty )}
+   viz
+
+  
+    
+      
+        ⟨
+        f
+        ,
+        g
+        ⟩
+        =
+        
+          ∫
+          
+            0
+          
+          
+            ∞
+          
+        
+        f
+        (
+        s
+        )
+        g
+        (
+        s
+        )
+        
+        d
+        s
+        .
+      
+    
+    {\displaystyle \langle f,g\rangle =\int _{0}^{\infty }f(s)g(s)\,ds.}
+  the existence of this adjoint follows from the riesz representation theorem for linear operators on hilbert spaces.
+it can be shown that if u is adapted then
+
+  
+    
+      
+        δ
+        (
+        u
+        )
+        =
+        
+          ∫
+          
+            0
+          
+          
+            ∞
+          
+        
+        
+          u
+          
+            t
+          
+        
+        
+        d
+        
+          w
+          
+            t
+          
+        
+        ,
+      
+    
+    {\displaystyle \delta (u)=\int _{0}^{\infty }u_{t}\,dw_{t},}
+  where the integral is to be understood in the itô sense.   thus this provides a method of extending the itô integral to non adapted integrands.
+
+
+== applications ==
+the calculus allows integration by parts with random variables; this operation is used in mathematical finance to compute the sensitivities of financial derivatives. the calculus has applications for example in stochastic filtering.
+
+
+== references ==
+kusuoka, s. and stroock, d. (1981) "applications of malliavin calculus i", stochastic analysis, proceedings taniguchi international symposium katata and kyoto 1982, pp 271–306
+kusuoka, s. and stroock, d. (1985) "applications of malliavin calculus ii", j. faculty sci. uni. tokyo sect. 1a math., 32 pp 1–76
+kusuoka, s. and stroock, d. (1987) "applications of malliavin calculus iii", j. faculty sci. univ. tokyo sect. 1a math., 34 pp 391–442
+malliavin, paul and thalmaier, anton. stochastic calculus of variations in mathematical finance, springer 2005, isbn 3-540-43431-3
+nualart, david (2006). the malliavin calculus and related topics (second ed.). springer-verlag. isbn 978-3-540-28328-7.
+bell, denis. (2007) the malliavin calculus, dover. isbn 0-486-44994-7; ebook
+sanz-solé, marta (2005) malliavin calculus, with applications to stochastic partial differential equations. epfl press, distributed by crc press, taylor & francis group.
+schiller, alex (2009) malliavin calculus for monte carlo simulation with financial applications. thesis, department of mathematics, princeton university
+øksendal, bernt k.(1997) an introduction to malliavin calculus with applications to economics. lecture notes, dept. of mathematics, university of oslo (zip file containing thesis and addendum)
+di nunno, giulia, øksendal, bernt, proske, frank (2009) "malliavin calculus for lévy processes with applications to finance", universitext, springer. isbn 978-3-540-78571-2
+
+
+== external links ==
+ quotations related to malliavin calculus at wikiquote
+friz, peter k. (2005-04-10). "an introduction to malliavin calculus" (pdf). archived from the original (pdf) on 2007-04-17. retrieved 2007-07-23. lecture notes, 43 pageszhang, h. (2004-11-11). "the malliavin calculus" (pdf). retrieved 2004-11-11. thesis, 100 pages

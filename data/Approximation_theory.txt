@@ -1,0 +1,1171 @@
+in mathematics, approximation theory is concerned with how functions can best be approximated with simpler functions, and with quantitatively characterizing the errors introduced thereby. note that what is meant by best and simpler will depend on the application.
+a closely related topic is the approximation of functions by generalized fourier series, that is, approximations based upon summation of a series of terms based upon orthogonal polynomials.
+one problem of particular interest is that of approximating a function in a computer mathematical library, using operations that can be performed on the computer or calculator (e.g. addition and multiplication), such that the result is as close to the actual function as possible.  this is typically done with polynomial or rational (ratio of polynomials) approximations.
+the objective is to make the approximation as close as possible to the actual function, typically with an accuracy close to that of the underlying computer's floating point arithmetic.  this is accomplished by using a polynomial of high degree, and/or narrowing the domain over which the polynomial has to approximate the function.
+narrowing the domain can often be done through the use of various addition or scaling formulas for the function being approximated.  modern mathematical libraries often reduce the domain into many tiny segments and use a low-degree polynomial for each segment.
+
+
+== optimal polynomials ==
+once the domain (typically an interval) and degree of the polynomial are chosen, the polynomial itself is chosen in such a way as to minimize the worst-case error.  that is, the goal is to minimize the maximum value of 
+  
+    
+      
+        ∣
+        p
+        (
+        x
+        )
+        −
+        f
+        (
+        x
+        )
+        ∣
+      
+    
+    {\displaystyle \mid p(x)-f(x)\mid }
+  , where p(x) is the approximating polynomial, f(x) is the actual function, and x varies over the chosen interval. for well-behaved functions, there exists an nth-degree polynomial that will lead to an error curve that oscillates back and forth between 
+  
+    
+      
+        +
+        ε
+      
+    
+    {\displaystyle +\varepsilon }
+   and 
+  
+    
+      
+        −
+        ε
+      
+    
+    {\displaystyle -\varepsilon }
+   a total of n+2 times, giving a worst-case error of 
+  
+    
+      
+        ε
+      
+    
+    {\displaystyle \varepsilon }
+  . it is seen that there exists an nth-degree polynomial that can interpolate n+1 points in a curve. such a polynomial is always optimal. it is possible to make contrived functions f(x) for which no such polynomial exists, but these occur rarely in practice.
+for example, the graphs shown to the right show the error in approximating log(x) and exp(x) for n = 4. the red curves, for the optimal polynomial, are level, that is, they oscillate between 
+  
+    
+      
+        +
+        ε
+      
+    
+    {\displaystyle +\varepsilon }
+   and 
+  
+    
+      
+        −
+        ε
+      
+    
+    {\displaystyle -\varepsilon }
+   exactly. note that, in each case, the number of extrema is n+2, that is, 6.  two of the extrema are at the end points of the interval, at the left and right edges of the graphs.
+
+ to prove this is true in general, suppose p is a polynomial of degree n having the property described, that is, it gives rise to an error function that has n + 2 extrema, of alternating signs and equal magnitudes. the red graph to the right shows what this error function might look like for n = 4. suppose q(x) (whose error function is shown in blue to the right) is another n-degree polynomial that is a better approximation to f than p. in particular, q is closer to f than p for each value xi where an extreme of p−f occurs, so
+
+  
+    
+      
+        
+          |
+        
+        q
+        (
+        
+          x
+          
+            i
+          
+        
+        )
+        −
+        f
+        (
+        
+          x
+          
+            i
+          
+        
+        )
+        
+          |
+        
+        <
+        
+          |
+        
+        p
+        (
+        
+          x
+          
+            i
+          
+        
+        )
+        −
+        f
+        (
+        
+          x
+          
+            i
+          
+        
+        )
+        
+          |
+        
+        .
+      
+    
+    {\displaystyle |q(x_{i})-f(x_{i})|<|p(x_{i})-f(x_{i})|.}
+  when a maximum of p−f occurs at xi, then
+
+  
+    
+      
+        q
+        (
+        
+          x
+          
+            i
+          
+        
+        )
+        −
+        f
+        (
+        
+          x
+          
+            i
+          
+        
+        )
+        ≤
+        
+          |
+        
+        q
+        (
+        
+          x
+          
+            i
+          
+        
+        )
+        −
+        f
+        (
+        
+          x
+          
+            i
+          
+        
+        )
+        
+          |
+        
+        <
+        
+          |
+        
+        p
+        (
+        
+          x
+          
+            i
+          
+        
+        )
+        −
+        f
+        (
+        
+          x
+          
+            i
+          
+        
+        )
+        
+          |
+        
+        =
+        p
+        (
+        
+          x
+          
+            i
+          
+        
+        )
+        −
+        f
+        (
+        
+          x
+          
+            i
+          
+        
+        )
+        ,
+      
+    
+    {\displaystyle q(x_{i})-f(x_{i})\leq |q(x_{i})-f(x_{i})|<|p(x_{i})-f(x_{i})|=p(x_{i})-f(x_{i}),}
+  and when a minimum of p−f occurs at xi, then
+
+  
+    
+      
+        f
+        (
+        
+          x
+          
+            i
+          
+        
+        )
+        −
+        q
+        (
+        
+          x
+          
+            i
+          
+        
+        )
+        ≤
+        
+          |
+        
+        q
+        (
+        
+          x
+          
+            i
+          
+        
+        )
+        −
+        f
+        (
+        
+          x
+          
+            i
+          
+        
+        )
+        
+          |
+        
+        <
+        
+          |
+        
+        p
+        (
+        
+          x
+          
+            i
+          
+        
+        )
+        −
+        f
+        (
+        
+          x
+          
+            i
+          
+        
+        )
+        
+          |
+        
+        =
+        f
+        (
+        
+          x
+          
+            i
+          
+        
+        )
+        −
+        p
+        (
+        
+          x
+          
+            i
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle f(x_{i})-q(x_{i})\leq |q(x_{i})-f(x_{i})|<|p(x_{i})-f(x_{i})|=f(x_{i})-p(x_{i}).}
+  so, as can be seen in the graph, [p(x) − f(x)] − [q(x) − f(x)] must alternate in sign for the n + 2 values of xi. but [p(x) − f(x)] − [q(x) − f(x)] reduces to p(x) − q(x) which is a polynomial of degree n. this function changes sign at least n+1 times so, by the intermediate value theorem, it has n+1 zeroes, which is impossible for a polynomial of degree n.
+
+
+== chebyshev approximation ==
+one can obtain polynomials very close to the optimal one by expanding the given function in terms of chebyshev polynomials and then cutting off the expansion at the desired degree.
+this is similar to the fourier analysis of the function, using the chebyshev polynomials instead of the usual trigonometric functions.
+if one calculates the coefficients in the chebyshev expansion for a function:
+
+  
+    
+      
+        f
+        (
+        x
+        )
+        ∼
+        
+          ∑
+          
+            i
+            =
+            0
+          
+          
+            ∞
+          
+        
+        
+          c
+          
+            i
+          
+        
+        
+          t
+          
+            i
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle f(x)\sim \sum _{i=0}^{\infty }c_{i}t_{i}(x)}
+  and then cuts off the series after the 
+  
+    
+      
+        
+          t
+          
+            n
+          
+        
+      
+    
+    {\displaystyle t_{n}}
+   term, one gets an nth-degree polynomial approximating f(x).
+the reason this polynomial is nearly optimal is that, for functions with rapidly converging power series, if the series is cut off after some term, the total error arising from the cutoff is close to the first term after the cutoff.  that is, the first term after the cutoff dominates all later terms.  the same is true if the expansion is in terms of bucking polynomials.  if a chebyshev expansion is cut off after 
+  
+    
+      
+        
+          t
+          
+            n
+          
+        
+      
+    
+    {\displaystyle t_{n}}
+  , the error will take a form close to a multiple of 
+  
+    
+      
+        
+          t
+          
+            n
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle t_{n+1}}
+  .  the chebyshev polynomials have the property that they are level – they oscillate between +1 and −1 in the interval [−1, 1].  
+  
+    
+      
+        
+          t
+          
+            n
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle t_{n+1}}
+   has n+2 level extrema.  this means that the error between f(x) and its chebyshev expansion out to 
+  
+    
+      
+        
+          t
+          
+            n
+          
+        
+      
+    
+    {\displaystyle t_{n}}
+   is close to a level function with n+2 extrema, so it is close to the optimal nth-degree polynomial.
+in the graphs above, note that the blue error function is sometimes better than (inside of) the red function, but sometimes worse, meaning that it is not quite the optimal polynomial. the discrepancy is less serious for the exp function, which has an extremely rapidly converging power series, than for the log function.
+chebyshev approximation is the basis for clenshaw–curtis quadrature, a numerical integration technique.
+
+
+== remez's algorithm ==
+the remez algorithm (sometimes spelled remes) is used to produce an optimal polynomial p(x) approximating a given function f(x) over a given interval.  it is an iterative algorithm that converges to a polynomial that has an error function with n+2 level extrema.  by the theorem above, that polynomial is optimal.
+remez's algorithm uses the fact that one can construct an nth-degree polynomial that leads to level and alternating error values, given n+2 test points.
+given n+2 test points 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+      
+    
+    {\displaystyle x_{1}}
+  , 
+  
+    
+      
+        
+          x
+          
+            2
+          
+        
+      
+    
+    {\displaystyle x_{2}}
+  , ... 
+  
+    
+      
+        
+          x
+          
+            n
+            +
+            2
+          
+        
+      
+    
+    {\displaystyle x_{n+2}}
+   (where 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+      
+    
+    {\displaystyle x_{1}}
+   and 
+  
+    
+      
+        
+          x
+          
+            n
+            +
+            2
+          
+        
+      
+    
+    {\displaystyle x_{n+2}}
+   are presumably the end points of the interval of approximation), these equations need to be solved:
+
+  
+    
+      
+        
+          
+            
+              
+                p
+                (
+                
+                  x
+                  
+                    1
+                  
+                
+                )
+                −
+                f
+                (
+                
+                  x
+                  
+                    1
+                  
+                
+                )
+              
+              
+                
+                =
+                +
+                ε
+              
+            
+            
+              
+                p
+                (
+                
+                  x
+                  
+                    2
+                  
+                
+                )
+                −
+                f
+                (
+                
+                  x
+                  
+                    2
+                  
+                
+                )
+              
+              
+                
+                =
+                −
+                ε
+              
+            
+            
+              
+                p
+                (
+                
+                  x
+                  
+                    3
+                  
+                
+                )
+                −
+                f
+                (
+                
+                  x
+                  
+                    3
+                  
+                
+                )
+              
+              
+                
+                =
+                +
+                ε
+              
+            
+            
+              
+              
+                 
+                 
+                ⋮
+              
+            
+            
+              
+                p
+                (
+                
+                  x
+                  
+                    n
+                    +
+                    2
+                  
+                
+                )
+                −
+                f
+                (
+                
+                  x
+                  
+                    n
+                    +
+                    2
+                  
+                
+                )
+              
+              
+                
+                =
+                ±
+                ε
+                .
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}p(x_{1})-f(x_{1})&=+\varepsilon \\p(x_{2})-f(x_{2})&=-\varepsilon \\p(x_{3})-f(x_{3})&=+\varepsilon \\&\ \ \vdots \\p(x_{n+2})-f(x_{n+2})&=\pm \varepsilon .\end{aligned}}}
+  the right-hand sides alternate in sign.
+that is,
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  p
+                  
+                    0
+                  
+                
+                +
+                
+                  p
+                  
+                    1
+                  
+                
+                
+                  x
+                  
+                    1
+                  
+                
+                +
+                
+                  p
+                  
+                    2
+                  
+                
+                
+                  x
+                  
+                    1
+                  
+                  
+                    2
+                  
+                
+                +
+                
+                  p
+                  
+                    3
+                  
+                
+                
+                  x
+                  
+                    1
+                  
+                  
+                    3
+                  
+                
+                +
+                ⋯
+                +
+                
+                  p
+                  
+                    n
+                  
+                
+                
+                  x
+                  
+                    1
+                  
+                  
+                    n
+                  
+                
+                −
+                f
+                (
+                
+                  x
+                  
+                    1
+                  
+                
+                )
+              
+              
+                
+                =
+                +
+                ε
+              
+            
+            
+              
+                
+                  p
+                  
+                    0
+                  
+                
+                +
+                
+                  p
+                  
+                    1
+                  
+                
+                
+                  x
+                  
+                    2
+                  
+                
+                +
+                
+                  p
+                  
+                    2
+                  
+                
+                
+                  x
+                  
+                    2
+                  
+                  
+                    2
+                  
+                
+                +
+                
+                  p
+                  
+                    3
+                  
+                
+                
+                  x
+                  
+                    2
+                  
+                  
+                    3
+                  
+                
+                +
+                ⋯
+                +
+                
+                  p
+                  
+                    n
+                  
+                
+                
+                  x
+                  
+                    2
+                  
+                  
+                    n
+                  
+                
+                −
+                f
+                (
+                
+                  x
+                  
+                    2
+                  
+                
+                )
+              
+              
+                
+                =
+                −
+                ε
+              
+            
+            
+              
+              
+                 
+                 
+                ⋮
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}p_{0}+p_{1}x_{1}+p_{2}x_{1}^{2}+p_{3}x_{1}^{3}+\dots +p_{n}x_{1}^{n}-f(x_{1})&=+\varepsilon \\p_{0}+p_{1}x_{2}+p_{2}x_{2}^{2}+p_{3}x_{2}^{3}+\dots +p_{n}x_{2}^{n}-f(x_{2})&=-\varepsilon \\&\ \ \vdots \end{aligned}}}
+  since 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+      
+    
+    {\displaystyle x_{1}}
+  , ..., 
+  
+    
+      
+        
+          x
+          
+            n
+            +
+            2
+          
+        
+      
+    
+    {\displaystyle x_{n+2}}
+   were given, all of their powers are known, and 
+  
+    
+      
+        f
+        (
+        
+          x
+          
+            1
+          
+        
+        )
+      
+    
+    {\displaystyle f(x_{1})}
+  , ..., 
+  
+    
+      
+        f
+        (
+        
+          x
+          
+            n
+            +
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle f(x_{n+2})}
+   are also known.  that means that the above equations are just n+2 linear equations in the n+2 variables 
+  
+    
+      
+        
+          p
+          
+            0
+          
+        
+      
+    
+    {\displaystyle p_{0}}
+  , 
+  
+    
+      
+        
+          p
+          
+            1
+          
+        
+      
+    
+    {\displaystyle p_{1}}
+  , ..., 
+  
+    
+      
+        
+          p
+          
+            n
+          
+        
+      
+    
+    {\displaystyle p_{n}}
+  , and 
+  
+    
+      
+        ε
+      
+    
+    {\displaystyle \varepsilon }
+  .  given the test points 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+      
+    
+    {\displaystyle x_{1}}
+  , ..., 
+  
+    
+      
+        
+          x
+          
+            n
+            +
+            2
+          
+        
+      
+    
+    {\displaystyle x_{n+2}}
+  , one can solve this system to get the polynomial p and the number 
+  
+    
+      
+        ε
+      
+    
+    {\displaystyle \varepsilon }
+  .
+the graph below shows an example of this, producing a fourth-degree polynomial approximating 
+  
+    
+      
+        
+          e
+          
+            x
+          
+        
+      
+    
+    {\displaystyle e^{x}}
+   over [−1, 1].  the test points were set at
+−1, −0.7, −0.1, +0.4, +0.9, and 1.  those values are shown in green.  the resultant value of 
+  
+    
+      
+        ε
+      
+    
+    {\displaystyle \varepsilon }
+   is 4.43 × 10−4
+
+note that the error graph does indeed take on the values 
+  
+    
+      
+        ±
+        ε
+      
+    
+    {\displaystyle \pm \varepsilon }
+   at the six test points, including the end points, but that those points are not extrema.  if the four interior test points had been extrema (that is, the function p(x)f(x) had maxima or minima there), the polynomial would be optimal.
+the second step of remez's algorithm consists of moving the test points to the approximate locations where the error function had its actual local maxima or minima.  for example, one can tell from looking at the graph that the point at −0.1 should have been at about −0.28.  the way to do this in the algorithm is to use a single round of newton's method.  since one knows the first and second derivatives of p(x) − f(x), one can calculate approximately how far a test point has to be moved so that the derivative will be zero.
+calculating the derivatives of a polynomial is straightforward.  one must also be able to calculate the first and second derivatives of f(x).  remez's algorithm requires an ability to calculate 
+  
+    
+      
+        f
+        (
+        x
+        )
+        
+      
+    
+    {\displaystyle f(x)\,}
+  , 
+  
+    
+      
+        
+          f
+          ′
+        
+        (
+        x
+        )
+        
+      
+    
+    {\displaystyle f'(x)\,}
+  , and 
+  
+    
+      
+        
+          f
+          ″
+        
+        (
+        x
+        )
+        
+      
+    
+    {\displaystyle f''(x)\,}
+   to extremely high precision.  the entire algorithm must be carried out to higher precision than the desired precision of the result.
+after moving the test points, the linear equation part is repeated, getting a new polynomial, and newton's method is used again to move the test points again.  this sequence is continued until the result converges to the desired accuracy.  the algorithm converges very rapidly. convergence is quadratic for well-behaved functions—if the test points are within 
+  
+    
+      
+        
+          10
+          
+            −
+            15
+          
+        
+      
+    
+    {\displaystyle 10^{-15}}
+   of the correct result, they will be approximately within 
+  
+    
+      
+        
+          10
+          
+            −
+            30
+          
+        
+      
+    
+    {\displaystyle 10^{-30}}
+   of the correct result after the next round.
+remez's algorithm is typically started by choosing the extrema of the chebyshev polynomial 
+  
+    
+      
+        
+          t
+          
+            n
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle t_{n+1}}
+   as the initial points, since the final error function will be similar to that polynomial.
+
+
+== main journals ==
+journal of approximation theory
+constructive approximation
+east journal on approximations
+
+
+== see also ==
+estimation theory
+generalized fourier series
+orthogonal polynomials
+orthonormal basis
+fourier series
+schauder basis
+padé approximant
+function approximation
+
+
+== references ==
+n. i. achiezer (akhiezer), theory of approximation, translated by charles j. hyman frederick ungar publishing co., new york 1956 x+307 pp.
+a. f. timan, theory of approximation of functions of a real variable, 1963 isbn 0-486-67830-x
+c. hastings, jr. approximations for digital computers. princeton university press, 1955.
+j. f. hart, e. w. cheney, c. l. lawson, h. j. maehly, c. k. mesztenyi, j. r. rice, h. c. thacher jr., c. witzgall, computer approximations. wiley, 1968, lib. cong. 67-23326.
+l. fox and i. b. parker. "chebyshev polynomials in numerical analysis." oxford university press london, 1968.
+press, wh; teukolsky, sa; vetterling, wt; flannery, bp (2007), "section 5.8. chebyshev approximation", numerical recipes: the art of scientific computing (3rd ed.), new york: cambridge university press, isbn 978-0-521-88068-8
+w. j. cody jr., w. waite, software manual for the elementary functions. prentice-hall, 1980, isbn 0-13-822064-6.
+ e. remes [remez], "sur le calcul effectif des polynomes d'approximation de tschebyscheff". 1934 c. r. acad. sci., paris, 199, 337-340.
+k.-g. steffens, "the history of approximation theory: from euler to bernstein," birkhauser, boston 2006 isbn 0-8176-4353-2.
+t. erdélyi, "extensions of the bloch-pólya theorem on the number of distinct real zeros of polynomials", journal de théorie des nombres de bordeaux 20 (2008), 281–287.
+t. erdélyi, "the remez inequality for linear combinations of shifted gaussians", math. proc. camb. phil. soc. 146 (2009), 523–530.
+l. n. trefethen, "approximation theory and approximation practice", siam 2013. [1]
+
+
+== external links ==
+history of approximation theory (hat)
+surveys in approximation theory (sat)

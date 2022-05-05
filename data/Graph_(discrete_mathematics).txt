@@ -1,0 +1,825 @@
+in mathematics, and more specifically in graph theory, a graph is a structure amounting to a set of objects in which some pairs of the objects are in some sense "related". the objects correspond to mathematical abstractions called vertices (also called nodes or points) and each of the related pairs of vertices is called an edge (also called link or line). typically, a graph is depicted in diagrammatic form as a set of dots or circles for the vertices, joined by lines or curves for the edges. graphs are one of the objects of study in discrete mathematics.
+the edges may be directed or undirected. for example, if the vertices represent people at a party, and there is an edge between two people if they shake hands, then this graph is undirected because any person a can shake hands with a person b only if b also shakes hands with a. in contrast, if any edge from a person a to a person b corresponds to a owes money to b, then this graph is directed, because owing money is not necessarily reciprocated.
+graphs are the basic subject studied by graph theory. the word "graph" was first used in this sense by j. j. sylvester in 1878 in a direct relation between mathematics and chemical structure (what he called chemico-graphical image).
+
+
+== definitions ==
+definitions in graph theory vary. the following are some of the more basic ways of defining graphs and related mathematical structures.
+
+
+=== graph ===
+
+a graph (sometimes called undirected graph for distinguishing from a directed graph, or simple graph for distinguishing from a multigraph) is a pair g = (v, e), where v is a set whose elements are called vertices (singular: vertex), and e is a set of paired vertices, whose elements are called edges (sometimes links or lines).
+the vertices x and y of an edge {x, y}  are called the endpoints of the edge. the edge is said to join x and y and to be incident on x and y. a vertex may belong to no edge, in which case it is not joined to any other vertex.
+a multigraph is a generalization that allows multiple edges to have the same pair of endpoints. in some texts, multigraphs are simply called graphs.sometimes, graphs are allowed to contain loops, which are edges that join a vertex to itself. for allowing loops, the above definition must be changed by defining edges as multisets of two vertices instead of two-sets. such generalized graphs are called graphs with loops or simply graphs when it is clear from the context that loops are allowed.
+generally, the set of vertices v is supposed to be finite; this implies that the set of edges is also finite. infinite graphs are sometimes considered, but are more often viewed as a special kind of binary relation, as most results on finite graphs do not extend to the infinite case, or need a rather different proof.
+an empty graph is a graph that has an empty set of vertices (and thus an empty set of edges). the order of a graph is its number of vertices |v|. the size of a graph is its number of edges  |e|. however, in some contexts, such as for expressing the computational complexity of algorithms, the size is |v| + |e| (otherwise, a non-empty graph could have a size 0). the degree or valency of a vertex is the number of edges that are incident to it; for graphs with loops, a loop is counted twice.
+in a graph of order n, the maximum degree of each vertex is n − 1 (or n if loops are allowed), and the maximum number of edges is n(n − 1)/2 (or n(n + 1)/2 if loops are allowed).
+the edges of a graph define a symmetric relation on the vertices, called the adjacency relation. specifically, two vertices x and y are adjacent if {x, y} is an edge. a graph may be fully specified by its adjacency matrix a, which is an 
+  
+    
+      
+        n
+        ×
+        n
+      
+    
+    {\displaystyle n\times n}
+   square matrix, with aij specifying the number of connections from vertex i to vertex j. for a simple graph, 
+  
+    
+      
+        
+          a
+          
+            i
+            j
+          
+        
+        ∈
+        {
+        0
+        ,
+        1
+        }
+      
+    
+    {\displaystyle a_{ij}\in \{0,1\}}
+  , indicating disconnection or connection respectively, meanwhile 
+  
+    
+      
+        
+          a
+          
+            i
+            i
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle a_{ii}=0}
+   (that is, an edge can not start and end at the same vertice). graphs with self-loops will be characterized by some or all 
+  
+    
+      
+        
+          a
+          
+            i
+            i
+          
+        
+      
+    
+    {\displaystyle a_{ii}}
+   being equal to a positive integer, and multigraphs (with multiple edges between vertices) will be characterized by some or all 
+  
+    
+      
+        
+          a
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle a_{ij}}
+   being equal to a positive integer. undirected graphs will have a symmetric adjacency matrix (
+  
+    
+      
+        
+          a
+          
+            i
+            j
+          
+        
+        =
+        
+          a
+          
+            j
+            i
+          
+        
+      
+    
+    {\displaystyle a_{ij}=a_{ji}}
+  ).
+
+
+=== directed graph ===
+
+a directed graph or digraph is a graph in which edges have orientations.
+in one restricted but very common sense of the term, a directed graph is a pair 
+  
+    
+      
+        g
+        =
+        (
+        v
+        ,
+        e
+        )
+      
+    
+    {\displaystyle g=(v,e)}
+   comprising:
+
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+  , a set of vertices (also called nodes or points);
+
+  
+    
+      
+        e
+        ⊆
+        {
+        (
+        x
+        ,
+        y
+        )
+        ∣
+        (
+        x
+        ,
+        y
+        )
+        ∈
+        
+          v
+          
+            2
+          
+        
+        
+        
+          
+            and
+          
+        
+        
+        x
+        ≠
+        y
+        }
+      
+    
+    {\displaystyle e\subseteq \{(x,y)\mid (x,y)\in v^{2}\;{\textrm {and}}\;x\neq y\}}
+  , a set of edges (also called directed edges, directed links, directed lines, arrows or arcs) which are ordered pairs of vertices (that is, an edge is associated with two distinct vertices).to avoid ambiguity, this type of object may be called precisely a directed simple graph.
+in the edge 
+  
+    
+      
+        (
+        x
+        ,
+        y
+        )
+      
+    
+    {\displaystyle (x,y)}
+   directed from 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   to 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+  , the vertices 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   and 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   are called the endpoints of the edge, 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   the tail of the edge and 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   the head of the edge. the edge is said to join 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   and 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   and to be incident on 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   and on 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+  . a vertex may exist in a graph and not belong to an edge. the edge 
+  
+    
+      
+        (
+        y
+        ,
+        x
+        )
+      
+    
+    {\displaystyle (y,x)}
+   is called the inverted edge of 
+  
+    
+      
+        (
+        x
+        ,
+        y
+        )
+      
+    
+    {\displaystyle (x,y)}
+  . multiple edges, not allowed under the definition above, are two or more edges with both the same tail and the same head.
+in one more general sense of the term allowing multiple edges, a directed graph is an ordered triple 
+  
+    
+      
+        g
+        =
+        (
+        v
+        ,
+        e
+        ,
+        ϕ
+        )
+      
+    
+    {\displaystyle g=(v,e,\phi )}
+   comprising:
+
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+  , a set of vertices (also called nodes or points);
+
+  
+    
+      
+        e
+      
+    
+    {\displaystyle e}
+  , a set of edges (also called directed edges, directed links, directed lines, arrows or arcs);
+
+  
+    
+      
+        ϕ
+        :
+        e
+        →
+        {
+        (
+        x
+        ,
+        y
+        )
+        ∣
+        (
+        x
+        ,
+        y
+        )
+        ∈
+        
+          v
+          
+            2
+          
+        
+        
+        
+          
+            and
+          
+        
+        
+        x
+        ≠
+        y
+        }
+      
+    
+    {\displaystyle \phi :e\to \{(x,y)\mid (x,y)\in v^{2}\;{\textrm {and}}\;x\neq y\}}
+  , an incidence function mapping every edge to an ordered pair of vertices (that is, an edge is associated with two distinct vertices).to avoid ambiguity, this type of object may be called precisely a directed multigraph.
+a loop is an edge that joins a vertex to itself. directed graphs as defined in the two definitions above cannot have loops, because a loop joining a vertex 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   to itself is the edge (for a directed simple graph) or is incident on (for a directed multigraph) 
+  
+    
+      
+        (
+        x
+        ,
+        x
+        )
+      
+    
+    {\displaystyle (x,x)}
+   which is not in 
+  
+    
+      
+        {
+        (
+        x
+        ,
+        y
+        )
+        ∣
+        (
+        x
+        ,
+        y
+        )
+        ∈
+        
+          v
+          
+            2
+          
+        
+        
+        
+          
+            and
+          
+        
+        
+        x
+        ≠
+        y
+        }
+      
+    
+    {\displaystyle \{(x,y)\mid (x,y)\in v^{2}\;{\textrm {and}}\;x\neq y\}}
+  . so to allow loops the definitions must be expanded. for directed simple graphs, the definition of 
+  
+    
+      
+        e
+      
+    
+    {\displaystyle e}
+   should be modified to 
+  
+    
+      
+        e
+        ⊆
+        {
+        (
+        x
+        ,
+        y
+        )
+        ∣
+        (
+        x
+        ,
+        y
+        )
+        ∈
+        
+          v
+          
+            2
+          
+        
+        }
+      
+    
+    {\displaystyle e\subseteq \{(x,y)\mid (x,y)\in v^{2}\}}
+  . for directed multigraphs, the definition of 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   should be modified to 
+  
+    
+      
+        ϕ
+        :
+        e
+        →
+        {
+        (
+        x
+        ,
+        y
+        )
+        ∣
+        (
+        x
+        ,
+        y
+        )
+        ∈
+        
+          v
+          
+            2
+          
+        
+        }
+      
+    
+    {\displaystyle \phi :e\to \{(x,y)\mid (x,y)\in v^{2}\}}
+  . to avoid ambiguity, these types of objects may be called precisely a directed simple graph permitting loops and a directed multigraph permitting loops (or a quiver) respectively.
+the edges of a directed simple graph permitting loops 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+   is a homogeneous relation ~ on the vertices of 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+   that is called the adjacency relation of 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+  . specifically, for each edge 
+  
+    
+      
+        (
+        x
+        ,
+        y
+        )
+      
+    
+    {\displaystyle (x,y)}
+  , its endpoints 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   and 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   are said to be adjacent to one another, which is denoted 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   ~ 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+  .
+
+
+=== mixed graph ===
+
+a mixed graph is a graph in which some edges may be directed and some may be undirected. it is an ordered triple g = (v, e, a) for a mixed simple graph and g = (v, e, a, ϕe, ϕa) for a mixed multigraph with v, e (the undirected edges), a (the directed edges), ϕe and ϕa defined as above. directed and undirected graphs are special cases.
+
+
+=== weighted graph ===
+
+a weighted graph or a network is a graph in which a number (the weight) is assigned to each edge. such weights might represent for example costs, lengths or capacities, depending on the problem at hand. such graphs arise in many contexts, for example in shortest path problems such as the traveling salesman problem.
+
+
+== types of graphs ==
+
+
+=== oriented graph ===
+one definition of an oriented graph is that it is a directed graph in which at most one of (x, y) and (y, x) may be edges of the graph. that is, it is a directed graph that can be formed as an orientation of an undirected (simple) graph. 
+some authors use "oriented graph" to mean the same as "directed graph".  some authors use "oriented graph" to mean any orientation of a given undirected graph or multigraph.
+
+
+=== regular graph ===
+
+a regular graph is a graph in which each vertex has the same number of neighbours, i.e., every vertex has the same degree. a regular graph with vertices of degree k is called a k‑regular graph or regular graph of degree k.
+
+
+=== complete graph ===
+
+a complete graph is a graph in which each pair of vertices is joined by an edge. a complete graph contains all possible edges.
+
+
+=== finite graph ===
+a finite graph is a graph in which the vertex set and the edge set are finite sets. otherwise, it is called an infinite graph.
+most commonly in graph theory it is implied that the graphs discussed are finite. if the graphs are infinite, that is usually specifically stated.
+
+
+=== connected graph ===
+
+in an undirected graph, an unordered pair of vertices {x, y} is called connected if a path leads from x to y. otherwise, the unordered pair is called disconnected.
+a connected graph is an undirected graph in which every unordered pair of vertices in the graph is connected. otherwise, it is called a disconnected graph.
+in a directed graph, an ordered pair of vertices (x, y) is called strongly connected if a directed path leads from x to y. otherwise, the ordered pair is called weakly connected if an undirected path leads from x to y after replacing all of its directed edges with undirected edges. otherwise, the ordered pair is called disconnected.
+a strongly connected graph is a directed graph in which every ordered pair of vertices in the graph is strongly connected. otherwise, it is called a weakly connected graph if every ordered pair of vertices in the graph is weakly connected. otherwise it is called a disconnected graph.
+a k-vertex-connected graph or k-edge-connected graph is a graph in which no set of k − 1 vertices (respectively, edges) exists that, when removed, disconnects the graph. a k-vertex-connected graph is often called simply a k-connected graph.
+
+
+=== bipartite graph ===
+
+a bipartite graph is a simple graph in which the vertex set can be partitioned into two sets, w and x, so that no two vertices in w share a common edge and no two vertices in x share a common edge. alternatively, it is a graph with a chromatic number of 2.
+in a complete bipartite graph, the vertex set is the union of two disjoint sets, w and x, so that every vertex in w is adjacent to every vertex in x but there are no edges within w or x.
+
+
+=== path graph ===
+
+a path graph or linear graph of order n ≥ 2 is a graph in which the vertices can be listed in an order v1, v2, …, vn such that the edges are the {vi, vi+1} where i = 1, 2, …, n − 1. path graphs can be characterized as connected graphs in which the degree of all but two vertices is 2 and the degree of the two remaining vertices is 1. if a path graph occurs as a subgraph of another graph, it is a path in that graph.
+
+
+=== planar graph ===
+
+a planar graph is a graph whose vertices and edges can be drawn in a plane such that no two of the edges intersect.
+
+
+=== cycle graph ===
+
+a cycle graph or circular graph of order n ≥ 3 is a graph in which the vertices can be listed in an order v1, v2, …, vn such that the edges are the {vi, vi+1} where i = 1, 2, …, n − 1, plus the edge {vn, v1}. cycle graphs can be characterized as connected graphs in which the degree of all vertices is 2. if a cycle graph occurs as a subgraph of another graph, it is a cycle or circuit in that graph.
+
+
+=== tree ===
+
+a tree is an undirected graph in which any two vertices are connected by exactly one path, or equivalently a connected acyclic undirected graph.
+a forest is an undirected graph in which any two vertices are connected by at most one path, or equivalently an acyclic undirected graph, or equivalently a disjoint union of trees.
+
+
+=== polytree ===
+
+a polytree (or directed tree or oriented tree or singly connected network) is a directed acyclic graph (dag) whose underlying undirected graph is a tree.
+a polyforest (or directed forest or oriented forest) is a directed acyclic graph whose underlying undirected graph is a forest.
+
+
+=== advanced classes ===
+more advanced kinds of graphs are:
+
+petersen graph and its generalizations;
+perfect graphs;
+cographs;
+chordal graphs;
+other graphs with large automorphism groups: vertex-transitive, arc-transitive, and distance-transitive graphs;
+strongly regular graphs and their generalizations distance-regular graphs.
+
+
+== properties of graphs ==
+
+two edges of a graph are called adjacent if they share a common vertex. two edges of a directed graph are called consecutive if the head of the first one is the tail of the second one. similarly, two vertices are called adjacent if they share a common edge (consecutive if the first one is the tail and the second one is the head of an edge), in which case the common edge is said to join the two vertices. an edge and a vertex on that edge are called incident.
+the graph with only one vertex and no edges is called the trivial graph. a graph with only vertices and no edges is known as an edgeless graph. the graph with no vertices and no edges is sometimes called the null graph or empty graph, but the terminology is not consistent and not all mathematicians allow this object.
+normally, the vertices of a graph, by their nature as elements of a set, are distinguishable. this kind of graph may be called vertex-labeled. however, for many questions it is better to treat vertices as indistinguishable. (of course, the vertices may be still distinguishable by the properties of the graph itself, e.g., by the numbers of incident edges.) the same remarks apply to edges, so graphs with labeled edges are called edge-labeled. graphs with labels attached to edges or vertices are more generally designated as labeled. consequently, graphs in which vertices are indistinguishable and edges are indistinguishable are called unlabeled. (in the literature, the term labeled may apply to other kinds of labeling, besides that which serves only to distinguish different vertices or edges.)
+the category of all graphs is the comma category set ↓ d where d: set → set is the functor taking a set s to s × s.
+
+
+== examples ==
+
+the diagram is a schematic representation of the graph with vertices 
+  
+    
+      
+        v
+        =
+        {
+        1
+        ,
+        2
+        ,
+        3
+        ,
+        4
+        ,
+        5
+        ,
+        6
+        }
+      
+    
+    {\displaystyle v=\{1,2,3,4,5,6\}}
+   and edges 
+  
+    
+      
+        e
+        =
+        {
+        {
+        1
+        ,
+        2
+        }
+        ,
+        {
+        1
+        ,
+        5
+        }
+        ,
+        {
+        2
+        ,
+        3
+        }
+        ,
+        {
+        2
+        ,
+        5
+        }
+        ,
+        {
+        3
+        ,
+        4
+        }
+        ,
+        {
+        4
+        ,
+        5
+        }
+        ,
+        {
+        4
+        ,
+        6
+        }
+        }
+        .
+      
+    
+    {\displaystyle e=\{\{1,2\},\{1,5\},\{2,3\},\{2,5\},\{3,4\},\{4,5\},\{4,6\}\}.}
+  
+in computer science, directed graphs are used to represent knowledge (e.g., conceptual graph), finite state machines, and many other discrete structures.
+a binary relation r on a set x defines a directed graph. an element x of x is a direct predecessor of an element y of x if and only if xry.
+a directed graph can model information networks such as twitter, with one user following another.
+particularly regular examples of directed graphs are given by the cayley graphs of finitely-generated groups, as well as schreier coset graphs
+in category theory, every small category has an underlying directed multigraph whose vertices are the objects of the category, and whose edges are the arrows of the category.  in the language of category theory, one says that there is a forgetful functor from the category of small categories to the category of quivers.
+
+
+== graph operations ==
+
+there are several operations that produce new graphs from initial ones, which might be classified into the following categories:
+
+unary operations, which create a new graph from an initial one, such as:
+edge contraction,
+line graph,
+dual graph,
+complement graph,
+graph rewriting;
+binary operations, which create a new graph from two initial ones, such as:
+disjoint union of graphs,
+cartesian product of graphs,
+tensor product of graphs,
+strong product of graphs,
+lexicographic product of graphs,
+series–parallel graphs.
+
+
+== generalizations ==
+in a hypergraph, an edge can join more than two vertices.
+an undirected graph can be seen as a simplicial complex consisting of 1-simplices (the edges) and 0-simplices (the vertices). as such, complexes are generalizations of graphs since they allow for higher-dimensional simplices.
+every graph gives rise to a matroid.
+in model theory, a graph is just a structure. but in that case, there is no limitation on the number of edges: it can be any cardinal number, see continuous graph.
+in computational biology, power graph analysis introduces power graphs as an alternative representation of undirected graphs.
+in geographic information systems, geometric networks are closely modeled after graphs, and borrow many concepts from graph theory to perform spatial analysis on road networks or utility grids.
+
+
+== see also ==
+conceptual graph
+graph (abstract data type)
+graph database
+graph drawing
+list of graph theory topics
+list of publications in graph theory
+network theory
+
+
+== notes ==
+
+
+== references ==
+balakrishnan, v. k. (1997). graph theory (1st ed.). mcgraw-hill. isbn 978-0-07-005489-9.
+bang-jensen, j.; gutin, g. (2000). digraphs: theory, algorithms and applications. springer.
+bender, edward a.; williamson, s. gill (2010). lists, decisions and graphs. with an introduction to probability.
+berge, claude (1958). théorie des graphes et ses applications (in french). paris: dunod.
+biggs, norman (1993). algebraic graph theory (2nd ed.). cambridge university press. isbn 978-0-521-45897-9.
+bollobás, béla (2002). modern graph theory (1st ed.). springer. isbn 978-0-387-98488-9.
+diestel, reinhard (2005). graph theory (3rd ed.). berlin, new york: springer-verlag. isbn 978-3-540-26183-4.
+graham, r.l.; grötschel, m.; lovász, l. (1995). handbook of combinatorics. mit press. isbn 978-0-262-07169-7.
+gross, jonathan l.; yellen, jay (1998). graph theory and its applications. crc press. isbn 978-0-8493-3982-0.
+gross, jonathan l.; yellen, jay (2003). handbook of graph theory. crc. isbn 978-1-58488-090-5.
+harary, frank (1995). graph theory. addison wesley publishing company. isbn 978-0-201-41033-4.
+iyanaga, shôkichi; kawada, yukiyosi (1977). encyclopedic dictionary of mathematics. mit press. isbn 978-0-262-09016-2.
+zwillinger, daniel (2002). crc standard mathematical tables and formulae (31st ed.). chapman & hall/crc. isbn 978-1-58488-291-6.
+
+
+== further reading ==
+trudeau, richard j. (1993). introduction to graph theory (corrected, enlarged republication. ed.). new york: dover publications. isbn 978-0-486-67870-2. retrieved 8 august 2012.
+
+
+== external links ==
+ media related to graph (discrete mathematics) at wikimedia commons
+weisstein, eric w. "graph". mathworld.

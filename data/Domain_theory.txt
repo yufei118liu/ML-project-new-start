@@ -1,0 +1,210 @@
+domain theory is a branch of mathematics that studies special kinds of partially ordered sets (posets) commonly called domains. consequently, domain theory can be considered as a branch of order theory. the field has major applications in computer science, where it is used to specify denotational semantics, especially for functional programming languages. domain theory formalizes the intuitive ideas of approximation and convergence in a very general way and is closely related to topology.
+
+
+== motivation and intuition ==
+the primary motivation for the study of domains, which was initiated by dana scott in the late 1960s, was the search for a denotational semantics of the lambda calculus. in this formalism, one considers "functions" specified by certain terms in the language. in a purely syntactic way, one can go from simple functions to functions that take other functions as their input arguments. using again just the syntactic transformations available in this formalism, one can obtain so-called fixed-point combinators (the best-known of which is the y combinator); these, by definition, have the property that f(y(f)) = y(f) for all functions f.
+to formulate such a denotational semantics, one might first try to construct a model for the lambda calculus, in which a genuine (total) function is associated with each lambda term. such a model would formalize a link between the lambda calculus as a purely syntactic system and the lambda calculus as a notational system for manipulating concrete mathematical functions. the combinator calculus is such a model. however, the elements of the combinator calculus are functions from functions to functions; in order for the elements of a model of the lambda calculus to be of arbitrary domain and range, they could not be true functions, only partial functions.
+scott got around this difficulty by formalizing a notion of "partial" or "incomplete" information to represent computations that have not yet returned a result. this was modeled by considering, for each domain of computation (e.g. the natural numbers), an additional element that represents an undefined output, i.e. the "result" of a computation that never ends. in addition, the domain of computation is equipped with an ordering relation, in which the "undefined result" is the least element.
+the important step to finding a model for the lambda calculus is to consider only those functions (on such a partially ordered set) that are guaranteed to have least fixed points. the set of these functions, together with an appropriate ordering, is again a "domain" in the sense of the theory. but the restriction to a subset of all available functions has another great benefit: it is possible to obtain domains that contain their own function spaces, i.e. one gets functions that can be applied to themselves.
+beside these desirable properties, domain theory also allows for an appealing intuitive interpretation. as mentioned above, the domains of computation are always partially ordered. this ordering represents a hierarchy of information or knowledge. the higher an element is within the order, the more specific it is and the more information it contains. lower elements represent incomplete knowledge or intermediate results.
+computation then is modeled by applying monotone functions repeatedly on elements of the domain in order to refine a result. reaching a fixed point is equivalent to finishing a calculation. domains provide a superior setting for these ideas since fixed points of monotone functions can be guaranteed to exist and, under additional restrictions, can be approximated from below.
+
+
+== a guide to the formal definitions ==
+in this section, the central concepts and definitions of domain theory will be introduced. the above intuition of domains being information orderings will be emphasized to motivate the mathematical formalization of the theory. the precise formal definitions are to be found in the dedicated articles for each concept. a list of general order-theoretic definitions, which include domain theoretic notions as well can be found in the order theory glossary. the most important concepts of domain theory will nonetheless be introduced below.
+
+
+=== directed sets as converging specifications ===
+as mentioned before, domain theory deals with partially ordered sets to model a domain of computation. the goal is to interpret the elements of such an order as pieces of information or (partial) results of a computation, where elements that are higher in the order extend the information of the elements below them in a consistent way. from this simple intuition it is already clear that domains often do not have a greatest element, since this would mean that there is an element that contains the information of all other elements—a rather uninteresting situation.
+a concept that plays an important role in the theory is that of a directed subset of a domain; a directed subset is a non-empty subset of the order in which any two elements have an upper bound that is an element of this subset. in view of our intuition about domains, this means that any two pieces of information within the directed subset are consistently extended by some other element in the subset. hence we can view directed subsets as consistent specifications, i.e. as sets of partial results in which no two elements are contradictory. this interpretation can be compared with the notion of a convergent sequence in analysis, where each element is more specific than the preceding one. indeed, in the theory of metric spaces, sequences play a role that is in many aspects analogous to the role of directed sets in domain theory.
+now, as in the case of sequences, we are interested in the limit of a directed set. according to what was said above, this would be an element that is the most general piece of information that extends the information of all elements of the directed set, i.e. the unique element that contains exactly the information that was present in the directed set, and nothing more. in the formalization of order theory, this is just the least upper bound of the directed set. as in the case of the limit of a sequence, the least upper bound of a directed set does not always exist.
+naturally, one has a special interest in those domains of computations in which all consistent specifications converge, i.e. in orders in which all directed sets have a least upper bound. this property defines the class of directed-complete partial orders, or dcpo for short. indeed, most considerations of domain theory do only consider orders that are at least directed complete.
+from the underlying idea of partially specified results as representing incomplete knowledge, one derives another desirable property: the existence of a least element. such an element models that state of no information—the place where most computations start. it also can be regarded as the output of a computation that does not return any result at all.
+
+
+=== computations and domains ===
+now that we have some basic formal descriptions of what a domain of computation should be, we can turn to the computations themselves. clearly, these have to be functions, taking inputs from some computational domain and returning outputs in  some (possibly different) domain. however, one would also expect that the output of a function will contain more information when the information content of the input is increased. formally, this means that we want a function to be monotonic.
+when dealing with dcpos, one might also want computations to be compatible with the formation of limits of a directed set. formally, this means that, for some function f, the image f(d) of a directed set d (i.e. the set of the images of each element of d) is again directed and has as a least upper bound the image of the least upper bound of d. one could also say that f preserves directed suprema. also note that, by considering directed sets of two elements, such a function also has to be monotonic. these properties give rise to the notion of a scott-continuous function. since this often is not ambiguous one also may speak of continuous functions.
+
+
+=== approximation and finiteness ===
+domain theory is a purely qualitative approach to modeling the structure of information states. one can say that something contains more information, but the amount of additional information is not specified. yet, there are some situations in which one wants to speak about elements that are in a sense much simpler (or much more incomplete) than a given state of information. for example, in the natural subset-inclusion ordering on some powerset, any infinite element (i.e. set) is much more "informative" than any of its finite subsets.
+if one wants to model such a relationship, one may first want to consider the induced strict order < of a domain with order ≤. however, while this is a useful notion in the case of total orders, it does not tell us much in the case of partially ordered sets. considering again inclusion-orders of sets, a set is already strictly smaller than another, possibly infinite, set if it contains just one less element. one would, however, hardly agree that this captures the notion of being "much simpler".
+
+
+=== way-below relation ===
+a more elaborate approach leads to the definition of the so-called order of approximation, which is more suggestively also called the way-below relation. an element x is way below an element y, if, for every directed set d with supremum such that
+
+  
+    
+      
+        y
+        ⊑
+        sup
+        d
+      
+    
+    {\displaystyle y\sqsubseteq \sup d}
+  ,there is some element d in d such that
+
+  
+    
+      
+        x
+        ⊑
+        d
+      
+    
+    {\displaystyle x\sqsubseteq d}
+  .then one also says that x approximates y and writes
+
+  
+    
+      
+        x
+        ≪
+        y
+      
+    
+    {\displaystyle x\ll y}
+  .this does imply that
+
+  
+    
+      
+        x
+        ⊑
+        y
+      
+    
+    {\displaystyle x\sqsubseteq y}
+  ,since the singleton set {y} is directed. for an example, in an ordering of sets, an infinite set is way above any of its finite subsets. on the other hand, consider the directed set (in fact, the chain) of finite sets
+
+  
+    
+      
+        {
+        0
+        }
+        ,
+        {
+        0
+        ,
+        1
+        }
+        ,
+        {
+        0
+        ,
+        1
+        ,
+        2
+        }
+        ,
+        …
+      
+    
+    {\displaystyle \{0\},\{0,1\},\{0,1,2\},\ldots }
+  since the supremum of this chain is the set of all natural numbers n, this shows that no infinite set is way below n.
+however, being way below some element is a relative notion and does not reveal much about an element alone. for example, one would like to characterize finite sets in an order-theoretic way, but even infinite sets can be way below some other set. the special property of these finite elements x is that they are way below themselves, i.e.
+
+  
+    
+      
+        x
+        ≪
+        x
+      
+    
+    {\displaystyle x\ll x}
+  .an element with this property is also called compact. yet, such elements do not have to be "finite" nor "compact" in any other mathematical usage of the terms. the notation is nonetheless motivated by certain parallels to the respective notions in set theory and topology. the compact elements of a domain have the important special property that they cannot be obtained as a limit of a directed set in which they did not already occur.
+many other important results about the way-below relation support the claim that this definition is appropriate to capture many important aspects of a domain.
+
+
+=== bases of domains ===
+the previous thoughts raise another question: is it possible to guarantee that all elements of a domain can be obtained as a limit of much simpler elements? this is quite relevant in practice, since we cannot compute infinite objects but we may still hope to approximate them arbitrarily closely.
+more generally, we would like to restrict to a certain subset of elements as being sufficient for getting all other elements as least upper bounds. hence, one defines a base of a poset p as being a subset b of p, such that, for each x in p, the set of elements in b that are way below x contains a directed set with supremum x. the poset p is a continuous poset if it has some base. especially, p itself is a base in this situation. in many applications, one restricts to continuous (d)cpos as a main object of study.
+finally, an even stronger restriction on a partially ordered set is given by requiring the existence of a base of finite elements. such a poset is called algebraic. from the viewpoint of denotational semantics, algebraic posets are particularly well-behaved, since they allow for the approximation of all elements even when restricting to finite ones. as remarked before, not every finite element is "finite" in a classical sense and it may well be that the finite elements constitute an uncountable set.
+in some cases, however, the base for a poset is countable. in this case, one speaks of an ω-continuous poset. accordingly, if the countable base consists entirely of finite elements, we obtain an order that is ω-algebraic.
+
+
+=== special types of domains ===
+a simple special case of a domain is known as an elementary or flat domain.  this consists of a set of incomparable elements, such as the integers, along with a single "bottom" element considered smaller than all other elements.
+one can obtain a number of other interesting special classes of ordered structures that could be suitable as "domains". we already mentioned continuous posets and algebraic posets. more special versions of both are continuous and algebraic cpos. adding even further completeness properties one obtains continuous lattices and algebraic lattices, which are just complete lattices with the respective properties. for the algebraic case, one finds broader classes of posets that are still worth studying: historically, the scott domains were the first structures to be studied in domain theory. still wider classes of domains are constituted by sfp-domains, l-domains, and bifinite domains.
+all of these classes of orders can be cast into various categories of dcpos, using functions that are monotone, scott-continuous, or even more specialized as morphisms. finally, note that the term domain itself is not exact and thus is only used as an abbreviation when a formal definition has been given before or when the details are irrelevant.
+
+
+== important results ==
+a poset d is a dcpo if and only if each chain in d has a supremum. (the 'if' direction relies on the axiom of choice.)
+if f is a continuous function on a domain d then it has a least fixed point, given as the least upper bound of all finite iterations of f on the least element ⊥:
+
+  
+    
+      
+        fix
+        ⁡
+        (
+        f
+        )
+        =
+        
+          ⨆
+          
+            n
+            ∈
+            
+              n
+            
+          
+        
+        
+          f
+          
+            n
+          
+        
+        (
+        ⊥
+        )
+      
+    
+    {\displaystyle \operatorname {fix} (f)=\bigsqcup _{n\in \mathbb {n} }f^{n}(\bot )}
+  .this is the kleene fixed-point theorem.  the 
+  
+    
+      
+        ⊔
+      
+    
+    {\displaystyle \sqcup }
+   symbol is the directed join.
+
+
+== generalizations ==
+"synthetic domain theory". citeseerx 10.1.1.55.903. {{cite journal}}: cite journal requires |journal= (help)
+topological domain theory
+a continuity space is a generalization of metric spaces and posets, that can be used to unify the notions of metric spaces and domains.
+
+
+== see also ==
+category theory
+codomain
+denotational semantics
+scott domain
+scott information system
+type theory
+
+
+== further reading ==
+g. gierz; k. h. hofmann; k. keimel; j. d. lawson; m. mislove; d. s. scott (2003). "continuous lattices and domains". encyclopedia of mathematics and its applications. vol. 93. cambridge university press. isbn 0-521-80338-1.
+samson abramsky, achim jung (1994). "domain theory" (pdf).  in s. abramsky; d. m. gabbay; t. s. e. maibaum (eds.). handbook of logic in computer science. vol. iii. oxford university press. pp. 1–168. isbn 0-19-853762-x. retrieved 2007-10-13.
+alex simpson (2001–2002). "part iii: topological spaces from a computational perspective". mathematical structures for semantics. archived from the original on 2005-04-27. retrieved 2007-10-13.
+d. s. scott (1975). "data types as lattices". proceedings of the international summer institute and logic colloquium, kiel, in lecture notes in mathematics. springer-verlag. 499: 579–651.
+carl a. gunter (1992). semantics of programming languages. mit press. isbn 9780262570954.
+b. a. davey; h. a. priestley (2002). introduction to lattices and order (2nd ed.). cambridge university press. isbn 0-521-78451-4.
+carl hewitt; henry baker (august 1977). "actors and continuous functionals" (pdf). proceedings of ifip working conference on formal description of programming concepts.
+v. stoltenberg-hansen; i. lindstrom; e. r. griffor (1994). mathematical theory of domains. cambridge university press. isbn 0-521-38344-7.
+
+
+== external links ==
+introduction to domain theory by graham hutton, university of nottingham

@@ -1,0 +1,8249 @@
+in mathematics, the discrete fourier transform (dft) converts a finite sequence of equally-spaced samples of a function into a same-length sequence of equally-spaced samples of the discrete-time fourier transform (dtft), which is a complex-valued function of frequency. the interval at which the dtft is sampled is the reciprocal of the duration of the input sequence.  an inverse dft is a fourier series, using the dtft samples as coefficients of complex sinusoids at the corresponding dtft frequencies.  it has the same sample-values as the original input sequence.  the dft is therefore said to be a frequency domain representation of the original input sequence.  if the original sequence spans all the non-zero values of a function, its dtft is continuous (and periodic), and the dft provides discrete samples of one cycle.  if the original sequence is one cycle of a periodic function, the dft provides all the non-zero values of one dtft cycle.
+the dft is the most important discrete transform, used to perform fourier analysis in many practical applications. in digital signal processing, the function is any quantity or signal that varies over time, such as the pressure of a sound wave, a radio signal, or daily temperature readings, sampled over a finite time interval (often defined by a window function). in image processing, the samples can be the values of pixels along a row or column of a raster image. the dft is also used to efficiently solve partial differential equations, and to perform other operations such as convolutions or multiplying large integers.
+since it deals with a finite amount of data, it can be implemented in computers by numerical algorithms or even dedicated hardware. these implementations usually employ efficient fast fourier transform (fft) algorithms; so much so that the terms "fft" and "dft" are often used interchangeably.  prior to its current usage, the "fft" initialism may have also been used for the ambiguous term "finite fourier transform".
+
+
+== definition ==
+the discrete fourier transform transforms a sequence of n complex numbers 
+  
+    
+      
+        
+          {
+          
+            
+              x
+            
+            
+              n
+            
+          
+          }
+        
+        :=
+        
+          x
+          
+            0
+          
+        
+        ,
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle \left\{\mathbf {x} _{n}\right\}:=x_{0},x_{1},\ldots ,x_{n-1}}
+   into another sequence of complex numbers,  
+  
+    
+      
+        
+          {
+          
+            
+              x
+            
+            
+              k
+            
+          
+          }
+        
+        :=
+        
+          x
+          
+            0
+          
+        
+        ,
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+            −
+            1
+          
+        
+        ,
+      
+    
+    {\displaystyle \left\{\mathbf {x} _{k}\right\}:=x_{0},x_{1},\ldots ,x_{n-1},}
+   which is defined by
+
+where the last expression follows from the first one by euler's formula.
+the transform is sometimes denoted by the symbol 
+  
+    
+      
+        
+          
+            f
+          
+        
+      
+    
+    {\displaystyle {\mathcal {f}}}
+  , as in 
+  
+    
+      
+        
+          x
+        
+        =
+        
+          
+            f
+          
+        
+        
+          {
+          
+            x
+          
+          }
+        
+      
+    
+    {\displaystyle \mathbf {x} ={\mathcal {f}}\left\{\mathbf {x} \right\}}
+   or 
+  
+    
+      
+        
+          
+            f
+          
+        
+        
+          (
+          
+            x
+          
+          )
+        
+      
+    
+    {\displaystyle {\mathcal {f}}\left(\mathbf {x} \right)}
+   or 
+  
+    
+      
+        
+          
+            f
+          
+        
+        
+          x
+        
+      
+    
+    {\displaystyle {\mathcal {f}}\mathbf {x} }
+  .
+
+
+== motivation ==
+eq.1 can also be evaluated outside the domain 
+  
+    
+      
+        k
+        ∈
+        [
+        0
+        ,
+        n
+        −
+        1
+        ]
+      
+    
+    {\displaystyle k\in [0,n-1]}
+  , and that extended sequence is 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  -periodic. accordingly, other sequences of 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   indices are sometimes used,  such as 
+  
+    
+      
+        
+          [
+          
+            −
+            
+              
+                n
+                2
+              
+            
+            ,
+            
+              
+                n
+                2
+              
+            
+            −
+            1
+          
+          ]
+        
+      
+    
+    {\textstyle \left[-{\frac {n}{2}},{\frac {n}{2}}-1\right]}
+   (if 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   is even) and 
+  
+    
+      
+        
+          [
+          
+            −
+            
+              
+                
+                  n
+                  −
+                  1
+                
+                2
+              
+            
+            ,
+            
+              
+                
+                  n
+                  −
+                  1
+                
+                2
+              
+            
+          
+          ]
+        
+      
+    
+    {\textstyle \left[-{\frac {n-1}{2}},{\frac {n-1}{2}}\right]}
+   (if 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   is odd), which amounts to swapping the left and right halves of the result of the transform.eq.1 can be interpreted or derived in various ways, for example:
+
+the normalization factor multiplying the dft and idft (here 1 and 
+  
+    
+      
+        
+          
+            1
+            n
+          
+        
+      
+    
+    {\textstyle {\frac {1}{n}}}
+  ) and the signs of the exponents are merely conventions, and differ in some treatments. the only requirements of these conventions are that the dft and idft have opposite-sign exponents and that the product of their normalization factors be 
+  
+    
+      
+        
+          
+            1
+            n
+          
+        
+      
+    
+    {\textstyle {\frac {1}{n}}}
+  . a normalization of 
+  
+    
+      
+        
+          
+            
+              1
+              n
+            
+          
+        
+      
+    
+    {\textstyle {\sqrt {\frac {1}{n}}}}
+   for both the dft and idft, for instance, makes the transforms unitary. a discrete impulse, 
+  
+    
+      
+        
+          x
+          
+            n
+          
+        
+        =
+        1
+      
+    
+    {\displaystyle x_{n}=1}
+   at n = 0 and 0 otherwise; might transform to 
+  
+    
+      
+        
+          x
+          
+            k
+          
+        
+        =
+        1
+      
+    
+    {\displaystyle x_{k}=1}
+   for all k (use normalization factors 1 for dft and 
+  
+    
+      
+        
+          
+            1
+            n
+          
+        
+      
+    
+    {\textstyle {\frac {1}{n}}}
+   for idft). a dc signal, 
+  
+    
+      
+        
+          x
+          
+            k
+          
+        
+        =
+        1
+      
+    
+    {\displaystyle x_{k}=1}
+   at k = 0 and 0 otherwise; might inversely transform to 
+  
+    
+      
+        
+          x
+          
+            n
+          
+        
+        =
+        1
+      
+    
+    {\displaystyle x_{n}=1}
+   for all 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   (use 
+  
+    
+      
+        
+          
+            1
+            n
+          
+        
+      
+    
+    {\textstyle {\frac {1}{n}}}
+   for dft and 1 for idft) which is consistent with viewing dc as the mean average of the signal.
+
+
+== example ==
+
+let 
+  
+    
+      
+        n
+        =
+        4
+      
+    
+    {\displaystyle n=4}
+   and
+
+  
+    
+      
+        
+          x
+        
+        =
+        
+          
+            (
+            
+              
+                
+                  
+                    x
+                    
+                      0
+                    
+                  
+                
+              
+              
+                
+                  
+                    x
+                    
+                      1
+                    
+                  
+                
+              
+              
+                
+                  
+                    x
+                    
+                      2
+                    
+                  
+                
+              
+              
+                
+                  
+                    x
+                    
+                      3
+                    
+                  
+                
+              
+            
+            )
+          
+        
+        =
+        
+          
+            (
+            
+              
+                
+                  1
+                
+              
+              
+                
+                  2
+                  −
+                  i
+                
+              
+              
+                
+                  −
+                  i
+                
+              
+              
+                
+                  −
+                  1
+                  +
+                  2
+                  i
+                
+              
+            
+            )
+          
+        
+      
+    
+    {\displaystyle \mathbf {x} ={\begin{pmatrix}x_{0}\\x_{1}\\x_{2}\\x_{3}\end{pmatrix}}={\begin{pmatrix}1\\2-i\\-i\\-1+2i\end{pmatrix}}}
+  here we demonstrate how to calculate the dft of 
+  
+    
+      
+        
+          x
+        
+      
+    
+    {\displaystyle \mathbf {x} }
+   using eq.1:
+
+  
+    
+      
+        
+          x
+          
+            0
+          
+        
+        =
+        
+          e
+          
+            −
+            i
+            2
+            π
+            0
+            ⋅
+            0
+            
+              /
+            
+            4
+          
+        
+        ⋅
+        1
+        +
+        
+          e
+          
+            −
+            i
+            2
+            π
+            0
+            ⋅
+            1
+            
+              /
+            
+            4
+          
+        
+        ⋅
+        (
+        2
+        −
+        i
+        )
+        +
+        
+          e
+          
+            −
+            i
+            2
+            π
+            0
+            ⋅
+            2
+            
+              /
+            
+            4
+          
+        
+        ⋅
+        (
+        −
+        i
+        )
+        +
+        
+          e
+          
+            −
+            i
+            2
+            π
+            0
+            ⋅
+            3
+            
+              /
+            
+            4
+          
+        
+        ⋅
+        (
+        −
+        1
+        +
+        2
+        i
+        )
+        =
+        2
+      
+    
+    {\displaystyle x_{0}=e^{-i2\pi 0\cdot 0/4}\cdot 1+e^{-i2\pi 0\cdot 1/4}\cdot (2-i)+e^{-i2\pi 0\cdot 2/4}\cdot (-i)+e^{-i2\pi 0\cdot 3/4}\cdot (-1+2i)=2}
+  
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+        =
+        
+          e
+          
+            −
+            i
+            2
+            π
+            1
+            ⋅
+            0
+            
+              /
+            
+            4
+          
+        
+        ⋅
+        1
+        +
+        
+          e
+          
+            −
+            i
+            2
+            π
+            1
+            ⋅
+            1
+            
+              /
+            
+            4
+          
+        
+        ⋅
+        (
+        2
+        −
+        i
+        )
+        +
+        
+          e
+          
+            −
+            i
+            2
+            π
+            1
+            ⋅
+            2
+            
+              /
+            
+            4
+          
+        
+        ⋅
+        (
+        −
+        i
+        )
+        +
+        
+          e
+          
+            −
+            i
+            2
+            π
+            1
+            ⋅
+            3
+            
+              /
+            
+            4
+          
+        
+        ⋅
+        (
+        −
+        1
+        +
+        2
+        i
+        )
+        =
+        −
+        2
+        −
+        2
+        i
+      
+    
+    {\displaystyle x_{1}=e^{-i2\pi 1\cdot 0/4}\cdot 1+e^{-i2\pi 1\cdot 1/4}\cdot (2-i)+e^{-i2\pi 1\cdot 2/4}\cdot (-i)+e^{-i2\pi 1\cdot 3/4}\cdot (-1+2i)=-2-2i}
+  
+  
+    
+      
+        
+          x
+          
+            2
+          
+        
+        =
+        
+          e
+          
+            −
+            i
+            2
+            π
+            2
+            ⋅
+            0
+            
+              /
+            
+            4
+          
+        
+        ⋅
+        1
+        +
+        
+          e
+          
+            −
+            i
+            2
+            π
+            2
+            ⋅
+            1
+            
+              /
+            
+            4
+          
+        
+        ⋅
+        (
+        2
+        −
+        i
+        )
+        +
+        
+          e
+          
+            −
+            i
+            2
+            π
+            2
+            ⋅
+            2
+            
+              /
+            
+            4
+          
+        
+        ⋅
+        (
+        −
+        i
+        )
+        +
+        
+          e
+          
+            −
+            i
+            2
+            π
+            2
+            ⋅
+            3
+            
+              /
+            
+            4
+          
+        
+        ⋅
+        (
+        −
+        1
+        +
+        2
+        i
+        )
+        =
+        −
+        2
+        i
+      
+    
+    {\displaystyle x_{2}=e^{-i2\pi 2\cdot 0/4}\cdot 1+e^{-i2\pi 2\cdot 1/4}\cdot (2-i)+e^{-i2\pi 2\cdot 2/4}\cdot (-i)+e^{-i2\pi 2\cdot 3/4}\cdot (-1+2i)=-2i}
+  
+  
+    
+      
+        
+          x
+          
+            3
+          
+        
+        =
+        
+          e
+          
+            −
+            i
+            2
+            π
+            3
+            ⋅
+            0
+            
+              /
+            
+            4
+          
+        
+        ⋅
+        1
+        +
+        
+          e
+          
+            −
+            i
+            2
+            π
+            3
+            ⋅
+            1
+            
+              /
+            
+            4
+          
+        
+        ⋅
+        (
+        2
+        −
+        i
+        )
+        +
+        
+          e
+          
+            −
+            i
+            2
+            π
+            3
+            ⋅
+            2
+            
+              /
+            
+            4
+          
+        
+        ⋅
+        (
+        −
+        i
+        )
+        +
+        
+          e
+          
+            −
+            i
+            2
+            π
+            3
+            ⋅
+            3
+            
+              /
+            
+            4
+          
+        
+        ⋅
+        (
+        −
+        1
+        +
+        2
+        i
+        )
+        =
+        4
+        +
+        4
+        i
+      
+    
+    {\displaystyle x_{3}=e^{-i2\pi 3\cdot 0/4}\cdot 1+e^{-i2\pi 3\cdot 1/4}\cdot (2-i)+e^{-i2\pi 3\cdot 2/4}\cdot (-i)+e^{-i2\pi 3\cdot 3/4}\cdot (-1+2i)=4+4i}
+  
+  
+    
+      
+        
+          x
+        
+        =
+        
+          
+            (
+            
+              
+                
+                  
+                    x
+                    
+                      0
+                    
+                  
+                
+              
+              
+                
+                  
+                    x
+                    
+                      1
+                    
+                  
+                
+              
+              
+                
+                  
+                    x
+                    
+                      2
+                    
+                  
+                
+              
+              
+                
+                  
+                    x
+                    
+                      3
+                    
+                  
+                
+              
+            
+            )
+          
+        
+        =
+        
+          
+            (
+            
+              
+                
+                  2
+                
+              
+              
+                
+                  −
+                  2
+                  −
+                  2
+                  i
+                
+              
+              
+                
+                  −
+                  2
+                  i
+                
+              
+              
+                
+                  4
+                  +
+                  4
+                  i
+                
+              
+            
+            )
+          
+        
+      
+    
+    {\displaystyle \mathbf {x} ={\begin{pmatrix}x_{0}\\x_{1}\\x_{2}\\x_{3}\end{pmatrix}}={\begin{pmatrix}2\\-2-2i\\-2i\\4+4i\end{pmatrix}}}
+  
+
+
+== inverse transform ==
+the discrete fourier transform is an invertible, linear transformation
+
+  
+    
+      
+        
+          
+            f
+          
+        
+        :
+        
+          
+            c
+          
+          
+            n
+          
+        
+        →
+        
+          
+            c
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\mathcal {f}}\colon \mathbb {c} ^{n}\to \mathbb {c} ^{n}}
+  with 
+  
+    
+      
+        
+          c
+        
+      
+    
+    {\displaystyle \mathbb {c} }
+   denoting the set of complex numbers. its inverse is known as inverse discrete fourier transform (idft). in other words, for any 
+  
+    
+      
+        n
+        >
+        0
+      
+    
+    {\displaystyle n>0}
+  , an n-dimensional complex vector has a dft and an idft which are in turn 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  -dimensional complex vectors.
+the inverse transform is given by:
+
+
+== properties ==
+
+
+=== linearity ===
+the dft is a linear transform, i.e. if 
+  
+    
+      
+        
+          
+            f
+          
+        
+        (
+        {
+        
+          x
+          
+            n
+          
+        
+        }
+        
+          )
+          
+            k
+          
+        
+        =
+        
+          x
+          
+            k
+          
+        
+      
+    
+    {\displaystyle {\mathcal {f}}(\{x_{n}\})_{k}=x_{k}}
+   and 
+  
+    
+      
+        
+          
+            f
+          
+        
+        (
+        {
+        
+          y
+          
+            n
+          
+        
+        }
+        
+          )
+          
+            k
+          
+        
+        =
+        
+          y
+          
+            k
+          
+        
+      
+    
+    {\displaystyle {\mathcal {f}}(\{y_{n}\})_{k}=y_{k}}
+  , then for any complex numbers 
+  
+    
+      
+        a
+        ,
+        b
+      
+    
+    {\displaystyle a,b}
+  :
+
+  
+    
+      
+        
+          
+            f
+          
+        
+        (
+        {
+        a
+        
+          x
+          
+            n
+          
+        
+        +
+        b
+        
+          y
+          
+            n
+          
+        
+        }
+        
+          )
+          
+            k
+          
+        
+        =
+        a
+        
+          x
+          
+            k
+          
+        
+        +
+        b
+        
+          y
+          
+            k
+          
+        
+      
+    
+    {\displaystyle {\mathcal {f}}(\{ax_{n}+by_{n}\})_{k}=ax_{k}+by_{k}}
+  
+
+
+=== time and frequency reversal ===
+reversing the time (i.e. replacing 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   by 
+  
+    
+      
+        n
+        −
+        n
+      
+    
+    {\displaystyle n-n}
+  ) in 
+  
+    
+      
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x_{n}}
+   corresponds to reversing the frequency (i.e. 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   by 
+  
+    
+      
+        n
+        −
+        k
+      
+    
+    {\displaystyle n-k}
+  ).: p.421  mathematically, if 
+  
+    
+      
+        {
+        
+          x
+          
+            n
+          
+        
+        }
+      
+    
+    {\displaystyle \{x_{n}\}}
+   represents the vector x then
+
+if 
+  
+    
+      
+        
+          
+            f
+          
+        
+        (
+        {
+        
+          x
+          
+            n
+          
+        
+        }
+        
+          )
+          
+            k
+          
+        
+        =
+        
+          x
+          
+            k
+          
+        
+      
+    
+    {\displaystyle {\mathcal {f}}(\{x_{n}\})_{k}=x_{k}}
+  
+then 
+  
+    
+      
+        
+          
+            f
+          
+        
+        (
+        {
+        
+          x
+          
+            n
+            −
+            n
+          
+        
+        }
+        
+          )
+          
+            k
+          
+        
+        =
+        
+          x
+          
+            n
+            −
+            k
+          
+        
+      
+    
+    {\displaystyle {\mathcal {f}}(\{x_{n-n}\})_{k}=x_{n-k}}
+  
+
+
+=== conjugation in time ===
+if 
+  
+    
+      
+        
+          
+            f
+          
+        
+        (
+        {
+        
+          x
+          
+            n
+          
+        
+        }
+        
+          )
+          
+            k
+          
+        
+        =
+        
+          x
+          
+            k
+          
+        
+      
+    
+    {\displaystyle {\mathcal {f}}(\{x_{n}\})_{k}=x_{k}}
+   then 
+  
+    
+      
+        
+          
+            f
+          
+        
+        (
+        {
+        
+          x
+          
+            n
+          
+          
+            ∗
+          
+        
+        }
+        
+          )
+          
+            k
+          
+        
+        =
+        
+          x
+          
+            n
+            −
+            k
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle {\mathcal {f}}(\{x_{n}^{*}\})_{k}=x_{n-k}^{*}}
+  .: p.423 
+
+
+=== real and imaginary part ===
+this table shows some mathematical operations on 
+  
+    
+      
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x_{n}}
+   in the time domain and the corresponding effects on its dft 
+  
+    
+      
+        
+          x
+          
+            k
+          
+        
+      
+    
+    {\displaystyle x_{k}}
+   in the frequency domain.
+
+
+=== orthogonality ===
+the vectors 
+  
+    
+      
+        
+          u
+          
+            k
+          
+        
+        =
+        
+          
+            [
+            
+              
+                
+                
+                  
+                    e
+                    
+                      
+                        
+                          
+                            i
+                            2
+                            π
+                          
+                          n
+                        
+                      
+                      k
+                      n
+                    
+                  
+                  
+                
+                |
+              
+              
+              n
+              =
+              0
+              ,
+              1
+              ,
+              …
+              ,
+              n
+              −
+              1
+            
+            ]
+          
+          
+            
+              t
+            
+          
+        
+      
+    
+    {\displaystyle u_{k}=\left[\left.e^{{\frac {i2\pi }{n}}kn}\;\right|\;n=0,1,\ldots ,n-1\right]^{\mathsf {t}}}
+   form an orthogonal basis over the set of n-dimensional complex vectors:
+
+  
+    
+      
+        
+          u
+          
+            k
+          
+          
+            
+              t
+            
+          
+        
+        
+          u
+          
+            
+              k
+              ′
+            
+          
+          
+            ∗
+          
+        
+        =
+        
+          ∑
+          
+            n
+            =
+            0
+          
+          
+            n
+            −
+            1
+          
+        
+        
+          (
+          
+            e
+            
+              
+                
+                  
+                    i
+                    2
+                    π
+                  
+                  n
+                
+              
+              k
+              n
+            
+          
+          )
+        
+        
+          (
+          
+            e
+            
+              
+                
+                  
+                    i
+                    2
+                    π
+                  
+                  n
+                
+              
+              (
+              −
+              
+                k
+                ′
+              
+              )
+              n
+            
+          
+          )
+        
+        =
+        
+          ∑
+          
+            n
+            =
+            0
+          
+          
+            n
+            −
+            1
+          
+        
+        
+          e
+          
+            
+              
+                
+                  i
+                  2
+                  π
+                
+                n
+              
+            
+            (
+            k
+            −
+            
+              k
+              ′
+            
+            )
+            n
+          
+        
+        =
+        n
+         
+        
+          δ
+          
+            k
+            
+              k
+              ′
+            
+          
+        
+      
+    
+    {\displaystyle u_{k}^{\mathsf {t}}u_{k'}^{*}=\sum _{n=0}^{n-1}\left(e^{{\frac {i2\pi }{n}}kn}\right)\left(e^{{\frac {i2\pi }{n}}(-k')n}\right)=\sum _{n=0}^{n-1}e^{{\frac {i2\pi }{n}}(k-k')n}=n~\delta _{kk'}}
+  where 
+  
+    
+      
+        
+          δ
+          
+            k
+            
+              k
+              ′
+            
+          
+        
+      
+    
+    {\displaystyle \delta _{kk'}}
+   is the kronecker delta. (in the last step, the summation is trivial if 
+  
+    
+      
+        k
+        =
+        
+          k
+          ′
+        
+      
+    
+    {\displaystyle k=k'}
+  , where it is 1 + 1 + ⋯ = n, and otherwise is a geometric series that can be explicitly summed to obtain zero.)  this orthogonality condition can be used to derive the formula for the idft from the definition of the dft, and is equivalent to the unitarity property below.
+
+
+=== the plancherel theorem and parseval's theorem ===
+if 
+  
+    
+      
+        
+          x
+          
+            k
+          
+        
+      
+    
+    {\displaystyle x_{k}}
+   and 
+  
+    
+      
+        
+          y
+          
+            k
+          
+        
+      
+    
+    {\displaystyle y_{k}}
+   are the dfts of 
+  
+    
+      
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x_{n}}
+   and 
+  
+    
+      
+        
+          y
+          
+            n
+          
+        
+      
+    
+    {\displaystyle y_{n}}
+   respectively then the parseval's theorem states:
+
+  
+    
+      
+        
+          ∑
+          
+            n
+            =
+            0
+          
+          
+            n
+            −
+            1
+          
+        
+        
+          x
+          
+            n
+          
+        
+        
+          y
+          
+            n
+          
+          
+            ∗
+          
+        
+        =
+        
+          
+            1
+            n
+          
+        
+        
+          ∑
+          
+            k
+            =
+            0
+          
+          
+            n
+            −
+            1
+          
+        
+        
+          x
+          
+            k
+          
+        
+        
+          y
+          
+            k
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle \sum _{n=0}^{n-1}x_{n}y_{n}^{*}={\frac {1}{n}}\sum _{k=0}^{n-1}x_{k}y_{k}^{*}}
+  where the star denotes complex conjugation.  plancherel theorem is a special case of the parseval's theorem and states:
+
+  
+    
+      
+        
+          ∑
+          
+            n
+            =
+            0
+          
+          
+            n
+            −
+            1
+          
+        
+        
+          |
+        
+        
+          x
+          
+            n
+          
+        
+        
+          
+            |
+          
+          
+            2
+          
+        
+        =
+        
+          
+            1
+            n
+          
+        
+        
+          ∑
+          
+            k
+            =
+            0
+          
+          
+            n
+            −
+            1
+          
+        
+        
+          |
+        
+        
+          x
+          
+            k
+          
+        
+        
+          
+            |
+          
+          
+            2
+          
+        
+        .
+      
+    
+    {\displaystyle \sum _{n=0}^{n-1}|x_{n}|^{2}={\frac {1}{n}}\sum _{k=0}^{n-1}|x_{k}|^{2}.}
+  these theorems are also equivalent to the unitary condition below.
+
+
+=== periodicity ===
+the periodicity can be shown directly from the definition:
+
+  
+    
+      
+        
+          x
+          
+            k
+            +
+            n
+          
+        
+         
+        ≜
+         
+        
+          ∑
+          
+            n
+            =
+            0
+          
+          
+            n
+            −
+            1
+          
+        
+        
+          x
+          
+            n
+          
+        
+        
+          e
+          
+            −
+            
+              
+                
+                  i
+                  2
+                  π
+                
+                n
+              
+            
+            (
+            k
+            +
+            n
+            )
+            n
+          
+        
+        =
+        
+          ∑
+          
+            n
+            =
+            0
+          
+          
+            n
+            −
+            1
+          
+        
+        
+          x
+          
+            n
+          
+        
+        
+          e
+          
+            −
+            
+              
+                
+                  i
+                  2
+                  π
+                
+                n
+              
+            
+            k
+            n
+          
+        
+        
+          
+            
+              
+                e
+                
+                  −
+                  i
+                  2
+                  π
+                  n
+                
+              
+              ⏟
+            
+          
+          
+            1
+          
+        
+        =
+        
+          ∑
+          
+            n
+            =
+            0
+          
+          
+            n
+            −
+            1
+          
+        
+        
+          x
+          
+            n
+          
+        
+        
+          e
+          
+            −
+            
+              
+                
+                  i
+                  2
+                  π
+                
+                n
+              
+            
+            k
+            n
+          
+        
+        =
+        
+          x
+          
+            k
+          
+        
+        .
+      
+    
+    {\displaystyle x_{k+n}\ \triangleq \ \sum _{n=0}^{n-1}x_{n}e^{-{\frac {i2\pi }{n}}(k+n)n}=\sum _{n=0}^{n-1}x_{n}e^{-{\frac {i2\pi }{n}}kn}\underbrace {e^{-i2\pi n}} _{1}=\sum _{n=0}^{n-1}x_{n}e^{-{\frac {i2\pi }{n}}kn}=x_{k}.}
+  similarly, it can be shown that the idft formula leads to a periodic extension.
+
+
+=== shift theorem ===
+multiplying 
+  
+    
+      
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x_{n}}
+   by a linear phase 
+  
+    
+      
+        
+          e
+          
+            
+              
+                
+                  i
+                  2
+                  π
+                  (
+                  n
+                  −
+                  1
+                  )
+                
+                n
+              
+            
+            m
+          
+        
+      
+    
+    {\displaystyle e^{{\frac {i2\pi (n-1)}{n}}m}}
+   for some integer m corresponds to a circular shift of the output 
+  
+    
+      
+        
+          x
+          
+            k
+          
+        
+      
+    
+    {\displaystyle x_{k}}
+  : 
+  
+    
+      
+        
+          x
+          
+            k
+          
+        
+      
+    
+    {\displaystyle x_{k}}
+   is replaced by 
+  
+    
+      
+        
+          x
+          
+            k
+            −
+            m
+          
+        
+      
+    
+    {\displaystyle x_{k-m}}
+  , where the subscript is interpreted modulo n (i.e., periodically).  similarly, a circular shift of the input 
+  
+    
+      
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x_{n}}
+   corresponds to multiplying the output 
+  
+    
+      
+        
+          x
+          
+            k
+          
+        
+      
+    
+    {\displaystyle x_{k}}
+   by a linear phase. mathematically, if 
+  
+    
+      
+        {
+        
+          x
+          
+            n
+          
+        
+        }
+      
+    
+    {\displaystyle \{x_{n}\}}
+   represents the vector x then
+
+if 
+  
+    
+      
+        
+          
+            f
+          
+        
+        (
+        {
+        
+          x
+          
+            n
+          
+        
+        }
+        
+          )
+          
+            k
+          
+        
+        =
+        
+          x
+          
+            k
+          
+        
+      
+    
+    {\displaystyle {\mathcal {f}}(\{x_{n}\})_{k}=x_{k}}
+  
+then 
+  
+    
+      
+        
+          
+            f
+          
+        
+        
+          
+            (
+            
+              {
+              
+                
+                  x
+                  
+                    n
+                  
+                
+                ⋅
+                
+                  e
+                  
+                    
+                      
+                        
+                          i
+                          2
+                          π
+                        
+                        n
+                      
+                    
+                    n
+                    m
+                  
+                
+              
+              }
+            
+            )
+          
+          
+            k
+          
+        
+        =
+        
+          x
+          
+            k
+            −
+            m
+          
+        
+      
+    
+    {\displaystyle {\mathcal {f}}\left(\left\{x_{n}\cdot e^{{\frac {i2\pi }{n}}nm}\right\}\right)_{k}=x_{k-m}}
+  
+and 
+  
+    
+      
+        
+          
+            f
+          
+        
+        
+          
+            (
+            
+              {
+              
+                x
+                
+                  n
+                  −
+                  m
+                
+              
+              }
+            
+            )
+          
+          
+            k
+          
+        
+        =
+        
+          x
+          
+            k
+          
+        
+        ⋅
+        
+          e
+          
+            −
+            
+              
+                
+                  i
+                  2
+                  π
+                
+                n
+              
+            
+            k
+            m
+          
+        
+      
+    
+    {\displaystyle {\mathcal {f}}\left(\left\{x_{n-m}\right\}\right)_{k}=x_{k}\cdot e^{-{\frac {i2\pi }{n}}km}}
+  
+
+
+=== circular convolution theorem and cross-correlation theorem ===
+
+the convolution theorem for the discrete-time fourier transform (dtft) indicates that a convolution of two sequences can be obtained as the inverse transform of the product of the individual transforms. an important simplification occurs when one of sequences is n-periodic, denoted here by 
+  
+    
+      
+        
+          y
+          
+            
+              
+              
+                n
+              
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle y_{_{n}},}
+   because 
+  
+    
+      
+        
+          
+            dtft
+          
+          
+            {
+            
+              y
+              
+                
+                  
+                  
+                    n
+                  
+                
+              
+            
+            }
+          
+        
+      
+    
+    {\displaystyle \scriptstyle {\text{dtft}}\displaystyle \{y_{_{n}}\}}
+   is non-zero at only discrete frequencies (see dtft § periodic data), and therefore so is its product with the continuous function 
+  
+    
+      
+        
+          
+            dtft
+          
+          
+            {
+            x
+            }
+            .
+          
+        
+      
+    
+    {\displaystyle \scriptstyle {\text{dtft}}\displaystyle \{x\}.}
+    that leads to a considerable simplification of the inverse transform.
+
+  
+    
+      
+        x
+        ∗
+        
+          y
+          
+            
+              
+              
+                n
+              
+            
+          
+        
+         
+        =
+         
+        
+          
+            
+              
+                d
+                t
+                f
+                t
+              
+            
+            
+              −
+              1
+            
+          
+          
+            
+              [
+              
+                
+                  
+                    d
+                    t
+                    f
+                    t
+                  
+                
+                
+                  {
+                  x
+                  }
+                  ⋅
+                  
+                    
+                      
+                        d
+                        t
+                        f
+                        t
+                      
+                    
+                    
+                      {
+                      
+                        y
+                        
+                          
+                            
+                            
+                              n
+                            
+                          
+                        
+                      
+                      }
+                    
+                  
+                
+              
+              ]
+            
+             
+            =
+             
+            
+              
+                
+                  
+                    d
+                    f
+                    t
+                  
+                
+                
+                  −
+                  1
+                
+              
+              
+                
+                  [
+                  
+                    
+                      
+                        d
+                        f
+                        t
+                      
+                    
+                    
+                      {
+                      
+                        x
+                        
+                          
+                            
+                            
+                              n
+                            
+                          
+                        
+                      
+                      }
+                      ⋅
+                      
+                        
+                          
+                            d
+                            f
+                            t
+                          
+                        
+                        
+                          {
+                          
+                            y
+                            
+                              
+                                
+                                
+                                  n
+                                
+                              
+                            
+                          
+                          }
+                        
+                      
+                    
+                  
+                  ]
+                
+                ,
+              
+            
+          
+        
+      
+    
+    {\displaystyle x*y_{_{n}}\ =\ \scriptstyle {\rm {dtft}}^{-1}\displaystyle \left[\scriptstyle {\rm {dtft}}\displaystyle \{x\}\cdot \scriptstyle {\rm {dtft}}\displaystyle \{y_{_{n}}\}\right]\ =\ \scriptstyle {\rm {dft}}^{-1}\displaystyle \left[\scriptstyle {\rm {dft}}\displaystyle \{x_{_{n}}\}\cdot \scriptstyle {\rm {dft}}\displaystyle \{y_{_{n}}\}\right],}
+  where 
+  
+    
+      
+        
+          x
+          
+            
+              
+              
+                n
+              
+            
+          
+        
+      
+    
+    {\displaystyle x_{_{n}}}
+   is a periodic summation of the 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   sequence: 
+  
+    
+      
+        (
+        
+          x
+          
+            
+              
+              
+                n
+              
+            
+          
+        
+        
+          )
+          
+            n
+          
+        
+         
+        ≜
+        
+          ∑
+          
+            m
+            =
+            −
+            ∞
+          
+          
+            ∞
+          
+        
+        
+          x
+          
+            (
+            n
+            −
+            m
+            n
+            )
+          
+        
+        .
+      
+    
+    {\displaystyle (x_{_{n}})_{n}\ \triangleq \sum _{m=-\infty }^{\infty }x_{(n-mn)}.}
+  
+customarily, the dft and inverse dft summations are taken over the domain 
+  
+    
+      
+        [
+        0
+        ,
+        n
+        −
+        1
+        ]
+      
+    
+    {\displaystyle [0,n-1]}
+  . defining those dfts as 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   and 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+  , the result is:
+
+  
+    
+      
+        (
+        x
+        ∗
+        
+          y
+          
+            
+              
+              
+                n
+              
+            
+          
+        
+        
+          )
+          
+            n
+          
+        
+        ≜
+        
+          ∑
+          
+            ℓ
+            =
+            −
+            ∞
+          
+          
+            ∞
+          
+        
+        
+          x
+          
+            ℓ
+          
+        
+        ⋅
+        (
+        
+          y
+          
+            
+              
+              
+                n
+              
+            
+          
+        
+        
+          )
+          
+            n
+            −
+            ℓ
+          
+        
+        =
+        
+          
+            
+              
+                
+                  
+                    f
+                  
+                
+                
+                  −
+                  1
+                
+              
+              ⏟
+            
+          
+          
+            
+              d
+              f
+              
+                t
+                
+                  −
+                  1
+                
+              
+            
+          
+        
+        
+          
+            {
+            
+              x
+              ⋅
+              y
+            
+            }
+          
+          
+            n
+          
+        
+        .
+      
+    
+    {\displaystyle (x*y_{_{n}})_{n}\triangleq \sum _{\ell =-\infty }^{\infty }x_{\ell }\cdot (y_{_{n}})_{n-\ell }=\underbrace {{\mathcal {f}}^{-1}} _{\rm {dft^{-1}}}\left\{x\cdot y\right\}_{n}.}
+  in practice, the 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   sequence is usually length n or less, and 
+  
+    
+      
+        
+          y
+          
+            
+              
+              
+                n
+              
+            
+          
+        
+      
+    
+    {\displaystyle y_{_{n}}}
+   is a periodic extension of an n-length 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+  -sequence, which can also be expressed as a circular function:
+
+  
+    
+      
+        (
+        
+          y
+          
+            
+              
+              
+                n
+              
+            
+          
+        
+        
+          )
+          
+            n
+          
+        
+        =
+        
+          ∑
+          
+            p
+            =
+            −
+            ∞
+          
+          
+            ∞
+          
+        
+        
+          y
+          
+            (
+            n
+            −
+            p
+            n
+            )
+          
+        
+        =
+        
+          y
+          
+            (
+            n
+            mod
+            ⁡
+            n
+            )
+          
+        
+        ,
+        
+        n
+        ∈
+        
+          z
+        
+        .
+      
+    
+    {\displaystyle (y_{_{n}})_{n}=\sum _{p=-\infty }^{\infty }y_{(n-pn)}=y_{(n\operatorname {mod} n)},\quad n\in \mathbb {z} .}
+  then the convolution can be written as:
+
+which gives rise to the interpretation as a circular convolution of 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   and 
+  
+    
+      
+        y
+        .
+      
+    
+    {\displaystyle y.}
+   it is often used to efficiently compute their linear convolution. (see circular convolution, fast convolution algorithms, and overlap-save)
+similarly, the cross-correlation of 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   and 
+  
+    
+      
+        
+          y
+          
+            
+              
+              
+                n
+              
+            
+          
+        
+      
+    
+    {\displaystyle y_{_{n}}}
+   is given by:
+
+  
+    
+      
+        (
+        x
+        ⋆
+        
+          y
+          
+            
+              
+              
+                n
+              
+            
+          
+        
+        
+          )
+          
+            n
+          
+        
+        ≜
+        
+          ∑
+          
+            ℓ
+            =
+            −
+            ∞
+          
+          
+            ∞
+          
+        
+        
+          x
+          
+            ℓ
+          
+          
+            ∗
+          
+        
+        ⋅
+        (
+        
+          y
+          
+            
+              
+              
+                n
+              
+            
+          
+        
+        
+          )
+          
+            n
+            +
+            ℓ
+          
+        
+        =
+        
+          
+            
+              f
+            
+          
+          
+            −
+            1
+          
+        
+        
+          
+            {
+            
+              
+                x
+                
+                  ∗
+                
+              
+              ⋅
+              y
+            
+            }
+          
+          
+            n
+          
+        
+        .
+      
+    
+    {\displaystyle (x\star y_{_{n}})_{n}\triangleq \sum _{\ell =-\infty }^{\infty }x_{\ell }^{*}\cdot (y_{_{n}})_{n+\ell }={\mathcal {f}}^{-1}\left\{x^{*}\cdot y\right\}_{n}.}
+  
+
+
+=== convolution theorem duality ===
+it can also be shown that:
+
+  
+    
+      
+        
+          
+            f
+          
+        
+        
+          
+            {
+            
+              x
+              ⋅
+              y
+            
+            }
+          
+          
+            k
+          
+        
+         
+        ≜
+        
+          ∑
+          
+            n
+            =
+            0
+          
+          
+            n
+            −
+            1
+          
+        
+        
+          x
+          
+            n
+          
+        
+        ⋅
+        
+          y
+          
+            n
+          
+        
+        ⋅
+        
+          e
+          
+            −
+            i
+            
+              
+                
+                  2
+                  π
+                
+                n
+              
+            
+            k
+            n
+          
+        
+      
+    
+    {\displaystyle {\mathcal {f}}\left\{\mathbf {x\cdot y} \right\}_{k}\ \triangleq \sum _{n=0}^{n-1}x_{n}\cdot y_{n}\cdot e^{-i{\frac {2\pi }{n}}kn}}
+  
+
+  
+    
+      
+        =
+        
+          
+            1
+            n
+          
+        
+        (
+        
+          x
+          ∗
+          
+            y
+            
+              n
+            
+          
+        
+        
+          )
+          
+            k
+          
+        
+        ,
+      
+    
+    {\displaystyle ={\frac {1}{n}}(\mathbf {x*y_{n}} )_{k},}
+   which is the circular convolution of 
+  
+    
+      
+        
+          x
+        
+      
+    
+    {\displaystyle \mathbf {x} }
+   and 
+  
+    
+      
+        
+          y
+        
+      
+    
+    {\displaystyle \mathbf {y} }
+  .
+
+
+=== trigonometric interpolation polynomial ===
+the trigonometric interpolation polynomial
+
+  
+    
+      
+        p
+        (
+        t
+        )
+        =
+        
+          
+            {
+            
+              
+                
+                  
+                    
+                      1
+                      n
+                    
+                  
+                  
+                    [
+                    
+                      
+                        x
+                        
+                          0
+                        
+                      
+                      +
+                      
+                        x
+                        
+                          1
+                        
+                      
+                      
+                        e
+                        
+                          i
+                          2
+                          π
+                          t
+                        
+                      
+                      +
+                      ⋯
+                      +
+                      
+                        x
+                        
+                          n
+                          
+                            /
+                          
+                          2
+                          −
+                          1
+                        
+                      
+                      
+                        e
+                        
+                          i
+                          2
+                          π
+                          (
+                          n
+                          
+                            /
+                          
+                          2
+                          −
+                          1
+                          )
+                          t
+                        
+                      
+                      +
+                      
+                        x
+                        
+                          n
+                          
+                            /
+                          
+                          2
+                        
+                      
+                      cos
+                      ⁡
+                      (
+                      n
+                      π
+                      t
+                      )
+                      +
+                      
+                        x
+                        
+                          n
+                          
+                            /
+                          
+                          2
+                          +
+                          1
+                        
+                      
+                      
+                        e
+                        
+                          −
+                          i
+                          2
+                          π
+                          (
+                          n
+                          
+                            /
+                          
+                          2
+                          −
+                          1
+                          )
+                          t
+                        
+                      
+                      +
+                      ⋯
+                      +
+                      
+                        x
+                        
+                          n
+                          −
+                          1
+                        
+                      
+                      
+                        e
+                        
+                          −
+                          i
+                          2
+                          π
+                          t
+                        
+                      
+                    
+                    ]
+                  
+                
+                
+                  n
+                  
+                     even
+                  
+                
+              
+              
+                
+                  
+                    
+                      1
+                      n
+                    
+                  
+                  
+                    [
+                    
+                      
+                        x
+                        
+                          0
+                        
+                      
+                      +
+                      
+                        x
+                        
+                          1
+                        
+                      
+                      
+                        e
+                        
+                          i
+                          2
+                          π
+                          t
+                        
+                      
+                      +
+                      ⋯
+                      +
+                      
+                        x
+                        
+                          (
+                          n
+                          −
+                          1
+                          )
+                          
+                            /
+                          
+                          2
+                        
+                      
+                      
+                        e
+                        
+                          i
+                          π
+                          (
+                          n
+                          −
+                          1
+                          )
+                          t
+                        
+                      
+                      +
+                      
+                        x
+                        
+                          (
+                          n
+                          +
+                          1
+                          )
+                          
+                            /
+                          
+                          2
+                        
+                      
+                      
+                        e
+                        
+                          −
+                          i
+                          π
+                          (
+                          n
+                          −
+                          1
+                          )
+                          t
+                        
+                      
+                      +
+                      ⋯
+                      +
+                      
+                        x
+                        
+                          n
+                          −
+                          1
+                        
+                      
+                      
+                        e
+                        
+                          −
+                          i
+                          2
+                          π
+                          t
+                        
+                      
+                    
+                    ]
+                  
+                
+                
+                  n
+                  
+                     odd
+                  
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle p(t)={\begin{cases}{\frac {1}{n}}\left[x_{0}+x_{1}e^{i2\pi t}+\cdots +x_{n/2-1}e^{i2\pi (n/2-1)t}+x_{n/2}\cos(n\pi t)+x_{n/2+1}e^{-i2\pi (n/2-1)t}+\cdots +x_{n-1}e^{-i2\pi t}\right]&n{\text{ even}}\\{\frac {1}{n}}\left[x_{0}+x_{1}e^{i2\pi t}+\cdots +x_{(n-1)/2}e^{i\pi (n-1)t}+x_{(n+1)/2}e^{-i\pi (n-1)t}+\cdots +x_{n-1}e^{-i2\pi t}\right]&n{\text{ odd}}\end{cases}}}
+  where the coefficients xk are given by the dft of xn above, satisfies the interpolation property 
+  
+    
+      
+        p
+        (
+        n
+        
+          /
+        
+        n
+        )
+        =
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle p(n/n)=x_{n}}
+   for 
+  
+    
+      
+        n
+        =
+        0
+        ,
+        …
+        ,
+        n
+        −
+        1
+      
+    
+    {\displaystyle n=0,\ldots ,n-1}
+  .
+for even n, notice that the nyquist component 
+  
+    
+      
+        
+          
+            
+              x
+              
+                n
+                
+                  /
+                
+                2
+              
+            
+            n
+          
+        
+        cos
+        ⁡
+        (
+        n
+        π
+        t
+        )
+      
+    
+    {\textstyle {\frac {x_{n/2}}{n}}\cos(n\pi t)}
+   is handled specially.
+this interpolation is not unique: aliasing implies that one could add n to any of the complex-sinusoid frequencies (e.g. changing 
+  
+    
+      
+        
+          e
+          
+            −
+            i
+            t
+          
+        
+      
+    
+    {\displaystyle e^{-it}}
+   to 
+  
+    
+      
+        
+          e
+          
+            i
+            (
+            n
+            −
+            1
+            )
+            t
+          
+        
+      
+    
+    {\displaystyle e^{i(n-1)t}}
+  ) without changing the interpolation property, but giving different values in between the 
+  
+    
+      
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x_{n}}
+   points.  the choice above, however, is typical because it has two useful properties.  first, it consists of sinusoids whose frequencies have the smallest possible magnitudes: the interpolation is bandlimited. second, if the  
+  
+    
+      
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x_{n}}
+   are real numbers, then 
+  
+    
+      
+        p
+        (
+        t
+        )
+      
+    
+    {\displaystyle p(t)}
+   is real as well.
+in contrast, the most obvious trigonometric interpolation polynomial is the one in which the frequencies range from 0 to 
+  
+    
+      
+        n
+        −
+        1
+      
+    
+    {\displaystyle n-1}
+   (instead of roughly 
+  
+    
+      
+        −
+        n
+        
+          /
+        
+        2
+      
+    
+    {\displaystyle -n/2}
+   to 
+  
+    
+      
+        +
+        n
+        
+          /
+        
+        2
+      
+    
+    {\displaystyle +n/2}
+   as above), similar to the inverse dft formula. this interpolation does not minimize the slope, and is not generally real-valued for real 
+  
+    
+      
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x_{n}}
+  ; its use is a common mistake.
+
+
+=== the unitary dft ===
+another way of looking at the dft is to note that in the above discussion, the dft can be expressed as the dft matrix, a vandermonde matrix, 
+introduced by sylvester in 1867,
+
+  
+    
+      
+        
+          f
+        
+        =
+        
+          
+            [
+            
+              
+                
+                  
+                    ω
+                    
+                      n
+                    
+                    
+                      0
+                      ⋅
+                      0
+                    
+                  
+                
+                
+                  
+                    ω
+                    
+                      n
+                    
+                    
+                      0
+                      ⋅
+                      1
+                    
+                  
+                
+                
+                  ⋯
+                
+                
+                  
+                    ω
+                    
+                      n
+                    
+                    
+                      0
+                      ⋅
+                      (
+                      n
+                      −
+                      1
+                      )
+                    
+                  
+                
+              
+              
+                
+                  
+                    ω
+                    
+                      n
+                    
+                    
+                      1
+                      ⋅
+                      0
+                    
+                  
+                
+                
+                  
+                    ω
+                    
+                      n
+                    
+                    
+                      1
+                      ⋅
+                      1
+                    
+                  
+                
+                
+                  ⋯
+                
+                
+                  
+                    ω
+                    
+                      n
+                    
+                    
+                      1
+                      ⋅
+                      (
+                      n
+                      −
+                      1
+                      )
+                    
+                  
+                
+              
+              
+                
+                  ⋮
+                
+                
+                  ⋮
+                
+                
+                  ⋱
+                
+                
+                  ⋮
+                
+              
+              
+                
+                  
+                    ω
+                    
+                      n
+                    
+                    
+                      (
+                      n
+                      −
+                      1
+                      )
+                      ⋅
+                      0
+                    
+                  
+                
+                
+                  
+                    ω
+                    
+                      n
+                    
+                    
+                      (
+                      n
+                      −
+                      1
+                      )
+                      ⋅
+                      1
+                    
+                  
+                
+                
+                  ⋯
+                
+                
+                  
+                    ω
+                    
+                      n
+                    
+                    
+                      (
+                      n
+                      −
+                      1
+                      )
+                      ⋅
+                      (
+                      n
+                      −
+                      1
+                      )
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+      
+    
+    {\displaystyle \mathbf {f} ={\begin{bmatrix}\omega _{n}^{0\cdot 0}&\omega _{n}^{0\cdot 1}&\cdots &\omega _{n}^{0\cdot (n-1)}\\\omega _{n}^{1\cdot 0}&\omega _{n}^{1\cdot 1}&\cdots &\omega _{n}^{1\cdot (n-1)}\\\vdots &\vdots &\ddots &\vdots \\\omega _{n}^{(n-1)\cdot 0}&\omega _{n}^{(n-1)\cdot 1}&\cdots &\omega _{n}^{(n-1)\cdot (n-1)}\\\end{bmatrix}}}
+  where 
+  
+    
+      
+        
+          ω
+          
+            n
+          
+        
+        =
+        
+          e
+          
+            −
+            i
+            2
+            π
+            
+              /
+            
+            n
+          
+        
+      
+    
+    {\displaystyle \omega _{n}=e^{-i2\pi /n}}
+   is a primitive nth root of unity.
+the inverse transform is then given by the inverse of the above matrix,
+
+  
+    
+      
+        
+          
+            f
+          
+          
+            −
+            1
+          
+        
+        =
+        
+          
+            1
+            n
+          
+        
+        
+          
+            f
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle \mathbf {f} ^{-1}={\frac {1}{n}}\mathbf {f} ^{*}}
+  with unitary normalization constants 
+  
+    
+      
+        1
+        
+          /
+        
+        
+          
+            n
+          
+        
+      
+    
+    {\textstyle 1/{\sqrt {n}}}
+  , the dft becomes a unitary transformation, defined by a unitary matrix:
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  u
+                
+              
+              
+                
+                =
+                
+                  
+                    1
+                    
+                      n
+                    
+                  
+                
+                
+                  f
+                
+              
+            
+            
+              
+                
+                  
+                    u
+                  
+                  
+                    −
+                    1
+                  
+                
+              
+              
+                
+                =
+                
+                  
+                    u
+                  
+                  
+                    ∗
+                  
+                
+              
+            
+            
+              
+                
+                  |
+                  
+                    det
+                    (
+                    
+                      u
+                    
+                    )
+                  
+                  |
+                
+              
+              
+                
+                =
+                1
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}\mathbf {u} &={\frac {1}{\sqrt {n}}}\mathbf {f} \\\mathbf {u} ^{-1}&=\mathbf {u} ^{*}\\\left|\det(\mathbf {u} )\right|&=1\end{aligned}}}
+  where 
+  
+    
+      
+        det
+        (
+        )
+      
+    
+    {\displaystyle \det()}
+   is the determinant function. the determinant is the product of the eigenvalues, which are always 
+  
+    
+      
+        ±
+        1
+      
+    
+    {\displaystyle \pm 1}
+   or 
+  
+    
+      
+        ±
+        i
+      
+    
+    {\displaystyle \pm i}
+   as described below.  in a real vector space, a unitary transformation can be thought of as simply a rigid rotation of the coordinate system, and all of the properties of a rigid rotation can be found in the unitary dft.
+the orthogonality of the dft is now expressed as an orthonormality condition (which arises in many areas of mathematics as described in root of unity):
+
+  
+    
+      
+        
+          ∑
+          
+            m
+            =
+            0
+          
+          
+            n
+            −
+            1
+          
+        
+        
+          u
+          
+            k
+            m
+          
+        
+        
+          u
+          
+            m
+            n
+          
+          
+            ∗
+          
+        
+        =
+        
+          δ
+          
+            k
+            n
+          
+        
+      
+    
+    {\displaystyle \sum _{m=0}^{n-1}u_{km}u_{mn}^{*}=\delta _{kn}}
+  if x  is defined as the unitary dft of the vector x, then
+
+  
+    
+      
+        
+          x
+          
+            k
+          
+        
+        =
+        
+          ∑
+          
+            n
+            =
+            0
+          
+          
+            n
+            −
+            1
+          
+        
+        
+          u
+          
+            k
+            n
+          
+        
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x_{k}=\sum _{n=0}^{n-1}u_{kn}x_{n}}
+  and the parseval's theorem is expressed as
+
+  
+    
+      
+        
+          ∑
+          
+            n
+            =
+            0
+          
+          
+            n
+            −
+            1
+          
+        
+        
+          x
+          
+            n
+          
+        
+        
+          y
+          
+            n
+          
+          
+            ∗
+          
+        
+        =
+        
+          ∑
+          
+            k
+            =
+            0
+          
+          
+            n
+            −
+            1
+          
+        
+        
+          x
+          
+            k
+          
+        
+        
+          y
+          
+            k
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle \sum _{n=0}^{n-1}x_{n}y_{n}^{*}=\sum _{k=0}^{n-1}x_{k}y_{k}^{*}}
+  if we view the dft as just a coordinate transformation which simply specifies the components of a vector in a new coordinate system, then the above is just the statement that the dot product of two vectors is preserved under a unitary dft transformation. for the special case 
+  
+    
+      
+        
+          x
+        
+        =
+        
+          y
+        
+      
+    
+    {\displaystyle \mathbf {x} =\mathbf {y} }
+  , this implies that the length of a vector is preserved as well — this is just plancherel theorem,
+
+  
+    
+      
+        
+          ∑
+          
+            n
+            =
+            0
+          
+          
+            n
+            −
+            1
+          
+        
+        
+          |
+        
+        
+          x
+          
+            n
+          
+        
+        
+          
+            |
+          
+          
+            2
+          
+        
+        =
+        
+          ∑
+          
+            k
+            =
+            0
+          
+          
+            n
+            −
+            1
+          
+        
+        
+          |
+        
+        
+          x
+          
+            k
+          
+        
+        
+          
+            |
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \sum _{n=0}^{n-1}|x_{n}|^{2}=\sum _{k=0}^{n-1}|x_{k}|^{2}}
+  a consequence of the circular convolution theorem is that the dft matrix f diagonalizes any circulant matrix.
+
+
+=== expressing the inverse dft in terms of the dft ===
+a useful property of the dft is that the inverse dft can be easily expressed in terms of the (forward) dft, via several well-known "tricks".  (for example, in computations, it is often convenient to only implement a fast fourier transform corresponding to one transform direction and then to get the other transform direction from the first.)
+first, we can compute the inverse dft by reversing all but one of the inputs (duhamel et al., 1988):
+
+  
+    
+      
+        
+          
+            
+              f
+            
+          
+          
+            −
+            1
+          
+        
+        (
+        {
+        
+          x
+          
+            n
+          
+        
+        }
+        )
+        =
+        
+          
+            1
+            n
+          
+        
+        
+          
+            f
+          
+        
+        (
+        {
+        
+          x
+          
+            n
+            −
+            n
+          
+        
+        }
+        )
+      
+    
+    {\displaystyle {\mathcal {f}}^{-1}(\{x_{n}\})={\frac {1}{n}}{\mathcal {f}}(\{x_{n-n}\})}
+  (as usual, the subscripts are interpreted modulo n; thus, for 
+  
+    
+      
+        n
+        =
+        0
+      
+    
+    {\displaystyle n=0}
+  , we have 
+  
+    
+      
+        
+          x
+          
+            n
+            −
+            0
+          
+        
+        =
+        
+          x
+          
+            0
+          
+        
+      
+    
+    {\displaystyle x_{n-0}=x_{0}}
+  .)
+second, one can also conjugate the inputs and outputs:
+
+  
+    
+      
+        
+          
+            
+              f
+            
+          
+          
+            −
+            1
+          
+        
+        (
+        
+          x
+        
+        )
+        =
+        
+          
+            1
+            n
+          
+        
+        
+          
+            f
+          
+        
+        
+          
+            (
+            
+              
+                x
+              
+              
+                ∗
+              
+            
+            )
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle {\mathcal {f}}^{-1}(\mathbf {x} )={\frac {1}{n}}{\mathcal {f}}\left(\mathbf {x} ^{*}\right)^{*}}
+  third, a variant of this conjugation trick, which is sometimes preferable because it requires no modification of the data values, involves swapping real and imaginary parts (which can be done on a computer simply by modifying pointers). define 
+  
+    
+      
+        swap
+        ⁡
+        (
+        
+          x
+          
+            n
+          
+        
+        )
+      
+    
+    {\textstyle \operatorname {swap} (x_{n})}
+   as 
+  
+    
+      
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x_{n}}
+   with its real and imaginary parts swapped—that is, if 
+  
+    
+      
+        
+          x
+          
+            n
+          
+        
+        =
+        a
+        +
+        b
+        i
+      
+    
+    {\displaystyle x_{n}=a+bi}
+   then 
+  
+    
+      
+        swap
+        ⁡
+        (
+        
+          x
+          
+            n
+          
+        
+        )
+      
+    
+    {\textstyle \operatorname {swap} (x_{n})}
+   is 
+  
+    
+      
+        b
+        +
+        a
+        i
+      
+    
+    {\displaystyle b+ai}
+  .  equivalently, 
+  
+    
+      
+        swap
+        ⁡
+        (
+        
+          x
+          
+            n
+          
+        
+        )
+      
+    
+    {\textstyle \operatorname {swap} (x_{n})}
+   equals 
+  
+    
+      
+        i
+        
+          x
+          
+            n
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle ix_{n}^{*}}
+  .  then
+
+  
+    
+      
+        
+          
+            
+              f
+            
+          
+          
+            −
+            1
+          
+        
+        (
+        
+          x
+        
+        )
+        =
+        
+          
+            1
+            n
+          
+        
+        swap
+        ⁡
+        (
+        
+          
+            f
+          
+        
+        (
+        swap
+        ⁡
+        (
+        
+          x
+        
+        )
+        )
+        )
+      
+    
+    {\displaystyle {\mathcal {f}}^{-1}(\mathbf {x} )={\frac {1}{n}}\operatorname {swap} ({\mathcal {f}}(\operatorname {swap} (\mathbf {x} )))}
+  that is, the inverse transform is the same as the forward transform with the real and imaginary parts swapped for both input and output, up to a normalization (duhamel et al., 1988).
+the conjugation trick can also be used to define a new transform, closely related to the dft, that is involutory—that is, which is its own inverse.  in particular, 
+  
+    
+      
+        t
+        (
+        
+          x
+        
+        )
+        =
+        
+          
+            f
+          
+        
+        
+          (
+          
+            
+              x
+            
+            
+              ∗
+            
+          
+          )
+        
+        
+          /
+        
+        
+          
+            n
+          
+        
+      
+    
+    {\displaystyle t(\mathbf {x} )={\mathcal {f}}\left(\mathbf {x} ^{*}\right)/{\sqrt {n}}}
+   is clearly its own inverse: 
+  
+    
+      
+        t
+        (
+        t
+        (
+        
+          x
+        
+        )
+        )
+        =
+        
+          x
+        
+      
+    
+    {\displaystyle t(t(\mathbf {x} ))=\mathbf {x} }
+  .  a closely related involutory transformation (by a factor of 
+  
+    
+      
+        
+          
+            
+              1
+              +
+              i
+            
+            
+              2
+            
+          
+        
+      
+    
+    {\textstyle {\frac {1+i}{\sqrt {2}}}}
+  ) is 
+  
+    
+      
+        h
+        (
+        
+          x
+        
+        )
+        =
+        
+          
+            f
+          
+        
+        
+          (
+          
+            (
+            1
+            +
+            i
+            )
+            
+              
+                x
+              
+              
+                ∗
+              
+            
+          
+          )
+        
+        
+          /
+        
+        
+          
+            2
+            n
+          
+        
+      
+    
+    {\displaystyle h(\mathbf {x} )={\mathcal {f}}\left((1+i)\mathbf {x} ^{*}\right)/{\sqrt {2n}}}
+  , since the 
+  
+    
+      
+        (
+        1
+        +
+        i
+        )
+      
+    
+    {\displaystyle (1+i)}
+   factors in 
+  
+    
+      
+        h
+        (
+        h
+        (
+        
+          x
+        
+        )
+        )
+      
+    
+    {\displaystyle h(h(\mathbf {x} ))}
+   cancel the 2.  for real inputs 
+  
+    
+      
+        
+          x
+        
+      
+    
+    {\displaystyle \mathbf {x} }
+  , the real part of 
+  
+    
+      
+        h
+        (
+        
+          x
+        
+        )
+      
+    
+    {\displaystyle h(\mathbf {x} )}
+   is none other than the discrete hartley transform, which is also involutory.
+
+
+=== eigenvalues and eigenvectors ===
+the eigenvalues of the dft matrix are simple and well-known, whereas the eigenvectors are complicated, not unique, and are the subject of ongoing research.
+consider the unitary form 
+  
+    
+      
+        
+          u
+        
+      
+    
+    {\displaystyle \mathbf {u} }
+   defined above for the dft of length n, where
+
+  
+    
+      
+        
+          
+            u
+          
+          
+            m
+            ,
+            n
+          
+        
+        =
+        
+          
+            1
+            
+              n
+            
+          
+        
+        
+          ω
+          
+            n
+          
+          
+            (
+            m
+            −
+            1
+            )
+            (
+            n
+            −
+            1
+            )
+          
+        
+        =
+        
+          
+            1
+            
+              n
+            
+          
+        
+        
+          e
+          
+            −
+            
+              
+                
+                  i
+                  2
+                  π
+                
+                n
+              
+            
+            (
+            m
+            −
+            1
+            )
+            (
+            n
+            −
+            1
+            )
+          
+        
+        .
+      
+    
+    {\displaystyle \mathbf {u} _{m,n}={\frac {1}{\sqrt {n}}}\omega _{n}^{(m-1)(n-1)}={\frac {1}{\sqrt {n}}}e^{-{\frac {i2\pi }{n}}(m-1)(n-1)}.}
+  this matrix satisfies the matrix polynomial equation:
+
+  
+    
+      
+        
+          
+            u
+          
+          
+            4
+          
+        
+        =
+        
+          i
+        
+        .
+      
+    
+    {\displaystyle \mathbf {u} ^{4}=\mathbf {i} .}
+  this can be seen from the inverse properties above: operating 
+  
+    
+      
+        
+          u
+        
+      
+    
+    {\displaystyle \mathbf {u} }
+   twice gives the original data in reverse order, so operating 
+  
+    
+      
+        
+          u
+        
+      
+    
+    {\displaystyle \mathbf {u} }
+   four times gives back the original data and is thus the identity matrix.  this means that the eigenvalues 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+   satisfy the equation:
+
+  
+    
+      
+        
+          λ
+          
+            4
+          
+        
+        =
+        1.
+      
+    
+    {\displaystyle \lambda ^{4}=1.}
+  therefore, the eigenvalues of 
+  
+    
+      
+        
+          u
+        
+      
+    
+    {\displaystyle \mathbf {u} }
+   are the fourth roots of unity: 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+   is +1, −1, +i,  or −i.
+since there are only four distinct eigenvalues for this 
+  
+    
+      
+        n
+        ×
+        n
+      
+    
+    {\displaystyle n\times n}
+   matrix, they have some multiplicity.  the multiplicity gives the number of linearly independent eigenvectors corresponding to each eigenvalue.  (there are n independent eigenvectors; a unitary matrix is never defective.)
+the problem of their multiplicity was solved by mcclellan and parks (1972), although it was later shown to have been equivalent to a problem solved by gauss (dickinson and steiglitz, 1982).  the multiplicity depends on the value of n modulo 4, and is given by the following table:
+
+otherwise stated, the characteristic polynomial of 
+  
+    
+      
+        
+          u
+        
+      
+    
+    {\displaystyle \mathbf {u} }
+   is:
+
+  
+    
+      
+        det
+        (
+        λ
+        i
+        −
+        
+          u
+        
+        )
+        =
+        (
+        λ
+        −
+        1
+        
+          )
+          
+            
+              ⌊
+              
+                
+                  
+                    
+                      n
+                      +
+                      4
+                    
+                    4
+                  
+                
+              
+              ⌋
+            
+          
+        
+        (
+        λ
+        +
+        1
+        
+          )
+          
+            
+              ⌊
+              
+                
+                  
+                    
+                      n
+                      +
+                      2
+                    
+                    4
+                  
+                
+              
+              ⌋
+            
+          
+        
+        (
+        λ
+        +
+        i
+        
+          )
+          
+            
+              ⌊
+              
+                
+                  
+                    
+                      n
+                      +
+                      1
+                    
+                    4
+                  
+                
+              
+              ⌋
+            
+          
+        
+        (
+        λ
+        −
+        i
+        
+          )
+          
+            
+              ⌊
+              
+                
+                  
+                    
+                      n
+                      −
+                      1
+                    
+                    4
+                  
+                
+              
+              ⌋
+            
+          
+        
+        .
+      
+    
+    {\displaystyle \det(\lambda i-\mathbf {u} )=(\lambda -1)^{\left\lfloor {\tfrac {n+4}{4}}\right\rfloor }(\lambda +1)^{\left\lfloor {\tfrac {n+2}{4}}\right\rfloor }(\lambda +i)^{\left\lfloor {\tfrac {n+1}{4}}\right\rfloor }(\lambda -i)^{\left\lfloor {\tfrac {n-1}{4}}\right\rfloor }.}
+  no simple analytical formula for general eigenvectors is known.   moreover, the eigenvectors are not unique because any linear combination of eigenvectors for the same eigenvalue is also an eigenvector for that eigenvalue.  various researchers have proposed different choices of eigenvectors, selected to satisfy useful properties like orthogonality and to have "simple" forms (e.g., mcclellan and parks, 1972; dickinson and steiglitz, 1982; grünbaum, 1982; atakishiyev and wolf, 1997; candan et al., 2000; hanna et al., 2004; gurevich and hadani, 2008).
+a straightforward approach is to discretize an eigenfunction of the continuous fourier transform,
+of which the most famous is the gaussian function.
+since periodic summation of the function means discretizing its frequency spectrum
+and discretization means periodic summation of the spectrum,
+the discretized and periodically summed gaussian function yields an eigenvector of the discrete transform:
+
+  
+    
+      
+        f
+        (
+        m
+        )
+        =
+        
+          ∑
+          
+            k
+            ∈
+            
+              z
+            
+          
+        
+        exp
+        ⁡
+        
+          (
+          
+            −
+            
+              
+                
+                  π
+                  ⋅
+                  (
+                  m
+                  +
+                  n
+                  ⋅
+                  k
+                  
+                    )
+                    
+                      2
+                    
+                  
+                
+                n
+              
+            
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle f(m)=\sum _{k\in \mathbb {z} }\exp \left(-{\frac {\pi \cdot (m+n\cdot k)^{2}}{n}}\right).}
+  the closed form expression for the series can be expressed by jacobi theta functions as
+
+  
+    
+      
+        f
+        (
+        m
+        )
+        =
+        
+          
+            1
+            
+              n
+            
+          
+        
+        
+          ϑ
+          
+            3
+          
+        
+        
+          (
+          
+            
+              
+                
+                  π
+                  m
+                
+                n
+              
+            
+            ,
+            exp
+            ⁡
+            
+              (
+              
+                −
+                
+                  
+                    π
+                    n
+                  
+                
+              
+              )
+            
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle f(m)={\frac {1}{\sqrt {n}}}\vartheta _{3}\left({\frac {\pi m}{n}},\exp \left(-{\frac {\pi }{n}}\right)\right).}
+  two other simple closed-form analytical eigenvectors for special dft period n were found (kong, 2008):
+for dft period n = 2l + 1 = 4k + 1, where k is an integer, the following is an eigenvector of dft:
+
+  
+    
+      
+        f
+        (
+        m
+        )
+        =
+        
+          ∏
+          
+            s
+            =
+            k
+            +
+            1
+          
+          
+            l
+          
+        
+        
+          [
+          
+            cos
+            ⁡
+            
+              (
+              
+                
+                  
+                    
+                      2
+                      π
+                    
+                    n
+                  
+                
+                m
+              
+              )
+            
+            −
+            cos
+            ⁡
+            
+              (
+              
+                
+                  
+                    
+                      2
+                      π
+                    
+                    n
+                  
+                
+                s
+              
+              )
+            
+          
+          ]
+        
+      
+    
+    {\displaystyle f(m)=\prod _{s=k+1}^{l}\left[\cos \left({\frac {2\pi }{n}}m\right)-\cos \left({\frac {2\pi }{n}}s\right)\right]}
+  for dft period n = 2l = 4k, where k is an integer, the following is an eigenvector of dft:
+
+  
+    
+      
+        f
+        (
+        m
+        )
+        =
+        sin
+        ⁡
+        
+          (
+          
+            
+              
+                
+                  2
+                  π
+                
+                n
+              
+            
+            m
+          
+          )
+        
+        
+          ∏
+          
+            s
+            =
+            k
+            +
+            1
+          
+          
+            l
+            −
+            1
+          
+        
+        
+          [
+          
+            cos
+            ⁡
+            
+              (
+              
+                
+                  
+                    
+                      2
+                      π
+                    
+                    n
+                  
+                
+                m
+              
+              )
+            
+            −
+            cos
+            ⁡
+            
+              (
+              
+                
+                  
+                    
+                      2
+                      π
+                    
+                    n
+                  
+                
+                s
+              
+              )
+            
+          
+          ]
+        
+      
+    
+    {\displaystyle f(m)=\sin \left({\frac {2\pi }{n}}m\right)\prod _{s=k+1}^{l-1}\left[\cos \left({\frac {2\pi }{n}}m\right)-\cos \left({\frac {2\pi }{n}}s\right)\right]}
+  the choice of eigenvectors of the dft matrix has become important in recent years in order to define a discrete analogue of the fractional fourier transform—the dft matrix can be taken to fractional powers by exponentiating the eigenvalues (e.g., rubio and santhanam, 2005).  for the continuous fourier transform, the natural orthogonal eigenfunctions are the hermite functions, so various discrete analogues of these have been employed as the eigenvectors of the dft, such as the kravchuk polynomials (atakishiyev and wolf, 1997).  the "best" choice of eigenvectors to define a fractional discrete fourier transform remains an open question, however.
+
+
+=== uncertainty principles ===
+
+
+==== probabilistic uncertainty principle ====
+if the random variable xk is constrained by
+
+  
+    
+      
+        
+          ∑
+          
+            n
+            =
+            0
+          
+          
+            n
+            −
+            1
+          
+        
+        
+          |
+        
+        
+          x
+          
+            n
+          
+        
+        
+          
+            |
+          
+          
+            2
+          
+        
+        =
+        1
+        ,
+      
+    
+    {\displaystyle \sum _{n=0}^{n-1}|x_{n}|^{2}=1,}
+  then 
+
+  
+    
+      
+        
+          p
+          
+            n
+          
+        
+        =
+        
+          |
+        
+        
+          x
+          
+            n
+          
+        
+        
+          
+            |
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle p_{n}=|x_{n}|^{2}}
+  may be considered to represent a discrete probability mass function of n, with an associated probability mass function constructed from the transformed variable,
+
+  
+    
+      
+        
+          q
+          
+            m
+          
+        
+        =
+        n
+        
+          |
+        
+        
+          x
+          
+            m
+          
+        
+        
+          
+            |
+          
+          
+            2
+          
+        
+        .
+      
+    
+    {\displaystyle q_{m}=n|x_{m}|^{2}.}
+  for the case of continuous functions 
+  
+    
+      
+        p
+        (
+        x
+        )
+      
+    
+    {\displaystyle p(x)}
+   and 
+  
+    
+      
+        q
+        (
+        k
+        )
+      
+    
+    {\displaystyle q(k)}
+  , the heisenberg uncertainty principle states that
+
+  
+    
+      
+        
+          d
+          
+            0
+          
+        
+        (
+        x
+        )
+        
+          d
+          
+            0
+          
+        
+        (
+        x
+        )
+        ≥
+        
+          
+            1
+            
+              16
+              
+                π
+                
+                  2
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle d_{0}(x)d_{0}(x)\geq {\frac {1}{16\pi ^{2}}}}
+  where 
+  
+    
+      
+        
+          d
+          
+            0
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle d_{0}(x)}
+   and 
+  
+    
+      
+        
+          d
+          
+            0
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle d_{0}(x)}
+   are the variances of 
+  
+    
+      
+        
+          |
+        
+        x
+        
+          
+            |
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle |x|^{2}}
+   and 
+  
+    
+      
+        
+          |
+        
+        x
+        
+          
+            |
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle |x|^{2}}
+   respectively, with the equality attained in the case of a suitably normalized gaussian distribution. although the variances may be analogously defined for the dft, an analogous uncertainty principle is not useful, because the uncertainty will not be shift-invariant. still, a meaningful uncertainty principle has been introduced by massar and spindel.however, the hirschman entropic uncertainty will have a useful analog for the case of the dft. the hirschman uncertainty principle is expressed in terms of the shannon entropy of the two probability functions.
+in the discrete case, the shannon entropies are defined as
+
+  
+    
+      
+        h
+        (
+        x
+        )
+        =
+        −
+        
+          ∑
+          
+            n
+            =
+            0
+          
+          
+            n
+            −
+            1
+          
+        
+        
+          p
+          
+            n
+          
+        
+        ln
+        ⁡
+        
+          p
+          
+            n
+          
+        
+      
+    
+    {\displaystyle h(x)=-\sum _{n=0}^{n-1}p_{n}\ln p_{n}}
+  and
+
+  
+    
+      
+        h
+        (
+        x
+        )
+        =
+        −
+        
+          ∑
+          
+            m
+            =
+            0
+          
+          
+            n
+            −
+            1
+          
+        
+        
+          q
+          
+            m
+          
+        
+        ln
+        ⁡
+        
+          q
+          
+            m
+          
+        
+        ,
+      
+    
+    {\displaystyle h(x)=-\sum _{m=0}^{n-1}q_{m}\ln q_{m},}
+  and the entropic uncertainty principle becomes
+
+  
+    
+      
+        h
+        (
+        x
+        )
+        +
+        h
+        (
+        x
+        )
+        ≥
+        ln
+        ⁡
+        (
+        n
+        )
+        .
+      
+    
+    {\displaystyle h(x)+h(x)\geq \ln(n).}
+  the equality is obtained for 
+  
+    
+      
+        
+          p
+          
+            n
+          
+        
+      
+    
+    {\displaystyle p_{n}}
+   equal to translations and modulations of a suitably normalized kronecker comb of period 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   where 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   is any exact integer divisor of 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  . the probability mass function 
+  
+    
+      
+        
+          q
+          
+            m
+          
+        
+      
+    
+    {\displaystyle q_{m}}
+   will then be proportional to a suitably translated kronecker comb of period 
+  
+    
+      
+        b
+        =
+        n
+        
+          /
+        
+        a
+      
+    
+    {\displaystyle b=n/a}
+  .
+
+
+==== deterministic uncertainty principle ====
+there is also a well-known deterministic uncertainty principle that uses signal sparsity (or the number of non-zero coefficients). let 
+  
+    
+      
+        
+          
+            ‖
+            x
+            ‖
+          
+          
+            0
+          
+        
+      
+    
+    {\displaystyle \left\|x\right\|_{0}}
+   and 
+  
+    
+      
+        
+          
+            ‖
+            x
+            ‖
+          
+          
+            0
+          
+        
+      
+    
+    {\displaystyle \left\|x\right\|_{0}}
+   be the number of non-zero elements of the time and frequency sequences 
+  
+    
+      
+        
+          x
+          
+            0
+          
+        
+        ,
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle x_{0},x_{1},\ldots ,x_{n-1}}
+   and 
+  
+    
+      
+        
+          x
+          
+            0
+          
+        
+        ,
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle x_{0},x_{1},\ldots ,x_{n-1}}
+  , respectively. then, 
+
+  
+    
+      
+        n
+        ≤
+        
+          
+            ‖
+            x
+            ‖
+          
+          
+            0
+          
+        
+        ⋅
+        
+          
+            ‖
+            x
+            ‖
+          
+          
+            0
+          
+        
+        .
+      
+    
+    {\displaystyle n\leq \left\|x\right\|_{0}\cdot \left\|x\right\|_{0}.}
+  as an immediate consequence of the inequality of arithmetic and geometric means, one also has 
+  
+    
+      
+        2
+        
+          
+            n
+          
+        
+        ≤
+        
+          
+            ‖
+            x
+            ‖
+          
+          
+            0
+          
+        
+        +
+        
+          
+            ‖
+            x
+            ‖
+          
+          
+            0
+          
+        
+      
+    
+    {\displaystyle 2{\sqrt {n}}\leq \left\|x\right\|_{0}+\left\|x\right\|_{0}}
+  . both uncertainty principles were shown to be tight for specifically-chosen "picket-fence" sequences (discrete impulse trains), and find practical use for signal recovery applications.
+
+
+=== dft of real and purely imaginary signals ===
+if 
+  
+    
+      
+        
+          x
+          
+            0
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle x_{0},\ldots ,x_{n-1}}
+   are real numbers, as they often are in practical applications, then the dft 
+  
+    
+      
+        
+          x
+          
+            0
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle x_{0},\ldots ,x_{n-1}}
+   is even symmetric:
+  
+    
+      
+        
+          x
+          
+            n
+          
+        
+        ∈
+        
+          r
+        
+        
+        ∀
+        n
+        ∈
+        {
+        0
+        ,
+        …
+        ,
+        n
+        −
+        1
+        }
+        
+        ⟹
+        
+        
+          x
+          
+            k
+          
+        
+        =
+        
+          x
+          
+            −
+            k
+            
+            mod
+            
+            
+            n
+          
+          
+            ∗
+          
+        
+        
+        ∀
+        k
+        ∈
+        {
+        0
+        ,
+        …
+        ,
+        n
+        −
+        1
+        }
+      
+    
+    {\displaystyle x_{n}\in \mathbb {r} \quad \forall n\in \{0,\ldots ,n-1\}\implies x_{k}=x_{-k\mod n}^{*}\quad \forall k\in \{0,\ldots ,n-1\}}
+  , where 
+  
+    
+      
+        
+          x
+          
+            ∗
+          
+        
+        
+      
+    
+    {\displaystyle x^{*}\,}
+   denotes complex conjugation.it follows that for even 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   
+  
+    
+      
+        
+          x
+          
+            0
+          
+        
+      
+    
+    {\displaystyle x_{0}}
+   and 
+  
+    
+      
+        
+          x
+          
+            n
+            
+              /
+            
+            2
+          
+        
+      
+    
+    {\displaystyle x_{n/2}}
+   are real-valued, and the remainder of the dft is completely specified by just 
+  
+    
+      
+        n
+        
+          /
+        
+        2
+        −
+        1
+      
+    
+    {\displaystyle n/2-1}
+   complex numbers.
+
+if 
+  
+    
+      
+        
+          x
+          
+            0
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle x_{0},\ldots ,x_{n-1}}
+   are purely imaginary numbers, then the dft 
+  
+    
+      
+        
+          x
+          
+            0
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle x_{0},\ldots ,x_{n-1}}
+   is odd symmetric:
+  
+    
+      
+        
+          x
+          
+            n
+          
+        
+        ∈
+        i
+        
+          r
+        
+        
+        ∀
+        n
+        ∈
+        {
+        0
+        ,
+        …
+        ,
+        n
+        −
+        1
+        }
+        
+        ⟹
+        
+        
+          x
+          
+            k
+          
+        
+        =
+        −
+        
+          x
+          
+            −
+            k
+            
+            mod
+            
+            
+            n
+          
+          
+            ∗
+          
+        
+        
+        ∀
+        k
+        ∈
+        {
+        0
+        ,
+        …
+        ,
+        n
+        −
+        1
+        }
+      
+    
+    {\displaystyle x_{n}\in i\mathbb {r} \quad \forall n\in \{0,\ldots ,n-1\}\implies x_{k}=-x_{-k\mod n}^{*}\quad \forall k\in \{0,\ldots ,n-1\}}
+  , where 
+  
+    
+      
+        
+          x
+          
+            ∗
+          
+        
+        
+      
+    
+    {\displaystyle x^{*}\,}
+   denotes complex conjugation.
+
+
+== generalized dft (shifted and non-linear phase) ==
+it is possible to shift the transform sampling in time and/or frequency domain by some real shifts a and b, respectively. this is sometimes known as a generalized dft (or gdft), also called the shifted dft or offset dft, and has analogous properties to the ordinary dft:
+
+  
+    
+      
+        
+          x
+          
+            k
+          
+        
+        =
+        
+          ∑
+          
+            n
+            =
+            0
+          
+          
+            n
+            −
+            1
+          
+        
+        
+          x
+          
+            n
+          
+        
+        
+          e
+          
+            −
+            
+              
+                
+                  i
+                  2
+                  π
+                
+                n
+              
+            
+            (
+            k
+            +
+            b
+            )
+            (
+            n
+            +
+            a
+            )
+          
+        
+        
+        
+        k
+        =
+        0
+        ,
+        …
+        ,
+        n
+        −
+        1.
+      
+    
+    {\displaystyle x_{k}=\sum _{n=0}^{n-1}x_{n}e^{-{\frac {i2\pi }{n}}(k+b)(n+a)}\quad \quad k=0,\dots ,n-1.}
+  most often, shifts of 
+  
+    
+      
+        1
+        
+          /
+        
+        2
+      
+    
+    {\displaystyle 1/2}
+   (half a sample) are used.
+while the ordinary dft corresponds to a periodic signal in both time and frequency domains, 
+  
+    
+      
+        a
+        =
+        1
+        
+          /
+        
+        2
+      
+    
+    {\displaystyle a=1/2}
+   produces a signal that is anti-periodic in frequency domain (
+  
+    
+      
+        
+          x
+          
+            k
+            +
+            n
+          
+        
+        =
+        −
+        
+          x
+          
+            k
+          
+        
+      
+    
+    {\displaystyle x_{k+n}=-x_{k}}
+  ) and vice versa for 
+  
+    
+      
+        b
+        =
+        1
+        
+          /
+        
+        2
+      
+    
+    {\displaystyle b=1/2}
+  .
+thus, the specific case of 
+  
+    
+      
+        a
+        =
+        b
+        =
+        1
+        
+          /
+        
+        2
+      
+    
+    {\displaystyle a=b=1/2}
+   is known as an odd-time odd-frequency discrete fourier transform (or o2 dft).
+such shifted transforms are most often used for symmetric data, to represent different boundary symmetries, and for real-symmetric data they correspond to different forms of the discrete cosine and sine transforms.
+another interesting choice is 
+  
+    
+      
+        a
+        =
+        b
+        =
+        −
+        (
+        n
+        −
+        1
+        )
+        
+          /
+        
+        2
+      
+    
+    {\displaystyle a=b=-(n-1)/2}
+  , which is called the centered dft (or cdft).  the centered dft has the useful property that, when n is a multiple of four, all four of its eigenvalues (see above) have equal multiplicities (rubio and santhanam, 2005)the term gdft is also used for the non-linear phase extensions of dft. hence, gdft method provides a generalization for constant amplitude orthogonal block transforms including linear and non-linear phase types. gdft is a framework 
+to improve time and frequency domain properties of the traditional dft, e.g. auto/cross-correlations, by the addition of the properly designed phase shaping function (non-linear, in general) to the original linear phase functions (akansu and agirman-tosun, 2010).the discrete fourier transform can be viewed as a special case of the z-transform, evaluated on the unit circle in the complex plane; more general z-transforms correspond to complex shifts a and b above.
+
+
+== multidimensional dft ==
+the ordinary dft transforms a one-dimensional sequence or array 
+  
+    
+      
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x_{n}}
+   that is a function of exactly one discrete variable n.  the multidimensional dft of a multidimensional array 
+  
+    
+      
+        
+          x
+          
+            
+              n
+              
+                1
+              
+            
+            ,
+            
+              n
+              
+                2
+              
+            
+            ,
+            …
+            ,
+            
+              n
+              
+                d
+              
+            
+          
+        
+      
+    
+    {\displaystyle x_{n_{1},n_{2},\dots ,n_{d}}}
+   that is a function of d discrete variables 
+  
+    
+      
+        
+          n
+          
+            ℓ
+          
+        
+        =
+        0
+        ,
+        1
+        ,
+        …
+        ,
+        
+          n
+          
+            ℓ
+          
+        
+        −
+        1
+      
+    
+    {\displaystyle n_{\ell }=0,1,\dots ,n_{\ell }-1}
+   for 
+  
+    
+      
+        ℓ
+      
+    
+    {\displaystyle \ell }
+   in 
+  
+    
+      
+        1
+        ,
+        2
+        ,
+        …
+        ,
+        d
+      
+    
+    {\displaystyle 1,2,\dots ,d}
+   is defined by:
+
+  
+    
+      
+        
+          x
+          
+            
+              k
+              
+                1
+              
+            
+            ,
+            
+              k
+              
+                2
+              
+            
+            ,
+            …
+            ,
+            
+              k
+              
+                d
+              
+            
+          
+        
+        =
+        
+          ∑
+          
+            
+              n
+              
+                1
+              
+            
+            =
+            0
+          
+          
+            
+              n
+              
+                1
+              
+            
+            −
+            1
+          
+        
+        
+          (
+          
+            
+              ω
+              
+                
+                  n
+                  
+                    1
+                  
+                
+              
+              
+                 
+                
+                  k
+                  
+                    1
+                  
+                
+                
+                  n
+                  
+                    1
+                  
+                
+              
+            
+            
+              ∑
+              
+                
+                  n
+                  
+                    2
+                  
+                
+                =
+                0
+              
+              
+                
+                  n
+                  
+                    2
+                  
+                
+                −
+                1
+              
+            
+            
+              (
+              
+                
+                  ω
+                  
+                    
+                      n
+                      
+                        2
+                      
+                    
+                  
+                  
+                     
+                    
+                      k
+                      
+                        2
+                      
+                    
+                    
+                      n
+                      
+                        2
+                      
+                    
+                  
+                
+                ⋯
+                
+                  ∑
+                  
+                    
+                      n
+                      
+                        d
+                      
+                    
+                    =
+                    0
+                  
+                  
+                    
+                      n
+                      
+                        d
+                      
+                    
+                    −
+                    1
+                  
+                
+                
+                  ω
+                  
+                    
+                      n
+                      
+                        d
+                      
+                    
+                  
+                  
+                     
+                    
+                      k
+                      
+                        d
+                      
+                    
+                    
+                      n
+                      
+                        d
+                      
+                    
+                  
+                
+                ⋅
+                
+                  x
+                  
+                    
+                      n
+                      
+                        1
+                      
+                    
+                    ,
+                    
+                      n
+                      
+                        2
+                      
+                    
+                    ,
+                    …
+                    ,
+                    
+                      n
+                      
+                        d
+                      
+                    
+                  
+                
+              
+              )
+            
+          
+          )
+        
+        ,
+      
+    
+    {\displaystyle x_{k_{1},k_{2},\dots ,k_{d}}=\sum _{n_{1}=0}^{n_{1}-1}\left(\omega _{n_{1}}^{~k_{1}n_{1}}\sum _{n_{2}=0}^{n_{2}-1}\left(\omega _{n_{2}}^{~k_{2}n_{2}}\cdots \sum _{n_{d}=0}^{n_{d}-1}\omega _{n_{d}}^{~k_{d}n_{d}}\cdot x_{n_{1},n_{2},\dots ,n_{d}}\right)\right),}
+  where 
+  
+    
+      
+        
+          ω
+          
+            
+              n
+              
+                ℓ
+              
+            
+          
+        
+        =
+        exp
+        ⁡
+        (
+        −
+        i
+        2
+        π
+        
+          /
+        
+        
+          n
+          
+            ℓ
+          
+        
+        )
+      
+    
+    {\displaystyle \omega _{n_{\ell }}=\exp(-i2\pi /n_{\ell })}
+   as above and the d output indices run from 
+  
+    
+      
+        
+          k
+          
+            ℓ
+          
+        
+        =
+        0
+        ,
+        1
+        ,
+        …
+        ,
+        
+          n
+          
+            ℓ
+          
+        
+        −
+        1
+      
+    
+    {\displaystyle k_{\ell }=0,1,\dots ,n_{\ell }-1}
+  .  this is more compactly expressed in vector notation, where we define 
+  
+    
+      
+        
+          n
+        
+        =
+        (
+        
+          n
+          
+            1
+          
+        
+        ,
+        
+          n
+          
+            2
+          
+        
+        ,
+        …
+        ,
+        
+          n
+          
+            d
+          
+        
+        )
+      
+    
+    {\displaystyle \mathbf {n} =(n_{1},n_{2},\dots ,n_{d})}
+   and 
+  
+    
+      
+        
+          k
+        
+        =
+        (
+        
+          k
+          
+            1
+          
+        
+        ,
+        
+          k
+          
+            2
+          
+        
+        ,
+        …
+        ,
+        
+          k
+          
+            d
+          
+        
+        )
+      
+    
+    {\displaystyle \mathbf {k} =(k_{1},k_{2},\dots ,k_{d})}
+   as d-dimensional vectors of indices from 0 to 
+  
+    
+      
+        
+          n
+        
+        −
+        1
+      
+    
+    {\displaystyle \mathbf {n} -1}
+  , which we define as 
+  
+    
+      
+        
+          n
+        
+        −
+        1
+        =
+        (
+        
+          n
+          
+            1
+          
+        
+        −
+        1
+        ,
+        
+          n
+          
+            2
+          
+        
+        −
+        1
+        ,
+        …
+        ,
+        
+          n
+          
+            d
+          
+        
+        −
+        1
+        )
+      
+    
+    {\displaystyle \mathbf {n} -1=(n_{1}-1,n_{2}-1,\dots ,n_{d}-1)}
+  :
+
+  
+    
+      
+        
+          x
+          
+            
+              k
+            
+          
+        
+        =
+        
+          ∑
+          
+            
+              n
+            
+            =
+            
+              0
+            
+          
+          
+            
+              n
+            
+            −
+            1
+          
+        
+        
+          e
+          
+            −
+            i
+            2
+            π
+            
+              k
+            
+            ⋅
+            (
+            
+              n
+            
+            
+              /
+            
+            
+              n
+            
+            )
+          
+        
+        
+          x
+          
+            
+              n
+            
+          
+        
+        
+        ,
+      
+    
+    {\displaystyle x_{\mathbf {k} }=\sum _{\mathbf {n} =\mathbf {0} }^{\mathbf {n} -1}e^{-i2\pi \mathbf {k} \cdot (\mathbf {n} /\mathbf {n} )}x_{\mathbf {n} }\,,}
+  where the division 
+  
+    
+      
+        
+          n
+        
+        
+          /
+        
+        
+          n
+        
+      
+    
+    {\displaystyle \mathbf {n} /\mathbf {n} }
+   is defined as 
+  
+    
+      
+        
+          n
+        
+        
+          /
+        
+        
+          n
+        
+        =
+        (
+        
+          n
+          
+            1
+          
+        
+        
+          /
+        
+        
+          n
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          n
+          
+            d
+          
+        
+        
+          /
+        
+        
+          n
+          
+            d
+          
+        
+        )
+      
+    
+    {\displaystyle \mathbf {n} /\mathbf {n} =(n_{1}/n_{1},\dots ,n_{d}/n_{d})}
+   to be performed element-wise, and the sum denotes the set of nested summations above.
+the inverse of the multi-dimensional dft is, analogous to the one-dimensional case, given by:
+
+  
+    
+      
+        
+          x
+          
+            
+              n
+            
+          
+        
+        =
+        
+          
+            1
+            
+              
+                ∏
+                
+                  ℓ
+                  =
+                  1
+                
+                
+                  d
+                
+              
+              
+                n
+                
+                  ℓ
+                
+              
+            
+          
+        
+        
+          ∑
+          
+            
+              k
+            
+            =
+            
+              0
+            
+          
+          
+            
+              n
+            
+            −
+            1
+          
+        
+        
+          e
+          
+            i
+            2
+            π
+            
+              n
+            
+            ⋅
+            (
+            
+              k
+            
+            
+              /
+            
+            
+              n
+            
+            )
+          
+        
+        
+          x
+          
+            
+              k
+            
+          
+        
+        
+        .
+      
+    
+    {\displaystyle x_{\mathbf {n} }={\frac {1}{\prod _{\ell =1}^{d}n_{\ell }}}\sum _{\mathbf {k} =\mathbf {0} }^{\mathbf {n} -1}e^{i2\pi \mathbf {n} \cdot (\mathbf {k} /\mathbf {n} )}x_{\mathbf {k} }\,.}
+  as the one-dimensional dft expresses the input 
+  
+    
+      
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x_{n}}
+   as a superposition of sinusoids, the multidimensional dft expresses the input as a superposition of plane waves, or multidimensional sinusoids. the direction of oscillation in space is 
+  
+    
+      
+        
+          k
+        
+        
+          /
+        
+        
+          n
+        
+      
+    
+    {\displaystyle \mathbf {k} /\mathbf {n} }
+  . the amplitudes  are 
+  
+    
+      
+        
+          x
+          
+            
+              k
+            
+          
+        
+      
+    
+    {\displaystyle x_{\mathbf {k} }}
+  .  this decomposition is of great importance for everything from digital image processing (two-dimensional) to solving partial differential equations. the solution is broken up into plane waves.
+the multidimensional dft can be computed by the composition of a sequence of one-dimensional dfts along each dimension.  in the two-dimensional case 
+  
+    
+      
+        
+          x
+          
+            
+              n
+              
+                1
+              
+            
+            ,
+            
+              n
+              
+                2
+              
+            
+          
+        
+      
+    
+    {\displaystyle x_{n_{1},n_{2}}}
+   the 
+  
+    
+      
+        
+          n
+          
+            1
+          
+        
+      
+    
+    {\displaystyle n_{1}}
+   independent dfts of the rows (i.e., along 
+  
+    
+      
+        
+          n
+          
+            2
+          
+        
+      
+    
+    {\displaystyle n_{2}}
+  ) are computed first to form a new array 
+  
+    
+      
+        
+          y
+          
+            
+              n
+              
+                1
+              
+            
+            ,
+            
+              k
+              
+                2
+              
+            
+          
+        
+      
+    
+    {\displaystyle y_{n_{1},k_{2}}}
+  . then the 
+  
+    
+      
+        
+          n
+          
+            2
+          
+        
+      
+    
+    {\displaystyle n_{2}}
+   independent dfts of y along the columns (along 
+  
+    
+      
+        
+          n
+          
+            1
+          
+        
+      
+    
+    {\displaystyle n_{1}}
+  ) are computed to form the final result 
+  
+    
+      
+        
+          x
+          
+            
+              k
+              
+                1
+              
+            
+            ,
+            
+              k
+              
+                2
+              
+            
+          
+        
+      
+    
+    {\displaystyle x_{k_{1},k_{2}}}
+  .  alternatively the columns can be computed first and then the rows. the order is immaterial because the nested summations above commute.
+an algorithm to compute a one-dimensional dft is thus sufficient to efficiently compute a multidimensional dft.  this approach is known as the row-column algorithm. there are also intrinsically multidimensional fft algorithms.
+
+
+=== the real-input multidimensional dft ===
+for input data 
+  
+    
+      
+        
+          x
+          
+            
+              n
+              
+                1
+              
+            
+            ,
+            
+              n
+              
+                2
+              
+            
+            ,
+            …
+            ,
+            
+              n
+              
+                d
+              
+            
+          
+        
+      
+    
+    {\displaystyle x_{n_{1},n_{2},\dots ,n_{d}}}
+   consisting of real numbers, the dft outputs have a conjugate symmetry similar to the one-dimensional case above:
+
+  
+    
+      
+        
+          x
+          
+            
+              k
+              
+                1
+              
+            
+            ,
+            
+              k
+              
+                2
+              
+            
+            ,
+            …
+            ,
+            
+              k
+              
+                d
+              
+            
+          
+        
+        =
+        
+          x
+          
+            
+              n
+              
+                1
+              
+            
+            −
+            
+              k
+              
+                1
+              
+            
+            ,
+            
+              n
+              
+                2
+              
+            
+            −
+            
+              k
+              
+                2
+              
+            
+            ,
+            …
+            ,
+            
+              n
+              
+                d
+              
+            
+            −
+            
+              k
+              
+                d
+              
+            
+          
+          
+            ∗
+          
+        
+        ,
+      
+    
+    {\displaystyle x_{k_{1},k_{2},\dots ,k_{d}}=x_{n_{1}-k_{1},n_{2}-k_{2},\dots ,n_{d}-k_{d}}^{*},}
+  where the star again denotes complex conjugation and the 
+  
+    
+      
+        ℓ
+      
+    
+    {\displaystyle \ell }
+  -th subscript is again interpreted modulo 
+  
+    
+      
+        
+          n
+          
+            ℓ
+          
+        
+      
+    
+    {\displaystyle n_{\ell }}
+   (for 
+  
+    
+      
+        ℓ
+        =
+        1
+        ,
+        2
+        ,
+        …
+        ,
+        d
+      
+    
+    {\displaystyle \ell =1,2,\ldots ,d}
+  ).
+
+
+== applications ==
+the dft has seen wide usage across a large number of fields; we only sketch a few examples below (see also the references at the end). all applications of the dft depend crucially on the availability of a fast algorithm to compute discrete fourier transforms and their inverses, a fast fourier transform.
+
+
+=== spectral analysis ===
+
+when the dft is used for signal spectral analysis, the 
+  
+    
+      
+        {
+        
+          x
+          
+            n
+          
+        
+        }
+      
+    
+    {\displaystyle \{x_{n}\}}
+   sequence usually represents a finite set of uniformly spaced time-samples of some signal 
+  
+    
+      
+        x
+        (
+        t
+        )
+        
+      
+    
+    {\displaystyle x(t)\,}
+  , where 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   represents time.  the conversion from continuous time to samples (discrete-time) changes the underlying fourier transform of 
+  
+    
+      
+        x
+        (
+        t
+        )
+      
+    
+    {\displaystyle x(t)}
+   into a discrete-time fourier transform (dtft), which generally entails a type of distortion called aliasing.  choice of an appropriate sample-rate (see nyquist rate) is the key to minimizing that distortion.  similarly, the conversion from a very long (or infinite) sequence to a manageable size entails a type of distortion called leakage, which is manifested as a loss of detail (a.k.a. resolution) in the dtft.  choice of an appropriate sub-sequence length is the primary key to minimizing that effect.  when the available data (and time to process it) is more than the amount needed to attain the desired frequency resolution, a standard technique is to perform multiple dfts, for example to create a spectrogram.  if the desired result is a power spectrum and noise or randomness is present in the data, averaging the magnitude components of the multiple dfts is a useful procedure to reduce the variance of the spectrum (also called a periodogram in this context); two examples of such techniques are the welch method and the bartlett method; the general subject of estimating the power spectrum of a noisy signal is called spectral estimation.
+a final source of distortion (or perhaps illusion) is the dft itself, because it is just a discrete sampling of the dtft, which is a function of a continuous frequency domain.  that can be mitigated by increasing the resolution of the dft.  that procedure is illustrated at § sampling the dtft.
+
+the procedure is sometimes referred to as zero-padding, which is a particular implementation used in conjunction with the fast fourier transform (fft) algorithm.  the inefficiency of performing multiplications and additions with zero-valued "samples" is more than offset by the inherent efficiency of the fft.
+as already stated, leakage imposes a limit on the inherent resolution of the dtft, so there is a practical limit to the benefit that can be obtained from a fine-grained dft.
+
+
+=== optics, diffraction, and tomography ===
+the discrete fourier transform is widely used with spatial frequencies in modeling the way that light, electrons, and other probes travel through optical systems and scatter from objects in two and three dimensions. the dual (direct/reciprocal) vector space of three dimensional objects further makes available a three dimensional reciprocal lattice, whose construction from translucent object shadows (via the fourier slice theorem) allows tomographic reconstruction of three dimensional objects with a wide range of applications e.g. in modern medicine.
+
+
+=== filter bank ===
+see § fft filter banks and § sampling the dtft.
+
+
+=== data compression ===
+the field of digital signal processing relies heavily on operations in the frequency domain (i.e. on the fourier transform). for example, several lossy image and sound compression methods employ the discrete fourier transform: the signal is cut into short segments, each is transformed, and then the fourier coefficients of high frequencies, which are assumed to be unnoticeable, are discarded. the decompressor computes the inverse transform based on this reduced number of fourier coefficients. (compression applications often use a specialized form of the dft, the discrete cosine transform or sometimes the modified discrete cosine transform.)
+some relatively recent compression algorithms, however, use wavelet transforms, which give a more uniform compromise between time and frequency domain than obtained by chopping data into segments and transforming each segment.  in the case of jpeg2000, this avoids the spurious image features that appear when images are highly compressed with the original jpeg.
+
+
+=== partial differential equations ===
+discrete fourier transforms are often used to solve partial differential equations, where again the dft is used as an approximation for the fourier series (which is recovered in the limit of infinite n). the advantage of this approach is that it expands the signal in complex exponentials 
+  
+    
+      
+        
+          e
+          
+            i
+            n
+            x
+          
+        
+      
+    
+    {\displaystyle e^{inx}}
+  , which are eigenfunctions of differentiation: 
+  
+    
+      
+        
+          
+            d
+          
+          
+            
+              (
+            
+          
+          
+            e
+            
+              i
+              n
+              x
+            
+          
+          
+            
+              )
+            
+          
+        
+        
+          /
+        
+        
+          d
+        
+        x
+        =
+        i
+        n
+        
+          e
+          
+            i
+            n
+            x
+          
+        
+      
+    
+    {\displaystyle {{\text{d}}{\big (}e^{inx}{\big )}}/{\text{d}}x=ine^{inx}}
+  . thus, in the fourier representation, differentiation is simple—we just multiply by 
+  
+    
+      
+        i
+        n
+      
+    
+    {\displaystyle in}
+  .  (however, the choice of 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   is not unique due to aliasing; for the method to be convergent, a choice similar to that in the trigonometric interpolation section above should be used.) a linear differential equation with constant coefficients is transformed into an easily solvable algebraic equation. one then uses the inverse dft to transform the result back into the ordinary spatial representation. such an approach is called a spectral method.
+
+
+=== polynomial multiplication ===
+suppose we wish to compute the polynomial product c(x) = a(x) · b(x).  the ordinary product expression for the coefficients of c involves a linear (acyclic) convolution, where indices do not "wrap around."  this can be rewritten as a cyclic convolution by taking the coefficient vectors for a(x) and b(x) with constant term first, then appending zeros so that the resultant coefficient vectors a and b have dimension d > deg(a(x)) + deg(b(x)).  then,
+
+  
+    
+      
+        
+          c
+        
+        =
+        
+          a
+        
+        ∗
+        
+          b
+        
+      
+    
+    {\displaystyle \mathbf {c} =\mathbf {a} *\mathbf {b} }
+  where c is the vector of coefficients for c(x), and the convolution operator 
+  
+    
+      
+        ∗
+        
+      
+    
+    {\displaystyle *\,}
+   is defined so
+
+  
+    
+      
+        
+          c
+          
+            n
+          
+        
+        =
+        
+          ∑
+          
+            m
+            =
+            0
+          
+          
+            n
+          
+        
+        
+          a
+          
+            m
+          
+        
+        
+          b
+          
+            n
+            −
+            m
+             
+            
+              m
+              o
+              d
+            
+             
+            d
+          
+        
+        
+        
+        
+        n
+        =
+        0
+        ,
+        1
+        …
+        ,
+        d
+        −
+        1
+      
+    
+    {\displaystyle c_{n}=\sum _{m=0}^{n}a_{m}b_{n-m\ \mathrm {mod} \ d}\qquad \qquad \qquad n=0,1\dots ,d-1}
+  but convolution becomes multiplication under the dft:
+
+  
+    
+      
+        
+          
+            f
+          
+        
+        (
+        
+          c
+        
+        )
+        =
+        
+          
+            f
+          
+        
+        (
+        
+          a
+        
+        )
+        
+          
+            f
+          
+        
+        (
+        
+          b
+        
+        )
+      
+    
+    {\displaystyle {\mathcal {f}}(\mathbf {c} )={\mathcal {f}}(\mathbf {a} ){\mathcal {f}}(\mathbf {b} )}
+  here the vector product is taken elementwise.  thus the coefficients of the product polynomial c(x) are just the terms 0, ..., deg(a(x)) + deg(b(x)) of the coefficient vector
+
+  
+    
+      
+        
+          c
+        
+        =
+        
+          
+            
+              f
+            
+          
+          
+            −
+            1
+          
+        
+        (
+        
+          
+            f
+          
+        
+        (
+        
+          a
+        
+        )
+        
+          
+            f
+          
+        
+        (
+        
+          b
+        
+        )
+        )
+        .
+      
+    
+    {\displaystyle \mathbf {c} ={\mathcal {f}}^{-1}({\mathcal {f}}(\mathbf {a} ){\mathcal {f}}(\mathbf {b} )).}
+  with a fast fourier transform, the resulting algorithm takes o(n log n) arithmetic operations.  due to its simplicity and speed, the cooley–tukey fft algorithm, which is limited to composite sizes, is often chosen for the transform operation.  in this case, d should be chosen as the smallest integer greater than the sum of the input polynomial degrees that is factorizable into small prime factors (e.g. 2, 3, and 5, depending upon the fft implementation).
+
+
+==== multiplication of large integers ====
+the fastest known algorithms for the multiplication of very large integers use the polynomial multiplication method outlined above.  integers can be treated as the value of a polynomial evaluated specifically at the number base, with the coefficients of the polynomial corresponding to the digits in that base (ex. 
+  
+    
+      
+        123
+        =
+        1
+        ⋅
+        
+          10
+          
+            2
+          
+        
+        +
+        2
+        ⋅
+        
+          10
+          
+            1
+          
+        
+        +
+        3
+        ⋅
+        
+          10
+          
+            0
+          
+        
+      
+    
+    {\displaystyle 123=1\cdot 10^{2}+2\cdot 10^{1}+3\cdot 10^{0}}
+  ).  after polynomial multiplication, a relatively low-complexity carry-propagation step completes the multiplication.
+
+
+==== convolution ====
+when data is convolved with a function with wide support, such as for downsampling by a large sampling ratio, because of the convolution theorem and the fft algorithm, it may be faster to transform it, multiply pointwise by the transform of the filter and then reverse transform it.  alternatively, a good filter is obtained by simply truncating the transformed data and re-transforming the shortened data set.
+
+
+== some discrete fourier transform pairs ==
+
+
+== generalizations ==
+
+
+=== representation theory ===
+
+the dft can be interpreted as a complex-valued representation of the finite cyclic group. in other words, a sequence of 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   complex numbers can be thought of as an element of 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  -dimensional complex space 
+  
+    
+      
+        
+          
+            c
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \mathbb {c} ^{n}}
+   or equivalently a function 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   from the finite cyclic group of order 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   to the complex numbers, 
+  
+    
+      
+        
+          
+            z
+          
+          
+            n
+          
+        
+        ↦
+        
+          c
+        
+      
+    
+    {\displaystyle \mathbb {z} _{n}\mapsto \mathbb {c} }
+  . so  
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   is a class function on the finite cyclic group, and thus can be expressed as a linear combination of the irreducible characters of this group, which are the roots of unity.
+from this point of view, one may generalize the dft to representation theory generally, or more narrowly to the representation theory of finite groups.
+more narrowly still, one may generalize the dft by either changing the target (taking values in a field other than the complex numbers), or the domain (a group other than a finite cyclic group), as detailed in the sequel.
+
+
+=== other fields ===
+
+many of the properties of the dft only depend on the fact that 
+  
+    
+      
+        
+          e
+          
+            −
+            
+              
+                
+                  i
+                  2
+                  π
+                
+                n
+              
+            
+          
+        
+      
+    
+    {\displaystyle e^{-{\frac {i2\pi }{n}}}}
+   is a primitive root of unity, sometimes denoted 
+  
+    
+      
+        
+          ω
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \omega _{n}}
+   or 
+  
+    
+      
+        
+          w
+          
+            n
+          
+        
+      
+    
+    {\displaystyle w_{n}}
+   (so that 
+  
+    
+      
+        
+          ω
+          
+            n
+          
+          
+            n
+          
+        
+        =
+        1
+      
+    
+    {\displaystyle \omega _{n}^{n}=1}
+  ).  such properties include the completeness, orthogonality, plancherel/parseval, periodicity, shift, convolution, and unitarity properties above, as well as many fft algorithms. for this reason, the discrete fourier transform can be defined by using roots of unity in fields other than the complex numbers, and such generalizations are commonly called number-theoretic transforms (ntts) in the case of finite fields. for more information, see number-theoretic transform and discrete fourier transform (general).
+
+
+=== other finite groups ===
+
+the standard dft acts on a sequence x0, x1, ..., xn−1 of complex numbers, which can be viewed as a function {0, 1, ..., n − 1} → c. the multidimensional dft acts on multidimensional sequences, which can be viewed as functions
+
+  
+    
+      
+        {
+        0
+        ,
+        1
+        ,
+        …
+        ,
+        
+          n
+          
+            1
+          
+        
+        −
+        1
+        }
+        ×
+        ⋯
+        ×
+        {
+        0
+        ,
+        1
+        ,
+        …
+        ,
+        
+          n
+          
+            d
+          
+        
+        −
+        1
+        }
+        →
+        
+          c
+        
+        .
+      
+    
+    {\displaystyle \{0,1,\ldots ,n_{1}-1\}\times \cdots \times \{0,1,\ldots ,n_{d}-1\}\to \mathbb {c} .}
+  this suggests the generalization to fourier transforms on arbitrary finite groups, which act on functions g → c where g is a finite group. in this framework, the standard dft is seen as the fourier transform on a cyclic group, while the multidimensional dft is a fourier transform on a direct sum of cyclic groups.
+further, fourier transform can be on cosets of a group.
+
+
+== alternatives ==
+
+ there are various alternatives to the dft for various applications, prominent among which are wavelets. the analog of the dft is the discrete wavelet transform (dwt). from the point of view of time–frequency analysis, a key limitation of the fourier transform is that it does not include location information, only frequency information, and thus has difficulty in representing transients. as wavelets have location as well as frequency, they are better able to represent location, at the expense of greater difficulty representing frequency. for details, see comparison of the discrete wavelet transform with the discrete fourier transform.
+
+
+== see also ==
+companion matrix
+dft matrix
+fast fourier transform
+fftpack
+fftw
+generalizations of pauli matrices
+least-squares spectral analysis
+list of fourier-related transforms
+multidimensional transform
+zak transform
+quantum fourier transform
+
+
+== notes ==
+
+
+== references ==
+
+
+== further reading ==
+brigham, e. oran (1988). the fast fourier transform and its applications. englewood cliffs, n.j.: prentice hall. isbn 978-0-13-307505-2.
+smith, steven w. (1999). "chapter 8: the discrete fourier transform". the scientist and engineer's guide to digital signal processing (second ed.). san diego, calif.: california technical publishing. isbn 978-0-9660176-3-2.
+cormen, thomas h.; charles e. leiserson; ronald l. rivest; clifford stein (2001). "chapter 30: polynomials and the fft". introduction to algorithms (second ed.). mit press and mcgraw-hill. pp. 822–848. isbn 978-0-262-03293-3. esp. section 30.2: the dft and fft, pp. 830–838.
+p. duhamel; b. piron; j. m. etcheto (1988). "on computing the inverse dft". ieee transactions on acoustics, speech, and signal processing. 36 (2): 285–286. doi:10.1109/29.1519.
+j. h. mcclellan; t. w. parks (1972). "eigenvalues and eigenvectors of the discrete fourier transformation". ieee transactions on audio and electroacoustics. 20 (1): 66–74. doi:10.1109/tau.1972.1162342.
+bradley w. dickinson; kenneth steiglitz (1982). "eigenvectors and functions of the discrete fourier transform" (pdf). ieee transactions on acoustics, speech, and signal processing. 30 (1): 25–31. citeseerx 10.1.1.434.5279. doi:10.1109/tassp.1982.1163843. (note that this paper has an apparent typo in its table of the eigenvalue multiplicities: the +i/−i columns are interchanged.  the correct table can be found in mcclellan and parks, 1972, and is easily confirmed numerically.)
+f. a. grünbaum (1982). "the eigenvectors of the discrete fourier transform". journal of mathematical analysis and applications. 88 (2): 355–363. doi:10.1016/0022-247x(82)90199-8.
+natig m. atakishiyev; kurt bernardo wolf (1997). "fractional fourier-kravchuk transform". journal of the optical society of america a. 14 (7): 1467–1477. bibcode:1997josaa..14.1467a. doi:10.1364/josaa.14.001467.
+c. candan; m. a. kutay; h. m.ozaktas (2000). "the discrete fractional fourier transform" (pdf). ieee transactions on signal processing. 48 (5): 1329–1337. bibcode:2000itsp...48.1329c. doi:10.1109/78.839980. hdl:11693/11130.
+magdy tawfik hanna, nabila philip attalla seif, and waleed abd el maguid ahmed (2004). "hermite-gaussian-like eigenvectors of the discrete fourier transform matrix based on the singular-value decomposition of its orthogonal projection matrices". ieee transactions on circuits and systems i: regular papers. 51 (11): 2245–2254. doi:10.1109/tcsi.2004.836850. s2cid 14468134.{{cite journal}}:  cs1 maint: multiple names: authors list (link)
+shamgar gurevich; ronny hadani (2009). "on the diagonalization of the discrete fourier transform". applied and computational harmonic analysis. 27 (1): 87–99. arxiv:0808.3281. doi:10.1016/j.acha.2008.11.003. s2cid 14833478. preprint at.
+shamgar gurevich; ronny hadani; nir sochen (2008). "the finite harmonic oscillator and its applications to sequences, communication and radar". ieee transactions on information theory. 54 (9): 4239–4253. arxiv:0808.1495. bibcode:2008arxiv0808.1495g. doi:10.1109/tit.2008.926440. s2cid 6037080. preprint at.
+juan g. vargas-rubio; balu santhanam (2005). "on the multiangle centered discrete fractional fourier transform". ieee signal processing letters. 12 (4): 273–276. bibcode:2005ispl...12..273v. doi:10.1109/lsp.2005.843762. s2cid 1499353.
+f.n. kong (2008). "analytic expressions of two discrete hermite-gaussian signals". ieee transactions on circuits and systems ii: express briefs. 55 (1): 56–60. doi:10.1109/tcsii.2007.909865. s2cid 5154718.
+
+
+== external links ==
+interactive explanation of the dft
+matlab tutorial on the discrete fourier transformation archived 2016-03-04 at the wayback machine
+interactive flash tutorial on the dft
+mathematics of the discrete fourier transform by julius o. smith iii
+fftw: fast implementation of the dft - coded in c and under general public license (gpl)
+general purpose fft package:  yet another fast dft implementation in c & fortran, permissive license
+explained: the discrete fourier transform
+discrete fourier transform
+indexing and shifting of discrete fourier transform
+discrete fourier transform properties
+generalized discrete fourier transform (gdft) with nonlinear phase

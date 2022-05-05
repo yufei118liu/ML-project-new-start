@@ -1,0 +1,935 @@
+information flow in an information theoretical context is the transfer of information from a variable 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   to a variable 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   in a given process. not all flows may be desirable; for example, a system should not leak any secret (partially or not) to public observers.
+
+
+== introduction ==
+securing the data manipulated by computing systems has been a challenge in the past years. several methods to limit the information disclosure exist today, such as access control lists, firewalls, and cryptography. however, although these methods do impose limits on the information that is released by a system, they provide no guarantees about information propagation. for example, access control lists of file systems prevent unauthorized file access, but they do not control how the data is used afterwards. similarly, cryptography provides a means to exchange information privately across a non-secure channel, but no
+guarantees about the confidentiality of the data are given once it is decrypted.
+in low level information flow analysis, each variable is usually assigned a security level. the basic model comprises two distinct levels: low and high, meaning, respectively, publicly observable information, and secret information. to ensure confidentiality, flowing information from high to low variables should not be allowed. on the other hand, to ensure integrity, flows to high variables should be restricted.more generally, the security levels can be viewed as a lattice with information flowing only upwards in the lattice.for example, considering two security levels 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+   and 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   (low and high), if 
+  
+    
+      
+        l
+        ≤
+        h
+      
+    
+    {\displaystyle l\leq h}
+  , flows from 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+   to 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+  , from 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   to 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+  , and 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+   to 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   would be allowed, while flows from 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   to 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+   would not.throughout this article, the following notation is used:
+
+variable 
+  
+    
+      
+        l
+        ∈
+        l
+      
+    
+    {\displaystyle l\in l}
+   (low) shall denote a publicly observable variable
+variable 
+  
+    
+      
+        h
+        ∈
+        h
+      
+    
+    {\displaystyle h\in h}
+   (high) shall denote a secret variablewhere 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+   and 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   are the only two security levels in the lattice being considered.
+
+
+== explicit flows and side channels ==
+information flows can be divided in two major categories. the simplest one is explicit flow, where some secret is explicitly leaked to a publicly observable variable. in the following example, the secret in the variable h flows into the publicly observable variable l.
+
+var l, h
+l := h
+
+the other flows fall into the side channel category. for example, in the timing attack or in the power analysis attack, the system leaks information through, respectively, the time or power it takes to perform an action depending on a secret value.
+in the following example, the attacker can deduce if the value of h is one or not by the time the program takes to finish:
+
+var l, h
+if h = 1 then
+    (* do some time-consuming work *)
+l := 0
+
+another side channel flow is the implicit information flow, which consists in leakage of information through the program control flow. the following program (implicitly) discloses the value of the secret variable h to the variable l. in this case, since the h variable is boolean, all the bits of the variable of h is disclosed (at the end of the program, l will be 3 if h is true, and 42 otherwise).
+
+var l, h
+if h = true then
+    l := 3
+else
+    l := 42
+
+
+== non-interference ==
+
+non-interference is a policy that enforces that an attacker should not be able to distinguish two computations from their outputs if they only vary in their secret inputs.
+however, this policy is too strict to be usable in realistic programs. the classic example is a password checker program that, in order to be useful, needs to disclose some secret information: whether the input password is correct or not (note that the information that an attacker learns in case the program rejects the password is that the attempted password is not the valid one).
+
+
+== information flow control ==
+a mechanism for information flow control is one that enforces information flow policies. several methods to enforce information flow policies have been proposed. run-time mechanisms that tag data with information flow labels have been employed at the operating system level and at the programming language level. static program analyses have also been developed that ensure information flows within programs are in accordance with policies.
+both static and dynamic analysis for current programming languages have been developed. however, dynamic analysis techniques cannot observe all execution paths, and therefore cannot be both sound and precise. in order to guarantee noninterference, they either terminate executions that might release sensitive information or they ignore updates that might leak information.a prominent way to enforce information flow policies in a program is through a security type system: that is, a type system that enforces security properties. in such a sound type system, if a program type-checks, it meets the flow policy and therefore contains no improper information flows.
+
+
+=== security type system ===
+in a programming language augmented with a security type system every expression carries both a type (such as boolean, or integer) and a security label.
+following is a simple security type system from  that enforces non-interference.
+the notation 
+  
+    
+      
+        
+        ⊢
+        e
+        x
+        p
+        
+        :
+        
+        τ
+      
+    
+    {\displaystyle \;\vdash exp\;:\;\tau }
+   means that the expression 
+  
+    
+      
+        e
+        x
+        p
+      
+    
+    {\displaystyle exp}
+   has type 
+  
+    
+      
+        
+        τ
+      
+    
+    {\displaystyle \;\tau }
+  . similarly, 
+  
+    
+      
+        [
+        s
+        c
+        ]
+        ⊢
+        c
+      
+    
+    {\displaystyle [sc]\vdash c}
+   means that the command 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+   is typable in the security context 
+  
+    
+      
+        s
+        c
+      
+    
+    {\displaystyle sc}
+  .
+
+  
+    
+      
+        [
+        e
+        1
+        −
+        2
+        ]
+        
+        ⊢
+        e
+        x
+        p
+        :
+        h
+        i
+        g
+        h
+        
+        
+          
+            
+              h
+              ∉
+              v
+              a
+              r
+              s
+              (
+              e
+              x
+              p
+              )
+            
+            
+              ⊢
+              e
+              x
+              p
+              
+              :
+              
+              l
+              o
+              w
+            
+          
+        
+      
+    
+    {\displaystyle [e1-2]\quad \vdash exp:high\qquad {\frac {h\notin vars(exp)}{\vdash exp\;:\;low}}}
+  
+
+  
+    
+      
+        [
+        c
+        1
+        −
+        3
+        ]
+        
+        [
+        s
+        c
+        ]
+        ⊢
+        
+          
+            skip
+          
+        
+        
+        [
+        s
+        c
+        ]
+        ⊢
+        h
+        
+        :=
+        
+        e
+        x
+        p
+        
+        
+          
+            
+              ⊢
+              e
+              x
+              p
+              
+              :
+              
+              l
+              o
+              w
+            
+            
+              [
+              l
+              o
+              w
+              ]
+              ⊢
+              l
+              
+              :=
+              
+              e
+              x
+              p
+            
+          
+        
+      
+    
+    {\displaystyle [c1-3]\quad [sc]\vdash {\textbf {skip}}\qquad [sc]\vdash h\;:=\;exp\qquad {\frac {\vdash exp\;:\;low}{[low]\vdash l\;:=\;exp}}}
+  
+
+  
+    
+      
+        [
+        c
+        4
+        −
+        5
+        ]
+        
+        
+          
+            
+              [
+              s
+              c
+              ]
+              ⊢
+              
+                c
+                
+                  1
+                
+              
+              
+              [
+              s
+              c
+              ]
+              ⊢
+              
+                c
+                
+                  2
+                
+              
+            
+            
+              [
+              s
+              c
+              ]
+              ⊢
+              
+                c
+                
+                  1
+                
+              
+              
+              ;
+              
+              
+                c
+                
+                  2
+                
+              
+            
+          
+        
+        
+        
+          
+            
+              ⊢
+              e
+              x
+              p
+              
+              :
+              
+              s
+              c
+              
+              [
+              s
+              c
+              ]
+              ⊢
+              c
+            
+            
+              [
+              s
+              c
+              ]
+              ⊢
+              
+                
+                  while
+                
+              
+               
+              e
+              x
+              p
+               
+              
+                
+                  do
+                
+              
+               
+              c
+            
+          
+        
+      
+    
+    {\displaystyle [c4-5]\quad {\frac {[sc]\vdash c_{1}\quad [sc]\vdash c_{2}}{[sc]\vdash c_{1}\;;\;c_{2}}}\qquad {\frac {\vdash exp\;:\;sc\quad [sc]\vdash c}{[sc]\vdash {\textbf {while}}\ exp\ {\textbf {do}}\ c}}}
+  
+
+  
+    
+      
+        [
+        c
+        6
+        −
+        7
+        ]
+        
+        
+          
+            
+              ⊢
+              e
+              x
+              p
+              
+              :
+              
+              s
+              c
+              
+              [
+              s
+              c
+              ]
+              ⊢
+              
+                c
+                
+                  1
+                
+              
+              
+              [
+              s
+              c
+              ]
+              ⊢
+              
+                c
+                
+                  2
+                
+              
+            
+            
+              [
+              s
+              c
+              ]
+              ⊢
+              
+                
+                  if
+                
+              
+               
+              e
+              x
+              p
+               
+              
+                
+                  then
+                
+              
+               
+              
+                c
+                
+                  1
+                
+              
+               
+              
+                
+                  else
+                
+              
+               
+              
+                c
+                
+                  2
+                
+              
+            
+          
+        
+        
+        
+          
+            
+              [
+              h
+              i
+              g
+              h
+              ]
+              ⊢
+              c
+            
+            
+              [
+              l
+              o
+              w
+              ]
+              ⊢
+              c
+            
+          
+        
+      
+    
+    {\displaystyle [c6-7]\quad {\frac {\vdash exp\;:\;sc\quad [sc]\vdash c_{1}\quad [sc]\vdash c_{2}}{[sc]\vdash {\textbf {if}}\ exp\ {\textbf {then}}\ c_{1}\ {\textbf {else}}\ c_{2}}}\qquad {\frac {[high]\vdash c}{[low]\vdash c}}}
+  
+well-typed commands include, for example,
+
+  
+    
+      
+        [
+        l
+        o
+        w
+        ]
+        ⊢
+         
+        
+          
+            if
+          
+        
+         
+        l
+        =
+        42
+         
+        
+          
+            then
+          
+        
+         
+        h
+        
+        :=
+        
+        3
+         
+        
+          
+            else
+          
+        
+         
+        l
+        
+        :=
+        
+        0
+      
+    
+    {\displaystyle [low]\vdash \ {\textbf {if}}\ l=42\ {\textbf {then}}\ h\;:=\;3\ {\textbf {else}}\ l\;:=\;0}
+  .conversely, the program
+
+  
+    
+      
+        l
+        
+        :=
+        
+        0
+         
+        ;
+         
+        
+          
+            while
+          
+        
+         
+        l
+        <
+        h
+         
+        
+          
+            do
+          
+        
+         
+        l
+        
+        :=
+        
+        l
+        +
+        1
+      
+    
+    {\displaystyle l\;:=\;0\ ;\ {\textbf {while}}\ l<h\ {\textbf {do}}\ l\;:=\;l+1}
+  is ill-typed, as it will disclose the value of variable 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   into 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+  .
+note that the rule 
+  
+    
+      
+        [
+        c
+        7
+        ]
+      
+    
+    {\displaystyle [c7]}
+   is a subsumption rule, which means that any command that is of security type 
+  
+    
+      
+        h
+        i
+        g
+        h
+      
+    
+    {\displaystyle high}
+   can also be 
+  
+    
+      
+        l
+        o
+        w
+      
+    
+    {\displaystyle low}
+  . for example, 
+  
+    
+      
+        h
+        :=
+        1
+      
+    
+    {\displaystyle h:=1}
+   can be both 
+  
+    
+      
+        h
+        i
+        g
+        h
+      
+    
+    {\displaystyle high}
+   and 
+  
+    
+      
+        l
+        o
+        w
+      
+    
+    {\displaystyle low}
+  . this is called polymorphism in type theory. similarly, the type of an expression 
+  
+    
+      
+        e
+        x
+        p
+      
+    
+    {\displaystyle exp}
+   that satisfies 
+  
+    
+      
+        h
+        ∉
+        v
+        a
+        r
+        s
+        (
+        e
+        x
+        p
+        )
+      
+    
+    {\displaystyle h\notin vars(exp)}
+   can be both 
+  
+    
+      
+        h
+        i
+        g
+        h
+      
+    
+    {\displaystyle high}
+   and 
+  
+    
+      
+        l
+        o
+        w
+      
+    
+    {\displaystyle low}
+   according to 
+  
+    
+      
+        [
+        e
+        1
+        ]
+      
+    
+    {\displaystyle [e1]}
+   and 
+  
+    
+      
+        [
+        e
+        2
+        ]
+      
+    
+    {\displaystyle [e2]}
+   respectively.
+
+
+== declassification ==
+as shown previously, non-interference policy is too strict for use in most real-world applications. therefore, several approaches to allow controlled releases of information have been devised. such approaches are called information declassification.
+robust declassification requires that an active attacker may not manipulate the system in order to learn more secrets than what passive attackers already know.information declassification constructs can be classified in four orthogonal dimensions: what information is released, who is authorized to access the information, where the information is released, and when is the information released.
+
+
+=== what ===
+a what declassification policy controls which information (partial or not) may be released to a publicly observable variable.
+the following code example shows a declassify construct from. in this code, the value of the variable h is explicitly allowed by the programmer to flow into the publicly observable variable l.
+
+var l, h
+if l = 1 then
+    l := declassify(h)
+
+
+=== who ===
+a who declassification policy controls which principals (i.e., who) can access a given piece of information. this kind of policy has been implemented in the jif compiler.the following example allows bob to share its secret contained in the variable b with alice through the commonly accessible variable ab.
+
+var ab                                (* {alice, bob} *)
+var b                                 (* {bob} *)
+if ab = 1 then
+    ab := declassify(b, {alice, bob}) (* {alice, bob} *)
+
+
+=== where ===
+a where declassification policy regulates where the information can be released, for example, by controlling in which lines of the source code information can be released.
+the following example makes use of the flow construct proposed in. this construct takes a flow policy (in this case, variables in h are allowed to flow to variables in l) and a command, which is run under the given flow policy.
+
+var l, h
+flow h 
+  
+    
+      
+        ≺
+      
+    
+    {\displaystyle \prec }
+   l in
+    l := h
+
+
+=== when ===
+a when declassification policy regulates when the information can be released. policies of this kind can be used to verify programs that implement, for example, controlled release of secret information after payment, or encrypted secrets which should not be released in a certain time given polynomial computational power.
+
+
+=== declassification approaches for implicit flows ===
+an implicit flow occurs when code whose conditional execution is based on private information updates a public variable. this is especially problematic when multiple executions are considered since an attacker could leverage the public variable to infer private information by observing how its value changes over time or with the input.
+
+
+==== the naïve approach ====
+the naïve approach consists on enforcing the confidentiality property on all variables whose value is affected by other variables. this method leads to partially leaked information due to on some instances of the application a variable is low and in others high.
+
+
+==== no sensitive upgrade ====
+no sensitive upgrade halts the program whenever a high variable affects the value of a low variable effectively preventing information leakage. since it simply looks for expressions where an information leakage might happen without looking at the context it may halt a program that despite having potential information leakage it never actually leaks information.
+in the following example x is high and y is low.
+
+var x, y
+y := false
+if h = true then
+    y := true
+return true
+
+in this case the program would be halted since it uses the value of a high variable to change a low variable despite the program never leaking information.
+
+
+==== permissive upgrade ====
+permissive-upgrade introduces an extra security class p which will identify information leaking variables. when a high variable affects the value of a low variable, the latter is labeled p. if a p labeled variable affects a low variable the program would be halted. 
+to prevent the halting the low and p variables should be converted to high using a privatization function to ensure no information leakage can occur. on subsequent instances the program will run without interruption.
+
+
+==== privatization inference ====
+privatization inference extends permissive upgrade to automatically apply the privatization function to any variable that might leak information. 
+this method should be used during testing where it will convert most variables. once the program moves into production the permissive-upgrade should be used to halt the program in case of an information leakage and the privatization functions can be updated to prevent subsequent leaks.
+
+
+== application in computer systems ==
+beyond applications to programming language, information flow control theories have been applied to os, distributed systems  and cloud computing.
+
+
+== references ==

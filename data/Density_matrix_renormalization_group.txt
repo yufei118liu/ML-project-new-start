@@ -1,0 +1,160 @@
+the density matrix renormalization group (dmrg) is a numerical variational technique devised to obtain the low-energy physics of quantum many-body systems with high accuracy. as a variational method, dmrg is an efficient algorithm that attempts to find the lowest-energy matrix product state wavefunction of a hamiltonian. it was invented in 1992 by steven r. white and it is nowadays the most efficient method for 1-dimensional systems. 
+
+
+== the idea behind dmrg ==
+the main problem of quantum many-body physics is the fact that the hilbert space grows exponentially with size. for example, a spin-1/2 chain of length l has 2l degrees of freedom. the dmrg is an iterative, variational method that reduces effective degrees of freedom to those most important for a target state. the target state is often the ground state.after a warmup cycle, the method splits the system into two subsystems, or blocks, which need not have equal sizes, and two sites in between. a set of representative states has been chosen for the block during the warmup. this set of left block + two sites + right block is known as the superblock. now a candidate for the ground state of the superblock, which is a reduced version of the full system, may be found. it may have a rather poor accuracy, but the method is iterative and improves with the steps below.
+
+the candidate ground state that has been found is projected into the hilbert subspace for each block using a density matrix, hence the name. thus, the relevant states for each block are updated.now one of the blocks grows at the expense of the other and the procedure is repeated. when the growing block reaches maximum size, the other starts to grow in its place. each time we return to the original (equal sizes) situation, we say that a sweep has been completed. normally, a few sweeps are enough to get a precision of a part in 1010 for a 1d lattice.
+
+the first application of the dmrg, by steven white and reinhard noack, was a toy model: to find the spectrum of a spin 0 particle in a 1d box. this model had been proposed by kenneth g. wilson as a test for any new renormalization group method, because they all happened to fail with this simple problem. the dmrg overcame the problems of previous renormalization group methods by connecting two blocks with the two sites in the middle rather than just adding a single site to a block at each step as well as by using the density matrix to identify the most important states to be kept at the end of each step. after succeeding with the toy model, the dmrg method was tried with success on the heisenberg model (quantum).
+
+
+== implementation guide ==
+a practical implementation of the dmrg algorithm is a lengthy work. a few of the main computational tricks are these:
+
+the ground state for the superblock is obtained using the lanczos algorithm of matrix diagonalization.  another choice is the arnoldi method, especially when dealing with non-hermitian matrices.
+the lanczos algorithm usually starts with the best guess of the solution. if no guess is available a random vector is chosen. in dmrg, the ground state obtained in a certain dmrg step, suitably transformed, is a reasonable guess and thus works significantly better than a random starting vector at the next dmrg step.
+in systems with symmetries, we may have conserved quantum numbers, such as total spin in a heisenberg model (quantum). it is convenient to find the ground state within each of the sectors into which the hilbert space is divided.
+an example: dmrg of heisenberg model
+
+
+== applications ==
+
+the dmrg has been successfully applied to get the low energy properties of spin chains: ising model in a transverse field, heisenberg model, etc., fermionic systems, such as the hubbard model, problems with impurities such as the kondo effect, boson systems, and the physics of quantum dots joined with quantum wires. it has been also extended to work on tree graphs, and has found applications in the study of dendrimers. for 2d systems with one of the dimensions much larger than the other dmrg is also accurate, and has proved useful in the study of ladders.
+the method has been extended to study equilibrium statistical physics in 2d, and to analyze non-equilibrium phenomena in 1d.
+the dmrg has also been applied to the field of quantum chemistry to study strongly correlated systems.
+
+
+== the matrix product ansatz ==
+the success of the dmrg for 1d systems is related to the fact that it is a variational method within the space of matrix product states. these are states of the form
+
+  
+    
+      
+        
+          ∑
+          
+            
+              s
+              
+                1
+              
+            
+            ⋯
+            
+              s
+              
+                n
+              
+            
+          
+        
+        tr
+        ⁡
+        (
+        
+          a
+          
+            
+              s
+              
+                1
+              
+            
+          
+        
+        ⋯
+        
+          a
+          
+            
+              s
+              
+                n
+              
+            
+          
+        
+        )
+        
+          |
+        
+        
+          s
+          
+            1
+          
+        
+        ⋯
+        
+          s
+          
+            n
+          
+        
+        ⟩
+      
+    
+    {\displaystyle \sum _{s_{1}\cdots s_{n}}\operatorname {tr} (a^{s_{1}}\cdots a^{s_{n}})|s_{1}\cdots s_{n}\rangle }
+  where 
+  
+    
+      
+        
+          s
+          
+            1
+          
+        
+        ⋯
+        
+          s
+          
+            n
+          
+        
+      
+    
+    {\displaystyle s_{1}\cdots s_{n}}
+   are the values of the e.g. z-component of the spin in a spin chain, and the asi are matrices of arbitrary dimension m.  as m → ∞, the representation becomes exact. this theory was exposed by s. rommer and s. ostlund in [1].
+
+
+== extensions of dmrg ==
+in 2004 the time-evolving block decimation method was developed to implement real time evolution of matrix product states. the idea is based on the classical simulation of a quantum computer. subsequently, a new method was devised to compute real time evolution within the dmrg formalism - see the paper by a. feiguin and s.r. white [2].
+in recent years, some proposals to extend the method to 2d and 3d have been put forward, extending the definition of the matrix product states. see this paper by f. verstraete and i. cirac, [3].
+
+
+== further reading ==
+the original paper, by s. r. white, [4] or [5]
+a textbook on dmrg and its origins: https://www.springer.com/gp/book/9783540661290
+a broad review, by karen hallberg, [6].
+two reviews by ulrich schollwöck, one discussing the original formulation [7], and another in terms of matrix product states [8]
+the ph.d. thesis of javier rodríguez laguna [9].
+an introduction to dmrg and its time-dependent extension [10].
+a list of dmrg e-prints on arxiv.org [11].
+a review article on dmrg for ab initio quantum chemistry [12].
+an introduction video on dmrg for ab initio quantum chemistry [13].
+
+
+== related software ==
+the matrix product toolkit: a free gpl set of tools for manipulating finite and infinite matrix product states written in c++ [14]
+uni10: a library implementing numerous tensor network algorithms (dmrg, tebd, mera, peps ...) in c++
+powder with power: a free distribution of time-dependent dmrg code written in fortran [15] archived 2017-12-04 at the wayback machine
+the alps project: a free distribution of time-independent dmrg code and quantum monte carlo codes written in c++ [16]
+dmrg++: a free implementation of dmrg written in c++ [17]
+the itensor (intelligent tensor) library: a free library for performing tensor and matrix-product state based dmrg calculations written in c++ [18]
+openmps: an open source dmrg implementation based on matrix product states written in python/fortran2003. [19]
+snake dmrg program:  open source dmrg, tdmrg and finite temperature dmrg program written in c++ [20]
+chemps2: open source (gpl) spin adapted dmrg code for ab initio quantum chemistry written in c++ [21]
+block: open source dmrg framework for quantum chemistry and model hamiltonians. supports su(2) and general non-abelian symmetries. written in c++.
+block2: an efficient parallel implementation of dmrg, dynamical dmrg, tddmrg, and finite temperature dmrg for quantum chemistry and models. written in python/c++.
+
+
+== see also ==
+quantum monte carlo
+dmrg of the heisenberg model
+time-evolving block decimation
+configuration interaction
+
+
+== references ==

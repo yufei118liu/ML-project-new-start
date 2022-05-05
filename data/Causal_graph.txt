@@ -1,0 +1,645 @@
+in statistics, econometrics, epidemiology, genetics and related disciplines, causal graphs (also known as path diagrams, causal bayesian networks or  dags) are probabilistic graphical models used to encode assumptions about the data-generating process.
+causal graphs can be used for communication and for inference. as communication devices, the graphs provide formal and transparent representation of the causal assumptions that researchers may wish to convey and defend.  as inference tools, the graphs enable researchers to estimate effect sizes from non-experimental data, derive testable implications of the assumptions encoded, test for external validity, and manage missing data and selection bias.causal graphs were first used by the geneticist sewall wright under the rubric "path diagrams". they were later adopted by social scientists and, to a lesser extent, by economists. these models were initially confined to linear equations with fixed parameters. modern developments have extended graphical models to non-parametric analysis, and thus achieved a generality and flexibility that has transformed causal analysis in computer science, epidemiology, and social science.
+
+
+== construction and terminology ==
+the causal graph can be drawn in the following way. each variable in the model has a corresponding vertex or node and an arrow is drawn from a variable x to a variable y whenever y is judged to respond to changes in x when all other variables are being held constant. variables connected to y through direct arrows are called parents of y, or "direct causes of y," and are denoted by pa(y).
+causal models often include "error terms" or "omitted factors" which represent all unmeasured factors that influence a variable y when pa(y) are held constant. in most cases, error terms are excluded from the graph. however, if the graph author suspects that the error terms of any two variables are dependent (e.g. the two variables have an unobserved or latent common cause) then a bidirected arc is drawn between them. thus, the presence of latent variables is taken into account through the correlations they induce between the error terms, as represented by bidirected arcs.
+
+
+== fundamental tools ==
+a fundamental tool in graphical analysis is d-separation, which allows researchers to determine, by inspection, whether the causal structure implies that two sets of variables are independent given a third set.  in recursive models without correlated error terms (sometimes called markovian), these conditional independences represent all of the model's testable implications.
+
+
+== example ==
+suppose we wish to estimate the effect of attending an elite college on future earnings.  simply regressing earnings on college rating will not give an unbiased estimate of the target effect because elite colleges are highly selective, and students attending them are likely to have qualifications for high-earning jobs prior to attending the school.  assuming that the causal relationships are linear, this background knowledge can be expressed in the following structural equation model (sem) specification.
+model 1
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  q
+                  
+                    1
+                  
+                
+              
+              
+                
+                =
+                
+                  u
+                  
+                    1
+                  
+                
+              
+            
+            
+              
+                c
+              
+              
+                
+                =
+                a
+                ⋅
+                
+                  q
+                  
+                    1
+                  
+                
+                +
+                
+                  u
+                  
+                    2
+                  
+                
+              
+            
+            
+              
+                
+                  q
+                  
+                    2
+                  
+                
+              
+              
+                
+                =
+                c
+                ⋅
+                c
+                +
+                d
+                ⋅
+                
+                  q
+                  
+                    1
+                  
+                
+                +
+                
+                  u
+                  
+                    3
+                  
+                
+              
+            
+            
+              
+                s
+              
+              
+                
+                =
+                b
+                ⋅
+                c
+                +
+                e
+                ⋅
+                
+                  q
+                  
+                    2
+                  
+                
+                +
+                
+                  u
+                  
+                    4
+                  
+                
+                ,
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}q_{1}&=u_{1}\\c&=a\cdot q_{1}+u_{2}\\q_{2}&=c\cdot c+d\cdot q_{1}+u_{3}\\s&=b\cdot c+e\cdot q_{2}+u_{4},\end{aligned}}}
+  where 
+  
+    
+      
+        
+          q
+          
+            1
+          
+        
+      
+    
+    {\displaystyle q_{1}}
+   represents the individual's qualifications prior to college, 
+  
+    
+      
+        
+          q
+          
+            2
+          
+        
+      
+    
+    {\displaystyle q_{2}}
+   represents qualifications after college, 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+   contains attributes representing the quality of the college attended, and 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+   the individual's salary.
+
+figure 1 is a causal graph that represents this model specification.  each variable in the model has a corresponding node or vertex in the graph.  additionally, for each equation, arrows are drawn from the independent variables to the dependent variables.  these arrows reflect the direction of causation.  in some cases, we may label the arrow with its corresponding structural coefficient as in figure 1.
+if 
+  
+    
+      
+        
+          q
+          
+            1
+          
+        
+      
+    
+    {\displaystyle q_{1}}
+   and 
+  
+    
+      
+        
+          q
+          
+            2
+          
+        
+      
+    
+    {\displaystyle q_{2}}
+   are unobserved or latent variables their influence on 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+   and 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+   can be attributed to their error terms.  by removing them, we obtain the following model specification:
+model 2
+
+  
+    
+      
+        
+          
+            
+              
+                c
+              
+              
+                
+                =
+                
+                  u
+                  
+                    c
+                  
+                
+              
+            
+            
+              
+                s
+              
+              
+                
+                =
+                β
+                c
+                +
+                
+                  u
+                  
+                    s
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}c&=u_{c}\\s&=\beta c+u_{s}\end{aligned}}}
+  the background information specified by model 1 imply that the error term of 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+  , 
+  
+    
+      
+        
+          u
+          
+            s
+          
+        
+      
+    
+    {\displaystyle u_{s}}
+  , is correlated with c's error term, 
+  
+    
+      
+        
+          u
+          
+            c
+          
+        
+      
+    
+    {\displaystyle u_{c}}
+  .  as a result, we add a bidirected arc between s and c, as in figure 2.
+
+since 
+  
+    
+      
+        
+          u
+          
+            s
+          
+        
+      
+    
+    {\displaystyle u_{s}}
+   is correlated with 
+  
+    
+      
+        
+          u
+          
+            c
+          
+        
+      
+    
+    {\displaystyle u_{c}}
+   and, therefore, 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+  , 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+   is endogenous and 
+  
+    
+      
+        β
+      
+    
+    {\displaystyle \beta }
+   is not identified in model 2. however, if we include the strength of an individual's college application, 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  , as shown in figure 3, we obtain the following model:
+model 3
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  q
+                  
+                    1
+                  
+                
+              
+              
+                
+                =
+                
+                  u
+                  
+                    1
+                  
+                
+              
+            
+            
+              
+                a
+              
+              
+                
+                =
+                a
+                ⋅
+                
+                  q
+                  
+                    1
+                  
+                
+                +
+                
+                  u
+                  
+                    2
+                  
+                
+              
+            
+            
+              
+                c
+              
+              
+                
+                =
+                b
+                ⋅
+                a
+                +
+                
+                  u
+                  
+                    3
+                  
+                
+              
+            
+            
+              
+                
+                  q
+                  
+                    2
+                  
+                
+              
+              
+                
+                =
+                e
+                ⋅
+                
+                  q
+                  
+                    1
+                  
+                
+                +
+                d
+                ⋅
+                c
+                +
+                
+                  u
+                  
+                    4
+                  
+                
+              
+            
+            
+              
+                s
+              
+              
+                
+                =
+                c
+                ⋅
+                c
+                +
+                f
+                ⋅
+                
+                  q
+                  
+                    2
+                  
+                
+                +
+                
+                  u
+                  
+                    5
+                  
+                
+                ,
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}q_{1}&=u_{1}\\a&=a\cdot q_{1}+u_{2}\\c&=b\cdot a+u_{3}\\q_{2}&=e\cdot q_{1}+d\cdot c+u_{4}\\s&=c\cdot c+f\cdot q_{2}+u_{5},\end{aligned}}}
+  by removing the latent variables from the model specification we obtain:
+model 4
+
+  
+    
+      
+        
+          
+            
+              
+                a
+              
+              
+                
+                =
+                a
+                ⋅
+                
+                  q
+                  
+                    1
+                  
+                
+                +
+                
+                  u
+                  
+                    a
+                  
+                
+              
+            
+            
+              
+                c
+              
+              
+                
+                =
+                b
+                ⋅
+                a
+                +
+                
+                  u
+                  
+                    c
+                  
+                
+              
+            
+            
+              
+                s
+              
+              
+                
+                =
+                β
+                ⋅
+                c
+                +
+                
+                  u
+                  
+                    s
+                  
+                
+                ,
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}a&=a\cdot q_{1}+u_{a}\\c&=b\cdot a+u_{c}\\s&=\beta \cdot c+u_{s},\end{aligned}}}
+  with 
+  
+    
+      
+        
+          u
+          
+            a
+          
+        
+      
+    
+    {\displaystyle u_{a}}
+   correlated with 
+  
+    
+      
+        
+          u
+          
+            s
+          
+        
+      
+    
+    {\displaystyle u_{s}}
+  .
+now, 
+  
+    
+      
+        β
+      
+    
+    {\displaystyle \beta }
+   is identified and can be estimated using the regression of 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+   on 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+   and 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  . this can be verified using the single-door criterion, a necessary and sufficient graphical condition for the identification of a structural coefficients, like 
+  
+    
+      
+        β
+      
+    
+    {\displaystyle \beta }
+  , using regression.
+
+
+== references ==

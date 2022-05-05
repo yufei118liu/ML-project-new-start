@@ -1,0 +1,1086 @@
+modular exponentiation is exponentiation performed over a modulus. it is useful in computer science, especially in the field of public-key cryptography, where it is used in both diffie-hellman key exchange and rsa public/private keys.
+modular exponentiation is the remainder when an integer b (the base) is raised to the power e (the exponent), and divided by a positive integer m (the modulus); that is, c = be mod m. from the definition of division, it follows that 0 ≤ c < m.
+for example, given b = 5, e = 3 and m = 13, dividing 53 = 125 by 13 leaves a remainder of c = 8.
+modular exponentiation can be performed with a negative exponent e by finding the modular multiplicative inverse d of b modulo m using the extended euclidean algorithm. that is:
+
+c = be mod m = d−e mod m, where e < 0 and b ⋅ d ≡ 1 (mod m).modular exponentiation is efficient to compute, even for very large integers.  on the other hand, computing the modular discrete logarithm – that is, finding the exponent e when given b, c, and m – is believed to be difficult. this one-way function behavior makes modular exponentiation a candidate for use in cryptographic algorithms.
+
+
+== direct method ==
+the most direct method of calculating a modular exponent is to calculate be directly, then to take this number modulo m.  consider trying to compute c, given b = 4, e = 13, and m = 497:
+
+c ≡ 413 (mod 497)one could use a calculator to compute 413; this comes out to 67,108,864.  taking this value modulo 497, the answer c is determined to be 445.
+note that b is only one digit in length and that e is only two digits in length, but the value be is 8 digits in length.
+in strong cryptography, b is often at least 1024 bits.  consider b = 5 × 1076 and e = 17, both of which are perfectly reasonable values.  in this example, b is 77 digits in length and e is 2 digits in length, but the value be is 1,304 decimal digits in length.  such calculations are possible on modern computers, but the sheer magnitude of such numbers causes the speed of calculations to slow considerably.  as b and e increase even further to provide better security, the value be becomes unwieldy.
+the time required to perform the exponentiation depends on the operating environment and the processor.  the method described above requires o(e) multiplications to complete.
+
+
+== memory-efficient method ==
+keeping the numbers smaller requires additional modular reduction operations, but the reduced size makes each operation faster, saving time (as well as memory) overall.
+this algorithm makes use of the identity
+
+(a ⋅ b) mod m = [(a mod m) ⋅ (b mod m)] mod mthe modified algorithm is:
+
+set c = 1, e′ = 0.
+increase e′ by 1.
+set c = (b ⋅ c) mod m.
+if e′ < e, go to step 2.  else, c contains the correct solution to c ≡ be (mod m).note that in every pass through step 3, the equation c ≡ be′ (mod m) holds true.  when step 3 has been executed e times, then, c contains the answer that was sought. in summary, this algorithm basically counts up e′ by ones until e′ reaches e, doing a multiply by b and a modulo operation each time it adds one (to ensure the results stay small).
+the example b = 4, e = 13, and m = 497 is presented again.  the algorithm passes through step 3 thirteen times:
+
+e′ = 1.  c = (1 ⋅ 4) mod 497 = 4 mod 497 = 4.
+e′ = 2.  c = (4 ⋅ 4) mod 497 = 16 mod 497 = 16.
+e′ = 3.  c = (16 ⋅ 4) mod 497 = 64 mod 497 = 64.
+e′ = 4.  c = (64 ⋅ 4) mod 497 = 256 mod 497 = 256.
+e′ = 5.  c = (256 ⋅ 4) mod 497 = 1024 mod 497 = 30.
+e′ = 6.  c = (30 ⋅ 4) mod 497 = 120 mod 497 = 120.
+e′ = 7.  c = (120 ⋅ 4) mod 497 = 480 mod 497 = 480.
+e′ = 8.  c = (480 ⋅ 4) mod 497 = 1920 mod 497 = 429.
+e′ = 9.  c = (429 ⋅ 4) mod 497 = 1716 mod 497 = 225.
+e′ = 10.  c = (225 ⋅ 4) mod 497 = 900 mod 497 = 403.
+e′ = 11.  c = (403 ⋅ 4) mod 497 = 1612 mod 497 = 121.
+e′ = 12.  c = (121 ⋅ 4) mod 497 = 484 mod 497 = 484.
+e′ = 13.  c = (484 ⋅ 4) mod 497 = 1936 mod 497 = 445.the final answer for c is therefore 445, as in the first method.
+like the first method, this requires o(e) multiplications to complete.  however, since the numbers used in these calculations are much smaller than the numbers used in the first algorithm's calculations, the computation time decreases by a factor of at least o(e) in this method.
+in pseudocode, this method can be performed the following way:
+
+function modular_pow(base, exponent, modulus) is
+    if modulus = 1 then
+        return 0
+    c := 1
+    for e_prime = 0 to exponent-1 do
+        c := (c * base) mod modulus
+    return c
+
+
+== right-to-left binary method ==
+a third method drastically reduces the number of operations to perform modular exponentiation, while keeping the same memory footprint as in the previous method.  it is a combination of the previous method and a more general principle called exponentiation by squaring (also known as binary exponentiation).
+first, it is required that the exponent e be converted to binary notation.  that is, e can be written as:
+
+  
+    
+      
+        e
+        =
+        
+          ∑
+          
+            i
+            =
+            0
+          
+          
+            n
+            −
+            1
+          
+        
+        
+          a
+          
+            i
+          
+        
+        
+          2
+          
+            i
+          
+        
+      
+    
+    {\displaystyle e=\sum _{i=0}^{n-1}a_{i}2^{i}}
+  in such notation, the length of e is n bits. ai can take the value 0 or 1 for any i such that 0 ≤ i < n.  by definition, an − 1 = 1.
+the value be can then be written as:
+
+  
+    
+      
+        
+          b
+          
+            e
+          
+        
+        =
+        
+          b
+          
+            
+              (
+              
+                
+                  ∑
+                  
+                    i
+                    =
+                    0
+                  
+                  
+                    n
+                    −
+                    1
+                  
+                
+                
+                  a
+                  
+                    i
+                  
+                
+                
+                  2
+                  
+                    i
+                  
+                
+              
+              )
+            
+          
+        
+        =
+        
+          ∏
+          
+            i
+            =
+            0
+          
+          
+            n
+            −
+            1
+          
+        
+        
+          b
+          
+            
+              a
+              
+                i
+              
+            
+            
+              2
+              
+                i
+              
+            
+          
+        
+      
+    
+    {\displaystyle b^{e}=b^{\left(\sum _{i=0}^{n-1}a_{i}2^{i}\right)}=\prod _{i=0}^{n-1}b^{a_{i}2^{i}}}
+  the solution c is therefore:
+
+  
+    
+      
+        c
+        ≡
+        
+          ∏
+          
+            i
+            =
+            0
+          
+          
+            n
+            −
+            1
+          
+        
+        
+          b
+          
+            
+              a
+              
+                i
+              
+            
+            
+              2
+              
+                i
+              
+            
+          
+        
+        
+          
+          (
+          mod
+          
+          m
+          )
+        
+      
+    
+    {\displaystyle c\equiv \prod _{i=0}^{n-1}b^{a_{i}2^{i}}{\pmod {m}}}
+  
+
+
+=== pseudocode ===
+the following is an example in pseudocode based on applied cryptography by bruce schneier.  the inputs base, exponent, and modulus correspond to b, e, and m in the equations given above.
+
+function modular_pow(base, exponent, modulus) is
+    if modulus = 1 then
+        return 0
+    assert :: (modulus - 1) * (modulus - 1) does not overflow base
+    result := 1
+    base := base mod modulus
+    while exponent > 0 do
+        if (exponent mod 2 == 1) then
+            result := (result * base) mod modulus
+        exponent := exponent >> 1
+        base := (base * base) mod modulus
+    return result
+
+note that upon entering the loop for the first time, the code variable base is equivalent to b.  however, the repeated squaring in the third line of code ensures that at the completion of every loop, the variable base is equivalent to b2i mod m, where i is the number of times the loop has been iterated.  (this makes i the next working bit of the binary exponent exponent, where the least-significant bit is exponent0).
+the first line of code simply carries out the multiplication in 
+  
+    
+      
+        
+          ∏
+          
+            i
+            =
+            0
+          
+          
+            n
+            −
+            1
+          
+        
+        
+          b
+          
+            
+              a
+              
+                i
+              
+            
+            
+              2
+              
+                i
+              
+            
+          
+        
+        
+          
+          (
+          mod
+          
+          m
+          )
+        
+      
+    
+    {\displaystyle \prod _{i=0}^{n-1}b^{a_{i}2^{i}}{\pmod {m}}}
+  .  if a is zero, no code executes since this effectively multiplies the running total by one.  if a instead is one, the variable base (containing the value b2i mod m of the original base) is simply multiplied in.
+in this example, the base b is raised to the exponent e = 13.
+the exponent is 1101 in binary. there are four binary digits, so the loop executes four times, with values a0 = 1, a1 = 0, a2 = 1, and a3 = 1.
+first, initialize the result 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+   to 1 and preserve the value of b in the variable x:
+
+  
+    
+      
+        r
+        ←
+        1
+        
+        (
+        =
+        
+          b
+          
+            0
+          
+        
+        )
+        
+           and 
+        
+        x
+        ←
+        b
+      
+    
+    {\displaystyle r\leftarrow 1\,(=b^{0}){\text{ and }}x\leftarrow b}
+  .
+step 1)  bit 1 is 1, so set 
+  
+    
+      
+        r
+        ←
+        r
+        ⋅
+        x
+        
+           
+        
+        (
+        =
+        
+          b
+          
+            1
+          
+        
+        )
+      
+    
+    {\displaystyle r\leftarrow r\cdot x{\text{ }}(=b^{1})}
+  ;
+set 
+  
+    
+      
+        x
+        ←
+        
+          x
+          
+            2
+          
+        
+        
+           
+        
+        (
+        =
+        
+          b
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle x\leftarrow x^{2}{\text{ }}(=b^{2})}
+  .
+step 2)  bit 2 is 0, so do not reset r;
+set 
+  
+    
+      
+        x
+        ←
+        
+          x
+          
+            2
+          
+        
+        
+           
+        
+        (
+        =
+        
+          b
+          
+            4
+          
+        
+        )
+      
+    
+    {\displaystyle x\leftarrow x^{2}{\text{ }}(=b^{4})}
+  .
+step 3)  bit 3 is 1, so set 
+  
+    
+      
+        r
+        ←
+        r
+        ⋅
+        x
+        
+           
+        
+        (
+        =
+        
+          b
+          
+            5
+          
+        
+        )
+      
+    
+    {\displaystyle r\leftarrow r\cdot x{\text{ }}(=b^{5})}
+  ;
+set 
+  
+    
+      
+        x
+        ←
+        
+          x
+          
+            2
+          
+        
+        
+           
+        
+        (
+        =
+        
+          b
+          
+            8
+          
+        
+        )
+      
+    
+    {\displaystyle x\leftarrow x^{2}{\text{ }}(=b^{8})}
+  .
+step 4)  bit 4 is 1, so set 
+  
+    
+      
+        r
+        ←
+        r
+        ⋅
+        x
+        
+           
+        
+        (
+        =
+        
+          b
+          
+            13
+          
+        
+        )
+      
+    
+    {\displaystyle r\leftarrow r\cdot x{\text{ }}(=b^{13})}
+  ;
+this is the last step so we don't need to square x.we are done: r is now 
+  
+    
+      
+        
+          b
+          
+            13
+          
+        
+      
+    
+    {\displaystyle b^{13}}
+  .
+here is the above calculation, where we compute b = 4 to the power  e = 13, performed modulo 497.
+initialize:
+
+  
+    
+      
+        r
+        ←
+        1
+        
+        (
+        =
+        
+          b
+          
+            0
+          
+        
+        )
+      
+    
+    {\displaystyle r\leftarrow 1\,(=b^{0})}
+    and  
+  
+    
+      
+        x
+        ←
+        b
+        =
+        4
+      
+    
+    {\displaystyle x\leftarrow b=4}
+  .
+step 1)  bit 1 is 1, so set 
+  
+    
+      
+        r
+        ←
+        r
+        ⋅
+        4
+        ≡
+        4
+        
+          
+          (
+          mod
+          
+          497
+          )
+        
+      
+    
+    {\displaystyle r\leftarrow r\cdot 4\equiv 4{\pmod {497}}}
+  ;
+set 
+  
+    
+      
+        x
+        ←
+        
+          x
+          
+            2
+          
+        
+        
+           
+        
+        (
+        =
+        
+          b
+          
+            2
+          
+        
+        )
+        ≡
+        
+          4
+          
+            2
+          
+        
+        ≡
+        16
+        
+          
+          (
+          mod
+          
+          497
+          )
+        
+      
+    
+    {\displaystyle x\leftarrow x^{2}{\text{ }}(=b^{2})\equiv 4^{2}\equiv 16{\pmod {497}}}
+  .
+step 2) bit 2 is 0, so do not reset r;
+set 
+  
+    
+      
+        x
+        ←
+        
+          x
+          
+            2
+          
+        
+        
+           
+        
+        (
+        =
+        
+          b
+          
+            4
+          
+        
+        )
+        ≡
+        
+          16
+          
+            2
+          
+        
+        ≡
+        256
+        
+          
+          (
+          mod
+          
+          497
+          )
+        
+      
+    
+    {\displaystyle x\leftarrow x^{2}{\text{ }}(=b^{4})\equiv 16^{2}\equiv 256{\pmod {497}}}
+  .
+step 3)  bit 3 is 1, so set 
+  
+    
+      
+        r
+        ←
+        r
+        ⋅
+        x
+        
+           
+        
+        (
+        =
+        
+          b
+          
+            5
+          
+        
+        )
+        ≡
+        4
+        ⋅
+        256
+        ≡
+        30
+        
+          
+          (
+          mod
+          
+          497
+          )
+        
+      
+    
+    {\displaystyle r\leftarrow r\cdot x{\text{ }}(=b^{5})\equiv 4\cdot 256\equiv 30{\pmod {497}}}
+  ;
+set 
+  
+    
+      
+        x
+        ←
+        
+          x
+          
+            2
+          
+        
+        
+           
+        
+        (
+        =
+        
+          b
+          
+            8
+          
+        
+        )
+        ≡
+        
+          256
+          
+            2
+          
+        
+        ≡
+        429
+        
+          
+          (
+          mod
+          
+          497
+          )
+        
+      
+    
+    {\displaystyle x\leftarrow x^{2}{\text{ }}(=b^{8})\equiv 256^{2}\equiv 429{\pmod {497}}}
+  .
+step 4)  bit 4 is 1, so set 
+  
+    
+      
+        r
+        ←
+        r
+        ⋅
+        x
+        
+           
+        
+        (
+        =
+        
+          b
+          
+            13
+          
+        
+        )
+        ≡
+        30
+        ⋅
+        429
+        ≡
+        445
+        
+          
+          (
+          mod
+          
+          497
+          )
+        
+      
+    
+    {\displaystyle r\leftarrow r\cdot x{\text{ }}(=b^{13})\equiv 30\cdot 429\equiv 445{\pmod {497}}}
+  ;we are done: r is now 
+  
+    
+      
+        
+          4
+          
+            13
+          
+        
+        ≡
+        445
+        
+          
+          (
+          mod
+          
+          497
+          )
+        
+      
+    
+    {\displaystyle 4^{13}\equiv 445{\pmod {497}}}
+  , the same result obtained in the previous algorithms.
+the running time of this algorithm is o(log exponent).  when working with large values of exponent, this offers a substantial speed benefit over the previous two algorithms, whose time is o(exponent). for example, if the exponent was 220 = 1048576, this algorithm would have 20 steps instead of 1048576 steps.
+
+
+=== implementation in lua ===
+function modpow(b, e, m)
+  if m == 1 then
+    return 0
+  else
+    local r = 1
+    b = b % m
+    while e > 0 do
+      if e % 2 == 1 then
+        r = (r*b) % m
+      end
+      b = (b*b) % m
+      e = e >> 1     --use 'e = math.floor(e / 2)' on lua 5.2 or older
+    end
+    return r
+  end
+end
+
+
+== left-to-right binary method ==
+we can also use the bits of the exponent in left to right order. in practice, we would usually want the result modulo some modulus m. in that case, we would reduce each multiplication result (mod m) before proceeding. for simplicity, the modulus calculation is omitted here. this example shows how to compute 
+  
+    
+      
+        
+          b
+          
+            13
+          
+        
+      
+    
+    {\displaystyle b^{13}}
+   using left to right binary exponentiation. the exponent is 1101 in binary; there are 4 bits, so there are 4 iterations.
+initialize the result to 1: 
+  
+    
+      
+        r
+        ←
+        1
+        
+        (
+        =
+        
+          b
+          
+            0
+          
+        
+        )
+      
+    
+    {\displaystyle r\leftarrow 1\,(=b^{0})}
+  .
+
+step 1) 
+  
+    
+      
+        r
+        ←
+        
+          r
+          
+            2
+          
+        
+        
+        (
+        =
+        
+          b
+          
+            0
+          
+        
+        )
+      
+    
+    {\displaystyle r\leftarrow r^{2}\,(=b^{0})}
+  ; bit 1 = 1, so compute 
+  
+    
+      
+        r
+        ←
+        r
+        ⋅
+        b
+        
+        (
+        =
+        
+          b
+          
+            1
+          
+        
+        )
+      
+    
+    {\displaystyle r\leftarrow r\cdot b\,(=b^{1})}
+  ;
+step 2) 
+  
+    
+      
+        r
+        ←
+        
+          r
+          
+            2
+          
+        
+        
+        (
+        =
+        
+          b
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle r\leftarrow r^{2}\,(=b^{2})}
+  ; bit 2 = 1, so compute 
+  
+    
+      
+        r
+        ←
+        r
+        ⋅
+        b
+        
+        (
+        =
+        
+          b
+          
+            3
+          
+        
+        )
+      
+    
+    {\displaystyle r\leftarrow r\cdot b\,(=b^{3})}
+  ;
+step 3) 
+  
+    
+      
+        r
+        ←
+        
+          r
+          
+            2
+          
+        
+        
+        (
+        =
+        
+          b
+          
+            6
+          
+        
+        )
+      
+    
+    {\displaystyle r\leftarrow r^{2}\,(=b^{6})}
+  ; bit 3 = 0, so we are done with this step;
+step 4) 
+  
+    
+      
+        r
+        ←
+        
+          r
+          
+            2
+          
+        
+        
+        (
+        =
+        
+          b
+          
+            12
+          
+        
+        )
+      
+    
+    {\displaystyle r\leftarrow r^{2}\,(=b^{12})}
+  ; bit 4 = 1, so compute 
+  
+    
+      
+        r
+        ←
+        r
+        ⋅
+        b
+        
+        (
+        =
+        
+          b
+          
+            13
+          
+        
+        )
+      
+    
+    {\displaystyle r\leftarrow r\cdot b\,(=b^{13})}
+  .
+
+
+=== minimum multiplications ===
+in the art of computer programming, vol. 2, seminumerical algorithms, page 463, donald knuth notes that contrary to some assertions, this method does not always give the minimum possible number of multiplications. the smallest counterexample is for a power of 15, when the binary method needs six multiplications. instead, form x3 in two multiplications, then x6 by squaring x3, then x12 by squaring x6, and finally x15 by multiplying x12 and x3, thereby achieving the desired result with only five multiplications. however, many pages follow describing how such sequences might be contrived in general.
+
+
+== generalizations ==
+
+
+=== matrices ===
+the m-th term of any constant-recursive sequence (such as fibonacci numbers or perrin numbers) where each term is a linear function of k previous terms can be computed efficiently modulo n by computing am mod n, where a is the corresponding k×k companion matrix. the above methods adapt easily to this application. this can be used for primality testing of large numbers n, for example.
+
+pseudocodea recursive algorithm for modexp(a, b, c) = ab mod c, where a is a square matrix.
+
+function matrix_modexp(matrix a, int b, int c) is
+    if b == 0 then
+        return i  // the identity matrix
+    if (b mod 2 == 1) then
+        return (a * matrix_modexp(a, b - 1, c)) mod c
+    matrix d := matrix_modexp(a, b / 2, c)
+    return (d * d) mod c
+
+
+=== finite cyclic groups ===
+diffie–hellman key exchange uses exponentiation in finite cyclic groups. the above methods for modular matrix exponentiation clearly extend to this context. the modular matrix multiplication c ≡ ab (mod n) is simply replaced everywhere by the group multiplication c = ab.
+
+
+=== reversible and quantum modular exponentiation ===
+in quantum computing, modular exponentiation appears as the bottleneck of shor's algorithm, where it must be computed by a circuit consisting of reversible gates, which can be further broken down into quantum gates appropriate for a specific physical device. furthermore, in shor's algorithm it is possible to know the base and the modulus of exponentiation at every call, which enables various circuit optimizations.
+
+
+== software implementations ==
+because modular exponentiation is an important operation in computer science, and there are efficient algorithms (see above) that are much faster than simply exponentiating and then taking the remainder, many programming languages and arbitrary-precision integer libraries have a dedicated function to perform modular exponentiation:
+
+python's built-in pow() (exponentiation) function [1] takes an optional third argument, the modulus
+.net framework's biginteger class has a modpow() method to perform modular exponentiation
+java's java.math.biginteger class has a modpow() method to perform modular exponentiation
+matlab's powermod function from symbolic math toolbox
+wolfram language has the powermod function
+perl's math::bigint module has a bmodpow() method [2] to perform modular exponentiation
+raku has a built-in routine expmod.
+go's big.int type contains an exp() (exponentiation) method [3] whose third parameter, if non-nil, is the modulus
+php's bc math library has a bcpowmod() function [4] to perform modular exponentiation
+the gnu multiple precision arithmetic library (gmp) library contains a mpz_powm() function [5] to perform modular exponentiation
+custom function @powermod() for filemaker pro (with 1024-bit rsa encryption example)
+ruby's openssl package has the openssl::bn#mod_exp method [6] to perform modular exponentiation.
+the hp prime calculator has the cas.powmod() function [7] to perform modular exponentiation. for a^b mod c, a can be no larger than 1 ee 12.  this is the maximum precision of most hp calculators including the prime.
+
+
+== see also ==
+montgomery reduction, for calculating the remainder when the modulus is very large.
+kochanski multiplication, serializable method for calculating the remainder when the modulus is very large
+barrett reduction, algorithm for calculating the remainder when the modulus is very large.
+
+
+== references ==
+
+
+== external links ==
+schneier, bruce (1996). applied cryptography: protocols, algorithms, and source code in c, second edition (2nd ed.). wiley. isbn 978-0-471-11709-4.
+paul garrett, fast modular exponentiation java applet
+gordon, daniel m. (1998). "a survey of fast exponentiation methods" (pdf). journal of algorithms. elsevier bv. 27 (1): 129–146. doi:10.1006/jagm.1997.0913. issn 0196-6774.

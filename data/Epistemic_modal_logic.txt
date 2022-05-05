@@ -1,0 +1,1586 @@
+epistemic modal logic is a subfield of modal logic that is concerned with reasoning about knowledge.  while epistemology has a long philosophical tradition dating back to ancient greece, epistemic logic is a much more recent development with applications in many fields, including philosophy, theoretical computer science, artificial intelligence, economics and linguistics.  while philosophers since aristotle have discussed modal logic, and medieval philosophers such as avicenna, ockham, and duns scotus developed many of their observations, it was c. i. lewis who created the first symbolic and systematic approach to the topic, in 1912.  it continued to mature as a field, reaching its modern form in 1963 with the work of kripke.
+
+
+== historical development ==
+many papers were written in the 1950s that spoke of a logic of knowledge in passing, but it was finnish philosopher von wright's paper an essay in modal logic from 1951 that is seen as a founding document.  it was not until 1962 that another finn, hintikka, would write knowledge and belief, the first book-length work to suggest using modalities to capture the semantics of knowledge rather than the alethic statements typically discussed in modal logic.  this work laid much of the groundwork for the subject, but a great deal of research has taken place since that time.  for example, epistemic logic has been combined recently with some ideas from dynamic logic to create dynamic epistemic logic, which can be used to specify and reason about information change and exchange of information in multi-agent systems. the seminal works in this field are by plaza, van benthem, and baltag, moss, and solecki.
+
+
+== standard possible worlds model ==
+most attempts at modeling knowledge have been based on the possible worlds model.  in order to do this, we must divide the set of possible worlds between those that are compatible with an agent's knowledge, and those that are not. this generally conforms with common usage. if i know that it is either friday or saturday, then i know for sure that it is not thursday. there is no possible world compatible with my knowledge where it is thursday, since in all these worlds it is either friday or saturday. while we will primarily be discussing the logic-based approach to accomplishing this task, it is worthwhile to mention here the other primary method in use, the event-based approach.  in this particular usage, events are sets of possible worlds, and knowledge is an operator on events.  though the strategies are closely related, there are two important distinctions to be made between them:
+
+the underlying mathematical model of the logic-based approach are kripke semantics, while the event-based approach employs the related aumann structures based on set theory.
+in the event-based approach logical formulas are done away with completely, while the logic-based approach uses the system of modal logic.typically, the logic-based approach has been used in fields such as philosophy, logic and ai, while the event-based approach is more often used in fields such as game theory and mathematical economics.  in the logic-based approach, a syntax and semantics have been built using the language of modal logic, which we will now describe.
+
+
+=== syntax ===
+the basic modal operator of epistemic logic, usually written k, can be read as "it is known that," "it is epistemically necessary that," or "it is inconsistent with what is known that not."  if there is more than one agent whose knowledge is to be represented, subscripts can be attached to the operator (
+  
+    
+      
+        
+          
+            
+              k
+            
+          
+          
+            1
+          
+        
+      
+    
+    {\displaystyle {\mathit {k}}_{1}}
+  , 
+  
+    
+      
+        
+          
+            
+              k
+            
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle {\mathit {k}}_{2}}
+  , etc.) to indicate which agent one is talking about.  so 
+  
+    
+      
+        
+          
+            
+              k
+            
+          
+          
+            a
+          
+        
+        φ
+      
+    
+    {\displaystyle {\mathit {k}}_{a}\varphi }
+   can be read as "agent 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   knows that 
+  
+    
+      
+        φ
+      
+    
+    {\displaystyle \varphi }
+  ."  thus, epistemic logic can be an example of multimodal logic applied for knowledge representation. the dual of k, which would be in the same relationship to k as 
+  
+    
+      
+        ◊
+      
+    
+    {\displaystyle \diamond }
+   is to 
+  
+    
+      
+        ◻
+      
+    
+    {\displaystyle \box }
+  , has no specific symbol, but can be represented by 
+  
+    
+      
+        ¬
+        
+          k
+          
+            a
+          
+        
+        ¬
+        φ
+      
+    
+    {\displaystyle \neg k_{a}\neg \varphi }
+  , which can be read as "
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   does not know that not 
+  
+    
+      
+        φ
+      
+    
+    {\displaystyle \varphi }
+  " or "it is consistent with 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  's knowledge that 
+  
+    
+      
+        φ
+      
+    
+    {\displaystyle \varphi }
+   is possible". the statement "
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   does not know whether or not 
+  
+    
+      
+        φ
+      
+    
+    {\displaystyle \varphi }
+  " can be expressed as 
+  
+    
+      
+        ¬
+        
+          k
+          
+            a
+          
+        
+        φ
+        ∧
+        ¬
+        
+          k
+          
+            a
+          
+        
+        ¬
+        φ
+      
+    
+    {\displaystyle \neg k_{a}\varphi \land \neg k_{a}\neg \varphi }
+  .
+in order to accommodate notions of common knowledge and distributed knowledge, three other modal operators can be added to the language.  these are 
+  
+    
+      
+        
+          
+            
+              e
+            
+          
+          
+            
+              g
+            
+          
+        
+      
+    
+    {\displaystyle {\mathit {e}}_{\mathit {g}}}
+  , which reads "every agent in group g knows" (mutual knowledge); 
+  
+    
+      
+        
+          
+            
+              c
+            
+          
+          
+            
+              g
+            
+          
+        
+      
+    
+    {\displaystyle {\mathit {c}}_{\mathit {g}}}
+  , which reads "it is common knowledge to every agent in g"; and 
+  
+    
+      
+        
+          
+            
+              d
+            
+          
+          
+            
+              g
+            
+          
+        
+      
+    
+    {\displaystyle {\mathit {d}}_{\mathit {g}}}
+  , which reads "it is distributed knowledge to the whole group g."  if 
+  
+    
+      
+        φ
+      
+    
+    {\displaystyle \varphi }
+   is a formula of our language, then so are 
+  
+    
+      
+        
+          
+            
+              e
+            
+          
+          
+            g
+          
+        
+        φ
+      
+    
+    {\displaystyle {\mathit {e}}_{g}\varphi }
+  , 
+  
+    
+      
+        
+          
+            
+              c
+            
+          
+          
+            g
+          
+        
+        φ
+      
+    
+    {\displaystyle {\mathit {c}}_{g}\varphi }
+  , and 
+  
+    
+      
+        
+          
+            
+              d
+            
+          
+          
+            g
+          
+        
+        φ
+      
+    
+    {\displaystyle {\mathit {d}}_{g}\varphi }
+  .  just as the subscript after 
+  
+    
+      
+        
+          
+            k
+          
+        
+      
+    
+    {\displaystyle {\mathit {k}}}
+   can be omitted when there is only one agent, the subscript after the modal operators 
+  
+    
+      
+        
+          
+            e
+          
+        
+      
+    
+    {\displaystyle {\mathit {e}}}
+  , 
+  
+    
+      
+        
+          
+            c
+          
+        
+      
+    
+    {\displaystyle {\mathit {c}}}
+  , and 
+  
+    
+      
+        
+          
+            d
+          
+        
+      
+    
+    {\displaystyle {\mathit {d}}}
+   can be omitted when the group is the set of all agents.
+
+
+=== semantics ===
+as we mentioned above, the logic-based approach is built upon the possible worlds model, the semantics of which are often given definite form in kripke structures, also known as kripke models.  a kripke structure m for n agents over 
+  
+    
+      
+        φ
+      
+    
+    {\displaystyle \phi }
+   is an (n + 2)-tuple 
+  
+    
+      
+        (
+        s
+        ,
+        π
+        ,
+        
+          
+            
+              k
+            
+          
+          
+            1
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          
+            
+              k
+            
+          
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle (s,\pi ,{\mathcal {k}}_{1},...,{\mathcal {k}}_{n})}
+  , where s is a nonempty set of states or possible worlds, 
+  
+    
+      
+        π
+      
+    
+    {\displaystyle \pi }
+   is an interpretation, which associates with each state in s a truth assignment to the primitive propositions in 
+  
+    
+      
+        φ
+      
+    
+    {\displaystyle \phi }
+   (the set of all primitive propositions), and 
+  
+    
+      
+        
+          
+            
+              k
+            
+          
+          
+            1
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          
+            
+              k
+            
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\mathcal {k}}_{1},...,{\mathcal {k}}_{n}}
+   are binary relations on s for n numbers of agents.  it is important here not to confuse 
+  
+    
+      
+        
+          k
+          
+            i
+          
+        
+      
+    
+    {\displaystyle k_{i}}
+  , our modal operator, and 
+  
+    
+      
+        
+          
+            
+              k
+            
+          
+          
+            i
+          
+        
+      
+    
+    {\displaystyle {\mathcal {k}}_{i}}
+  , our accessibility relation.
+the truth assignment tells us whether or not a proposition p is true or false in a certain state.  so 
+  
+    
+      
+        π
+        (
+        s
+        )
+        (
+        p
+        )
+      
+    
+    {\displaystyle \pi (s)(p)}
+   tells us whether p is true in state s in model 
+  
+    
+      
+        
+          
+            m
+          
+        
+      
+    
+    {\displaystyle {\mathcal {m}}}
+  .  truth depends not only on the structure, but on the current world as well.  just because something is true in one world does not mean it is true in another.  to state that a formula 
+  
+    
+      
+        φ
+      
+    
+    {\displaystyle \varphi }
+   is true at a certain world, one writes 
+  
+    
+      
+        (
+        m
+        ,
+        s
+        )
+        ⊨
+        φ
+      
+    
+    {\displaystyle (m,s)\models \varphi }
+  , normally read as "
+  
+    
+      
+        φ
+      
+    
+    {\displaystyle \varphi }
+   is true at (m,s)," or "(m,s) satisfies 
+  
+    
+      
+        φ
+      
+    
+    {\displaystyle \varphi }
+  ".
+it is useful to think of our binary relation 
+  
+    
+      
+        
+          
+            
+              k
+            
+          
+          
+            i
+          
+        
+      
+    
+    {\displaystyle {\mathcal {k}}_{i}}
+   as a possibility relation, because it is meant to capture what worlds or states agent i considers to be possible; in other words, 
+  
+    
+      
+        w
+        
+          
+            
+              k
+            
+          
+          
+            i
+          
+        
+        v
+      
+    
+    {\displaystyle w{\mathcal {k}}_{i}v}
+   if and only if 
+  
+    
+      
+        ∀
+        φ
+        [
+        (
+        w
+        ⊨
+        
+          k
+          
+            i
+          
+        
+        φ
+        )
+        
+        ⟹
+        
+        (
+        v
+        ⊨
+        φ
+        )
+        ]
+      
+    
+    {\displaystyle \forall \varphi [(w\models k_{i}\varphi )\implies (v\models \varphi )]}
+  , and such 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+  's are called epistemic alternatives for agent i. in idealized accounts of knowledge (e.g., describing the epistemic status of perfect reasoners with infinite memory capacity), it makes sense for 
+  
+    
+      
+        
+          
+            
+              k
+            
+          
+          
+            i
+          
+        
+      
+    
+    {\displaystyle {\mathcal {k}}_{i}}
+   to be an equivalence relation, since this is the strongest form and is the most appropriate for the greatest number of applications.  an equivalence relation is a binary relation that is reflexive, symmetric, and transitive.  the accessibility relation does not have to have these qualities; there are certainly other choices possible, such as those used when modeling belief rather than knowledge.
+
+
+== the properties of knowledge ==
+assuming that 
+  
+    
+      
+        
+          
+            
+              k
+            
+          
+          
+            i
+          
+        
+      
+    
+    {\displaystyle {\mathcal {k}}_{i}}
+   is an equivalence relation, and that the agents are perfect reasoners, a few properties of knowledge can be derived.  the properties listed here are often known as the "s5 properties," for reasons described in the axiom systems section below.
+
+
+=== the distribution axiom ===
+this axiom is traditionally known as k.  in epistemic terms, it states that if an agent knows 
+  
+    
+      
+        φ
+      
+    
+    {\displaystyle \varphi }
+   and knows that 
+  
+    
+      
+        φ
+        
+        ⟹
+        
+        ψ
+      
+    
+    {\displaystyle \varphi \implies \psi }
+  , then the agent must also know 
+  
+    
+      
+        
+        ψ
+      
+    
+    {\displaystyle \,\psi }
+  .  so,
+
+  
+    
+      
+        (
+        
+          k
+          
+            i
+          
+        
+        φ
+        ∧
+        
+          k
+          
+            i
+          
+        
+        (
+        φ
+        
+        ⟹
+        
+        ψ
+        )
+        )
+        
+        ⟹
+        
+        
+          k
+          
+            i
+          
+        
+        ψ
+      
+    
+    {\displaystyle (k_{i}\varphi \land k_{i}(\varphi \implies \psi ))\implies k_{i}\psi }
+  this axiom is valid on any frame in relational semantics. this axiom logically extablisheds modus ponens as a rule of inference for every epistemically possible world.
+
+
+=== the knowledge generalization rule ===
+another property we can derive is that if 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   is valid (i.e. a tautology), then 
+  
+    
+      
+        
+          k
+          
+            i
+          
+        
+        ϕ
+      
+    
+    {\displaystyle k_{i}\phi }
+  .  this does not mean that if 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   is true, then agent i knows 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+  .  what it means is that if 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   is true in every world that an agent considers to be a possible world, then the agent must know 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   at every possible world. this principle is traditionally called n (necessitation rule). 
+
+  
+    
+      
+        
+          if 
+        
+        ⊨
+        φ
+        
+           then 
+        
+        m
+        ⊨
+        
+          k
+          
+            i
+          
+        
+        φ
+        .
+        
+      
+    
+    {\displaystyle {\text{if }}\models \varphi {\text{ then }}m\models k_{i}\varphi .\,}
+  this rule always preserves truth in relational semantics.
+
+
+=== the knowledge or truth axiom ===
+this axiom is also known as t.  it says that if an agent knows facts, the facts must be true.  this has often been taken as the major distinguishing feature between knowledge and belief.  we can believe a statement to be true when it is false, but it would be impossible to know a false statement.
+
+  
+    
+      
+        
+          k
+          
+            i
+          
+        
+        φ
+        
+        ⟹
+        
+        φ
+      
+    
+    {\displaystyle k_{i}\varphi \implies \varphi }
+  this axiom can also be expressed in its contraposition as agents cannot know a false statement:
+
+  
+    
+      
+        φ
+        
+        ⟹
+        
+        ¬
+        
+          k
+          
+            i
+          
+        
+        ¬
+        φ
+      
+    
+    {\displaystyle \varphi \implies \neg k_{i}\neg \varphi }
+  this axiom is valid on any reflexive frame.
+
+
+=== the positive introspection axiom ===
+this property and the next state that an agent has introspection about its own knowledge, and are traditionally known as 4 and 5, respectively.  the positive introspection axiom, also known as the kk axiom, says specifically that agents know that they know what they know.  this axiom may seem less obvious than the ones listed previously, and timothy williamson has argued against its inclusion forcefully in his book, knowledge and its limits.
+
+  
+    
+      
+        
+          k
+          
+            i
+          
+        
+        φ
+        
+        ⟹
+        
+        
+          k
+          
+            i
+          
+        
+        
+          k
+          
+            i
+          
+        
+        φ
+      
+    
+    {\displaystyle k_{i}\varphi \implies k_{i}k_{i}\varphi }
+  equivalently, this modal axiom 4 says that agents do not know what they do not know that they know
+
+  
+    
+      
+        ¬
+        
+          k
+          
+            i
+          
+        
+        
+          k
+          
+            i
+          
+        
+        φ
+        
+        ⟹
+        
+        ¬
+        
+          k
+          
+            i
+          
+        
+        φ
+      
+    
+    {\displaystyle \neg k_{i}k_{i}\varphi \implies \neg k_{i}\varphi }
+  this axiom is valid on any transitive frame.
+
+
+=== the negative introspection axiom ===
+the negative introspection axiom says that agents know that they do not know what they do not know.
+
+  
+    
+      
+        ¬
+        
+          k
+          
+            i
+          
+        
+        φ
+        
+        ⟹
+        
+        
+          k
+          
+            i
+          
+        
+        ¬
+        
+          k
+          
+            i
+          
+        
+        φ
+      
+    
+    {\displaystyle \neg k_{i}\varphi \implies k_{i}\neg k_{i}\varphi }
+  or, equivalently, this modal axiom 5 says that agents know what they do not know that they do not know
+
+  
+    
+      
+        ¬
+        
+          k
+          
+            i
+          
+        
+        ¬
+        
+          k
+          
+            i
+          
+        
+        φ
+        
+        ⟹
+        
+        
+          k
+          
+            i
+          
+        
+        φ
+      
+    
+    {\displaystyle \neg k_{i}\neg k_{i}\varphi \implies k_{i}\varphi }
+  this axiom is valid on any euclidean frame.
+
+
+=== axiom systems ===
+different modal logics can be derived from taking different subsets of these axioms, and these logics are normally named after the important axioms being employed.  however, this is not always the case.  kt45, the modal logic that results from the combining of k, t, 4, 5, and the knowledge generalization rule, is primarily known as s5.  this is why the properties of knowledge described above are often called the s5 properties. however, it can be proven that modal axiom b is a theorem in s5 (viz. 
+  
+    
+      
+        s
+        5
+        ⊢
+        
+          
+            b
+          
+        
+      
+    
+    {\displaystyle s5\vdash {\mathbf {b}}}
+  ), which says that what an agent does not know that they do not know is true: 
+  
+    
+      
+        ¬
+        
+          k
+          
+            i
+          
+        
+        ¬
+        
+          k
+          
+            i
+          
+        
+        φ
+        
+        ⟹
+        
+        φ
+      
+    
+    {\displaystyle \neg k_{i}\neg k_{i}\varphi \implies \varphi }
+  . the modal axiom b is true on any symmetric frame, but is very counterintuitive in epistemic logic: how can the ignorance on one's own ignorance imply truth? it is therefore debatable whether s4 describes epistemic logic better, rather than s5.
+epistemic logic also deals with belief, not just knowledge. the basic modal operator is usually written b instead of k. in this case, though, the knowledge axiom no longer seems right—agents only sometimes believe the truth—so it is usually replaced with the consistency axiom, traditionally called d:
+
+  
+    
+      
+        ¬
+        
+          b
+          
+            i
+          
+        
+        ⊥
+      
+    
+    {\displaystyle \neg b_{i}\bot }
+  which states that the agent does not believe a contradiction, or that which is false.  when d replaces t in s5, the resulting system is known as kd45.  this results in different properties for 
+  
+    
+      
+        
+          
+            
+              k
+            
+          
+          
+            i
+          
+        
+      
+    
+    {\displaystyle {\mathcal {k}}_{i}}
+   as well.  for example, in a system where an agent "believes" something to be true, but it is not actually true, the accessibility relation would be non-reflexive.  the logic of belief is called doxastic logic.
+
+
+=== multi-agent systems ===
+when there are multiple agents in the domain of discourse where each agent i corresponds to a separate epistemic modal operator 
+  
+    
+      
+        
+          k
+          
+            i
+          
+        
+      
+    
+    {\displaystyle k_{i}}
+  , in addition to the axiom schemata for each individual agent listed above to describe the rationality of each agent, it's usually also assumed that the rationality of each agent is common knowledge.
+
+
+== problems with the possible world model and modal model of knowledge ==
+if we take the possible worlds approach to knowledge, it follows that our epistemic agent a knows all the logical consequences of their beliefs (known as logical omniscience). if 
+  
+    
+      
+        q
+      
+    
+    {\displaystyle q}
+   is a logical consequence of 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+  , then there is no possible world where 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   is true but 
+  
+    
+      
+        q
+      
+    
+    {\displaystyle q}
+   is not. so if a knows that 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   is true, it follows that all of the logical consequences of 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   are true of all of the possible worlds compatible with a's beliefs. therefore, a knows 
+  
+    
+      
+        q
+      
+    
+    {\displaystyle q}
+  . it is not epistemically possible for a that not-
+  
+    
+      
+        q
+      
+    
+    {\displaystyle q}
+   given his knowledge that 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+  . this consideration was a part of what led robert stalnaker to develop two-dimensionalism, which can arguably explain how we might not know all the logical consequences of our beliefs even if there are no worlds where the propositions we know come out true but their consequences false.even when we ignore possible world semantics and stick to axiomatic systems, this peculiar feature holds. with k and n (the distribution rule and the knowledge generalization rule, respectively), which are axioms that are minimally true of all normal modal logics, we can prove that we know all the logical consequences of our beliefs. if 
+  
+    
+      
+        q
+      
+    
+    {\displaystyle q}
+   is a logical consequence of 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   (i.e. we have the tautology 
+  
+    
+      
+        ⊨
+        (
+        p
+        →
+        q
+        )
+      
+    
+    {\displaystyle \models (p\rightarrow q)}
+  ), then we can derive 
+  
+    
+      
+        
+          k
+          
+            a
+          
+        
+        (
+        p
+        →
+        q
+        )
+      
+    
+    {\displaystyle k_{a}(p\rightarrow q)}
+   with n, and using a conditional proof with the axiom k, we can then derive 
+  
+    
+      
+        
+          k
+          
+            a
+          
+        
+        p
+        →
+        
+          k
+          
+            a
+          
+        
+        q
+      
+    
+    {\displaystyle k_{a}p\rightarrow k_{a}q}
+   with k. when we translate this into epistemic terms, this says that if 
+  
+    
+      
+        q
+      
+    
+    {\displaystyle q}
+   is a logical consequence of 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+  , then a knows that it is, and if a knows 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+  , a knows 
+  
+    
+      
+        q
+      
+    
+    {\displaystyle q}
+  . that is to say, a knows all the logical consequences of every proposition. this is necessarily true of all classical modal logics. but then, for example, if a knows that prime numbers are divisible only by themselves and the number one, then a knows that 8683317618811886495518194401279999999 is prime (since this number is only divisible by itself and the number one). that is to say, under the modal interpretation of knowledge, when a knows the definition of a prime number, a knows that this number is prime. this generalizes to any provable theorem in any axiomatic theory (i.e. if a knows all the axioms in a theory, then a knows all the provable theorems in that theory). it should be clear at this point that a is not human (otherwise there won't be any unsolved conjectures in mathematics, like p versus np problem or goldbach's conjecture). this shows that epistemic modal logic is an idealized account of knowledge, and explains objective, rather than subjective knowledge (if anything).
+
+
+== epistemic fallacy (masked-man fallacy) ==
+in philosophical logic, the masked-man fallacy (also known as the intensional fallacy or epistemic fallacy) is committed when one makes an illicit use of leibniz's law in an argument. the fallacy is "epistemic" because it posits an immediate identity between a subject's knowledge of an object with the object itself, failing to recognize that leibniz's law is not capable of accounting for intensional contexts.
+
+
+=== examples ===
+the name of the fallacy comes from the example:
+
+premise 1: i know who bob is.
+premise 2: i do not know who the masked man is
+conclusion:  therefore, bob is not the masked man.the premises may be true and the conclusion false if bob is the masked man and the speaker does not know that. thus the argument is a fallacious one.
+in symbolic form, the above arguments are
+
+premise 1: i know who x is.
+premise 2: i do not know who y is.
+conclusion: therefore, x is not y.note, however, that this syllogism happens in the reasoning by the speaker "i"; therefore, in the formal modal logic form, it'll be
+
+premise 1: the speaker believes he knows who x is.
+premise 2: the speaker believes he does not know who y is.
+conclusion: therefore, the speaker believes x is not y.premise 1 
+  
+    
+      
+        
+          
+            
+              b
+              
+                s
+              
+            
+          
+        
+        ∀
+        t
+        (
+        t
+        =
+        x
+        →
+        
+          k
+          
+            s
+          
+        
+        (
+        t
+        =
+        x
+        )
+        )
+      
+    
+    {\displaystyle {\mathcal {b_{s}}}\forall t(t=x\rightarrow k_{s}(t=x))}
+   is a very strong one, as it's logically equivalent to 
+  
+    
+      
+        
+          
+            
+              b
+              
+                s
+              
+            
+          
+        
+        ∀
+        t
+        (
+        ¬
+        
+          k
+          
+            s
+          
+        
+        (
+        t
+        =
+        x
+        )
+        →
+        t
+        ≠
+        x
+        )
+      
+    
+    {\displaystyle {\mathcal {b_{s}}}\forall t(\neg k_{s}(t=x)\rightarrow t\not =x)}
+  . it's very likely that this is a false belief: 
+  
+    
+      
+        ∀
+        t
+        (
+        ¬
+        
+          k
+          
+            s
+          
+        
+        (
+        t
+        =
+        x
+        )
+        →
+        t
+        ≠
+        x
+        )
+      
+    
+    {\displaystyle \forall t(\neg k_{s}(t=x)\rightarrow t\not =x)}
+   is likely a false proposition, as the ignorance on the proposition 
+  
+    
+      
+        t
+        =
+        x
+      
+    
+    {\displaystyle t=x}
+   doesn't imply the negation of it is true.
+another example:
+
+premise 1: lois lane thinks superman can fly.
+premise 2: lois lane thinks clark kent cannot fly.
+conclusion: therefore superman and clark kent are not the same person.expressed in doxastic logic, the above syllogims is:
+
+premise 1: 
+  
+    
+      
+        
+          
+            
+              b
+            
+          
+          
+            l
+            o
+            i
+            s
+          
+        
+        f
+        l
+        
+          y
+          
+            (
+            s
+            u
+            p
+            e
+            r
+            m
+            a
+            n
+            )
+          
+        
+      
+    
+    {\displaystyle {\mathcal {b}}_{lois}fly_{(superman)}}
+  
+premise 2: 
+  
+    
+      
+        
+          
+            
+              b
+            
+          
+          
+            l
+            o
+            i
+            s
+          
+        
+        ¬
+        f
+        l
+        
+          y
+          
+            (
+            c
+            l
+            a
+            r
+            k
+            )
+          
+        
+      
+    
+    {\displaystyle {\mathcal {b}}_{lois}\neg fly_{(clark)}}
+  
+conclusion: 
+  
+    
+      
+        s
+        u
+        p
+        e
+        r
+        m
+        a
+        n
+        ≠
+        c
+        l
+        a
+        r
+        k
+      
+    
+    {\displaystyle superman\neq clark}
+  the above reasoning is inconsistent (not truth-preserving). the consistent conclusion should be 
+  
+    
+      
+        
+          
+            
+              b
+            
+          
+          
+            l
+            o
+            i
+            s
+          
+        
+        (
+        s
+        u
+        p
+        e
+        r
+        m
+        a
+        n
+        ≠
+        c
+        l
+        a
+        r
+        k
+        )
+      
+    
+    {\displaystyle {\mathcal {b}}_{lois}(superman\neq clark)}
+  .
+
+
+== see also ==
+
+common knowledge
+epistemic closure
+epistemology
+logic in computer science
+modal logic
+doxastic logic
+philosophical explanations
+two-dimensionalism
+masked-man fallacy
+
+
+== notes ==
+
+
+== references ==
+anderson, a. and n. d. belnap.  entailment: the logic of relevance and necessity.  princeton: princeton university press, 1975. asin b001nnpjl8.
+brown, benjamin, thoughts and ways of thinking: source theory and its applications. london: ubiquity press, 2017. [1].
+van ditmarsch hans, halpern joseph y., van der hoek wiebe and kooi barteld (eds.), handbook of epistemic logic, london: college publications, 2015.
+fagin, ronald; halpern, joseph; moses, yoram; vardi, moshe (2003). reasoning about knowledge. cambridge: mit press. isbn 978-0-262-56200-3.. a classic reference.
+ronald fagin, joseph halpern, moshe vardi.  "a nonstandard approach to the logical omniscience problem."  artificial intelligence, volume 79, number 2, 1995, p. 203-40.
+hendricks, v.f. mainstream and formal epistemology.  new york: cambridge university press, 2007.
+hintikka, jaakko (1962). knowledge and belief - an introduction to the logic of the two notions. ithaca: cornell university press. isbn 978-1-904987-08-6..
+meyer, j-j c., 2001, "epistemic logic," in goble, lou, ed., the blackwell guide to philosophical logic. blackwell.
+montague, r.  "universal grammar".  theoretica, volume 36, 1970, p. 373-398.
+rescher, nicolas (2005). epistemic logic: a survey of the logic of knowledge. university of pittsburgh press. isbn 978-0-8229-4246-7..
+shoham, yoav; leyton-brown, kevin (2009). multiagent systems: algorithmic, game-theoretic, and logical foundations. new york: cambridge university press. isbn 978-0-521-89943-7.. see chapters 13 and 14; downloadable free online.
+
+
+== external links ==
+"dynamic epistemic logic". internet encyclopedia of philosophy.
+hendricks, vincent; symons, john. "epistemic logic".  in zalta, edward n. (ed.). stanford encyclopedia of philosophy.
+garson, james. "modal logic".  in zalta, edward n. (ed.). stanford encyclopedia of philosophy.
+vanderschraaf, peter. "common knowledge".  in zalta, edward n. (ed.). stanford encyclopedia of philosophy.
+epistemic modal logic at philpapers
+
+"epistemic modal logic"—ho ngoc duc.

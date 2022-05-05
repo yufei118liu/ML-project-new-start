@@ -1,0 +1,662 @@
+in mathematics and mathematical logic, boolean algebra is the branch of algebra in which the values of the variables are the truth values true and false, usually denoted 1 and 0, respectively. instead of elementary algebra, where the values of the variables are numbers and the prime operations are addition and multiplication, the main operations of boolean algebra are the conjunction (and) denoted as ∧, the disjunction (or) denoted as ∨, and the negation (not) denoted as ¬. it is thus a formalism for describing logical operations, in the same way that elementary algebra describes numerical operations.
+boolean algebra was introduced by george boole in his first book the mathematical analysis of logic (1847), and set forth more fully in his an investigation of the laws of thought (1854).
+according to huntington, the term "boolean algebra" was first suggested by sheffer in 1913, although charles sanders peirce gave the title "a boolean algebra with one constant" to the first chapter of his "the simplest mathematics" in 1880.
+boolean algebra has been fundamental in the development of digital electronics, and is provided for in all modern programming languages. it is also used in set theory and statistics.
+
+
+== history ==
+a precursor of boolean algebra was gottfried wilhelm leibniz's algebra of concepts. leibniz's algebra of concepts is deductively equivalent to the boolean algebra of sets.boole's algebra predated the modern developments in abstract algebra and mathematical logic; it is however seen as connected to the origins of both fields. in an abstract setting, boolean algebra was perfected in the late 19th century by jevons, schröder, huntington and others, until it reached the modern conception of an (abstract) mathematical structure. for example, the empirical observation that one can manipulate expressions in the algebra of sets, by translating them into expressions in boole's algebra, is explained in modern terms by saying that the algebra of sets is a boolean algebra (note the indefinite article). in fact, m. h. stone proved in 1936 that every boolean algebra is isomorphic to a field of sets.
+in the 1930s, while studying switching circuits, claude shannon observed that one could also apply the rules of boole's algebra in this setting, and he introduced switching algebra as a way to analyze and design circuits by algebraic means in terms of logic gates. shannon already had at his disposal the abstract mathematical apparatus, thus he cast his switching algebra as the two-element boolean algebra. in modern circuit engineering settings, there is little need to consider other boolean algebras, thus "switching algebra" and "boolean algebra" are often used interchangeably.efficient implementation of boolean functions is a fundamental problem in the design of combinational logic circuits. modern electronic design automation tools for vlsi circuits often rely on an efficient representation of boolean functions known as (reduced ordered) binary decision diagrams (bdd) for logic synthesis and formal verification.logic sentences that can be expressed in classical propositional calculus have an equivalent expression in boolean algebra. thus, boolean logic is sometimes used to denote propositional calculus performed in this way. boolean algebra is not sufficient to capture logic formulas using quantifiers, like those from first order logic.
+although the development of mathematical logic did not follow boole's program, the connection between his algebra and logic was later put on firm ground in the setting of algebraic logic, which also studies the algebraic systems of many other logics. the problem of determining whether the variables of a given boolean (propositional) formula can be assigned in such a way as to make the formula evaluate to true is called the boolean satisfiability problem (sat), and is of importance to theoretical computer science, being the first problem shown to be np-complete. the closely related model of computation known as a boolean circuit relates time complexity (of an algorithm) to circuit complexity.
+
+
+== values ==
+whereas expressions denote mainly numbers in elementary algebra, in boolean algebra, they denote the truth values false and true. these values are represented with the bits (or binary digits), namely 0 and 1. they do not behave like the integers 0 and 1, for which 1 + 1 = 2, but may be identified with the elements of the two-element field gf(2), that is, integer arithmetic modulo 2, for which 1 + 1 = 0. addition and multiplication then play the boolean roles of xor (exclusive-or) and and (conjunction), respectively, with disjunction x ∨ y (inclusive-or) definable as x + y - xy and negation ¬x as 1 − x. in gf(2), − may be replaced by +, since they denote the same operation; however this way of writing boolean operations allows applying the usual arithmetic operations of integers (this may be useful when using a programming language in which gf(2) is not implemented).
+boolean algebra also deals with functions which have their values in the set {0, 1}.
+a sequence of bits is a commonly used for such functions. another common example is the subsets of a set e: to a subset f of e, one can define the indicator function that takes the value 1 on f, and 0 outside f. the most general example is the elements of a boolean algebra, with all of the foregoing being instances thereof.
+as with elementary algebra, the purely equational part of the theory may be developed, without considering explicit values for the variables.
+
+
+== operations ==
+
+
+=== basic operations ===
+the basic operations of boolean algebra are conjunction, disjunction, and negation. these boolean operations are expressed with the corresponding binary operators and, and or and the unary operator not, collectively referred to as boolean operators.the basic boolean operations on variables x and y are defined as follows:
+
+alternatively the values of x∧y, x∨y, and ¬x can be expressed by tabulating their values with truth tables as follows:
+
+if the truth values 0 and 1 are interpreted as integers, these operations may be expressed with the ordinary operations of arithmetic (where x + y uses addition and xy uses multiplication), or by the minimum/maximum functions:
+
+  
+    
+      
+        
+          
+            
+              
+                x
+                ∧
+                y
+              
+              
+                
+                =
+                x
+                y
+                =
+                min
+                (
+                x
+                ,
+                y
+                )
+              
+            
+            
+              
+                x
+                ∨
+                y
+              
+              
+                
+                =
+                x
+                +
+                y
+                −
+                x
+                y
+                =
+                max
+                (
+                x
+                ,
+                y
+                )
+              
+            
+            
+              
+                ¬
+                x
+              
+              
+                
+                =
+                1
+                −
+                x
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}x\wedge y&=xy=\min(x,y)\\x\vee y&=x+y-xy=\max(x,y)\\\neg x&=1-x\end{aligned}}}
+  one might consider that only negation and one of the two other operations are basic, because of the following identities that allow one to define conjunction in terms of negation and the disjunction, and vice versa (de morgan's laws):
+
+  
+    
+      
+        
+          
+            
+              
+                x
+                ∧
+                y
+              
+              
+                
+                =
+                ¬
+                (
+                ¬
+                x
+                ∨
+                ¬
+                y
+                )
+              
+            
+            
+              
+                x
+                ∨
+                y
+              
+              
+                
+                =
+                ¬
+                (
+                ¬
+                x
+                ∧
+                ¬
+                y
+                )
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}x\wedge y&=\neg (\neg x\vee \neg y)\\x\vee y&=\neg (\neg x\wedge \neg y)\end{aligned}}}
+  
+
+
+=== secondary operations ===
+the three boolean operations described above are referred to as basic, meaning that they can be taken as a basis for other boolean operations that can be built up from them by composition, the manner in which operations are combined or compounded. operations composed from the basic operations include the following examples:
+
+these definitions give rise to the following truth tables giving the values of these operations for all four possible inputs.
+
+material conditional
+the first operation, x → y, or cxy, is called material implication. if x is true, then the result of expression x → y is taken to be that of y (e.g. if x is true and y is false, then x → y is also false). but if x is false, then the value of y can be ignored; however, the operation must return some boolean value and there are only two choices. so by definition, x → y is true when x is false.  (relevance logic suggests this definition, by viewing an implication with a false premise as something other than either true or false.)
+exclusive or (xor)
+the second operation, x ⊕ y, or jxy, is called exclusive or (often abbreviated as xor) to distinguish it from disjunction as the inclusive kind. it excludes the possibility of both x and y being true (e.g. see table): if both are true then result is false. defined in terms of arithmetic it is addition where mod 2 is 1 + 1 = 0.
+logical equivalence
+the third operation, the complement of exclusive or, is equivalence or boolean equality: x ≡ y, or exy, is true just when x and y have the same value. hence x ⊕ y as its complement can be understood as x ≠ y, being true just when x and y are different. thus, its counterpart in arithmetic mod 2 is x + y. equivalence's counterpart in arithmetic mod 2 is x + y + 1.given two operands, each with two possible values, there are 22 = 4 possible combinations of inputs. because each output can have two possible values, there are a total of 24 = 16 possible binary boolean operations. any such operation or function (as well as any boolean function with more inputs) can be expressed with the basic operations from above. hence the basic operations are functionally complete.
+
+
+== laws ==
+a law of boolean algebra is an identity such as x ∨ (y ∨ z) = (x ∨ y) ∨ z between two boolean terms, where a boolean term is defined as an expression built up from variables and the constants 0 and 1 using the operations ∧, ∨, and ¬. the concept can be extended to terms involving other boolean operations such as ⊕, →, and ≡, but such extensions are unnecessary for the purposes to which the laws are put. such purposes include the definition of a boolean algebra as any model of the boolean laws, and as a means for deriving new laws from old as in the derivation of x ∨ (y ∧ z) = x ∨ (z ∧ y) from y ∧ z = z ∧ y (as treated in § axiomatizing boolean algebra).
+
+
+=== monotone laws ===
+boolean algebra satisfies many of the same laws as ordinary algebra when one matches up ∨ with addition and ∧ with multiplication. in particular the following laws are common to both kinds of algebra:
+the following laws hold in boolean algebra, but not in ordinary algebra:
+
+taking x = 2 in the third law above shows that it is not an ordinary algebra law, since 2 × 2 = 4. the remaining five laws can be falsified in ordinary algebra by taking all variables to be 1. for example, in absorption law 1, the left hand side would be 1(1 + 1) = 2, while the right hand side would be 1 (and so on).
+all of the laws treated thus far have been for conjunction and disjunction. these operations have the property that changing either argument either leaves the output unchanged, or the output changes in the same way as the input. equivalently, changing any variable from 0 to 1 never results in the output changing from 1 to 0. operations with this property are said to be monotone. thus the axioms thus far have all been for monotonic boolean logic. nonmonotonicity enters via complement ¬ as follows.
+
+
+=== nonmonotone laws ===
+the complement operation is defined by the following two laws.
+
+  
+    
+      
+        
+          
+            
+              
+              
+                
+                  complementation 1
+                
+              
+              
+                x
+                ∧
+                ¬
+                x
+              
+              
+                
+                =
+                0
+              
+            
+            
+              
+              
+                
+                  complementation 2
+                
+              
+              
+                x
+                ∨
+                ¬
+                x
+              
+              
+                
+                =
+                1
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}&{\text{complementation 1}}&x\wedge \neg x&=0\\&{\text{complementation 2}}&x\vee \neg x&=1\end{aligned}}}
+  all properties of negation including the laws below follow from the above two laws alone.in both ordinary and boolean algebra, negation works by exchanging pairs of elements, whence in both algebras it satisfies the double negation law (also called involution law)
+
+  
+    
+      
+        
+          
+            
+              
+              
+                
+                  double negation
+                
+              
+              
+                ¬
+                
+                  (
+                  ¬
+                  
+                    x
+                  
+                  )
+                
+              
+              
+                
+                =
+                x
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}&{\text{double negation}}&\neg {(\neg {x})}&=x\end{aligned}}}
+  but whereas ordinary algebra satisfies the two laws
+
+  
+    
+      
+        
+          
+            
+              
+                (
+                −
+                x
+                )
+                (
+                −
+                y
+                )
+              
+              
+                
+                =
+                x
+                y
+              
+            
+            
+              
+                (
+                −
+                x
+                )
+                +
+                (
+                −
+                y
+                )
+              
+              
+                
+                =
+                −
+                (
+                x
+                +
+                y
+                )
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}(-x)(-y)&=xy\\(-x)+(-y)&=-(x+y)\end{aligned}}}
+  boolean algebra satisfies de morgan's laws:
+
+  
+    
+      
+        
+          
+            
+              
+              
+                
+                  de morgan 1
+                
+              
+              
+                ¬
+                x
+                ∧
+                ¬
+                y
+              
+              
+                
+                =
+                ¬
+                
+                  (
+                  x
+                  ∨
+                  y
+                  )
+                
+              
+            
+            
+              
+              
+                
+                  de morgan 2
+                
+              
+              
+                ¬
+                x
+                ∨
+                ¬
+                y
+              
+              
+                
+                =
+                ¬
+                
+                  (
+                  x
+                  ∧
+                  y
+                  )
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}&{\text{de morgan 1}}&\neg x\wedge \neg y&=\neg {(x\vee y)}\\&{\text{de morgan 2}}&\neg x\vee \neg y&=\neg {(x\wedge y)}\end{aligned}}}
+  
+
+
+=== completeness ===
+the laws listed above define boolean algebra, in the sense that they entail the rest of the subject. the laws complementation 1 and 2, together with the monotone laws, suffice for this purpose and can therefore be taken as one possible complete set of laws or axiomatization of boolean algebra. every law of boolean algebra follows logically from these axioms. furthermore, boolean algebras can then be defined as the models of these axioms as treated in § boolean algebras.
+to clarify, writing down further laws of boolean algebra cannot give rise to any new consequences of these axioms, nor can it rule out any model of them. in contrast, in a list of some but not all of the same laws, there could have been boolean laws that did not follow from those on the list, and moreover there would have been models of the listed laws that were not boolean algebras.
+this axiomatization is by no means the only one, or even necessarily the most natural given that we did not pay attention to whether some of the axioms followed from others but simply chose to stop when we noticed we had enough laws, treated further in § axiomatizing boolean algebra. or the intermediate notion of axiom can be sidestepped altogether by defining a boolean law directly as any tautology, understood as an equation that holds for all values of its variables over 0 and 1. all these definitions of boolean algebra can be shown to be equivalent.
+
+
+=== duality principle ===
+principle: if {x, r} is a poset, then {x, r(inverse)} is also a poset.
+there is nothing magical about the choice of symbols for the values of boolean algebra. we could rename 0 and 1 to say α and β, and as long as we did so consistently throughout it would still be boolean algebra, albeit with some obvious cosmetic differences.
+but suppose we rename 0 and 1 to 1 and 0 respectively. then it would still be boolean algebra, and moreover operating on the same values. however it would not be identical to our original boolean algebra because now we find ∨ behaving the way ∧ used to do and vice versa. so there are still some cosmetic differences to show that we've been fiddling with the notation, despite the fact that we're still using 0s and 1s.
+but if in addition to interchanging the names of the values we also interchange the names of the two binary operations, now there is no trace of what we have done. the end product is completely indistinguishable from what we started with. we might notice that the columns for x ∧ y and x ∨ y in the truth tables had changed places, but that switch is immaterial.
+when values and operations can be paired up in a way that leaves everything important unchanged when all pairs are switched simultaneously, we call the members of each pair dual to each other. thus 0 and 1 are dual, and ∧ and ∨ are dual. the duality principle, also called de morgan duality, asserts that boolean algebra is unchanged when all dual pairs are interchanged.
+one change we did not need to make as part of this interchange was to complement. we say that complement is a self-dual operation. the identity or do-nothing operation x (copy the input to the output) is also self-dual. a more complicated example of a self-dual operation is (x ∧ y) ∨ (y ∧ z) ∨ (z ∧ x). there is no self-dual binary operation that depends on both its arguments. a composition of self-dual operations is a self-dual operation. for example, if f(x, y, z) = (x ∧ y) ∨ (y ∧ z) ∨ (z ∧ x), then f(f(x, y, z), x, t) is a self-dual operation of four arguments x, y, z, t.
+the principle of duality can be explained from a group theory perspective by the fact that there are exactly four functions that are one-to-one mappings (automorphisms) of the set of boolean polynomials back to itself: the identity function, the complement function, the dual function and the contradual function (complemented dual). these four functions form a group under function composition, isomorphic to the klein four-group, acting on the set of boolean polynomials. walter gottschalk remarked that consequently a more appropriate name for the phenomenon would be the principle (or square) of quaternality.
+
+
+== diagrammatic representations ==
+
+
+=== venn diagrams ===
+a venn diagram can be used as a representation of a boolean operation using shaded overlapping regions. there is one region for each variable, all circular in the examples here. the interior and exterior of region x corresponds respectively to the values 1 (true) and 0 (false) for variable x. the shading indicates the value of the operation for each combination of regions, with dark denoting 1 and light 0 (some authors use the opposite convention).
+the three venn diagrams in the figure below represent respectively conjunction x∧y, disjunction x∨y, and complement ¬x.
+
+for conjunction, the region inside both circles is shaded to indicate that x∧y is 1 when both variables are 1. the other regions are left unshaded to indicate that x∧y is 0 for the other three combinations.
+the second diagram represents disjunction x∨y by shading those regions that lie inside either or both circles. the third diagram represents complement ¬x by shading the region not inside the circle.
+while we have not shown the venn diagrams for the constants 0 and 1, they are trivial, being respectively a white box and a dark box, neither one containing a circle. however we could put a circle for x in those boxes, in which case each would denote a function of one argument, x, which returns the same value independently of x, called a constant function. as far as their outputs are concerned, constants and constant functions are indistinguishable; the difference is that a constant takes no arguments, called a zeroary or nullary operation, while a constant function takes one argument, which it ignores, and is a unary operation.
+venn diagrams are helpful in visualizing laws. the commutativity laws for ∧ and ∨ can be seen from the symmetry of the diagrams: a binary operation that was not commutative would not have a symmetric diagram because interchanging x and y would have the effect of reflecting the diagram horizontally and any failure of commutativity would then appear as a failure of symmetry.
+idempotence of ∧ and ∨ can be visualized by sliding the two circles together and noting that the shaded area then becomes the whole circle, for both ∧ and ∨.
+to see the first absorption law, x∧(x∨y) = x, start with the diagram in the middle for x∨y and note that the portion of the shaded area in common with the x circle is the whole of the x circle. for the second absorption law, x∨(x∧y) = x, start with the left diagram for x∧y and note that shading the whole of the x circle results in just the x circle being shaded, since the previous shading was inside the x circle.
+the double negation law can be seen by complementing the shading in the third diagram for ¬x, which shades the x circle.
+to visualize the first de morgan's law, (¬x)∧(¬y) = ¬(x∨y), start with the middle diagram for x∨y and complement its shading so that only the region outside both circles is shaded, which is what the right hand side of the law describes. the result is the same as if we shaded that region which is both outside the x circle and outside the y circle, i.e. the conjunction of their exteriors, which is what the left hand side of the law describes.
+the second de morgan's law, (¬x)∨(¬y) = ¬(x∧y), works the same way with the two diagrams interchanged.
+the first complement law, x∧¬x = 0, says that the interior and exterior of the x circle have no overlap. the second complement law, x∨¬x = 1, says that everything is either inside or outside the x circle.
+
+
+=== digital logic gates ===
+digital logic is the application of the boolean algebra of 0 and 1 to electronic hardware consisting of logic gates connected to form a circuit diagram. each gate implements a boolean operation, and is depicted schematically by a shape indicating the operation. the shapes associated with the gates for conjunction (and-gates), disjunction (or-gates), and complement (inverters) are as follows.
+
+the lines on the left of each gate represent input wires or ports. the value of the input is represented by a voltage on the lead. for so-called "active-high" logic, 0 is represented by a voltage close to zero or "ground", while 1 is represented by a voltage close to the supply voltage; active-low reverses this.  the line on the right of each gate represents the output port, which normally follows the same voltage conventions as the input ports.
+complement is implemented with an inverter gate. the triangle denotes the operation that simply copies the input to the output; the small circle on the output denotes the actual inversion complementing the input. the convention of putting such a circle on any port means that the signal passing through this port is complemented on the way through, whether it is an input or output port.
+the duality principle, or de morgan's laws, can be understood as asserting that complementing all three ports of an and gate converts it to an or gate and vice versa, as shown in figure 4 below. complementing both ports of an inverter however leaves the operation unchanged.
+
+more generally one may complement any of the eight subsets of the three ports of either an and or or gate. the resulting sixteen possibilities give rise to only eight boolean operations, namely those with an odd number of 1's in their truth table. there are eight such because the "odd-bit-out" can be either 0 or 1 and can go in any of four positions in the truth table. there being sixteen binary boolean operations, this must leave eight operations with an even number of 1's in their truth tables. two of these are the constants 0 and 1 (as binary operations that ignore both their inputs); four are the operations that depend nontrivially on exactly one of their two inputs, namely x, y, ¬x, and ¬y; and the remaining two are x⊕y (xor) and its complement x≡y.
+
+
+== boolean algebras ==
+
+the term "algebra" denotes both a subject, namely the subject of algebra, and an object, namely an algebraic structure. whereas the foregoing has addressed the subject of boolean algebra, this section deals with mathematical objects called boolean algebras, defined in full generality as any model of the boolean laws. we begin with a special case of the notion definable without reference to the laws, namely concrete boolean algebras, and then give the formal definition of the general notion.
+
+
+=== concrete boolean algebras ===
+a concrete boolean algebra or field of sets is any nonempty set of subsets of a given set x closed under the set operations of union, intersection, and complement relative to x.(as an aside, historically x itself was required to be nonempty as well to exclude the degenerate or one-element boolean algebra, which is the one exception to the rule that all boolean algebras satisfy the same equations since the degenerate algebra satisfies every equation. however this exclusion conflicts with the preferred purely equational definition of "boolean algebra", there being no way to rule out the one-element algebra using only equations— 0 ≠ 1 does not count, being a negated equation. hence modern authors allow the degenerate boolean algebra and let x be empty.)
+example 1. the power set 2x of x, consisting of all subsets of x. here x may be any set: empty, finite, infinite, or even uncountable.
+example 2. the empty set and x. this two-element algebra shows that a concrete boolean algebra can be finite even when it consists of subsets of an infinite set. it can be seen that every field of subsets of x must contain the empty set and x. hence no smaller example is possible, other than the degenerate algebra obtained by taking x to be empty so as to make the empty set and x coincide.
+example 3. the set of finite and cofinite sets of integers, where a cofinite set is one omitting only finitely many integers. this is clearly closed under complement, and is closed under union because the union of a cofinite set with any set is cofinite, while the union of two finite sets is finite.  intersection behaves like union with "finite" and "cofinite" interchanged.
+example 4. for a less trivial example of the point made by example 2, consider a venn diagram formed by n closed curves partitioning the diagram into 2n regions, and let x be the (infinite) set of all points in the plane not on any curve but somewhere within the diagram. the interior of each region is thus an infinite subset of x, and every point in x is in exactly one region.  then the set of all 22n possible unions of regions (including the empty set obtained as the union of the empty set of regions and x obtained as the union of all 2n regions) is closed under union, intersection, and complement relative to x and therefore forms a concrete boolean algebra. again we have finitely many subsets of an infinite set forming a concrete boolean algebra, with example 2 arising as the case n = 0 of no curves.
+
+
+=== subsets as bit vectors ===
+a subset y of x can be identified with an indexed family of bits with index set x, with the bit indexed by x ∈ x being 1 or 0 according to whether or not x ∈ y. (this is the so-called characteristic function notion of a subset.)  for example, a 32-bit computer word consists of 32 bits indexed by the set {0,1,2,...,31}, with 0 and 31 indexing the low and high order bits respectively. for a smaller example, if x = {a,b,c} where a, b, c are viewed as bit positions in that order from left to right, the eight subsets {}, {c}, {b}, {b,c}, {a}, {a,c}, {a,b}, and {a,b,c} of x can be identified with the respective bit vectors 000, 001, 010, 011, 100, 101, 110, and 111. bit vectors indexed by the set of natural numbers are infinite sequences of bits, while those indexed by the reals in the unit interval [0,1] are packed too densely to be able to write conventionally but nonetheless form well-defined indexed families (imagine coloring every point of the interval [0,1] either black or white independently; the black points then form an arbitrary subset of [0,1]).
+from this bit vector viewpoint, a concrete boolean algebra can be defined equivalently as a nonempty set of bit vectors all of the same length (more generally, indexed by the same set) and closed under the bit vector operations of bitwise ∧, ∨, and ¬, as in 1010∧0110 = 0010, 1010∨0110 = 1110, and ¬1010 = 0101, the bit vector realizations of intersection, union, and complement respectively.
+
+
+=== the prototypical boolean algebra ===
+
+the set {0,1} and its boolean operations as treated above can be understood as the special case of bit vectors of length one, which by the identification of bit vectors with subsets can also be understood as the two subsets of a one-element set. we call this the prototypical boolean algebra, justified by the following observation.
+
+the laws satisfied by all nondegenerate concrete boolean algebras coincide with those satisfied by the prototypical boolean algebra.this observation is easily proved as follows. certainly any law satisfied by all concrete boolean algebras is satisfied by the prototypical one since it is concrete. conversely any law that fails for some concrete boolean algebra must have failed at a particular bit position, in which case that position by itself furnishes a one-bit counterexample to that law. nondegeneracy ensures the existence of at least one bit position because there is only one empty bit vector.
+the final goal of the next section can be understood as eliminating "concrete" from the above observation. we shall however reach that goal via the surprisingly stronger observation that, up to isomorphism, all boolean algebras are concrete.
+
+
+=== boolean algebras: the definition ===
+the boolean algebras we have seen so far have all been concrete, consisting of bit vectors or equivalently of subsets of some set. such a boolean algebra consists of a set and operations on that set which can be shown to satisfy the laws of boolean algebra.
+instead of showing that the boolean laws are satisfied, we can instead postulate a set x, two binary operations on x, and one unary operation, and require that those operations satisfy the laws of boolean algebra. the elements of x need not be bit vectors or subsets but can be anything at all. this leads to the more general abstract definition.
+
+a boolean algebra is any set with binary operations ∧ and ∨ and a unary operation ¬ thereon satisfying the boolean laws.for the purposes of this definition it is irrelevant how the operations came to satisfy the laws, whether by fiat or proof. all concrete boolean algebras satisfy the laws (by proof rather than fiat), whence every concrete boolean algebra is a boolean algebra according to our definitions. this axiomatic definition of a boolean algebra as a set and certain operations satisfying certain laws or axioms by fiat is entirely analogous to the abstract definitions of group, ring, field etc. characteristic of modern or abstract algebra.
+given any complete axiomatization of boolean algebra, such as the axioms for a complemented distributive lattice, a sufficient condition for an algebraic structure of this kind to satisfy all the boolean laws is that it satisfy just those axioms. the following is therefore an equivalent definition.
+
+a boolean algebra is a complemented distributive lattice.the section on axiomatization lists other axiomatizations, any of which can be made the basis of an equivalent definition.
+
+
+=== representable boolean algebras ===
+although every concrete boolean algebra is a boolean algebra, not every boolean algebra need be concrete. let n be a square-free positive integer, one not divisible by the square of an integer, for example 30 but not 12. the operations of greatest common divisor, least common multiple, and division into n (that is, ¬x = n/x), can be shown to satisfy all the boolean laws when their arguments range over the positive divisors of n. hence those divisors form a boolean algebra. these divisors are not subsets of a set, making the divisors of n a boolean algebra that is not concrete according to our definitions.
+however, if we represent each divisor of n by the set of its prime factors, we find that this nonconcrete boolean algebra is isomorphic to the concrete boolean algebra consisting of all sets of prime factors of n, with union corresponding to least common multiple, intersection to greatest common divisor, and complement to division into n. so this example while not technically concrete is at least "morally" concrete via this representation, called an isomorphism. this example is an instance of the following notion.
+
+a boolean algebra is called representable when it is isomorphic to a concrete boolean algebra.the obvious next question is answered positively as follows.
+
+every boolean algebra is representable.that is, up to isomorphism, abstract and concrete boolean algebras are the same thing. this quite nontrivial result depends on the boolean prime ideal theorem, a choice principle slightly weaker than the axiom of choice, and is treated in more detail in the article stone's representation theorem for boolean algebras. this strong relationship implies a weaker result strengthening the observation in the previous subsection to the following easy consequence of representability.
+
+the laws satisfied by all boolean algebras coincide with those satisfied by the prototypical boolean algebra.it is weaker in the sense that it does not of itself imply representability. boolean algebras are special here, for example a relation algebra is a boolean algebra with additional structure but it is not the case that every relation algebra is representable in the sense appropriate to relation algebras.
+
+
+== axiomatizing boolean algebra ==
+
+the above definition of an abstract boolean algebra as a set and operations satisfying "the" boolean laws raises the question, what are those laws?  a simple-minded answer is "all boolean laws", which can be defined as all equations that hold for the boolean algebra of 0 and 1. since there are infinitely many such laws this is not a terribly satisfactory answer in practice, leading to the next question: does it suffice to require only finitely many laws to hold?
+in the case of boolean algebras the answer is yes. in particular the finitely many equations we have listed above suffice. we say that boolean algebra is finitely axiomatizable or finitely based.
+can this list be made shorter yet? again the answer is yes. to begin with, some of the above laws are implied by some of the others. a sufficient subset of the above laws consists of the pairs of associativity, commutativity, and absorption laws, distributivity of ∧ over ∨ (or the other distributivity law—one suffices), and the two complement laws. in fact this is the traditional axiomatization of boolean algebra as a complemented distributive lattice.
+by introducing additional laws not listed above it becomes possible to shorten the list yet further; for instance, with the vertical bar representing the sheffer stroke operation, the single axiom 
+  
+    
+      
+        (
+        (
+        a
+        ∣
+        b
+        )
+        ∣
+        c
+        )
+        ∣
+        (
+        a
+        ∣
+        (
+        (
+        a
+        ∣
+        c
+        )
+        ∣
+        a
+        )
+        )
+        =
+        c
+      
+    
+    {\displaystyle ((a\mid b)\mid c)\mid (a\mid ((a\mid c)\mid a))=c}
+   is sufficient to completely axiomatize boolean algebra. it is also possible to find longer single axioms using more conventional operations; see minimal axioms for boolean algebra.
+
+
+== propositional logic ==
+
+propositional logic is a logical system that is intimately connected to boolean algebra.  many syntactic concepts of boolean algebra carry over to propositional logic with only minor changes in notation and terminology, while the semantics of propositional logic are defined via boolean algebras in a way that the tautologies (theorems) of propositional logic correspond to equational theorems of boolean algebra.
+syntactically, every boolean term corresponds to a propositional formula of propositional logic. in this translation between boolean algebra and propositional logic, boolean variables x,y... become propositional variables (or atoms) p,q,..., boolean terms such as x∨y become propositional formulas p∨q, 0 becomes false or ⊥, and 1 becomes true or t. it is convenient when referring to generic propositions to use greek letters φ, ψ,... as metavariables (variables outside the language of propositional calculus, used when talking about propositional calculus) to denote propositions.
+the semantics of propositional logic rely on truth assignments. the essential idea of a truth assignment is that the propositional variables are mapped to elements of a fixed boolean algebra, and then the truth value of a propositional formula using these letters is the element of the boolean algebra that is obtained by computing the value of the boolean term corresponding to the formula. in classical semantics, only the two-element boolean algebra is used, while in boolean-valued semantics arbitrary boolean algebras are considered. a tautology is a propositional formula that is assigned truth value 1 by every truth assignment of its propositional variables to an arbitrary boolean algebra (or, equivalently, every truth assignment to the two element boolean algebra).
+these semantics permit a translation between tautologies of propositional logic and equational theorems of boolean algebra. every tautology φ of propositional logic can be expressed as the boolean equation φ = 1, which will be a theorem of boolean algebra. conversely every theorem φ = ψ of boolean algebra corresponds to the tautologies (φ∨¬ψ) ∧ (¬φ∨ψ) and (φ∧ψ) ∨ (¬φ∧¬ψ). if → is in the language these last tautologies can also be written as (φ→ψ) ∧ (ψ→φ), or as two separate theorems φ→ψ and ψ→φ; if ≡ is available then the single tautology φ ≡ ψ can be used.
+
+
+=== applications ===
+one motivating application of propositional calculus is the analysis of propositions and deductive arguments in natural language. whereas the proposition "if x = 3 then x+1 = 4" depends on the meanings of such symbols as + and 1, the proposition "if x = 3 then x = 3" does not; it is true merely by virtue of its structure, and remains true whether "x = 3" is replaced by "x = 4" or "the moon is made of green cheese."  the generic or abstract form of this tautology is "if p then p", or in the language of boolean algebra, "p → p".replacing p by x = 3 or any other proposition is called instantiation of p by that proposition. the result of instantiating p in an abstract proposition is called an instance of the proposition.  thus "x = 3 → x = 3" is a tautology by virtue of being an instance of the abstract tautology "p → p". all occurrences of the instantiated variable must be instantiated with the same proposition, to avoid such nonsense as p → x = 3 or x = 3 → x = 4.
+propositional calculus restricts attention to abstract propositions, those built up from propositional variables using boolean operations. instantiation is still possible within propositional calculus, but only by instantiating propositional variables by abstract propositions, such as instantiating q by q→p in p→(q→p) to yield the instance p→((q→p)→p).
+(the availability of instantiation as part of the machinery of propositional calculus avoids the need for metavariables within the language of propositional calculus, since ordinary propositional variables can be considered within the language to denote arbitrary propositions. the metavariables themselves are outside the reach of instantiation, not being part of the language of propositional calculus but rather part of the same language for talking about it that this sentence is written in, where we need to be able to distinguish propositional variables and their instantiations as being distinct syntactic entities.)
+
+
+=== deductive systems for propositional logic ===
+an axiomatization of propositional calculus is a set of tautologies called axioms and one or more inference rules for producing new tautologies from old. a proof in an axiom system a is a finite nonempty sequence of propositions each of which is either an instance of an axiom of a or follows by some rule of a from propositions appearing earlier in the proof (thereby disallowing circular reasoning). the last proposition is the theorem proved by the proof. every nonempty initial segment of a proof is itself a proof, whence every proposition in a proof is itself a theorem. an axiomatization is sound when every theorem is a tautology, and complete when every tautology is a theorem.
+
+
+==== sequent calculus ====
+
+propositional calculus is commonly organized as a hilbert system, whose operations are just those of boolean algebra and whose theorems are boolean tautologies, those boolean terms equal to the boolean constant 1. another form is sequent calculus, which has two sorts, propositions as in ordinary propositional calculus, and pairs of lists of propositions called sequents, such as a∨b, a∧c,... 
+  
+    
+      
+        ⊢
+      
+    
+    {\displaystyle \vdash }
+   a, b→c,.... the two halves of a sequent are called the antecedent and the succedent respectively. the customary metavariable denoting an antecedent or part thereof is γ, and for a succedent δ; thus γ,a 
+  
+    
+      
+        ⊢
+      
+    
+    {\displaystyle \vdash }
+   δ would denote a sequent whose succedent is a list δ and whose antecedent is a list γ with an additional proposition a appended after it. the antecedent is interpreted as the conjunction of its propositions, the succedent as the disjunction of its propositions, and the sequent itself as the entailment of the succedent by the antecedent.
+entailment differs from implication in that whereas the latter is a binary operation that returns a value in a boolean algebra, the former is a binary relation which either holds or does not hold. in this sense entailment is an external form of implication, meaning external to the boolean algebra, thinking of the reader of the sequent as also being external and interpreting and comparing antecedents and succedents in some boolean algebra. the natural interpretation of 
+  
+    
+      
+        ⊢
+      
+    
+    {\displaystyle \vdash }
+   is as ≤ in the partial order of the boolean algebra defined by x ≤ y just when x∨y = y. this ability to mix external implication 
+  
+    
+      
+        ⊢
+      
+    
+    {\displaystyle \vdash }
+   and internal implication → in the one logic is among the essential differences between sequent calculus and propositional calculus.
+
+
+== applications ==
+boolean algebra as the calculus of two values is fundamental to computer circuits, computer programming, and mathematical logic, and is also used in other areas of mathematics such as set theory and statistics.
+
+
+=== computers ===
+in the early 20th century, several electrical engineers intuitively recognized that boolean algebra was analogous to the behavior of certain types of electrical circuits. claude shannon formally proved such behavior was logically equivalent to boolean algebra in his 1937 master's thesis, a symbolic analysis of relay and switching circuits.
+today, all modern general purpose computers perform their functions using two-value boolean logic; that is, their electrical circuits are a physical manifestation of two-value boolean logic. they achieve this in various ways: as voltages on wires in high-speed circuits and capacitive storage devices, as orientations of a magnetic domain in ferromagnetic storage devices, as holes in punched cards or paper tape, and so on. (some early computers used decimal circuits or mechanisms instead of two-valued logic circuits.)
+of course, it is possible to code more than two symbols in any given medium. for example, one might use respectively 0, 1, 2, and 3 volts to code a four-symbol alphabet on a wire, or holes of different sizes in a punched card. in practice, the tight constraints of high speed, small size, and low power combine to make noise a major factor. this makes it hard to distinguish between symbols when there are several possible symbols that could occur at a single site. rather than attempting to distinguish between four voltages on one wire, digital designers have settled on two voltages per wire, high and low.
+computers use two-value boolean circuits for the above reasons. the most common computer architectures use ordered sequences of boolean values, called bits, of 32 or 64 values, e.g. 01101000110101100101010101001011. when programming in machine code, assembly language, and certain other programming languages, programmers work with the low-level digital structure of the data registers. these registers operate on voltages, where zero volts represents boolean 0, and a reference voltage (often +5 v, +3.3 v, +1.8 v) represents boolean 1. such languages support both numeric operations and logical operations. in this context, "numeric" means that the computer treats sequences of bits as binary numbers (base two numbers) and executes arithmetic operations like add, subtract, multiply, or divide. "logical" refers to the boolean logical operations of disjunction, conjunction, and negation between two sequences of bits, in which each bit in one sequence is simply compared to its counterpart in the other sequence. programmers therefore have the option of working in and applying the rules of either numeric algebra or boolean algebra as needed. a core differentiating feature between these families of operations is the existence of the carry operation in the first but not the second.
+
+
+=== two-valued logic ===
+other areas where two values is a good choice are the law and mathematics. in everyday relaxed conversation, nuanced or complex answers such as "maybe" or "only on the weekend" are acceptable. in more focused situations such as a court of law or theorem-based mathematics however it is deemed advantageous to frame questions so as to admit a simple yes-or-no answer—is the defendant guilty or not guilty, is the proposition true or false—and to disallow any other answer. however much of a straitjacket this might prove in practice for the respondent, the principle of the simple yes-no question has become a central feature of both judicial and mathematical logic, making two-valued logic deserving of organization and study in its own right.
+a central concept of set theory is membership. now an organization may permit multiple degrees of membership, such as novice, associate, and full. with sets however an element is either in or out. the candidates for membership in a set work just like the wires in a digital computer: each candidate is either a member or a nonmember, just as each wire is either high or low.
+algebra being a fundamental tool in any area amenable to mathematical treatment, these considerations combine to make the algebra of two values of fundamental importance to computer hardware, mathematical logic, and set theory.
+two-valued logic can be extended to multi-valued logic, notably by replacing the boolean domain {0, 1} with the unit interval [0,1], in which case rather than only taking values 0 or 1, any value between and including 0 and 1 can be assumed. algebraically, negation (not) is replaced with 1 − x, conjunction (and) is replaced with multiplication (
+  
+    
+      
+        x
+        y
+      
+    
+    {\displaystyle xy}
+  ), and disjunction (or) is defined via de morgan's law. interpreting these values as logical truth values yields a multi-valued logic, which forms the basis for fuzzy logic and probabilistic logic. in these interpretations, a value is interpreted as the "degree" of truth – to what extent a proposition is true, or the probability that the proposition is true.
+
+
+=== boolean operations ===
+the original application for boolean operations was mathematical logic, where it combines the truth values, true or false, of individual formulas.
+
+
+==== natural language ====
+natural languages such as english have words for several boolean operations, in particular conjunction (and), disjunction (or), negation (not), and implication (implies). but not is synonymous with and not. when used to combine situational assertions such as "the block is on the table" and "cats drink milk," which naively are either true or false, the meanings of these logical connectives often have the meaning of their logical counterparts. however, with descriptions of behavior such as "jim walked through the door", one starts to notice differences such as failure of commutativity, for example the conjunction of "jim opened the door" with "jim walked through the door" in that order is not equivalent to their conjunction in the other order, since and usually means and then in such cases. questions can be similar: the order "is the sky blue, and why is the sky blue?" makes more sense than the reverse order. conjunctive commands about behavior are like behavioral assertions, as in get dressed and go to school. disjunctive commands such love me or leave me or fish or cut bait tend to be asymmetric via the implication that one alternative is less preferable. conjoined nouns such as tea and milk generally describe aggregation as with set union while tea or milk is a choice. however context can reverse these senses, as in your choices are coffee and tea which usually means the same as your choices are coffee or tea (alternatives). double negation as in "i don't not like milk" rarely means literally "i do like milk" but rather conveys some sort of hedging, as though to imply that there is a third possibility. "not not p" can be loosely interpreted as "surely p", and although p necessarily implies "not not p" the converse is suspect in english, much as with intuitionistic logic. in view of the highly idiosyncratic usage of conjunctions in natural languages, boolean algebra cannot be considered a reliable framework for interpreting them.
+
+
+==== digital logic ====
+boolean operations are used in digital logic to combine the bits carried on individual wires, thereby interpreting them over {0,1}. when a vector of n identical binary gates are used to combine two bit vectors each of n bits, the individual bit operations can be understood collectively as a single operation on values from a boolean algebra with 2n elements.
+
+
+==== naive set theory ====
+naive set theory interprets boolean operations as acting on subsets of a given set x. as we saw earlier this behavior exactly parallels the coordinate-wise combinations of bit vectors, with the union of two sets corresponding to the disjunction of two bit vectors and so on.
+
+
+==== video cards ====
+the 256-element free boolean algebra on three generators is deployed in computer displays based on raster graphics, which use bit blit to manipulate whole regions consisting of pixels, relying on boolean operations to specify how the source region should be combined with the destination, typically with the help of a third region called the mask. modern video cards offer all 223 = 256 ternary operations for this purpose, with the choice of operation being a one-byte (8-bit) parameter. the constants src = 0xaa or 10101010, dst = 0xcc or 11001100, and msk = 0xf0 or 11110000 allow boolean operations such as (src^dst)&msk (meaning xor the source and destination and then and the result with the mask) to be written directly as a constant denoting a byte calculated at compile time, 0x80 in the (src^dst)&msk example, 0x88 if just src^dst, etc. at run time the video card interprets the byte as the raster operation indicated by the original expression in a uniform way that requires remarkably little hardware and which takes time completely independent of the complexity of the expression.
+
+
+==== modeling and cad ====
+solid modeling systems for computer aided design offer a variety of methods for building objects from other objects, combination by boolean operations being one of them. in this method the space in which objects exist is understood as a set s of voxels (the three-dimensional analogue of pixels in two-dimensional graphics) and shapes are defined as subsets of s, allowing objects to be combined as sets via union, intersection, etc. one obvious use is in building a complex shape from simple shapes simply as the union of the latter. another use is in sculpting understood as removal of material: any grinding, milling, routing, or drilling operation that can be performed with physical machinery on physical materials can be simulated on the computer with the boolean operation x ∧ ¬y or x − y, which in set theory is set difference, remove the elements of y from those of x. thus given two shapes one to be machined and the other the material to be removed, the result of machining the former to remove the latter is described simply as their set difference.
+
+
+==== boolean searches ====
+search engine queries also employ boolean logic. for this application, each web page on the internet may be considered to be an "element" of a "set". the following examples use a syntax supported by google.
+doublequotes are used to combine whitespace-separated words into a single search term.
+whitespace is used to specify logical and, as it is the default operator for joining search terms:"search term 1" "search term 2"
+
+the or keyword is used for logical or:"search term 1" or "search term 2"
+
+a prefixed minus sign is used for logical not:"search term 1" −"search term 2"
+
+
+== see also ==
+
+
+== references ==
+
+
+== sources ==
+mano, morris; ciletti, michael d. (2013). digital design. pearson. isbn 978-0-13-277420-8.
+
+
+== further reading ==
+j. eldon whitesitt (1995). boolean algebra and its applications. courier dover publications. isbn 978-0-486-68483-3. suitable introduction for students in applied fields.
+dwinger, philip (1971). introduction to boolean algebras. würzburg: physica verlag.
+sikorski, roman (1969). boolean algebras (3/e ed.). berlin: springer-verlag. isbn 978-0-387-04469-9.
+bocheński, józef maria (1959). a précis of mathematical logic. translated from the french and german editions by otto bird. dordrecht, south holland:  d. reidel.
+
+
+=== historical perspective ===
+george boole (1848). "the calculus of logic," cambridge and dublin mathematical journal iii: 183–98.
+theodore hailperin (1986). boole's logic and probability: a critical exposition from the standpoint of contemporary algebra, logic, and probability theory (2nd ed.). elsevier. isbn 978-0-444-87952-3.
+dov m. gabbay, john woods, ed. (2004). the rise of modern logic: from leibniz to frege. handbook of the history of logic. vol. 3. elsevier. isbn 978-0-444-51611-4., several relevant chapters by hailperin, valencia, and grattan-guinness
+calixto badesa (2004). the birth of model theory: löwenheim's theorem in the frame of the theory of relatives. princeton university press. isbn 978-0-691-05853-5., chapter 1, "algebra of classes and propositional calculus"
+burris, stanley, 2009. the algebra of logic tradition. stanford encyclopedia of philosophy.
+radomir s. stankovic; jaakko astola (2011). from boolean logic to switching circuits and automata: towards modern information technology. springer. isbn 978-3-642-11681-0.
+
+
+== external links ==
+boolean algebra chapter on all about circuits
+how stuff works – boolean logic
+science and technology - boolean algebra archived 2013-02-16 at the wayback machine contains a list and proof of boolean theorems and laws.

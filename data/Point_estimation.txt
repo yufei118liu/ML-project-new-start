@@ -1,0 +1,101 @@
+in statistics, point estimation involves the use of sample data to calculate a single value (known as a point estimate since it identifies a point in some parameter space) which is to serve as a "best guess" or "best estimate" of an unknown population parameter (for example, the population mean). more formally, it is the application of a point estimator to the data to obtain a point estimate.
+point estimation can be contrasted with interval estimation: such interval estimates are typically either confidence intervals, in the case of frequentist inference, or credible intervals, in the case of bayesian inference. more generally, a point estimator can be contrasted with a set estimator. examples are given by confidence sets or credible sets. a point estimator can also be contrasted with a distribution estimator. examples are given by confidence distributions, randomized estimators, and bayesian posteriors.
+
+
+== properties of point estimates ==
+
+
+=== biasness ===
+“bias” is defined as the difference between the expected value of the estimator and the true value of the population parameter being estimated. it can also be described that the closer the expected value of a parameter is to the measured parameter, the lesser the bias. when the estimated number and the true value is equal, the estimator is considered unbiased. this is called an unbiased estimator. the estimator will become a best unbiased estimator if it has minimum variance. however, a biased estimator with a small variance may be more useful than an unbiased estimator with a large variance. most importantly, we prefer point estimators that has the smallest mean square errors.
+if we let t = h(x1,x2, . . . , xn) be an estimator based on a random sample x1,x2, . . . , xn, the estimator t is called an unbiased estimator for the parameter θ if e[t] = θ, irrespective of the value of θ. for example, from the same random sample we have e( x̄ ) = µ(mean) and e(s2) = σ2 (variance), then x̄ and s2 would be unbiased estimators for µ and σ2. the difference e[t ] − θ is called the bias of t ; if this difference is nonzero, then t is called biased.
+
+
+=== consistency ===
+consistency is about whether the point estimate stays close to the value when the parameter increases its size. the larger the sample size, the more accurate the estimate is. if a point estimator is consistent, its expected value and variance should be close to the true value of the parameter. an unbiased estimator is consistent if the limit of the variance of estimator t equals zero.
+
+
+=== efficiency ===
+let t1 and t2 be two unbiased estimators for the same parameter θ. the estimator t2 would be called more efficient than estimator t1 if var(t2) < var(t1), irrespective of the value of θ. we can also say that the most efficient estimators are the ones with the least variability of outcomes. therefore, if the estimator has smallest variance among sample to sample, it is both most efficient and unbiased. we extend the notion of efficiency by saying that estimator t2 is more efficient than estimator t1 (for the same parameter of interest), if the mse(mean square error) of t2 is smaller than the mse of t1.generally, we must consider the distribution of the population when determining the efficiency of estimators. for example, in a normal distribution, the mean is considered more efficient than the median, but the same does not apply in asymmetrical, or skewed, distributions.
+
+
+=== sufficiency ===
+in statistics, the job of a statistician is to interpret the data that he has collected and to draw statistically valid conclusion about the population under investigation. but in many cases the raw data, which are too numerous and too costly to store, are not suitable for this purpose. therefore, the statistician would like to condense the data by computing some statistics and to base his analysis on these statistics so that there is no loss of relevant information in doing so, that is the statistician would like to choose those statistics which exhaust all information about the parameter, which is contained in the sample. we define sufficient statistics as follows: let x =( x1, x2, ... ,xn) be a random sample. a statistic t(x) is said to be sufficient for θ(or for the family of distribution) if the conditional distribution of x given t is free from θ.
+
+
+== types of point estimation ==
+
+
+=== bayesian point estimation ===
+bayesian inference is typically based on the posterior distribution. many bayesian point estimators are the posterior distribution's statistics of central tendency, e.g., its mean, median, or mode:
+
+posterior mean, which minimizes the (posterior) risk (expected loss) for a squared-error loss function; in bayesian estimation, the risk is defined in terms of the posterior distribution, as observed by gauss.
+posterior median, which minimizes the posterior risk for the absolute-value loss function, as observed by laplace.
+maximum a posteriori (map), which finds a maximum of the posterior distribution; for a uniform prior probability, the map estimator coincides with the maximum-likelihood estimator;the map estimator has good asymptotic properties, even for many difficult problems, on which the maximum-likelihood estimator has difficulties.
+for regular problems, where the maximum-likelihood estimator is consistent, the maximum-likelihood estimator ultimately agrees with the map estimator.
+bayesian estimators are admissible, by wald's theorem.the minimum message length (mml) point estimator is based in bayesian information theory and is not so directly related to the posterior distribution.
+special cases of bayesian filters are important:
+
+kalman filter
+wiener filterseveral methods of computational statistics have close connections with bayesian analysis:
+
+particle filter
+markov chain monte carlo (mcmc)
+
+
+== methods of finding point estimates ==
+below are some commonly used methods of estimating unknown parameters which are expected to provide estimators having some of these important properties. in general, depending on the situation and the purpose of our study we apply any one of the methods that may be suitable among the methods of point estimation.
+
+
+=== method of maximum likelihood (mle) ===
+this method of maximum likelihood is due to r.a. fisher. it is the most important general method of estimation. this estimator method attempts to acquire unknown parameters that maximizes the likelihood function. it uses a known model (ex. the normal distribution) and uses the values in the model to maximize a likelihood function to find the most suitable match for the data.let x = (x1, x2, ... ,xn) denote a random sample with joint p.d.f or p.m.f. f(x, θ) (θ may be a vector). the function f(x, θ), considered as a function of θ, is called the likelihood function. in this case, it is denoted by l(θ). the principle of maximum likelihood consists of choosing an estimate within the admissible range of θ, that maximizes the likelihood. this estimator is called the maximum likelihood estimate (mle) of θ. in order to obtain the mle of θ, we use the equation
+dlogl(θ)/dθi=0, i = 1, 2, …, k. if θ is a vector, then partial derivatives are considered to get the likelihood equations.
+
+
+=== method of moments (mom) ===
+the method of moments was introduced by k. pearson and p. chebyshev in 1887, and it is one of the oldest methods of estimation. this method is based on law of large numbers, which uses all the known facts about a population and apply those facts to a sample of the population by deriving equations that relate the population moments to the unknown parameters. we can then solve with the sample mean of the population moments. however, due to the simplicity, this method is not always accurate and can be biased easily.
+let (x1, x2,…xn) be a random sample from a population having p.d.f. (or p.m.f) f(x,θ), θ = (θ1, θ2, …, θk). the objective is to estimate the parameters θ1, θ2, ..., θk. further, let the first k population moments about zero exist as explicit function of θ, i.e. μr = μr(θ1, θ2,…, θk), r = 1, 2, …, k. in the method of moments, we equate k sample moments with the corresponding population moments. generally, the first k moments are taken because the errors due to sampling increase with the order of the moment. thus, we get k equationsμr(θ1, θ2,…, θk) = mr, r = 1, 2, …, k. solving these equations we get the method of moment estimators (or estimates) as
+mr = 1/n σxir. see also generalized method of moments.
+
+
+=== method of least square ===
+in the method of least square, we consider the estimation of parameters using some specified form of the expectation and second moment of the observations. for
+fitting a curve of the form y = f( x, β0, β1, ,,,, βp) to the data (xi, yi), i = 1, 2,…n, we may use the method of least squares. this method consists of minimizing the
+sum of squares.
+when f( x, β0, β1, ,,,, βp) is a linear function of the parameters and the x-values are known, least square estimators will be best linear unbiased estimator (blue). again, if we assume that the least square estimates are independently and identically normally distributed, then a linear estimator will be minimum-variance unbiased estimator (mvue) for the entire class of unbiased estimators. see also minimum mean squared error (mmse).
+
+
+=== minimum-variance mean-unbiased estimator (mvue) ===
+the method of minimum-variance unbiased estimator minimizes the risk (expected loss) of the squared-error loss-function.
+
+
+=== median unbiased estimator ===
+median-unbiased estimator minimizes the risk of the absolute-error loss function.
+
+
+=== best linear unbiased estimator (blue) ===
+best linear unbiased estimator, also known as the gauss–markov theorem states that the ordinary least squares (ols) estimator has the lowest sampling variance within the class of linear unbiased estimators, if the errors in the linear regression model are uncorrelated, have equal variances and expectation value of zero.
+
+
+== point estimate v.s. confidence interval estimate ==
+
+there are two major types of estimates: point estimate and confidence interval estimate. in the point estimate we try to choose a unique point in the parameter space which can reasonably be considered as the true value of the parameter. on the other hand, instead of unique estimate of the parameter, we are interested in constructing a family of sets that contain the true (unknown) parameter value with a specified probability. in many problems of statistical inference we are not interested only in estimating the parameter or testing some hypothesis concerning the parameter, we also want to get a lower or an upper bound or both, for the real-valued parameter. to do this, we need to construct a confidence interval.
+confidence interval describes how reliable an estimate is. we can calculate the upper and lower confidence limits of the intervals from the observed data. suppose a dataset x1, . . . , xn is given, modeled as realization of random variables x1, . . . , xn. let θ be the parameter of interest, and γ a number between 0 and 1. if there exist sample statistics ln = g(x1, . . . , xn) and un = h(x1, . . . , xn) such that p(ln < θ < un) = γ for every value of θ, then (ln, un), where ln = g(x1, . . . , xn) and un = h(x1, . . . , xn), is called a 100γ% confidence interval for θ. the number γ is called the confidence level. in general, with a normally-distributed sample mean, ẋ, and with a known value for the standard deviation, σ, a 100(1-α)% confidence interval for the true μ is formed by taking ẋ ± e, with e = z1-α/2(σ/n1/2), where z1-α/2 is the 100(1-α/2)% cumulative value of the standard normal curve, and n is the number of data values in that column. for example, z1-α/2 equals 1.96 for 95% confidence.here two limits are computed from the set of observations, say ln and un and it is claimed with a certain degree of confidence (measured in probabilistic terms) that the true value of γ lies between ln and un. thus we get an interval (ln and un) which we expect would include the true value of γ(θ). so this type of estimation is called confidence interval estimation. this estimation provides a range of values which the parameter is expected to lie. it generally gives more information than point estimates and are preferred when making inferences. in some way, we can say that point estimation is the opposite of interval estimation.
+
+
+== see also ==
+
+algorithmic inference
+binomial distribution
+confidence distribution
+induction (philosophy)
+interval estimation
+philosophy of statistics
+predictive inference
+
+
+== references ==
+
+
+== further reading ==
+bickel, peter j. & doksum, kjell a. (2001). mathematical statistics: basic and selected topics. vol. i (second (updated printing 2007) ed.). pearson prentice-hall.
+liese, friedrich & miescke, klaus-j. (2008). statistical decision theory: estimation, testing, and selection. springer.

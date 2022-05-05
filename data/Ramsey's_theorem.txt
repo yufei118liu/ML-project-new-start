@@ -1,0 +1,2307 @@
+in combinatorial mathematics, ramsey's theorem, in one of its graph-theoretic forms, states that one will find monochromatic cliques in any edge labelling (with colours) of a sufficiently large complete graph. to demonstrate the theorem for two colours (say, blue and red), let r and s be any two positive integers. ramsey's theorem states that there exists a least positive integer r(r, s) for which every blue-red edge colouring of the complete graph on r(r, s) vertices contains a blue clique on r vertices or a red clique on s vertices. (here r(r, s) signifies an integer that depends on both r and s.)
+ramsey's theorem is a foundational result in combinatorics. the first version of this result was proved by f. p. ramsey. this initiated the combinatorial theory now called ramsey theory, that seeks regularity amid disorder: general conditions for the existence of substructures with regular properties. in this application it is a question of the existence of monochromatic subsets, that is, subsets of connected edges of just one colour.
+an extension of this theorem applies to any finite number of colours, rather than just two. more precisely, the theorem states that for any given number of colours, c, and any given integers n1, ..., nc, there is a number, r(n1, ..., nc), such that if the edges of a complete graph of order r(n1, ..., nc) are coloured with c different colours, then for some i between 1 and c, it must contain a complete subgraph of order ni whose edges are all colour i. the special case above has c = 2 (and n1 = r and n2 = s).
+
+
+== examples ==
+
+
+=== r(3, 3) = 6 ===
+
+suppose the edges of a complete graph on 6 vertices are coloured red and blue. pick a vertex, v. there are 5 edges incident to v and so (by the pigeonhole principle) at least 3 of them must be the same colour. without loss of generality we can assume at least 3 of these edges, connecting the vertex, v, to vertices, r, s and t, are blue. (if not, exchange red and blue in what follows.) if any of the edges, (r, s), (r, t), (s, t), are also blue then we have an entirely blue triangle. if not, then those three edges are all red and we have an entirely red triangle. since this argument works for any colouring, any k6 contains a monochromatic k3, and therefore r(3, 3) ≤ 6. the popular version of this is called the theorem on friends and strangers.
+an alternative proof works by double counting. it goes as follows: count the number of ordered triples of vertices, x, y, z, such that the edge, (xy), is red and the edge, (yz), is blue. firstly, any given vertex will be the middle of either 0 × 5 = 0 (all edges from the vertex are the same colour), 1 × 4 = 4 (four are the same colour, one is the other colour), or 2 × 3 = 6 (three are the same colour, two are the other colour) such triples. therefore, there are at most 6 × 6 = 36 such triples. secondly, for any non-monochromatic triangle (xyz), there exist precisely two such triples. therefore, there are at most 18 non-monochromatic triangles. therefore, at least 2 of the 20 triangles in the k6 are monochromatic.
+conversely, it is possible to 2-colour a k5 without creating any monochromatic k3, showing that r(3, 3) > 5. the unique colouring is shown to the right. thus r(3, 3) = 6.
+the task of proving that r(3, 3) ≤ 6 was one of the problems of william lowell putnam mathematical competition in 1953, as well as in the hungarian math olympiad in 1947.
+
+
+=== a multicolour example: r(3, 3, 3) = 17 ===
+
+a multicolour ramsey number is a ramsey number using 3 or more colours. there are (up to symmetries) only two non-trivial multicolour ramsey numbers for which the exact value is known, namely r(3, 3, 3) = 17 and r(3, 3, 4) = 30.suppose that we have an edge colouring of a complete graph using 3 colours, red, green and blue. suppose further that the edge colouring has no monochromatic triangles. select a vertex v. consider the set of vertices that have a red edge to the vertex v. this is called the red neighbourhood of v. the red neighbourhood of v cannot contain any red edges, since otherwise there would be a red triangle consisting of the two endpoints of that red edge and the vertex v. thus, the induced edge colouring on the red neighbourhood of v has edges coloured with only two colours, namely green and blue. since r(3, 3) = 6, the red neighbourhood of v can contain at most 5 vertices. similarly, the green and blue neighbourhoods of v can contain at most 5 vertices each. since every vertex, except for v itself, is in one of the red, green or blue neighbourhoods of v, the entire complete graph can have at most 1 + 5 + 5 + 5 = 16 vertices. thus, we have r(3, 3, 3) <= 17.
+to see that r(3, 3, 3) = 17, it suffices to draw an edge colouring on the complete graph on 16 vertices with 3 colours that avoids monochromatic triangles. it turns out that there are exactly two such colourings on k16, the so-called untwisted and twisted colourings. both colourings are shown in the figures to the right, with the untwisted colouring on the top, and the twisted colouring on the bottom.
+
+if we select any colour of either the untwisted or twisted colouring on k16, and consider the graph whose edges are precisely those edges that have the specified colour, we will get the clebsch graph.
+it is known that there are exactly two edge colourings with 3 colours on k15 that avoid monochromatic triangles, which can be constructed by deleting any vertex from the untwisted and twisted colourings on k16, respectively.
+it is also known that there are exactly 115 edge colourings with 3 colours on k14 that avoid monochromatic triangles, provided that we consider edge colourings that differ by a permutation of the colours as being the same.
+
+
+== proof ==
+
+
+=== 2-colour case ===
+the theorem for the 2-colour case can be proved by induction on r + s. it is clear from the definition that for all n, r(n, 2) = r(2, n) = n. this starts the induction. we prove that r(r, s) exists by finding an explicit bound for it. by the inductive hypothesis r(r − 1, s) and r(r, s − 1) exist.
+
+lemma 1. r(r, s) ≤ r(r − 1, s) + r(r, s − 1):proof. consider a complete graph on r(r − 1, s) + r(r, s − 1) vertices whose edges are coloured with two colours. pick a vertex v from the graph, and partition the remaining vertices into two sets m and n, such that for every vertex w, w is in m if (v, w) is blue, and w is in n if (v, w) is red. because the graph has r(r − 1, s) + r(r, s − 1) = |m| + |n| + 1 vertices, it follows that either |m| ≥ r(r − 1, s) or |n| ≥ r(r, s − 1). in the former case, if m has a red ks then so does the original graph and we are finished. otherwise m has a blue kr−1 and so m ∪ {v} has a blue kr by the definition of m. the latter case is analogous. thus the claim is true and we have completed the proof for 2 colours.
+in this 2-colour case, if r(r − 1, s) and r(r, s − 1) are both even, the induction inequality can be strengthened to:
+r(r, s) ≤ r(r − 1, s) + r(r, s − 1) − 1.proof. suppose p = r(r − 1, s) and q = r(r, s − 1) are both even. let t = p + q − 1 and consider a two-coloured graph of t vertices. if 
+  
+    
+      
+        
+          d
+          
+            i
+          
+        
+      
+    
+    {\displaystyle d_{i}}
+   is degree of 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  -th vertex in the blue subgraph, then, according to the handshaking lemma, 
+  
+    
+      
+        
+          
+            ∑
+            
+              i
+              =
+              1
+            
+            
+              t
+            
+          
+          
+            d
+            
+              i
+            
+          
+        
+      
+    
+    {\displaystyle \textstyle \sum _{i=1}^{t}d_{i}}
+   is even. given that t is odd, there must be an even 
+  
+    
+      
+        
+          d
+          
+            i
+          
+        
+      
+    
+    {\displaystyle d_{i}}
+  . assume 
+  
+    
+      
+        
+          d
+          
+            1
+          
+        
+      
+    
+    {\displaystyle d_{1}}
+  is even, m and n are the vertices incident to vertex 1 in the blue and red subgraphs, respectively. then both 
+  
+    
+      
+        
+          |
+        
+        m
+        
+          |
+        
+        =
+        
+          d
+          
+            1
+          
+        
+      
+    
+    {\displaystyle |m|=d_{1}}
+   and 
+  
+    
+      
+        
+          |
+        
+        n
+        
+          |
+        
+        =
+        t
+        −
+        1
+        −
+        
+          d
+          
+            1
+          
+        
+      
+    
+    {\displaystyle |n|=t-1-d_{1}}
+   are even. according to the pigeonhole principle, either 
+  
+    
+      
+        
+          |
+        
+        m
+        
+          |
+        
+        ≥
+        p
+        −
+        1
+      
+    
+    {\displaystyle |m|\geq p-1}
+  , or 
+  
+    
+      
+        
+          |
+        
+        n
+        
+          |
+        
+        ≥
+        q
+      
+    
+    {\displaystyle |n|\geq q}
+  . since 
+  
+    
+      
+        
+          |
+        
+        m
+        
+          |
+        
+      
+    
+    {\displaystyle |m|}
+   is even, while 
+  
+    
+      
+        p
+        −
+        1
+      
+    
+    {\displaystyle p-1}
+   is odd, the first inequality can be strengthened, so either 
+  
+    
+      
+        
+          |
+        
+        m
+        
+          |
+        
+        ≥
+        p
+      
+    
+    {\displaystyle |m|\geq p}
+   or 
+  
+    
+      
+        
+          |
+        
+        n
+        
+          |
+        
+        ≥
+        q
+      
+    
+    {\displaystyle |n|\geq q}
+  .  suppose 
+  
+    
+      
+        
+          |
+        
+        m
+        
+          |
+        
+        ≥
+        p
+        =
+        r
+        (
+        r
+        −
+        1
+        ,
+        s
+        )
+      
+    
+    {\displaystyle |m|\geq p=r(r-1,s)}
+  . then either the m subgraph has a red 
+  
+    
+      
+        
+          k
+          
+            s
+          
+        
+      
+    
+    {\displaystyle k_{s}}
+   and the proof is complete, or it has a blue 
+  
+    
+      
+        
+          k
+          
+            r
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle k_{r-1}}
+   which along with vertex 1 makes a blue 
+  
+    
+      
+        
+          k
+          
+            r
+          
+        
+      
+    
+    {\displaystyle k_{r}}
+  . the case 
+  
+    
+      
+        
+          |
+        
+        n
+        
+          |
+        
+        ≥
+        q
+        =
+        r
+        (
+        r
+        ,
+        s
+        −
+        1
+        )
+      
+    
+    {\displaystyle |n|\geq q=r(r,s-1)}
+   is treated similarly.
+
+
+=== case of more colours ===
+lemma 2. if c>2, then r(n1, ..., nc) ≤ r(n1, ..., nc−2, r(nc−1, nc)).
+proof. consider a complete graph of r(n1, ..., nc−2, r(nc−1, nc)) vertices and colour its edges with c colours. now 'go colour-blind' and pretend that c − 1 and c are the same colour. thus the graph is now (c − 1)-coloured. due to the definition of r(n1, ..., nc−2, r(nc−1, nc)), such a graph contains either a kni mono-chromatically coloured with colour i for some 1 ≤ i ≤ c − 2 or a kr(nc − 1, nc)-coloured in the 'blurred colour'. in the former case we are finished. in the latter case, we recover our sight again and see from the definition of r(nc−1, nc) we must have either a (c − 1)-monochrome knc−1 or a c-monochrome knc. in either case the proof is complete.
+lemma 1 implies that any r(r,s) is finite. the right hand side of the inequality in lemma 2 expresses a ramsey number for  c colours  in terms of ramsey numbers for fewer colours. therefore any r(n1, ..., nc) is finite for any number of colours. this proves the theorem.
+
+
+== ramsey numbers ==
+the numbers r(r, s) in ramsey's theorem (and their extensions to more than two colours) are known as ramsey numbers. the ramsey number, r(m, n), gives the solution to the party problem, which asks the minimum number of guests, r(m, n), that must be invited so that at least m will know each other or at least n will not know each other. in the language of graph theory, the ramsey number is the minimum number of vertices, v = r(m, n), such that all undirected simple graphs of order v, contain a clique of order m, or an independent set of order n. ramsey's theorem states that such a number exists for all m and n.
+by symmetry, it is true that r(m, n) = r(n, m). an upper bound for r(r, s) can be extracted from the proof of the theorem, and other arguments give lower bounds. (the first exponential lower bound was obtained by paul erdős using the probabilistic method.) however, there is a vast gap between the tightest lower bounds and the tightest upper bounds. there are also very few numbers r and s for which we know the exact value of r(r, s).
+computing a lower bound l for r(r, s) usually requires exhibiting a blue/red colouring of the graph kl−1 with no blue kr subgraph and no red ks subgraph. such a counterexample is called a ramsey graph. brendan mckay maintains a list of known ramsey graphs. upper bounds are often considerably more difficult to establish: one either has to check all possible colourings to confirm the absence of a counterexample, or to present a mathematical argument for its absence.
+
+
+=== computational complexity ===
+erdős asks us to imagine an alien force, vastly more powerful than us, landing on earth and demanding the value of r(5, 5) or they will destroy our planet. in that case, he claims, we should marshal all our computers and all our mathematicians and attempt to find the value. but suppose, instead, that they ask for r(6, 6). in that case, he believes, we should attempt to destroy the aliens.
+a sophisticated computer program does not need to look at all colourings individually in order to eliminate all of them; nevertheless it is a very difficult computational task that existing software can only manage on small sizes. each complete graph kn has 1/2n(n − 1) edges, so there would be a total of cn(n − 1)/2 graphs to search through (for c colours) if brute force is used. therefore, the complexity for searching all possible graphs (via brute force) is o(cn2) for c colourings and at most n nodes.
+the situation is unlikely to improve with the advent of quantum computers.  the best known algorithm exhibits only a quadratic speedup (c.f. grover's algorithm) relative to classical computers, so that the computation time is still exponential in the number of nodes.
+
+
+=== known values ===
+as described above, r(3, 3) = 6. it is easy to prove that r(4, 2) = 4, and, more generally, that r(s, 2) = s for all s: a graph on s − 1 nodes with all edges coloured red serves as a counterexample and proves that r(s, 2) ≥ s; among colourings of a graph on s nodes, the colouring with all edges coloured red contains a s-node red subgraph, and all other colourings contain a 2-node blue subgraph (that is, a pair of nodes connected with a blue edge.)
+using induction inequalities, it can be concluded that r(4, 3) ≤ r(4, 2) + r(3, 3) − 1 = 9, and therefore r(4, 4) ≤ r(4, 3) + r(3, 4) ≤ 18. there are only two (4, 4, 16) graphs (that is, 2-colourings of a complete graph on 16 nodes without 4-node red or blue complete subgraphs) among 6.4 × 1022 different 2-colourings of 16-node graphs, and only one (4, 4, 17) graph (the paley graph of order 17) among 2.46 × 1026 colourings. (this was proven by evans, pulham and sheehan in 1979.) it follows that r(4, 4) = 18.
+the fact that r(4, 5) = 25 was first established by brendan mckay and stanisław radziszowski in 1995.the exact value of r(5, 5) is unknown, although it is known to lie between 43 (geoffrey exoo (1989)) and 48 (angeltveit and mckay (2017)) (inclusive).
+in 1997, mckay, radziszowski and exoo employed computer-assisted graph generation methods to conjecture that r(5, 5) = 43. they were able to construct exactly 656 (5, 5, 42) graphs, arriving at the same set of graphs through different routes. none of the 656 graphs can be extended to a (5, 5, 43) graph.for r(r, s) with r, s > 5, only weak bounds are available. lower bounds for r(6, 6) and r(8, 8) have not been improved since 1965 and 1972, respectively.r(r, s) with r, s ≤ 10 are shown in the table below. where the exact value is unknown, the table lists the best known bounds. r(r, s) with r, s < 3 are given by r(1, s) = 1 and r(2, s) = s for all values of s.
+the standard survey on the development of ramsey number research is the dynamic survey 1 of the electronic journal of combinatorics, by stanisław radziszowski, which is periodically updated.   where not cited otherwise, entries in the table below are taken from the january 2021 edition.  (note there is a trivial symmetry across the diagonal since r(r, s) = r(s, r).)
+
+
+=== asymptotics ===
+the inequality r(r, s) ≤ r(r − 1, s) + r(r, s − 1) may be applied inductively to prove that
+
+  
+    
+      
+        r
+        (
+        r
+        ,
+        s
+        )
+        ≤
+        
+          
+            
+              (
+            
+            
+              
+                r
+                +
+                s
+                −
+                2
+              
+              
+                r
+                −
+                1
+              
+            
+            
+              )
+            
+          
+        
+        .
+      
+    
+    {\displaystyle r(r,s)\leq {\binom {r+s-2}{r-1}}.}
+  in particular, this result, due to erdős and szekeres, implies that when r = s,
+
+  
+    
+      
+        r
+        (
+        s
+        ,
+        s
+        )
+        ≤
+        [
+        1
+        +
+        o
+        (
+        1
+        )
+        ]
+        
+          
+            
+              4
+              
+                s
+                −
+                1
+              
+            
+            
+              π
+              s
+            
+          
+        
+        .
+      
+    
+    {\displaystyle r(s,s)\leq [1+o(1)]{\frac {4^{s-1}}{\sqrt {\pi s}}}.}
+  an exponential lower bound,
+
+  
+    
+      
+        r
+        (
+        s
+        ,
+        s
+        )
+        ≥
+        [
+        1
+        +
+        o
+        (
+        1
+        )
+        ]
+        
+          
+            s
+            
+              
+                
+                  2
+                
+              
+              e
+            
+          
+        
+        
+          2
+          
+            s
+            
+              /
+            
+            2
+          
+        
+        ,
+      
+    
+    {\displaystyle r(s,s)\geq [1+o(1)]{\frac {s}{{\sqrt {2}}e}}2^{s/2},}
+  was given by erdős in 1947 and was instrumental in his introduction of the probabilistic method. there is obviously a huge gap between these two bounds: for example, for s = 10, this gives 101 ≤ r(10, 10) ≤ 48620. nevertheless, exponential growth factors of either bound have not been improved to date and still stand at 4 and √2 respectively. there is no known explicit construction producing an exponential lower bound. the best known lower and upper bounds for diagonal ramsey numbers currently stand at
+
+  
+    
+      
+        [
+        1
+        +
+        o
+        (
+        1
+        )
+        ]
+        
+          
+            
+              
+                
+                  2
+                
+              
+              s
+            
+            e
+          
+        
+        
+          2
+          
+            
+              s
+              2
+            
+          
+        
+        ≤
+        r
+        (
+        s
+        ,
+        s
+        )
+        ≤
+        
+          s
+          
+            −
+            (
+            c
+            log
+            ⁡
+            s
+            )
+            
+              /
+            
+            (
+            log
+            ⁡
+            log
+            ⁡
+            s
+            )
+          
+        
+        
+          4
+          
+            s
+          
+        
+        ,
+      
+    
+    {\displaystyle [1+o(1)]{\frac {{\sqrt {2}}s}{e}}2^{\frac {s}{2}}\leq r(s,s)\leq s^{-(c\log s)/(\log \log s)}4^{s},}
+  due to spencer and conlon respectively.
+for the off-diagonal ramsey numbers r(3, t), it is known that they are of order 
+  
+    
+      
+        
+          
+            
+              
+                t
+                
+                  2
+                
+              
+              
+                log
+                ⁡
+                t
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\tfrac {t^{2}}{\log t}}}
+  ; this may be stated equivalently as saying that the smallest possible independence number in an n-vertex triangle-free graph is
+
+  
+    
+      
+        θ
+        
+          (
+          
+            
+              n
+              log
+              ⁡
+              n
+            
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle \theta \left({\sqrt {n\log n}}\right).}
+  the upper bound for r(3, t) is given by ajtai, komlós, and szemerédi, the lower bound was obtained originally by kim, and was improved by griffiths, morris, fiz pontiveros, and bohman and keevash, by analysing the triangle-free process. more generally, for off-diagonal ramsey numbers, r(s, t), with s fixed and t growing, the best known bounds are
+
+  
+    
+      
+        
+          c
+          
+            s
+          
+          ′
+        
+        
+          
+            
+              t
+              
+                
+                  
+                    s
+                    +
+                    1
+                  
+                  2
+                
+              
+            
+            
+              (
+              log
+              ⁡
+              t
+              
+                )
+                
+                  
+                    
+                      
+                        s
+                        +
+                        1
+                      
+                      2
+                    
+                  
+                  −
+                  
+                    
+                      1
+                      
+                        s
+                        −
+                        2
+                      
+                    
+                  
+                
+              
+            
+          
+        
+        ≤
+        r
+        (
+        s
+        ,
+        t
+        )
+        ≤
+        
+          c
+          
+            s
+          
+        
+        
+          
+            
+              t
+              
+                s
+                −
+                1
+              
+            
+            
+              (
+              log
+              ⁡
+              t
+              
+                )
+                
+                  s
+                  −
+                  2
+                
+              
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle c'_{s}{\frac {t^{\frac {s+1}{2}}}{(\log t)^{{\frac {s+1}{2}}-{\frac {1}{s-2}}}}}\leq r(s,t)\leq c_{s}{\frac {t^{s-1}}{(\log t)^{s-2}}},}
+  due to bohman and keevash and ajtai, komlós and szemerédi respectively.
+
+
+== induced ramsey ==
+there is a less well-known yet interesting analogue of ramsey's theorem for induced subgraphs. roughly speaking, instead of finding a monochromatic subgraph, we are now required to find a monochromatic induced subgraph. in this variant, it is no longer sufficient to restrict our focus to complete graphs, since the existence of a complete subgraph does not imply the existence of an induced subgraph. the qualitative statement of the theorem in the next section was first proven independently by erdös, hajnal and pósa, deuber and rödl in the 1970s.  since then, there has been much research in obtaining good bounds for induced ramsey numbers.
+
+
+=== statement ===
+let 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   be a graph on 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   vertices. then, there exists a graph 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+   such that any coloring of the edges of 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+   using two colors contains a monochromatic induced copy of 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   (i.e. an induced subgraph of 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+   such that it is isomorphic to 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   and its edges are monochromatic). the smallest possible number of vertices of 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+   is the induced ramsey number 
+  
+    
+      
+        
+          r
+          
+            ind
+          
+        
+        (
+        h
+        )
+      
+    
+    {\displaystyle r_{\text{ind}}(h)}
+  .
+sometimes, we also consider the asymmetric version of the problem. we define 
+  
+    
+      
+        
+          r
+          
+            ind
+          
+        
+        (
+        x
+        ,
+        y
+        )
+      
+    
+    {\displaystyle r_{\text{ind}}(x,y)}
+   to be the smallest possible number of vertices of a graph 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+   such that every coloring of the edges of 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+   using only red or blue contains a red induced subgraph of 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   or blue induced subgraph of 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+  .
+
+
+=== history and bounds ===
+similar to ramsey's theorem, it is unclear a priori whether induced ramsey numbers exist for every graph 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+  . in the early 1970s, erdös, hajnal and pósa, deuber and rödl independently proved that this is the case.  however, the original proofs gave terrible bounds (e.g. towers of twos) on the induced ramsey numbers. it is interesting to ask if better bounds can be achieved. in 1974, erdös conjectured that there exists a constant 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+   such that every graph 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   on 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   vertices satisfies 
+  
+    
+      
+        
+          r
+          
+            ind
+          
+        
+        (
+        h
+        )
+        ≤
+        
+          2
+          
+            c
+            k
+          
+        
+      
+    
+    {\displaystyle r_{\text{ind}}(h)\leq 2^{ck}}
+  .  if this conjecture is true, it would be optimal up to the constant 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+   because the complete graph achieves a lower bound of this form (in fact, it's the same as ramsey numbers). however, this conjecture is still open as of now. 
+in 1984, erdős and hajnal claimed that they proved the bound 
+  
+    
+      
+        
+          r
+          
+            ind
+          
+        
+        (
+        h
+        )
+        ≤
+        
+          2
+          
+            
+              2
+              
+                
+                  k
+                  
+                    1
+                    +
+                    o
+                    (
+                    1
+                    )
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle r_{\text{ind}}(h)\leq 2^{2^{k^{1+o(1)}}}}
+  .  however, that was still far from the exponential bound conjectured by erdös. it was not until 1998 when a major breakthrough was achieved by kohayakawa, prőmel and rődl, who proved the first almost-exponential bound of 
+  
+    
+      
+        
+          r
+          
+            ind
+          
+        
+        (
+        h
+        )
+        ≤
+        
+          2
+          
+            c
+            k
+            (
+            log
+            ⁡
+            k
+            
+              )
+              
+                2
+              
+            
+          
+        
+      
+    
+    {\displaystyle r_{\text{ind}}(h)\leq 2^{ck(\log k)^{2}}}
+   for some constant 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+  . their approach was to consider a suitable random graph constructed on projective planes and show that it has the desired properties with nonzero probability. the idea of using random graphs on projective planes have also previously been used in studying ramsey properties with respect to vertex colorings and the induced ramsey problem on bounded degree graphs 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+  .kohayakawa, prőmel and rődl's bound remained the best general bound for a decade. in 2008, fox and sudakov provided an explicit construction for induced ramsey numbers with the same bound.  in fact, they showed that every 
+  
+    
+      
+        (
+        n
+        ,
+        d
+        ,
+        λ
+        )
+      
+    
+    {\displaystyle (n,d,\lambda )}
+  -graph 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+   with small 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+   and suitable 
+  
+    
+      
+        d
+      
+    
+    {\displaystyle d}
+   contains an induced monochromatic copy of any graph on 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   vertices in any coloring of edges of 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+   in two colors. in particular, for some constant 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+  , the paley graph on 
+  
+    
+      
+        n
+        ≥
+        
+          2
+          
+            c
+            k
+            
+              log
+              
+                2
+              
+            
+            ⁡
+            k
+          
+        
+      
+    
+    {\displaystyle n\geq 2^{ck\log ^{2}k}}
+   vertices is such that all of its edge colorings in two colors contain an induced monochromatic copy of every 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  -vertex graph.  
+in 2010, conlon, fox and sudakov were able to improve the bound to 
+  
+    
+      
+        
+          r
+          
+            ind
+          
+        
+        (
+        h
+        )
+        ≤
+        
+          2
+          
+            c
+            k
+            log
+            ⁡
+            k
+          
+        
+      
+    
+    {\displaystyle r_{\text{ind}}(h)\leq 2^{ck\log k}}
+  , which remains the current best upper bound for general induced ramsey numbers.  similar to the previous work in 2008, they showed that every 
+  
+    
+      
+        (
+        n
+        ,
+        d
+        ,
+        λ
+        )
+      
+    
+    {\displaystyle (n,d,\lambda )}
+  -graph 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+   with small 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+   and edge density 
+  
+    
+      
+        
+          
+            1
+            2
+          
+        
+      
+    
+    {\displaystyle {\frac {1}{2}}}
+   contains an induced monochromatic copy of every graph on 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   vertices in any edge coloring in two colors. currently, erdös's conjecture that 
+  
+    
+      
+        
+          r
+          
+            ind
+          
+        
+        (
+        h
+        )
+        ≤
+        
+          2
+          
+            c
+            k
+          
+        
+      
+    
+    {\displaystyle r_{\text{ind}}(h)\leq 2^{ck}}
+   remains open and is one of the important problems in extremal graph theory.
+for lower bounds, not much is known in general except for the fact that induced ramsey numbers must be at least the corresponding ramsey numbers. some lower bounds have been obtained for some special cases (see special cases). 
+
+
+=== special cases ===
+while the general bounds for the induced ramsey numbers are exponential in the size of the graph, the behaviour is much different on special classes of graphs (in particular, sparse ones). many of these classes have induced ramsey numbers polynomial in the number of vertices.
+if 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   is a cycle, path or star on 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   vertices, it is known that 
+  
+    
+      
+        
+          r
+          
+            ind
+          
+        
+        (
+        h
+        )
+      
+    
+    {\displaystyle r_{\text{ind}}(h)}
+   is linear in 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  . if 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   is a tree on 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   vertices, it is known that 
+  
+    
+      
+        
+          r
+          
+            ind
+          
+        
+        (
+        h
+        )
+        =
+        o
+        (
+        
+          k
+          
+            2
+          
+        
+        
+          log
+          
+            2
+          
+        
+        ⁡
+        k
+        )
+      
+    
+    {\displaystyle r_{\text{ind}}(h)=o(k^{2}\log ^{2}k)}
+  . it is also known that 
+  
+    
+      
+        
+          r
+          
+            ind
+          
+        
+        (
+        h
+        )
+      
+    
+    {\displaystyle r_{\text{ind}}(h)}
+   is superlinear (i.e.  
+  
+    
+      
+        
+          r
+          
+            ind
+          
+        
+        (
+        h
+        )
+        =
+        ω
+        (
+        k
+        )
+      
+    
+    {\displaystyle r_{\text{ind}}(h)=\omega (k)}
+  ). note that this is in contrast to the usual ramsey numbers, where the burr–erdős conjecture (now proven) tells us that 
+  
+    
+      
+        r
+        (
+        h
+        )
+      
+    
+    {\displaystyle r(h)}
+   is linear (since trees are 1-degenerate). 
+for graphs 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   with number of vertices 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   and bounded degree 
+  
+    
+      
+        δ
+      
+    
+    {\displaystyle \delta }
+  , it was conjectured that 
+  
+    
+      
+        
+          r
+          
+            ind
+          
+        
+        (
+        h
+        )
+        ≤
+        c
+        
+          n
+          
+            d
+            (
+            δ
+            )
+          
+        
+      
+    
+    {\displaystyle r_{\text{ind}}(h)\leq cn^{d(\delta )}}
+  , for some constant 
+  
+    
+      
+        d
+      
+    
+    {\displaystyle d}
+   depending only on 
+  
+    
+      
+        δ
+      
+    
+    {\displaystyle \delta }
+  . this result was first proven by łuczak and rödl in 1996, with 
+  
+    
+      
+        d
+        (
+        δ
+        )
+      
+    
+    {\displaystyle d(\delta )}
+   growing as a tower of twos with height 
+  
+    
+      
+        o
+        (
+        
+          δ
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle o(\delta ^{2})}
+  . more reasonable bounds for 
+  
+    
+      
+        d
+        (
+        δ
+        )
+      
+    
+    {\displaystyle d(\delta )}
+   were obtained since then. in 2013, conlon, fox and zhao showed using a counting lemma for sparse pseudorandom graphs that 
+  
+    
+      
+        
+          r
+          
+            ind
+          
+        
+        (
+        h
+        )
+        ≤
+        c
+        
+          n
+          
+            2
+            δ
+            +
+            8
+          
+        
+      
+    
+    {\displaystyle r_{\text{ind}}(h)\leq cn^{2\delta +8}}
+  , where the exponent is best possible up to constant factors. 
+
+
+=== generalizations ===
+similar to ramsey numbers, we can generalize the notion of induced ramsey numbers to hypergraphs and multicolor settings.
+
+
+==== more colors ====
+we can also generalize the induced ramsey's theorem to a multicolor setting. for graphs 
+  
+    
+      
+        
+          h
+          
+            1
+          
+        
+        ,
+        
+          h
+          
+            2
+          
+        
+        ,
+        ⋯
+        ,
+        
+          h
+          
+            r
+          
+        
+      
+    
+    {\displaystyle h_{1},h_{2},\cdots ,h_{r}}
+  , define 
+  
+    
+      
+        
+          r
+          
+            ind
+          
+        
+        (
+        
+          h
+          
+            1
+          
+        
+        ,
+        
+          h
+          
+            2
+          
+        
+        ,
+        ⋯
+        ,
+        
+          h
+          
+            r
+          
+        
+        )
+      
+    
+    {\displaystyle r_{\text{ind}}(h_{1},h_{2},\cdots ,h_{r})}
+   to be the minimum number of vertices in a graph 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+   such that any coloring of the edges of 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+   into 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+   colors contain a induced subgraph isomorphic to 
+  
+    
+      
+        
+          h
+          
+            i
+          
+        
+      
+    
+    {\displaystyle h_{i}}
+   where all edges are colored in the 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  -th color for some 
+  
+    
+      
+        1
+        ≤
+        i
+        ≤
+        r
+      
+    
+    {\displaystyle 1\leq i\leq r}
+  . let 
+  
+    
+      
+        
+          r
+          
+            ind
+          
+        
+        (
+        h
+        ;
+        q
+        )
+        :=
+        
+          r
+          
+            ind
+          
+        
+        (
+        h
+        ,
+        h
+        ,
+        ⋯
+        ,
+        h
+        )
+      
+    
+    {\displaystyle r_{\text{ind}}(h;q):=r_{\text{ind}}(h,h,\cdots ,h)}
+   (
+  
+    
+      
+        q
+      
+    
+    {\displaystyle q}
+   copies of 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+  ).
+it is possible to derive a bound on 
+  
+    
+      
+        
+          r
+          
+            ind
+          
+        
+        (
+        h
+        ;
+        q
+        )
+      
+    
+    {\displaystyle r_{\text{ind}}(h;q)}
+   which is approximately a tower of two of height 
+  
+    
+      
+        ∼
+        log
+        ⁡
+        q
+      
+    
+    {\displaystyle \sim \log q}
+   by iteratively applying the bound on the two-color case. the current best known bound is due to fox and sudakov, which achieves 
+  
+    
+      
+        
+          r
+          
+            ind
+          
+        
+        (
+        h
+        ;
+        q
+        )
+        ≤
+        
+          2
+          
+            c
+            
+              k
+              
+                3
+              
+            
+          
+        
+      
+    
+    {\displaystyle r_{\text{ind}}(h;q)\leq 2^{ck^{3}}}
+  , where 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   is the number of vertices of 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   and 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+   is a constant depending only on 
+  
+    
+      
+        q
+      
+    
+    {\displaystyle q}
+  . 
+
+
+==== hypergraphs ====
+we can extend the definition of induced ramsey numbers to 
+  
+    
+      
+        d
+      
+    
+    {\displaystyle d}
+  -uniform hypergraphs by simply changing the word graph in the statement to hypergraph. furthermore, we can define the multicolor version of induced ramsey numbers in the same way as the previous subsection.
+let 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   be a 
+  
+    
+      
+        d
+      
+    
+    {\displaystyle d}
+  -uniform hypergraph with 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   vertices.  define the tower function 
+  
+    
+      
+        
+          t
+          
+            r
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle t_{r}(x)}
+   by letting 
+  
+    
+      
+        
+          t
+          
+            1
+          
+        
+        (
+        x
+        )
+        =
+        x
+      
+    
+    {\displaystyle t_{1}(x)=x}
+   and for 
+  
+    
+      
+        i
+        ≥
+        1
+      
+    
+    {\displaystyle i\geq 1}
+  , 
+  
+    
+      
+        
+          t
+          
+            i
+            +
+            1
+          
+        
+        (
+        x
+        )
+        =
+        
+          2
+          
+            
+              t
+              
+                i
+              
+            
+            (
+            x
+            )
+          
+        
+      
+    
+    {\displaystyle t_{i+1}(x)=2^{t_{i}(x)}}
+  . using the hypergraph container method, conlon, dellamonica, la fleur, rödl and schacht were able to show that for 
+  
+    
+      
+        d
+        ≥
+        3
+        ,
+        q
+        ≥
+        2
+      
+    
+    {\displaystyle d\geq 3,q\geq 2}
+  , 
+  
+    
+      
+        
+          r
+          
+            ind
+          
+        
+        (
+        h
+        ;
+        q
+        )
+        ≤
+        
+          t
+          
+            d
+          
+        
+        (
+        c
+        k
+        )
+      
+    
+    {\displaystyle r_{\text{ind}}(h;q)\leq t_{d}(ck)}
+   for some constant 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+   depending on only 
+  
+    
+      
+        d
+      
+    
+    {\displaystyle d}
+   and 
+  
+    
+      
+        q
+      
+    
+    {\displaystyle q}
+  . in particular, this result mirrors the best known bound for the usual ramsey number when 
+  
+    
+      
+        d
+        =
+        3
+      
+    
+    {\displaystyle d=3}
+  . 
+
+
+== extensions of the theorem ==
+
+
+=== infinite graphs ===
+a further result, also commonly called ramsey's theorem, applies to infinite graphs. in a context where finite graphs are also being discussed it is often called the "infinite ramsey theorem". as intuition provided by the pictorial representation of a graph is diminished when moving from finite to infinite graphs, theorems in this area are usually phrased in set-theoretic terminology.
+theorem. let x be some infinite set and colour the elements of x(n) (the subsets of x of size n) in c different colours. then there exists some infinite subset m of x such that the size n subsets of m all have the same colour.proof: the proof is by induction on n, the size of the subsets. for n = 1, the statement is equivalent to saying that if you split an infinite set into a finite number of sets, then one of them is infinite. this is evident. assuming the theorem is true for n ≤ r, we prove it for n = r + 1. given a c-colouring of the (r + 1)-element subsets of x, let a0 be an element of x and let y = x \ {a0}. we then induce a c-colouring of the r-element subsets of y, by just adding a0 to each r-element subset (to get an (r + 1)-element subset of x). by the induction hypothesis, there exists an infinite subset y1 of y such that every r-element subset of y1 is coloured the same colour in the induced colouring. thus there is an element a0 and an infinite subset y1 such that all the (r + 1)-element subsets of x consisting of a0 and r elements of y1 have the same colour. by the same argument, there is an element a1 in y1 and an infinite subset y2 of y1 with the same properties. inductively, we obtain a sequence {a0, a1, a2, ...} such that the colour of each (r + 1)-element subset (ai(1), ai(2), ..., ai(r + 1)) with i(1) < i(2) < ... < i(r + 1) depends only on the value of i(1). further, there are infinitely many values of i(n) such that this colour will be the same. take these ai(n)'s to get the desired monochromatic set.
+a stronger but unbalanced infinite form of ramsey's theorem for graphs, the erdős–dushnik–miller theorem, states that every infinite graph contains either a countably infinite independent set, or an infinite clique of the same cardinality as the original graph.
+
+
+==== infinite version implies the finite ====
+it is possible to deduce the finite ramsey theorem from the infinite version by a proof by contradiction. suppose the finite ramsey theorem is false. then there exist integers c, n, t such that for every integer k, there exists a c-colouring of 
+  
+    
+      
+        [
+        k
+        
+          ]
+          
+            (
+            n
+            )
+          
+        
+      
+    
+    {\displaystyle [k]^{(n)}}
+   without a monochromatic set of size t. let ck denote the c-colourings of 
+  
+    
+      
+        [
+        k
+        
+          ]
+          
+            (
+            n
+            )
+          
+        
+      
+    
+    {\displaystyle [k]^{(n)}}
+   without a monochromatic set of size t.
+for any k, the restriction of a colouring in ck+1 to 
+  
+    
+      
+        [
+        k
+        
+          ]
+          
+            (
+            n
+            )
+          
+        
+      
+    
+    {\displaystyle [k]^{(n)}}
+   (by ignoring the colour of all sets containing k + 1) is a colouring in ck. define 
+  
+    
+      
+        
+          c
+          
+            k
+          
+          
+            1
+          
+        
+      
+    
+    {\displaystyle c_{k}^{1}}
+   to be the colourings in ck which are restrictions of colourings in ck+1. since ck+1 is not empty, neither is 
+  
+    
+      
+        
+          c
+          
+            k
+          
+          
+            1
+          
+        
+      
+    
+    {\displaystyle c_{k}^{1}}
+  .
+similarly, the restriction of any colouring in 
+  
+    
+      
+        
+          c
+          
+            k
+            +
+            1
+          
+          
+            1
+          
+        
+      
+    
+    {\displaystyle c_{k+1}^{1}}
+   is in 
+  
+    
+      
+        
+          c
+          
+            k
+          
+          
+            1
+          
+        
+      
+    
+    {\displaystyle c_{k}^{1}}
+  , allowing one to define 
+  
+    
+      
+        
+          c
+          
+            k
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle c_{k}^{2}}
+   as the set of all such restrictions, a non-empty set. continuing so, define 
+  
+    
+      
+        
+          c
+          
+            k
+          
+          
+            m
+          
+        
+      
+    
+    {\displaystyle c_{k}^{m}}
+   for all integers m, k.
+now, for any integer k, 
+  
+    
+      
+        
+          c
+          
+            k
+          
+        
+        ⊇
+        
+          c
+          
+            k
+          
+          
+            1
+          
+        
+        ⊇
+        
+          c
+          
+            k
+          
+          
+            2
+          
+        
+        ⊇
+        ⋯
+      
+    
+    {\displaystyle c_{k}\supseteq c_{k}^{1}\supseteq c_{k}^{2}\supseteq \cdots }
+  , and each set is non-empty. furthermore, ck is finite as 
+  
+    
+      
+        
+          |
+        
+        
+          c
+          
+            k
+          
+        
+        
+          |
+        
+        ≤
+        
+          c
+          
+            
+              
+                k
+                !
+              
+              
+                n
+                !
+                (
+                k
+                −
+                n
+                )
+                !
+              
+            
+          
+        
+      
+    
+    {\displaystyle |c_{k}|\leq c^{\frac {k!}{n!(k-n)!}}}
+  . it follows that the intersection of all of these sets is non-empty, and let 
+  
+    
+      
+        
+          d
+          
+            k
+          
+        
+        =
+        
+          c
+          
+            k
+          
+        
+        ∩
+        
+          c
+          
+            k
+          
+          
+            1
+          
+        
+        ∩
+        
+          c
+          
+            k
+          
+          
+            2
+          
+        
+        ∩
+        ⋯
+      
+    
+    {\displaystyle d_{k}=c_{k}\cap c_{k}^{1}\cap c_{k}^{2}\cap \cdots }
+  . then every colouring in dk is the restriction of a colouring in dk+1. therefore, by unrestricting a colouring in dk to a colouring in dk+1, and continuing doing so, one constructs a colouring of 
+  
+    
+      
+        
+          
+            n
+          
+          
+            (
+            n
+            )
+          
+        
+      
+    
+    {\displaystyle \mathbb {n} ^{(n)}}
+   without any monochromatic set of size t. this contradicts the infinite ramsey theorem.
+if a suitable topological viewpoint is taken, this argument becomes a standard compactness argument showing that the infinite version of the theorem implies the finite version.
+
+
+=== hypergraphs ===
+the theorem can also be extended to hypergraphs. an m-hypergraph is a graph whose "edges" are sets of m vertices – in a normal graph an edge is a set of 2 vertices. the full statement of ramsey's theorem for hypergraphs is that for any integers m and c, and any integers n1, ..., nc, there is an integer r(n1, ..., nc;c, m) such that if the hyperedges of a complete m-hypergraph of order r(n1, ..., nc;c, m) are coloured with c different colours, then for some i between 1 and c, the hypergraph must contain a complete sub-m-hypergraph of order ni whose hyperedges are all colour i. this theorem is usually proved by induction on m, the 'hyper-ness' of the graph. the base case for the proof is m = 2, which is exactly the theorem above.
+
+
+=== directed graphs ===
+it is also possible to define ramsey numbers for directed graphs; these were introduced by p. erdős and l. moser (1964). let r(n) be the smallest number q such that any complete graph with singly directed arcs (also called a "tournament") and with ≥ q nodes contains an acyclic (also called "transitive") n-node subtournament.
+this is the directed-graph analogue of what (above) has been called r(n, n; 2), the smallest number z such that any 2-colouring of the edges of a complete undirected graph with ≥ z nodes, contains a monochromatic complete graph on n nodes. (the directed analogue of the two possible arc colours is the two directions of the arcs, the analogue of "monochromatic" is "all arc-arrows point the same way"; i.e., "acyclic.")
+we have r(0) = 0, r(1) = 1, r(2) = 2, r(3) = 4, r(4) = 8, r(5) = 14, r(6) = 28, and 34 ≤ r(7) ≤ 47.
+
+
+== relationship to the axiom of choice ==
+in reverse mathematics, there is a significant difference in proof strength between the version of ramsey's theorem for infinite graphs (the case n = 2) and for infinite multigraphs (the case n ≥ 3). the multigraph version of the theorem is equivalent in strength to the arithmetical comprehension axiom, making it part of the subsystem aca0 of second-order arithmetic, one of the big five subsystems in reverse mathematics. in contrast, by a theorem of david seetapun, the graph version of the theorem is weaker than aca0, and (combining seetapun's result with others) it does not fall into one of the big five subsystems.  over zf, however, the graph version is equivalent to the classical kőnig's lemma.
+
+
+== see also ==
+ramsey cardinal
+paris–harrington theorem
+sim (pencil game)
+infinite ramsey theory
+van der waerden number
+ramsey game
+erdős–rado theorem
+
+
+== notes ==
+
+
+== references ==
+ajtai, miklós; komlós, jános; szemerédi, endre (1980), "a note on ramsey numbers", j. combin. theory ser. a, 29 (3): 354–360, doi:10.1016/0097-3165(80)90030-8.
+bohman, tom; keevash, peter (2010), "the early evolution of the h-free process", invent. math., 181 (2): 291–336, arxiv:0908.0429, bibcode:2010inmat.181..291b, doi:10.1007/s00222-010-0247-x, s2cid 2429894
+brualdi, richard a. (2010), introductory combinatorics (5th ed.), prentice-hall, pp. 77–82, isbn 978-0-13-602040-0
+conlon, david (2009), "a new upper bound for diagonal ramsey numbers", annals of mathematics, 170 (2): 941–960, arxiv:math/0607788v1, doi:10.4007/annals.2009.170.941, mr 2552114, s2cid 9238219.
+erdős, paul (1947), "some remarks on the theory of graphs", bull. amer. math. soc., 53 (4): 292–294, doi:10.1090/s0002-9904-1947-08785-1.
+erdős, p.; moser, l. (1964), "on the representation of directed graphs as unions of orderings" (pdf), a magyar tudományos akadémia, matematikai kutató intézetének közleményei, 9: 125–132, mr 0168494
+erdős, paul; szekeres, george (1935), "a combinatorial problem in geometry" (pdf), compositio mathematica, 2: 463–470, doi:10.1007/978-0-8176-4842-8_3, isbn 978-0-8176-4841-1.
+exoo, g. (1989), "a lower bound for r(5,5)", journal of graph theory, 13: 97–98, doi:10.1002/jgt.3190130113.
+graham, r.; rothschild, b.; spencer, j. h. (1990), ramsey theory, new york: john wiley and sons.
+gross, jonathan l. (2008), combinatorial methods with computer applications, crc press, p. 458, isbn 978-1-58488-743-0
+harary, frank (1972), graph theory, addison-wesley, pp. 16–17, isbn 0-201-02787-9
+ramsey, f. p. (1930), "on a problem of formal logic", proceedings of the london mathematical society, 30: 264–286, doi:10.1112/plms/s2-30.1.264.
+spencer, j. (1975), "ramsey's theorem – a new lower bound", j. combin. theory ser. a, 18: 108–115, doi:10.1016/0097-3165(75)90071-0.
+bian, zhengbing; chudak, fabian; macready, william g.; clark, lane; gaitan, frank (2013), "experimental determination of ramsey numbers", physical review letters, 111 (13): 130505, arxiv:1201.1842, bibcode:2013phrvl.111m0505b, doi:10.1103/physrevlett.111.130505, pmid 24116761, s2cid 1303361.
+
+
+== external links ==
+"ramsey theorem", encyclopedia of mathematics, ems press, 2001 [1994]
+ramsey@home is a distributed computing project designed to find new lower bounds for various ramsey numbers using a host of different techniques.
+the electronic journal of combinatorics dynamic survey of small ramsey numbers (by stanisław radziszowski)
+ramsey number – from mathworld (contains lower and upper bounds up to r(19, 19))
+ramsey number – geoffrey exoo (contains r(5, 5) > 42 counter-proof)

@@ -1,0 +1,1847 @@
+in statistics and in particular statistical theory, unbiased estimation of a standard deviation is the calculation from a statistical sample of an estimated value of the standard deviation (a measure of statistical dispersion) of a population of values, in such a way that the expected value of the calculation equals the true value.  except in some important situations, outlined later, the task has little relevance to applications of statistics since its need is avoided by standard procedures, such as the use of significance tests and confidence intervals, or by using bayesian analysis.
+however, for statistical theory, it provides an exemplar problem in the context of estimation theory which is both simple to state and for which results cannot be obtained in closed form. it also provides an example where imposing the requirement for unbiased estimation might be seen as just adding inconvenience, with no real benefit.
+
+
+== background ==
+in statistics, the standard deviation of a population of numbers is often estimated from a random sample drawn from the population.  this is the sample standard deviation, which is defined by
+
+  
+    
+      
+        s
+        =
+        
+          
+            
+              
+                
+                  ∑
+                  
+                    i
+                    =
+                    1
+                  
+                  
+                    n
+                  
+                
+                (
+                
+                  x
+                  
+                    i
+                  
+                
+                −
+                
+                  
+                    x
+                    ¯
+                  
+                
+                
+                  )
+                  
+                    2
+                  
+                
+              
+              
+                n
+                −
+                1
+              
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle s={\sqrt {\frac {\sum _{i=1}^{n}(x_{i}-{\overline {x}})^{2}}{n-1}}},}
+  where 
+  
+    
+      
+        {
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+        }
+      
+    
+    {\displaystyle \{x_{1},x_{2},\ldots ,x_{n}\}}
+   is the sample (formally, realizations from a random variable x) and 
+  
+    
+      
+        
+          
+            x
+            ¯
+          
+        
+      
+    
+    {\displaystyle {\overline {x}}}
+   is the sample mean.
+one way of seeing that this is a biased estimator of the standard deviation of the population is to start from the result that s2 is an unbiased estimator for the variance σ2 of the underlying population if that variance exists and the sample values are drawn independently with replacement. the square root is a nonlinear function, and only linear functions commute with taking the expectation. since the square root is a strictly concave function, it follows from jensen's inequality that the square root of the sample variance is an underestimate.
+the use of n − 1 instead of n in the formula for the sample variance is known as bessel's correction, which corrects the bias in the estimation of the population variance, and some, but not all of the bias in the estimation of the population standard deviation.
+it is not possible to find an estimate of the standard deviation which is unbiased for all population distributions, as the bias depends on the particular distribution. much of the following relates to estimation assuming a normal distribution.
+
+
+== bias correction ==
+
+
+=== results for the normal distribution ===
+
+when the random variable is normally distributed, a minor correction exists to eliminate the bias. to derive the correction, note that for normally distributed x, cochran's theorem implies that 
+  
+    
+      
+        (
+        n
+        −
+        1
+        )
+        
+          s
+          
+            2
+          
+        
+        
+          /
+        
+        
+          σ
+          
+            2
+          
+        
+      
+    
+    {\displaystyle (n-1)s^{2}/\sigma ^{2}}
+   has a chi square distribution with 
+  
+    
+      
+        n
+        −
+        1
+      
+    
+    {\displaystyle n-1}
+   degrees of freedom and thus its square root, 
+  
+    
+      
+        
+          
+            n
+            −
+            1
+          
+        
+        s
+        
+          /
+        
+        σ
+      
+    
+    {\displaystyle {\sqrt {n-1}}s/\sigma }
+   has a chi distribution with 
+  
+    
+      
+        n
+        −
+        1
+      
+    
+    {\displaystyle n-1}
+   degrees of freedom. consequently, calculating the expectation of this last expression and rearranging constants,
+
+  
+    
+      
+        e
+        ⁡
+        [
+        s
+        ]
+        =
+        
+          c
+          
+            4
+          
+        
+        (
+        n
+        )
+        σ
+      
+    
+    {\displaystyle \operatorname {e} [s]=c_{4}(n)\sigma }
+  where the correction factor 
+  
+    
+      
+        
+          c
+          
+            4
+          
+        
+        (
+        n
+        )
+      
+    
+    {\displaystyle c_{4}(n)}
+   is the scale mean of the chi distribution with 
+  
+    
+      
+        n
+        −
+        1
+      
+    
+    {\displaystyle n-1}
+   degrees of freedom, 
+  
+    
+      
+        
+          μ
+          
+            1
+          
+        
+        
+          /
+        
+        
+          
+            n
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle \mu _{1}/{\sqrt {n-1}}}
+  . this depends on the sample size n, and is given as follows:
+
+  
+    
+      
+        
+          c
+          
+            4
+          
+        
+        (
+        n
+        )
+        =
+        
+          
+            
+              2
+              
+                n
+                −
+                1
+              
+            
+          
+        
+        
+          
+            
+              γ
+              
+                (
+                
+                  
+                    n
+                    2
+                  
+                
+                )
+              
+            
+            
+              γ
+              
+                (
+                
+                  
+                    
+                      n
+                      −
+                      1
+                    
+                    2
+                  
+                
+                )
+              
+            
+          
+        
+        =
+        1
+        −
+        
+          
+            1
+            
+              4
+              n
+            
+          
+        
+        −
+        
+          
+            7
+            
+              32
+              
+                n
+                
+                  2
+                
+              
+            
+          
+        
+        −
+        
+          
+            19
+            
+              128
+              
+                n
+                
+                  3
+                
+              
+            
+          
+        
+        +
+        o
+        (
+        
+          n
+          
+            −
+            4
+          
+        
+        )
+      
+    
+    {\displaystyle c_{4}(n)={\sqrt {\frac {2}{n-1}}}{\frac {\gamma \left({\frac {n}{2}}\right)}{\gamma \left({\frac {n-1}{2}}\right)}}=1-{\frac {1}{4n}}-{\frac {7}{32n^{2}}}-{\frac {19}{128n^{3}}}+o(n^{-4})}
+  where γ(·) is the gamma function. an unbiased estimator of σ can be obtained by dividing 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+   by 
+  
+    
+      
+        
+          c
+          
+            4
+          
+        
+        (
+        n
+        )
+      
+    
+    {\displaystyle c_{4}(n)}
+  . as 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   grows large it approaches 1, and even for smaller values the correction is minor. the figure shows a plot of 
+  
+    
+      
+        
+          c
+          
+            4
+          
+        
+        (
+        n
+        )
+      
+    
+    {\displaystyle c_{4}(n)}
+   versus sample size. the table below gives numerical values of 
+  
+    
+      
+        
+          c
+          
+            4
+          
+        
+        (
+        n
+        )
+      
+    
+    {\displaystyle c_{4}(n)}
+   and algebraic expressions for some values of 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  ; more complete tables may be found in most textbooks on statistical quality control.
+
+it is important to keep in mind this correction only produces an unbiased estimator for normally and independently distributed x. when this condition is satisfied, another result about s involving 
+  
+    
+      
+        
+          c
+          
+            4
+          
+        
+        (
+        n
+        )
+      
+    
+    {\displaystyle c_{4}(n)}
+   is that the standard error of s is 
+  
+    
+      
+        σ
+        
+          
+            1
+            −
+            
+              c
+              
+                4
+              
+              
+                2
+              
+            
+          
+        
+      
+    
+    {\displaystyle \sigma {\sqrt {1-c_{4}^{2}}}}
+  , while the standard error of the unbiased estimator is 
+  
+    
+      
+        σ
+        
+          
+            
+              c
+              
+                4
+              
+              
+                −
+                2
+              
+            
+            −
+            1
+          
+        
+        .
+      
+    
+    {\displaystyle \sigma {\sqrt {c_{4}^{-2}-1}}.}
+  
+
+
+=== rule of thumb for the normal distribution ===
+if calculation of the function c4(n) appears too difficult, there is a simple rule of thumb to take the estimator
+
+  
+    
+      
+        
+          
+            
+              σ
+              ^
+            
+          
+        
+        =
+        
+          
+            
+              
+                1
+                
+                  n
+                  −
+                  1.5
+                
+              
+            
+            
+              ∑
+              
+                i
+                =
+                1
+              
+              
+                n
+              
+            
+            (
+            
+              x
+              
+                i
+              
+            
+            −
+            
+              
+                x
+                ¯
+              
+            
+            
+              )
+              
+                2
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\hat {\sigma }}={\sqrt {{\frac {1}{n-1.5}}\sum _{i=1}^{n}(x_{i}-{\overline {x}})^{2}}}}
+  the formula differs from the familiar expression for s2 only by having n − 1.5 instead of n − 1 in the denominator. this expression is only approximate; in fact,
+
+  
+    
+      
+        e
+        ⁡
+        
+          [
+          
+            
+              
+                σ
+                ^
+              
+            
+          
+          ]
+        
+        =
+        σ
+        ⋅
+        
+          (
+          
+            1
+            +
+            
+              
+                1
+                
+                  16
+                  
+                    n
+                    
+                      2
+                    
+                  
+                
+              
+            
+            +
+            
+              
+                3
+                
+                  16
+                  
+                    n
+                    
+                      3
+                    
+                  
+                
+              
+            
+            +
+            o
+            (
+            
+              n
+              
+                −
+                4
+              
+            
+            )
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle \operatorname {e} \left[{\hat {\sigma }}\right]=\sigma \cdot \left(1+{\frac {1}{16n^{2}}}+{\frac {3}{16n^{3}}}+o(n^{-4})\right).}
+  the bias is relatively small: say, for 
+  
+    
+      
+        n
+        =
+        3
+      
+    
+    {\displaystyle n=3}
+   it is equal to 1.3%, and for 
+  
+    
+      
+        n
+        =
+        9
+      
+    
+    {\displaystyle n=9}
+   the bias is already 0.1%.
+
+
+=== other distributions ===
+in cases where statistically independent data are modelled by a parametric family of distributions other than the normal distribution, the population standard deviation will, if it exists, be a function of the parameters of the model. one general approach to estimation would be maximum likelihood. alternatively, it may be possible to use the rao–blackwell theorem as a route to finding a good estimate of the standard deviation. in neither case would the estimates obtained usually be unbiased. notionally, theoretical adjustments might be obtainable to lead to unbiased estimates but, unlike those for the normal distribution, these would typically depend on the estimated parameters.
+if the requirement is simply to reduce the bias of an estimated standard deviation, rather than to eliminate it entirely, then two practical approaches are available, both within the context of resampling. these are jackknifing and bootstrapping. both can be applied either to parametrically based estimates of the standard deviation or to the sample standard deviation.
+for non-normal distributions an approximate (up to o(n−1) terms) formula for the unbiased estimator of the standard deviation is
+
+  
+    
+      
+        
+          
+            
+              σ
+              ^
+            
+          
+        
+        =
+        
+          
+            
+              
+                1
+                
+                  n
+                  −
+                  1.5
+                  −
+                  
+                    
+                      
+                        1
+                        4
+                      
+                    
+                  
+                  
+                    γ
+                    
+                      2
+                    
+                  
+                
+              
+            
+            
+              ∑
+              
+                i
+                =
+                1
+              
+              
+                n
+              
+            
+            
+              
+                (
+                
+                  
+                    x
+                    
+                      i
+                    
+                  
+                  −
+                  
+                    
+                      x
+                      ¯
+                    
+                  
+                
+                )
+              
+              
+                2
+              
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle {\hat {\sigma }}={\sqrt {{\frac {1}{n-1.5-{\tfrac {1}{4}}\gamma _{2}}}\sum _{i=1}^{n}\left(x_{i}-{\overline {x}}\right)^{2}}},}
+  where γ2 denotes the population excess kurtosis. the excess kurtosis may be either known beforehand for certain distributions, or estimated from the data.
+
+
+== effect of autocorrelation (serial correlation) ==
+the material above, to stress the point again, applies only to independent data. however, real-world data often does not meet this requirement; it is autocorrelated (also known as serial correlation). as one example, the successive readings of a measurement instrument that incorporates some form of “smoothing” (more correctly, low-pass filtering) process will be autocorrelated, since any particular value is calculated from some combination of the earlier and later readings.
+estimates of the variance, and standard deviation, of autocorrelated data will be biased. the expected value of the sample variance is
+
+  
+    
+      
+        
+          
+            e
+          
+        
+        
+          [
+          
+            s
+            
+              2
+            
+          
+          ]
+        
+        =
+        
+          σ
+          
+            2
+          
+        
+        
+          [
+          
+            1
+            −
+            
+              
+                2
+                
+                  n
+                  −
+                  1
+                
+              
+            
+            
+              ∑
+              
+                k
+                =
+                1
+              
+              
+                n
+                −
+                1
+              
+            
+            
+              (
+              
+                1
+                −
+                
+                  
+                    k
+                    n
+                  
+                
+              
+              )
+            
+            
+              ρ
+              
+                k
+              
+            
+          
+          ]
+        
+      
+    
+    {\displaystyle {\rm {e}}\left[s^{2}\right]=\sigma ^{2}\left[1-{\frac {2}{n-1}}\sum _{k=1}^{n-1}\left(1-{\frac {k}{n}}\right)\rho _{k}\right]}
+  where n is the sample size (number of measurements) and 
+  
+    
+      
+        
+          ρ
+          
+            k
+          
+        
+      
+    
+    {\displaystyle \rho _{k}}
+   is the autocorrelation function (acf) of the data. (note that the expression in the brackets is simply one minus the average expected autocorrelation for the readings.) if the acf consists of positive values then the estimate of the variance (and its square root, the standard deviation) will be biased low. that is, the actual variability of the data will be greater than that indicated by an uncorrected variance or standard deviation calculation. it is essential to recognize that, if this expression is to be used to correct for the bias, by dividing the estimate 
+  
+    
+      
+        
+          s
+          
+            2
+          
+        
+      
+    
+    {\displaystyle s^{2}}
+   by the quantity in brackets above, then the acf must be known analytically, not via estimation from the data. this is because the estimated acf will itself be biased.
+
+
+=== example of bias in standard deviation ===
+to illustrate the magnitude of the bias in the standard deviation, consider a dataset that consists of sequential readings from an instrument that uses a specific digital filter whose acf is known to be given by
+
+  
+    
+      
+        
+          ρ
+          
+            k
+          
+        
+        =
+        (
+        1
+        −
+        α
+        
+          )
+          
+            k
+          
+        
+      
+    
+    {\displaystyle \rho _{k}=(1-\alpha )^{k}}
+  
+where α is the parameter of the filter, and it takes values from zero to unity. thus the acf is positive and geometrically decreasing. the figure shows the ratio of the estimated standard deviation to its known value (which can be calculated analytically for this digital filter), for several settings of α as a function of sample size n. changing α alters the variance reduction ratio of the filter, which is known to be
+
+  
+    
+      
+        
+          
+            v
+            r
+            r
+          
+        
+        =
+        
+          
+            α
+            
+              2
+              −
+              α
+            
+          
+        
+      
+    
+    {\displaystyle {\rm {vrr}}={\frac {\alpha }{2-\alpha }}}
+  so that smaller values of α result in more variance reduction, or “smoothing.” the bias is indicated by values on the vertical axis different from unity; that is, if there were no bias, the ratio of the estimated to known standard deviation would be unity. clearly, for modest sample sizes there can be significant bias (a factor of two, or more).
+
+
+=== variance of the mean ===
+it is often of interest to estimate the variance or standard deviation of an estimated mean rather than the variance of a population. when the data are autocorrelated, this has a direct effect on the theoretical variance of the sample mean, which is
+
+  
+    
+      
+        
+          
+            v
+            a
+            r
+          
+        
+        
+          [
+          
+            
+              x
+              ¯
+            
+          
+          ]
+        
+        =
+        
+          
+            
+              σ
+              
+                2
+              
+            
+            n
+          
+        
+        
+          [
+          
+            1
+            +
+            2
+            
+              ∑
+              
+                k
+                =
+                1
+              
+              
+                n
+                −
+                1
+              
+            
+            
+              
+                (
+                
+                  1
+                  −
+                  
+                    
+                      k
+                      n
+                    
+                  
+                
+                )
+              
+              
+                ρ
+                
+                  k
+                
+              
+            
+          
+          ]
+        
+        .
+      
+    
+    {\displaystyle {\rm {var}}\left[{\overline {x}}\right]={\frac {\sigma ^{2}}{n}}\left[1+2\sum _{k=1}^{n-1}{\left(1-{\frac {k}{n}}\right)\rho _{k}}\right].}
+  the variance of the sample mean can then be estimated by substituting an estimate of σ2. one such estimate can be obtained from the equation for e[s2] given above. first define the following constants, assuming, again, a known acf:
+
+  
+    
+      
+        
+          γ
+          
+            1
+          
+        
+        ≡
+        1
+        −
+        
+          
+            2
+            
+              n
+              −
+              1
+            
+          
+        
+        
+          ∑
+          
+            k
+            =
+            1
+          
+          
+            n
+            −
+            1
+          
+        
+        
+          
+            (
+            
+              1
+              −
+              
+                
+                  k
+                  n
+                
+              
+            
+            )
+          
+        
+        
+          ρ
+          
+            k
+          
+        
+      
+    
+    {\displaystyle \gamma _{1}\equiv 1-{\frac {2}{n-1}}\sum _{k=1}^{n-1}{\left(1-{\frac {k}{n}}\right)}\rho _{k}}
+  
+
+  
+    
+      
+        
+          γ
+          
+            2
+          
+        
+        ≡
+        1
+        +
+        2
+        
+          ∑
+          
+            k
+            =
+            1
+          
+          
+            n
+            −
+            1
+          
+        
+        
+          
+            (
+            
+              1
+              −
+              
+                
+                  k
+                  n
+                
+              
+            
+            )
+          
+        
+        
+          ρ
+          
+            k
+          
+        
+      
+    
+    {\displaystyle \gamma _{2}\equiv 1+2\sum _{k=1}^{n-1}{\left(1-{\frac {k}{n}}\right)}\rho _{k}}
+  so that
+
+  
+    
+      
+        
+          
+            e
+          
+        
+        
+          [
+          
+            s
+            
+              2
+            
+          
+          ]
+        
+        =
+        
+          σ
+          
+            2
+          
+        
+        
+          γ
+          
+            1
+          
+        
+        ⇒
+        
+          
+            e
+          
+        
+        
+          [
+          
+            
+              
+                s
+                
+                  2
+                
+              
+              
+                γ
+                
+                  1
+                
+              
+            
+          
+          ]
+        
+        =
+        
+          σ
+          
+            2
+          
+        
+      
+    
+    {\displaystyle {\rm {e}}\left[s^{2}\right]=\sigma ^{2}\gamma _{1}\rightarrow {\rm {e}}\left[{\frac {s^{2}}{\gamma _{1}}}\right]=\sigma ^{2}}
+  this says that the expected value of the quantity obtained by dividing the observed sample variance by the correction factor 
+  
+    
+      
+        
+          γ
+          
+            1
+          
+        
+      
+    
+    {\displaystyle \gamma _{1}}
+   gives an unbiased estimate of the variance. similarly, re-writing the expression above for the variance of the mean,
+
+  
+    
+      
+        
+          
+            v
+            a
+            r
+          
+        
+        
+          [
+          
+            
+              x
+              ¯
+            
+          
+          ]
+        
+        =
+        
+          
+            
+              σ
+              
+                2
+              
+            
+            n
+          
+        
+        
+          γ
+          
+            2
+          
+        
+      
+    
+    {\displaystyle {\rm {var}}\left[{\overline {x}}\right]={\frac {\sigma ^{2}}{n}}\gamma _{2}}
+  and substituting the estimate for 
+  
+    
+      
+        
+          σ
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \sigma ^{2}}
+   gives
+
+  
+    
+      
+        
+          
+            v
+            a
+            r
+          
+        
+        
+          [
+          
+            
+              x
+              ¯
+            
+          
+          ]
+        
+        =
+        
+          
+            e
+          
+        
+        
+          [
+          
+            
+              
+                
+                  s
+                  
+                    2
+                  
+                
+                
+                  γ
+                  
+                    1
+                  
+                
+              
+            
+            
+              (
+              
+                
+                  
+                    γ
+                    
+                      2
+                    
+                  
+                  n
+                
+              
+              )
+            
+          
+          ]
+        
+        =
+        
+          
+            e
+          
+        
+        
+          [
+          
+            
+              
+                
+                  s
+                  
+                    2
+                  
+                
+                n
+              
+            
+            
+              {
+              
+                
+                  
+                    n
+                    −
+                    1
+                  
+                  
+                    
+                      
+                        n
+                        
+                          γ
+                          
+                            2
+                          
+                        
+                      
+                    
+                    −
+                    1
+                  
+                
+              
+              }
+            
+          
+          ]
+        
+      
+    
+    {\displaystyle {\rm {var}}\left[{\overline {x}}\right]={\rm {e}}\left[{\frac {s^{2}}{\gamma _{1}}}\left({\frac {\gamma _{2}}{n}}\right)\right]={\rm {e}}\left[{\frac {s^{2}}{n}}\left\{{\frac {n-1}{{\frac {n}{\gamma _{2}}}-1}}\right\}\right]}
+  which is an unbiased estimator of the variance of the mean in terms of the observed sample variance and known quantities. if the autocorrelations 
+  
+    
+      
+        
+          ρ
+          
+            k
+          
+        
+      
+    
+    {\displaystyle \rho _{k}}
+   are identically zero, this expression reduces to the well-known result for the variance of the mean for independent data. the effect of the expectation operator in these expressions is that the equality holds in the mean (i.e., on average).
+
+
+=== estimating the standard deviation of the population ===
+having the expressions above involving the variance of the population, and of an estimate of the mean of that population, it would seem logical to simply take the square root of these expressions to obtain unbiased estimates of the respective standard deviations. however it is the case that, since expectations are integrals,
+
+  
+    
+      
+        
+          
+            e
+          
+        
+        [
+        s
+        ]
+        ≠
+        
+          
+            
+              
+                e
+              
+            
+            
+              [
+              
+                s
+                
+                  2
+                
+              
+              ]
+            
+          
+        
+        ≠
+        σ
+        
+          
+            
+              γ
+              
+                1
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\rm {e}}[s]\neq {\sqrt {{\rm {e}}\left[s^{2}\right]}}\neq \sigma {\sqrt {\gamma _{1}}}}
+  instead, assume a function θ exists such that an unbiased estimator of the standard deviation can be written
+
+  
+    
+      
+        
+          
+            e
+          
+        
+        [
+        s
+        ]
+        =
+        σ
+        θ
+        
+          
+            
+              γ
+              
+                1
+              
+            
+          
+        
+        ⇒
+        
+          
+            
+              σ
+              ^
+            
+          
+        
+        =
+        
+          
+            s
+            
+              θ
+              
+                
+                  
+                    γ
+                    
+                      1
+                    
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\rm {e}}[s]=\sigma \theta {\sqrt {\gamma _{1}}}\rightarrow {\hat {\sigma }}={\frac {s}{\theta {\sqrt {\gamma _{1}}}}}}
+  and θ depends on the sample size n and the acf. in the case of nid (normally and independently distributed) data, the radicand is unity and θ is just the c4 function given in the first section above. as with c4, θ approaches unity as the sample size increases (as does γ1).
+it can be demonstrated via simulation modeling that ignoring θ (that is, taking it to be unity) and using
+
+  
+    
+      
+        
+          
+            e
+          
+        
+        [
+        s
+        ]
+        ≈
+        σ
+        
+          
+            
+              γ
+              
+                1
+              
+            
+          
+        
+        ⇒
+        
+          
+            
+              σ
+              ^
+            
+          
+        
+        ≈
+        
+          
+            s
+            
+              
+                γ
+                
+                  1
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\rm {e}}[s]\approx \sigma {\sqrt {\gamma _{1}}}\rightarrow {\hat {\sigma }}\approx {\frac {s}{\sqrt {\gamma _{1}}}}}
+  removes all but a few percent of the bias caused by autocorrelation, making this a reduced-bias estimator, rather than an unbiased estimator. in practical measurement situations, this reduction in bias can be significant, and useful, even if some relatively small bias remains. the figure above, showing an example of the bias in the standard deviation vs. sample size, is based on this approximation; the actual bias would be somewhat larger than indicated in those graphs since the transformation bias θ is not included there.
+
+
+=== estimating the standard deviation of the sample mean ===
+the unbiased variance of the mean in terms of the population variance and the acf is given by
+
+  
+    
+      
+        
+          
+            v
+            a
+            r
+          
+        
+        
+          [
+          
+            
+              x
+              ¯
+            
+          
+          ]
+        
+        =
+        
+          
+            
+              σ
+              
+                2
+              
+            
+            n
+          
+        
+        
+          γ
+          
+            2
+          
+        
+      
+    
+    {\displaystyle {\rm {var}}\left[{\overline {x}}\right]={\frac {\sigma ^{2}}{n}}\gamma _{2}}
+  and since there are no expected values here, in this case the square root can be taken, so that
+
+  
+    
+      
+        
+          σ
+          
+            
+              x
+              ¯
+            
+          
+        
+        =
+        
+          
+            σ
+            
+              n
+            
+          
+        
+        
+          
+            
+              γ
+              
+                2
+              
+            
+          
+        
+      
+    
+    {\displaystyle \sigma _{\overline {x}}={\frac {\sigma }{\sqrt {n}}}{\sqrt {\gamma _{2}}}}
+  using the unbiased estimate expression above for σ, an estimate of the standard deviation of the mean will then be
+
+  
+    
+      
+        
+          
+            
+              
+                σ
+                ^
+              
+            
+          
+          
+            
+              x
+              ¯
+            
+          
+        
+        =
+        
+          
+            s
+            
+              θ
+              
+                
+                  n
+                
+              
+            
+          
+        
+        
+          
+            
+              
+                γ
+                
+                  2
+                
+              
+            
+            
+              
+                γ
+                
+                  1
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\hat {\sigma }}_{\overline {x}}={\frac {s}{\theta {\sqrt {n}}}}{\frac {\sqrt {\gamma _{2}}}{\sqrt {\gamma _{1}}}}}
+  if the data are nid, so that the acf vanishes, this reduces to
+
+  
+    
+      
+        
+          
+            
+              
+                σ
+                ^
+              
+            
+          
+          
+            
+              x
+              ¯
+            
+          
+        
+        =
+        
+          
+            s
+            
+              
+                c
+                
+                  4
+                
+              
+              
+                
+                  n
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\hat {\sigma }}_{\overline {x}}={\frac {s}{c_{4}{\sqrt {n}}}}}
+  in the presence of a nonzero acf, ignoring the function θ as before leads to the reduced-bias estimator
+
+  
+    
+      
+        
+          
+            
+              
+                σ
+                ^
+              
+            
+          
+          
+            
+              x
+              ¯
+            
+          
+        
+        ≈
+        
+          
+            s
+            
+              n
+            
+          
+        
+        
+          
+            
+              
+                γ
+                
+                  2
+                
+              
+            
+            
+              
+                γ
+                
+                  1
+                
+              
+            
+          
+        
+        =
+        
+          
+            s
+            
+              n
+            
+          
+        
+        
+          
+            
+              
+                n
+                −
+                1
+              
+              
+                
+                  
+                    n
+                    
+                      γ
+                      
+                        2
+                      
+                    
+                  
+                
+                −
+                1
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\hat {\sigma }}_{\overline {x}}\approx {\frac {s}{\sqrt {n}}}{\frac {\sqrt {\gamma _{2}}}{\sqrt {\gamma _{1}}}}={\frac {s}{\sqrt {n}}}{\sqrt {\frac {n-1}{{\frac {n}{\gamma _{2}}}-1}}}}
+  which again can be demonstrated to remove a useful majority of the bias.
+
+
+== see also ==
+bessel's correction
+estimation of covariance matrices
+sample mean and sample covariance
+
+
+== references ==
+
+douglas c. montgomery and george c. runger, applied statistics and probability for engineers, 3rd edition, wiley and sons, 2003. (see sections 7–2.2 and 16–5)
+
+
+== external links ==
+a java interactive graphic  showing the helmert pdf from which the bias correction factors are derived.
+monte-carlo simulation demo for unbiased estimation of standard deviation.
+http://www.itl.nist.gov/div898/handbook/pmc/section3/pmc32.htm what are variables control charts? this article incorporates public domain material from the national institute of standards and technology website https://www.nist.gov.

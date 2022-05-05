@@ -1,0 +1,1536 @@
+stability, also known as algorithmic stability, is a notion in computational learning theory of how a  machine learning algorithm is perturbed by small changes to its inputs. a stable learning algorithm is one for which the prediction does not change much when the training data is modified slightly. for instance, consider a machine learning algorithm that is being trained to recognize handwritten letters of the alphabet, using 1000 examples of handwritten letters and their labels ("a" to "z") as a training set. one way to modify this training set is to leave out an example, so that only 999 examples of handwritten letters and their labels are available. a stable learning algorithm would produce a similar classifier with both the 1000-element and 999-element training sets.
+stability can be studied for many types of learning problems, from language learning to inverse problems in physics and engineering, as it is a property of the learning process rather than the type of information being learned. the study of stability gained importance in computational learning theory in the 2000s when it was shown to have a connection with generalization. it was shown that for large classes of learning algorithms, notably empirical risk minimization algorithms, certain types of stability ensure good generalization.
+
+
+== history ==
+a central goal in designing a  machine learning system is to guarantee that the learning algorithm will generalize, or perform accurately on new examples after being trained on a finite number of them. in the 1990s, milestones were reached in obtaining generalization bounds for  supervised learning algorithms. the technique historically used to prove generalization was to show that an algorithm was consistent, using the uniform convergence properties of empirical quantities to their means. this technique was used to obtain generalization bounds for the large class of empirical risk minimization (erm) algorithms. an erm algorithm is one that selects a solution from a hypothesis space 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   in such a way to minimize the empirical error on a training set 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+  .
+a general result, proved by vladimir vapnik for an erm binary classification algorithms, is that for any target function and input distribution, any hypothesis space 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   with vc-dimension 
+  
+    
+      
+        d
+      
+    
+    {\displaystyle d}
+  , and 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   training examples, the algorithm is consistent and will produce a training error that is at most 
+  
+    
+      
+        o
+        
+          (
+          
+            
+              
+                d
+                n
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle o\left({\sqrt {\frac {d}{n}}}\right)}
+   (plus logarithmic factors) from the true error. the result was later extended to almost-erm algorithms with function classes that do not have unique minimizers.
+vapnik's work, using what became known as vc theory, established a relationship between generalization of a learning algorithm and properties of the hypothesis space 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   of functions being learned. however, these results could not be applied to algorithms with hypothesis spaces of unbounded vc-dimension. put another way, these results could not be applied when the information being learned had a complexity that was too large to measure. some of the simplest machine learning algorithms—for instance, for regression—have hypothesis spaces with unbounded vc-dimension. another example is language learning algorithms that can produce sentences of arbitrary length.
+stability analysis was developed in the 2000s for computational learning theory and is an alternative method for obtaining generalization bounds. the stability of an algorithm is a property of the learning process, rather than a direct property of the hypothesis space 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+  , and it can be assessed in algorithms that have hypothesis spaces with unbounded or undefined vc-dimension such as nearest neighbor. a stable learning algorithm is one for which the learned function does not change much when the training set is slightly modified, for instance by leaving out an example. a measure of leave one out error is used in a cross validation leave one out (cvloo) algorithm to evaluate a learning algorithm's stability with respect to the loss function. as such, stability analysis is the application of sensitivity analysis to machine learning.
+
+
+== summary of classic results ==
+early 1900s - stability in learning theory was earliest described in terms of continuity of the learning map 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+  , traced to andrey nikolayevich tikhonov.
+1979 - devroye and wagner observed that the leave-one-out behavior of an algorithm is related to its sensitivity to small changes in the sample.
+1999 - kearns and ron discovered a connection between finite vc-dimension and stability.
+2002 - in a landmark paper, bousquet and elisseeff proposed the notion of uniform hypothesis stability of a learning algorithm and showed that it implies low generalization error. uniform hypothesis stability, however, is a strong condition that does not apply to large classes of algorithms, including erm algorithms with a hypothesis space of only two functions.
+2002 - kutin and niyogi extended bousquet and elisseeff's results by providing generalization bounds for several weaker forms of stability which they called almost-everywhere stability. furthermore, they took an initial step in establishing the relationship between stability and consistency in erm algorithms in the probably approximately correct (pac) setting.
+2004 - poggio et al. proved a general relationship between stability and erm consistency. they proposed a statistical form of leave-one-out-stability which they called cveeeloo stability, and showed that it is a) sufficient for generalization in bounded loss classes, and b) necessary and sufficient for consistency (and thus generalization) of erm algorithms for certain loss functions such as the square loss, the absolute value and the binary classification loss.
+2010 - shalev shwartz et al. noticed problems with the original results of vapnik due to the complex relations between hypothesis space and loss class. they discuss stability notions that capture different loss classes and different types of learning, supervised and unsupervised.
+2016 - moritz hardt et al. proved stability of gradient descent given certain assumption on the hypothesis and number of times each instance is used to update the model.
+
+
+== preliminary definitions ==
+we define several terms related to learning algorithms training sets, so that we can then define stability in multiple ways and present theorems from the field.
+a machine learning algorithm, also known as a learning map 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+  , maps a training data set, which is a set of labeled examples 
+  
+    
+      
+        (
+        x
+        ,
+        y
+        )
+      
+    
+    {\displaystyle (x,y)}
+  , onto a function 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   from 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   to 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+  , where 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   and 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   are in the same space of the training examples. the functions 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   are selected from a hypothesis space of functions called 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+  .
+the training set from which an algorithm learns is defined as
+
+  
+    
+      
+        s
+        =
+        {
+        
+          z
+          
+            1
+          
+        
+        =
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+         
+        
+          y
+          
+            1
+          
+        
+        )
+         
+        ,
+        .
+        .
+        ,
+         
+        
+          z
+          
+            m
+          
+        
+        =
+        (
+        
+          x
+          
+            m
+          
+        
+        ,
+         
+        
+          y
+          
+            m
+          
+        
+        )
+        }
+      
+    
+    {\displaystyle s=\{z_{1}=(x_{1},\ y_{1})\ ,..,\ z_{m}=(x_{m},\ y_{m})\}}
+  
+and is of size 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   in 
+  
+    
+      
+        z
+        =
+        x
+        ×
+        y
+      
+    
+    {\displaystyle z=x\times y}
+  
+drawn i.i.d. from an unknown distribution d.
+thus, the learning map 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+   is defined as a mapping from 
+  
+    
+      
+        
+          z
+          
+            m
+          
+        
+      
+    
+    {\displaystyle z_{m}}
+   into 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+  , mapping a training set 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+   onto a function 
+  
+    
+      
+        
+          f
+          
+            s
+          
+        
+      
+    
+    {\displaystyle f_{s}}
+   from 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   to 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+  . here, we consider only deterministic algorithms where 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+   is symmetric with respect to 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+  , i.e. it does not depend on the order of the elements in the training set. furthermore, we assume that all functions are measurable and all sets are countable.
+the loss 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   of a hypothesis 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   with respect to an example 
+  
+    
+      
+        z
+        =
+        (
+        x
+        ,
+        y
+        )
+      
+    
+    {\displaystyle z=(x,y)}
+   is then defined as 
+  
+    
+      
+        v
+        (
+        f
+        ,
+        z
+        )
+        =
+        v
+        (
+        f
+        (
+        x
+        )
+        ,
+        y
+        )
+      
+    
+    {\displaystyle v(f,z)=v(f(x),y)}
+  .
+the empirical error of 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   is 
+  
+    
+      
+        
+          i
+          
+            s
+          
+        
+        [
+        f
+        ]
+        =
+        
+          
+            1
+            n
+          
+        
+        ∑
+        v
+        (
+        f
+        ,
+        
+          z
+          
+            i
+          
+        
+        )
+      
+    
+    {\displaystyle i_{s}[f]={\frac {1}{n}}\sum v(f,z_{i})}
+  .
+the true error of 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   is 
+  
+    
+      
+        i
+        [
+        f
+        ]
+        =
+        
+          
+            e
+          
+          
+            z
+          
+        
+        v
+        (
+        f
+        ,
+        z
+        )
+      
+    
+    {\displaystyle i[f]=\mathbb {e} _{z}v(f,z)}
+  
+given a training set s of size m, we will build, for all i = 1....,m, modified training sets as follows:
+
+by removing the i-th element
+  
+    
+      
+        
+          s
+          
+            
+              |
+            
+            i
+          
+        
+        =
+        {
+        
+          z
+          
+            1
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+         
+        
+          z
+          
+            i
+            −
+            1
+          
+        
+        ,
+         
+        
+          z
+          
+            i
+            +
+            1
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+         
+        
+          z
+          
+            m
+          
+        
+        }
+      
+    
+    {\displaystyle s^{|i}=\{z_{1},...,\ z_{i-1},\ z_{i+1},...,\ z_{m}\}}
+  
+
+by replacing the i-th element
+  
+    
+      
+        
+          s
+          
+            i
+          
+        
+        =
+        {
+        
+          z
+          
+            1
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+         
+        
+          z
+          
+            i
+            −
+            1
+          
+        
+        ,
+         
+        
+          z
+          
+            i
+          
+          ′
+        
+        ,
+         
+        
+          z
+          
+            i
+            +
+            1
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+         
+        
+          z
+          
+            m
+          
+        
+        }
+      
+    
+    {\displaystyle s^{i}=\{z_{1},...,\ z_{i-1},\ z_{i}',\ z_{i+1},...,\ z_{m}\}}
+  
+
+
+== definitions of stability ==
+
+
+=== hypothesis stability ===
+an algorithm 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+   has hypothesis stability β with respect to the loss function v if the following holds:
+
+  
+    
+      
+        ∀
+        i
+        ∈
+        {
+        1
+        ,
+        .
+        .
+        .
+        ,
+        m
+        }
+        ,
+        
+          
+            e
+          
+          
+            s
+            ,
+            z
+          
+        
+        [
+        
+          |
+        
+        v
+        (
+        
+          f
+          
+            s
+          
+        
+        ,
+        z
+        )
+        −
+        v
+        (
+        
+          f
+          
+            
+              s
+              
+                
+                  |
+                
+                i
+              
+            
+          
+        
+        ,
+        z
+        )
+        
+          |
+        
+        ]
+        ≤
+        β
+        .
+      
+    
+    {\displaystyle \forall i\in \{1,...,m\},\mathbb {e} _{s,z}[|v(f_{s},z)-v(f_{s^{|i}},z)|]\leq \beta .}
+  
+
+
+=== point-wise hypothesis stability ===
+an algorithm 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+   has point-wise hypothesis stability β with respect to the loss function v if the following holds:
+
+  
+    
+      
+        ∀
+        i
+        ∈
+         
+        {
+        1
+        ,
+        .
+        .
+        .
+        ,
+        m
+        }
+        ,
+        
+          
+            e
+          
+          
+            s
+          
+        
+        [
+        
+          |
+        
+        v
+        (
+        
+          f
+          
+            s
+          
+        
+        ,
+        
+          z
+          
+            i
+          
+        
+        )
+        −
+        v
+        (
+        
+          f
+          
+            
+              s
+              
+                
+                  |
+                
+                i
+              
+            
+          
+        
+        ,
+        
+          z
+          
+            i
+          
+        
+        )
+        
+          |
+        
+        ]
+        ≤
+        β
+        .
+      
+    
+    {\displaystyle \forall i\in \ \{1,...,m\},\mathbb {e} _{s}[|v(f_{s},z_{i})-v(f_{s^{|i}},z_{i})|]\leq \beta .}
+  
+
+
+=== error stability ===
+an algorithm 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+   has error stability β with respect to the loss function v if the following holds:
+
+  
+    
+      
+        ∀
+        s
+        ∈
+        
+          z
+          
+            m
+          
+        
+        ,
+        ∀
+        i
+        ∈
+        {
+        1
+        ,
+        .
+        .
+        .
+        ,
+        m
+        }
+        ,
+        
+          |
+        
+        
+          
+            e
+          
+          
+            z
+          
+        
+        [
+        v
+        (
+        
+          f
+          
+            s
+          
+        
+        ,
+        z
+        )
+        ]
+        −
+        
+          
+            e
+          
+          
+            z
+          
+        
+        [
+        v
+        (
+        
+          f
+          
+            
+              s
+              
+                
+                  |
+                
+                i
+              
+            
+          
+        
+        ,
+        z
+        )
+        ]
+        
+          |
+        
+        ≤
+        β
+      
+    
+    {\displaystyle \forall s\in z^{m},\forall i\in \{1,...,m\},|\mathbb {e} _{z}[v(f_{s},z)]-\mathbb {e} _{z}[v(f_{s^{|i}},z)]|\leq \beta }
+  
+
+
+=== uniform stability ===
+an algorithm 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+   has uniform stability β with respect to the loss function v if the following holds:
+
+  
+    
+      
+        ∀
+        s
+        ∈
+        
+          z
+          
+            m
+          
+        
+        ,
+        ∀
+        i
+        ∈
+        {
+        1
+        ,
+        .
+        .
+        .
+        ,
+        m
+        }
+        ,
+        
+          sup
+          
+            z
+            ∈
+            z
+          
+        
+        
+          |
+        
+        v
+        (
+        
+          f
+          
+            s
+          
+        
+        ,
+        z
+        )
+        −
+        v
+        (
+        
+          f
+          
+            
+              s
+              
+                
+                  |
+                
+                i
+              
+            
+          
+        
+        ,
+        z
+        )
+        
+          |
+        
+        ≤
+        β
+      
+    
+    {\displaystyle \forall s\in z^{m},\forall i\in \{1,...,m\},\sup _{z\in z}|v(f_{s},z)-v(f_{s^{|i}},z)|\leq \beta }
+  
+a probabilistic version of uniform stability β is:
+
+  
+    
+      
+        ∀
+        s
+        ∈
+        
+          z
+          
+            m
+          
+        
+        ,
+        ∀
+        i
+        ∈
+        {
+        1
+        ,
+        .
+        .
+        .
+        ,
+        m
+        }
+        ,
+        
+          
+            p
+          
+          
+            s
+          
+        
+        {
+        
+          sup
+          
+            z
+            ∈
+            z
+          
+        
+        
+          |
+        
+        v
+        (
+        
+          f
+          
+            s
+          
+        
+        ,
+        z
+        )
+        −
+        v
+        (
+        
+          f
+          
+            
+              s
+              
+                
+                  |
+                
+                i
+              
+            
+          
+        
+        ,
+        z
+        )
+        
+          |
+        
+        ≤
+        β
+        }
+        ≥
+        1
+        −
+        δ
+      
+    
+    {\displaystyle \forall s\in z^{m},\forall i\in \{1,...,m\},\mathbb {p} _{s}\{\sup _{z\in z}|v(f_{s},z)-v(f_{s^{|i}},z)|\leq \beta \}\geq 1-\delta }
+  
+an algorithm is said to be stable, when the value of 
+  
+    
+      
+        β
+      
+    
+    {\displaystyle \beta }
+   decreases as 
+  
+    
+      
+        o
+        (
+        
+          
+            1
+            m
+          
+        
+        )
+      
+    
+    {\displaystyle o({\frac {1}{m}})}
+  .
+
+
+=== leave-one-out cross-validation (cvloo) stability ===
+an algorithm 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+   has cvloo stability β with respect to the loss function v if the following holds:
+
+  
+    
+      
+        ∀
+        i
+        ∈
+        {
+        1
+        ,
+        .
+        .
+        .
+        ,
+        m
+        }
+        ,
+        
+          
+            p
+          
+          
+            s
+          
+        
+        {
+        
+          |
+        
+        v
+        (
+        
+          f
+          
+            s
+          
+        
+        ,
+        
+          z
+          
+            i
+          
+        
+        )
+        −
+        v
+        (
+        
+          f
+          
+            
+              s
+              
+                
+                  |
+                
+                i
+              
+            
+          
+        
+        ,
+        
+          z
+          
+            i
+          
+        
+        )
+        
+          |
+        
+        ≤
+        
+          β
+          
+            c
+            v
+          
+        
+        }
+        ≥
+        1
+        −
+        
+          δ
+          
+            c
+            v
+          
+        
+      
+    
+    {\displaystyle \forall i\in \{1,...,m\},\mathbb {p} _{s}\{|v(f_{s},z_{i})-v(f_{s^{|i}},z_{i})|\leq \beta _{cv}\}\geq 1-\delta _{cv}}
+  
+the definition of (cvloo) stability is equivalent to pointwise-hypothesis  stability seen earlier.
+
+
+=== expected-leave-one-out error ( ===
+  
+    
+      
+        e
+        l
+        o
+        
+          o
+          
+            e
+            r
+            r
+          
+        
+      
+    
+    {\displaystyle eloo_{err}}
+  ) stability
+an algorithm 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+   has 
+  
+    
+      
+        e
+        l
+        o
+        
+          o
+          
+            e
+            r
+            r
+          
+        
+      
+    
+    {\displaystyle eloo_{err}}
+   stability if for each n there exists a 
+  
+    
+      
+        
+          β
+          
+            e
+            l
+          
+          
+            m
+          
+        
+      
+    
+    {\displaystyle \beta _{el}^{m}}
+   and a 
+  
+    
+      
+        
+          δ
+          
+            e
+            l
+          
+          
+            m
+          
+        
+      
+    
+    {\displaystyle \delta _{el}^{m}}
+   such that:
+
+  
+    
+      
+        ∀
+        i
+        ∈
+        {
+        1
+        ,
+        .
+        .
+        .
+        ,
+        m
+        }
+        ,
+        
+          
+            p
+          
+          
+            s
+          
+        
+        {
+        
+          |
+        
+        i
+        [
+        
+          f
+          
+            s
+          
+        
+        ]
+        −
+        
+          
+            1
+            m
+          
+        
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            m
+          
+        
+        v
+        (
+        
+          f
+          
+            
+              s
+              
+                
+                  |
+                
+                i
+              
+            
+          
+        
+        ,
+        
+          z
+          
+            i
+          
+        
+        )
+        
+          |
+        
+        ≤
+        
+          β
+          
+            e
+            l
+          
+          
+            m
+          
+        
+        }
+        ≥
+        1
+        −
+        
+          δ
+          
+            e
+            l
+          
+          
+            m
+          
+        
+      
+    
+    {\displaystyle \forall i\in \{1,...,m\},\mathbb {p} _{s}\{|i[f_{s}]-{\frac {1}{m}}\sum _{i=1}^{m}v(f_{s^{|i}},z_{i})|\leq \beta _{el}^{m}\}\geq 1-\delta _{el}^{m}}
+  , with 
+  
+    
+      
+        
+          β
+          
+            e
+            l
+          
+          
+            m
+          
+        
+      
+    
+    {\displaystyle \beta _{el}^{m}}
+   and 
+  
+    
+      
+        
+          δ
+          
+            e
+            l
+          
+          
+            m
+          
+        
+      
+    
+    {\displaystyle \delta _{el}^{m}}
+   going to zero for 
+  
+    
+      
+        m
+        ,
+        →
+        ∞
+      
+    
+    {\displaystyle m,\rightarrow \infty }
+  
+
+
+== classic theorems ==
+from bousquet and elisseeff (02):
+for symmetric learning algorithms with bounded loss, if the algorithm has uniform stability with the probabilistic definition above, then the algorithm generalizes.
+uniform stability is a strong condition which is not met by all algorithms but is, surprisingly, met by the large and important class of regularization algorithms.
+the generalization bound is given in the article.
+from mukherjee et al. (06):
+
+for symmetric learning algorithms with bounded loss, if the algorithm has both leave-one-out cross-validation (cvloo) stability and expected-leave-one-out error (
+  
+    
+      
+        e
+        l
+        o
+        
+          o
+          
+            e
+            r
+            r
+          
+        
+      
+    
+    {\displaystyle eloo_{err}}
+  ) stability as defined above, then the algorithm generalizes.
+neither condition alone is sufficient for generalization. however, both together ensure generalization (while the converse is not true).
+for erm algorithms specifically (say for the square loss), leave-one-out cross-validation (cvloo) stability is both necessary and sufficient for consistency and generalization.this is an important result for the foundations of learning theory, because it shows that two previously unrelated properties of an algorithm, stability and consistency, are equivalent for erm (and certain loss functions).
+the generalization bound is given in the article.
+
+
+== algorithms that are stable ==
+this is a list of algorithms that have been shown to be stable, and the article where the associated generalization bounds are provided.
+
+linear regression
+k-nn classifier with a {0-1} loss function.
+support vector machine (svm) classification with a bounded kernel and where the regularizer is a norm in a reproducing kernel hilbert space. a large regularization constant 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+   leads to good stability.
+soft margin svm classification.
+regularized least squares regression.
+the minimum relative entropy algorithm for classification.
+a version of bagging regularizers with the number 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   of regressors increasing with 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  .
+multi-class svm classification.
+all learning algorithms with tikhonov regularization satisfies uniform stability criteria and are, thus, generalizable.
+
+
+== references ==
+
+
+== further reading ==

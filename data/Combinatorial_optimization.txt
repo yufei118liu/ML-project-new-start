@@ -1,0 +1,460 @@
+combinatorial optimization is a subfield of mathematical optimization   that consists of finding an optimal object from a finite set of objects, where the set of feasible solutions is discrete or can be reduced to a discrete set. typical combinatorial optimization problems are the travelling salesman problem ("tsp"), the minimum spanning tree problem ("mst"), and the knapsack problem. in many such problems, such as the ones previously mentioned, exhaustive search is not tractable, and so specialized algorithms that quickly rule out large parts of the search space or approximation algorithms must be resorted to instead.
+combinatorial optimization is related to operations research, algorithm theory, and computational complexity theory. it has important applications in several fields, including artificial intelligence, machine learning, auction theory, software engineering, applied mathematics and theoretical computer science.
+some research literature considers discrete optimization to consist of integer programming together with combinatorial optimization (which in turn is composed of optimization problems dealing with graph structures), although all of these topics have closely intertwined research literature. it often involves determining the way to efficiently allocate resources used to find solutions to mathematical problems.
+
+
+== applications ==
+
+applications of combinatorial optimization include, but are not limited to:
+
+logistics
+supply chain optimization
+developing the best airline network of spokes and destinations
+deciding which taxis in a fleet to route to pick up fares
+determining the optimal way to deliver packages
+allocating jobs to people optimally
+designing water distribution networks
+earth science problems (e.g. reservoir flow-rates)
+
+
+== methods ==
+there is a large amount of literature on polynomial-time algorithms for certain special classes of discrete optimization. a considerable amount of it is unified by the theory of linear programming. some examples of combinatorial optimization problems that are covered by this framework are shortest paths and shortest-path trees, flows and circulations, spanning trees, matching, and matroid problems.
+for np-complete discrete optimization problems, current research literature includes the following topics:
+
+polynomial-time exactly solvable special cases of the problem at hand (e.g. fixed-parameter tractable problems)
+algorithms that perform well on "random" instances (e.g. for the traveling salesman problem)
+approximation algorithms that run in polynomial time and find a solution that is close to optimal
+solving real-world instances that arise in practice and do not necessarily exhibit the worst-case behavior of in np-complete problems (e.g. real-world tsp instances with tens of thousands of nodes).combinatorial optimization problems can be viewed as searching for the best element of some set of discrete items; therefore, in principle, any sort of search algorithm or metaheuristic can be used to solve them. perhaps the most universally applicable approaches are branch-and-bound (an exact algorithm which can be stopped at any point in time to serve as heuristic), branch-and-cut (uses linear optimisation to generate bounds), dynamic programming (a recursive solution construction with limited search window) and tabu search (a greedy-type swapping algorithm). however, generic search algorithms are not guaranteed to find an optimal solution first, nor are they guaranteed to run quickly (in polynomial time). since some discrete optimization problems are np-complete, such as the traveling salesman (decision) problem, this is expected unless p=np.
+
+
+== formal definition ==
+formally, a combinatorial optimization problem 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   is a quadruple 
+  
+    
+      
+        (
+        i
+        ,
+        f
+        ,
+        m
+        ,
+        g
+        )
+      
+    
+    {\displaystyle (i,f,m,g)}
+  , where
+
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   is a set of instances;
+given an instance 
+  
+    
+      
+        x
+        ∈
+        i
+      
+    
+    {\displaystyle x\in i}
+  , 
+  
+    
+      
+        f
+        (
+        x
+        )
+      
+    
+    {\displaystyle f(x)}
+   is the finite set of feasible solutions;
+given an instance 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   and a feasible solution 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   of 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  , 
+  
+    
+      
+        m
+        (
+        x
+        ,
+        y
+        )
+      
+    
+    {\displaystyle m(x,y)}
+   denotes the measure of 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+  , which is usually a positive real.
+
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+   is the goal function, and is either 
+  
+    
+      
+        min
+      
+    
+    {\displaystyle \min }
+   or 
+  
+    
+      
+        max
+      
+    
+    {\displaystyle \max }
+  .the goal is then to find for some instance 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   an optimal solution, that is, a feasible solution 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   with
+
+  
+    
+      
+        m
+        (
+        x
+        ,
+        y
+        )
+        =
+        g
+        {
+        m
+        (
+        x
+        ,
+        
+          y
+          ′
+        
+        )
+        ∣
+        
+          y
+          ′
+        
+        ∈
+        f
+        (
+        x
+        )
+        }
+        .
+      
+    
+    {\displaystyle m(x,y)=g\{m(x,y')\mid y'\in f(x)\}.}
+  for each combinatorial optimization problem, there is a corresponding decision problem that asks whether there is a feasible solution for some particular measure 
+  
+    
+      
+        
+          m
+          
+            0
+          
+        
+      
+    
+    {\displaystyle m_{0}}
+  . for example, if there is a graph 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+   which contains vertices 
+  
+    
+      
+        u
+      
+    
+    {\displaystyle u}
+   and 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+  , an optimization problem might be "find a path from 
+  
+    
+      
+        u
+      
+    
+    {\displaystyle u}
+   to 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   that uses the fewest edges". this problem might have an answer of, say, 4. a corresponding decision problem would be "is there a path from 
+  
+    
+      
+        u
+      
+    
+    {\displaystyle u}
+   to 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   that uses 10 or fewer edges?" this problem can be answered with a simple 'yes' or 'no'.
+the field of approximation algorithms deals with algorithms to find near-optimal solutions to hard problems. the usual decision version is then an inadequate definition of the problem since it only specifies acceptable solutions. even though we could introduce suitable decision problems, the problem is then more naturally characterized as an optimization problem.
+
+
+== np optimization problem ==
+an np-optimization problem (npo) is a combinatorial optimization problem with the following additional conditions. note that the below referred polynomials are functions of the size of the respective functions' inputs, not the size of some implicit set of input instances.
+
+the size of every feasible solution 
+  
+    
+      
+        y
+        ∈
+        f
+        (
+        x
+        )
+      
+    
+    {\displaystyle y\in f(x)}
+   is polynomially bounded in the size of the given instance 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  ,
+the languages 
+  
+    
+      
+        {
+        
+        x
+        
+        ∣
+        
+        x
+        ∈
+        i
+        
+        }
+      
+    
+    {\displaystyle \{\,x\,\mid \,x\in i\,\}}
+   and 
+  
+    
+      
+        {
+        
+        (
+        x
+        ,
+        y
+        )
+        
+        ∣
+        
+        y
+        ∈
+        f
+        (
+        x
+        )
+        
+        }
+      
+    
+    {\displaystyle \{\,(x,y)\,\mid \,y\in f(x)\,\}}
+   can be recognized in polynomial time, and
+
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   is polynomial-time computable.this implies that the corresponding decision problem is in np. in computer science, interesting optimization problems usually have the above properties and are therefore npo problems. a problem is additionally called a p-optimization (po) problem, if there exists an algorithm which finds optimal solutions in polynomial time. often, when dealing with the class npo, one is interested in optimization problems for which the decision versions are np-complete. note that hardness relations are always with respect to some reduction. due to the connection between approximation algorithms and computational optimization problems, reductions which preserve approximation in some respect are for this subject preferred than the usual turing and karp reductions. an example of such a reduction would be l-reduction. for this reason, optimization problems with np-complete decision versions are not necessarily called npo-complete.npo is divided into the following subclasses according to their approximability:
+npo(i): equals fptas. contains the knapsack problem.
+npo(ii): equals ptas. contains the makespan scheduling problem.
+npo(iii): :the class of npo problems that have polynomial-time algorithms which computes solutions with a cost at most c times the optimal cost (for minimization problems) or a cost at least 
+  
+    
+      
+        1
+        
+          /
+        
+        c
+      
+    
+    {\displaystyle 1/c}
+   of the optimal cost (for maximization problems). in hromkovič's book, excluded from this class are all npo(ii)-problems save if p=np. without the exclusion, equals apx. contains max-sat and metric tsp.
+npo(iv): :the class of npo problems with polynomial-time algorithms approximating the optimal solution by a ratio that is polynomial in a logarithm of the size of the input. in hromkovič's book, all npo(iii)-problems are excluded from this class unless p=np. contains the set cover problem.
+npo(v): :the class of npo problems with polynomial-time algorithms approximating the optimal solution by a ratio bounded by some function on n. in hromkovic's book, all npo(iv)-problems  are excluded from this class unless p=np. contains the tsp and clique problem.an npo problem is called polynomially bounded (pb) if, for every instance 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   and for every solution 
+  
+    
+      
+        y
+        ∈
+        f
+        (
+        x
+        )
+      
+    
+    {\displaystyle y\in f(x)}
+  , the measure 
+  
+    
+      
+        m
+        (
+        x
+        ,
+        y
+        )
+      
+    
+    {\displaystyle m(x,y)}
+  is bounded by a polynomial function of the size of 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  . the class npopb is the class of npo problems that are polynomially-bounded.
+
+
+== specific problems ==
+
+assignment problem
+closure problem
+constraint satisfaction problem
+cutting stock problem
+dominating set problem
+integer programming
+knapsack problem
+minimum relevant variables in linear system
+minimum spanning tree
+nurse scheduling problem
+set cover problem
+job shop scheduling
+traveling salesman problem
+vehicle rescheduling problem
+vehicle routing problem
+weapon target assignment problem
+bin packing problem
+
+
+== see also ==
+constraint composite graph
+
+
+== notes ==
+
+
+== references ==
+beasley, j. e. "integer programming" (lecture notes).cook, william j.; cunningham, william h.; pulleyblank, william r.; schrijver, alexander (1997). combinatorial optimization. wiley. isbn 0-471-55894-x.cook, william (2016). "optimal tsp tours". university of waterloo. (information on the largest tsp instances solved to date.)crescenzi, pierluigi; kann, viggo; halldórsson, magnús; karpinski, marek; woeginger, gerhard (eds.). "a compendium of np optimization problems". (this is a continuously updated catalog of approximability results for np optimization problems.)das, arnab; chakrabarti, bikas k, eds. (2005). quantum annealing and related optimization methods. lecture notes in physics. vol. 679. springer. bibcode:2005qnro.book.....d.das, arnab; chakrabarti, bikas k (2008). "colloquium: quantum annealing and analog quantum computation". rev. mod. phys. 80 (3): 1061. arxiv:0801.2193. bibcode:2008rvmp...80.1061d. citeseerx 10.1.1.563.9990. doi:10.1103/revmodphys.80.1061. s2cid 14255125.lawler, eugene (2001). combinatorial optimization: networks and matroids. dover. isbn 0-486-41453-1.lee, jon (2004). a first course in combinatorial optimization. cambridge university press. isbn 0-521-01012-8.papadimitriou, christos h.; steiglitz, kenneth (july 1998). combinatorial optimization : algorithms and complexity. dover. isbn 0-486-40258-4.schrijver, alexander (2003). combinatorial optimization: polyhedra and efficiency. algorithms and combinatorics. vol. 24. springer. isbn 9783540443896.schrijver, alexander (2005). "on the history of combinatorial optimization (till 1960)" (pdf).  in aardal, k.; nemhauser, g.l.; weismantel, r. (eds.). handbook of discrete optimization. elsevier. pp. 1–68.schrijver, alexander (february 1, 2006). a course in combinatorial optimization (pdf).sierksma, gerard; ghosh, diptesh (2010). networks in action; text and computer exercises in network optimization. springer. isbn 978-1-4419-5512-8.gerard sierksma; yori zwols (2015). linear and integer optimization: theory and practice. crc press. isbn 978-1-498-71016-9.pintea, c-m. (2014). advances in bio-inspired computing for combinatorial optimization problem. intelligent systems reference library. springer. isbn 978-3-642-40178-7.
+
+
+== external links ==
+journal of combinatorial optimization
+the aussois combinatorial optimization workshop
+java combinatorial optimization platform (open source code)
+why is scheduling people hard?
+complexity classes for optimization problems / stefan kugele

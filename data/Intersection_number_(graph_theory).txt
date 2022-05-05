@@ -1,0 +1,31 @@
+in the mathematical field of graph theory, the intersection number of a graph g = (v,e)  is the smallest number of elements in a representation of g as an intersection graph of finite sets. equivalently, it is the smallest number of cliques needed to cover all of the edges of g.
+
+
+== intersection graphs ==
+let f be a family of sets (allowing sets in f to be repeated); then the intersection graph of f is an undirected graph that has a vertex for each member of f and an edge between each two members that have a nonempty intersection. every graph can be represented as an intersection graph in this way. the intersection number of the graph is the smallest number k such that there exists a representation of this type for which the union of f has k elements. the problem of finding an intersection representation of a graph with a given number of elements is known as the intersection graph basis problem.
+
+
+== clique edge covers ==
+
+an alternative definition of the intersection number of a graph g is that it is the smallest number of cliques in g (complete subgraphs of g) that together cover all of the edges of g. a set of cliques with this property is known as a clique edge cover or edge clique cover, and for this reason the intersection number is also sometimes called the edge clique cover number.the equality of the intersection number and the edge clique cover number is straightforward to prove. in one direction, suppose that g is the intersection graph of a family f of sets whose union u has k elements. then for any element x of u, the subset of vertices of g corresponding to sets that contain x forms a clique: any two vertices in this subset are adjacent, because their sets have a nonempty intersection containing x. further, every edge in g is contained in one of these cliques, because an edge corresponds to a nonempty intersection and an intersection is nonempty if it contains at least one element of u. therefore, the edges of g can be covered by k cliques, one per element of u. in the other direction, if a graph g can be covered by k cliques, then each vertex of g may be represented by the set of cliques that contain that vertex.
+
+
+== upper bounds ==
+trivially, a graph with m edges has intersection number at most m, for each edge forms a clique and these cliques together cover all the edges.it is also true that every graph with n vertices has intersection number at most n2/4. more strongly, the edges of every n-vertex graph can be partitioned into at most n2/4 cliques, all of which are either single edges or triangles. this generalizes mantel's theorem that a triangle-free graph has at most n2/4 edges, for in a triangle-free graph the only optimal clique edge cover has one clique per edge and therefore the intersection number equals the number of edges.an even tighter bound is possible when the number of edges is strictly greater than n2/4. let p be the number of pairs of vertices that are not connected by an edge in the given graph g, and let t be the unique integer for which (t − 1)t ≤ p < t(t + 1). then the intersection number of g is at most p + t.graphs that are the complement of a sparse graph have small intersection numbers: the intersection number of any n-vertex graph g is at most 2e2(d + 1)2ln n, where e is the base of the natural logarithm and d is the maximum degree of the complement graph of g.
+
+
+== computational complexity ==
+testing whether a given graph g has intersection number at most a given number k is np-complete. therefore, it is also np-hard to compute the intersection number of a given graph.
+the problem of computing the intersection number is, however, fixed-parameter tractable: that is, there is a function f such that, when the intersection number is k, the time to compute it is at most the product of f(k) and a polynomial in n. this may be shown by observing that there are at most 2k distinct closed neighborhoods in the graph – two vertices that belong to the same set of cliques have the same neighborhood – and that the graph formed by selecting one vertex per closed neighbood has the same intersection number as the original graph. therefore, in polynomial time the input can be reduced to a smaller kernel with at most 2k vertices; applying an exponential time backtracking search procedure to this kernel leads to a function f that is double exponential in k. the double-exponential dependence on k cannot be reduced to single exponential by a kernelization of polynomial size, unless the polynomial hierarchy collapses, and if the exponential time hypothesis is true then double-exponential dependence is necessary regardless of whether kernelization is used.more efficient algorithms are also known for certain special classes of graphs. the intersection number of an interval graph is always equal to its number of maximal cliques, which may be computed in polynomial time. more generally, in chordal graphs, the intersection number may be computed by an algorithm that considers the vertices in an elimination ordering of the graph and that, for each vertex v, forms a clique for v and its later neighbors whenever at least one of the edges incident to v is not covered by any earlier clique.
+
+
+== see also ==
+bipartite dimension, the smallest number of bicliques needed to cover all edges of a graph
+clique cover, the np-hard problem of finding a small number of cliques that cover all vertices of a graph
+
+
+== references ==
+
+
+== external links ==
+weisstein, eric w., "intersection number", mathworld

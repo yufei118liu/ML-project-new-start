@@ -1,0 +1,1514 @@
+in mathematical optimization theory, duality or the duality principle is the principle that optimization problems may be viewed from either of two perspectives, the primal problem or the dual problem. if the primal is a minimization problem then the dual is a maximization problem (and vice-versa). any feasible solution to the primal (minimization) problem is at least as large as any feasible solution to the dual (maximization) problem. therefore, the solution to the primal is an upper bound to the solution of the dual, and the solution of the dual is a lower bound to the solution of the primal. this fact is called weak duality.
+in general, the optimal values of the primal and dual problems need not be equal. their difference is called the duality gap. for convex optimization problems, the duality gap is zero under a constraint qualification condition. this fact is called strong duality.
+
+
+== dual problem ==
+usually the term "dual problem" refers to the lagrangian dual problem but other dual problems are used – for example, the wolfe dual problem and the fenchel dual problem. the lagrangian dual problem is obtained by forming the lagrangian of a minimization problem by using nonnegative lagrange multipliers to add the constraints to the objective function, and then solving for the primal variable values that minimize the original objective function.  this solution gives the primal variables as functions of the lagrange multipliers, which are called dual variables, so that the new problem is to maximize the objective function with respect to the dual variables under the derived constraints on the dual variables (including at least the nonnegativity constraints).
+in general given two dual pairs of separated locally convex spaces 
+  
+    
+      
+        
+          (
+          
+            x
+            ,
+            
+              x
+              
+                ∗
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \left(x,x^{*}\right)}
+   and 
+  
+    
+      
+        
+          (
+          
+            y
+            ,
+            
+              y
+              
+                ∗
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \left(y,y^{*}\right)}
+   and the function 
+  
+    
+      
+        f
+        :
+        x
+        →
+        
+          r
+        
+        ∪
+        {
+        +
+        ∞
+        }
+      
+    
+    {\displaystyle f:x\to \mathbb {r} \cup \{+\infty \}}
+  , we can define the primal problem as finding 
+  
+    
+      
+        
+          
+            
+              x
+              ^
+            
+          
+        
+      
+    
+    {\displaystyle {\hat {x}}}
+   such that 
+  
+    
+      
+        f
+        (
+        
+          
+            
+              x
+              ^
+            
+          
+        
+        )
+        =
+        
+          inf
+          
+            x
+            ∈
+            x
+          
+        
+        f
+        (
+        x
+        )
+        .
+        
+      
+    
+    {\displaystyle f({\hat {x}})=\inf _{x\in x}f(x).\,}
+  
+in other words, if 
+  
+    
+      
+        
+          
+            
+              x
+              ^
+            
+          
+        
+      
+    
+    {\displaystyle {\hat {x}}}
+   exists, 
+  
+    
+      
+        f
+        (
+        
+          
+            
+              x
+              ^
+            
+          
+        
+        )
+      
+    
+    {\displaystyle f({\hat {x}})}
+   is the minimum of the function 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   and the infimum (greatest lower bound) of the function is attained.
+if there are constraint conditions, these can be built into the function 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   by letting 
+  
+    
+      
+        
+          
+            
+              f
+              ~
+            
+          
+        
+        =
+        f
+        +
+        
+          i
+          
+            
+              c
+              o
+              n
+              s
+              t
+              r
+              a
+              i
+              n
+              t
+              s
+            
+          
+        
+      
+    
+    {\displaystyle {\tilde {f}}=f+i_{\mathrm {constraints} }}
+   where 
+  
+    
+      
+        
+          i
+          
+            
+              c
+              o
+              n
+              s
+              t
+              r
+              a
+              i
+              n
+              t
+              s
+            
+          
+        
+      
+    
+    {\displaystyle i_{\mathrm {constraints} }}
+   is a suitable function on 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   that has a minimum 0 on the constraints, and for which one can prove that 
+  
+    
+      
+        
+          inf
+          
+            x
+            ∈
+            x
+          
+        
+        
+          
+            
+              f
+              ~
+            
+          
+        
+        (
+        x
+        )
+        =
+        
+          inf
+          
+            x
+             
+            
+              c
+              o
+              n
+              s
+              t
+              r
+              a
+              i
+              n
+              e
+              d
+            
+          
+        
+        f
+        (
+        x
+        )
+      
+    
+    {\displaystyle \inf _{x\in x}{\tilde {f}}(x)=\inf _{x\ \mathrm {constrained} }f(x)}
+  .  the latter condition is trivially, but not always conveniently, satisfied for the characteristic function (i.e. 
+  
+    
+      
+        
+          i
+          
+            
+              c
+              o
+              n
+              s
+              t
+              r
+              a
+              i
+              n
+              t
+              s
+            
+          
+        
+        (
+        x
+        )
+        =
+        0
+      
+    
+    {\displaystyle i_{\mathrm {constraints} }(x)=0}
+   for 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   satisfying the constraints and 
+  
+    
+      
+        
+          i
+          
+            
+              c
+              o
+              n
+              s
+              t
+              r
+              a
+              i
+              n
+              t
+              s
+            
+          
+        
+        (
+        x
+        )
+        =
+        ∞
+      
+    
+    {\displaystyle i_{\mathrm {constraints} }(x)=\infty }
+   otherwise). then extend 
+  
+    
+      
+        
+          
+            
+              f
+              ~
+            
+          
+        
+      
+    
+    {\displaystyle {\tilde {f}}}
+   to a perturbation function  
+  
+    
+      
+        f
+        :
+        x
+        ×
+        y
+        →
+        
+          r
+        
+        ∪
+        {
+        +
+        ∞
+        }
+      
+    
+    {\displaystyle f:x\times y\to \mathbb {r} \cup \{+\infty \}}
+   such that 
+  
+    
+      
+        f
+        (
+        x
+        ,
+        0
+        )
+        =
+        
+          
+            
+              f
+              ~
+            
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle f(x,0)={\tilde {f}}(x)}
+  .the duality gap is the difference of the right and left hand sides of the inequality
+
+  
+    
+      
+        
+          sup
+          
+            
+              y
+              
+                ∗
+              
+            
+            ∈
+            
+              y
+              
+                ∗
+              
+            
+          
+        
+        −
+        
+          f
+          
+            ∗
+          
+        
+        (
+        0
+        ,
+        
+          y
+          
+            ∗
+          
+        
+        )
+        ≤
+        
+          inf
+          
+            x
+            ∈
+            x
+          
+        
+        f
+        (
+        x
+        ,
+        0
+        )
+        ,
+        
+      
+    
+    {\displaystyle \sup _{y^{*}\in y^{*}}-f^{*}(0,y^{*})\leq \inf _{x\in x}f(x,0),\,}
+  where 
+  
+    
+      
+        
+          f
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle f^{*}}
+   is the convex conjugate in both variables and 
+  
+    
+      
+        sup
+      
+    
+    {\displaystyle \sup }
+   denotes the supremum (least upper bound).
+
+
+=== duality gap ===
+
+the duality gap is the difference between the values of any primal solutions and any dual solutions.  if 
+  
+    
+      
+        
+          d
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle d^{*}}
+   is the optimal dual value and 
+  
+    
+      
+        
+          p
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle p^{*}}
+   is the optimal primal value, then the duality gap is equal to 
+  
+    
+      
+        
+          p
+          
+            ∗
+          
+        
+        −
+        
+          d
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle p^{*}-d^{*}}
+  .  this value is always greater than or equal to 0 (for minimization problems).  the duality gap is zero if and only if strong duality holds.  otherwise the gap is strictly positive and weak duality holds.in computational optimization, another "duality gap" is often reported, which is the difference in value between any dual solution and the value of a feasible but suboptimal iterate for the primal problem. this alternative "duality gap" quantifies the discrepancy between the value of a current feasible but suboptimal iterate for the primal problem and the value of the dual problem; the value of the dual problem is, under regularity conditions, equal to the value of the convex relaxation of the primal problem: the convex relaxation is the problem arising replacing a non-convex feasible set with its closed convex hull and with replacing a non-convex function with its convex closure, that is the function that has the epigraph that is the closed convex hull of the original primal objective function.
+
+
+== linear case ==
+
+linear programming problems are optimization problems in which the objective function and the constraints are all linear. in the primal problem, the objective function is a linear combination of n variables. there are m constraints, each of which places an upper bound on a linear combination of the n variables. the goal is to maximize the value of the objective function subject to the constraints. a solution is a vector (a list) of n values that achieves the maximum value for the objective function.
+in the dual problem, the objective function is a linear combination of the m values that are the limits in the m constraints from the primal problem. there are n dual constraints, each of which places a lower bound on a linear combination of m dual variables.
+
+
+=== relationship between the primal problem and the dual problem ===
+in the linear case, in the primal problem, from each sub-optimal point that satisfies all the constraints, there is a direction or subspace of directions to move that increases the objective function. moving in any such direction is said to remove slack between the candidate solution and one or more constraints. an infeasible value of the candidate solution is one that exceeds one or more of the constraints.
+in the dual problem, the dual vector multiplies the constraints that determine the positions of the constraints in the primal. varying the dual vector in the dual problem is equivalent to revising the upper bounds in the primal problem. the lowest upper bound is sought. that is, the dual vector is minimized in order to remove slack between the candidate positions of the constraints and the actual optimum. an infeasible value of the dual vector is one that is too low. it sets the candidate positions of one or more of the constraints in a position that excludes the actual optimum.
+this intuition is made formal by the equations in linear programming: duality.
+
+
+== nonlinear case ==
+in nonlinear programming, the constraints are not necessarily linear. nonetheless, many of the same principles apply.
+to ensure that the global maximum of a non-linear problem can be identified easily, the problem formulation often requires that the functions be convex and have compact lower level sets.
+this is the significance of the karush–kuhn–tucker conditions. they provide necessary conditions for identifying local optima of non-linear programming problems. there are additional conditions (constraint qualifications) that are necessary so that it will be possible to define the direction to an optimal solution. an optimal solution is one that is a local optimum, but possibly not a global optimum.
+
+
+=== the strong lagrangian principle: lagrange duality ===
+given a nonlinear programming problem in standard form
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  minimize 
+                
+              
+              
+                
+                  f
+                  
+                    0
+                  
+                
+                (
+                x
+                )
+              
+            
+            
+              
+                
+                  subject to 
+                
+              
+              
+                
+                  f
+                  
+                    i
+                  
+                
+                (
+                x
+                )
+                ≤
+                0
+                ,
+                 
+                i
+                ∈
+                
+                  {
+                  
+                    1
+                    ,
+                    …
+                    ,
+                    m
+                  
+                  }
+                
+              
+            
+            
+              
+              
+                
+                  h
+                  
+                    i
+                  
+                
+                (
+                x
+                )
+                =
+                0
+                ,
+                 
+                i
+                ∈
+                
+                  {
+                  
+                    1
+                    ,
+                    …
+                    ,
+                    p
+                  
+                  }
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}{\text{minimize }}&f_{0}(x)\\{\text{subject to }}&f_{i}(x)\leq 0,\ i\in \left\{1,\ldots ,m\right\}\\&h_{i}(x)=0,\ i\in \left\{1,\ldots ,p\right\}\end{aligned}}}
+  with the domain 
+  
+    
+      
+        
+          
+            d
+          
+        
+        ⊂
+        
+          
+            r
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\mathcal {d}}\subset \mathbb {r} ^{n}}
+   having non-empty interior, the lagrangian function 
+  
+    
+      
+        λ
+        :
+        
+          
+            r
+          
+          
+            n
+          
+        
+        ×
+        
+          
+            r
+          
+          
+            m
+          
+        
+        ×
+        
+          
+            r
+          
+          
+            p
+          
+        
+        →
+        
+          r
+        
+      
+    
+    {\displaystyle \lambda :\mathbb {r} ^{n}\times \mathbb {r} ^{m}\times \mathbb {r} ^{p}\to \mathbb {r} }
+   is defined as
+
+  
+    
+      
+        λ
+        (
+        x
+        ,
+        λ
+        ,
+        ν
+        )
+        =
+        
+          f
+          
+            0
+          
+        
+        (
+        x
+        )
+        +
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            m
+          
+        
+        
+          λ
+          
+            i
+          
+        
+        
+          f
+          
+            i
+          
+        
+        (
+        x
+        )
+        +
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            p
+          
+        
+        
+          ν
+          
+            i
+          
+        
+        
+          h
+          
+            i
+          
+        
+        (
+        x
+        )
+        .
+      
+    
+    {\displaystyle \lambda (x,\lambda ,\nu )=f_{0}(x)+\sum _{i=1}^{m}\lambda _{i}f_{i}(x)+\sum _{i=1}^{p}\nu _{i}h_{i}(x).}
+  the vectors 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+   and 
+  
+    
+      
+        ν
+      
+    
+    {\displaystyle \nu }
+   are called the dual variables or lagrange multiplier vectors associated with the problem.  the lagrange dual function 
+  
+    
+      
+        g
+        :
+        
+          
+            r
+          
+          
+            m
+          
+        
+        ×
+        
+          
+            r
+          
+          
+            p
+          
+        
+        →
+        
+          r
+        
+      
+    
+    {\displaystyle g:\mathbb {r} ^{m}\times \mathbb {r} ^{p}\to \mathbb {r} }
+   is defined as
+
+  
+    
+      
+        g
+        (
+        λ
+        ,
+        ν
+        )
+        =
+        
+          inf
+          
+            x
+            ∈
+            
+              
+                d
+              
+            
+          
+        
+        λ
+        (
+        x
+        ,
+        λ
+        ,
+        ν
+        )
+        =
+        
+          inf
+          
+            x
+            ∈
+            
+              
+                d
+              
+            
+          
+        
+        
+          (
+          
+            
+              f
+              
+                0
+              
+            
+            (
+            x
+            )
+            +
+            
+              ∑
+              
+                i
+                =
+                1
+              
+              
+                m
+              
+            
+            
+              λ
+              
+                i
+              
+            
+            
+              f
+              
+                i
+              
+            
+            (
+            x
+            )
+            +
+            
+              ∑
+              
+                i
+                =
+                1
+              
+              
+                p
+              
+            
+            
+              ν
+              
+                i
+              
+            
+            
+              h
+              
+                i
+              
+            
+            (
+            x
+            )
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle g(\lambda ,\nu )=\inf _{x\in {\mathcal {d}}}\lambda (x,\lambda ,\nu )=\inf _{x\in {\mathcal {d}}}\left(f_{0}(x)+\sum _{i=1}^{m}\lambda _{i}f_{i}(x)+\sum _{i=1}^{p}\nu _{i}h_{i}(x)\right).}
+  the dual function g is concave, even when the initial problem is not convex, because it is a point-wise infimum of affine functions.  the dual function yields lower bounds on the optimal value 
+  
+    
+      
+        
+          p
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle p^{*}}
+   of the initial problem; for any 
+  
+    
+      
+        λ
+        ≥
+        0
+      
+    
+    {\displaystyle \lambda \geq 0}
+   and any 
+  
+    
+      
+        ν
+      
+    
+    {\displaystyle \nu }
+   we have 
+  
+    
+      
+        g
+        (
+        λ
+        ,
+        ν
+        )
+        ≤
+        
+          p
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle g(\lambda ,\nu )\leq p^{*}}
+  .
+if a constraint qualification such as slater's condition holds and the original problem is convex, then we have strong duality, i.e. 
+  
+    
+      
+        
+          d
+          
+            ∗
+          
+        
+        =
+        
+          max
+          
+            λ
+            ≥
+            0
+            ,
+            ν
+          
+        
+        g
+        (
+        λ
+        ,
+        ν
+        )
+        =
+        inf
+        
+          f
+          
+            0
+          
+        
+        =
+        
+          p
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle d^{*}=\max _{\lambda \geq 0,\nu }g(\lambda ,\nu )=\inf f_{0}=p^{*}}
+  .
+
+
+=== convex problems ===
+for a convex minimization problem with inequality constraints,
+
+  
+    
+      
+        
+          
+            
+              
+              
+                
+                  
+                    minimize
+                    x
+                  
+                
+              
+              
+              
+                f
+                (
+                x
+                )
+              
+            
+            
+              
+              
+                
+                  s
+                  u
+                  b
+                  j
+                  e
+                  c
+                  t
+                  
+                  t
+                  o
+                
+              
+              
+              
+                
+                  g
+                  
+                    i
+                  
+                
+                (
+                x
+                )
+                ≤
+                0
+                ,
+                
+                i
+                =
+                1
+                ,
+                …
+                ,
+                m
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}&{\underset {x}{\operatorname {minimize} }}&&f(x)\\&\operatorname {subject\;to} &&g_{i}(x)\leq 0,\quad i=1,\ldots ,m\end{aligned}}}
+  the lagrangian dual problem is
+
+  
+    
+      
+        
+          
+            
+              
+              
+                
+                  
+                    maximize
+                    u
+                  
+                
+              
+              
+              
+                
+                
+                  inf
+                  
+                    x
+                  
+                
+                
+                  (
+                  
+                    f
+                    (
+                    x
+                    )
+                    +
+                    
+                      ∑
+                      
+                        j
+                        =
+                        1
+                      
+                      
+                        m
+                      
+                    
+                    
+                      u
+                      
+                        j
+                      
+                    
+                    
+                      g
+                      
+                        j
+                      
+                    
+                    (
+                    x
+                    )
+                  
+                  )
+                
+              
+            
+            
+              
+              
+                
+                  s
+                  u
+                  b
+                  j
+                  e
+                  c
+                  t
+                  
+                  t
+                  o
+                
+              
+              
+              
+                
+                  u
+                  
+                    i
+                  
+                
+                ≥
+                0
+                ,
+                
+                i
+                =
+                1
+                ,
+                …
+                ,
+                m
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}&{\underset {u}{\operatorname {maximize} }}&&\inf _{x}\left(f(x)+\sum _{j=1}^{m}u_{j}g_{j}(x)\right)\\&\operatorname {subject\;to} &&u_{i}\geq 0,\quad i=1,\ldots ,m\end{aligned}}}
+  where the objective function is the lagrange dual function. provided that the functions 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   and 
+  
+    
+      
+        
+          g
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          g
+          
+            m
+          
+        
+      
+    
+    {\displaystyle g_{1},\ldots ,g_{m}}
+   are continuously differentiable, the infimum occurs where the gradient is equal to zero. the problem  
+
+  
+    
+      
+        
+          
+            
+              
+              
+                
+                  
+                    maximize
+                    
+                      x
+                      ,
+                      u
+                    
+                  
+                
+              
+              
+              
+                f
+                (
+                x
+                )
+                +
+                
+                  ∑
+                  
+                    j
+                    =
+                    1
+                  
+                  
+                    m
+                  
+                
+                
+                  u
+                  
+                    j
+                  
+                
+                
+                  g
+                  
+                    j
+                  
+                
+                (
+                x
+                )
+              
+            
+            
+              
+              
+                
+                  s
+                  u
+                  b
+                  j
+                  e
+                  c
+                  t
+                  
+                  t
+                  o
+                
+              
+              
+              
+                ∇
+                f
+                (
+                x
+                )
+                +
+                
+                  ∑
+                  
+                    j
+                    =
+                    1
+                  
+                  
+                    m
+                  
+                
+                
+                  u
+                  
+                    j
+                  
+                
+                
+                ∇
+                
+                  g
+                  
+                    j
+                  
+                
+                (
+                x
+                )
+                =
+                0
+              
+            
+            
+              
+              
+              
+              
+                
+                  u
+                  
+                    i
+                  
+                
+                ≥
+                0
+                ,
+                
+                i
+                =
+                1
+                ,
+                …
+                ,
+                m
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}&{\underset {x,u}{\operatorname {maximize} }}&&f(x)+\sum _{j=1}^{m}u_{j}g_{j}(x)\\&\operatorname {subject\;to} &&\nabla f(x)+\sum _{j=1}^{m}u_{j}\,\nabla g_{j}(x)=0\\&&&u_{i}\geq 0,\quad i=1,\ldots ,m\end{aligned}}}
+  is called the wolfe dual problem. this problem may be difficult to deal with computationally, because the objective function is not concave in the joint variables 
+  
+    
+      
+        (
+        u
+        ,
+        x
+        )
+      
+    
+    {\displaystyle (u,x)}
+  . also, the equality constraint 
+  
+    
+      
+        ∇
+        f
+        (
+        x
+        )
+        +
+        
+          ∑
+          
+            j
+            =
+            1
+          
+          
+            m
+          
+        
+        
+          u
+          
+            j
+          
+        
+        
+        ∇
+        
+          g
+          
+            j
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle \nabla f(x)+\sum _{j=1}^{m}u_{j}\,\nabla g_{j}(x)}
+   is nonlinear in general, so the wolfe dual problem is typically a nonconvex optimization problem. in any case, weak duality holds.
+
+
+== history ==
+according to george dantzig, the duality theorem for linear optimization was conjectured by john von neumann immediately after dantzig presented the linear programming problem. von neumann noted that he was using information from his  game theory, and conjectured that two person zero sum matrix game was equivalent to linear programming. rigorous proofs were first published in 1948 by albert w. tucker and his group. (dantzig's foreword to nering and tucker, 1993)
+
+
+== see also ==
+convex duality
+duality
+relaxation (approximation)
+
+
+== notes ==
+
+
+== references ==
+
+
+=== books ===
+ahuja, ravindra k.; magnanti, thomas l.; orlin, james b. (1993). network flows: theory, algorithms and applications. prentice hall. isbn 0-13-617549-x.
+bertsekas, dimitri; nedic, angelia; ozdaglar, asuman (2003). convex analysis and optimization. athena scientific. isbn 1-886529-45-0.
+bertsekas, dimitri p. (1999). nonlinear programming (2nd ed.). athena scientific. isbn 1-886529-00-0.
+bertsekas, dimitri p. (2009). convex optimization theory. athena scientific. isbn 978-1-886529-31-1.
+bonnans, j. frédéric; gilbert, j. charles; lemaréchal, claude; sagastizábal, claudia a. (2006). numerical optimization: theoretical and practical aspects. universitext (second revised ed. of translation of 1997 french ed.). berlin: springer-verlag. pp. xiv+490. doi:10.1007/978-3-540-35447-5. isbn 3-540-35445-x. mr 2265882.
+cook, william j.; cunningham, william h.; pulleyblank, william r.; schrijver, alexander (november 12, 1997). combinatorial optimization (1st ed.). john wiley & sons. isbn 0-471-55894-x.
+dantzig, george b. (1963). linear programming and extensions. princeton, nj: princeton university press.
+hiriart-urruty, jean-baptiste; lemaréchal, claude (1993). convex analysis and minimization algorithms, volume i: fundamentals. grundlehren der mathematischen wissenschaften [fundamental principles of mathematical sciences]. vol. 305. berlin: springer-verlag. pp. xviii+417. isbn 3-540-56850-6. mr 1261420.
+hiriart-urruty, jean-baptiste; lemaréchal, claude (1993). "14 duality for practitioners". convex analysis and minimization algorithms, volume ii: advanced theory and bundle methods. grundlehren der mathematischen wissenschaften [fundamental principles of mathematical sciences]. vol. 306. berlin: springer-verlag. pp. xviii+346. isbn 3-540-56852-2. mr 1295240.
+lasdon, leon s. (2002) [reprint of the 1970 macmillan]. optimization theory for large systems. mineola, new york: dover publications, inc. pp. xiii+523. isbn 978-0-486-41999-2. mr 1888251.
+lawler, eugene (2001). "4.5. combinatorial implications of max-flow min-cut theorem, 4.6. linear programming interpretation of max-flow min-cut theorem". combinatorial optimization: networks and matroids. dover. pp. 117–120. isbn 0-486-41453-1.
+lemaréchal, claude (2001). "lagrangian relaxation".  in jünger, michael; naddef, denis (eds.). computational combinatorial optimization: papers from the spring school held in schloß dagstuhl, may 15–19, 2000. lecture notes in computer science (lncs). vol. 2241. berlin: springer-verlag. pp. 112–156. doi:10.1007/3-540-45586-8_4. isbn 3-540-42877-1. mr 1900016.
+minoux, michel (1986). mathematical programming: theory and algorithms. egon balas (forward); steven vajda (trans) from the (1983 paris: dunod) french. chichester: a wiley-interscience publication. john wiley & sons, ltd. pp. xxviii+489. isbn 0-471-90170-9. mr 0868279. (2008 second ed., in french: programmation mathématique : théorie et algorithmes, éditions tec & doc, paris, 2008. xxx+711 pp.  )).
+nering, evar d.; tucker, albert w. (1993). linear programming and related problems. boston, ma: academic press. isbn 978-0-12-515440-6.
+papadimitriou, christos h.; steiglitz, kenneth (july 1998). combinatorial optimization : algorithms and complexity (unabridged ed.). dover. isbn 0-486-40258-4.
+ruszczyński, andrzej (2006). nonlinear optimization. princeton, nj: princeton university press. pp. xii+454. isbn 978-0691119151. mr 2199043.
+
+
+=== articles ===
+everett, hugh, iii (1963). "generalized lagrange multiplier method for solving problems of optimum allocation of resources". operations research. 11 (3): 399–417. doi:10.1287/opre.11.3.399. jstor 168028. mr 0152360. archived from the original on 2011-07-24.
+kiwiel, krzysztof c.; larsson, torbjörn; lindberg, p. o. (august 2007). "lagrangian relaxation via ballstep subgradient methods". mathematics of operations research. 32 (3): 669–686. doi:10.1287/moor.1070.0261. mr 2348241.
+duality in linear programming gary d. knott

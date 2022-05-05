@@ -1,0 +1,332 @@
+basic linear algebra subprograms (blas) is a specification that prescribes a set of low-level routines for performing common linear algebra operations such as vector addition, scalar multiplication, dot products, linear combinations, and matrix multiplication. they are the de facto standard low-level routines for linear algebra libraries; the routines have bindings for both c ("cblas interface") and fortran ("blas interface"). although the blas specification is general, blas implementations are often optimized for speed on a particular machine, so using them can bring substantial performance benefits. blas implementations will take advantage of special floating point hardware such as vector registers or simd instructions.
+it originated as a fortran library in 1979 and its interface was standardized by the blas technical (blast) forum, whose latest blas report can be found on the netlib website. this fortran library is known as the reference implementation (sometimes confusingly referred to as the blas library) and is not optimized for speed but is in the public domain.most libraries that offer linear algebra routines conform to the blas interface, allowing library users to develop programs that are indifferent to the blas library being used. blas implementations have known a spectacular explosion in uses with the development of gpgpu, with cublas  and rocblas being prime examples. cpu-based examples of blas libraries include: openblas, blis (blas-like library instantiation software), arm performance libraries, atlas, and intel math kernel library (mkl). amd maintains a fork of blis that is optimized for the amd platform. atlas is a portable library that automatically optimizes itself for an arbitrary architecture. mkl is a freeware and proprietary vendor library optimized for x86 and x86-64 with a performance emphasis on intel processors. openblas is an open-source library that is hand-optimized for many of the popular architectures. the linpack benchmarks rely heavily on the blas routine gemm for its performance measurements.
+many numerical software applications use blas-compatible libraries to do linear algebra computations, including lapack, linpack, armadillo, gnu octave, mathematica, matlab, numpy, r, and julia.
+
+
+== background ==
+with the advent of numerical programming, sophisticated subroutine libraries became useful.  these libraries would contain subroutines for common high-level mathematical operations such as root finding, matrix inversion, and solving systems of equations. the language of choice was fortran. the most prominent numerical programming library was ibm's scientific subroutine package (ssp).  these subroutine libraries allowed programmers to concentrate on their specific problems and avoid re-implementing well-known algorithms.  the library routines would also be better than average implementations; matrix algorithms, for example, might use full pivoting to get better numerical accuracy. the library routines would also have more efficient routines. for example, a library may include a program to solve a matrix that is upper triangular. the libraries would include single-precision and double-precision versions of some algorithms.
+initially, these subroutines used hard-coded loops for their low-level operations. for example, if a subroutine needed to perform a matrix multiplication, then the subroutine would have three nested loops. linear algebra programs have many common low-level operations (the so-called "kernel" operations, not related to operating systems). between 1973 and 1977, several of these kernel operations were identified.  these kernel operations became defined subroutines that math libraries could call.  the kernel calls had advantages over hard-coded loops: the library routine would be more readable, there were fewer chances for bugs, and the kernel implementation could be optimized for speed.  a specification for these kernel operations using scalars and vectors, the level-1 basic linear algebra subroutines (blas), was published in 1979.  blas was used to implement the linear algebra subroutine library linpack.
+the blas abstraction allows customization for high performance. for example, linpack is a general purpose library that can be used on many different machines without modification. linpack could use a generic version of blas. to gain performance, different machines might use tailored versions of blas. as computer architectures became more sophisticated, vector machines appeared. blas for a vector machine could use the machine's fast vector operations.  (while vector processors eventually fell out of favor, vector instructions in modern cpus are essential for optimal performance in blas routines.)
+other machine features became available and could also be exploited.  consequently, blas was augmented from 1984 to 1986 with level-2 kernel operations that concerned vector-matrix operations.  memory hierarchy was also recognized as something to exploit. many computers have cache memory that is much faster than main memory; keeping matrix manipulations localized allows better usage of the cache. in 1987 and 1988, the level 3 blas were identified to do matrix-matrix operations. the level 3 blas encouraged block-partitioned algorithms. the lapack library uses level 3 blas.the original blas concerned only densely stored vectors and matrices. further extensions to blas, such as for sparse matrices, have been addressed.
+
+
+== functionality ==
+blas functionality is categorized into three sets of routines called "levels", which correspond to both the chronological order of definition and publication, as well as the degree of the polynomial in the complexities of algorithms; level 1 blas operations typically take linear time, o(n), level 2 operations quadratic time and level 3 operations cubic time. modern blas implementations typically provide all three levels.
+
+
+=== level 1 ===
+this level consists of all the routines described in the original presentation of blas (1979), which defined only vector operations on strided arrays: dot products, vector norms, a generalized vector addition of the form
+
+  
+    
+      
+        
+          y
+        
+        ←
+        α
+        
+          x
+        
+        +
+        
+          y
+        
+      
+    
+    {\displaystyle {\boldsymbol {y}}\leftarrow \alpha {\boldsymbol {x}}+{\boldsymbol {y}}}
+  (called "axpy", "a x plus y") and several other operations.
+
+
+=== level 2 ===
+this level contains matrix-vector operations including, among other things, a generalized matrix-vector multiplication (gemv):
+
+  
+    
+      
+        
+          y
+        
+        ←
+        α
+        
+          a
+        
+        
+          x
+        
+        +
+        β
+        
+          y
+        
+      
+    
+    {\displaystyle {\boldsymbol {y}}\leftarrow \alpha {\boldsymbol {a}}{\boldsymbol {x}}+\beta {\boldsymbol {y}}}
+  as well as a solver for x in the linear equation
+
+  
+    
+      
+        
+          t
+        
+        
+          x
+        
+        =
+        
+          y
+        
+      
+    
+    {\displaystyle {\boldsymbol {t}}{\boldsymbol {x}}={\boldsymbol {y}}}
+  with t being triangular. design of the level 2 blas started in 1984, with results published in 1988. the level 2 subroutines are especially intended to improve performance of programs using blas on vector processors, where level 1 blas are suboptimal "because they hide the matrix-vector nature of the operations from the compiler."
+
+
+=== level 3 ===
+this level, formally published in 1990, contains matrix-matrix operations, including a "general matrix multiplication" (gemm), of the form
+
+  
+    
+      
+        
+          c
+        
+        ←
+        α
+        
+          a
+        
+        
+          b
+        
+        +
+        β
+        
+          c
+        
+        ,
+      
+    
+    {\displaystyle {\boldsymbol {c}}\leftarrow \alpha {\boldsymbol {a}}{\boldsymbol {b}}+\beta {\boldsymbol {c}},}
+  where a and b can optionally be transposed or hermitian-conjugated inside the routine, and all three matrices may be strided. the ordinary matrix multiplication a b can be performed by setting α to one and c to an all-zeros matrix of the appropriate size.
+also included in level 3 are routines for computing
+
+  
+    
+      
+        
+          b
+        
+        ←
+        α
+        
+          
+            t
+          
+          
+            −
+            1
+          
+        
+        
+          b
+        
+        ,
+      
+    
+    {\displaystyle {\boldsymbol {b}}\leftarrow \alpha {\boldsymbol {t}}^{-1}{\boldsymbol {b}},}
+  where t is a triangular matrix, among other functionality.
+due to the ubiquity of matrix multiplications in many scientific applications, including for the implementation of the rest of level 3 blas, and because faster algorithms exist beyond the obvious repetition of matrix-vector multiplication, gemm is a prime target of optimization for blas implementers. e.g., by decomposing one or both of a, b into block matrices, gemm can be implemented recursively. this is one of the motivations for including the β parameter, so the results of previous blocks can be accumulated. note that this decomposition requires the special case β = 1 which many implementations optimize for, thereby eliminating one multiplication for each value of c. this decomposition allows for better locality of reference both in space and time of the data used in the product. this, in turn, takes advantage of the cache on the system. for systems with more than one level of cache, the blocking can be applied a second time to the order in which the blocks are used in the computation. both of these levels of optimization are used in implementations such as atlas. more recently, implementations by kazushige goto have shown that blocking only for the l2 cache, combined with careful amortizing of copying to contiguous memory to reduce tlb misses, is superior to atlas. a highly tuned implementation based on these ideas is part of the gotoblas, openblas and blis.
+a common variation of gemm is the gemm3m, which calculates a complex product using "three real matrix multiplications and five real matrix additions instead of the conventional four real matrix multiplications and two real matrix additions", an algorithm similar to strassen algorithm first described by peter ungar.
+
+
+== implementations ==
+accelerate
+apple's framework for macos and ios, which includes tuned versions of blas and lapack.
+arm performance libraries
+arm performance libraries, supporting arm 64-bit aarch64-based processors, available from arm.
+atlas
+automatically tuned linear algebra software, an open source implementation of blas apis for c and fortran 77.
+blis
+blas-like library instantiation software framework for rapid instantiation. optimized for most modern cpus. blis is a complete refactoring of the gotoblas that reduces the amount of code that must be written for a given platform. 
+c++ amp blas
+the c++ amp blas library is an open source implementation of blas for microsoft's amp language extension for visual c++.
+cublas
+optimized blas for nvidia based gpu cards, requiring few additional library calls.
+nvblas
+optimized blas for nvidia based gpu cards, providing only level 3 functions, but as direct drop-in replacement for other blas libraries.
+clblas
+an opencl implementation of blas by amd. part of the amd compute libraries.
+clblast
+a tuned opencl implementation of most of the blas api.
+eigen blas
+a fortran 77 and c blas library implemented on top of the mpl-licensed eigen library, supporting x86, x86-64, arm (neon), and powerpc architectures.
+essl
+ibm's engineering and scientific subroutine library, supporting the powerpc architecture under aix and linux.
+gotoblas
+kazushige goto's bsd-licensed implementation of blas, tuned in particular for intel nehalem/atom, via nanoprocessor, amd opteron.
+gnu scientific library
+multi-platform implementation of many numerical routines. contains a cblas interface.
+hp mlib
+hp's math library supporting ia-64, pa-risc, x86 and opteron architecture under hp-ux and linux.
+intel mkl
+the intel math kernel library, supporting x86 32-bits and 64-bits, available free from intel. includes optimizations for intel pentium, core and intel xeon cpus and intel xeon phi; support for linux, windows and macos.
+mathkeisan
+nec's math library, supporting nec sx architecture under super-ux, and itanium under linux
+netlib blas
+the official reference implementation on netlib, written in fortran 77.
+netlib cblas
+reference c interface to the blas. it is also possible (and popular) to call the fortran blas from c.
+openblas
+optimized blas based on gotoblas, supporting x86, x86-64, mips and arm processors.
+pdlib/sx
+nec's public domain mathematical library for the nec sx-4 system.
+rocblas
+implementation that runs on amd gpus via rocm.
+scsl
+sgi's scientific computing software library contains blas and lapack implementations for sgi's irix workstations.
+sun performance library
+optimized blas and lapack for sparc, core and amd64 architectures under solaris 8, 9, and 10 as well as linux.
+ublas
+a generic c++ template class library providing blas functionality. part of the boost library. it provides bindings to many hardware-accelerated libraries in a unifying notation. moreover, ublas focuses on correctness of the algorithms using advanced c++ features.
+
+
+=== libraries using blas ===
+armadillo
+armadillo is a c++ linear algebra library aiming towards a good balance between speed and ease of use. it employs template classes, and has optional links to blas/atlas and lapack. it is sponsored by nicta (in australia) and is licensed under a free license.
+lapack
+lapack is a higher level linear algebra library built upon blas. like blas, a reference implementation exists, but many alternatives like libflame and mkl exist.
+mir
+an llvm-accelerated generic numerical library for science and machine learning written in d. it provides generic linear algebra subprograms (glas). it can be built on a cblas implementation.
+
+
+== similar libraries (not compatible with blas) ==
+
+elemental
+elemental is an open source software for distributed-memory dense and sparse-direct linear algebra and optimization.
+hasem
+is a c++ template library, being able to solve linear equations and to compute eigenvalues.  it is licensed under bsd license.
+lama
+the library for accelerated math applications (lama) is a c++ template library for writing numerical solvers targeting various kinds of hardware (e.g. gpus through cuda or opencl) on distributed memory systems, hiding the hardware specific programming from the program developer
+mtl4
+the matrix template library version 4 is a generic c++ template library providing sparse and dense blas functionality. mtl4 establishes an intuitive interface (similar to matlab) and broad applicability thanks to generic programming.
+
+
+== sparse blas ==
+several extensions to blas for handling sparse matrices have been suggested over the course of the library's history; a small set of sparse matrix kernel routines was finally standardized in 2002.
+
+
+== batched blas ==
+the traditional blas functions have been also ported to architectures that support large amounts of parallelism such as gpus. here, the traditional blas functions provide typically good performance for large matrices. however, when computing e.g., matrix-matrix-products of many small matrices by using the gemm routine, those architectures show significant performance losses. to address this issue, in 2017 a batched version of the blas function has been specified.taking the gemm routine from above as an example, the batched version performs the following computation simultaneously for many matrices:
+
+  
+    
+      
+        
+          c
+        
+        [
+        k
+        ]
+        ←
+        α
+        
+          a
+        
+        [
+        k
+        ]
+        
+          b
+        
+        [
+        k
+        ]
+        +
+        β
+        
+          c
+        
+        [
+        k
+        ]
+        
+        ∀
+        k
+      
+    
+    {\displaystyle {\boldsymbol {c}}[k]\leftarrow \alpha {\boldsymbol {a}}[k]{\boldsymbol {b}}[k]+\beta {\boldsymbol {c}}[k]\quad \forall k}
+  
+the index 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   in square brackets indicates that the operation is performed for all matrices 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   in a stack. often, this operation is implemented for a strided batched memory layout where all matrices follow concatenated in the arrays 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  , 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   and 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+  .
+batched blas functions can be a versatile tool and allow e.g. a fast implementation of exponential integrators and magnus integrators that handle long integration periods with many time steps. here, the matrix exponentiation, the computationally expensive part of the integration, can be implemented in parallel for all time-steps by using batched blas functions.
+
+
+== see also ==
+list of numerical libraries
+math kernel library, math library optimized for the intel architecture; includes blas, lapack
+numerical linear algebra, the type of problem blas solves
+
+
+== references ==
+
+
+== further reading ==
+blast forum (2001-08-21), basic linear algebra subprograms technical (blast) forum standard, knoxville, tn: university of tennessee
+dodson, d. s.; grimes, r. g. (1982), "remark on algorithm 539: basic linear algebra subprograms for fortran usage", acm trans. math. softw., 8 (4): 403–404, doi:10.1145/356012.356020, s2cid 43081631
+dodson, d. s. (1983), "corrigendum: remark on "algorithm 539: basic linear algebra subroutines for fortran usage"", acm trans. math. softw., 9: 140, doi:10.1145/356022.356032, s2cid 22163977
+j. j. dongarra, j. du croz, s. hammarling, and r. j. hanson, algorithm 656: an extended set of fortran basic linear algebra subprograms, acm trans. math. softw., 14 (1988), pp. 18–32.
+j. j. dongarra, j. du croz, i. s. duff, and s. hammarling, a set of level 3 basic linear algebra subprograms, acm trans. math. softw., 16 (1990), pp. 1–17.
+j. j. dongarra, j. du croz, i. s. duff, and s. hammarling, algorithm 679: a set of level 3 basic linear algebra subprograms, acm trans. math. softw., 16 (1990), pp. 18–28.new blasl. s. blackford, j. demmel, j. dongarra, i. duff, s. hammarling, g. henry, m. heroux, l. kaufman, a. lumsdaine, a. petitet, r. pozo, k. remington, r. c. whaley, an updated set of basic linear algebra subprograms (blas), acm trans. math. softw., 28-2 (2002), pp. 135–151.
+j. dongarra, basic linear algebra subprograms technical forum standard, international journal of high performance applications and supercomputing, 16(1) (2002), pp. 1–111, and international journal of high performance applications and supercomputing, 16(2) (2002), pp. 115–199.
+
+
+== external links ==
+blas homepage on netlib.org
+blas faq
+blas quick reference guide from lapack users' guide
+lawson oral history one of the original authors of the blas discusses its creation in an oral history interview. charles l. lawson oral history interview by thomas haigh, 6 and 7 november 2004, san clemente, california. society for industrial and applied mathematics, philadelphia, pa.
+dongarra oral history in an oral history interview, jack dongarra explores the early relationship of blas to linpack, the creation of higher level blas versions for new architectures, and his later work on the atlas system to automatically optimize blas for particular machines. jack dongarra, oral history interview by thomas haigh, 26 april 2005, university of tennessee, knoxville tn. society for industrial and applied mathematics, philadelphia, pa
+how does blas get such extreme performance? ten naive 1000×1000 matrix multiplications (1010 floating point multiply-adds) takes 15.77 seconds on 2.6 ghz processor; blas implementation takes 1.32 seconds.
+an overview of the sparse basic linear algebra subprograms: the new standard from the blas technical forum [2]

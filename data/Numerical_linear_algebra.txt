@@ -1,0 +1,789 @@
+numerical linear algebra, sometimes called applied linear algebra, is the study of how matrix operations can be used to create computer algorithms which efficiently and accurately provide approximate answers to questions in continuous mathematics. it is a subfield of numerical analysis, and a type of linear algebra. computers use floating-point arithmetic and cannot exactly represent irrational data, so when a computer algorithm is applied to a matrix of data, it can sometimes increase the difference between a number stored in the computer and the true number that it is an approximation of. numerical linear algebra uses properties of vectors and matrices to develop computer algorithms that minimize the error introduced by the computer, and is also concerned with ensuring that the algorithm is as efficient as possible.
+numerical linear algebra aims to solve problems of continuous mathematics using finite precision computers, so its applications to the natural and social sciences are as vast as the applications of continuous mathematics. it is often a fundamental part of engineering and computational science problems, such as image and signal processing, telecommunication, computational finance, materials science simulations, structural biology, data mining, bioinformatics, and fluid dynamics. matrix methods are particularly used in finite difference methods, finite element methods, and the modeling of differential equations. noting the broad applications of numerical linear algebra, lloyd n. trefethen and david bau, iii argue that it is "as fundamental to the mathematical sciences as calculus and differential equations",: x  even though it is a comparatively small field. because many properties of matrices and vectors also apply to functions and operators, numerical linear algebra can also be viewed as a type of functional analysis which has a particular emphasis on practical algorithms.: ix common problems in numerical linear algebra include obtaining matrix decompositions like the singular value decomposition, the qr factorization, the lu factorization, or the eigendecomposition, which can then be used to answer common linear algebraic problems like solving linear systems of equations, locating eigenvalues, or least squares optimisation. numerical linear algebra's central concern with developing algorithms that do not introduce errors when applied to real data on a finite precision computer is often achieved by iterative methods rather than direct ones.
+
+
+== history ==
+numerical linear algebra was developed by computer pioneers like john von neumann, alan turing, james h. wilkinson, alston scott householder, george forsythe, and heinz rutishauser, in order to apply the earliest computers to problems in continuous mathematics, such as ballistics problems and the solutions to systems of partial differential equations. the first serious attempt to minimize computer error in the application of algorithms to real data is john von neumann and herman goldstine's work in 1947. the field has grown as technology has increasingly enabled researchers to solve complex problems on extremely large high-precision matrices, and some numerical algorithms have grown in prominence as technologies like parallel computing have made them practical approaches to scientific problems.
+
+
+== matrix decompositions ==
+
+
+=== partitioned matrices ===
+
+for many problems in applied linear algebra, it is useful to adopt the perspective of a matrix as being a concatenation of column vectors. for example, when solving the linear system 
+  
+    
+      
+        x
+        =
+        
+          a
+          
+            −
+            1
+          
+        
+        b
+      
+    
+    {\displaystyle x=a^{-1}b}
+  , rather than understanding x as the product of 
+  
+    
+      
+        
+          a
+          
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle a^{-1}}
+   with b, it is helpful to think of x as the vector of coefficients in the linear expansion of b in the basis formed by the columns of a.: 8  thinking of matrices as a concatenation of columns is also a practical approach for the purposes of matrix algorithms. this is because matrix algorithms frequently contain two nested loops: one over the columns of a matrix a, and another over the rows of a. for example, for matrices 
+  
+    
+      
+        
+          a
+          
+            m
+            ×
+            n
+          
+        
+      
+    
+    {\displaystyle a^{m\times n}}
+   and vectors 
+  
+    
+      
+        
+          x
+          
+            n
+            ×
+            1
+          
+        
+      
+    
+    {\displaystyle x^{n\times 1}}
+   and 
+  
+    
+      
+        
+          y
+          
+            m
+            ×
+            1
+          
+        
+      
+    
+    {\displaystyle y^{m\times 1}}
+  , we could use the column partitioning perspective to compute ax + y as
+
+
+=== singular value decomposition ===
+
+the singular value decomposition of a matrix 
+  
+    
+      
+        
+          a
+          
+            m
+            ×
+            n
+          
+        
+      
+    
+    {\displaystyle a^{m\times n}}
+   is 
+  
+    
+      
+        a
+        =
+        u
+        σ
+        
+          v
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle a=u\sigma v^{\ast }}
+   where u and v are unitary, and 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+   is diagonal. the diagonal entries of 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+   are called the singular values of a. because singular values are the square roots of the eigenvalues of 
+  
+    
+      
+        a
+        
+          a
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle aa^{\ast }}
+  , there is a tight connection between the singular value decomposition and eigenvalue decompositions. this means that most methods for computing the singular value decomposition are similar to eigenvalue methods;: 36  perhaps the most common method involves householder procedures.: 253 
+
+
+=== qr factorization ===
+
+the qr factorization of a matrix 
+  
+    
+      
+        
+          a
+          
+            m
+            ×
+            n
+          
+        
+      
+    
+    {\displaystyle a^{m\times n}}
+   is a matrix 
+  
+    
+      
+        
+          q
+          
+            m
+            ×
+            m
+          
+        
+      
+    
+    {\displaystyle q^{m\times m}}
+   and a matrix 
+  
+    
+      
+        
+          r
+          
+            m
+            ×
+            n
+          
+        
+      
+    
+    {\displaystyle r^{m\times n}}
+   so that a = qr, where q is orthogonal and r is upper triangular.: 50 : 223  the two main algorithms for computing qr factorizations are the gram–schmidt process and the householder transformation. the qr factorization is often used to solve linear least-squares problems, and eigenvalue problems (by way of the iterative qr algorithm).
+
+
+=== lu factorization ===
+
+an lu factorization of a matrix a consists of a lower triangular matrix l and an upper triangular matrix m so that a = lu. the matrix u is found by an upper triangularization procedure which involves left-multiplying a by a series of matrices 
+  
+    
+      
+        
+          m
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          m
+          
+            n
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle m_{1},\ldots ,m_{n-1}}
+   to form the product 
+  
+    
+      
+        
+          m
+          
+            n
+            −
+            1
+          
+        
+        ⋯
+        
+          m
+          
+            1
+          
+        
+        a
+        =
+        u
+      
+    
+    {\displaystyle m_{n-1}\cdots m_{1}a=u}
+  , so that equivalently 
+  
+    
+      
+        l
+        =
+        
+          m
+          
+            1
+          
+          
+            −
+            1
+          
+        
+        ⋯
+        
+          m
+          
+            n
+            −
+            1
+          
+          
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle l=m_{1}^{-1}\cdots m_{n-1}^{-1}}
+  .: 147 : 96 
+
+
+=== eigenvalue decomposition ===
+
+the eigenvalue decomposition of a matrix 
+  
+    
+      
+        
+          a
+          
+            m
+            ×
+            m
+          
+        
+      
+    
+    {\displaystyle a^{m\times m}}
+   is 
+  
+    
+      
+        a
+        =
+        x
+        λ
+        
+          x
+          
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle a=x\lambda x^{-1}}
+  , where the columns of x are the eigenvectors of a, and 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+   is a diagonal matrix the diagonal entries of which are the corresponding eigenvalues of a.: 33  there is no direct method for finding the eigenvalue decomposition of an arbitrary matrix. because it is not possible to write a program that finds the exact roots of an arbitrary polynomial in finite time, any general eigenvalue solver must necessarily be iterative.: 192 
+
+
+== algorithms ==
+
+
+=== gaussian elimination ===
+
+from the numerical linear algebra perspective, gaussian elimination is a procedure for factoring a matrix a into its lu factorization, which gaussian elimination accomplishes by left-multiplying a by a succession of matrices 
+  
+    
+      
+        
+          l
+          
+            m
+            −
+            1
+          
+        
+        ⋯
+        
+          l
+          
+            2
+          
+        
+        
+          l
+          
+            1
+          
+        
+        a
+        =
+        u
+      
+    
+    {\displaystyle l_{m-1}\cdots l_{2}l_{1}a=u}
+   until u is upper triangular and l is lower triangular, where 
+  
+    
+      
+        l
+        ≡
+        
+          l
+          
+            1
+          
+          
+            −
+            1
+          
+        
+        
+          l
+          
+            2
+          
+          
+            −
+            1
+          
+        
+        ⋯
+        
+          l
+          
+            m
+            −
+            1
+          
+          
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle l\equiv l_{1}^{-1}l_{2}^{-1}\cdots l_{m-1}^{-1}}
+  .: 148  naive programs for gaussian elimination are notoriously highly unstable, and produce huge errors when applied to matrices with many significant digits. the simplest solution is to introduce pivoting, which produces a modified gaussian elimination algorithm that is stable.: 151 
+
+
+=== solutions of linear systems ===
+
+numerical linear algebra characteristically approaches matrices as a concatenation of columns vectors. in order to solve the linear system 
+  
+    
+      
+        x
+        =
+        
+          a
+          
+            −
+            1
+          
+        
+        b
+      
+    
+    {\displaystyle x=a^{-1}b}
+  , the traditional algebraic approach is to understand x as the product of 
+  
+    
+      
+        
+          a
+          
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle a^{-1}}
+   with b. numerical linear algebra instead interprets x as the vector of coefficients of the linear expansion of b in the basis formed by the columns of a.: 8 many different decompositions can be used to solve the linear problem, depending on the characteristics of the matrix a and the vectors x and b, which may make one factorization much easier to obtain than others. if a = qr is a qr factorization of a, then equivalently 
+  
+    
+      
+        r
+        x
+        =
+        
+          q
+          
+            ∗
+          
+        
+        b
+      
+    
+    {\displaystyle rx=q^{\ast }b}
+  . this is easy to compute as a matrix factorization.: 54  if 
+  
+    
+      
+        a
+        =
+        x
+        λ
+        
+          x
+          
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle a=x\lambda x^{-1}}
+   is an eigendecomposition a, and we seek to find b so that b = ax, with 
+  
+    
+      
+        
+          b
+          
+            ′
+          
+        
+        =
+        
+          x
+          
+            −
+            1
+          
+        
+        b
+      
+    
+    {\displaystyle b^{\prime }=x^{-1}b}
+   and 
+  
+    
+      
+        
+          x
+          
+            ′
+          
+        
+        =
+        
+          x
+          
+            −
+            1
+          
+        
+        x
+      
+    
+    {\displaystyle x^{\prime }=x^{-1}x}
+  , then we have 
+  
+    
+      
+        
+          b
+          
+            ′
+          
+        
+        =
+        λ
+        
+          x
+          
+            ′
+          
+        
+      
+    
+    {\displaystyle b^{\prime }=\lambda x^{\prime }}
+  .: 33  this is closely related to the solution to the linear system using the singular value decomposition, because singular values of a matrix are the square roots of its eigenvalues. and if a = lu is an lu factorization of a, then ax = b can be solved using the triangular matrices ly = b and ux = y.: 147 : 99 
+
+
+=== least squares optimisation ===
+
+matrix decompositions suggest a number of ways to solve the linear system r = b − ax where we seek to minimize r, as in the regression problem. the qr algorithm solves this problem by first defining y = ax, and then computing the reduced qr factorization of a and rearranging to obtain 
+  
+    
+      
+        
+          
+            
+              r
+              ^
+            
+          
+        
+        x
+        =
+        
+          
+            
+              
+                q
+                ^
+              
+            
+          
+          
+            ∗
+          
+        
+        b
+      
+    
+    {\displaystyle {\widehat {r}}x={\widehat {q}}^{\ast }b}
+  . this upper triangular system can then be solved for b. the svd also suggests an algorithm for obtaining linear least squares. by computing the reduced svd decomposition 
+  
+    
+      
+        a
+        =
+        
+          
+            
+              u
+              ^
+            
+          
+        
+        
+          
+            
+              σ
+              ^
+            
+          
+        
+        
+          v
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle a={\widehat {u}}{\widehat {\sigma }}v^{\ast }}
+   and then computing the vector 
+  
+    
+      
+        
+          
+            
+              
+                u
+                ^
+              
+            
+          
+          
+            ∗
+          
+        
+        b
+      
+    
+    {\displaystyle {\widehat {u}}^{\ast }b}
+  , we reduce the least squares problem to a simple diagonal system.: 84  the fact that least squares solutions can be produced by the qr and svd factorizations means that, in addition to the classical normal equations method for solving least squares problems, these problems can also be solved by methods that include the gram-schmidt algorithm and householder methods.
+
+
+== conditioning and stability ==
+
+allow that a problem is a function 
+  
+    
+      
+        f
+        :
+        x
+        →
+        y
+      
+    
+    {\displaystyle f:x\to y}
+  , where x is a normed vector space of data and y is a normed vector space of solutions. for some data point 
+  
+    
+      
+        x
+        ∈
+        x
+      
+    
+    {\displaystyle x\in x}
+  , the problem is said to be ill-conditioned if a small perturbation in x produces a large change in the value of f(x). we can quantify this by defining a condition number which represents how well-conditioned a problem is, defined as
+
+  
+    
+      
+        
+          
+            
+              κ
+              ^
+            
+          
+        
+        =
+        
+          lim
+          
+            δ
+            →
+            0
+          
+        
+        
+          sup
+          
+            ‖
+            δ
+            x
+            ‖
+            ≤
+            δ
+          
+        
+        
+          
+            
+              ‖
+              δ
+              f
+              ‖
+            
+            
+              ‖
+              δ
+              x
+              ‖
+            
+          
+        
+        .
+      
+    
+    {\displaystyle {\widehat {\kappa }}=\lim _{\delta \to 0}\sup _{\|\delta x\|\leq \delta }{\frac {\|\delta f\|}{\|\delta x\|}}.}
+  instability is the tendency of computer algorithms, which depend on floating-point arithmetic, to produce results that differ dramatically from the exact mathematical solution to a problem. when a matrix contains real data with many significant digits, many algorithms for solving problems like linear systems of equation or least squares optimisation may produce highly inaccurate results. creating stable algorithms for ill-conditioned problems is a central concern in numerical linear algebra. one example is that the stability of householder triangularization makes it a particularly robust solution method for linear systems, whereas the instability of the normal equations method for solving least squares problems is a reason to favour matrix decomposition methods like using the singular value decomposition. some matrix decomposition methods may be unstable, but have straightforward modifications that make them stable; one example is the unstable gram–schmidt, which can easily be changed to produce the stable modified gram–schmidt.: 140  another classical problem in numerical linear algebra is the finding that gaussian elimination is unstable, but becomes stable with the introduction of pivoting.
+
+
+== iterative methods ==
+
+there are two reasons that iterative algorithms are an important part of numerical linear algebra. first, many important numerical problems have no direct solution; in order to find the eigenvalues and eigenvectors of an arbitrary matrix, we can only adopt an iterative approach. second, noniterative algorithms for an arbitrary 
+  
+    
+      
+        m
+        ×
+        m
+      
+    
+    {\displaystyle m\times m}
+   matrix require 
+  
+    
+      
+        o
+        (
+        
+          m
+          
+            3
+          
+        
+        )
+      
+    
+    {\displaystyle o(m^{3})}
+   time, which is a surprisingly high floor given that matrices contain only 
+  
+    
+      
+        
+          m
+          
+            2
+          
+        
+      
+    
+    {\displaystyle m^{2}}
+   numbers. iterative approaches can take advantage of several features of some matrices to reduce this time. for example, when a matrix is sparse, an iterative algorithm can skip many of the steps that a direct approach would necessarily follow, even if they are redundant steps given a highly structured matrix.
+the core of many iterative methods in numerical linear algebra is the projection of a matrix onto a lower dimensional krylov subspace, which allows features of a high-dimensional matrix to be approximated by iteratively computing the equivalent features of similar matrices starting in a low dimension space and moving to successively higher dimensions. when a is symmetric and we wish to solve the linear problem ax = b, the classical iterative approach is the conjugate gradient method. if a is not symmetric, then examples of iterative solutions to the linear problem are the generalized minimal residual method and cgn. if a is symmetric, then to solve the eigenvalue and eigenvector problem we can use the lanczos algorithm, and if a is non-symmetric, then we can use arnoldi iteration.
+
+
+== software ==
+
+several programming languages use numerical linear algebra optimisation techniques and are designed to implement numerical linear algebra algorithms. these languages include matlab, analytica, maple, and mathematica. other programming languages which are not explicitly designed for numerical linear algebra have libraries that provide numerical linear algebra routines and optimisation; c and fortran have packages like basic linear algebra subprograms and lapack, python has the library numpy, and perl has the perl data language. many numerical linear algebra commands in r rely on these more fundamental libraries like lapack. more libraries can be found on the list of numerical libraries.
+
+
+== references ==
+
+
+== further reading ==
+dongarra, jack; hammarling, sven (1990). "evolution of numerical software for dense linear algebra".  in cox, m. g.; hammarling, s. (eds.). reliable numerical computation. oxford: clarendon press. pp. 297–327. isbn 0-19-853564-3.
+
+
+== external links ==
+freely available software for numerical algebra on the web, composed by jack dongarra and hatem ltaief, university of tennessee
+nag library of numerical linear algebra routines
+numerical linear algebra group on twitter (research group in the united kingdom)
+siagla on twitter (activity group about numerical linear algebra in the society for industrial and applied mathematics)
+the gamm activity group on applied and numerical linear algebra

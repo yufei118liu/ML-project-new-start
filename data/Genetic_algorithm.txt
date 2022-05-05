@@ -1,0 +1,210 @@
+in computer science and operations research, a genetic algorithm (ga) is a metaheuristic inspired by the process of natural selection that belongs to the larger class of evolutionary algorithms (ea). genetic algorithms are commonly used to generate high-quality solutions to optimization and search problems by relying on biologically inspired operators such as mutation, crossover and selection. some examples of ga applications include optimizing decision trees for better performance, solving sudoku puzzles, hyperparameter optimization, etc.
+
+
+== methodology ==
+
+
+=== optimization problems ===
+in a genetic algorithm, a population of candidate solutions (called individuals, creatures, organisms, or phenotypes) to an optimization problem is evolved toward better solutions. each candidate solution has a set of properties (its chromosomes or genotype) which can be mutated and altered; traditionally, solutions are represented in binary as strings of 0s and 1s, but other encodings are also possible.the evolution usually starts from a population of randomly generated individuals, and is an iterative process, with the population in each iteration called a generation. in each generation, the fitness of every individual in the population is evaluated; the fitness is usually the value of the objective function in the optimization problem being solved. the more fit individuals are stochastically selected from the current population, and each individual's genome is modified (recombined and possibly randomly mutated) to form a new generation. the new generation of candidate solutions is then used in the next iteration of the algorithm. commonly, the algorithm terminates when either a maximum number of generations has been produced, or a satisfactory fitness level has been reached for the population.
+a typical genetic algorithm requires:
+
+a genetic representation of the solution domain,
+a fitness function to evaluate the solution domain.a standard representation of each candidate solution is as an array of bits (also called bit set or bit string). arrays of other types and structures can be used in essentially the same way. the main property that makes these genetic representations convenient is that their parts are easily aligned due to their fixed size, which facilitates simple crossover operations. variable length representations may also be used, but crossover implementation is more complex in this case. tree-like representations are explored in genetic programming and graph-form representations are explored in evolutionary programming; a mix of both linear chromosomes and trees is explored in gene expression programming.
+once the genetic representation and the fitness function are defined, a ga proceeds to initialize a population of solutions and then to improve it through repetitive application of the mutation, crossover, inversion and selection operators.
+
+
+==== initialization ====
+the population size depends on the nature of the problem, but typically contains several hundreds or thousands of possible solutions. often, the initial population is generated randomly, allowing the entire range of possible solutions (the search space). occasionally, the solutions may be "seeded" in areas where optimal solutions are likely to be found.
+
+
+==== selection ====
+
+during each successive generation, a portion of the existing population is selected to breed a new generation. individual solutions are selected through a fitness-based process, where fitter solutions (as measured by a fitness function) are typically more likely to be selected. certain selection methods rate the fitness of each solution and preferentially select the best solutions. other methods rate only a random sample of the population, as the former process may be very time-consuming.
+the fitness function is defined over the genetic representation and measures the quality of the represented solution. the fitness function is always problem dependent. for instance, in the knapsack problem one wants to maximize the total value of objects that can be put in a knapsack of some fixed capacity. a representation of a solution might be an array of bits, where each bit represents a different object, and the value of the bit (0 or 1) represents whether or not the object is in the knapsack. not every such representation is valid, as the size of objects may exceed the capacity of the knapsack. the fitness of the solution is the sum of values of all objects in the knapsack if the representation is valid, or 0 otherwise.
+in some problems, it is hard or even impossible to define the fitness expression; in these cases, a simulation may be used to determine the fitness function value of a phenotype (e.g. computational fluid dynamics is used to determine the air resistance of a vehicle whose shape is encoded as the phenotype), or even interactive genetic algorithms are used.
+
+
+==== genetic operators ====
+
+the next step is to generate a second generation population of solutions from those selected, through a combination of genetic operators: crossover (also called recombination), and mutation.
+for each new solution to be produced, a pair of "parent" solutions is selected for breeding from the pool selected previously. by producing a "child" solution using the above methods of crossover and mutation, a new solution is created which typically shares many of the characteristics of its "parents". new parents are selected for each new child, and the process continues until a new population of solutions of appropriate size is generated.
+although reproduction methods that are based on the use of two parents are more "biology inspired", some research suggests that more than two "parents" generate higher quality chromosomes.
+these processes ultimately result in the next generation population of chromosomes that is different from the initial generation. generally, the average fitness will have increased by this procedure for the population, since only the best organisms from the first generation are selected for breeding, along with a small proportion of less fit solutions. these less fit solutions ensure genetic diversity within the genetic pool of the parents and therefore ensure the genetic diversity of the subsequent generation of children.
+opinion is divided over the importance of crossover versus mutation. there are many references in fogel (2006) that support the importance of mutation-based search.
+although crossover and mutation are known as the main genetic operators, it is possible to use other operators such as regrouping, colonization-extinction, or migration in genetic algorithms.it is worth tuning parameters such as the mutation probability, crossover probability and population size to find reasonable settings for the problem class being worked on. a very small mutation rate may lead to genetic drift (which is non-ergodic in nature). a recombination rate that is too high may lead to premature convergence of the genetic algorithm. a mutation rate that is too high may lead to loss of good solutions, unless elitist selection is employed. an adequate population size ensures sufficient genetic diversity for the problem at hand, but can lead to a waste of computational resources if set to a value larger than required.
+
+
+==== heuristics ====
+in addition to the main operators above, other heuristics may be employed to make the calculation faster or more robust. the speciation heuristic penalizes crossover between candidate solutions that are too similar; this encourages population diversity and helps prevent premature convergence to a less optimal solution.
+
+
+==== termination ====
+this generational process is repeated until a termination condition has been reached. common terminating conditions are:
+
+a solution is found that satisfies minimum criteria
+fixed number of generations reached
+allocated budget (computation time/money) reached
+the highest ranking solution's fitness is reaching or has reached a plateau such that successive iterations no longer produce better results
+manual inspection
+combinations of the above
+
+
+== the building block hypothesis ==
+genetic algorithms are simple to implement, but their behavior is difficult to understand. in particular, it is difficult to understand why these algorithms frequently succeed at generating solutions of high fitness when applied to practical problems. the building block hypothesis (bbh) consists of:
+
+a description of a heuristic that performs adaptation by identifying and recombining "building blocks", i.e. low order, low defining-length schemata with above average fitness.
+a hypothesis that a genetic algorithm performs adaptation by implicitly and efficiently implementing this heuristic.goldberg describes the heuristic as follows:
+
+"short, low order, and highly fit schemata are sampled, recombined [crossed over], and resampled to form strings of potentially higher fitness. in a way, by working with these particular schemata [the building blocks], we have reduced the complexity of our problem; instead of building high-performance strings by trying every conceivable combination, we construct better and better strings from the best partial solutions of past samplings."because highly fit schemata of low defining length and low order play such an important role in the action of genetic algorithms, we have already given them a special name: building blocks. just as a child creates magnificent fortresses through the arrangement of simple blocks of wood, so does a genetic algorithm seek near optimal performance through the juxtaposition of short, low-order, high-performance schemata, or building blocks."despite the lack of consensus regarding the validity of the building-block hypothesis, it has been consistently evaluated and used as reference throughout the years. many estimation of distribution algorithms, for example, have been proposed in an attempt to provide an environment in which the hypothesis would hold. although good results have been reported for some classes of problems, skepticism concerning the generality and/or practicality of the building-block hypothesis as an explanation for gas efficiency still remains. indeed, there is a reasonable amount of work that attempts to understand its limitations from the perspective of estimation of distribution algorithms.
+
+
+== limitations ==
+there are limitations of the use of a genetic algorithm compared to alternative optimization algorithms:
+
+repeated fitness function evaluation for complex problems is often the most prohibitive and limiting segment of artificial evolutionary algorithms. finding the optimal solution to complex high-dimensional, multimodal problems often requires very expensive fitness function evaluations. in real world problems such as structural optimization problems, a single function evaluation may require several hours to several days of complete simulation. typical optimization methods cannot deal with such types of problem. in this case, it may be necessary to forgo an exact evaluation and use an approximated fitness that is computationally efficient. it is apparent that amalgamation of approximate models may be one of the most promising approaches to convincingly use ga to solve complex real life problems.
+genetic algorithms do not scale well with complexity. that is, where the number of elements which are exposed to mutation is large there is often an exponential increase in search space size. this makes it extremely difficult to use the technique on problems such as designing an engine, a house or a plane. in order to make such problems tractable to evolutionary search, they must be broken down into the simplest representation possible. hence we typically see evolutionary algorithms encoding designs for fan blades instead of engines, building shapes instead of detailed construction plans, and airfoils instead of whole aircraft designs. the second problem of complexity is the issue of how to protect parts that have evolved to represent good solutions from further destructive mutation, particularly when their fitness assessment requires them to combine well with other parts.
+the "better" solution is only in comparison to other solutions. as a result, the stop criterion is not clear in every problem.
+in many problems, gas have a tendency to converge towards local optima or even arbitrary points rather than the global optimum of the problem. this means that it does not "know how" to sacrifice short-term fitness to gain longer-term fitness. the likelihood of this occurring depends on the shape of the fitness landscape: certain problems may provide an easy ascent towards a global optimum, others may make it easier for the function to find the local optima. this problem may be alleviated by using a different fitness function, increasing the rate of mutation, or by using selection techniques that maintain a diverse population of solutions, although the no free lunch theorem proves that there is no general solution to this problem. a common technique to maintain diversity is to impose a "niche penalty", wherein, any group of individuals of sufficient similarity (niche radius) have a penalty added, which will reduce the representation of that group in subsequent generations, permitting other (less similar) individuals to be maintained in the population. this trick, however, may not be effective, depending on the landscape of the problem. another possible technique would be to simply replace part of the population with randomly generated individuals, when most of the population is too similar to each other. diversity is important in genetic algorithms (and genetic programming) because crossing over a homogeneous population does not yield new solutions. in evolution strategies and evolutionary programming, diversity is not essential because of a greater reliance on mutation.
+operating on dynamic data sets is difficult, as genomes begin to converge early on towards solutions which may no longer be valid for later data. several methods have been proposed to remedy this by increasing genetic diversity somehow and preventing early convergence, either by increasing the probability of mutation when the solution quality drops (called triggered hypermutation), or by occasionally introducing entirely new, randomly generated elements into the gene pool (called random immigrants). again, evolution strategies and evolutionary programming can be implemented with a so-called "comma strategy" in which parents are not maintained and new parents are selected only from offspring. this can be more effective on dynamic problems.
+gas cannot effectively solve problems in which the only fitness measure is a single right/wrong measure (like decision problems), as there is no way to converge on the solution (no hill to climb). in these cases, a random search may find a solution as quickly as a ga. however, if the situation allows the success/failure trial to be repeated giving (possibly) different results, then the ratio of successes to failures provides a suitable fitness measure.
+for specific optimization problems and problem instances, other optimization algorithms may be more efficient than genetic algorithms in terms of speed of convergence. alternative and complementary algorithms include evolution strategies, evolutionary programming, simulated annealing, gaussian adaptation, hill climbing, and swarm intelligence (e.g.: ant colony optimization, particle swarm optimization) and methods based on integer linear programming. the suitability of genetic algorithms is dependent on the amount of knowledge of the problem; well known problems often have better, more specialized approaches.
+
+
+== variants ==
+
+
+=== chromosome representation ===
+
+the simplest algorithm represents each chromosome as a bit string. typically, numeric parameters can be represented by integers, though it is possible to use floating point representations. the floating point representation is natural to evolution strategies and evolutionary programming. the notion of real-valued genetic algorithms has been offered but is really a misnomer because it does not really represent the building block theory that was proposed by john henry holland in the 1970s. this theory is not without support though, based on theoretical and experimental results (see below). the basic algorithm performs crossover and mutation at the bit level. other variants treat the chromosome as a list of numbers which are indexes into an instruction table, nodes in a linked list, hashes, objects, or any other imaginable data structure. crossover and mutation are performed so as to respect data element boundaries. for most data types, specific variation operators can be designed. different chromosomal data types seem to work better or worse for different specific problem domains.
+when bit-string representations of integers are used, gray coding is often employed. in this way, small changes in the integer can be readily affected through mutations or crossovers. this has been found to help prevent premature convergence at so-called hamming walls, in which too many simultaneous mutations (or crossover events) must occur in order to change the chromosome to a better solution.
+other approaches involve using arrays of real-valued numbers instead of bit strings to represent chromosomes. results from the theory of schemata suggest that in general the smaller the alphabet, the better the performance, but it was initially surprising to researchers that good results were obtained from using real-valued chromosomes. this was explained as the set of real values in a finite population of chromosomes as forming a virtual alphabet (when selection and recombination are dominant) with a much lower cardinality than would be expected from a floating point representation.an expansion of the genetic algorithm accessible problem domain can be obtained through more complex encoding of the solution pools by concatenating several types of heterogenously encoded genes into one chromosome. this particular approach allows for solving optimization problems that require vastly disparate definition domains for the problem parameters. for instance, in problems of cascaded controller tuning, the internal loop controller structure can belong to a conventional regulator of three parameters, whereas the external loop could implement a linguistic controller (such as a fuzzy system) which has an inherently different description. this particular form of encoding requires a specialized crossover mechanism that recombines the chromosome by section, and it is a useful tool for the modelling and simulation of complex adaptive systems, especially evolution processes.
+
+
+=== elitism ===
+a practical variant of the general process of constructing a new population is to allow the best organism(s) from the current generation to carry over to the next, unaltered. this strategy is known as elitist selection and guarantees that the solution quality obtained by the ga will not decrease from one generation to the next.
+
+
+=== parallel implementations ===
+parallel implementations of genetic algorithms come in two flavors. coarse-grained parallel genetic algorithms assume a population on each of the computer nodes and migration of individuals among the nodes. fine-grained parallel genetic algorithms assume an individual on each processor node which acts with neighboring individuals for selection and reproduction.
+other variants, like genetic algorithms for online optimization problems, introduce time-dependence or noise in the fitness function.
+
+
+=== adaptive gas ===
+genetic algorithms with adaptive parameters (adaptive genetic algorithms, agas) is another significant and promising variant of genetic algorithms. the probabilities of crossover (pc) and mutation (pm) greatly determine the degree of solution accuracy and the convergence speed that genetic algorithms can obtain. instead of using fixed values of pc and pm, agas utilize the population information in each generation and adaptively adjust the pc and pm in order to maintain the population diversity as well as to sustain the convergence capacity. in aga (adaptive genetic algorithm), the adjustment of pc and pm depends on the fitness values of the solutions. in caga (clustering-based adaptive genetic algorithm), through the use of clustering analysis to judge the optimization states of the population, the adjustment of pc and pm depends on these optimization states.
+it can be quite effective to combine ga with other optimization methods. a ga tends to be quite good at finding generally good global solutions, but quite inefficient at finding the last few mutations to find the absolute optimum. other techniques (such as simple hill climbing) are quite efficient at finding absolute optimum in a limited region. alternating ga and hill climbing can improve the efficiency of ga while overcoming the lack of robustness of hill climbing.
+this means that the rules of genetic variation may have a different meaning in the natural case. for instance – provided that steps are stored in consecutive order – crossing over may sum a number of steps from maternal dna adding a number of steps from paternal dna and so on. this is like adding vectors that more probably may follow a ridge in the phenotypic landscape. thus, the efficiency of the process may be increased by many orders of magnitude. moreover, the inversion operator has the opportunity to place steps in consecutive order or any other suitable order in favour of survival or efficiency.a variation, where the population as a whole is evolved rather than its individual members, is known as gene pool recombination.
+a number of variations have been developed to attempt to improve performance of gas on problems with a high degree of fitness epistasis, i.e. where the fitness of a solution consists of interacting subsets of its variables. such algorithms aim to learn (before exploiting) these beneficial phenotypic interactions. as such, they are aligned with the building block hypothesis in adaptively reducing disruptive recombination. prominent examples of this approach include the mga, gemga and llga.
+
+
+== problem domains ==
+problems which appear to be particularly appropriate for solution by genetic algorithms include timetabling and scheduling problems, and many scheduling software packages are based on gas. gas have also been applied to engineering. genetic algorithms are often applied as an approach to solve global optimization problems.
+as a general rule of thumb genetic algorithms might be useful in problem domains that have a complex fitness landscape as mixing, i.e., mutation in combination with crossover, is designed to move the population away from local optima that a traditional hill climbing algorithm might get stuck in. observe that commonly used crossover operators cannot change any uniform population. mutation alone can provide ergodicity of the overall genetic algorithm process (seen as a markov chain).
+examples of problems solved by genetic algorithms include: mirrors designed to funnel sunlight to a solar collector, antennae designed to pick up radio signals in space, walking methods for computer figures, optimal design of aerodynamic bodies in complex flowfieldsin his algorithm design manual, skiena advises against genetic algorithms for any task:
+
+[i]t is quite unnatural to model applications in terms of genetic operators like mutation and crossover on bit strings. the pseudobiology adds another level of complexity between you and your problem. second, genetic algorithms take a very long time on nontrivial problems. [...] [t]he analogy with evolution—where significant progress require [sic] millions of years—can be quite appropriate.
+[...]
+
+i have never encountered any problem where genetic algorithms seemed to me the right way to attack it. further, i have never seen any computational results reported using genetic algorithms that have favorably impressed me. stick to simulated annealing for your heuristic search voodoo needs.
+
+
+== history ==
+in 1950, alan turing proposed a "learning machine" which would parallel the principles of evolution. computer simulation of evolution started as early as in 1954 with the work of nils aall barricelli, who was using the computer at the institute for advanced study in princeton, new jersey. his 1954 publication was not widely noticed. starting in 1957, the australian quantitative geneticist alex fraser published a series of papers on simulation of artificial selection of organisms with multiple loci controlling a measurable trait. from these beginnings, computer simulation of evolution by biologists became more common in the early 1960s, and the methods were described in books by fraser and burnell (1970) and crosby (1973). fraser's simulations included all of the essential elements of modern genetic algorithms. in addition, hans-joachim bremermann published a series of papers in the 1960s that also adopted a population of solution to optimization problems, undergoing recombination, mutation, and selection. bremermann's research also included the elements of modern genetic algorithms. other noteworthy early pioneers include richard friedberg, george friedman, and michael conrad. many early papers are reprinted by fogel (1998).although barricelli, in work he reported in 1963, had simulated the evolution of ability to play a simple game, artificial evolution only became a widely recognized optimization method as a result of the work of ingo rechenberg and hans-paul schwefel in the 1960s and early 1970s – rechenberg's group was able to solve complex engineering problems through evolution strategies. another approach was the evolutionary programming technique of lawrence j. fogel, which was proposed for generating artificial intelligence. evolutionary programming originally used finite state machines for predicting environments, and used variation and selection to optimize the predictive logics. genetic algorithms in particular became popular through the work of john holland in the early 1970s, and particularly his book adaptation in natural and artificial systems (1975). his work originated with studies of cellular automata, conducted by holland and his students at the university of michigan. holland introduced a formalized framework for predicting the quality of the next generation, known as holland's schema theorem. research in gas remained largely theoretical until the mid-1980s, when the first international conference on genetic algorithms was held in pittsburgh, pennsylvania.
+
+
+=== commercial products ===
+in the late 1980s, general electric started selling the world's first genetic algorithm product, a mainframe-based toolkit designed for industrial processes. 
+in 1989, axcelis, inc. released evolver, the world's first commercial ga product for desktop computers. the new york times technology writer john markoff wrote about evolver in 1990, and it remained the only interactive commercial genetic algorithm until 1995. evolver was sold to palisade in 1997, translated into several languages, and is currently in its 6th version. since the 1990s, matlab has built in three derivative-free optimization heuristic algorithms (simulated annealing, particle swarm optimization, genetic algorithm) and two direct search algorithms (simplex search, pattern search).
+
+
+== related techniques ==
+
+
+=== parent fields ===
+genetic algorithms are a sub-field:
+
+evolutionary algorithms
+evolutionary computing
+metaheuristics
+stochastic optimization
+optimization
+
+
+=== related fields ===
+
+
+==== evolutionary algorithms ====
+
+evolutionary algorithms is a sub-field of evolutionary computing.
+
+evolution strategies (es, see rechenberg, 1994) evolve individuals by means of mutation and intermediate or discrete recombination. es algorithms are designed particularly to solve problems in the real-value domain. they use self-adaptation to adjust control parameters of the search. de-randomization of self-adaptation has led to the contemporary covariance matrix adaptation evolution strategy (cma-es).
+evolutionary programming (ep) involves populations of solutions with primarily mutation and selection and arbitrary representations. they use self-adaptation to adjust parameters, and can include other variation operations such as combining information from multiple parents.
+estimation of distribution algorithm (eda) substitutes traditional reproduction operators by model-guided operators. such models are learned from the population by employing machine learning techniques and represented as probabilistic graphical models, from which new solutions can be sampled or generated from guided-crossover.
+genetic programming (gp) is a related technique popularized by john koza in which computer programs, rather than function parameters, are optimized. genetic programming often uses tree-based internal data structures to represent the computer programs for adaptation instead of the list structures typical of genetic algorithms. there are many variants of genetic programming, including cartesian genetic programming, gene expression programming, grammatical evolution, linear genetic programming, multi expression programming etc.
+grouping genetic algorithm (gga) is an evolution of the ga where the focus is shifted from individual items, like in classical gas, to groups or subset of items. the idea behind this ga evolution proposed by emanuel falkenauer is that solving some complex problems, a.k.a. clustering or partitioning problems where a set of items must be split into disjoint group of items in an optimal way, would better be achieved by making characteristics of the groups of items equivalent to genes. these kind of problems include bin packing, line balancing, clustering with respect to a distance measure, equal piles, etc., on which classic gas proved to perform poorly. making genes equivalent to groups implies chromosomes that are in general of variable length, and special genetic operators that manipulate whole groups of items. for bin packing in particular, a gga hybridized with the dominance criterion of martello and toth, is arguably the best technique to date.
+interactive evolutionary algorithms are evolutionary algorithms that use human evaluation. they are usually applied to domains where it is hard to design a computational fitness function, for example, evolving images, music, artistic designs and forms to fit users' aesthetic preference.
+
+
+==== swarm intelligence ====
+
+swarm intelligence is a sub-field of evolutionary computing.
+
+ant colony optimization (aco) uses many ants (or agents) equipped with a pheromone model to traverse the solution space and find locally productive areas.
+although considered an estimation of distribution algorithm, particle swarm optimization (pso) is a computational method for multi-parameter optimization which also uses population-based approach. a population (swarm) of candidate solutions (particles) moves in the search space, and the movement of the particles is influenced both by their own best known position and swarm's global best known position. like genetic algorithms, the pso method depends on information sharing among population members. in some problems the pso is often more computationally efficient than the gas, especially in unconstrained problems with continuous variables.
+
+
+==== other evolutionary computing algorithms ====
+evolutionary computation is a sub-field of the metaheuristic methods.
+
+memetic algorithm (ma), often called hybrid genetic algorithm among others, is a population-based method in which solutions are also subject to local improvement phases. the idea of memetic algorithms comes from memes, which unlike genes, can adapt themselves. in some problem areas they are shown to be more efficient than traditional evolutionary algorithms.
+bacteriologic algorithms (ba) inspired by evolutionary ecology and, more particularly, bacteriologic adaptation. evolutionary ecology is the study of living organisms in the context of their environment, with the aim of discovering how they adapt. its basic concept is that in a heterogeneous environment, there is not one individual that fits the whole environment. so, one needs to reason at the population level. it is also believed bas could be successfully applied to complex positioning problems (antennas for cell phones, urban planning, and so on) or data mining.
+cultural algorithm (ca) consists of the population component almost identical to that of the genetic algorithm and, in addition, a knowledge component called the belief space.
+differential evolution (de) inspired by migration of superorganisms.
+gaussian adaptation (normal or natural adaptation, abbreviated na to avoid confusion with ga) is intended for the maximisation of manufacturing yield of signal processing systems. it may also be used for ordinary parametric optimisation. it relies on a certain theorem valid for all regions of acceptability and all gaussian distributions. the efficiency of na relies on information theory and a certain theorem of efficiency. its efficiency is defined as information divided by the work needed to get the information. because na maximises mean fitness rather than the fitness of the individual, the landscape is smoothed such that valleys between peaks may disappear. therefore it has a certain "ambition" to avoid local peaks in the fitness landscape. na is also good at climbing sharp crests by adaptation of the moment matrix, because na may maximise the disorder (average information) of the gaussian simultaneously keeping the mean fitness constant.
+
+
+==== other metaheuristic methods ====
+metaheuristic methods broadly fall within stochastic optimisation methods.
+
+simulated annealing (sa) is a related global optimization technique that traverses the search space by testing random mutations on an individual solution. a mutation that increases fitness is always accepted. a mutation that lowers fitness is accepted probabilistically based on the difference in fitness and a decreasing temperature parameter. in sa parlance, one speaks of seeking the lowest energy instead of the maximum fitness. sa can also be used within a standard ga algorithm by starting with a relatively high rate of mutation and decreasing it over time along a given schedule.
+tabu search (ts) is similar to simulated annealing in that both traverse the solution space by testing mutations of an individual solution. while simulated annealing generates only one mutated solution, tabu search generates many mutated solutions and moves to the solution with the lowest energy of those generated. in order to prevent cycling and encourage greater movement through the solution space, a tabu list is maintained of partial or complete solutions. it is forbidden to move to a solution that contains elements of the tabu list, which is updated as the solution traverses the solution space.
+extremal optimization (eo) unlike gas, which work with a population of candidate solutions, eo evolves a single solution and makes local modifications to the worst components. this requires that a suitable representation be selected which permits individual solution components to be assigned a quality measure ("fitness"). the governing principle behind this algorithm is that of emergent improvement through selectively removing low-quality components and replacing them with a randomly selected component. this is decidedly at odds with a ga that selects good solutions in an attempt to make better solutions.
+
+
+==== other stochastic optimisation methods ====
+the cross-entropy (ce) method generates candidate solutions via a parameterized probability distribution. the parameters are updated via cross-entropy minimization, so as to generate better samples in the next iteration.
+reactive search optimization (rso) advocates the integration of sub-symbolic machine learning techniques into search heuristics for solving complex optimization problems. the word reactive hints at a ready response to events during the search through an internal online feedback loop for the self-tuning of critical parameters. methodologies of interest for reactive search include machine learning and statistics, in particular reinforcement learning, active or query learning, neural networks, and metaheuristics.
+
+
+== see also ==
+genetic programming
+list of genetic algorithm applications
+genetic algorithms in signal processing (a.k.a. particle filters)
+propagation of schema
+universal darwinism
+metaheuristics
+learning classifier system
+rule-based machine learning
+
+
+== references ==
+
+
+== bibliography ==
+
+
+== external links ==
+
+
+=== resources ===
+[1] provides a list of resources in the genetic algorithms field
+an overview of the history and flavors of evolutionary algorithms
+
+
+=== tutorials ===
+genetic algorithms - computer programs that "evolve" in ways that resemble natural selection can solve complex problems even their creators do not fully understand an excellent introduction to ga by john holland and with an application to the prisoner's dilemma
+an online interactive genetic algorithm tutorial for a reader to practise or learn how a ga works: learn step by step or watch global convergence in batch, change the population size, crossover rates/bounds, mutation rates/bounds and selection mechanisms, and add constraints.
+a genetic algorithm tutorial by darrell whitley computer science department colorado state university an excellent tutorial with much theory
+"essentials of metaheuristics", 2009 (225 p). free open text by sean luke.
+global optimization algorithms – theory and application
+genetic algorithms in python tutorial with the intuition behind gas and python implementation.
+genetic algorithms evolves to solve the prisoner's dilemma. written by robert axelrod.

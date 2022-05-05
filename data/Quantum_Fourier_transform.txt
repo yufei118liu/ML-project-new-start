@@ -1,0 +1,2792 @@
+in quantum computing, the quantum fourier transform (qft) is a linear transformation on quantum bits, and is the quantum analogue of the discrete fourier transform. the quantum fourier transform is a part of many quantum algorithms, notably shor's algorithm for factoring and computing the discrete logarithm, the quantum phase estimation algorithm for estimating the eigenvalues of a unitary operator, and algorithms for the hidden subgroup problem.  the quantum fourier transform was discovered by don coppersmith.the quantum fourier transform can be performed efficiently on a quantum computer, with a particular decomposition into a product of simpler unitary matrices. using a simple decomposition, the discrete fourier transform on 
+  
+    
+      
+        
+          2
+          
+            n
+          
+        
+      
+    
+    {\displaystyle 2^{n}}
+   amplitudes can be implemented as a quantum circuit consisting of only 
+  
+    
+      
+        o
+        (
+        
+          n
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle o(n^{2})}
+   hadamard gates and controlled phase shift gates, where 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   is the number of qubits. this can be compared with the classical discrete fourier transform, which takes 
+  
+    
+      
+        o
+        (
+        n
+        
+          2
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle o(n2^{n})}
+   gates (where 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   is the number of bits), which is exponentially more than 
+  
+    
+      
+        o
+        (
+        
+          n
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle o(n^{2})}
+  . 
+the quantum fourier transform acts on a quantum state, whereas the classical fourier transform acts on a vector. both the vector in the classical case, and the quantum state, can be written as arrays of numbers, in the quantum case a sequence of probability amplitudes. because measurement of the quantum state only results in a single value, not every task that uses the classical fourier transform can take advantage of the quantum fourier transform's exponential speedup.
+the best quantum fourier transform algorithms known (as of late 2000) require only 
+  
+    
+      
+        o
+        (
+        n
+        log
+        ⁡
+        n
+        )
+      
+    
+    {\displaystyle o(n\log n)}
+   gates to achieve an efficient approximation.
+
+
+== definition ==
+the quantum fourier transform is the classical discrete fourier transform applied to the vector of amplitudes of a quantum state, where we usually consider vectors of length 
+  
+    
+      
+        n
+        =
+        
+          2
+          
+            n
+          
+        
+      
+    
+    {\displaystyle n=2^{n}}
+  .
+the classical fourier transform acts on a vector 
+  
+    
+      
+        (
+        
+          x
+          
+            0
+          
+        
+        ,
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+            −
+            1
+          
+        
+        )
+        ∈
+        
+          
+            c
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle (x_{0},x_{1},\ldots ,x_{n-1})\in \mathbb {c} ^{n}}
+   and maps it to the vector
+
+  
+    
+      
+        (
+        
+          y
+          
+            0
+          
+        
+        ,
+        
+          y
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          y
+          
+            n
+            −
+            1
+          
+        
+        )
+        ∈
+        
+          
+            c
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle (y_{0},y_{1},\ldots ,y_{n-1})\in \mathbb {c} ^{n}}
+   according to the formula:
+
+  
+    
+      
+        
+          y
+          
+            k
+          
+        
+        =
+        
+          
+            1
+            
+              n
+            
+          
+        
+        
+          ∑
+          
+            n
+            =
+            0
+          
+          
+            n
+            −
+            1
+          
+        
+        
+          x
+          
+            n
+          
+        
+        
+          ω
+          
+            n
+          
+          
+            −
+            k
+            n
+          
+        
+        ,
+        
+        k
+        =
+        0
+        ,
+        1
+        ,
+        2
+        ,
+        …
+        ,
+        n
+        −
+        1
+        ,
+      
+    
+    {\displaystyle y_{k}={\frac {1}{\sqrt {n}}}\sum _{n=0}^{n-1}x_{n}\omega _{n}^{-kn},\quad k=0,1,2,\ldots ,n-1,}
+  where 
+  
+    
+      
+        
+          ω
+          
+            n
+          
+        
+        =
+        
+          e
+          
+            
+              
+                2
+                π
+                i
+              
+              n
+            
+          
+        
+      
+    
+    {\displaystyle \omega _{n}=e^{\frac {2\pi i}{n}}}
+   and 
+  
+    
+      
+        
+          ω
+          
+            n
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \omega _{n}^{n}}
+   is an n-th root of unity.
+similarly, the quantum fourier transform acts on a quantum state 
+  
+    
+      
+        
+          |
+        
+        x
+        ⟩
+        =
+        
+          ∑
+          
+            i
+            =
+            0
+          
+          
+            n
+            −
+            1
+          
+        
+        
+          x
+          
+            i
+          
+        
+        
+          |
+        
+        i
+        ⟩
+      
+    
+    {\textstyle |x\rangle =\sum _{i=0}^{n-1}x_{i}|i\rangle }
+   and maps it to a quantum state 
+  
+    
+      
+        
+          ∑
+          
+            i
+            =
+            0
+          
+          
+            n
+            −
+            1
+          
+        
+        
+          y
+          
+            i
+          
+        
+        
+          |
+        
+        i
+        ⟩
+      
+    
+    {\textstyle \sum _{i=0}^{n-1}y_{i}|i\rangle }
+   according to the formula:
+
+  
+    
+      
+        
+          y
+          
+            k
+          
+        
+        =
+        
+          
+            1
+            
+              n
+            
+          
+        
+        
+          ∑
+          
+            n
+            =
+            0
+          
+          
+            n
+            −
+            1
+          
+        
+        
+          x
+          
+            n
+          
+        
+        
+          ω
+          
+            n
+          
+          
+            n
+            k
+          
+        
+        ,
+        
+        k
+        =
+        0
+        ,
+        1
+        ,
+        2
+        ,
+        …
+        ,
+        n
+        −
+        1
+        ,
+      
+    
+    {\displaystyle y_{k}={\frac {1}{\sqrt {n}}}\sum _{n=0}^{n-1}x_{n}\omega _{n}^{nk},\quad k=0,1,2,\ldots ,n-1,}
+  (conventions for the sign of the phase factor exponent vary; here we use the convention that the quantum fourier transform has the same effect as the inverse discrete fourier transform, and vice versa.)
+since 
+  
+    
+      
+        
+          ω
+          
+            n
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \omega _{n}^{n}}
+   is a rotation, the inverse quantum fourier transform acts similarly but with:
+
+  
+    
+      
+        
+          x
+          
+            n
+          
+        
+        =
+        
+          
+            1
+            
+              n
+            
+          
+        
+        
+          ∑
+          
+            k
+            =
+            0
+          
+          
+            n
+            −
+            1
+          
+        
+        
+          y
+          
+            k
+          
+        
+        
+          ω
+          
+            n
+          
+          
+            −
+            n
+            k
+          
+        
+        ,
+        
+        n
+        =
+        0
+        ,
+        1
+        ,
+        2
+        ,
+        …
+        ,
+        n
+        −
+        1
+        ,
+      
+    
+    {\displaystyle x_{n}={\frac {1}{\sqrt {n}}}\sum _{k=0}^{n-1}y_{k}\omega _{n}^{-nk},\quad n=0,1,2,\ldots ,n-1,}
+  in case that 
+  
+    
+      
+        
+          |
+        
+        x
+        ⟩
+      
+    
+    {\displaystyle |x\rangle }
+   is a basis state, the quantum fourier transform can also be expressed as the map
+
+  
+    
+      
+        
+          qft
+        
+        :
+        
+          |
+        
+        x
+        ⟩
+        ↦
+        
+          
+            1
+            
+              n
+            
+          
+        
+        
+          ∑
+          
+            k
+            =
+            0
+          
+          
+            n
+            −
+            1
+          
+        
+        
+          ω
+          
+            n
+          
+          
+            x
+            k
+          
+        
+        
+          |
+        
+        k
+        ⟩
+        .
+      
+    
+    {\displaystyle {\text{qft}}:|x\rangle \mapsto {\frac {1}{\sqrt {n}}}\sum _{k=0}^{n-1}\omega _{n}^{xk}|k\rangle .}
+  equivalently, the quantum fourier transform can be viewed as a unitary matrix (or a quantum gate, similar to a boolean logic gate for classical computers) acting on quantum state vectors, where the unitary matrix 
+  
+    
+      
+        
+          f
+          
+            n
+          
+        
+      
+    
+    {\displaystyle f_{n}}
+   is given by
+
+  
+    
+      
+        
+          f
+          
+            n
+          
+        
+        =
+        
+          
+            1
+            
+              n
+            
+          
+        
+        
+          
+            [
+            
+              
+                
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  ⋯
+                
+                
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  ω
+                
+                
+                  
+                    ω
+                    
+                      2
+                    
+                  
+                
+                
+                  
+                    ω
+                    
+                      3
+                    
+                  
+                
+                
+                  ⋯
+                
+                
+                  
+                    ω
+                    
+                      n
+                      −
+                      1
+                    
+                  
+                
+              
+              
+                
+                  1
+                
+                
+                  
+                    ω
+                    
+                      2
+                    
+                  
+                
+                
+                  
+                    ω
+                    
+                      4
+                    
+                  
+                
+                
+                  
+                    ω
+                    
+                      6
+                    
+                  
+                
+                
+                  ⋯
+                
+                
+                  
+                    ω
+                    
+                      2
+                      (
+                      n
+                      −
+                      1
+                      )
+                    
+                  
+                
+              
+              
+                
+                  1
+                
+                
+                  
+                    ω
+                    
+                      3
+                    
+                  
+                
+                
+                  
+                    ω
+                    
+                      6
+                    
+                  
+                
+                
+                  
+                    ω
+                    
+                      9
+                    
+                  
+                
+                
+                  ⋯
+                
+                
+                  
+                    ω
+                    
+                      3
+                      (
+                      n
+                      −
+                      1
+                      )
+                    
+                  
+                
+              
+              
+                
+                  ⋮
+                
+                
+                  ⋮
+                
+                
+                  ⋮
+                
+                
+                  ⋮
+                
+                
+                
+                  ⋮
+                
+              
+              
+                
+                  1
+                
+                
+                  
+                    ω
+                    
+                      n
+                      −
+                      1
+                    
+                  
+                
+                
+                  
+                    ω
+                    
+                      2
+                      (
+                      n
+                      −
+                      1
+                      )
+                    
+                  
+                
+                
+                  
+                    ω
+                    
+                      3
+                      (
+                      n
+                      −
+                      1
+                      )
+                    
+                  
+                
+                
+                  ⋯
+                
+                
+                  
+                    ω
+                    
+                      (
+                      n
+                      −
+                      1
+                      )
+                      (
+                      n
+                      −
+                      1
+                      )
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+      
+    
+    {\displaystyle f_{n}={\frac {1}{\sqrt {n}}}{\begin{bmatrix}1&1&1&1&\cdots &1\\1&\omega &\omega ^{2}&\omega ^{3}&\cdots &\omega ^{n-1}\\1&\omega ^{2}&\omega ^{4}&\omega ^{6}&\cdots &\omega ^{2(n-1)}\\1&\omega ^{3}&\omega ^{6}&\omega ^{9}&\cdots &\omega ^{3(n-1)}\\\vdots &\vdots &\vdots &\vdots &&\vdots \\1&\omega ^{n-1}&\omega ^{2(n-1)}&\omega ^{3(n-1)}&\cdots &\omega ^{(n-1)(n-1)}\end{bmatrix}}}
+  where 
+  
+    
+      
+        ω
+        =
+        
+          ω
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \omega =\omega _{n}}
+  . we get, for example, in the case of 
+  
+    
+      
+        n
+        =
+        4
+        =
+        
+          2
+          
+            2
+          
+        
+      
+    
+    {\displaystyle n=4=2^{2}}
+   and phase 
+  
+    
+      
+        ω
+        =
+        i
+      
+    
+    {\displaystyle \omega =i}
+   the transformation matrix
+
+  
+    
+      
+        
+          f
+          
+            4
+          
+        
+        =
+        
+          
+            1
+            2
+          
+        
+        
+          
+            [
+            
+              
+                
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  i
+                
+                
+                  −
+                  1
+                
+                
+                  −
+                  i
+                
+              
+              
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  −
+                  i
+                
+                
+                  −
+                  1
+                
+                
+                  i
+                
+              
+            
+            ]
+          
+        
+      
+    
+    {\displaystyle f_{4}={\frac {1}{2}}{\begin{bmatrix}1&1&1&1\\1&i&-1&-i\\1&-1&1&-1\\1&-i&-1&i\end{bmatrix}}}
+  
+
+
+== properties ==
+
+
+=== unitarity ===
+most of the properties of the quantum fourier transform follow from the fact that it is a unitary transformation. this can be checked by performing matrix multiplication and ensuring that the relation 
+  
+    
+      
+        f
+        
+          f
+          
+            †
+          
+        
+        =
+        
+          f
+          
+            †
+          
+        
+        f
+        =
+        i
+      
+    
+    {\displaystyle ff^{\dagger }=f^{\dagger }f=i}
+   holds, where 
+  
+    
+      
+        
+          f
+          
+            †
+          
+        
+      
+    
+    {\displaystyle f^{\dagger }}
+   is the hermitian adjoint of 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+  . alternately, one can check that orthogonal vectors of norm 1 get mapped to orthogonal vectors of norm 1.
+from the unitary property it follows that the inverse of the quantum fourier transform is the hermitian adjoint of the fourier matrix, thus 
+  
+    
+      
+        
+          f
+          
+            −
+            1
+          
+        
+        =
+        
+          f
+          
+            †
+          
+        
+      
+    
+    {\displaystyle f^{-1}=f^{\dagger }}
+  . since there is an efficient quantum circuit implementing the quantum fourier transform, the circuit can be run in reverse to perform the inverse quantum fourier transform. thus both transforms can be efficiently performed on a quantum computer.
+
+
+== circuit implementation ==
+the quantum gates used in the circuit are the hadamard gate and the controlled phase gate 
+  
+    
+      
+        
+          r
+          
+            m
+          
+        
+      
+    
+    {\displaystyle r_{m}}
+  , here in terms of
+
+  
+    
+      
+        h
+        =
+        
+          
+            1
+            
+              2
+            
+          
+        
+        
+          
+            (
+            
+              
+                
+                  1
+                
+                
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  −
+                  1
+                
+              
+            
+            )
+          
+        
+        
+        
+          and
+        
+        
+        
+          r
+          
+            m
+          
+        
+        =
+        
+          
+            (
+            
+              
+                
+                  1
+                
+                
+                  0
+                
+              
+              
+                
+                  0
+                
+                
+                  
+                    e
+                    
+                      2
+                      π
+                      i
+                      
+                        /
+                      
+                      
+                        2
+                        
+                          m
+                        
+                      
+                    
+                  
+                
+              
+            
+            )
+          
+        
+      
+    
+    {\displaystyle h={\frac {1}{\sqrt {2}}}{\begin{pmatrix}1&1\\1&-1\end{pmatrix}}\qquad {\text{and}}\qquad r_{m}={\begin{pmatrix}1&0\\0&e^{2\pi i/2^{m}}\end{pmatrix}}}
+  with 
+  
+    
+      
+        
+          e
+          
+            2
+            π
+            i
+            
+              /
+            
+            
+              2
+              
+                m
+              
+            
+          
+        
+        =
+        
+          ω
+          
+            m
+          
+          ′
+        
+        =
+        
+          ω
+          
+            
+              (
+              
+                2
+                
+                  m
+                
+              
+              )
+            
+          
+        
+      
+    
+    {\displaystyle e^{2\pi i/2^{m}}=\omega _{m}'=\omega _{\left(2^{m}\right)}}
+   the primitive 
+  
+    
+      
+        
+          2
+          
+            m
+          
+        
+      
+    
+    {\displaystyle 2^{m}}
+  -th root of unity. the circuit is composed of 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   gates and the controlled version of 
+  
+    
+      
+        
+          r
+          
+            m
+          
+        
+      
+    
+    {\displaystyle r_{m}}
+  
+
+as already stated, we assume 
+  
+    
+      
+        n
+        =
+        
+          2
+          
+            n
+          
+        
+      
+    
+    {\displaystyle n=2^{n}}
+  .  we have the orthonormal basis consisting of the vectors 
+
+  
+    
+      
+        
+          |
+        
+        0
+        ⟩
+        ,
+        …
+        ,
+        
+          |
+        
+        
+          2
+          
+            n
+          
+        
+        −
+        1
+        ⟩
+        .
+      
+    
+    {\displaystyle |0\rangle ,\ldots ,|2^{n}-1\rangle .}
+  the basis states enumerate all the possible states of the qubits:
+
+  
+    
+      
+        
+          |
+        
+        x
+        ⟩
+        =
+        
+          |
+        
+        
+          x
+          
+            1
+          
+        
+        
+          x
+          
+            2
+          
+        
+        …
+        
+          x
+          
+            n
+          
+        
+        ⟩
+        =
+        
+          |
+        
+        
+          x
+          
+            1
+          
+        
+        ⟩
+        ⊗
+        
+          |
+        
+        
+          x
+          
+            2
+          
+        
+        ⟩
+        ⊗
+        ⋯
+        ⊗
+        
+          |
+        
+        
+          x
+          
+            n
+          
+        
+        ⟩
+      
+    
+    {\displaystyle |x\rangle =|x_{1}x_{2}\ldots x_{n}\rangle =|x_{1}\rangle \otimes |x_{2}\rangle \otimes \cdots \otimes |x_{n}\rangle }
+  where, with tensor product notation 
+  
+    
+      
+        ⊗
+      
+    
+    {\displaystyle \otimes }
+  , 
+  
+    
+      
+        
+          |
+        
+        
+          x
+          
+            j
+          
+        
+        ⟩
+      
+    
+    {\displaystyle |x_{j}\rangle }
+   indicates that qubit 
+  
+    
+      
+        j
+      
+    
+    {\displaystyle j}
+   is in state 
+  
+    
+      
+        
+          x
+          
+            j
+          
+        
+      
+    
+    {\displaystyle x_{j}}
+  , with 
+  
+    
+      
+        
+          x
+          
+            j
+          
+        
+      
+    
+    {\displaystyle x_{j}}
+   either 0 or 1.  by convention, the basis state index 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   is the binary number encoded by the 
+  
+    
+      
+        
+          x
+          
+            j
+          
+        
+      
+    
+    {\displaystyle x_{j}}
+  , with 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+      
+    
+    {\displaystyle x_{1}}
+   the most significant bit. with this convention, we may write the quantum fourier transform as:
+
+  
+    
+      
+        
+          qft
+        
+        (
+        
+          |
+        
+        x
+        ⟩
+        )
+        =
+        
+          
+            1
+            
+              n
+            
+          
+        
+        
+          ⨂
+          
+            j
+            =
+            1
+          
+          
+            n
+          
+        
+        
+          (
+          
+            
+              |
+            
+            0
+            ⟩
+            +
+            
+              ω
+              
+                n
+              
+              
+                ′
+                
+                  x
+                  
+                    2
+                    
+                      n
+                      −
+                      j
+                    
+                  
+                
+              
+            
+            
+              |
+            
+            1
+            ⟩
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle {\text{qft}}(|x\rangle )={\frac {1}{\sqrt {n}}}\bigotimes _{j=1}^{n}\left(|0\rangle +\omega _{n}'^{x2^{n-j}}|1\rangle \right).}
+  it is also useful to borrow fractional binary notation:
+
+  
+    
+      
+        [
+        0.
+        
+          x
+          
+            1
+          
+        
+        …
+        
+          x
+          
+            m
+          
+        
+        ]
+        =
+        
+          ∑
+          
+            k
+            =
+            1
+          
+          
+            m
+          
+        
+        
+          x
+          
+            k
+          
+        
+        
+          2
+          
+            −
+            k
+          
+        
+        .
+      
+    
+    {\displaystyle [0.x_{1}\ldots x_{m}]=\sum _{k=1}^{m}x_{k}2^{-k}.}
+  with this notation, the action of the quantum fourier transform can be expressed in a compact manner:
+
+  
+    
+      
+        
+          qft
+        
+        (
+        
+          |
+        
+        
+          x
+          
+            1
+          
+        
+        
+          x
+          
+            2
+          
+        
+        …
+        
+          x
+          
+            n
+          
+        
+        ⟩
+        )
+        =
+        
+          
+            1
+            
+              n
+            
+          
+        
+         
+        
+          (
+          
+            
+              |
+            
+            0
+            ⟩
+            +
+            
+              e
+              
+                2
+                π
+                i
+                
+                [
+                0.
+                
+                  x
+                  
+                    n
+                  
+                
+                ]
+              
+            
+            
+              |
+            
+            1
+            ⟩
+          
+          )
+        
+        ⊗
+        
+          (
+          
+            
+              |
+            
+            0
+            ⟩
+            +
+            
+              e
+              
+                2
+                π
+                i
+                
+                [
+                0.
+                
+                  x
+                  
+                    n
+                    −
+                    1
+                  
+                
+                
+                  x
+                  
+                    n
+                  
+                
+                ]
+              
+            
+            
+              |
+            
+            1
+            ⟩
+          
+          )
+        
+        ⊗
+        ⋯
+        ⊗
+        
+          (
+          
+            
+              |
+            
+            0
+            ⟩
+            +
+            
+              e
+              
+                2
+                π
+                i
+                
+                [
+                0.
+                
+                  x
+                  
+                    1
+                  
+                
+                
+                  x
+                  
+                    2
+                  
+                
+                …
+                
+                  x
+                  
+                    n
+                  
+                
+                ]
+              
+            
+            
+              |
+            
+            1
+            ⟩
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle {\text{qft}}(|x_{1}x_{2}\ldots x_{n}\rangle )={\frac {1}{\sqrt {n}}}\ \left(|0\rangle +e^{2\pi i\,[0.x_{n}]}|1\rangle \right)\otimes \left(|0\rangle +e^{2\pi i\,[0.x_{n-1}x_{n}]}|1\rangle \right)\otimes \cdots \otimes \left(|0\rangle +e^{2\pi i\,[0.x_{1}x_{2}\ldots x_{n}]}|1\rangle \right).}
+  to obtain this state from the circuit depicted above, a swap operation of the qubits must be performed to reverse their order. at most 
+  
+    
+      
+        n
+        
+          /
+        
+        2
+      
+    
+    {\displaystyle n/2}
+   swaps are required.in other words, the discrete fourier transform, an operation on n qubits, can be factored into the tensor product of n single-qubit operations, suggesting it is easily represented as a quantum circuit (up to an order reversal of the output). in fact, each of those single-qubit operations can be implemented efficiently using a hadamard gate and controlled phase gates. the first term requires one hadamard gate and 
+  
+    
+      
+        (
+        n
+        −
+        1
+        )
+      
+    
+    {\displaystyle (n-1)}
+   controlled phase gates, the next one requires a hadamard gate and 
+  
+    
+      
+        (
+        n
+        −
+        2
+        )
+      
+    
+    {\displaystyle (n-2)}
+   controlled phase gate, and each following term requires one fewer controlled phase gate. summing up the number of gates, excluding the ones needed for the output reversal, gives 
+  
+    
+      
+        n
+        +
+        (
+        n
+        −
+        1
+        )
+        +
+        ⋯
+        +
+        1
+        =
+        n
+        (
+        n
+        +
+        1
+        )
+        
+          /
+        
+        2
+        =
+        o
+        (
+        
+          n
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle n+(n-1)+\cdots +1=n(n+1)/2=o(n^{2})}
+   gates, which is quadratic polynomial in the number of qubits.
+
+
+== example ==
+consider the quantum fourier transform on 3 qubits. it is the following transformation:
+
+  
+    
+      
+        
+          qft
+        
+        :
+        
+          |
+        
+        x
+        ⟩
+        ↦
+        
+          
+            1
+            
+              
+                2
+                
+                  3
+                
+              
+            
+          
+        
+        
+          ∑
+          
+            k
+            =
+            0
+          
+          
+            
+              2
+              
+                3
+              
+            
+            −
+            1
+          
+        
+        
+          ω
+          
+            3
+          
+          
+            ′
+            
+              x
+              k
+            
+          
+        
+        
+          |
+        
+        k
+        ⟩
+        ,
+      
+    
+    {\displaystyle {\text{qft}}:|x\rangle \mapsto {\frac {1}{\sqrt {2^{3}}}}\sum _{k=0}^{2^{3}-1}\omega _{3}'^{xk}|k\rangle ,}
+  where 
+  
+    
+      
+        
+          ω
+          
+            3
+          
+          ′
+        
+        =
+        
+          ω
+          
+            
+              (
+              
+                2
+                
+                  3
+                
+              
+              )
+            
+          
+        
+      
+    
+    {\displaystyle \omega _{3}'=\omega _{\left(2^{3}\right)}}
+   is a primitive eighth root of unity satisfying 
+  
+    
+      
+        
+          ω
+          
+            3
+          
+          
+            ′
+            
+              8
+            
+          
+        
+        =
+        
+          
+            (
+            
+              e
+              
+                
+                  
+                    2
+                    π
+                    i
+                  
+                  
+                    2
+                    
+                      3
+                    
+                  
+                
+              
+            
+            )
+          
+          
+            8
+          
+        
+        =
+        1
+      
+    
+    {\displaystyle \omega _{3}'^{8}=\left(e^{\frac {2\pi i}{2^{3}}}\right)^{8}=1}
+   (since 
+  
+    
+      
+        n
+        =
+        
+          2
+          
+            3
+          
+        
+        =
+        8
+      
+    
+    {\displaystyle n=2^{3}=8}
+  ).
+for short, setting 
+  
+    
+      
+        ω
+        =
+        
+          ω
+          
+            3
+          
+          ′
+        
+        =
+        
+          ω
+          
+            8
+          
+        
+      
+    
+    {\displaystyle \omega =\omega _{3}'=\omega _{8}}
+  , the matrix representation of this transformation on 3 qubits is:
+
+  
+    
+      
+        
+          f
+          
+            
+              2
+              
+                3
+              
+            
+          
+        
+        =
+        
+          
+            1
+            
+              
+                2
+                
+                  3
+                
+              
+            
+          
+        
+        
+          
+            [
+            
+              
+                
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  ω
+                
+                
+                  
+                    ω
+                    
+                      2
+                    
+                  
+                
+                
+                  
+                    ω
+                    
+                      3
+                    
+                  
+                
+                
+                  
+                    ω
+                    
+                      4
+                    
+                  
+                
+                
+                  
+                    ω
+                    
+                      5
+                    
+                  
+                
+                
+                  
+                    ω
+                    
+                      6
+                    
+                  
+                
+                
+                  
+                    ω
+                    
+                      7
+                    
+                  
+                
+              
+              
+                
+                  1
+                
+                
+                  
+                    ω
+                    
+                      2
+                    
+                  
+                
+                
+                  
+                    ω
+                    
+                      4
+                    
+                  
+                
+                
+                  
+                    ω
+                    
+                      6
+                    
+                  
+                
+                
+                  1
+                
+                
+                  
+                    ω
+                    
+                      2
+                    
+                  
+                
+                
+                  
+                    ω
+                    
+                      4
+                    
+                  
+                
+                
+                  
+                    ω
+                    
+                      6
+                    
+                  
+                
+              
+              
+                
+                  1
+                
+                
+                  
+                    ω
+                    
+                      3
+                    
+                  
+                
+                
+                  
+                    ω
+                    
+                      6
+                    
+                  
+                
+                
+                  ω
+                
+                
+                  
+                    ω
+                    
+                      4
+                    
+                  
+                
+                
+                  
+                    ω
+                    
+                      7
+                    
+                  
+                
+                
+                  
+                    ω
+                    
+                      2
+                    
+                  
+                
+                
+                  
+                    ω
+                    
+                      5
+                    
+                  
+                
+              
+              
+                
+                  1
+                
+                
+                  
+                    ω
+                    
+                      4
+                    
+                  
+                
+                
+                  1
+                
+                
+                  
+                    ω
+                    
+                      4
+                    
+                  
+                
+                
+                  1
+                
+                
+                  
+                    ω
+                    
+                      4
+                    
+                  
+                
+                
+                  1
+                
+                
+                  
+                    ω
+                    
+                      4
+                    
+                  
+                
+              
+              
+                
+                  1
+                
+                
+                  
+                    ω
+                    
+                      5
+                    
+                  
+                
+                
+                  
+                    ω
+                    
+                      2
+                    
+                  
+                
+                
+                  
+                    ω
+                    
+                      7
+                    
+                  
+                
+                
+                  
+                    ω
+                    
+                      4
+                    
+                  
+                
+                
+                  ω
+                
+                
+                  
+                    ω
+                    
+                      6
+                    
+                  
+                
+                
+                  
+                    ω
+                    
+                      3
+                    
+                  
+                
+              
+              
+                
+                  1
+                
+                
+                  
+                    ω
+                    
+                      6
+                    
+                  
+                
+                
+                  
+                    ω
+                    
+                      4
+                    
+                  
+                
+                
+                  
+                    ω
+                    
+                      2
+                    
+                  
+                
+                
+                  1
+                
+                
+                  
+                    ω
+                    
+                      6
+                    
+                  
+                
+                
+                  
+                    ω
+                    
+                      4
+                    
+                  
+                
+                
+                  
+                    ω
+                    
+                      2
+                    
+                  
+                
+              
+              
+                
+                  1
+                
+                
+                  
+                    ω
+                    
+                      7
+                    
+                  
+                
+                
+                  
+                    ω
+                    
+                      6
+                    
+                  
+                
+                
+                  
+                    ω
+                    
+                      5
+                    
+                  
+                
+                
+                  
+                    ω
+                    
+                      4
+                    
+                  
+                
+                
+                  
+                    ω
+                    
+                      3
+                    
+                  
+                
+                
+                  
+                    ω
+                    
+                      2
+                    
+                  
+                
+                
+                  ω
+                
+              
+            
+            ]
+          
+        
+        .
+      
+    
+    {\displaystyle f_{2^{3}}={\frac {1}{\sqrt {2^{3}}}}{\begin{bmatrix}1&1&1&1&1&1&1&1\\1&\omega &\omega ^{2}&\omega ^{3}&\omega ^{4}&\omega ^{5}&\omega ^{6}&\omega ^{7}\\1&\omega ^{2}&\omega ^{4}&\omega ^{6}&1&\omega ^{2}&\omega ^{4}&\omega ^{6}\\1&\omega ^{3}&\omega ^{6}&\omega &\omega ^{4}&\omega ^{7}&\omega ^{2}&\omega ^{5}\\1&\omega ^{4}&1&\omega ^{4}&1&\omega ^{4}&1&\omega ^{4}\\1&\omega ^{5}&\omega ^{2}&\omega ^{7}&\omega ^{4}&\omega &\omega ^{6}&\omega ^{3}\\1&\omega ^{6}&\omega ^{4}&\omega ^{2}&1&\omega ^{6}&\omega ^{4}&\omega ^{2}\\1&\omega ^{7}&\omega ^{6}&\omega ^{5}&\omega ^{4}&\omega ^{3}&\omega ^{2}&\omega \\\end{bmatrix}}.}
+  the 3-qubit quantum fourier transform can be rewritten as:
+
+  
+    
+      
+        
+          qft
+        
+        (
+        
+          |
+        
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        ,
+        
+          x
+          
+            3
+          
+        
+        ⟩
+        )
+        =
+        
+          
+            1
+            
+              
+                2
+                
+                  3
+                
+              
+            
+          
+        
+         
+        
+          (
+          
+            
+              |
+            
+            0
+            ⟩
+            +
+            
+              e
+              
+                2
+                π
+                i
+                
+                [
+                0.
+                
+                  x
+                  
+                    3
+                  
+                
+                ]
+              
+            
+            
+              |
+            
+            1
+            ⟩
+          
+          )
+        
+        ⊗
+        
+          (
+          
+            
+              |
+            
+            0
+            ⟩
+            +
+            
+              e
+              
+                2
+                π
+                i
+                
+                [
+                0.
+                
+                  x
+                  
+                    2
+                  
+                
+                
+                  x
+                  
+                    3
+                  
+                
+                ]
+              
+            
+            
+              |
+            
+            1
+            ⟩
+          
+          )
+        
+        ⊗
+        
+          (
+          
+            
+              |
+            
+            0
+            ⟩
+            +
+            
+              e
+              
+                2
+                π
+                i
+                
+                [
+                0.
+                
+                  x
+                  
+                    1
+                  
+                
+                
+                  x
+                  
+                    2
+                  
+                
+                
+                  x
+                  
+                    3
+                  
+                
+                ]
+              
+            
+            
+              |
+            
+            1
+            ⟩
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle {\text{qft}}(|x_{1},x_{2},x_{3}\rangle )={\frac {1}{\sqrt {2^{3}}}}\ \left(|0\rangle +e^{2\pi i\,[0.x_{3}]}|1\rangle \right)\otimes \left(|0\rangle +e^{2\pi i\,[0.x_{2}x_{3}]}|1\rangle \right)\otimes \left(|0\rangle +e^{2\pi i\,[0.x_{1}x_{2}x_{3}]}|1\rangle \right).}
+  in the following sketch, we have the respective circuit for 
+  
+    
+      
+        n
+        =
+        3
+      
+    
+    {\displaystyle n=3}
+   (with wrong order of output qubits with respect to the proper qft):
+
+as calculated above, the number of gates used is 
+  
+    
+      
+        n
+        (
+        n
+        +
+        1
+        )
+        
+          /
+        
+        2
+      
+    
+    {\displaystyle n(n+1)/2}
+   which is equal to 
+  
+    
+      
+        6
+      
+    
+    {\displaystyle 6}
+  , for 
+  
+    
+      
+        n
+        =
+        3
+      
+    
+    {\displaystyle n=3}
+  .
+
+
+== relation to quantum hadamard transform ==
+
+using the generalized fourier transform on finite (abelian) groups, there are actually two natural ways to define a quantum fourier transform on an n-qubit quantum register. the qft as defined above is equivalent to the dft, which considers these n qubits as indexed by the cyclic group 
+  
+    
+      
+        
+          z
+        
+        
+          /
+        
+        
+          2
+          
+            n
+          
+        
+        
+          z
+        
+      
+    
+    {\displaystyle \mathbb {z} /2^{n}\mathbb {z} }
+  . however, it also makes sense to consider the qubits as indexed by the boolean group 
+  
+    
+      
+        (
+        
+          z
+        
+        
+          /
+        
+        2
+        
+          z
+        
+        
+          )
+          
+            n
+          
+        
+      
+    
+    {\displaystyle (\mathbb {z} /2\mathbb {z} )^{n}}
+  , and in this case the fourier transform is the hadamard transform. this is achieved by applying a hadamard gate to each of the n qubits in parallel. note that shor's algorithm uses both types of fourier transforms, both an initial hadamard transform as well as a qft.
+
+
+== references ==
+
+k. r. parthasarathy, lectures on quantum computation and quantum error correcting codes (indian statistical institute, delhi center, june 2001)
+john preskill, lecture notes for physics 229: quantum information and computation (cit, september 1998)
+
+
+== external links ==
+wolfram demonstration project: quantum circuit implementing grover's search algorithm
+wolfram demonstration project: quantum circuit implementing quantum fourier transform
+quirk online life quantum fourier transform

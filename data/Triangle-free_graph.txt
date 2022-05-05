@@ -1,0 +1,380 @@
+in the mathematical area of graph theory, a triangle-free graph is an undirected graph in which no three vertices form a triangle of edges. triangle-free graphs may be equivalently defined as graphs with clique number ≤ 2, graphs with girth ≥ 4, graphs with no induced 3-cycle, or locally independent graphs.
+
+by turán's theorem, the n-vertex triangle-free graph with the maximum number of edges is a complete bipartite graph in which the numbers of vertices on each side of the bipartition are as equal as possible.
+
+
+== triangle finding problem ==
+the triangle finding problem is the problem of determining whether a graph is triangle-free or not. when the graph does contain a triangle, algorithms are often required to output three vertices which form a triangle in the graph.
+it is possible to test whether a graph with m edges is triangle-free in time o(m1.41). another approach is to find the trace of a3, where a is the adjacency matrix of the graph. the trace is zero if and only if the graph is triangle-free. for dense graphs, it is more efficient to use this simple algorithm which relies on matrix multiplication, since it gets the time complexity down to o(n2.373), where n is the number of vertices.
+as imrich, klavžar & mulder (1999) showed, triangle-free graph recognition is equivalent in complexity to median graph recognition; however, the current best algorithms for median graph recognition use triangle detection as a subroutine rather than vice versa.
+the decision tree complexity or query complexity of the problem, where the queries are to an oracle which stores the adjacency matrix of a graph, is θ(n2). however, for quantum algorithms, the best known lower bound is ω(n), but the best known algorithm is o(n5/4).
+
+
+== independence number and ramsey theory ==
+an independent set of √n vertices in an n-vertex triangle-free graph is easy to find: either there is a vertex with more than √n neighbors (in which case those neighbors are an independent set) or all vertices have less than √n neighbors (in which case any maximal independent set must have at least √n vertices). this bound can be tightened slightly: in every triangle-free graph there exists an independent set of 
+  
+    
+      
+        ω
+        (
+        
+          
+            n
+            log
+            ⁡
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle \omega ({\sqrt {n\log n}})}
+   vertices, and in some triangle-free graphs every independent set has 
+  
+    
+      
+        o
+        (
+        
+          
+            n
+            log
+            ⁡
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle o({\sqrt {n\log n}})}
+   vertices. one way to generate triangle-free graphs in which all independent sets are small is the triangle-free process in which one generates a maximal triangle-free graph by repeatedly adding randomly chosen edges that do not complete a triangle. with high probability, this process produces a graph with independence number 
+  
+    
+      
+        o
+        (
+        
+          
+            n
+            log
+            ⁡
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle o({\sqrt {n\log n}})}
+  . it is also possible to find regular graphs with the same properties.these results may also be interpreted as giving asymptotic bounds on the ramsey numbers r(3,t) of the form 
+  
+    
+      
+        θ
+        (
+        
+          
+            
+              
+                t
+                
+                  2
+                
+              
+              
+                log
+                ⁡
+                t
+              
+            
+          
+        
+        )
+      
+    
+    {\displaystyle \theta ({\tfrac {t^{2}}{\log t}})}
+  : if the edges of a complete graph on 
+  
+    
+      
+        ω
+        (
+        
+          
+            
+              
+                t
+                
+                  2
+                
+              
+              
+                log
+                ⁡
+                t
+              
+            
+          
+        
+        )
+      
+    
+    {\displaystyle \omega ({\tfrac {t^{2}}{\log t}})}
+   vertices are colored red and blue, then either the red graph contains a triangle or, if it is triangle-free, then it must have an independent set of size t corresponding to a clique of the same size in the blue graph.
+
+
+== coloring triangle-free graphs ==
+
+much research about triangle-free graphs has focused on graph coloring. every bipartite graph (that is, every 2-colorable graph) is triangle-free, and grötzsch's theorem states that every triangle-free planar graph may be 3-colored. however, nonplanar triangle-free graphs may require many more than three colors.
+the first construction of triangle free graphs with arbitrarily high chromatic number is due to tutte (writing as blanche descartes). this construction started from the graph with a single vertex say 
+  
+    
+      
+        
+          g
+          
+            1
+          
+        
+      
+    
+    {\displaystyle g_{1}}
+   and inductively constructed 
+  
+    
+      
+        
+          g
+          
+            k
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle g_{k+1}}
+   from 
+  
+    
+      
+        
+          g
+          
+            k
+          
+        
+      
+    
+    {\displaystyle g_{k}}
+   as follows: let 
+  
+    
+      
+        
+          g
+          
+            k
+          
+        
+      
+    
+    {\displaystyle g_{k}}
+   have 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   vertices, then take a set 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   of 
+  
+    
+      
+        k
+        (
+        n
+        −
+        1
+        )
+        +
+        1
+      
+    
+    {\displaystyle k(n-1)+1}
+   vertices and for each subset 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   of 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   of size 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   add a disjoint copy of 
+  
+    
+      
+        
+          g
+          
+            k
+          
+        
+      
+    
+    {\displaystyle g_{k}}
+   and join it to 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   with a matching. from the pigeonhole principle it follows inductively that 
+  
+    
+      
+        
+          g
+          
+            k
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle g_{k+1}}
+   is not 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   colourable, since at least one of the sets 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   must be coloured monochromatically if we are only allowed to use k colours. mycielski (1955) defined a construction, now called the mycielskian, for forming a new triangle-free graph from another triangle-free graph. if a graph has chromatic number k, its mycielskian has chromatic number k + 1, so this construction may be used to show that arbitrarily large numbers of colors may be needed to color nonplanar triangle-free graphs. in particular the grötzsch graph, an 11-vertex graph formed by repeated application of mycielski's construction, is a triangle-free graph that cannot be colored with fewer than four colors, and is the smallest graph with this property.  gimbel & thomassen (2000) and nilli (2000) showed that the number of colors needed to color any m-edge triangle-free graph is
+
+  
+    
+      
+        o
+        
+          (
+          
+            
+              
+                m
+                
+                  1
+                  
+                    /
+                  
+                  3
+                
+              
+              
+                (
+                log
+                ⁡
+                m
+                
+                  )
+                  
+                    2
+                    
+                      /
+                    
+                    3
+                  
+                
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle o\left({\frac {m^{1/3}}{(\log m)^{2/3}}}\right)}
+  and that there exist triangle-free graphs that have chromatic numbers proportional to this bound.
+there have also been several results relating coloring to minimum degree in triangle-free graphs. andrásfai, erdős & sós (1974) proved that any n-vertex triangle-free graph in which each vertex has more than 2n/5 neighbors must be bipartite. this is the best possible result of this type, as the 5-cycle requires three colors but has exactly 2n/5 neighbors per vertex. motivated by this result, erdős & simonovits (1973) conjectured that any n-vertex triangle-free graph in which each vertex has at least n/3 neighbors can be colored with only three colors; however, häggkvist (1981) disproved this conjecture by finding a counterexample in which each vertex of the grötzsch graph is replaced by an independent set of a carefully chosen size. jin (1995) showed that any n-vertex triangle-free graph in which each vertex has more than 10n/29 neighbors must be 3-colorable; this is the best possible result of this type, because häggkvist's graph requires four colors and has exactly 10n/29 neighbors per vertex. finally, brandt & thomassé (2006) proved that any n-vertex triangle-free graph in which each vertex has more than n/3 neighbors must be 4-colorable. additional results of this type are not possible, as hajnal found examples of triangle-free graphs with arbitrarily large chromatic number and minimum degree (1/3 − ε)n for any ε > 0.
+
+
+== see also ==
+andrásfai graph, a family of triangle-free circulant graphs with diameter two
+henson graph, an infinite triangle-free graph that contains all finite triangle-free graphs as induced subgraphs
+shift graph, a family of triangle-free graphs with arbitrarily high chromatic number
+the kneser graph 
+  
+    
+      
+        k
+        
+          g
+          
+            3
+            k
+            −
+            1
+            ,
+            k
+          
+        
+      
+    
+    {\displaystyle kg_{3k-1,k}}
+   is triangle free and has chromatic number 
+  
+    
+      
+        k
+        +
+        1
+      
+    
+    {\displaystyle k+1}
+  
+monochromatic triangle problem, the problem of partitioning the edges of a given graph into two triangle-free graphs
+ruzsa–szemerédi problem, on graphs in which every edge belongs to exactly one triangle
+
+
+== references ==
+notes
+sources
+
+
+== external links ==
+"graphclass: triangle-free", information system on graph classes and their inclusions

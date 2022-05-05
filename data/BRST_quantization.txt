@@ -1,0 +1,2643 @@
+in theoretical physics, the brst formalism, or brst quantization (where the brst refers to the last names of carlo becchi, alain rouet, raymond stora and igor tyutin) denotes a relatively rigorous mathematical approach to quantizing a field theory with a gauge symmetry.  quantization rules in earlier quantum field theory (qft) frameworks resembled "prescriptions" or "heuristics" more than proofs, especially in non-abelian qft, where the use of "ghost fields" with superficially bizarre properties is almost unavoidable for technical reasons related to renormalization and anomaly cancellation.
+the brst global supersymmetry  introduced in the mid-1970s  was quickly understood to rationalize the introduction of these faddeev–popov ghosts and their exclusion from "physical" asymptotic states when performing qft calculations. crucially, this symmetry of the path integral is preserved in loop order, and thus prevents introduction of counterterms which might spoil renormalizability of gauge theories. work by other authors a few years later related the brst operator to the existence of a rigorous alternative to path integrals when quantizing a gauge theory.
+only in the late 1980s, when qft was reformulated in fiber bundle language for application to problems in the topology of low-dimensional manifolds (topological quantum field theory), did it become apparent that the brst "transformation" is fundamentally geometrical in character.  in this light, "brst quantization" becomes more than an alternate way to arrive at anomaly-cancelling ghosts.  it is a different perspective on what the ghost fields represent, why the faddeev–popov method works, and how it is related to the use of hamiltonian mechanics to construct a perturbative framework.  the relationship between gauge invariance and "brst invariance" forces the choice of a hamiltonian system whose states are composed of "particles" according to the rules familiar from the canonical quantization formalism.  this esoteric consistency condition therefore comes quite close to explaining how quanta and fermions arise in physics to begin with.
+in certain cases, notably gravity and supergravity, brst must be superseded by a more general formalism, the batalin–vilkovisky formalism.
+
+
+== technical summary ==
+brst quantization is a differential geometric approach to performing consistent, anomaly-free perturbative calculations in a non-abelian gauge theory.  the analytical form of the brst "transformation" and its relevance to renormalization and anomaly cancellation were described by carlo maria becchi, alain rouet, and raymond stora in a series of papers culminating in the 1976 "renormalization of gauge theories".  the equivalent transformation and many of its properties were independently discovered by igor viktorovich tyutin.  its significance for rigorous canonical quantization of a yang–mills theory and its correct application to the fock space of instantaneous field configurations were elucidated by taichiro kugo and izumi ojima.  later work by many authors, notably thomas schücker and edward witten, has clarified the geometric significance of the brst operator and related fields and emphasized its importance to topological quantum field theory and string theory.
+in the brst approach, one selects a perturbation-friendly gauge fixing procedure for the action principle of a gauge theory using the differential geometry of the gauge bundle on which the field theory lives.  one then quantizes the theory to obtain a hamiltonian system in the interaction picture in such a way that the "unphysical" fields introduced by the gauge fixing procedure resolve gauge anomalies without appearing in the asymptotic states of the theory.  the result is a set of feynman rules for use in a dyson series perturbative expansion of the s-matrix which guarantee that it is unitary and renormalizable at each loop order—in short, a coherent approximation technique for making physical predictions about the results of scattering experiments.
+
+
+=== classical brst ===
+this is related to a supersymplectic manifold where pure operators are graded by integral ghost numbers and we have a brst cohomology.
+
+
+== gauge transformations in qft ==
+from a practical perspective, a quantum field theory consists of an action principle and a set of procedures for performing perturbative calculations.  there are other kinds of "sanity checks" that can be performed on a quantum field theory to determine whether it fits qualitative phenomena such as quark confinement and asymptotic freedom.  however, most of the predictive successes of quantum field theory, from quantum electrodynamics to the present day, have been quantified by matching s-matrix calculations against the results of scattering  experiments.
+in the early days of qft, one would have to have said that the quantization and renormalization prescriptions were as much part of the model as the lagrangian density, especially when they relied on the powerful but mathematically ill-defined path integral formalism.  it quickly became clear that qed was almost "magical" in its relative tractability, and that most of the ways that one might imagine extending it would not produce rational calculations.  however, one class of field theories remained promising: gauge theories, in which the objects in the theory represent equivalence classes of physically indistinguishable field configurations, any two of which are related by a gauge transformation.  this generalizes the qed idea of a local change of phase to a more complicated lie group.
+qed itself is a gauge theory, as is general relativity, although the latter has proven resistant to quantization so far, for reasons related to renormalization.  another class of gauge theories with a non-abelian gauge group, beginning with yang–mills theory, became amenable to quantization in the late 1960s and early 1970s, largely due to the work of ludwig d. faddeev, victor popov, bryce dewitt, and gerardus 't hooft.  however, they remained very difficult to work with until the introduction of the brst method.  the brst method provided the calculation techniques and renormalizability proofs needed to extract accurate results from both "unbroken" yang–mills theories and those in which the higgs mechanism leads to spontaneous symmetry breaking.  representatives of these two types of yang–mills systems—quantum chromodynamics and electroweak theory—appear in the standard model of particle physics.
+it has proven rather more difficult to prove the existence of non-abelian quantum field theory in a rigorous sense than to obtain accurate predictions using semi-heuristic calculation schemes.  this is because analyzing a quantum field theory requires two mathematically interlocked perspectives: a lagrangian system based on the action functional, composed of fields with distinct values at each point in spacetime and local operators which act on them, and a hamiltonian system in the dirac picture, composed of states which characterize the entire system at a given time and field operators which act on them.  what makes this so difficult in a gauge theory is that the objects of the theory are not really local fields on spacetime; they are right-invariant local fields on the principal gauge bundle, and different local sections through a portion of the gauge bundle, related by passive transformations, produce different dirac pictures.
+what is more, a description of the system as a whole in terms of a set of fields contains many redundant degrees of freedom; the distinct configurations of the theory are equivalence classes of field configurations, so that two descriptions which are related to one another by a gauge transformation are also really the same physical configuration.  the "solutions" of a quantized gauge theory exist not in a straightforward space of fields with values at every point in spacetime but in a quotient space (or cohomology) whose elements are equivalence classes of field configurations.  hiding in the brst formalism is a system for parameterizing the variations associated with all possible active gauge transformations and correctly accounting for their physical irrelevance during the conversion of a lagrangian system to a hamiltonian system.
+
+
+=== gauge fixing and perturbation theory ===
+the principle of gauge invariance is essential to constructing a workable quantum field theory.  but it is generally not feasible to perform a perturbative calculation in a gauge theory without first "fixing the gauge"—adding terms to the lagrangian density of the action principle which "break the gauge symmetry" to suppress these "unphysical" degrees of freedom.  the idea of gauge fixing goes back to the lorenz gauge approach to electromagnetism, which suppresses most of the excess degrees of freedom in the four-potential while retaining manifest lorentz invariance.  the lorenz gauge is a great simplification relative to maxwell's field-strength approach to classical electrodynamics, and illustrates why it is useful to deal with excess degrees of freedom in the representation of the objects in a theory at the lagrangian stage, before passing over to hamiltonian mechanics via the legendre transformation.
+the hamiltonian density is related to the lie derivative of the lagrangian density with respect to a unit timelike horizontal vector field on the gauge bundle.  in a quantum mechanical context it is conventionally rescaled by a factor 
+  
+    
+      
+        i
+        ℏ
+      
+    
+    {\displaystyle i\hbar }
+  .  integrating it by parts over a spacelike cross section recovers the form of the integrand familiar from canonical quantization.  because the definition of the hamiltonian involves a unit time vector field on the base space, a horizontal lift to the bundle space, and a spacelike surface "normal" (in the minkowski metric) to the unit time vector field at each point on the base manifold, it is dependent both on the connection and the choice of lorentz frame, and is far from being globally defined.  but it is an essential ingredient in the perturbative framework of quantum field theory, into which the quantized hamiltonian enters via the dyson series.
+for perturbative purposes, we gather the configuration of all the fields of our theory on an entire three-dimensional horizontal spacelike cross section of p into one object (a fock state), and then describe the "evolution" of this state over time using the interaction picture.  the fock space is spanned by the multi-particle eigenstates of the "unperturbed" or "non-interaction" portion 
+  
+    
+      
+        
+          
+            
+              h
+            
+          
+          
+            0
+          
+        
+      
+    
+    {\displaystyle {\mathcal {h}}_{0}}
+   of the hamiltonian 
+  
+    
+      
+        
+          
+            h
+          
+        
+      
+    
+    {\displaystyle {\mathcal {h}}}
+  .  hence the instantaneous description of any fock state is a complex-amplitude-weighted sum of eigenstates of 
+  
+    
+      
+        
+          
+            
+              h
+            
+          
+          
+            0
+          
+        
+      
+    
+    {\displaystyle {\mathcal {h}}_{0}}
+  .  in the interaction picture, we relate fock states at different times by prescribing that each eigenstate of the unperturbed hamiltonian experiences a constant rate of phase rotation proportional to its energy (the corresponding eigenvalue of the unperturbed hamiltonian).
+hence, in the zero-order approximation, the set of weights characterizing a fock state does not change over time, but the corresponding field configuration does.  in higher approximations, the weights also change; collider experiments in high-energy physics amount to measurements of the rate of change in these weights (or rather integrals of them over distributions representing uncertainty in the initial and final conditions of a scattering event).  the dyson series captures the effect of the discrepancy between 
+  
+    
+      
+        
+          
+            
+              h
+            
+          
+          
+            0
+          
+        
+      
+    
+    {\displaystyle {\mathcal {h}}_{0}}
+   and the true hamiltonian 
+  
+    
+      
+        
+          
+            h
+          
+        
+      
+    
+    {\displaystyle {\mathcal {h}}}
+  , in the form of a power series in the coupling constant g; it is the principal tool for making quantitative predictions from a quantum field theory.
+to use the dyson series to calculate anything, one needs more than a gauge-invariant lagrangian density; one also needs the quantization and gauge fixing prescriptions that enter into the feynman rules of the theory.  the dyson series produces infinite integrals of various kinds when applied to the hamiltonian of a particular qft.  this is partly because all usable quantum field theories to date must be considered effective field theories, describing only interactions on a certain range of energy scales that we can experimentally probe and therefore vulnerable to ultraviolet divergences.  these are tolerable as long as they can be handled via standard techniques of renormalization; they are not so tolerable when they result in an infinite series of infinite renormalizations or, worse, in an obviously unphysical prediction such as an uncancelled gauge anomaly.  there is a deep relationship between renormalizability and gauge invariance, which is easily lost in the course of attempts to obtain tractable feynman rules by fixing the gauge.
+
+
+=== pre-brst approaches to gauge fixing ===
+the traditional gauge fixing prescriptions of continuum electrodynamics select a unique representative from each gauge-transformation-related equivalence class using a constraint equation such as the lorenz gauge 
+  
+    
+      
+        
+          ∂
+          
+            μ
+          
+        
+        
+          a
+          
+            μ
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle \partial ^{\mu }a_{\mu }=0}
+  . this sort of prescription can be applied to an abelian gauge theory such as qed, although it results in some difficulty in explaining why the ward identities of the classical theory carry over to the quantum theory—in other words, why feynman diagrams containing internal longitudinally polarized virtual photons do not contribute to s-matrix calculations.  this approach also does not generalize well to non-abelian gauge groups such as the u(2) of yang–mills and electroweak theory and the su(3) of quantum chromodynamics.  it suffers from gribov ambiguities and from the difficulty of defining a gauge fixing constraint that is in some sense "orthogonal" to physically significant changes in the field configuration.
+more sophisticated approaches do not attempt to apply a delta function constraint to the gauge transformation degrees of freedom.  instead of "fixing" the gauge to a particular "constraint surface" in configuration space, one can break the gauge freedom with an additional, non-gauge-invariant term added to the lagrangian density.  in order to reproduce the successes of gauge fixing, this term is chosen to be minimal for the choice of gauge that corresponds to the desired constraint and to depend quadratically on the deviation of the gauge from the constraint surface.  by the stationary phase approximation on which the feynman path integral is based, the dominant contribution to perturbative calculations will come from field configurations in the neighborhood of the constraint surface.
+the perturbative expansion associated with this lagrangian, using the method of functional quantization, is generally referred to as the rξ gauge.  it reduces in the case of an abelian u(1) gauge to the same set of feynman rules that one obtains in the method of canonical quantization.  but there is an important difference: the broken gauge freedom appears in the functional integral as an additional factor in the overall normalization.  this factor can only be pulled out of the perturbative expansion (and ignored) when the contribution to the lagrangian of a perturbation along the gauge degrees of freedom is independent of the particular "physical" field configuration.  this is the condition that fails to hold for non-abelian gauge groups.  if one ignores the problem and attempts to use the feynman rules obtained from "naive" functional quantization, one finds that one's calculations contain unremovable anomalies.
+the problem of perturbative calculations in qcd was solved by introducing additional fields known as faddeev–popov ghosts, whose contribution to the gauge-fixed lagrangian offsets the anomaly introduced by the coupling of "physical" and "unphysical" perturbations of the non-abelian gauge field.  from the functional quantization perspective, the "unphysical" perturbations of the field configuration (the gauge transformations) form a subspace of the space of all (infinitesimal) perturbations; in the non-abelian case, the embedding of this subspace in the larger space depends on the configuration around which the perturbation takes place.  the ghost term in the lagrangian represents the functional determinant of the jacobian of this embedding, and the properties of the ghost field are dictated by the exponent desired on the determinant in order to correct the functional measure on the remaining "physical" perturbation axes.
+
+
+== mathematical approach to brst ==
+brst construction applies to a situation of a hamiltonian action of a compact, connected lie group g on a phase space m. let 
+  
+    
+      
+        
+          
+            g
+          
+        
+      
+    
+    {\displaystyle {\mathfrak {g}}}
+   be the lie algebra of g and 
+  
+    
+      
+        0
+        ∈
+        
+          
+            
+              g
+            
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle 0\in {\mathfrak {g}}^{*}}
+   a regular value of the moment map 
+  
+    
+      
+        φ
+        :
+        m
+        →
+        
+          
+            
+              g
+            
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle \phi :m\to {\mathfrak {g}}^{*}}
+  . let 
+  
+    
+      
+        
+          m
+          
+            0
+          
+        
+        =
+        
+          φ
+          
+            −
+            1
+          
+        
+        (
+        0
+        )
+      
+    
+    {\displaystyle m_{0}=\phi ^{-1}(0)}
+  . assume the g-action on m0 is free and proper, and consider the space 
+  
+    
+      
+        
+          
+            
+              m
+              ~
+            
+          
+        
+        =
+        
+          m
+          
+            0
+          
+        
+        
+          /
+        
+        g
+      
+    
+    {\displaystyle {\widetilde {m}}=m_{0}/g}
+   of g-orbits on m0, which is also known as a symplectic reduction quotient 
+  
+    
+      
+        
+          
+            
+              m
+              ~
+            
+          
+        
+        =
+        m
+        
+          /
+        
+        
+          /
+        
+        g
+      
+    
+    {\displaystyle {\widetilde {m}}=m//g}
+  .
+first, using the regular sequence of functions defining m0 inside m, construct a koszul complex
+
+  
+    
+      
+        
+          λ
+          
+            ∙
+          
+        
+        
+          
+            g
+          
+        
+        ⊗
+        
+          c
+          
+            ∞
+          
+        
+        (
+        m
+        )
+        .
+      
+    
+    {\displaystyle \lambda ^{\bullet }{\mathfrak {g}}\otimes c^{\infty }(m).}
+  the differential, δ, on this complex is an odd c∞(m)-linear derivation of the graded c∞(m)-algebra 
+  
+    
+      
+        
+          λ
+          
+            ∙
+          
+        
+        
+          
+            g
+          
+        
+        ⊗
+        
+          c
+          
+            ∞
+          
+        
+        (
+        m
+        )
+      
+    
+    {\displaystyle \lambda ^{\bullet }{\mathfrak {g}}\otimes c^{\infty }(m)}
+  . this odd derivation is defined by extending the lie algebra homomorphim 
+  
+    
+      
+        
+          
+            g
+          
+        
+        →
+        
+          c
+          
+            ∞
+          
+        
+        (
+        m
+        )
+      
+    
+    {\displaystyle {\mathfrak {g}}\to c^{\infty }(m)}
+   of the hamiltonian action. the resulting koszul complex is the koszul complex of the 
+  
+    
+      
+        s
+        (
+        
+          
+            g
+          
+        
+        )
+      
+    
+    {\displaystyle s({\mathfrak {g}})}
+  -module c∞(m), where 
+  
+    
+      
+        s
+        (
+        
+          
+            g
+          
+        
+        )
+      
+    
+    {\displaystyle s({\mathfrak {g}})}
+   is the symmetric algebra of 
+  
+    
+      
+        
+          
+            g
+          
+        
+      
+    
+    {\displaystyle {\mathfrak {g}}}
+  , and the module structure comes from a ring homomorphism 
+  
+    
+      
+        s
+        (
+        
+          
+            g
+          
+        
+        )
+        →
+        
+          c
+          
+            ∞
+          
+        
+        (
+        m
+        )
+      
+    
+    {\displaystyle s({\mathfrak {g}})\to c^{\infty }(m)}
+   induced by the hamiltonian action 
+  
+    
+      
+        
+          
+            g
+          
+        
+        →
+        
+          c
+          
+            ∞
+          
+        
+        (
+        m
+        )
+      
+    
+    {\displaystyle {\mathfrak {g}}\to c^{\infty }(m)}
+  .
+this koszul complex is a resolution of the 
+  
+    
+      
+        s
+        (
+        
+          
+            g
+          
+        
+        )
+      
+    
+    {\displaystyle s({\mathfrak {g}})}
+  -module 
+  
+    
+      
+        
+          c
+          
+            ∞
+          
+        
+        (
+        
+          m
+          
+            0
+          
+        
+        )
+      
+    
+    {\displaystyle c^{\infty }(m_{0})}
+  , i.e.,
+
+  
+    
+      
+        
+          h
+          
+            j
+          
+        
+        (
+        
+          λ
+          
+            ∙
+          
+        
+        
+          
+            g
+          
+        
+        ⊗
+        
+          c
+          
+            ∞
+          
+        
+        (
+        m
+        )
+        ,
+        δ
+        )
+        =
+        
+          
+            {
+            
+              
+                
+                  
+                    c
+                    
+                      ∞
+                    
+                  
+                  (
+                  
+                    m
+                    
+                      0
+                    
+                  
+                  )
+                
+                
+                  j
+                  =
+                  0
+                
+              
+              
+                
+                  0
+                
+                
+                  j
+                  ≠
+                  0
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle h^{j}(\lambda ^{\bullet }{\mathfrak {g}}\otimes c^{\infty }(m),\delta )={\begin{cases}c^{\infty }(m_{0})&j=0\\0&j\neq 0\end{cases}}}
+  then, consider the chevalley-eilenberg cochain complex for the koszul complex 
+  
+    
+      
+        
+          λ
+          
+            ∙
+          
+        
+        
+          
+            g
+          
+        
+        ⊗
+        
+          c
+          
+            ∞
+          
+        
+        (
+        m
+        )
+      
+    
+    {\displaystyle \lambda ^{\bullet }{\mathfrak {g}}\otimes c^{\infty }(m)}
+   considered as a dg module over the lie algebra 
+  
+    
+      
+        
+          
+            g
+          
+        
+      
+    
+    {\displaystyle {\mathfrak {g}}}
+  :
+
+  
+    
+      
+        
+          k
+          
+            ∙
+            ,
+            ∙
+          
+        
+        =
+        
+          c
+          
+            ∙
+          
+        
+        
+          (
+          
+            
+              
+                g
+              
+            
+            ,
+            
+              λ
+              
+                ∙
+              
+            
+            
+              
+                g
+              
+            
+            ⊗
+            
+              c
+              
+                ∞
+              
+            
+            (
+            m
+            )
+          
+          )
+        
+        =
+        
+          λ
+          
+            ∙
+          
+        
+        
+          
+            
+              g
+            
+          
+          
+            ∗
+          
+        
+        ⊗
+        
+          λ
+          
+            ∙
+          
+        
+        
+          
+            g
+          
+        
+        ⊗
+        
+          c
+          
+            ∞
+          
+        
+        (
+        m
+        )
+        .
+      
+    
+    {\displaystyle k^{\bullet ,\bullet }=c^{\bullet }\left({\mathfrak {g}},\lambda ^{\bullet }{\mathfrak {g}}\otimes c^{\infty }(m)\right)=\lambda ^{\bullet }{\mathfrak {g}}^{*}\otimes \lambda ^{\bullet }{\mathfrak {g}}\otimes c^{\infty }(m).}
+  the "horizontal" differential 
+  
+    
+      
+        d
+        :
+        
+          k
+          
+            i
+            ,
+            ∙
+          
+        
+        →
+        
+          k
+          
+            i
+            +
+            1
+            ,
+            ∙
+          
+        
+      
+    
+    {\displaystyle d:k^{i,\bullet }\to k^{i+1,\bullet }}
+   is defined on the coefficients
+
+  
+    
+      
+        
+          λ
+          
+            ∙
+          
+        
+        
+          
+            g
+          
+        
+        ⊗
+        
+          c
+          
+            ∞
+          
+        
+        (
+        m
+        )
+      
+    
+    {\displaystyle \lambda ^{\bullet }{\mathfrak {g}}\otimes c^{\infty }(m)}
+  by the action of 
+  
+    
+      
+        
+          
+            g
+          
+        
+      
+    
+    {\displaystyle {\mathfrak {g}}}
+   and on 
+  
+    
+      
+        
+          λ
+          
+            ∙
+          
+        
+        
+          
+            
+              g
+            
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle \lambda ^{\bullet }{\mathfrak {g}}^{*}}
+   as the exterior derivative of right-invariant differential forms on the lie group g, whose lie algebra is 
+  
+    
+      
+        
+          
+            g
+          
+        
+      
+    
+    {\displaystyle {\mathfrak {g}}}
+  .
+let tot(k) be a complex such that
+
+  
+    
+      
+        tot
+        ⁡
+        (
+        k
+        
+          )
+          
+            n
+          
+        
+        =
+        
+          ⨁
+          
+            i
+            −
+            j
+            =
+            n
+          
+        
+        
+          k
+          
+            i
+            ,
+            j
+          
+        
+      
+    
+    {\displaystyle \operatorname {tot} (k)^{n}=\bigoplus \nolimits _{i-j=n}k^{i,j}}
+  with a differential d = d + δ. the cohomology groups of (tot(k), d) are computed using a spectral sequence associated to the double complex 
+  
+    
+      
+        (
+        
+          k
+          
+            ∙
+            ,
+            ∙
+          
+        
+        ,
+        d
+        ,
+        δ
+        )
+      
+    
+    {\displaystyle (k^{\bullet ,\bullet },d,\delta )}
+  .
+the first term of the spectral sequence computes the cohomology of the "vertical" differential δ:
+
+  
+    
+      
+        
+          e
+          
+            1
+          
+          
+            i
+            ,
+            j
+          
+        
+        =
+        
+          h
+          
+            j
+          
+        
+        (
+        
+          k
+          
+            i
+            ,
+            ∙
+          
+        
+        ,
+        δ
+        )
+        =
+        
+          λ
+          
+            i
+          
+        
+        
+          
+            
+              g
+            
+          
+          
+            ∗
+          
+        
+        ⊗
+        
+          c
+          
+            ∞
+          
+        
+        (
+        
+          m
+          
+            0
+          
+        
+        )
+      
+    
+    {\displaystyle e_{1}^{i,j}=h^{j}(k^{i,\bullet },\delta )=\lambda ^{i}{\mathfrak {g}}^{*}\otimes c^{\infty }(m_{0})}
+  , if j = 0 and zero otherwise.the first term of the spectral sequence may be interpreted as the complex of vertical differential forms
+
+  
+    
+      
+        (
+        
+          ω
+          
+            ∙
+          
+        
+        
+          vert
+        
+        (
+        
+          m
+          
+            0
+          
+        
+        )
+        ,
+        
+          d
+          
+            vert
+          
+        
+        )
+      
+    
+    {\displaystyle (\omega ^{\bullet }{\operatorname {vert} }(m_{0}),d_{\operatorname {vert} })}
+  for the fiber bundle 
+  
+    
+      
+        
+          m
+          
+            0
+          
+        
+        →
+        
+          
+            
+              m
+              ~
+            
+          
+        
+      
+    
+    {\displaystyle m_{0}\to {\widetilde {m}}}
+  .
+the second term of the spectral sequence computes the cohomology of the "horizontal" differential d on 
+  
+    
+      
+        
+          e
+          
+            1
+          
+          
+            ∙
+            ,
+            ∙
+          
+        
+      
+    
+    {\displaystyle e_{1}^{\bullet ,\bullet }}
+  :
+
+  
+    
+      
+        
+          e
+          
+            2
+          
+          
+            i
+            ,
+            j
+          
+        
+        ≅
+        
+          h
+          
+            i
+          
+        
+        (
+        
+          e
+          
+            1
+          
+          
+            ∙
+            ,
+            j
+          
+        
+        ,
+        d
+        )
+        =
+        
+          c
+          
+            ∞
+          
+        
+        (
+        
+          m
+          
+            0
+          
+        
+        
+          )
+          
+            g
+          
+        
+        =
+        
+          c
+          
+            ∞
+          
+        
+        (
+        
+          
+            
+              m
+              ~
+            
+          
+        
+        )
+      
+    
+    {\displaystyle e_{2}^{i,j}\cong h^{i}(e_{1}^{\bullet ,j},d)=c^{\infty }(m_{0})^{g}=c^{\infty }({\widetilde {m}})}
+  , if 
+  
+    
+      
+        i
+        =
+        j
+        =
+        0
+      
+    
+    {\displaystyle i=j=0}
+   and zero otherwise.the spectral sequence collapses at the second term, so that 
+  
+    
+      
+        
+          e
+          
+            ∞
+          
+          
+            i
+            ,
+            j
+          
+        
+        =
+        
+          e
+          
+            2
+          
+          
+            i
+            ,
+            j
+          
+        
+      
+    
+    {\displaystyle e_{\infty }^{i,j}=e_{2}^{i,j}}
+  , which is concentrated in degree zero.
+therefore,
+
+  
+    
+      
+        
+          h
+          
+            p
+          
+        
+        (
+        tot
+        ⁡
+        (
+        k
+        )
+        ,
+        d
+        )
+        =
+        
+          c
+          
+            ∞
+          
+        
+        (
+        
+          m
+          
+            0
+          
+        
+        
+          )
+          
+            g
+          
+        
+        =
+        
+          c
+          
+            ∞
+          
+        
+        (
+        
+          
+            
+              m
+              ~
+            
+          
+        
+        )
+      
+    
+    {\displaystyle h^{p}(\operatorname {tot} (k),d)=c^{\infty }(m_{0})^{g}=c^{\infty }({\widetilde {m}})}
+  , if p = 0 and 0 otherwise.
+
+
+== the brst operator and asymptotic fock space ==
+two important remarks about the brst operator are due. first, instead of working with the gauge group g one can use only the action of the gauge algebra 
+  
+    
+      
+        
+          
+            g
+          
+        
+      
+    
+    {\displaystyle {\mathfrak {g}}}
+   on the fields (functions on the phase space).
+second, the variation of any "brst exact form" sbx with respect to a local gauge transformation dλ is
+
+  
+    
+      
+        
+          [
+          
+            
+              i
+              
+                δ
+                λ
+              
+            
+            ,
+            
+              s
+              
+                b
+              
+            
+          
+          ]
+        
+        
+          s
+          
+            b
+          
+        
+        x
+        =
+        
+          i
+          
+            δ
+            λ
+          
+        
+        (
+        
+          s
+          
+            b
+          
+        
+        
+          s
+          
+            b
+          
+        
+        x
+        )
+        +
+        
+          s
+          
+            b
+          
+        
+        
+          (
+          
+            
+              i
+              
+                δ
+                λ
+              
+            
+            (
+            
+              s
+              
+                b
+              
+            
+            x
+            )
+          
+          )
+        
+        =
+        
+          s
+          
+            b
+          
+        
+        
+          (
+          
+            
+              i
+              
+                δ
+                λ
+              
+            
+            (
+            
+              s
+              
+                b
+              
+            
+            x
+            )
+          
+          )
+        
+        ,
+      
+    
+    {\displaystyle \left[i_{\delta \lambda },s_{b}\right]s_{b}x=i_{\delta \lambda }(s_{b}s_{b}x)+s_{b}\left(i_{\delta \lambda }(s_{b}x)\right)=s_{b}\left(i_{\delta \lambda }(s_{b}x)\right),}
+  which is itself an exact form.
+more importantly for the hamiltonian perturbative formalism (which is carried out not on the fiber bundle but on a local section), adding a brst exact term to a gauge invariant lagrangian density preserves the relation sbx = 0.  as we shall see, this implies that there is a related operator qb on the state space for which 
+  
+    
+      
+        [
+        
+          q
+          
+            b
+          
+        
+        ,
+        
+          
+            h
+          
+        
+        ]
+        =
+        0
+      
+    
+    {\displaystyle [q_{b},{\mathcal {h}}]=0}
+  —i. e., the brst operator on fock states is a conserved charge of the hamiltonian system.  this implies that the time evolution operator in a dyson series calculation will not evolve a field configuration obeying 
+  
+    
+      
+        
+          q
+          
+            b
+          
+        
+        
+          |
+        
+        
+          ψ
+          
+            i
+          
+        
+        ⟩
+        =
+        0
+      
+    
+    {\displaystyle q_{b}|\psi _{i}\rangle =0}
+   into a later configuration with 
+  
+    
+      
+        
+          q
+          
+            b
+          
+        
+        
+          |
+        
+        
+          ψ
+          
+            f
+          
+        
+        ⟩
+        ≠
+        0
+      
+    
+    {\displaystyle q_{b}|\psi _{f}\rangle \neq 0}
+   (or vice versa).
+another way of looking at the nilpotence of the brst operator is to say that its image (the space of brst exact forms) lies entirely within its kernel (the space of brst closed forms).  (the "true" lagrangian, presumed to be invariant under local gauge transformations, is in the kernel of the brst operator but not in its image.)  the preceding argument says that we can limit our universe of initial and final conditions to asymptotic "states"—field configurations at timelike infinity, where the interaction lagrangian is "turned off"—that lie in the kernel of qb and still obtain a unitary scattering matrix.  (brst closed and exact states are defined similarly to brst closed and exact fields; closed states are annihilated by qb, while exact states are those obtainable by applying qb to some arbitrary field configuration.)
+we can also suppress states that lie inside the image of qb when defining the asymptotic states of our theory—but the reasoning is a bit subtler.  since we have postulated that the "true" lagrangian of our theory is gauge invariant, the true "states" of our hamiltonian system are equivalence classes under local gauge transformation; in other words, two initial or final states in the hamiltonian picture that differ only by a brst exact state are physically equivalent.  however, the use of a brst exact gauge breaking prescription does not guarantee that the interaction hamiltonian will preserve any particular subspace of closed field configurations that we can call "orthogonal" to the space of exact configurations.  (this is a crucial point, often mishandled in qft textbooks.  there is no a priori inner product on field configurations built into the action principle; we construct such an inner product as part of our hamiltonian perturbative apparatus.)
+we therefore focus on the vector space of brst closed configurations at a particular time with the intention of converting it into a fock space of intermediate states suitable for hamiltonian perturbation.  to this end, we shall endow it with ladder operators for the energy-momentum eigenconfigurations (particles) of each field, complete with appropriate (anti-)commutation rules, as well as a positive semi-definite inner product.  we require that the inner product be singular exclusively along directions that correspond to brst exact eigenstates of the unperturbed hamiltonian.  this ensures that one can freely choose, from within the two equivalence classes of asymptotic field configurations corresponding to particular initial and final eigenstates of the (unbroken) free-field hamiltonian, any pair of brst closed fock states that we like.
+the desired quantization prescriptions will also provide a quotient fock space isomorphic to the brst cohomology, in which each brst closed equivalence class of intermediate states (differing only by an exact state) is represented by exactly one state that contains no quanta of the brst exact fields.  this is the fock space we want for asymptotic states of the theory; even though we will not generally succeed in choosing the particular final field configuration to which the gauge-fixed lagrangian dynamics would have evolved that initial configuration, the singularity of the inner product along brst exact degrees of freedom ensures that we will get the right entries for the physical scattering matrix.
+(actually, we should probably be constructing a krein space for the brst-closed intermediate fock states, with the time reversal operator playing the role of the "fundamental symmetry" relating the lorentz-invariant and positive semi-definite inner products.  the asymptotic state space is presumably the hilbert space obtained by quotienting brst exact states out of this krein space.)
+in sum, no field introduced as part of a brst gauge fixing procedure will appear in asymptotic states of the gauge-fixed theory.  however, this does not imply that we can do without these "unphysical" fields in the intermediate states of a perturbative calculation!  this is because perturbative calculations are done in the interaction picture.  they implicitly involve initial and final states of the non-interaction hamiltonian 
+  
+    
+      
+        
+          
+            
+              h
+            
+          
+          
+            0
+          
+        
+      
+    
+    {\displaystyle {\mathcal {h}}_{0}}
+  , gradually transformed into states of the full hamiltonian in accordance with the adiabatic theorem by "turning on" the interaction hamiltonian (the gauge coupling).  the expansion of the dyson series in terms of feynman diagrams will include vertices that couple "physical" particles (those that can appear in asymptotic states of the free hamiltonian) to "unphysical" particles (states of fields that live outside the kernel of sb or inside the image of sb) and vertices that couple "unphysical" particles to one another.
+
+
+=== the kugo–ojima answer to unitarity questions ===
+t. kugo and i. ojima are commonly credited with the discovery of the principal qcd color confinement criterion.  their role in obtaining a correct version of the brst formalism in the lagrangian framework seems to be less widely appreciated.  it is enlightening to inspect their variant of the brst transformation, which emphasizes the hermitian properties of the newly introduced fields, before proceeding from an entirely geometrical angle.  the gauge fixed lagrangian density is below; the two terms in parentheses form the coupling between the gauge and ghost sectors, and the final term becomes a gaussian weighting for the functional measure on the auxiliary field b.
+
+  
+    
+      
+        
+          
+            l
+          
+        
+        =
+        
+          
+            
+              l
+            
+          
+          
+            
+              matter
+            
+          
+        
+        (
+        ψ
+        ,
+        
+        
+          a
+          
+            μ
+          
+          
+            a
+          
+        
+        )
+        −
+        
+          
+            
+              1
+              4
+            
+          
+        
+        
+          f
+          
+            μ
+            ν
+          
+          
+            a
+          
+        
+        
+          f
+          
+            a
+            ,
+            
+            μ
+            ν
+          
+        
+        −
+        (
+        i
+        (
+        
+          ∂
+          
+            μ
+          
+        
+        
+          
+            
+              
+                c
+                ¯
+              
+            
+          
+          
+            a
+          
+        
+        )
+        
+          d
+          
+            μ
+          
+          
+            a
+            b
+          
+        
+        
+          c
+          
+            b
+          
+        
+        +
+        (
+        
+          ∂
+          
+            μ
+          
+        
+        
+          b
+          
+            a
+          
+        
+        )
+        
+          a
+          
+            μ
+          
+          
+            a
+          
+        
+        )
+        +
+        
+          
+            
+              1
+              2
+            
+          
+        
+        
+          α
+          
+            0
+          
+        
+        
+          b
+          
+            a
+          
+        
+        
+          b
+          
+            a
+          
+        
+      
+    
+    {\displaystyle {\mathcal {l}}={\mathcal {l}}_{\textrm {matter}}(\psi ,\,a_{\mu }^{a})-{\tfrac {1}{4}}f_{\mu \nu }^{a}f^{a,\,\mu \nu }-(i(\partial ^{\mu }{\bar {c}}^{a})d_{\mu }^{ab}c^{b}+(\partial ^{\mu }b^{a})a_{\mu }^{a})+{\tfrac {1}{2}}\alpha _{0}b^{a}b^{a}}
+  the faddeev–popov ghost field c is unique among the new fields of our gauge-fixed theory in having a geometrical meaning beyond the formal requirements of the brst procedure.  it is a version of the maurer–cartan form on 
+  
+    
+      
+        v
+        
+          
+            e
+          
+        
+      
+    
+    {\displaystyle v{\mathfrak {e}}}
+  , which relates each right-invariant vertical vector field 
+  
+    
+      
+        δ
+        λ
+        ∈
+        v
+        
+          
+            e
+          
+        
+      
+    
+    {\displaystyle \delta \lambda \in v{\mathfrak {e}}}
+   to its representation (up to a phase) as a 
+  
+    
+      
+        
+          
+            g
+          
+        
+      
+    
+    {\displaystyle {\mathfrak {g}}}
+  -valued field.  this field must enter into the formulas for infinitesimal gauge transformations on objects (such as fermions ψ, gauge bosons aμ, and the ghost c itself) which carry a non-trivial representation of the gauge group.  the brst transformation with respect to δλ is therefore:
+
+  
+    
+      
+        
+          
+            
+              
+                δ
+                
+                  ψ
+                  
+                    i
+                  
+                
+              
+              
+                
+                =
+                δ
+                λ
+                
+                  d
+                  
+                    i
+                  
+                
+                c
+              
+            
+            
+              
+                δ
+                
+                  a
+                  
+                    μ
+                  
+                
+              
+              
+                
+                =
+                δ
+                λ
+                
+                  d
+                  
+                    μ
+                  
+                
+                c
+              
+            
+            
+              
+                δ
+                c
+              
+              
+                
+                =
+                −
+                δ
+                λ
+                
+                  
+                    
+                      g
+                      2
+                    
+                  
+                
+                [
+                c
+                ,
+                c
+                ]
+              
+            
+            
+              
+                δ
+                
+                  
+                    
+                      c
+                      ¯
+                    
+                  
+                
+              
+              
+                
+                =
+                i
+                δ
+                λ
+                b
+              
+            
+            
+              
+                δ
+                b
+              
+              
+                
+                =
+                0
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}\delta \psi _{i}&=\delta \lambda d_{i}c\\\delta a_{\mu }&=\delta \lambda d_{\mu }c\\\delta c&=-\delta \lambda {\tfrac {g}{2}}[c,c]\\\delta {\bar {c}}&=i\delta \lambda b\\\delta b&=0\end{aligned}}}
+  here we have omitted the details of the matter sector ψ and left the form of the ward operator on it unspecified; these are unimportant so long as the representation of the gauge algebra on the matter fields is consistent with their coupling to δaμ. the properties of the other fields we have added are fundamentally analytical rather than geometric.  the bias we have introduced towards connections with 
+  
+    
+      
+        
+          ∂
+          
+            μ
+          
+        
+        
+          a
+          
+            μ
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle \partial ^{\mu }a_{\mu }=0}
+   is gauge-dependent and has no particular geometrical significance.  the anti-ghost 
+  
+    
+      
+        
+          
+            
+              c
+              ¯
+            
+          
+        
+      
+    
+    {\displaystyle {\bar {c}}}
+   is nothing but a lagrange multiplier for the gauge fixing term, and the properties of the scalar field b are entirely dictated by the relationship 
+  
+    
+      
+        δ
+        
+          
+            
+              c
+              ¯
+            
+          
+        
+        =
+        i
+        δ
+        λ
+        b
+      
+    
+    {\displaystyle \delta {\bar {c}}=i\delta \lambda b}
+  .  (the new fields are all hermitian in kugo–ojima conventions, but the parameter δλ is an anti-hermitian "anti-commuting c-number".  this results in some unnecessary awkwardness with regard to phases and passing infinitesimal parameters through operators; this will be resolved with a change of conventions in the geometric treatment below.)
+we already know, from the relation of the brst operator to the exterior derivative and the faddeev–popov ghost to the maurer–cartan form, that the ghost c corresponds (up to a phase) to a 
+  
+    
+      
+        
+          
+            g
+          
+        
+      
+    
+    {\displaystyle {\mathfrak {g}}}
+  -valued 1-form on 
+  
+    
+      
+        v
+        
+          
+            e
+          
+        
+      
+    
+    {\displaystyle v{\mathfrak {e}}}
+  .  in order for integration of a term like 
+  
+    
+      
+        −
+        i
+        (
+        
+          ∂
+          
+            μ
+          
+        
+        
+          
+            
+              c
+              ¯
+            
+          
+        
+        )
+        
+          d
+          
+            μ
+          
+        
+        c
+      
+    
+    {\displaystyle -i(\partial ^{\mu }{\bar {c}})d_{\mu }c}
+   to be meaningful, the anti-ghost 
+  
+    
+      
+        
+          
+            
+              c
+              ¯
+            
+          
+        
+      
+    
+    {\displaystyle {\bar {c}}}
+   must carry representations of these two lie algebras—the vertical ideal 
+  
+    
+      
+        v
+        
+          
+            e
+          
+        
+      
+    
+    {\displaystyle v{\mathfrak {e}}}
+   and the gauge algebra 
+  
+    
+      
+        
+          
+            g
+          
+        
+      
+    
+    {\displaystyle {\mathfrak {g}}}
+  —dual to those carried by the ghost.  in geometric terms, 
+  
+    
+      
+        
+          
+            
+              c
+              ¯
+            
+          
+        
+      
+    
+    {\displaystyle {\bar {c}}}
+   must be fiberwise dual to 
+  
+    
+      
+        
+          
+            g
+          
+        
+      
+    
+    {\displaystyle {\mathfrak {g}}}
+   and one rank short of being a top form on 
+  
+    
+      
+        v
+        
+          
+            e
+          
+        
+      
+    
+    {\displaystyle v{\mathfrak {e}}}
+  .  likewise, the auxiliary field b must carry the same representation of 
+  
+    
+      
+        
+          
+            g
+          
+        
+      
+    
+    {\displaystyle {\mathfrak {g}}}
+   (up to a phase) as 
+  
+    
+      
+        
+          
+            
+              c
+              ¯
+            
+          
+        
+      
+    
+    {\displaystyle {\bar {c}}}
+  , as well as the representation of 
+  
+    
+      
+        v
+        
+          
+            e
+          
+        
+      
+    
+    {\displaystyle v{\mathfrak {e}}}
+   dual to its trivial representation on aμ—i. e., b is a fiberwise 
+  
+    
+      
+        
+          
+            g
+          
+        
+      
+    
+    {\displaystyle {\mathfrak {g}}}
+  -dual top form on 
+  
+    
+      
+        v
+        
+          
+            e
+          
+        
+      
+    
+    {\displaystyle v{\mathfrak {e}}}
+  .
+let us focus briefly on the one-particle states of the theory, in the adiabatically decoupled limit g → 0.  there are two kinds of quanta in the fock space of the gauge-fixed hamiltonian that we expect to lie entirely outside the kernel of the brst operator: those of the faddeev–popov anti-ghost 
+  
+    
+      
+        
+          
+            
+              c
+              ¯
+            
+          
+        
+      
+    
+    {\displaystyle {\bar {c}}}
+   and the forward polarized gauge boson.  this is because no combination of fields containing 
+  
+    
+      
+        
+          
+            
+              c
+              ¯
+            
+          
+        
+      
+    
+    {\displaystyle {\bar {c}}}
+   is annihilated by sb and we have added to the lagrangian a gauge breaking term that is equal up to a divergence to
+
+  
+    
+      
+        
+          s
+          
+            b
+          
+        
+        
+          (
+          
+            
+              
+                
+                  c
+                  ¯
+                
+              
+            
+            
+              (
+              
+                i
+                
+                  ∂
+                  
+                    μ
+                  
+                
+                
+                  a
+                  
+                    μ
+                  
+                
+                −
+                
+                  
+                    
+                      1
+                      2
+                    
+                  
+                
+                
+                  α
+                  
+                    0
+                  
+                
+                
+                  s
+                  
+                    b
+                  
+                
+                
+                  
+                    
+                      c
+                      ¯
+                    
+                  
+                
+              
+              )
+            
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle s_{b}\left({\bar {c}}\left(i\partial ^{\mu }a_{\mu }-{\tfrac {1}{2}}\alpha _{0}s_{b}{\bar {c}}\right)\right).}
+  likewise, there are two kinds of quanta that will lie entirely in the image of the brst operator: those of the faddeev–popov ghost c and the scalar field b, which is "eaten" by completing the square in the functional integral to become the backward polarized gauge boson.  these are the four types of "unphysical" quanta which will not appear in the asymptotic states of a perturbative calculation—if we get our quantization rules right.
+the anti-ghost is taken to be a lorentz scalar for the sake of poincaré invariance in 
+  
+    
+      
+        −
+        i
+        (
+        
+          ∂
+          
+            μ
+          
+        
+        
+          
+            
+              c
+              ¯
+            
+          
+        
+        )
+        
+          d
+          
+            μ
+          
+        
+        c
+      
+    
+    {\displaystyle -i(\partial ^{\mu }{\bar {c}})d_{\mu }c}
+  .  however, its (anti-)commutation law relative to c—i. e., its quantization prescription, which ignores the spin–statistics theorem by giving fermi–dirac statistics to a spin-0 particle—will be given by the requirement that the inner product on our fock space of asymptotic states be singular along directions corresponding to the raising and lowering operators of some combination of non-brst-closed and brst-exact fields.  this last statement is the key to "brst quantization", as opposed to mere "brst symmetry" or "brst transformation".
+
+(needs to be completed in the language of brst cohomology, with reference to the kugo–ojima treatment of asymptotic fock space.)
+
+
+== gauge bundles and the vertical ideal ==
+in order to do the brst method justice, we must switch from the "algebra-valued fields on minkowski space" picture typical of quantum field theory texts (and of the above exposition) to the language of fiber bundles, in which there are two quite different ways to look at a gauge transformation: as a change of local section (also known in general relativity as a passive transformation) or as the pullback of the field configuration along a vertical diffeomorphism of the principal bundle.  it is the latter sort of gauge transformation that enters into the brst method.  unlike a passive transformation, it is well-defined globally on a principal bundle with any structure group over an arbitrary manifold.  (however, for concreteness and relevance to conventional qft, this article will stick to the case of a principal gauge bundle with compact fiber over 4-dimensional minkowski space.)
+a principal gauge bundle p over a 4-manifold m is locally isomorphic to u × f, where u ⊂ r4 and the fiber f is isomorphic to a lie group g, the gauge group of the field theory (this is an isomorphism of manifold structures, not of group structures; there is no special surface in p corresponding to 1 in g, so it is more proper to say that the fiber f is a g-torsor). thus, the (physical) principal gauge bundle is related to the (mathematical) principal g-bundle but has more structure. its most basic property as a fiber bundle is the "projection to the base space" π : p → m, which defines the "vertical" directions on p (those lying within the fiber π−1(p) over each point p in m).  as a gauge bundle it has a left action of g on p which respects the fiber structure, and as a principal bundle it also has a right action of g on p which also respects the fiber structure and commutes with the left action.
+the left action of the structure group g on p corresponds to a mere change of coordinate system on an individual fiber. the (global) right action rg : p → p for a fixed g in g corresponds to an actual automorphism of each fiber and hence to a map of p to itself.  in order for p to qualify as a principal g-bundle, the global right action of each g in g must be an automorphism with respect to the manifold structure of p with a smooth dependence on g—i. e., a diffeomorphism p × g → p.
+the existence of the global right action of the structure group picks out a special class of right invariant geometric objects on p—those which do not change when they are pulled back along rg for all values of g in g.  the most important right invariant objects on a principal bundle are the right invariant vector fields, which form an ideal 
+  
+    
+      
+        
+          
+            e
+          
+        
+      
+    
+    {\displaystyle {\mathfrak {e}}}
+   of the lie algebra of infinitesimal diffeomorphisms on p.  those vector fields on p which are both right invariant and vertical form an ideal 
+  
+    
+      
+        v
+        
+          
+            e
+          
+        
+      
+    
+    {\displaystyle v{\mathfrak {e}}}
+   of  
+  
+    
+      
+        
+          
+            e
+          
+        
+      
+    
+    {\displaystyle {\mathfrak {e}}}
+  , which has a relationship to the entire bundle p analogous to that of the lie algebra 
+  
+    
+      
+        
+          
+            g
+          
+        
+      
+    
+    {\displaystyle {\mathfrak {g}}}
+   of the gauge group g to the individual g-torsor fiber f.
+the "field theory" of interest is defined in terms of a set of "fields" (smooth maps into various vector spaces) defined on a principal gauge bundle p.  different fields carry different representations of the gauge group g, and perhaps of other symmetry groups of the manifold such as the poincaré group.  one may define the space pl of local polynomials in these fields and their derivatives.  the fundamental lagrangian density of one's theory is presumed to lie in the subspace pl0 of polynomials which are real-valued and invariant under any unbroken non-gauge symmetry groups.  it is also presumed to be invariant not only under the left action (passive coordinate transformations) and the global right action of the gauge group but also under local gauge transformations—pullback along the infinitesimal diffeomorphism associated with an arbitrary choice of right invariant vertical vector field 
+  
+    
+      
+        ϵ
+        ∈
+        v
+        
+          
+            e
+          
+        
+      
+    
+    {\displaystyle \epsilon \in v{\mathfrak {e}}}
+  .
+identifying local gauge transformations with a particular subspace of vector fields on the manifold p equips us with a better framework for dealing with infinite-dimensional infinitesimals: differential geometry and the exterior calculus. the change in a scalar field under pullback along an infinitesimal automorphism is captured in the lie derivative, and the notion of retaining only the term linear in the scale of the vector field is implemented by separating it into the inner derivative and the exterior derivative.  (in this context, "forms" and the exterior calculus refer exclusively to degrees of freedom which are dual to vector fields on the gauge bundle, not to degrees of freedom expressed in (greek) tensor indices on the base manifold or (roman) matrix indices on the gauge algebra.)
+the lie derivative on a manifold is a globally well-defined operation in a way that the partial derivative is not.  the proper generalization of clairaut's theorem to the non-trivial manifold structure of p is given by the lie bracket of vector fields and the nilpotence of the exterior derivative. and we obtain an essential tool for computation: the generalized stokes theorem, which allows us to integrate by parts and drop the surface term as long as the integrand drops off rapidly enough in directions where there is an open boundary.  (this is not a trivial assumption, but can be dealt with by renormalization techniques such as dimensional regularization as long as the surface term can be made gauge invariant.)
+
+
+== brst formalism ==
+in theoretical physics, the brst formalism is a method of implementing first class constraints. the letters brst stand for becchi, rouet, stora, and (independently) tyutin who discovered this formalism. it is a sophisticated method to deal with quantum physical theories with gauge invariance. for example, the brst methods are often applied to gauge theory and quantized general relativity.
+
+
+=== quantum version ===
+the space of states is not a hilbert space (see below). this vector space is both z2-graded and r-graded. if you wish, you may think of it as a z2 × r-graded vector space. the former grading is the parity, which can either be even or odd. the latter grading is the ghost number. note that it is r and not z because unlike the classical case, we can have nonintegral ghost numbers. operators acting upon this space are also z2 × r-graded in the obvious manner. in particular, q is odd and has a ghost number of 1.
+let hn be the subspace of all states with ghost number n. then, q restricted to hn maps hn to hn+1. since q2 = 0, we have a cochain complex describing a cohomology.
+the physical states are identified as elements of cohomology of the operator q, i.e. as vectors in ker(qn+1)/im(qn). the brst theory is in fact linked to the standard resolution in lie algebra cohomology.
+recall that the space of states is z2-graded. if a is a pure graded operator, then the brst transformation maps a to [q, a) where [ , ) is the supercommutator. brst-invariant operators are operators for which [q, a) = 0. since the operators are also graded by ghost numbers, this brst transformation also forms a cohomology for the operators since [q, [q, a)) = 0.
+although the brst formalism is more general than the faddeev-popov gauge fixing, in the special case where it is derived from it, the brst operator is also useful to obtain the right jacobian associated with constraints that gauge-fix the symmetry.
+the brst operator is a supersymmetry. it generates the lie superalgebra with a zero-dimensional even part and a one-dimensional odd part spanned by q. [q, q) = {q, q} = 0 where [ , ) is the lie superbracket (i.e. q2 = 0). this means q acts as an antiderivation.
+because q is hermitian and its square is zero but q itself is nonzero, this means the vector space of all states prior to the cohomological reduction has an indefinite norm! this means it is not a hilbert space.
+for more general flows which can't be described by first class constraints, see batalin–vilkovisky formalism.
+
+
+=== example ===
+for the special case of gauge theories (of the usual kind described by sections of a principal g-bundle) with a quantum connection form a, a brst charge (sometimes also a brs charge) is an operator usually denoted q.
+let the 
+  
+    
+      
+        
+          
+            g
+          
+        
+      
+    
+    {\displaystyle {\mathfrak {g}}}
+  -valued gauge fixing conditions be 
+  
+    
+      
+        g
+        =
+        ξ
+        
+          ∂
+          
+            μ
+          
+        
+        
+          a
+          
+            μ
+          
+        
+      
+    
+    {\displaystyle g=\xi \partial ^{\mu }a_{\mu }}
+   where ξ is a positive number determining the gauge. there are many other possible gauge fixings, but they will not be covered here. the fields are the 
+  
+    
+      
+        
+          
+            g
+          
+        
+      
+    
+    {\displaystyle {\mathfrak {g}}}
+  -valued connection form a, 
+  
+    
+      
+        
+          
+            g
+          
+        
+      
+    
+    {\displaystyle {\mathfrak {g}}}
+  -valued scalar field with fermionic statistics, b and c and a 
+  
+    
+      
+        
+          
+            g
+          
+        
+      
+    
+    {\displaystyle {\mathfrak {g}}}
+  -valued scalar field with bosonic statistics b. c deals with the gauge transformations whereas b and b deal with the gauge fixings. there actually are some subtleties associated with the gauge fixing due to gribov ambiguities but they will not be covered here.
+
+  
+    
+      
+        q
+        a
+        =
+        d
+        c
+      
+    
+    {\displaystyle qa=dc}
+  where d is the covariant derivative.
+
+  
+    
+      
+        q
+        c
+        =
+        
+          
+            
+              i
+              2
+            
+          
+        
+        [
+        c
+        ,
+        c
+        
+          ]
+          
+            l
+          
+        
+      
+    
+    {\displaystyle qc={\tfrac {i}{2}}[c,c]_{l}}
+  where [ , ]l is the lie bracket.
+
+  
+    
+      
+        q
+        b
+        =
+        0
+      
+    
+    {\displaystyle qb=0}
+  
+
+  
+    
+      
+        q
+        b
+        =
+        b
+      
+    
+    {\displaystyle qb=b}
+  q is an antiderivation.
+the brst lagrangian density
+
+  
+    
+      
+        
+          
+            l
+          
+        
+        =
+        −
+        
+          
+            1
+            
+              4
+              
+                g
+                
+                  2
+                
+              
+            
+          
+        
+        tr
+        ⁡
+        [
+        
+          f
+          
+            μ
+            ν
+          
+        
+        
+          f
+          
+            μ
+            ν
+          
+        
+        ]
+        +
+        
+          
+            1
+            
+              2
+              
+                g
+                
+                  2
+                
+              
+            
+          
+        
+        tr
+        ⁡
+        [
+        b
+        b
+        ]
+        −
+        
+          
+            1
+            
+              g
+              
+                2
+              
+            
+          
+        
+        tr
+        ⁡
+        [
+        b
+        g
+        ]
+        −
+        
+          
+            ξ
+            
+              g
+              
+                2
+              
+            
+          
+        
+        tr
+        ⁡
+        [
+        
+          ∂
+          
+            μ
+          
+        
+        b
+        
+          d
+          
+            μ
+          
+        
+        c
+        ]
+      
+    
+    {\displaystyle {\mathcal {l}}=-{\frac {1}{4g^{2}}}\operatorname {tr} [f^{\mu \nu }f_{\mu \nu }]+{1 \over 2g^{2}}\operatorname {tr} [bb]-{1 \over g^{2}}\operatorname {tr} [bg]-{\xi  \over g^{2}}\operatorname {tr} [\partial ^{\mu }bd_{\mu }c]}
+  while the lagrangian density is not brst invariant, its integral over all of spacetime, the action, is.
+the operator q is defined as
+
+  
+    
+      
+        q
+        =
+        
+          c
+          
+            i
+          
+        
+        
+          (
+          
+            
+              l
+              
+                i
+              
+            
+            −
+            
+              
+                1
+                2
+              
+            
+            
+              
+                
+                  
+                    
+                      f
+                      
+                        i
+                      
+                    
+                  
+                  
+                    j
+                  
+                
+              
+              
+                k
+              
+            
+            
+              b
+              
+                j
+              
+            
+            
+              c
+              
+                k
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle q=c^{i}\left(l_{i}-{\frac {1}{2}}{{f_{i}}^{j}}_{k}b_{j}c^{k}\right)}
+  where 
+  
+    
+      
+        
+          c
+          
+            i
+          
+        
+        ,
+        
+          b
+          
+            i
+          
+        
+      
+    
+    {\displaystyle c^{i},b_{i}}
+   are the faddeev–popov ghosts and antighosts (fields with a negative ghost number), respectively, li are the infinitesimal generators of the lie group, and 
+  
+    
+      
+        
+          f
+          
+            i
+            j
+          
+        
+        
+          
+
+          
+          
+            k
+          
+        
+      
+    
+    {\displaystyle f_{ij}{}^{k}}
+   are its structure constants.
+
+
+== see also ==
+batalin–vilkovisky formalism
+quantum chromodynamics
+
+
+== references ==
+
+
+=== citations ===
+
+
+=== textbook treatments ===
+chapter 16 of peskin & schroeder (isbn 0-201-50397-2 or isbn 0-201-50934-2) applies the "brst symmetry" to reason about anomaly cancellation in the faddeev–popov lagrangian.  this is a good start for qft non-experts, although the connections to geometry are omitted and the treatment of asymptotic fock space is only a sketch.
+chapter 12 of  m. göckeler and t. schücker (isbn 0-521-37821-4 or isbn 0-521-32960-4) discusses the relationship between the brst formalism and the geometry of gauge bundles.  it is substantially similar to schücker's 1987 paper.
+
+
+=== mathematical treatment ===
+figueroa-o'farrill, j. m.; kimura, t. (1991). "geometric brst quantization i. prequantization". commun. math. phys. springer-verlag. 136 (2): 209–229. bibcode:1991cmaph.136..209f. doi:10.1007/bf02100022. issn 0010-3616. mr 1096113. s2cid 120119621.
+kostant, b.; sternberg, s. (1987). "symplectic reduction, brs cohomology, and infinite-dimensional clifford algebras". ann. phys. elsevier. 176 (1): 49–113. bibcode:1987anphy.176...49k. doi:10.1016/0003-4916(87)90178-3.
+
+
+=== primary literature ===
+original brst papers:
+
+brandt, friedemann; barnich, glenn; henneaux, marc (2000), "local brst cohomology in gauge theories", physics reports, 338 (5): 439–569, arxiv:hep-th/0002245, bibcode:2000phr...338..439b, doi:10.1016/s0370-1573(00)00049-1, issn 0370-1573, mr 1792979, s2cid 119420167
+becchi, c.; rouet, a.; stora, r. (1974). "the abelian higgs kibble model, unitarity of the s-operator". physics letters b. elsevier bv. 52 (3): 344–346. doi:10.1016/0370-2693(74)90058-6. issn 0370-2693.
+becchi, c.; rouet, a.; stora, r. (1975). "renormalization of the abelian higgs-kibble model". communications in mathematical physics. springer science and business media llc. 42 (2): 127–162. doi:10.1007/bf01614158. issn 0010-3616. s2cid 120552882.
+becchi, c; rouet, a; stora, r (1976). "renormalization of gauge theories". annals of physics. elsevier bv. 98 (2): 287–321. doi:10.1016/0003-4916(76)90156-1. issn 0003-4916.
+i.v. tyutin, "gauge invariance in field theory and statistical physics in operator formalism", lebedev physics institute preprint 39 (1975), arxiv:0812.0580.
+kugo, taichiro; ojima, izumi (1979). "local covariant operator formalism of non-abelian gauge theories and quark confinement problem". progress of theoretical physics supplement. oxford university press (oup). 66: 1–130. doi:10.1143/ptps.66.1. issn 0375-9687.
+a more accessible version of kugo–ojima is available online in a series of papers, starting with: kugo, t.; ojima, i. (1978-12-01). "manifestly covariant canonical formulation of the yang-mills field theories. i: -- general formalism --". progress of theoretical physics. oxford university press (oup). 60 (6): 1869–1889. doi:10.1143/ptp.60.1869. issn 0033-068x. this is probably the single best reference for brst quantization in quantum mechanical (as opposed to geometrical) language.
+much insight about the relationship between topological invariants and the brst operator may be found in: e. witten, "topological quantum field theory", commun. math. phys.  117, 3 (1988), pp. 353–386
+
+
+=== alternate perspectives ===
+brst systems are briefly analyzed from an operator theory perspective in:  s. s. horuzhy and a. v. voronin, "remarks on mathematical structure of brst theories", comm. math. phys. 123, 4 (1989) pp. 677–685
+a measure-theoretic perspective on the brst method may be found in carlo becchi's 1996 lecture notes.
+
+
+== external links ==
+brst cohomology on arxiv.org

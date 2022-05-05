@@ -1,0 +1,58 @@
+in mathematics, the sieve of atkin is a modern algorithm for finding all prime numbers up to a specified integer.  compared with the ancient sieve of eratosthenes, which marks off multiples of  primes, the sieve of atkin does some preliminary work and then marks off multiples of squares of primes, thus achieving a better theoretical asymptotic complexity. it was created in 2003 by a. o. l. atkin and daniel j. bernstein.
+
+
+== algorithm ==
+in the algorithm:
+
+all remainders are modulo-sixty remainders (divide the number by 60 and return the remainder).
+all numbers, including x and y, are positive integers.
+flipping an entry in the sieve list means to change the marking (prime or nonprime) to the opposite marking.
+this results in numbers with an odd number of solutions to the corresponding equation being potentially prime (prime if they are also square free), and numbers with an even number of solutions being composite.the algorithm:
+
+create a results list, filled with 2, 3, and 5.
+create a sieve list with an entry for each positive integer; all entries of this list should initially be marked non prime (composite).
+for each entry number n in the sieve list, with modulo-sixty remainder r :
+if r is 1, 13, 17, 29, 37, 41, 49, or 53, flip the entry for each possible solution to 4x2 + y2 = n.  the number of flipping operations as a ratio to the sieving range for this step approaches 4√π/15 × 8/60 (the "8" in the fraction comes from the eight modulos handled by this quadratic and the 60 because atkin calculated this based on an even number of modulo 60 wheels), which results in a fraction of about 0.1117010721276....
+if r is 7, 19, 31, or 43, flip the entry for each possible solution to 3x2 + y2 = n.  the number of flipping operations as a ratio to the sieving range for this step approaches π√0.12 × 4/60 (the "4" in the fraction comes from the four modulos handled by this quadratic and the 60 because atkin calculated this based on an even number of modulo 60 wheels), which results in a fraction of about 0.072551974569....
+if r is 11, 23, 47, or 59, flip the entry for each possible solution to 3x2 − y2 = n when x > y.  the number of flipping operations as a ratio to the sieving range for this step approaches √1.92ln(√0.5+√1.5) × 4/60 (the "4" in the fraction comes from the four modulos handled by this quadratic and the 60 because atkin calculated this based on an even number of modulo 60 wheels), which results in a fraction of about 0.060827679704....
+if r is something else, ignore it completely.
+start with the lowest number in the sieve list.
+take the next number in the sieve list still marked prime.
+include the number in the results list.
+square the number and mark all multiples of that square as non prime.  note that the multiples that can be factored by 2, 3, or 5 need not be marked, as these will be ignored in the final enumeration of primes.
+repeat steps four through seven.  the total number of operations for these repetitions of marking the squares of primes as a ratio of the sieving range is the sum of the inverse of the primes squared, which approaches the prime zeta function(2) of 0.45224752004... minus 1/22, 1/32, and 1/52 for those primes which have been eliminated by the wheel, with the result multiplied by 16/60 for the ratio of wheel hits per range; this results in a ratio of about 0.01363637571....adding the above ratios of operations together, the above algorithm takes a constant ratio of flipping/marking operations to the sieving range of about 0.2587171021...;  from an actual implementation of the algorithm, the ratio is about 0.25 for sieving ranges as low as 67.
+
+
+== pseudocode ==
+the following is pseudocode which combines atkin's algorithms 3.1, 3.2, and 3.3 by using a combined set "s" of all the numbers modulo 60 excluding those which are multiples of the prime numbers 2, 3, and 5, as per the algorithms, for a straightforward version of the algorithm that supports optional bit packing of the wheel; although not specifically mentioned in the referenced paper, this pseudocode eliminates some obvious combinations of odd/even x's/y's in order to reduce computation where those computations would never pass the modulo tests anyway (i.e. would produce even numbers, or multiples of 3 or 5):
+
+this pseudocode is written for clarity; although some redundant computations have been eliminated by controlling the odd/even x/y combinations, it still wastes almost half of its quadratic computations on non-productive loops that don't pass the modulo tests such that it will not be faster than an equivalent wheel factorized (2/3/5) sieve of eratosthenes.  to improve its efficiency, a method must be devised to minimize or eliminate these non-productive computations.
+
+
+== explanation ==
+the algorithm completely ignores any numbers with remainder modulo 60 that is divisible by two, three, or five, since numbers with a modulo 60 remainder divisible by one of these three primes are themselves divisible by that prime.
+all numbers n with modulo-sixty remainder 1, 13, 17, 29, 37, 41, 49, or 53 have a modulo-four remainder of 1.  these numbers are prime if and only if the number of solutions to 4x2 + y2 = n is odd and the number is squarefree (proven as theorem 6.1 of).
+all numbers n with modulo-sixty remainder 7, 19, 31, or 43 have a modulo-six remainder of 1.  these numbers are prime if and only if the number of solutions to 3x2 + y2 = n is odd and the number is squarefree (proven as theorem 6.2 of).
+all numbers n with modulo-sixty remainder 11, 23, 47, or 59 have a modulo-twelve remainder of 11.  these numbers are prime if and only if the number of solutions to 3x2 − y2 = n is odd and the number is squarefree (proven as theorem 6.3 of).
+none of the potential primes are divisible by 2, 3, or 5, so they can't be divisible by their squares.  this is why squarefree checks don't include 22, 32, and 52.
+
+
+== computational complexity ==
+it can be computed that the above series of three quadratic equation operations each have a number of operations that is a constant ratio of the range as the range goes to infinity; as well the prime square free culling operations can be described by the prime zeta function(2) with constant offsets and factors so it is also a constant factor of the range as the range goes to infinity.  therefore, the algorithm described above can compute primes up to n using o(n) operations with only o(n) bits of memory.
+the page segmented version implemented by the authors has the same o(n) operations but reduces the memory requirement to just that required by the base primes below the square root of the range of o(n1/2/log n) bits of memory plus a minimal page buffer.  this is slightly better performance with the same memory requirement as the page segmented sieve of eratosthenes which uses o(n log log n) operations and the same o(n1/2/log n) bits of memory plus a minimal page buffer.  however, such a sieve does not outperform a sieve of eratosthenes with maximum practical wheel factorization (a combination of a 2/3/5/7 sieving wheel and pre-culling composites in the segment page buffers using a 2/3/5/7/11/13/17/19 pattern), which although it has slightly more operations than the sieve of atkin for very large but practical ranges, has a constant factor of less complexity per operation by about three times in comparing the per operation time between the algorithms implemented by bernstein in cpu clock cycles per operation.  the main problem with the page segmented sieve of atkin is the difficulty in implementing the "prime square free" culling sequences due to the span between culls rapidly growing far beyond the page buffer span; the time expended for this operation in bernstein's implementation rapidly grows to many times the time expended in the actual quadratic equation calculations, meaning that the linear complexity of the part that would otherwise be quite negligible becomes a major consumer of execution time.  thus, even though an optimized implementation may again settle to a o(n) time complexity, this constant factor of increased time per operations means that the sieve of atkin is slower.
+a special modified "enumerating lattice points" variation which is not the above version of the sieve of atkin can theoretically compute primes up to n using o(n/log log n) operations with n1/2 + o(1) bits of memory but this variation is rarely implemented.  that is a little better in performance at a very high cost in memory as compared to both the ordinary page segmented version and to an equivalent but rarely-implemented version of the sieve of eratosthenes which uses o(n) operations and o(n1/2(log log n)/log n) bits of memory.pritchard observed that for the wheel sieves, one can reduce memory consumption while preserving big o time complexity, but this generally comes at a cost in an increased constant factor for time per operation due to the extra complexity. therefore, this special version is likely more of value as an intellectual exercise than a practical prime sieve with reduced real time expended for a given large practical sieving range.
+
+
+== see also ==
+sieve of eratosthenes
+legendre sieve
+sieve of sundaram
+sieve theory
+
+
+== references ==
+
+
+== external links ==
+article about sieve of atkin and implementation
+an optimized implementation of the sieve (in c)

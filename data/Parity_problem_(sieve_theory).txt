@@ -1,0 +1,1444 @@
+in number theory, the parity problem refers to a limitation in sieve theory that prevents sieves from giving good estimates in many kinds of prime-counting problems. the problem was identified and named by atle selberg in 1949. beginning around 1996, john friedlander and henryk iwaniec developed some parity-sensitive sieves that make the parity problem less of an obstacle.
+
+
+== statement ==
+terence tao gave this "rough" statement of the problem:
+parity problem. if a is a set whose elements are all products of an odd number of primes (or are all products of an even number of primes), then (without injecting additional ingredients), sieve theory is unable to provide non-trivial lower bounds on the size of a. also, any upper bounds must be off from the truth by a factor of 2 or more.
+this problem is significant because it may explain why it is difficult for sieves to "detect primes," in other words to give a non-trivial lower bound for the number of primes with some property. for example, in a sense chen's theorem is very close to a solution of the twin prime conjecture, since it says that there are infinitely many primes p such that p + 2 is either prime or the product of two primes. the parity problem suggests that, because the case of interest has an odd number of prime factors (namely 1), it won't be possible to separate out the two cases using sieves.
+
+
+== example ==
+this example is due to selberg and is given as an exercise with hints by cojocaru & murty.: 133–134 the problem is to estimate separately the number of numbers ≤ x with no prime divisors ≤ x1/2, that have an even (or an odd) number of prime factors. it can be shown that, no matter what the choice of weights in a brun- or selberg-type sieve, the upper bound obtained will be at least (2 + o(1)) x / ln x for both problems. but in fact the set with an even number of factors is empty and so has size 0. the set with an odd number of factors is just the primes between x1/2 and x, so by the prime number theorem its size is (1 + o(1)) x / ln x. thus these sieve methods are unable to give a useful upper bound for the first set, and overestimate the upper bound on the second set by a factor of 2.
+
+
+== parity-sensitive sieves ==
+beginning around 1996 john friedlander and henryk iwaniec developed some new sieve techniques to "break" the parity problem.
+one of the triumphs of these new methods is the friedlander–iwaniec theorem, which states that there are infinitely many primes of the form a2 + b4.
+glyn harman relates the parity problem to the distinction between type i and type ii information in a sieve.
+
+
+== karatsuba phenomenon ==
+in 2007 anatolii alexeevitch karatsuba discovered an imbalance between the numbers in an arithmetic progression with given parities of the number of prime factors.  his papers were published after his death.
+let 
+  
+    
+      
+        
+          n
+        
+      
+    
+    {\displaystyle \mathbb {n} }
+   be a set of natural numbers (positive integers) that is, the numbers  
+  
+    
+      
+        1
+        ,
+        2
+        ,
+        3
+        ,
+        …
+      
+    
+    {\displaystyle 1,2,3,\dots }
+  . the set of primes, that is, such integers 
+  
+    
+      
+        n
+        ∈
+        
+          n
+        
+      
+    
+    {\displaystyle n\in \mathbb {n} }
+  , 
+  
+    
+      
+        n
+        >
+        1
+      
+    
+    {\displaystyle n>1}
+  , that have just two distinct divisors  (namely, 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   and 
+  
+    
+      
+        1
+      
+    
+    {\displaystyle 1}
+  ), is denoted by 
+  
+    
+      
+        
+          p
+        
+      
+    
+    {\displaystyle \mathbb {p} }
+  , 
+  
+    
+      
+        
+          p
+        
+        =
+        {
+        2
+        ,
+        3
+        ,
+        5
+        ,
+        7
+        ,
+        11
+        ,
+        …
+        }
+        ⊂
+        
+          n
+        
+      
+    
+    {\displaystyle \mathbb {p} =\{2,3,5,7,11,\dots \}\subset \mathbb {n} }
+  . every natural number 
+  
+    
+      
+        n
+        ∈
+        
+          n
+        
+      
+    
+    {\displaystyle n\in \mathbb {n} }
+  , 
+  
+    
+      
+        n
+        >
+        1
+      
+    
+    {\displaystyle n>1}
+  , can be represented as a product of primes (not necessarily distinct), that is 
+  
+    
+      
+        n
+        =
+        
+          p
+          
+            1
+          
+        
+        
+          p
+          
+            2
+          
+        
+        …
+        
+          p
+          
+            k
+          
+        
+        ,
+      
+    
+    {\displaystyle n=p_{1}p_{2}\dots p_{k},}
+   where 
+  
+    
+      
+        
+          p
+          
+            1
+          
+        
+        ∈
+        
+          p
+        
+        ,
+         
+        
+          p
+          
+            2
+          
+        
+        ∈
+        
+          p
+        
+        ,
+         
+        …
+        ,
+         
+        
+          p
+          
+            k
+          
+        
+        ∈
+        
+          p
+        
+      
+    
+    {\displaystyle p_{1}\in \mathbb {p} ,\ p_{2}\in \mathbb {p} ,\ \dots ,\ p_{k}\in \mathbb {p} }
+  ,
+and such representation is unique up to the order of factors.
+if we form two sets, the first consisting of positive integers having even number of prime factors, the second consisting of positive integers having an odd number of prime factors, in their canonical representation, then the two sets are approximately the same size.
+if, however, we limit our two sets to those positive integers whose canonical representation contains no primes in arithmetic progression, for example 
+  
+    
+      
+        6
+        m
+        +
+        1
+      
+    
+    {\displaystyle 6m+1}
+  , 
+  
+    
+      
+        m
+        =
+        1
+        ,
+        2
+        ,
+        …
+      
+    
+    {\displaystyle m=1,2,\dots }
+   or the progression 
+  
+    
+      
+        k
+        m
+        +
+        l
+      
+    
+    {\displaystyle km+l}
+  , 
+  
+    
+      
+        1
+        ≤
+        l
+        <
+        k
+      
+    
+    {\displaystyle 1\leq l<k}
+  , 
+  
+    
+      
+        (
+        l
+        ,
+        k
+        )
+        =
+        1
+      
+    
+    {\displaystyle (l,k)=1}
+  , 
+  
+    
+      
+        m
+        =
+        0
+        ,
+        1
+        ,
+        2
+        ,
+        …
+      
+    
+    {\displaystyle m=0,1,2,\dots }
+  , then of these positive integers, those with an even number of prime factors will tend to be fewer than those with odd number of prime factors.  karatsuba discovered this property.  he found also a formula for this phenomenon, a formula for the difference in cardinalities of sets of natural numbers with odd and even amount of prime factors, when these factors are complied with certain restrictions.  in all cases, since the sets involved are infinite, by "larger" and "smaller" we mean the limit of the ratio of the sets as an upper bound on the primes goes to infinity.  in the case of primes containing an arithmetic progression, karatsuba proved that this limit is infinite.
+we restate the karatsuba phenomenon using mathematical terminology.
+let 
+  
+    
+      
+        
+          
+            n
+          
+          
+            0
+          
+        
+      
+    
+    {\displaystyle \mathbb {n} _{0}}
+   and 
+  
+    
+      
+        
+          
+            n
+          
+          
+            1
+          
+        
+      
+    
+    {\displaystyle \mathbb {n} _{1}}
+   be subsets of 
+  
+    
+      
+        
+          n
+        
+      
+    
+    {\displaystyle \mathbb {n} }
+  , such that
+
+  
+    
+      
+        n
+        ∈
+        
+          
+            n
+          
+          
+            0
+          
+        
+      
+    
+    {\displaystyle n\in \mathbb {n} _{0}}
+  , if 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   contains an even number of prime factors, and 
+  
+    
+      
+        n
+        ∈
+        
+          
+            n
+          
+          
+            1
+          
+        
+      
+    
+    {\displaystyle n\in \mathbb {n} _{1}}
+  , if 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   contains an odd number of prime factors. intuitively, the sizes of the two sets 
+  
+    
+      
+        
+          
+            n
+          
+          
+            0
+          
+        
+      
+    
+    {\displaystyle \mathbb {n} _{0}}
+   and 
+  
+    
+      
+        
+          
+            n
+          
+          
+            1
+          
+        
+      
+    
+    {\displaystyle \mathbb {n} _{1}}
+   are approximately the same.  more precisely, for all 
+  
+    
+      
+        x
+        ≥
+        1
+      
+    
+    {\displaystyle x\geq 1}
+  , we define 
+  
+    
+      
+        
+          n
+          
+            0
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle n_{0}(x)}
+   and 
+  
+    
+      
+        
+          n
+          
+            1
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle n_{1}(x)}
+  , where 
+  
+    
+      
+        
+          n
+          
+            0
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle n_{0}(x)}
+   is the cardinality of the set of all numbers 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   from 
+  
+    
+      
+        
+          
+            n
+          
+          
+            0
+          
+        
+      
+    
+    {\displaystyle \mathbb {n} _{0}}
+   such that 
+  
+    
+      
+        n
+        ≤
+        x
+      
+    
+    {\displaystyle n\leq x}
+  , and 
+  
+    
+      
+        
+          n
+          
+            1
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle n_{1}(x)}
+   is the cardinality of the set of all numbers 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   from 
+  
+    
+      
+        
+          
+            n
+          
+          
+            1
+          
+        
+      
+    
+    {\displaystyle \mathbb {n} _{1}}
+   such that 
+  
+    
+      
+        n
+        ≤
+        x
+      
+    
+    {\displaystyle n\leq x}
+  . the asymptotic behavior of 
+  
+    
+      
+        
+          n
+          
+            0
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle n_{0}(x)}
+   and 
+  
+    
+      
+        
+          n
+          
+            1
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle n_{1}(x)}
+   was derived by e. landau:
+
+  
+    
+      
+        
+          n
+          
+            0
+          
+        
+        (
+        x
+        )
+        =
+        
+          
+            1
+            2
+          
+        
+        x
+        +
+        o
+        
+          (
+          
+            x
+            
+              e
+              
+                −
+                c
+                
+                  
+                    ln
+                    ⁡
+                    x
+                  
+                
+              
+            
+          
+          )
+        
+        ,
+        
+          n
+          
+            1
+          
+        
+        (
+        x
+        )
+        =
+        
+          
+            1
+            2
+          
+        
+        x
+        +
+        o
+        
+          (
+          
+            x
+            
+              e
+              
+                −
+                c
+                
+                  
+                    ln
+                    ⁡
+                    x
+                  
+                
+              
+            
+          
+          )
+        
+        ;
+        c
+        >
+        0.
+      
+    
+    {\displaystyle n_{0}(x)={\frac {1}{2}}x+o\left(xe^{-c{\sqrt {\ln x}}}\right),n_{1}(x)={\frac {1}{2}}x+o\left(xe^{-c{\sqrt {\ln x}}}\right);c>0.}
+  this shows that
+
+  
+    
+      
+        
+          n
+          
+            0
+          
+        
+        (
+        x
+        )
+        ∼
+        
+          n
+          
+            1
+          
+        
+        (
+        x
+        )
+        ∼
+        
+          
+            1
+            2
+          
+        
+        x
+        ,
+      
+    
+    {\displaystyle n_{0}(x)\sim n_{1}(x)\sim {\frac {1}{2}}x,}
+  that is 
+  
+    
+      
+        
+          n
+          
+            0
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle n_{0}(x)}
+   and 
+  
+    
+      
+        
+          n
+          
+            1
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle n_{1}(x)}
+   are asymptotically equal.
+further,
+
+  
+    
+      
+        
+          n
+          
+            1
+          
+        
+        (
+        x
+        )
+        −
+        
+          n
+          
+            0
+          
+        
+        (
+        x
+        )
+        =
+        o
+        
+          (
+          
+            x
+            
+              e
+              
+                −
+                c
+                
+                  
+                    ln
+                    ⁡
+                    x
+                  
+                
+              
+            
+          
+          )
+        
+        ,
+      
+    
+    {\displaystyle n_{1}(x)-n_{0}(x)=o\left(xe^{-c{\sqrt {\ln x}}}\right),}
+  so that the difference between the cardinalities of the two sets is small.
+on the other hand, if we let 
+  
+    
+      
+        k
+        ≥
+        2
+      
+    
+    {\displaystyle k\geq 2}
+   be a natural number, and 
+  
+    
+      
+        
+          l
+          
+            1
+          
+        
+        ,
+        
+          l
+          
+            2
+          
+        
+        ,
+        …
+        
+          l
+          
+            r
+          
+        
+      
+    
+    {\displaystyle l_{1},l_{2},\dots l_{r}}
+   be a sequence of natural numbers, 
+  
+    
+      
+        1
+        ≤
+        r
+        <
+        φ
+        (
+        k
+        )
+      
+    
+    {\displaystyle 1\leq r<\varphi (k)}
+  , such that 
+  
+    
+      
+        1
+        ≤
+        
+          l
+          
+            j
+          
+        
+        <
+        k
+      
+    
+    {\displaystyle 1\leq l_{j}<k}
+  ; 
+  
+    
+      
+        (
+        
+          l
+          
+            j
+          
+        
+        ,
+        k
+        )
+        =
+        1
+      
+    
+    {\displaystyle (l_{j},k)=1}
+  ; every 
+  
+    
+      
+        
+          l
+          
+            j
+          
+        
+      
+    
+    {\displaystyle l_{j}}
+   are different modulo  
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  ; 
+  
+    
+      
+        j
+        =
+        1
+        ,
+        2
+        ,
+        …
+        r
+        .
+      
+    
+    {\displaystyle j=1,2,\dots r.}
+  
+let 
+  
+    
+      
+        
+          a
+        
+      
+    
+    {\displaystyle \mathbb {a} }
+   be a set of primes belonging to the progressions 
+  
+    
+      
+        k
+        n
+        +
+        
+          l
+          
+            j
+          
+        
+      
+    
+    {\displaystyle kn+l_{j}}
+  ; 
+  
+    
+      
+        j
+        ≤
+        r
+      
+    
+    {\displaystyle j\leq r}
+  . (
+  
+    
+      
+        
+          a
+        
+      
+    
+    {\displaystyle \mathbb {a} }
+   is the set of all primes not dividing  
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  ).
+we denote as 
+  
+    
+      
+        
+          
+            n
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle \mathbb {n} ^{*}}
+   a set of natural numbers, which do not contain prime factors from 
+  
+    
+      
+        
+          a
+        
+      
+    
+    {\displaystyle \mathbb {a} }
+  , and as 
+  
+    
+      
+        
+          
+            n
+          
+          
+            0
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle \mathbb {n} _{0}^{*}}
+   a subset of numbers from 
+  
+    
+      
+        
+          
+            n
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle \mathbb {n} ^{*}}
+   with even number of prime factors, as 
+  
+    
+      
+        
+          
+            n
+          
+          
+            1
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle \mathbb {n} _{1}^{*}}
+   a subset of numbers from 
+  
+    
+      
+        
+          
+            n
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle \mathbb {n} ^{*}}
+   with odd number of prime factors.
+we define the functions
+
+  
+    
+      
+        
+          n
+          
+            ∗
+          
+        
+        (
+        x
+        )
+        =
+        
+          
+            ∑
+            
+              
+                
+                  
+                    n
+                    ≤
+                    x
+                  
+                
+                
+                  
+                    n
+                    ∈
+                    
+                      
+                        n
+                      
+                      
+                        ∗
+                      
+                    
+                  
+                
+              
+            
+          
+          1
+          ;
+          
+            n
+            
+              0
+            
+            
+              ∗
+            
+          
+          (
+          x
+          )
+          =
+          
+            
+              ∑
+              
+                
+                  
+                    
+                      n
+                      ≤
+                      x
+                    
+                  
+                  
+                    
+                      n
+                      ∈
+                      
+                        
+                          n
+                        
+                        
+                          0
+                        
+                        
+                          ∗
+                        
+                      
+                    
+                  
+                
+              
+            
+            1
+            ;
+            
+              n
+              
+                1
+              
+              
+                ∗
+              
+            
+            (
+            x
+            )
+            =
+            
+              
+                ∑
+                
+                  
+                    
+                      
+                        n
+                        ≤
+                        x
+                      
+                    
+                    
+                      
+                        n
+                        ∈
+                        
+                          
+                            n
+                          
+                          
+                            1
+                          
+                          
+                            ∗
+                          
+                        
+                      
+                    
+                  
+                
+              
+              1.
+            
+          
+        
+      
+    
+    {\displaystyle n^{*}(x)=\displaystyle \sum _{\begin{array}{c}n\leq x\\n\in \mathbb {n} ^{*}\end{array}}1;n_{0}^{*}(x)=\displaystyle \sum _{\begin{array}{c}n\leq x\\n\in \mathbb {n} _{0}^{*}\end{array}}1;n_{1}^{*}(x)=\displaystyle \sum _{\begin{array}{c}n\leq x\\n\in \mathbb {n} _{1}^{*}\end{array}}1.}
+  karatsuba proved that for 
+  
+    
+      
+        x
+        →
+        +
+        ∞
+      
+    
+    {\displaystyle x\to +\infty }
+  , the asymptotic formula
+
+  
+    
+      
+        
+          n
+          
+            1
+          
+          
+            ∗
+          
+        
+        (
+        x
+        )
+        −
+        
+          n
+          
+            0
+          
+          
+            ∗
+          
+        
+        (
+        x
+        )
+        ∼
+        c
+        
+          n
+          
+            ∗
+          
+        
+        (
+        x
+        )
+        (
+        ln
+        ⁡
+        x
+        
+          )
+          
+            2
+            
+              (
+              
+                
+                  
+                    r
+                    
+                      φ
+                      (
+                      k
+                      )
+                    
+                  
+                
+                −
+                1
+              
+              )
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle n_{1}^{*}(x)-n_{0}^{*}(x)\sim cn^{*}(x)(\ln x)^{2\left({\frac {r}{\varphi (k)}}-1\right)},}
+  is valid, where 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+   is a positive constant.
+he also showed that it is possible to prove the analogous theorems for other sets of natural numbers, for example, for numbers which are representable in the form of the sum of two squares, and that sets of natural numbers, all factors of which do belong to 
+  
+    
+      
+        
+          a
+        
+      
+    
+    {\displaystyle \mathbb {a} }
+  , will display analogous asymptotic behavior.
+the karatsuba theorem was generalized for the case when 
+  
+    
+      
+        
+          a
+        
+      
+    
+    {\displaystyle \mathbf {a} }
+   is a certain unlimited set of primes.
+the karatsuba phenomenon is illustrated by the following example. we consider the natural numbers whose canonical representation does not include primes belonging to the progression 
+  
+    
+      
+        6
+        m
+        +
+        1
+      
+    
+    {\displaystyle 6m+1}
+  , 
+  
+    
+      
+        m
+        =
+        1
+        ,
+        2
+        ,
+        …
+      
+    
+    {\displaystyle m=1,2,\dots }
+  . then this phenomenon is expressed by the formula: 
+
+  
+    
+      
+        
+          n
+          
+            1
+          
+          
+            ∗
+          
+        
+        (
+        x
+        )
+        −
+        
+          n
+          
+            0
+          
+          
+            ∗
+          
+        
+        (
+        x
+        )
+        ∼
+        
+          
+            π
+            
+              8
+              
+                
+                  3
+                
+              
+            
+          
+        
+        
+          
+            
+              
+                n
+                
+                  ∗
+                
+              
+              (
+              x
+              )
+            
+            
+              ln
+              ⁡
+              x
+            
+          
+        
+        ,
+        
+        x
+        →
+        +
+        ∞
+        .
+      
+    
+    {\displaystyle n_{1}^{*}(x)-n_{0}^{*}(x)\sim {\frac {\pi }{8{\sqrt {3}}}}{\frac {n^{*}(x)}{\ln x}},\qquad x\to +\infty .}
+  
+
+
+== notes ==

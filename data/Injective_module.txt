@@ -1,0 +1,992 @@
+in mathematics, especially in the area of abstract algebra known as module theory, an injective module is a module q that shares certain desirable properties with the z-module q of all rational numbers. specifically, if q is a submodule of some other module, then it is already a direct summand of that module; also, given a submodule of a module y, then any module homomorphism from this submodule to q can be extended to a homomorphism from all of y to q. this concept is dual to that of projective modules. injective modules were introduced in (baer 1940) and are discussed in some detail in the textbook (lam 1999, §3).
+injective modules have been heavily studied, and a variety of additional notions are defined in terms of them: injective cogenerators are injective modules that faithfully represent the entire category of modules. injective resolutions measure how far from injective a module is in terms of the injective dimension and represent modules in the derived category. injective hulls are maximal essential extensions, and turn out to be minimal injective extensions. over a noetherian ring, every injective module is uniquely a direct sum of indecomposable modules, and their structure is well understood. an injective module over one ring, may not be injective over another, but there are well-understood methods of changing rings which handle special cases. rings which are themselves injective modules have a number of interesting properties and include rings such as group rings of finite groups over fields. injective modules include divisible groups and are generalized by the notion of injective objects in category theory.
+
+
+== definition ==
+a left module q over the ring r is injective if it satisfies one (and therefore all) of the following equivalent conditions:
+
+if q is a submodule of some other left r-module m, then there exists another submodule k of m such that m is the internal direct sum of q and k, i.e. q + k = m and q ∩ k = {0}.
+any short exact sequence 0 →q → m → k → 0 of left r-modules splits.
+if x and y are left r-modules, f : x → y is an injective module homomorphism and g : x → q is an arbitrary module homomorphism, then there exists a module homomorphism h : y → q such that hf = g, i.e. such that the following diagram commutes:the contravariant hom functor hom(-,q) from the category of left r-modules to the category of abelian groups is exact.injective right r-modules are defined in complete analogy.
+
+
+== examples ==
+
+
+=== first examples ===
+trivially, the zero module {0} is injective.
+given a field k, every k-vector space q is an injective k-module. reason: if q is a subspace of v, we can find a basis of q and extend it to a basis of v. the new extending basis vectors span a subspace k of v and v is the internal direct sum of q and k. note that the direct complement k of q is not uniquely determined by q, and likewise the extending map h in the above definition is typically not unique.
+the rationals q (with addition) form an injective abelian group (i.e. an injective z-module). the factor group q/z and the circle group are also injective z-modules. the factor group z/nz for n > 1 is injective as a z/nz-module, but not injective as an abelian group.
+
+
+=== commutative examples ===
+more generally, for any integral domain r with field of fractions k, the r-module k is an injective r-module, and indeed the smallest injective r-module containing r. for any dedekind domain, the quotient module k/r is also injective, and its indecomposable summands are the localizations 
+  
+    
+      
+        
+          r
+          
+            
+              p
+            
+          
+        
+        
+          /
+        
+        r
+      
+    
+    {\displaystyle r_{\mathfrak {p}}/r}
+   for the nonzero prime ideals 
+  
+    
+      
+        
+          
+            p
+          
+        
+      
+    
+    {\displaystyle {\mathfrak {p}}}
+  . the zero ideal is also prime and corresponds to the injective k. in this way there is a 1-1 correspondence between prime ideals and indecomposable injective modules.
+a particularly rich theory is available for commutative noetherian rings due to eben matlis, (lam 1999, §3i). every injective module is uniquely a direct sum of indecomposable injective modules, and the indecomposable injective modules are uniquely identified as the injective hulls of the quotients r/p where p varies over the prime spectrum of the ring. the injective hull of r/p as an r-module is canonically an rp module, and is the rp-injective hull of r/p. in other words, it suffices to consider local rings. the endomorphism ring of the injective hull of r/p is the completion 
+  
+    
+      
+        
+          
+            
+              
+                r
+                ^
+              
+            
+          
+          
+            p
+          
+        
+      
+    
+    {\displaystyle {\hat {r}}_{p}}
+   of r at p.two examples are the injective hull of the z-module z/pz (the prüfer group), and the injective hull of the k[x]-module k (the ring of inverse polynomials). the latter is easily described as k[x,x−1]/xk[x]. this module has a basis consisting of "inverse monomials", that is x−n for n = 0, 1, 2, …. multiplication by scalars is as expected, and multiplication by x behaves normally except that x·1 = 0. the endomorphism ring is simply the ring of formal power series.
+
+
+=== artinian examples ===
+if g is a finite group and k a field with characteristic 0, then one shows in the theory of group representations that any subrepresentation of a given one is already a direct summand of the given one. translated into module language, this means that all modules over the group algebra kg are injective. if the characteristic of k is not zero, the following example may help.
+if a is a unital associative algebra over the field k with finite dimension over k, then homk(−, k) is a duality between finitely generated left a-modules and finitely generated right a-modules. therefore, the finitely generated injective left a-modules are precisely the modules of the form homk(p, k) where p is a finitely generated projective right a-module. for symmetric algebras, the duality is particularly well-behaved and projective modules and injective modules coincide.
+for any artinian ring, just as for commutative rings, there is a 1-1 correspondence between prime ideals and indecomposable injective modules. the correspondence in this case is perhaps even simpler: a prime ideal is an annihilator of a unique simple module, and the corresponding indecomposable injective module is its injective hull. for finite-dimensional algebras over fields, these injective hulls are finitely-generated modules (lam 1999, §3g, §3j).
+
+
+==== computing injective hulls ====
+if 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+   is a noetherian ring and 
+  
+    
+      
+        
+          
+            p
+          
+        
+      
+    
+    {\displaystyle {\mathfrak {p}}}
+   is a prime ideal, set 
+  
+    
+      
+        e
+        =
+        e
+        (
+        r
+        
+          /
+        
+        
+          
+            p
+          
+        
+        )
+      
+    
+    {\displaystyle e=e(r/{\mathfrak {p}})}
+   as the injective hull. the injective hull of 
+  
+    
+      
+        r
+        
+          /
+        
+        
+          
+            p
+          
+        
+      
+    
+    {\displaystyle r/{\mathfrak {p}}}
+   over the artinian ring 
+  
+    
+      
+        r
+        
+          /
+        
+        
+          
+            
+              p
+            
+          
+          
+            k
+          
+        
+      
+    
+    {\displaystyle r/{\mathfrak {p}}^{k}}
+   can be computed as the module 
+  
+    
+      
+        (
+        0
+        
+          :
+          
+            e
+          
+        
+        
+          
+            
+              p
+            
+          
+          
+            k
+          
+        
+        )
+      
+    
+    {\displaystyle (0:_{e}{\mathfrak {p}}^{k})}
+  . it is a module of the same length as 
+  
+    
+      
+        r
+        
+          /
+        
+        
+          
+            
+              p
+            
+          
+          
+            k
+          
+        
+      
+    
+    {\displaystyle r/{\mathfrak {p}}^{k}}
+  . in particular, for the standard graded ring 
+  
+    
+      
+        
+          r
+          
+            ∙
+          
+        
+        =
+        k
+        [
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+        
+          ]
+          
+            ∙
+          
+        
+      
+    
+    {\displaystyle r_{\bullet }=k[x_{1},\ldots ,x_{n}]_{\bullet }}
+   and 
+  
+    
+      
+        
+          
+            p
+          
+        
+        =
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle {\mathfrak {p}}=(x_{1},\ldots ,x_{n})}
+  , 
+  
+    
+      
+        e
+        =
+        
+          ⊕
+          
+            i
+          
+        
+        
+          hom
+        
+        (
+        
+          r
+          
+            i
+          
+        
+        ,
+        k
+        )
+      
+    
+    {\displaystyle e=\oplus _{i}{\text{hom}}(r_{i},k)}
+   is an injective module, giving the tools for computing the indecomposable injective modules for artinian rings over 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  .
+
+
+==== self-injectivity ====
+an artin local ring 
+  
+    
+      
+        (
+        r
+        ,
+        
+          
+            m
+          
+        
+        ,
+        k
+        )
+      
+    
+    {\displaystyle (r,{\mathfrak {m}},k)}
+   is injective over itself if and only if 
+  
+    
+      
+        s
+        o
+        c
+        (
+        r
+        )
+      
+    
+    {\displaystyle soc(r)}
+   is a 1-dimensional vector space over 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  . this implies every local gorenstein ring which is also artin is injective over itself since has a 1-dimensional socle. a simple non-example is the ring 
+  
+    
+      
+        r
+        =
+        
+          c
+        
+        [
+        x
+        ,
+        y
+        ]
+        
+          /
+        
+        (
+        
+          x
+          
+            2
+          
+        
+        ,
+        x
+        y
+        ,
+        
+          y
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle r=\mathbb {c} [x,y]/(x^{2},xy,y^{2})}
+   which has maximal ideal 
+  
+    
+      
+        (
+        x
+        ,
+        y
+        )
+      
+    
+    {\displaystyle (x,y)}
+   and residue field 
+  
+    
+      
+        
+          c
+        
+      
+    
+    {\displaystyle \mathbb {c} }
+  . its socle is 
+  
+    
+      
+        
+          c
+        
+        ⋅
+        x
+        ⊕
+        
+          c
+        
+        ⋅
+        y
+      
+    
+    {\displaystyle \mathbb {c} \cdot x\oplus \mathbb {c} \cdot y}
+  , which is 2-dimensional. the residue field has the injective hull 
+  
+    
+      
+        
+          
+            hom
+          
+          
+            
+              c
+            
+          
+        
+        (
+        
+          c
+        
+        ⋅
+        x
+        ⊕
+        
+          c
+        
+        ⋅
+        y
+        ,
+        
+          c
+        
+        )
+      
+    
+    {\displaystyle {\text{hom}}_{\mathbb {c} }(\mathbb {c} \cdot x\oplus \mathbb {c} \cdot y,\mathbb {c} )}
+  .
+
+
+=== modules over lie algebras ===
+for a lie algebra 
+  
+    
+      
+        
+          
+            g
+          
+        
+      
+    
+    {\displaystyle {\mathfrak {g}}}
+   over a field 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   of characteristic 0, the category of modules 
+  
+    
+      
+        
+          
+            m
+          
+        
+        (
+        
+          
+            g
+          
+        
+        )
+      
+    
+    {\displaystyle {\mathcal {m}}({\mathfrak {g}})}
+   has a relatively straightforward description of its injective modules. using the universal enveloping algebra any injective 
+  
+    
+      
+        
+          
+            g
+          
+        
+      
+    
+    {\displaystyle {\mathfrak {g}}}
+  -module can be constructed from the 
+  
+    
+      
+        
+          
+            g
+          
+        
+      
+    
+    {\displaystyle {\mathfrak {g}}}
+  -module
+  
+    
+      
+        
+          
+            hom
+          
+          
+            k
+          
+        
+        (
+        u
+        (
+        
+          
+            g
+          
+        
+        )
+        ,
+        v
+        )
+      
+    
+    {\displaystyle {\text{hom}}_{k}(u({\mathfrak {g}}),v)}
+  for some 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  -vector space 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+  . note this vector space has a 
+  
+    
+      
+        
+          
+            g
+          
+        
+      
+    
+    {\displaystyle {\mathfrak {g}}}
+  -module structure from the injection
+  
+    
+      
+        
+          
+            g
+          
+        
+        ↪
+        u
+        (
+        
+          
+            g
+          
+        
+        )
+      
+    
+    {\displaystyle {\mathfrak {g}}\hookrightarrow u({\mathfrak {g}})}
+  in fact, every 
+  
+    
+      
+        
+          
+            g
+          
+        
+      
+    
+    {\displaystyle {\mathfrak {g}}}
+  -module has an injection into some 
+  
+    
+      
+        
+          
+            hom
+          
+          
+            k
+          
+        
+        (
+        u
+        (
+        
+          
+            g
+          
+        
+        )
+        ,
+        v
+        )
+      
+    
+    {\displaystyle {\text{hom}}_{k}(u({\mathfrak {g}}),v)}
+   and every injective 
+  
+    
+      
+        
+          
+            g
+          
+        
+      
+    
+    {\displaystyle {\mathfrak {g}}}
+  -module is a direct summand of some 
+  
+    
+      
+        
+          
+            hom
+          
+          
+            k
+          
+        
+        (
+        u
+        (
+        
+          
+            g
+          
+        
+        )
+        ,
+        v
+        )
+      
+    
+    {\displaystyle {\text{hom}}_{k}(u({\mathfrak {g}}),v)}
+  .
+
+
+== theory ==
+
+
+=== structure theorem for commutative noetherian rings ===
+over a commutative noetherian ring 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+  , every injective module is a direct sum of indecomposable injective modules and every indecomposable injective module is the injective hull of the residue field at a prime 
+  
+    
+      
+        
+          
+            p
+          
+        
+      
+    
+    {\displaystyle {\mathfrak {p}}}
+  . that is, for an injective 
+  
+    
+      
+        i
+        ∈
+        
+          mod
+        
+        (
+        r
+        )
+      
+    
+    {\displaystyle i\in {\text{mod}}(r)}
+   , there is an isomorphism
+  
+    
+      
+        i
+        ≅
+        
+          ⨁
+          
+            i
+          
+        
+        e
+        (
+        r
+        
+          /
+        
+        
+          
+            
+              p
+            
+          
+          
+            i
+          
+        
+        )
+      
+    
+    {\displaystyle i\cong \bigoplus _{i}e(r/{\mathfrak {p}}_{i})}
+  where 
+  
+    
+      
+        e
+        (
+        r
+        
+          /
+        
+        
+          
+            
+              p
+            
+          
+          
+            i
+          
+        
+        )
+      
+    
+    {\displaystyle e(r/{\mathfrak {p}}_{i})}
+   are the injective hulls of the modules 
+  
+    
+      
+        r
+        
+          /
+        
+        
+          
+            
+              p
+            
+          
+          
+            i
+          
+        
+      
+    
+    {\displaystyle r/{\mathfrak {p}}_{i}}
+  . in addition, if 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   is the injective hull of some module 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   then the 
+  
+    
+      
+        
+          
+            
+              p
+            
+          
+          
+            i
+          
+        
+      
+    
+    {\displaystyle {\mathfrak {p}}_{i}}
+   are the associated primes of 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+  .
+
+
+=== submodules, quotients, products, and sums ===
+any product of (even infinitely many) injective modules is injective; conversely, if a direct product of modules is injective, then each module is injective (lam 1999, p. 61). every direct sum of finitely many injective modules is injective. in general, submodules, factor modules, or infinite direct sums of injective modules need not be injective. every submodule of every injective module is injective if and only if the ring is artinian semisimple (golan & head 1991, p. 152); every factor module of every injective module is injective if and only if the ring is hereditary, (lam 1999, th. 3.22); every infinite direct sum of injective modules is injective if and only if the ring is noetherian, (lam 1999, th 3.46).
+
+
+=== baer's criterion ===
+in baer's original paper, he proved a useful result, usually known as baer's criterion, for checking whether a module is injective: a left r-module q is injective if and only if any homomorphism g : i → q defined on a left ideal i of r can be extended to all of r.
+using this criterion, one can show that q is an injective abelian group (i.e. an injective module over z). more generally, an abelian group is injective if and only if it is divisible. more generally still: a module over a principal ideal domain is injective if and only if it is divisible (the case of vector spaces is an example of this theorem, as every field is a principal ideal domain and every vector space is divisible). over a general integral domain, we still have one implication: every injective module over an integral domain is divisible.
+baer's criterion has been refined in many ways (golan & head 1991, p. 119), including a result of (smith 1981) and (vamos 1983) that for a commutative noetherian ring, it suffices to consider only prime ideals i. the dual of baer's criterion, which would give a test for projectivity, is false in general. for instance, the z-module q satisfies the dual of baer's criterion but is not projective.
+
+
+=== injective cogenerators ===
+
+maybe the most important injective module is the abelian group q/z. it is an injective cogenerator in the category of abelian groups, which means that it is injective and any other module is contained in a suitably large product of copies of q/z. so in particular, every abelian group is a subgroup of an injective one. it is quite significant that this is also true over any ring: every module is a submodule of an injective one, or "the category of left r-modules has enough injectives." to prove this, one uses the peculiar properties of the abelian group q/z to construct an injective cogenerator in the category of left r-modules.
+for a left r-module m, the so-called "character module" m+ = homz(m,q/z) is a right r-module that exhibits an interesting duality, not between injective modules and projective modules, but between injective modules and flat modules (enochs & jenda 2001, pp. 78–80). for any ring r, a left r-module is flat if and only if its character module is injective. if r is left noetherian, then a left r-module is injective if and only if its character module is flat.
+
+
+=== injective hulls ===
+
+the injective hull of a module is the smallest injective module containing the given one and was described in (eckmann & shopf 1953).
+one can use injective hulls to define a minimal injective resolution (see below). if each term of the injective resolution is the injective hull of the cokernel of the previous map, then the injective resolution has minimal length.
+
+
+=== injective resolutions ===
+every module m also has an injective resolution: an exact sequence of the form
+
+0 → m → i0 → i1 → i2 → ...where the i j are injective modules. injective resolutions can be used to define derived functors such as the ext functor.
+the length of a finite injective resolution is the first index n such that in is nonzero and ii = 0 for i greater than n. if a module m admits a finite injective resolution, the minimal length among all finite injective resolutions of m is called its injective dimension and denoted id(m). if m does not admit a finite injective resolution, then by convention the injective dimension is said to be infinite. (lam 1999, §5c) as an example, consider a module m such that id(m) = 0. in this situation, the exactness of the sequence 0 → m → i0 → 0 indicates that the arrow in the center is an isomorphism, and hence m itself is injective.equivalently, the injective dimension of m is the minimal integer (if there is such, otherwise ∞) n such that extna(–,m) = 0 for all n > n.
+
+
+=== indecomposables ===
+every injective submodule of an injective module is a direct summand, so it is important to understand indecomposable injective modules, (lam 1999, §3f).
+every indecomposable injective module has a local endomorphism ring. a module is called a uniform module if every two nonzero submodules have nonzero intersection. for an injective module m the following are equivalent:
+
+m is indecomposable
+m is nonzero and is the injective hull of every nonzero submodule
+m is uniform
+m is the injective hull of a uniform module
+m is the injective hull of a uniform cyclic module
+m has a local endomorphism ringover a noetherian ring, every injective module is the direct sum of (uniquely determined) indecomposable injective modules. over a commutative noetherian ring, this gives a particularly nice understanding of all injective modules, described in (matlis 1958). the indecomposable injective modules are the injective hulls of the modules r/p for p a prime ideal of the ring r. moreover, the injective hull m of r/p has an increasing filtration by modules mn given by the annihilators of the ideals pn, and mn+1/mn is isomorphic as finite-dimensional vector space over the quotient field k(p) of r/p to homr/p(pn/pn+1, k(p)).
+
+
+=== change of rings ===
+it is important to be able to consider modules over subrings or quotient rings, especially for instance polynomial rings. in general, this is difficult, but a number of results are known, (lam 1999, p. 62).
+let s and r be rings, and p be a left-r, right-s bimodule that is flat as a left-r module. for any injective right s-module m, the set of module homomorphisms homs( p, m ) is an injective right r-module. the same statement holds of course after interchanging left- and right- attributes.
+for instance, if r is a subring of s such that s is a flat r-module, then every injective s-module is an injective r-module. in particular, if r is an integral domain and s its field of fractions, then every vector space over s is an injective r-module. similarly, every injective r[x]-module is an injective r-module.
+in the opposite direction, a ring homomorphism 
+  
+    
+      
+        f
+        :
+        s
+        →
+        r
+      
+    
+    {\displaystyle f:s\to r}
+   makes r into a left-r, right-s bimodule, by left and right multiplication. being free over itself r is also flat as a left r-module. specializing the above statement for p = r, it says that when m is an injective right s-module the coinduced module 
+  
+    
+      
+        
+          f
+          
+            ∗
+          
+        
+        m
+        =
+        
+          
+            h
+            o
+            m
+          
+          
+            s
+          
+        
+        (
+        r
+        ,
+        m
+        )
+      
+    
+    {\displaystyle f_{*}m=\mathrm {hom} _{s}(r,m)}
+   is an injective right r-module. thus, coinduction over f produces injective r-modules from injective s-modules.
+for quotient rings r/i, the change of rings is also very clear. an r-module is an r/i-module precisely when it is annihilated by i. the submodule anni(m) = { m in m : im = 0 for all i in i } is a left submodule of the left r-module m, and is the largest submodule of m that is an r/i-module. if m is an injective left r-module, then anni(m) is an injective left r/i-module. applying this to r=z, i=nz and m=q/z, one gets the familiar fact that z/nz is injective as a module over itself. while it is easy to convert injective r-modules into injective r/i-modules, this process does not convert injective r-resolutions into injective r/i-resolutions, and the homology of the resulting complex is one of the early and fundamental areas of study of relative homological algebra.
+the textbook (rotman 1979, p. 103) has an erroneous proof that localization preserves injectives, but a counterexample was given in (dade 1981).
+
+
+=== self-injective rings ===
+every ring with unity is a free module and hence is a projective as a module over itself, but it is rarer for a ring to be injective as a module over itself, (lam 1999, §3b). if a ring is injective over itself as a right module, then it is called a right self-injective ring. every frobenius algebra is self-injective, but no integral domain that is not a field is self-injective. every proper quotient of a dedekind domain is self-injective.
+a right noetherian, right self-injective ring is called a quasi-frobenius ring, and is two-sided artinian and two-sided injective, (lam 1999, th. 15.1).  an important module theoretic property of quasi-frobenius rings is that the projective modules are exactly the injective modules.
+
+
+== generalizations and specializations ==
+
+
+=== injective objects ===
+
+one also talks about injective objects in categories more general than module categories, for instance in functor categories or in categories of sheaves of ox-modules over some ringed space (x,ox). the following general definition is used: an object q of the category c is injective if for any monomorphism f : x → y in c and any morphism g : x → q there exists a morphism h : y → q with hf = g.
+
+
+=== divisible groups ===
+
+the notion of injective object in the category of abelian groups was studied somewhat independently of injective modules under the term divisible group. here a z-module m is injective if and only if n⋅m = m for every nonzero integer n. here the relationships between flat modules, pure submodules, and injective modules is more clear, as it simply refers to certain divisibility properties of module elements by integers.
+
+
+=== pure injectives ===
+
+in relative homological algebra, the extension property of homomorphisms may be required only for certain submodules, rather than for all. for instance, a pure injective module is a module in which a homomorphism from a pure submodule can be extended to the whole module.
+
+
+== references ==
+
+
+=== notes ===
+
+
+=== textbooks ===
+anderson, frank wylie; fuller, kent r (1992), rings and categories of modules, berlin, new york: springer-verlag, isbn 978-0-387-97845-1, retrieved 30 july 2016
+enochs, edgar e.; jenda, overtoun m. g. (2000), relative homological algebra, de gruyter expositions in mathematics, vol. 30, berlin: walter de gruyter & co., doi:10.1515/9783110803662, isbn 978-3-11-016633-0, mr 1753146
+golan, jonathan s.; head, tom (1991), modules and the structure of rings, monographs and textbooks in pure and applied mathematics, vol. 147, marcel dekker, isbn 978-0-8247-8555-0, mr 1201818
+lam, tsit-yuen (1999), lectures on modules and rings, graduate texts in mathematics no. 189, berlin, new york: springer-verlag, doi:10.1007/978-1-4612-0525-8, isbn 978-0-387-98428-5, mr 1653294
+rotman, joseph j. (1979), an introduction to homological algebra, pure and applied mathematics, vol. 85, boston, ma: academic press, isbn 978-0-12-599250-3, mr 0538169
+
+
+=== primary sources ===
+baer, reinhold (1940), "abelian groups that are direct summands of every containing abelian group", bulletin of the american mathematical society, 46 (10): 800–807, doi:10.1090/s0002-9904-1940-07306-9, mr 0002886, zbl 0024.14902
+chase, stephen u. (1960), "direct products of modules", transactions of the american mathematical society, american mathematical society, vol. 97, no. 3, 97 (3): 457–473, doi:10.2307/1993382, jstor 1993382, mr 0120260
+dade, everett c. (1981), "localization of injective modules", journal of algebra, 69 (2): 416–425, doi:10.1016/0021-8693(81)90213-1, mr 0617087
+eckmann, b.; schopf, a. (1953), "über injektive moduln", archiv der mathematik, 4 (2): 75–78, doi:10.1007/bf01899665, mr 0055978
+lambek, joachim (1963), "on utumi's ring of quotients", canadian journal of mathematics, 15: 363–370, doi:10.4153/cjm-1963-041-4, issn 0008-414x, mr 0147509
+matlis, eben (1958), "injective modules over noetherian rings", pacific journal of mathematics, 8: 511–528, doi:10.2140/pjm.1958.8.511, issn 0030-8730, mr 0099360
+osofsky, b. l. (1964), "on ring properties of injective hulls", canadian mathematical bulletin, 7: 405–413, doi:10.4153/cmb-1964-039-3, issn 0008-4395, mr 0166227
+papp, zoltán (1959), "on algebraically closed modules", publicationes mathematicae debrecen, 6: 311–327, issn 0033-3883, mr 0121390
+smith, p. f. (1981), "injective modules and prime ideals", communications in algebra, 9 (9): 989–999, doi:10.1080/00927878108822627, mr 0614468
+utumi, yuzo (1956), "on quotient rings", osaka journal of mathematics, 8: 1–18, issn 0030-6126, mr 0078966
+vámos, p. (1983), "ideals and modules testing injectivity", communications in algebra, 11 (22): 2495–2505, doi:10.1080/00927878308822975, mr 0733337

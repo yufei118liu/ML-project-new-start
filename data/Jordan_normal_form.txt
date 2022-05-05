@@ -1,0 +1,4095 @@
+in linear algebra, a jordan normal form, also known as a jordan canonical form
+or jcf,
+is an upper triangular matrix of a particular form called a jordan matrix representing a linear operator on a finite-dimensional vector space with respect to some basis. such a matrix has each non-zero off-diagonal entry equal to 1, immediately above the main diagonal (on the superdiagonal), and with identical diagonal entries to the left and below them.
+let v be a vector space over a field k. then a basis with respect to which the matrix has the required form exists if and only if all eigenvalues of the matrix lie in k, or equivalently if the characteristic polynomial of the operator splits into linear factors over k. this condition is always satisfied if k is algebraically closed (for instance, if it is the field of complex numbers). the diagonal entries of the normal form are the eigenvalues (of the operator), and the number of times each eigenvalue occurs is called the algebraic multiplicity of the eigenvalue.if the operator is originally given by a square matrix m, then its jordan normal form is also called the jordan normal form of m. any square matrix has a jordan normal form if the field of coefficients is extended to one containing all the eigenvalues of the matrix. in spite of its name, the normal form for a given m is not entirely unique, as it is a block diagonal matrix formed of jordan blocks, the order of which is not fixed; it is conventional to group blocks for the same eigenvalue together, but no ordering is imposed among the eigenvalues, nor among the blocks for a given eigenvalue, although the latter could for instance be ordered by weakly decreasing size.the jordan–chevalley decomposition is particularly simple with respect to a basis for which the operator takes its jordan normal form. the diagonal form for diagonalizable matrices, for instance normal matrices, is a special case of the jordan normal form.the jordan normal form is named after camille jordan, who first stated the jordan decomposition theorem in 1870.
+
+
+== overview ==
+
+
+=== notation ===
+some textbooks have the ones on the subdiagonal; that is, immediately below the main diagonal instead of on the superdiagonal. the eigenvalues are still on the main diagonal.
+
+
+=== motivation ===
+an n × n matrix a is diagonalizable if and only if the sum of the dimensions of the eigenspaces is n. or, equivalently, if and only if a has n linearly independent eigenvectors. not all matrices are diagonalizable; matrices that are not diagonalizable are called defective matrices. consider the following matrix:
+
+  
+    
+      
+        a
+        =
+        
+          [
+          
+            
+              
+                
+                  5
+                
+                
+                  4
+                
+                
+                  2
+                
+                
+                  1
+                
+              
+              
+                
+                  0
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+              
+              
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  3
+                
+                
+                  0
+                
+              
+              
+                
+                  1
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  2
+                
+              
+            
+          
+          ]
+        
+        .
+      
+    
+    {\displaystyle a=\left[{\begin{array}{*{20}{r}}5&4&2&1\\[2pt]0&1&-1&-1\\[2pt]-1&-1&3&0\\[2pt]1&1&-1&2\end{array}}\right].}
+  including multiplicity, the eigenvalues of a are λ = 1, 2, 4, 4. the dimension of the eigenspace corresponding to the eigenvalue 4 is 1 (and not 2), so a is not diagonalizable. however, there is an invertible matrix p such that j = p−1ap, where
+
+  
+    
+      
+        j
+        =
+        
+          
+            [
+            
+              
+                
+                  1
+                
+                
+                  0
+                
+                
+                  0
+                
+                
+                  0
+                
+              
+              
+                
+                  0
+                
+                
+                  2
+                
+                
+                  0
+                
+                
+                  0
+                
+              
+              
+                
+                  0
+                
+                
+                  0
+                
+                
+                  4
+                
+                
+                  1
+                
+              
+              
+                
+                  0
+                
+                
+                  0
+                
+                
+                  0
+                
+                
+                  4
+                
+              
+            
+            ]
+          
+        
+        .
+      
+    
+    {\displaystyle j={\begin{bmatrix}1&0&0&0\\[2pt]0&2&0&0\\[2pt]0&0&4&1\\[2pt]0&0&0&4\end{bmatrix}}.}
+  the matrix 
+  
+    
+      
+        j
+      
+    
+    {\displaystyle j}
+   is almost diagonal. this is the jordan normal form of a. the section example below fills in the details of the computation.
+
+
+== complex matrices ==
+in general, a square complex matrix a is similar to a block diagonal matrix
+
+  
+    
+      
+        j
+        =
+        
+          
+            [
+            
+              
+                
+                  
+                    j
+                    
+                      1
+                    
+                  
+                
+                
+                  
+                
+                
+                  
+                
+              
+              
+                
+                  
+                
+                
+                  ⋱
+                
+                
+                  
+                
+              
+              
+                
+                  
+                
+                
+                  
+                
+                
+                  
+                    j
+                    
+                      p
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+      
+    
+    {\displaystyle j={\begin{bmatrix}j_{1}&\;&\;\\\;&\ddots &\;\\\;&\;&j_{p}\end{bmatrix}}}
+  where each block ji is a square matrix of the form
+
+  
+    
+      
+        
+          j
+          
+            i
+          
+        
+        =
+        
+          
+            [
+            
+              
+                
+                  
+                    λ
+                    
+                      i
+                    
+                  
+                
+                
+                  1
+                
+                
+                  
+                
+                
+                  
+                
+              
+              
+                
+                  
+                
+                
+                  
+                    λ
+                    
+                      i
+                    
+                  
+                
+                
+                  ⋱
+                
+                
+                  
+                
+              
+              
+                
+                  
+                
+                
+                  
+                
+                
+                  ⋱
+                
+                
+                  1
+                
+              
+              
+                
+                  
+                
+                
+                  
+                
+                
+                  
+                
+                
+                  
+                    λ
+                    
+                      i
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        .
+      
+    
+    {\displaystyle j_{i}={\begin{bmatrix}\lambda _{i}&1&\;&\;\\\;&\lambda _{i}&\ddots &\;\\\;&\;&\ddots &1\\\;&\;&\;&\lambda _{i}\end{bmatrix}}.}
+  so there exists an invertible matrix p such that p−1ap = j is such that the only non-zero entries of j are on the diagonal and the superdiagonal. j is called the jordan normal form of a. each ji is called a jordan block of a. in a given jordan block, every entry on the superdiagonal is 1.
+assuming this result, we can deduce the following properties:
+
+counting multiplicities, the eigenvalues of j, and therefore of a, are the diagonal entries.
+given an eigenvalue λi, its geometric multiplicity is the dimension of ker(a − λi i), where i is the identity matrix, and it is the number of jordan blocks corresponding to λi.
+the sum of the sizes of all jordan blocks corresponding to an eigenvalue λi is its algebraic multiplicity.
+a is diagonalizable if and only if, for every eigenvalue λ of a, its geometric and algebraic multiplicities coincide. in particular, the jordan blocks in this case are 1 × 1 matrices; that is, scalars.
+the jordan block corresponding to λ is of the form λi + n, where n is a nilpotent matrix defined as nij = δi,j−1 (where δ is the kronecker delta). the nilpotency of n can be exploited when calculating f(a) where f is a complex analytic function. for example, in principle the jordan form could give a closed-form expression for the exponential exp(a).
+the number of jordan blocks corresponding to λ of size at least j is dim ker(a − λi)j − dim ker(a - λi)j−1. thus, the number of jordan blocks of size j is
+
+  
+    
+      
+        2
+        dim
+        ⁡
+        ker
+        ⁡
+        (
+        a
+        −
+        
+          λ
+          
+            i
+          
+        
+        i
+        
+          )
+          
+            j
+          
+        
+        −
+        dim
+        ⁡
+        ker
+        ⁡
+        (
+        a
+        −
+        
+          λ
+          
+            i
+          
+        
+        i
+        
+          )
+          
+            j
+            +
+            1
+          
+        
+        −
+        dim
+        ⁡
+        ker
+        ⁡
+        (
+        a
+        −
+        
+          λ
+          
+            i
+          
+        
+        i
+        
+          )
+          
+            j
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle 2\dim \ker(a-\lambda _{i}i)^{j}-\dim \ker(a-\lambda _{i}i)^{j+1}-\dim \ker(a-\lambda _{i}i)^{j-1}}
+  
+given an eigenvalue λi, its multiplicity in the minimal polynomial is the size of its largest jordan block.
+
+
+=== example ===
+consider the matrix 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   from the example in the previous section. the jordan normal form is obtained by some similarity transformation:
+
+  
+    
+      
+        
+          p
+          
+            −
+            1
+          
+        
+        a
+        p
+        =
+        j
+        ;
+      
+    
+    {\displaystyle p^{-1}ap=j;}
+   that is, 
+  
+    
+      
+        a
+        p
+        =
+        p
+        j
+        .
+      
+    
+    {\displaystyle ap=pj.}
+  let 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   have column vectors 
+  
+    
+      
+        
+          p
+          
+            i
+          
+        
+      
+    
+    {\displaystyle p_{i}}
+  , 
+  
+    
+      
+        i
+        =
+        1
+        ,
+        …
+        ,
+        4
+      
+    
+    {\displaystyle i=1,\ldots ,4}
+  , then
+
+  
+    
+      
+        a
+        
+          
+            [
+            
+              
+                
+                  
+                    p
+                    
+                      1
+                    
+                  
+                
+                
+                  
+                    p
+                    
+                      2
+                    
+                  
+                
+                
+                  
+                    p
+                    
+                      3
+                    
+                  
+                
+                
+                  
+                    p
+                    
+                      4
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        =
+        
+          
+            [
+            
+              
+                
+                  
+                    p
+                    
+                      1
+                    
+                  
+                
+                
+                  
+                    p
+                    
+                      2
+                    
+                  
+                
+                
+                  
+                    p
+                    
+                      3
+                    
+                  
+                
+                
+                  
+                    p
+                    
+                      4
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        
+          
+            [
+            
+              
+                
+                  1
+                
+                
+                  0
+                
+                
+                  0
+                
+                
+                  0
+                
+              
+              
+                
+                  0
+                
+                
+                  2
+                
+                
+                  0
+                
+                
+                  0
+                
+              
+              
+                
+                  0
+                
+                
+                  0
+                
+                
+                  4
+                
+                
+                  1
+                
+              
+              
+                
+                  0
+                
+                
+                  0
+                
+                
+                  0
+                
+                
+                  4
+                
+              
+            
+            ]
+          
+        
+        =
+        
+          
+            [
+            
+              
+                
+                  
+                    p
+                    
+                      1
+                    
+                  
+                
+                
+                  2
+                  
+                    p
+                    
+                      2
+                    
+                  
+                
+                
+                  4
+                  
+                    p
+                    
+                      3
+                    
+                  
+                
+                
+                  
+                    p
+                    
+                      3
+                    
+                  
+                  +
+                  4
+                  
+                    p
+                    
+                      4
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        .
+      
+    
+    {\displaystyle a{\begin{bmatrix}p_{1}&p_{2}&p_{3}&p_{4}\end{bmatrix}}={\begin{bmatrix}p_{1}&p_{2}&p_{3}&p_{4}\end{bmatrix}}{\begin{bmatrix}1&0&0&0\\0&2&0&0\\0&0&4&1\\0&0&0&4\end{bmatrix}}={\begin{bmatrix}p_{1}&2p_{2}&4p_{3}&p_{3}+4p_{4}\end{bmatrix}}.}
+  we see that
+
+  
+    
+      
+        (
+        a
+        −
+        1
+        i
+        )
+        
+          p
+          
+            1
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle (a-1i)p_{1}=0}
+  
+
+  
+    
+      
+        (
+        a
+        −
+        2
+        i
+        )
+        
+          p
+          
+            2
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle (a-2i)p_{2}=0}
+  
+
+  
+    
+      
+        (
+        a
+        −
+        4
+        i
+        )
+        
+          p
+          
+            3
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle (a-4i)p_{3}=0}
+  
+
+  
+    
+      
+        (
+        a
+        −
+        4
+        i
+        )
+        
+          p
+          
+            4
+          
+        
+        =
+        
+          p
+          
+            3
+          
+        
+        .
+      
+    
+    {\displaystyle (a-4i)p_{4}=p_{3}.}
+  for 
+  
+    
+      
+        i
+        =
+        1
+        ,
+        2
+        ,
+        3
+      
+    
+    {\displaystyle i=1,2,3}
+   we have 
+  
+    
+      
+        
+          p
+          
+            i
+          
+        
+        ∈
+        ker
+        ⁡
+        (
+        a
+        −
+        
+          λ
+          
+            i
+          
+        
+        i
+        )
+      
+    
+    {\displaystyle p_{i}\in \operatorname {ker} (a-\lambda _{i}i)}
+  , that is, 
+  
+    
+      
+        
+          p
+          
+            i
+          
+        
+      
+    
+    {\displaystyle p_{i}}
+   is an eigenvector of 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   corresponding to the eigenvalue 
+  
+    
+      
+        
+          λ
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \lambda _{i}}
+  . for 
+  
+    
+      
+        i
+        =
+        4
+      
+    
+    {\displaystyle i=4}
+  , multiplying both sides by 
+  
+    
+      
+        (
+        a
+        −
+        4
+        i
+        )
+      
+    
+    {\displaystyle (a-4i)}
+   gives
+
+  
+    
+      
+        (
+        a
+        −
+        4
+        i
+        
+          )
+          
+            2
+          
+        
+        
+          p
+          
+            4
+          
+        
+        =
+        (
+        a
+        −
+        4
+        i
+        )
+        
+          p
+          
+            3
+          
+        
+        .
+      
+    
+    {\displaystyle (a-4i)^{2}p_{4}=(a-4i)p_{3}.}
+  but 
+  
+    
+      
+        (
+        a
+        −
+        4
+        i
+        )
+        
+          p
+          
+            3
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle (a-4i)p_{3}=0}
+  , so
+
+  
+    
+      
+        (
+        a
+        −
+        4
+        i
+        
+          )
+          
+            2
+          
+        
+        
+          p
+          
+            4
+          
+        
+        =
+        0.
+      
+    
+    {\displaystyle (a-4i)^{2}p_{4}=0.}
+  thus, 
+  
+    
+      
+        
+          p
+          
+            4
+          
+        
+        ∈
+        ker
+        ⁡
+        (
+        a
+        −
+        4
+        i
+        
+          )
+          
+            2
+          
+        
+        .
+      
+    
+    {\displaystyle p_{4}\in \operatorname {ker} (a-4i)^{2}.}
+  
+vectors such as 
+  
+    
+      
+        
+          p
+          
+            4
+          
+        
+      
+    
+    {\displaystyle p_{4}}
+   are called generalized eigenvectors of a.
+
+
+=== example: obtaining the normal form ===
+this example shows how to calculate the jordan normal form of a given matrix.
+consider the matrix
+
+  
+    
+      
+        a
+        =
+        
+          
+            [
+            
+              
+                
+                  5
+                
+                
+                  4
+                
+                
+                  2
+                
+                
+                  1
+                
+              
+              
+                
+                  0
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+              
+              
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  3
+                
+                
+                  0
+                
+              
+              
+                
+                  1
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  2
+                
+              
+            
+            ]
+          
+        
+      
+    
+    {\displaystyle a={\begin{bmatrix}5&4&2&1\\0&1&-1&-1\\-1&-1&3&0\\1&1&-1&2\end{bmatrix}}}
+  which is mentioned in the beginning of the article.
+the characteristic polynomial of a is
+
+  
+    
+      
+        
+          
+            
+              
+                χ
+                (
+                λ
+                )
+              
+              
+                
+                =
+                det
+                (
+                λ
+                i
+                −
+                a
+                )
+              
+            
+            
+              
+              
+                
+                =
+                
+                  λ
+                  
+                    4
+                  
+                
+                −
+                11
+                
+                  λ
+                  
+                    3
+                  
+                
+                +
+                42
+                
+                  λ
+                  
+                    2
+                  
+                
+                −
+                64
+                λ
+                +
+                32
+              
+            
+            
+              
+              
+                
+                =
+                (
+                λ
+                −
+                1
+                )
+                (
+                λ
+                −
+                2
+                )
+                (
+                λ
+                −
+                4
+                
+                  )
+                  
+                    2
+                  
+                
+                .
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}\chi (\lambda )&=\det(\lambda i-a)\\&=\lambda ^{4}-11\lambda ^{3}+42\lambda ^{2}-64\lambda +32\\&=(\lambda -1)(\lambda -2)(\lambda -4)^{2}.\,\end{aligned}}}
+  this shows that the eigenvalues are 1, 2, 4 and 4, according to algebraic multiplicity. the eigenspace corresponding to the eigenvalue 1 can be found by solving the equation av = λ v. it is spanned by the column vector v = (−1, 1, 0, 0)t. similarly, the eigenspace corresponding to the eigenvalue 2 is spanned by w = (1, −1, 0, 1)t. finally, the eigenspace corresponding to the eigenvalue 4 is also one-dimensional (even though this is a double eigenvalue) and is spanned by x = (1, 0, −1, 1)t. so, the geometric multiplicity (that is, the dimension of the eigenspace of the given eigenvalue) of each of the three eigenvalues is one. therefore, the two eigenvalues equal to 4 correspond to a single jordan block, and the jordan normal form of the matrix a is the direct sum
+
+  
+    
+      
+        j
+        =
+        
+          j
+          
+            1
+          
+        
+        (
+        1
+        )
+        ⊕
+        
+          j
+          
+            1
+          
+        
+        (
+        2
+        )
+        ⊕
+        
+          j
+          
+            2
+          
+        
+        (
+        4
+        )
+        =
+        
+          
+            [
+            
+              
+                
+                  1
+                
+                
+                  0
+                
+                
+                  0
+                
+                
+                  0
+                
+              
+              
+                
+                  0
+                
+                
+                  2
+                
+                
+                  0
+                
+                
+                  0
+                
+              
+              
+                
+                  0
+                
+                
+                  0
+                
+                
+                  4
+                
+                
+                  1
+                
+              
+              
+                
+                  0
+                
+                
+                  0
+                
+                
+                  0
+                
+                
+                  4
+                
+              
+            
+            ]
+          
+        
+        .
+      
+    
+    {\displaystyle j=j_{1}(1)\oplus j_{1}(2)\oplus j_{2}(4)={\begin{bmatrix}1&0&0&0\\0&2&0&0\\0&0&4&1\\0&0&0&4\end{bmatrix}}.}
+  there are three jordan chains. two have length one: {v} and {w}, corresponding to the eigenvalues 1 and 2, respectively. there is one chain of length two corresponding to the eigenvalue 4. to find this chain, calculate
+
+  
+    
+      
+        ker
+        ⁡
+        
+          
+            (
+            a
+            −
+            4
+            i
+            )
+          
+          
+            2
+          
+        
+        =
+        span
+        
+        
+          {
+          
+            
+              
+                [
+                
+                  
+                    
+                      1
+                    
+                  
+                  
+                    
+                      0
+                    
+                  
+                  
+                    
+                      0
+                    
+                  
+                  
+                    
+                      0
+                    
+                  
+                
+                ]
+              
+            
+            ,
+            
+              
+                [
+                
+                  
+                    
+                      1
+                    
+                  
+                  
+                    
+                      0
+                    
+                  
+                  
+                    
+                      −
+                      1
+                    
+                  
+                  
+                    
+                      1
+                    
+                  
+                
+                ]
+              
+            
+          
+          }
+        
+      
+    
+    {\displaystyle \ker {(a-4i)}^{2}=\operatorname {span} \,\left\{{\begin{bmatrix}1\\0\\0\\0\end{bmatrix}},{\begin{bmatrix}1\\0\\-1\\1\end{bmatrix}}\right\}}
+  where i is the 4 × 4 identity matrix. pick a vector in the above span that is not in the kernel of a − 4i; for example, y = (1,0,0,0)t. now, (a − 4i)y = x and (a − 4i)x = 0, so {y, x} is a chain of length two corresponding to the eigenvalue 4.
+the transition matrix p such that p−1ap = j is formed by putting these vectors next to each other as follows
+
+  
+    
+      
+        p
+        =
+        
+          [
+          
+            
+              
+                
+                  v
+                
+                
+                  w
+                
+                
+                  x
+                
+                
+                  y
+                
+              
+            
+          
+          ]
+        
+        =
+        
+          
+            [
+            
+              
+                
+                  −
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  0
+                
+                
+                  0
+                
+              
+              
+                
+                  0
+                
+                
+                  0
+                
+                
+                  −
+                  1
+                
+                
+                  0
+                
+              
+              
+                
+                  0
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  0
+                
+              
+            
+            ]
+          
+        
+        .
+      
+    
+    {\displaystyle p=\left[{\begin{array}{c|c|c|c}v&w&x&y\end{array}}\right]={\begin{bmatrix}-1&1&1&1\\1&-1&0&0\\0&0&-1&0\\0&1&1&0\end{bmatrix}}.}
+  a computation shows that the equation p−1ap = j indeed holds.
+
+  
+    
+      
+        
+          p
+          
+            −
+            1
+          
+        
+        a
+        p
+        =
+        j
+        =
+        
+          
+            [
+            
+              
+                
+                  1
+                
+                
+                  0
+                
+                
+                  0
+                
+                
+                  0
+                
+              
+              
+                
+                  0
+                
+                
+                  2
+                
+                
+                  0
+                
+                
+                  0
+                
+              
+              
+                
+                  0
+                
+                
+                  0
+                
+                
+                  4
+                
+                
+                  1
+                
+              
+              
+                
+                  0
+                
+                
+                  0
+                
+                
+                  0
+                
+                
+                  4
+                
+              
+            
+            ]
+          
+        
+        .
+      
+    
+    {\displaystyle p^{-1}ap=j={\begin{bmatrix}1&0&0&0\\0&2&0&0\\0&0&4&1\\0&0&0&4\end{bmatrix}}.}
+  if we had interchanged the order in which the chain vectors appeared, that is, changing the order of v, w and {x, y} together, the jordan blocks would be interchanged. however, the jordan forms are equivalent jordan forms.
+
+
+== generalized eigenvectors ==
+
+given an eigenvalue λ, every corresponding jordan block gives rise to a jordan chain of linearly independent vectors pi, i = 1, ..., b, where b is the size of the jordan block. the generator, or lead vector, pb of the chain is a generalized eigenvector such that (a − λ i)bpb = 0. the vector p1 =  (a − λ i)b−1pb is an ordinary eigenvector corresponding to λ. in general, pi is a preimage of pi−1 under a − λ i. so the lead vector generates the chain via multiplication by a − λ i. therefore the statement that every square matrix a can be put in jordan normal form is equivalent to the claim that the underlying vector space has a basis composed of jordan chains.
+
+
+=== a proof ===
+we give a proof by induction that any complex-valued matrix a may be put in jordan normal form. since the underlying vector space can be shown to be the direct sum of invariant subspaces associated with the eigenvalues, a can be assumed to have just one eigenvalue λ. the 1 × 1 case is trivial. let a be an n × n matrix. the range of a − λ i, denoted by ran(a − λ i), is an invariant subspace of a. also, since λ is an eigenvalue of a, the dimension of ran(a − λ i), r, is strictly less than n, so, by the inductive hypothesis, ran(a − λ i) has a basis {p1, …, pr} composed of jordan chains.
+next consider the kernel, that is, the subspace ker(a − λ i). if
+
+  
+    
+      
+        
+          r
+          a
+          n
+        
+        (
+        a
+        −
+        λ
+        i
+        )
+        ∩
+        
+          k
+          e
+          r
+        
+        (
+        a
+        −
+        λ
+        i
+        )
+        =
+        {
+        0
+        }
+        ,
+      
+    
+    {\displaystyle \mathrm {ran} (a-\lambda i)\cap \mathrm {ker} (a-\lambda i)=\{0\},}
+  the desired result follows immediately from the rank–nullity theorem. (this would be the case, for example, if a were hermitian.)
+otherwise, if
+
+  
+    
+      
+        q
+        =
+        
+          r
+          a
+          n
+        
+        (
+        a
+        −
+        λ
+        i
+        )
+        ∩
+        
+          k
+          e
+          r
+        
+        (
+        a
+        −
+        λ
+        i
+        )
+        ≠
+        {
+        0
+        }
+        ,
+      
+    
+    {\displaystyle q=\mathrm {ran} (a-\lambda i)\cap \mathrm {ker} (a-\lambda i)\neq \{0\},}
+  let the dimension of q be s ≤ r. each vector in q is an eigenvector, so ran(a − λ i) must contain s jordan chains corresponding to s linearly independent eigenvectors. therefore the basis {p1, ..., pr} must contain s vectors, say {pr−s+1, ..., pr}, that are lead vectors of these jordan chains. we can "extend the chains" by taking the preimages of these lead vectors. (this is the key step.) let qi be such that
+
+  
+    
+      
+        
+        (
+        a
+        −
+        λ
+        i
+        )
+        
+          q
+          
+            i
+          
+        
+        =
+        
+          p
+          
+            i
+          
+        
+        
+          
+             for 
+          
+        
+        i
+        =
+        r
+        −
+        s
+        +
+        1
+        ,
+        …
+        ,
+        r
+        .
+      
+    
+    {\displaystyle \;(a-\lambda i)q_{i}=p_{i}{\mbox{ for }}i=r-s+1,\ldots ,r.}
+  the set {qi}, being preimages of the linearly independent set {pi} under a − λ i, is also linearly independent. clearly no non-trivial linear combination of the qi can lie in ker(a − λ i), for {pi}i=r−s+1, ..., r is linearly independent. furthermore, no non-trivial linear combination of the qi can belong to ran(a − λ i) because it would then be a linear combination of the basic vectors p1, ..., pr, and this linear combination would have a contribution of basic vectors not in ker(a − λ i) because otherwise it would belong to ker(a − λ i). the action of a − λ i on both linear combinations would then produce an equality of a non-trivial linear combination of lead vectors and such a linear combination of non-lead vectors, which would contradict the linear independence of (p1, ..., pr).
+finally, we can pick any linearly independent set {z1, ..., zt} whose projection spans
+
+  
+    
+      
+        
+        
+          k
+          e
+          r
+        
+        (
+        a
+        −
+        λ
+        i
+        )
+        
+          /
+        
+        q
+        .
+      
+    
+    {\displaystyle \;\mathrm {ker} (a-\lambda i)/q.}
+  each zi forms a jordan chain of length 1. by construction, the union of the three sets {p1, ..., pr}, {qr−s +1, ..., qr}, and  {z1, ..., zt} is linearly independent, and its members combine to form jordan chains. finally, by the rank–nullity theorem, the cardinality of the union is n. in other words, we have found a basis composed of jordan chains, and this shows a can be put in jordan normal form.
+
+
+=== uniqueness ===
+it can be shown that the jordan normal form of a given matrix a is unique up to the order of the jordan blocks.
+knowing the algebraic and geometric multiplicities of the eigenvalues is not sufficient to determine the jordan normal form of a. assuming the algebraic multiplicity m(λ) of an eigenvalue λ is known, the structure of the jordan form can be ascertained by analyzing the ranks of the powers (a − λ i)m(λ). to see this, suppose an n × n matrix a has only one eigenvalue λ. so m(λ) = n. the smallest integer k1 such that
+
+  
+    
+      
+        (
+        a
+        −
+        λ
+        i
+        
+          )
+          
+            
+              k
+              
+                1
+              
+            
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle (a-\lambda i)^{k_{1}}=0}
+  is the size of the largest jordan block in the jordan form of a. (this number k1 is also called the index of λ. see discussion in a following section.) the rank of
+
+  
+    
+      
+        (
+        a
+        −
+        λ
+        i
+        
+          )
+          
+            
+              k
+              
+                1
+              
+            
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle (a-\lambda i)^{k_{1}-1}}
+  is the number of jordan blocks of size k1. similarly, the rank of
+
+  
+    
+      
+        (
+        a
+        −
+        λ
+        i
+        
+          )
+          
+            
+              k
+              
+                1
+              
+            
+            −
+            2
+          
+        
+      
+    
+    {\displaystyle (a-\lambda i)^{k_{1}-2}}
+  is twice the number of jordan blocks of size k1 plus the number of jordan blocks of size k1−1. the general case is similar.
+this can be used to show the uniqueness of the jordan form. let j1 and j2 be two jordan normal forms of a. then j1 and j2 are similar and have the same spectrum, including algebraic multiplicities of the eigenvalues. the procedure outlined in the previous paragraph can be used to determine the structure of these matrices. since the rank of a matrix is preserved by similarity transformation, there is a bijection between the jordan blocks of j1 and j2. this proves the uniqueness part of the statement.
+
+
+== real matrices ==
+if a is a real matrix, its jordan form can still be non-real. instead of representing it with complex eigenvalues and 1's on the superdiagonal, as discussed above, there exists a real invertible matrix p such that p−1ap = j is a real block diagonal matrix with each block being a real jordan block. a real jordan block is either identical to a complex jordan block (if the corresponding eigenvalue 
+  
+    
+      
+        
+          λ
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \lambda _{i}}
+   is real), or is a block matrix itself, consisting of 2×2 blocks (for non-real eigenvalue 
+  
+    
+      
+        
+          λ
+          
+            i
+          
+        
+        =
+        
+          a
+          
+            i
+          
+        
+        +
+        i
+        
+          b
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \lambda _{i}=a_{i}+ib_{i}}
+   with given algebraic multiplicity) of the form
+
+  
+    
+      
+        
+          c
+          
+            i
+          
+        
+        =
+        
+          
+            [
+            
+              
+                
+                  
+                    a
+                    
+                      i
+                    
+                  
+                
+                
+                  −
+                  
+                    b
+                    
+                      i
+                    
+                  
+                
+              
+              
+                
+                  
+                    b
+                    
+                      i
+                    
+                  
+                
+                
+                  
+                    a
+                    
+                      i
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+      
+    
+    {\displaystyle c_{i}={\begin{bmatrix}a_{i}&-b_{i}\\b_{i}&a_{i}\\\end{bmatrix}}}
+  and describe multiplication by 
+  
+    
+      
+        
+          λ
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \lambda _{i}}
+   in the complex plane. the superdiagonal blocks are 2×2 identity matrices and hence in this representation the matrix dimensions are larger than the complex jordan form. the full real jordan block is given by
+
+  
+    
+      
+        
+          j
+          
+            i
+          
+        
+        =
+        
+          
+            [
+            
+              
+                
+                  
+                    c
+                    
+                      i
+                    
+                  
+                
+                
+                  i
+                
+                
+                
+              
+              
+                
+                
+                  
+                    c
+                    
+                      i
+                    
+                  
+                
+                
+                  ⋱
+                
+                
+              
+              
+                
+                
+                
+                  ⋱
+                
+                
+                  i
+                
+              
+              
+                
+                
+                
+                
+                  
+                    c
+                    
+                      i
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        .
+      
+    
+    {\displaystyle j_{i}={\begin{bmatrix}c_{i}&i&&\\&c_{i}&\ddots &\\&&\ddots &i\\&&&c_{i}\\\end{bmatrix}}.}
+  this real jordan form is a consequence of the complex jordan form. for a real matrix the nonreal eigenvectors and generalized eigenvectors can always be chosen to form complex conjugate pairs. taking the real and imaginary part (linear combination of the vector and its conjugate), the matrix has this form with respect to the new basis.
+
+
+== matrices with entries in a field ==
+jordan reduction can be extended to any square matrix m whose entries lie in a field k.  the result states that any m can be written as a sum d + n where d is semisimple, n is nilpotent, and dn = nd. this is called the jordan–chevalley decomposition. whenever k contains the eigenvalues of m, in particular when k is algebraically closed, the normal form can be expressed explicitly as the direct sum of jordan blocks. 
+similar to the case when k is the complex numbers, knowing the dimensions of the kernels of (m − λi)k for 1 ≤ k ≤ m, where m is the algebraic multiplicity of the eigenvalue λ, allows one to determine the jordan form of m. we may view the underlying vector space v as a k[x]-module by regarding the action of x on v as application of m and extending by k-linearity. then the polynomials (x − λ)k are the elementary divisors of m, and the jordan normal form is concerned with representing m in terms of blocks associated to the elementary divisors.
+the proof of the jordan normal form is usually carried out as an application to the ring k[x] of the structure theorem for finitely generated modules over a principal ideal domain, of which it is a corollary.
+
+
+== consequences ==
+one can see that the jordan normal form is essentially a classification result for square matrices, and as such several important results from linear algebra can be viewed as its consequences.
+
+
+=== spectral mapping theorem ===
+using the jordan normal form, direct calculation gives a spectral mapping theorem for the polynomial functional calculus: let a be an n × n matrix with eigenvalues λ1, ..., λn, then for any polynomial p, p(a) has eigenvalues p(λ1), ..., p(λn).
+
+
+=== characteristic polynomial ===
+the characteristic polynomial of a is 
+  
+    
+      
+        
+          p
+          
+            a
+          
+        
+        (
+        λ
+        )
+        =
+        det
+        (
+        λ
+        i
+        −
+        a
+        )
+      
+    
+    {\displaystyle p_{a}(\lambda )=\det(\lambda i-a)}
+  . similar matrices have the same characteristic polynomial.
+therefore, 
+  
+    
+      
+        
+          p
+          
+            a
+          
+        
+        (
+        λ
+        )
+        =
+        
+          p
+          
+            j
+          
+        
+        (
+        λ
+        )
+        =
+        
+          ∏
+          
+            i
+          
+        
+        (
+        λ
+        −
+        
+          λ
+          
+            i
+          
+        
+        
+          )
+          
+            
+              m
+              
+                i
+              
+            
+          
+        
+      
+    
+    {\textstyle p_{a}(\lambda )=p_{j}(\lambda )=\prod _{i}(\lambda -\lambda _{i})^{m_{i}}}
+  ,
+where 
+  
+    
+      
+        
+          λ
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \lambda _{i}}
+   is the ith root of 
+  
+    
+      
+        
+          p
+          
+            j
+          
+        
+      
+    
+    {\textstyle p_{j}}
+   and 
+  
+    
+      
+        
+          m
+          
+            i
+          
+        
+      
+    
+    {\displaystyle m_{i}}
+   is its multiplicity, because this is clearly the characteristic polynomial of the jordan form of a.
+
+
+=== cayley–hamilton theorem ===
+the cayley–hamilton theorem asserts that every matrix a satisfies its characteristic equation: if p is the characteristic polynomial of a, then 
+  
+    
+      
+        
+          p
+          
+            a
+          
+        
+        (
+        a
+        )
+        =
+        0
+      
+    
+    {\displaystyle p_{a}(a)=0}
+  . this can be shown via direct calculation in the jordan form, since if 
+  
+    
+      
+        
+          λ
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \lambda _{i}}
+   is an eigenvalue of multiplicity 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+  ,
+then its jordan block 
+  
+    
+      
+        
+          j
+          
+            i
+          
+        
+      
+    
+    {\displaystyle j_{i}}
+   clearly satisfies 
+  
+    
+      
+        (
+        
+          j
+          
+            i
+          
+        
+        −
+        
+          λ
+          
+            i
+          
+        
+        i
+        
+          )
+          
+            
+              m
+              
+                i
+              
+            
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle (j_{i}-\lambda _{i}i)^{m_{i}}=0}
+  .
+as the diagonal blocks do not affect each other, the ith diagonal block of 
+  
+    
+      
+        (
+        a
+        −
+        
+          λ
+          
+            i
+          
+        
+        i
+        
+          )
+          
+            
+              m
+              
+                i
+              
+            
+          
+        
+      
+    
+    {\displaystyle (a-\lambda _{i}i)^{m_{i}}}
+   is 
+  
+    
+      
+        (
+        
+          j
+          
+            i
+          
+        
+        −
+        
+          λ
+          
+            i
+          
+        
+        i
+        
+          )
+          
+            
+              m
+              
+                i
+              
+            
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle (j_{i}-\lambda _{i}i)^{m_{i}}=0}
+  ; hence 
+  
+    
+      
+        
+          p
+          
+            a
+          
+        
+        (
+        a
+        )
+        =
+        
+          ∏
+          
+            i
+          
+        
+        (
+        a
+        −
+        
+          λ
+          
+            i
+          
+        
+        i
+        
+          )
+          
+            
+              m
+              
+                i
+              
+            
+          
+        
+        =
+        0
+      
+    
+    {\textstyle p_{a}(a)=\prod _{i}(a-\lambda _{i}i)^{m_{i}}=0}
+  .
+the jordan form can be assumed to exist over a field extending the base field of the matrix, for instance over the splitting field of p; this field extension does not change the matrix p(a) in any way.
+
+
+=== minimal polynomial ===
+the minimal polynomial p of a square matrix a is the unique monic polynomial of least degree, m, such that p(a) = 0. alternatively, the set of polynomials that annihilate a given a form an ideal i in c[x], the principal ideal domain of polynomials with complex coefficients. the monic element that generates i is precisely p.
+let λ1, …, λq be the distinct eigenvalues of a, and si be the size of the largest jordan block corresponding to λi. it is clear from the jordan normal form that the minimal polynomial of a has degree σsi.
+while the jordan normal form determines the minimal polynomial, the converse is not true. this leads to the notion of elementary divisors. the elementary divisors of a square matrix a are the characteristic polynomials of its jordan blocks. the factors of the minimal polynomial m are the elementary divisors of the largest degree corresponding to distinct eigenvalues.
+the degree of an elementary divisor is the size of the corresponding jordan block, therefore the dimension of the corresponding invariant subspace. if all elementary divisors are linear, a is diagonalizable.
+
+
+=== invariant subspace decompositions ===
+the jordan form of a n × n matrix a is block diagonal, and therefore gives a decomposition of the n dimensional euclidean space into invariant subspaces of a. every jordan block ji corresponds to an invariant subspace xi. symbolically, we put
+
+  
+    
+      
+        
+          
+            c
+          
+          
+            n
+          
+        
+        =
+        
+          ⨁
+          
+            i
+            =
+            1
+          
+          
+            k
+          
+        
+        
+          x
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \mathbb {c} ^{n}=\bigoplus _{i=1}^{k}x_{i}}
+  where each xi is the span of the corresponding jordan chain, and k is the number of jordan chains.
+one can also obtain a slightly different decomposition via the jordan form. given an eigenvalue λi, the size of its largest corresponding jordan block si is called the index of λi and denoted by ν(λi). (therefore, the degree of the minimal polynomial is the sum of all indices.) define a subspace yi by
+
+  
+    
+      
+        
+          y
+          
+            i
+          
+        
+        =
+        ker
+        ⁡
+        (
+        
+          λ
+          
+            i
+          
+        
+        i
+        −
+        a
+        
+          )
+          
+            ν
+            (
+            
+              λ
+              
+                i
+              
+            
+            )
+          
+        
+        .
+      
+    
+    {\displaystyle y_{i}=\operatorname {ker} (\lambda _{i}i-a)^{\nu (\lambda _{i})}.}
+  this gives the decomposition
+
+  
+    
+      
+        
+          
+            c
+          
+          
+            n
+          
+        
+        =
+        
+          ⨁
+          
+            i
+            =
+            1
+          
+          
+            l
+          
+        
+        
+          y
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \mathbb {c} ^{n}=\bigoplus _{i=1}^{l}y_{i}}
+  where l is the number of distinct eigenvalues of a. intuitively, we glob together the jordan block invariant subspaces corresponding to the same eigenvalue. in the extreme case where a is a multiple of the identity matrix we have k = n and l = 1.
+the projection onto yi and along all the other yj ( j ≠ i ) is called the spectral projection of a at λi and is usually denoted by p(λi ; a). spectral projections are mutually orthogonal in the sense that p(λi ; a) p(λj ; a) = 0 if i ≠ j. also they commute with a and their sum is the identity matrix. replacing every λi in the jordan matrix j by one and zeroing all other entries gives p(λi ; j), moreover if u j u−1 is the similarity transformation such that a = u j u−1 then p(λi ; a) = u p(λi ; j) u−1. they are not confined to finite dimensions. see below for their application to compact operators, and in holomorphic functional calculus for a more general discussion.
+comparing the two decompositions, notice that, in general, l ≤ k. when a is normal, the subspaces xi's in the first decomposition are one-dimensional and mutually orthogonal. this is the spectral theorem for normal operators. the second decomposition generalizes more easily for general compact operators on banach spaces.
+it might be of interest here to note some properties of the index, ν(λ). more generally, for a complex number λ, its index can be defined as the least non-negative integer ν(λ) such that
+
+  
+    
+      
+        
+          k
+          e
+          r
+        
+        (
+        λ
+        −
+        a
+        
+          )
+          
+            ν
+            (
+            λ
+            )
+          
+        
+        =
+        ker
+        ⁡
+        (
+        λ
+        −
+        a
+        
+          )
+          
+            m
+          
+        
+        ,
+        
+        ∀
+        m
+        ≥
+        ν
+        (
+        λ
+        )
+        .
+      
+    
+    {\displaystyle \mathrm {ker} (\lambda -a)^{\nu (\lambda )}=\operatorname {ker} (\lambda -a)^{m},\;\forall m\geq \nu (\lambda ).}
+  so ν(λ) > 0 if and only if λ is an eigenvalue of a. in the finite-dimensional case, ν(λ) ≤ the algebraic multiplicity of λ.
+
+
+=== plane (flat) normal form ===
+the jordan form is used to find a normal form of matrices up to conjugacy such that normal matrices make up an algebraic variety of a low fixed degree in the ambient matrix space.
+sets of representatives of matrix conjugacy classes for jordan normal form or rational canonical forms in general do not constitute linear or 
+affine subspaces in the ambient matrix spaces.
+vladimir arnold posed a problem:
+find a canonical form of matrices over a field for which the set of representatives of matrix conjugacy classes is a union of affine linear subspaces (flats). in other words, map the set of matrix conjugacy classes injectively back into the initial set of matrices so that the image of this embedding—the set of all normal matrices, has the lowest possible degree—it is a union of shifted linear subspaces.
+it was solved for algebraically closed fields by peteris daugulis. 
+the construction of a uniquely defined plane normal form of a matrix starts by considering its jordan normal form.
+
+
+== matrix functions ==
+
+iteration of the jordan chain motivates various extensions to more abstract settings. for finite matrices, one gets matrix functions; this can be extended to compact operators and the holomorphic functional calculus, as described further below.
+the jordan normal form is the most convenient for computation of the matrix functions (though it may be not the best choice for computer computations). let f(z) be an analytical function of a complex argument. applying the function on a n×n jordan block j with eigenvalue λ results in an upper triangular matrix:
+
+  
+    
+      
+        f
+        (
+        j
+        )
+        =
+        
+          
+            [
+            
+              
+                
+                  f
+                  (
+                  λ
+                  )
+                
+                
+                  
+                    f
+                    ′
+                  
+                  (
+                  λ
+                  )
+                
+                
+                  
+                    
+                      
+                        
+                          
+                            f
+                            ″
+                          
+                          (
+                          λ
+                          )
+                        
+                        2
+                      
+                    
+                  
+                
+                
+                  ⋯
+                
+                
+                  
+                    
+                      
+                        
+                          
+                            f
+                            
+                              (
+                              n
+                              −
+                              1
+                              )
+                            
+                          
+                          (
+                          λ
+                          )
+                        
+                        
+                          (
+                          n
+                          −
+                          1
+                          )
+                          !
+                        
+                      
+                    
+                  
+                
+              
+              
+                
+                  0
+                
+                
+                  f
+                  (
+                  λ
+                  )
+                
+                
+                  
+                    f
+                    ′
+                  
+                  (
+                  λ
+                  )
+                
+                
+                  ⋯
+                
+                
+                  
+                    
+                      
+                        
+                          
+                            f
+                            
+                              (
+                              n
+                              −
+                              2
+                              )
+                            
+                          
+                          (
+                          λ
+                          )
+                        
+                        
+                          (
+                          n
+                          −
+                          2
+                          )
+                          !
+                        
+                      
+                    
+                  
+                
+              
+              
+                
+                  ⋮
+                
+                
+                  ⋮
+                
+                
+                  ⋱
+                
+                
+                  ⋱
+                
+                
+                  ⋮
+                
+              
+              
+                
+                  0
+                
+                
+                  0
+                
+                
+                  0
+                
+                
+                  f
+                  (
+                  λ
+                  )
+                
+                
+                  
+                    f
+                    ′
+                  
+                  (
+                  λ
+                  )
+                
+              
+              
+                
+                  0
+                
+                
+                  0
+                
+                
+                  0
+                
+                
+                  0
+                
+                
+                  f
+                  (
+                  λ
+                  )
+                
+              
+            
+            ]
+          
+        
+        ,
+      
+    
+    {\displaystyle f(j)={\begin{bmatrix}f(\lambda )&f'(\lambda )&{\tfrac {f''(\lambda )}{2}}&\cdots &{\tfrac {f^{(n-1)}(\lambda )}{(n-1)!}}\\0&f(\lambda )&f'(\lambda )&\cdots &{\tfrac {f^{(n-2)}(\lambda )}{(n-2)!}}\\\vdots &\vdots &\ddots &\ddots &\vdots \\0&0&0&f(\lambda )&f'(\lambda )\\0&0&0&0&f(\lambda )\end{bmatrix}},}
+  so that the elements of the k-th superdiagonal of the resulting matrix are 
+  
+    
+      
+        
+          
+            
+              
+                
+                  f
+                  
+                    (
+                    k
+                    )
+                  
+                
+                (
+                λ
+                )
+              
+              
+                k
+                !
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\tfrac {f^{(k)}(\lambda )}{k!}}}
+  . for a matrix of general jordan normal form
+the above expression shall be applied to each jordan block.
+the following example shows the application to the power function f(z)=zn:
+
+  
+    
+      
+        
+          
+            
+              [
+              
+                
+                  
+                    
+                      λ
+                      
+                        1
+                      
+                    
+                  
+                  
+                    1
+                  
+                  
+                    0
+                  
+                  
+                    0
+                  
+                  
+                    0
+                  
+                
+                
+                  
+                    0
+                  
+                  
+                    
+                      λ
+                      
+                        1
+                      
+                    
+                  
+                  
+                    1
+                  
+                  
+                    0
+                  
+                  
+                    0
+                  
+                
+                
+                  
+                    0
+                  
+                  
+                    0
+                  
+                  
+                    
+                      λ
+                      
+                        1
+                      
+                    
+                  
+                  
+                    0
+                  
+                  
+                    0
+                  
+                
+                
+                  
+                    0
+                  
+                  
+                    0
+                  
+                  
+                    0
+                  
+                  
+                    
+                      λ
+                      
+                        2
+                      
+                    
+                  
+                  
+                    1
+                  
+                
+                
+                  
+                    0
+                  
+                  
+                    0
+                  
+                  
+                    0
+                  
+                  
+                    0
+                  
+                  
+                    
+                      λ
+                      
+                        2
+                      
+                    
+                  
+                
+              
+              ]
+            
+          
+          
+            n
+          
+        
+        =
+        
+          
+            [
+            
+              
+                
+                  
+                    λ
+                    
+                      1
+                    
+                    
+                      n
+                    
+                  
+                
+                
+                  
+                    
+                      
+                        
+                          (
+                        
+                        
+                          n
+                          1
+                        
+                        
+                          )
+                        
+                      
+                    
+                  
+                  
+                    λ
+                    
+                      1
+                    
+                    
+                      n
+                      −
+                      1
+                    
+                  
+                
+                
+                  
+                    
+                      
+                        
+                          (
+                        
+                        
+                          n
+                          2
+                        
+                        
+                          )
+                        
+                      
+                    
+                  
+                  
+                    λ
+                    
+                      1
+                    
+                    
+                      n
+                      −
+                      2
+                    
+                  
+                
+                
+                  0
+                
+                
+                  0
+                
+              
+              
+                
+                  0
+                
+                
+                  
+                    λ
+                    
+                      1
+                    
+                    
+                      n
+                    
+                  
+                
+                
+                  
+                    
+                      
+                        
+                          (
+                        
+                        
+                          n
+                          1
+                        
+                        
+                          )
+                        
+                      
+                    
+                  
+                  
+                    λ
+                    
+                      1
+                    
+                    
+                      n
+                      −
+                      1
+                    
+                  
+                
+                
+                  0
+                
+                
+                  0
+                
+              
+              
+                
+                  0
+                
+                
+                  0
+                
+                
+                  
+                    λ
+                    
+                      1
+                    
+                    
+                      n
+                    
+                  
+                
+                
+                  0
+                
+                
+                  0
+                
+              
+              
+                
+                  0
+                
+                
+                  0
+                
+                
+                  0
+                
+                
+                  
+                    λ
+                    
+                      2
+                    
+                    
+                      n
+                    
+                  
+                
+                
+                  
+                    
+                      
+                        
+                          (
+                        
+                        
+                          n
+                          1
+                        
+                        
+                          )
+                        
+                      
+                    
+                  
+                  
+                    λ
+                    
+                      2
+                    
+                    
+                      n
+                      −
+                      1
+                    
+                  
+                
+              
+              
+                
+                  0
+                
+                
+                  0
+                
+                
+                  0
+                
+                
+                  0
+                
+                
+                  
+                    λ
+                    
+                      2
+                    
+                    
+                      n
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        ,
+      
+    
+    {\displaystyle {\begin{bmatrix}\lambda _{1}&1&0&0&0\\0&\lambda _{1}&1&0&0\\0&0&\lambda _{1}&0&0\\0&0&0&\lambda _{2}&1\\0&0&0&0&\lambda _{2}\end{bmatrix}}^{n}={\begin{bmatrix}\lambda _{1}^{n}&{\tbinom {n}{1}}\lambda _{1}^{n-1}&{\tbinom {n}{2}}\lambda _{1}^{n-2}&0&0\\0&\lambda _{1}^{n}&{\tbinom {n}{1}}\lambda _{1}^{n-1}&0&0\\0&0&\lambda _{1}^{n}&0&0\\0&0&0&\lambda _{2}^{n}&{\tbinom {n}{1}}\lambda _{2}^{n-1}\\0&0&0&0&\lambda _{2}^{n}\end{bmatrix}},}
+  where the binomial coefficients are defined as 
+  
+    
+      
+        
+          
+            
+              (
+            
+            
+              n
+              k
+            
+            
+              )
+            
+          
+        
+        =
+        
+          ∏
+          
+            i
+            =
+            1
+          
+          
+            k
+          
+        
+        
+          
+            
+              n
+              +
+              1
+              −
+              i
+            
+            i
+          
+        
+      
+    
+    {\textstyle {\binom {n}{k}}=\prod _{i=1}^{k}{\frac {n+1-i}{i}}}
+  . for integer positive n it reduces to standard definition
+of the coefficients. for negative n the identity 
+  
+    
+      
+        
+          
+            
+              (
+            
+            
+              
+                −
+                n
+              
+              k
+            
+            
+              )
+            
+          
+        
+        =
+        
+          
+            (
+            
+              −
+              1
+            
+            )
+          
+          
+            k
+          
+        
+        
+          
+            
+              (
+            
+            
+              
+                n
+                +
+                k
+                −
+                1
+              
+              k
+            
+            
+              )
+            
+          
+        
+      
+    
+    {\textstyle {\binom {-n}{k}}=\left(-1\right)^{k}{\binom {n+k-1}{k}}}
+   may be of use.
+
+
+== compact operators ==
+a result analogous to the jordan normal form holds for compact operators on a banach space. one restricts to compact operators because every point x in the spectrum of a compact operator t is an eigenvalue; the only exception is when x is the limit point of the spectrum. this is not true for bounded operators in general. to give some idea of this generalization, we first reformulate the jordan decomposition in the language of functional analysis.
+
+
+=== holomorphic functional calculus ===
+
+let x be a banach space, l(x) be the bounded operators on x, and σ(t) denote the spectrum of t ∈ l(x). the holomorphic functional calculus is defined as follows:
+fix a bounded operator t. consider the family hol(t) of complex functions that is holomorphic on some open set g containing σ(t). let γ = {γi} be a finite collection of jordan curves such that σ(t) lies in the inside of γ, we define f(t) by
+
+  
+    
+      
+        f
+        (
+        t
+        )
+        =
+        
+          
+            1
+            
+              2
+              π
+              i
+            
+          
+        
+        
+          ∫
+          
+            γ
+          
+        
+        f
+        (
+        z
+        )
+        (
+        z
+        −
+        t
+        
+          )
+          
+            −
+            1
+          
+        
+        d
+        z
+        .
+      
+    
+    {\displaystyle f(t)={\frac {1}{2\pi i}}\int _{\gamma }f(z)(z-t)^{-1}dz.}
+  the open set g could vary with f and need not be connected. the integral is defined as the limit of the riemann sums, as in the scalar case. although the integral makes sense for continuous f, we restrict to holomorphic functions to apply the machinery from classical function theory (for example, the cauchy integral formula). the assumption that σ(t) lie in the inside of γ ensures f(t) is well defined; it does not depend on the choice of γ. the functional calculus is the mapping φ from hol(t) to l(x) given by
+
+  
+    
+      
+        
+        φ
+        (
+        f
+        )
+        =
+        f
+        (
+        t
+        )
+        .
+      
+    
+    {\displaystyle \;\phi (f)=f(t).}
+  we will require the following properties of this functional calculus:
+
+φ extends the polynomial functional calculus.
+the spectral mapping theorem holds: σ(f(t)) = f(σ(t)).
+φ is an algebra homomorphism.
+
+
+=== the finite-dimensional case ===
+in the finite-dimensional case, σ(t) = {λi} is a finite discrete set in the complex plane. let ei be the function that is 1 in some open neighborhood of λi and 0 elsewhere. by property 3 of the functional calculus, the operator
+
+  
+    
+      
+        
+          e
+          
+            i
+          
+        
+        (
+        t
+        )
+      
+    
+    {\displaystyle e_{i}(t)}
+  is a projection. moreover, let νi be the index of λi and
+
+  
+    
+      
+        f
+        (
+        z
+        )
+        =
+        (
+        z
+        −
+        
+          λ
+          
+            i
+          
+        
+        
+          )
+          
+            
+              ν
+              
+                i
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle f(z)=(z-\lambda _{i})^{\nu _{i}}.}
+  the spectral mapping theorem tells us
+
+  
+    
+      
+        f
+        (
+        t
+        )
+        
+          e
+          
+            i
+          
+        
+        (
+        t
+        )
+        =
+        (
+        t
+        −
+        
+          λ
+          
+            i
+          
+        
+        
+          )
+          
+            
+              ν
+              
+                i
+              
+            
+          
+        
+        
+          e
+          
+            i
+          
+        
+        (
+        t
+        )
+      
+    
+    {\displaystyle f(t)e_{i}(t)=(t-\lambda _{i})^{\nu _{i}}e_{i}(t)}
+  has spectrum {0}. by property 1, f(t) can be directly computed in the jordan form, and by inspection, we see that the operator f(t)ei(t) is the zero matrix.
+by property 3, f(t) ei(t) = ei(t) f(t). so ei(t) is precisely the projection onto the subspace
+
+  
+    
+      
+        ran
+        ⁡
+        
+          e
+          
+            i
+          
+        
+        (
+        t
+        )
+        =
+        
+          k
+          e
+          r
+        
+        (
+        t
+        −
+        
+          λ
+          
+            i
+          
+        
+        
+          )
+          
+            
+              ν
+              
+                i
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle \operatorname {ran} e_{i}(t)=\mathrm {ker} (t-\lambda _{i})^{\nu _{i}}.}
+  the relation
+
+  
+    
+      
+        
+          ∑
+          
+            i
+          
+        
+        
+          e
+          
+            i
+          
+        
+        =
+        1
+      
+    
+    {\displaystyle \sum _{i}e_{i}=1}
+  implies
+
+  
+    
+      
+        
+          
+            c
+          
+          
+            n
+          
+        
+        =
+        
+          ⨁
+          
+            i
+          
+        
+        
+        ran
+        ⁡
+        
+          e
+          
+            i
+          
+        
+        (
+        t
+        )
+        =
+        
+          ⨁
+          
+            i
+          
+        
+        
+        
+          k
+          e
+          r
+        
+        (
+        t
+        −
+        
+          λ
+          
+            i
+          
+        
+        
+          )
+          
+            
+              ν
+              
+                i
+              
+            
+          
+        
+      
+    
+    {\displaystyle \mathbb {c} ^{n}=\bigoplus _{i}\;\operatorname {ran} e_{i}(t)=\bigoplus _{i}\;\mathrm {ker} (t-\lambda _{i})^{\nu _{i}}}
+  where the index i runs through the distinct eigenvalues of t. this is the invariant subspace decomposition
+
+  
+    
+      
+        
+          
+            c
+          
+          
+            n
+          
+        
+        =
+        
+          ⨁
+          
+            i
+          
+        
+        
+          y
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \mathbb {c} ^{n}=\bigoplus _{i}y_{i}}
+  given in a previous section. each ei(t) is the projection onto the subspace spanned by the jordan chains corresponding to λi and along the subspaces spanned by the jordan chains corresponding to λj for j ≠ i. in other words, ei(t) = p(λi;t). this explicit identification of the operators ei(t) in turn gives an explicit form of holomorphic functional calculus for matrices:
+
+for all f ∈ hol(t),
+  
+    
+      
+        f
+        (
+        t
+        )
+        =
+        
+          ∑
+          
+            
+              λ
+              
+                i
+              
+            
+            ∈
+            σ
+            (
+            t
+            )
+          
+        
+        
+          ∑
+          
+            k
+            =
+            0
+          
+          
+            
+              ν
+              
+                i
+              
+            
+            −
+            1
+          
+        
+        
+          
+            
+              f
+              
+                (
+                k
+                )
+              
+            
+            
+              k
+              !
+            
+          
+        
+        (
+        t
+        −
+        
+          λ
+          
+            i
+          
+        
+        
+          )
+          
+            k
+          
+        
+        
+          e
+          
+            i
+          
+        
+        (
+        t
+        )
+        .
+      
+    
+    {\displaystyle f(t)=\sum _{\lambda _{i}\in \sigma (t)}\sum _{k=0}^{\nu _{i}-1}{\frac {f^{(k)}}{k!}}(t-\lambda _{i})^{k}e_{i}(t).}
+  notice that the expression of f(t) is a finite sum because, on each neighborhood of λi, we have chosen the taylor series expansion of f centered at λi.
+
+
+=== poles of an operator ===
+let t be a bounded operator λ be an isolated point of σ(t). (as stated above, when t is compact, every point in its spectrum is an isolated point, except possibly the limit point 0.)
+the point λ is called a pole of operator t with order ν if the resolvent function rt defined by
+
+  
+    
+      
+        
+          r
+          
+            t
+          
+        
+        (
+        λ
+        )
+        =
+        (
+        λ
+        −
+        t
+        
+          )
+          
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle r_{t}(\lambda )=(\lambda -t)^{-1}}
+  has a pole of order ν at λ.
+we will show that, in the finite-dimensional case, the order of an eigenvalue coincides with its index. the result also holds for compact operators.
+consider the annular region a centered at the eigenvalue λ with sufficiently small radius ε such that the intersection of the open disc bε(λ) and σ(t) is {λ}. the resolvent function rt is holomorphic on a.
+extending a result from classical function theory, rt has a laurent series representation on a:
+
+  
+    
+      
+        
+          r
+          
+            t
+          
+        
+        (
+        z
+        )
+        =
+        
+          ∑
+          
+            −
+            ∞
+          
+          
+            ∞
+          
+        
+        
+          a
+          
+            m
+          
+        
+        (
+        λ
+        −
+        z
+        
+          )
+          
+            m
+          
+        
+      
+    
+    {\displaystyle r_{t}(z)=\sum _{-\infty }^{\infty }a_{m}(\lambda -z)^{m}}
+  where
+
+  
+    
+      
+        
+          a
+          
+            −
+            m
+          
+        
+        =
+        −
+        
+          
+            1
+            
+              2
+              π
+              i
+            
+          
+        
+        
+          ∫
+          
+            c
+          
+        
+        (
+        λ
+        −
+        z
+        
+          )
+          
+            m
+            −
+            1
+          
+        
+        (
+        z
+        −
+        t
+        
+          )
+          
+            −
+            1
+          
+        
+        d
+        z
+      
+    
+    {\displaystyle a_{-m}=-{\frac {1}{2\pi i}}\int _{c}(\lambda -z)^{m-1}(z-t)^{-1}dz}
+   and c is a small circle centered at λ.by the previous discussion on the functional calculus,
+
+  
+    
+      
+        
+          a
+          
+            −
+            m
+          
+        
+        =
+        −
+        (
+        λ
+        −
+        t
+        
+          )
+          
+            m
+            −
+            1
+          
+        
+        
+          e
+          
+            λ
+          
+        
+        (
+        t
+        )
+      
+    
+    {\displaystyle a_{-m}=-(\lambda -t)^{m-1}e_{\lambda }(t)}
+   where 
+  
+    
+      
+        
+          e
+          
+            λ
+          
+        
+      
+    
+    {\displaystyle e_{\lambda }}
+   is 1 on 
+  
+    
+      
+        
+          b
+          
+            ϵ
+          
+        
+        (
+        λ
+        )
+      
+    
+    {\displaystyle b_{\epsilon }(\lambda )}
+   and 0 elsewhere.but we have shown that the smallest positive integer m such that
+
+  
+    
+      
+        
+          a
+          
+            −
+            m
+          
+        
+        ≠
+        0
+      
+    
+    {\displaystyle a_{-m}\neq 0}
+   and 
+  
+    
+      
+        
+          a
+          
+            −
+            l
+          
+        
+        =
+        0
+        
+        
+        ∀
+        
+        l
+        ≥
+        m
+      
+    
+    {\displaystyle a_{-l}=0\;\;\forall \;l\geq m}
+  is precisely the index of λ, ν(λ). in other words, the function rt has a pole of order ν(λ) at λ.
+
+
+== numerical analysis ==
+if the matrix a has multiple eigenvalues, or is close to a matrix with multiple eigenvalues, then its jordan normal form is very sensitive to perturbations. consider for instance the matrix
+
+  
+    
+      
+        a
+        =
+        
+          
+            [
+            
+              
+                
+                  1
+                
+                
+                  1
+                
+              
+              
+                
+                  ε
+                
+                
+                  1
+                
+              
+            
+            ]
+          
+        
+        .
+      
+    
+    {\displaystyle a={\begin{bmatrix}1&1\\\varepsilon &1\end{bmatrix}}.}
+  if ε = 0, then the jordan normal form is simply
+
+  
+    
+      
+        
+          
+            [
+            
+              
+                
+                  1
+                
+                
+                  1
+                
+              
+              
+                
+                  0
+                
+                
+                  1
+                
+              
+            
+            ]
+          
+        
+        .
+      
+    
+    {\displaystyle {\begin{bmatrix}1&1\\0&1\end{bmatrix}}.}
+  however, for ε ≠ 0, the jordan normal form is
+
+  
+    
+      
+        
+          
+            [
+            
+              
+                
+                  1
+                  +
+                  
+                    
+                      ε
+                    
+                  
+                
+                
+                  0
+                
+              
+              
+                
+                  0
+                
+                
+                  1
+                  −
+                  
+                    
+                      ε
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        .
+      
+    
+    {\displaystyle {\begin{bmatrix}1+{\sqrt {\varepsilon }}&0\\0&1-{\sqrt {\varepsilon }}\end{bmatrix}}.}
+  this ill conditioning makes it very hard to develop a robust numerical algorithm for the jordan normal form, as the result depends critically on whether two eigenvalues are deemed to be equal. for this reason, the jordan normal form is usually avoided in numerical analysis; the stable schur decomposition or pseudospectra are better alternatives.
+
+
+== see also ==
+canonical basis
+canonical form
+frobenius normal form
+jordan matrix
+jordan–chevalley decomposition
+matrix decomposition
+modal matrix
+weyr canonical form
+
+
+== notes ==
+
+
+== references ==

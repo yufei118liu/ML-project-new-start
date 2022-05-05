@@ -1,0 +1,946 @@
+in probability theory, the optional stopping theorem (or doob's optional sampling theorem) says that, under certain conditions, the expected value of a martingale at a stopping time is equal to its initial expected value. since martingales can be used to model the wealth of a gambler participating in a fair game, the optional stopping theorem says that, on average, nothing can be gained by stopping play based on the information obtainable so far (i.e., without looking into the future). certain conditions are necessary for this result to hold true. in particular, the theorem applies to doubling strategies.
+the optional stopping theorem is an important tool of mathematical finance in the context of the fundamental theorem of asset pricing.
+
+
+== statement ==
+a discrete-time version of the theorem is given below:
+let x = (xt)t∈
+  
+    
+      
+        
+          n
+        
+      
+    
+    {\displaystyle \mathbb {n} }
+  0 be a discrete-time martingale and τ a stopping time with values in 
+  
+    
+      
+        
+          n
+        
+      
+    
+    {\displaystyle \mathbb {n} }
+  0 ∪ {∞}, both with respect to a filtration (ft)t∈
+  
+    
+      
+        
+          n
+        
+      
+    
+    {\displaystyle \mathbb {n} }
+  0. assume that one of the following three conditions holds:
+
+(a) the stopping time τ is almost surely bounded, i.e., there exists a constant c ∈ 
+  
+    
+      
+        
+          n
+        
+      
+    
+    {\displaystyle \mathbb {n} }
+   such that τ ≤ c a.s.
+(b) the stopping time τ has finite expectation and the conditional expectations of the absolute value of the martingale increments are almost surely bounded, more precisely, 
+  
+    
+      
+        
+          e
+        
+        [
+        τ
+        ]
+        <
+        ∞
+      
+    
+    {\displaystyle \mathbb {e} [\tau ]<\infty }
+   and there exists a constant c such that 
+  
+    
+      
+        
+          e
+        
+        
+          
+            [
+          
+        
+        
+          |
+        
+        
+          x
+          
+            t
+            +
+            1
+          
+        
+        −
+        
+          x
+          
+            t
+          
+        
+        
+          |
+        
+        
+        
+          
+            |
+          
+        
+        
+        
+          
+            
+              f
+            
+          
+          
+            t
+          
+        
+        
+          
+            ]
+          
+        
+        ≤
+        c
+      
+    
+    {\displaystyle \mathbb {e} {\bigl [}|x_{t+1}-x_{t}|\,{\big \vert }\,{\mathcal {f}}_{t}{\bigr ]}\leq c}
+   almost surely on the event {τ > t} for all t ∈ 
+  
+    
+      
+        
+          n
+        
+      
+    
+    {\displaystyle \mathbb {n} }
+  0.
+(c) there exists a constant c such that |xt∧τ| ≤ c a.s. for all t ∈ 
+  
+    
+      
+        
+          n
+        
+      
+    
+    {\displaystyle \mathbb {n} }
+  0 where ∧ denotes the minimum operator.then xτ is an almost surely well defined random variable and 
+  
+    
+      
+        
+          e
+        
+        [
+        
+          x
+          
+            τ
+          
+        
+        ]
+        =
+        
+          e
+        
+        [
+        
+          x
+          
+            0
+          
+        
+        ]
+        .
+      
+    
+    {\displaystyle \mathbb {e} [x_{\tau }]=\mathbb {e} [x_{0}].}
+  
+similarly, if the stochastic process x = (xt)t∈
+  
+    
+      
+        
+          n
+        
+      
+    
+    {\displaystyle \mathbb {n} }
+  0 is a submartingale or a supermartingale and one of the above conditions holds, then
+
+  
+    
+      
+        
+          e
+        
+        [
+        
+          x
+          
+            τ
+          
+        
+        ]
+        ≥
+        
+          e
+        
+        [
+        
+          x
+          
+            0
+          
+        
+        ]
+        ,
+      
+    
+    {\displaystyle \mathbb {e} [x_{\tau }]\geq \mathbb {e} [x_{0}],}
+  for a submartingale, and
+
+  
+    
+      
+        
+          e
+        
+        [
+        
+          x
+          
+            τ
+          
+        
+        ]
+        ≤
+        
+          e
+        
+        [
+        
+          x
+          
+            0
+          
+        
+        ]
+        ,
+      
+    
+    {\displaystyle \mathbb {e} [x_{\tau }]\leq \mathbb {e} [x_{0}],}
+  for a supermartingale.
+
+
+=== remark ===
+under condition (c) it is possible that τ = ∞ happens with positive probability. on this event xτ is defined as the almost surely existing pointwise limit of (xt)t∈
+  
+    
+      
+        
+          n
+        
+      
+    
+    {\displaystyle \mathbb {n} }
+  0 , see the proof below for details.
+
+
+== applications ==
+the optional stopping theorem can be used to prove the impossibility of successful betting strategies for a gambler with a finite lifetime (which gives condition (a)) or a house limit on bets (condition (b)).  suppose that the gambler can wager up to c dollars on a fair coin flip at times 1, 2, 3, etc., winning his wager if the coin comes up heads and losing it if the coin comes up tails.  suppose further that he can quit whenever he likes, but cannot predict the outcome of gambles that haven't happened yet.  then the gambler's fortune over time is a martingale, and the time τ at which he decides to quit (or goes broke and is forced to quit) is a stopping time.  so the theorem says that e[xτ] = e[x0].  in other words, the gambler leaves with the same amount of money on average as when he started.  (the same result holds if the gambler, instead of having a house limit on individual bets, has a finite limit on his line of credit or how far in debt he may go, though this is easier to show with another version of the theorem.)
+suppose a random walk starting at a ≥ 0 that goes up or down by one with equal probability on each step.  suppose further that the walk stops if it reaches 0 or m ≥ a; the time at which this first occurs is a stopping time.  if it is known that the expected time at which the walk ends is finite (say, from markov chain theory), the optional stopping theorem predicts that the expected stop position is equal to the initial position a.  solving a = pm + (1 – p)0 for the probability p that the walk reaches m before 0 gives p = a/m.
+now consider a random walk x that starts at 0 and stops if it reaches –m or +m, and use the yn = xn2 – n martingale from the examples section. if τ is the time at which x first reaches ±m, then 0 = e[y0] = e[yτ] = m2 – e[τ]. this gives e[τ] = m2.
+care must be taken, however, to ensure that one of the conditions of the theorem hold. for example, suppose the last example had instead used a 'one-sided' stopping time, so that stopping only occurred at +m, not at −m. the value of x at this stopping time would therefore be m. therefore, the expectation value e[xτ] must also be m, seemingly in violation of the theorem which would give e[xτ] = 0. the failure of the optional stopping theorem shows that all three of the conditions fail.
+
+
+== proof ==
+let xτ denote the stopped process, it is also a martingale (or a submartingale or supermartingale, respectively). under condition (a) or (b), the random variable xτ is well defined. under condition (c) the stopped process xτ is bounded, hence by doob's martingale convergence theorem it converges a.s. pointwise to a random variable which we call xτ.
+if condition (c) holds, then the stopped process xτ is bounded by the constant random variable m := c. otherwise, writing the stopped process as
+
+  
+    
+      
+        
+          x
+          
+            t
+          
+          
+            τ
+          
+        
+        =
+        
+          x
+          
+            0
+          
+        
+        +
+        
+          ∑
+          
+            s
+            =
+            0
+          
+          
+            τ
+            −
+            1
+            ∧
+            t
+            −
+            1
+          
+        
+        (
+        
+          x
+          
+            s
+            +
+            1
+          
+        
+        −
+        
+          x
+          
+            s
+          
+        
+        )
+        ,
+        
+        t
+        ∈
+        
+          
+            
+              n
+            
+          
+          
+            0
+          
+        
+        ,
+      
+    
+    {\displaystyle x_{t}^{\tau }=x_{0}+\sum _{s=0}^{\tau -1\land t-1}(x_{s+1}-x_{s}),\quad t\in {\mathbb {n} }_{0},}
+  gives |xtτ| ≤ m for all t ∈ 
+  
+    
+      
+        
+          n
+        
+      
+    
+    {\displaystyle \mathbb {n} }
+  0, where
+
+  
+    
+      
+        m
+        :=
+        
+          |
+        
+        
+          x
+          
+            0
+          
+        
+        
+          |
+        
+        +
+        
+          ∑
+          
+            s
+            =
+            0
+          
+          
+            τ
+            −
+            1
+          
+        
+        
+          |
+        
+        
+          x
+          
+            s
+            +
+            1
+          
+        
+        −
+        
+          x
+          
+            s
+          
+        
+        
+          |
+        
+        =
+        
+          |
+        
+        
+          x
+          
+            0
+          
+        
+        
+          |
+        
+        +
+        
+          ∑
+          
+            s
+            =
+            0
+          
+          
+            ∞
+          
+        
+        
+          |
+        
+        
+          x
+          
+            s
+            +
+            1
+          
+        
+        −
+        
+          x
+          
+            s
+          
+        
+        
+          |
+        
+        ⋅
+        
+          
+            1
+          
+          
+            {
+            τ
+            >
+            s
+            }
+          
+        
+      
+    
+    {\displaystyle m:=|x_{0}|+\sum _{s=0}^{\tau -1}|x_{s+1}-x_{s}|=|x_{0}|+\sum _{s=0}^{\infty }|x_{s+1}-x_{s}|\cdot \mathbf {1} _{\{\tau >s\}}}
+  .by the monotone convergence theorem
+
+  
+    
+      
+        
+          e
+        
+        [
+        m
+        ]
+        =
+        
+          e
+        
+        [
+        
+          |
+        
+        
+          x
+          
+            0
+          
+        
+        
+          |
+        
+        ]
+        +
+        
+          ∑
+          
+            s
+            =
+            0
+          
+          
+            ∞
+          
+        
+        
+          e
+        
+        
+          
+            [
+          
+        
+        
+          |
+        
+        
+          x
+          
+            s
+            +
+            1
+          
+        
+        −
+        
+          x
+          
+            s
+          
+        
+        
+          |
+        
+        ⋅
+        
+          
+            1
+          
+          
+            {
+            τ
+            >
+            s
+            }
+          
+        
+        
+          
+            ]
+          
+        
+      
+    
+    {\displaystyle \mathbb {e} [m]=\mathbb {e} [|x_{0}|]+\sum _{s=0}^{\infty }\mathbb {e} {\bigl [}|x_{s+1}-x_{s}|\cdot \mathbf {1} _{\{\tau >s\}}{\bigr ]}}
+  .if condition (a) holds, then this series only has a finite number of non-zero terms, hence m is integrable.
+if condition (b) holds, then we continue by inserting a conditional expectation and using that the event {τ > s} is known at time s (note that τ is assumed to be a stopping time with respect to the filtration), hence
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  e
+                
+                [
+                m
+                ]
+              
+              
+                
+                =
+                
+                  e
+                
+                [
+                
+                  |
+                
+                
+                  x
+                  
+                    0
+                  
+                
+                
+                  |
+                
+                ]
+                +
+                
+                  ∑
+                  
+                    s
+                    =
+                    0
+                  
+                  
+                    ∞
+                  
+                
+                
+                  e
+                
+                
+                  
+                    [
+                  
+                
+                
+                  
+                    
+                      
+                        
+                          e
+                        
+                        
+                          
+                            [
+                          
+                        
+                        
+                          |
+                        
+                        
+                          x
+                          
+                            s
+                            +
+                            1
+                          
+                        
+                        −
+                        
+                          x
+                          
+                            s
+                          
+                        
+                        
+                          |
+                        
+                        
+                          
+                            |
+                          
+                        
+                        
+                          
+                            
+                              f
+                            
+                          
+                          
+                            s
+                          
+                        
+                        
+                          
+                            ]
+                          
+                        
+                        ⋅
+                        
+                          
+                            1
+                          
+                          
+                            {
+                            τ
+                            >
+                            s
+                            }
+                          
+                        
+                      
+                      ⏟
+                    
+                  
+                  
+                    ≤
+                    
+                    c
+                    
+                    
+                      
+                        1
+                      
+                      
+                        {
+                        τ
+                        >
+                        s
+                        }
+                      
+                    
+                    
+                       a.s. by (b)
+                    
+                  
+                
+                
+                  
+                    ]
+                  
+                
+              
+            
+            
+              
+              
+                
+                ≤
+                
+                  e
+                
+                [
+                
+                  |
+                
+                
+                  x
+                  
+                    0
+                  
+                
+                
+                  |
+                
+                ]
+                +
+                c
+                
+                  ∑
+                  
+                    s
+                    =
+                    0
+                  
+                  
+                    ∞
+                  
+                
+                
+                  p
+                
+                (
+                τ
+                >
+                s
+                )
+              
+            
+            
+              
+              
+                
+                =
+                
+                  e
+                
+                [
+                
+                  |
+                
+                
+                  x
+                  
+                    0
+                  
+                
+                
+                  |
+                
+                ]
+                +
+                c
+                
+                
+                  e
+                
+                [
+                τ
+                ]
+                <
+                ∞
+                ,
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}\mathbb {e} [m]&=\mathbb {e} [|x_{0}|]+\sum _{s=0}^{\infty }\mathbb {e} {\bigl [}\underbrace {\mathbb {e} {\bigl [}|x_{s+1}-x_{s}|{\big |}{\mathcal {f}}_{s}{\bigr ]}\cdot \mathbf {1} _{\{\tau >s\}}} _{\leq \,c\,\mathbf {1} _{\{\tau >s\}}{\text{ a.s. by (b)}}}{\bigr ]}\\&\leq \mathbb {e} [|x_{0}|]+c\sum _{s=0}^{\infty }\mathbb {p} (\tau >s)\\&=\mathbb {e} [|x_{0}|]+c\,\mathbb {e} [\tau ]<\infty ,\\\end{aligned}}}
+  where a representation of the expected value of non-negative integer-valued random variables is used for the last equality.
+therefore, under any one of the three conditions in the theorem, the stopped process is dominated by an integrable random variable m. since the stopped process xτ converges almost surely to xτ, the dominated convergence theorem implies
+
+  
+    
+      
+        
+          e
+        
+        [
+        
+          x
+          
+            τ
+          
+        
+        ]
+        =
+        
+          lim
+          
+            t
+            →
+            ∞
+          
+        
+        
+          e
+        
+        [
+        
+          x
+          
+            t
+          
+          
+            τ
+          
+        
+        ]
+        .
+      
+    
+    {\displaystyle \mathbb {e} [x_{\tau }]=\lim _{t\to \infty }\mathbb {e} [x_{t}^{\tau }].}
+  by the martingale property of the stopped process,
+
+  
+    
+      
+        
+          e
+        
+        [
+        
+          x
+          
+            t
+          
+          
+            τ
+          
+        
+        ]
+        =
+        
+          e
+        
+        [
+        
+          x
+          
+            0
+          
+        
+        ]
+        ,
+        
+        t
+        ∈
+        
+          
+            
+              n
+            
+          
+          
+            0
+          
+        
+        ,
+      
+    
+    {\displaystyle \mathbb {e} [x_{t}^{\tau }]=\mathbb {e} [x_{0}],\quad t\in {\mathbb {n} }_{0},}
+  hence
+
+  
+    
+      
+        
+          e
+        
+        [
+        
+          x
+          
+            τ
+          
+        
+        ]
+        =
+        
+          e
+        
+        [
+        
+          x
+          
+            0
+          
+        
+        ]
+        .
+      
+    
+    {\displaystyle \mathbb {e} [x_{\tau }]=\mathbb {e} [x_{0}].}
+  similarly, if x is a submartingale or supermartingale, respectively, change the equality in the last two formulas to the appropriate inequality.
+
+
+== references ==
+
+grimmett, geoffrey r.; stirzaker, david r. (2001). probability and random processes (3rd ed.). oxford university press. pp. 491–495. isbn 9780198572220.
+bhattacharya, rabi; waymire, edward c. (2007). a basic course in probability theory. springer. pp. 43–45. isbn 978-0-387-71939-9.
+
+
+== external links ==
+doob's optional stopping theorem

@@ -1,0 +1,797 @@
+enumerative combinatorics is an area of combinatorics that deals with the number of ways that certain patterns can be formed. two examples of this type of problem are counting combinations and counting permutations.  more generally, given an infinite collection of finite sets si indexed by the natural numbers, enumerative combinatorics seeks to describe a counting function which counts the number of objects in sn for each n. although counting the number of elements in a set is a rather broad mathematical problem, many of the problems that arise in applications have a relatively simple combinatorial description. the twelvefold way provides a unified framework for counting permutations, combinations and partitions.
+the simplest such functions are closed formulas, which can be expressed as a composition of elementary functions such as factorials, powers, and so on.  for instance, as shown below, the number of different possible orderings of a deck of n cards is f(n) = n!.  the problem of finding a closed formula is known as algebraic enumeration, and frequently involves deriving a recurrence relation or generating function and using this to arrive at the desired closed form.
+often, a complicated closed formula yields little insight into the behavior of the counting function as the number of counted objects grows. 
+in these cases, a simple asymptotic approximation may be preferable.  a function 
+  
+    
+      
+        g
+        (
+        n
+        )
+      
+    
+    {\displaystyle g(n)}
+   is an asymptotic approximation to 
+  
+    
+      
+        f
+        (
+        n
+        )
+      
+    
+    {\displaystyle f(n)}
+   if 
+  
+    
+      
+        f
+        (
+        n
+        )
+        
+          /
+        
+        g
+        (
+        n
+        )
+        →
+        1
+      
+    
+    {\displaystyle f(n)/g(n)\rightarrow 1}
+   as 
+  
+    
+      
+        n
+        →
+        ∞
+      
+    
+    {\displaystyle n\rightarrow \infty }
+  . in this case, we write 
+  
+    
+      
+        f
+        (
+        n
+        )
+        ∼
+        g
+        (
+        n
+        )
+        .
+        
+      
+    
+    {\displaystyle f(n)\sim g(n).\,}
+  
+
+
+== generating functions ==
+generating functions are used to describe families of combinatorial objects. let 
+  
+    
+      
+        
+          
+            f
+          
+        
+      
+    
+    {\displaystyle {\mathcal {f}}}
+   denote the family of objects and let f(x) be its generating function. then
+
+  
+    
+      
+        f
+        (
+        x
+        )
+        =
+        
+          ∑
+          
+            n
+            =
+            0
+          
+          
+            ∞
+          
+        
+        
+          f
+          
+            n
+          
+        
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle f(x)=\sum _{n=0}^{\infty }f_{n}x^{n}}
+  where 
+  
+    
+      
+        
+          f
+          
+            n
+          
+        
+      
+    
+    {\displaystyle f_{n}}
+   denotes the number of combinatorial objects of size n. the number of combinatorial objects of size n is therefore given by the coefficient of 
+  
+    
+      
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x^{n}}
+  . some common operation on families of combinatorial objects and its effect on the generating function will now be developed.
+the exponential generating function is also sometimes used. in this case it would have the form
+
+  
+    
+      
+        f
+        (
+        x
+        )
+        =
+        
+          ∑
+          
+            n
+            =
+            0
+          
+          
+            ∞
+          
+        
+        
+          f
+          
+            n
+          
+        
+        
+          
+            
+              x
+              
+                n
+              
+            
+            
+              n
+              !
+            
+          
+        
+      
+    
+    {\displaystyle f(x)=\sum _{n=0}^{\infty }f_{n}{\frac {x^{n}}{n!}}}
+  once determined, the generating function yields the information given by the previous approaches. in addition, the various natural operations on generating functions such as addition, multiplication, differentiation, etc., have a combinatorial significance; this allows one to extend results from one combinatorial problem in order to solve others.
+
+
+=== union ===
+given two combinatorial families, 
+  
+    
+      
+        
+          
+            f
+          
+        
+      
+    
+    {\displaystyle {\mathcal {f}}}
+   and 
+  
+    
+      
+        
+          
+            g
+          
+        
+      
+    
+    {\displaystyle {\mathcal {g}}}
+   with generating functions f(x) and g(x) respectively, the disjoint union of the two families (
+  
+    
+      
+        
+          
+            f
+          
+        
+        ∪
+        
+          
+            g
+          
+        
+      
+    
+    {\displaystyle {\mathcal {f}}\cup {\mathcal {g}}}
+  ) has generating function f(x) + g(x).
+
+
+=== pairs ===
+for two combinatorial families as above the cartesian product (pair) of the two families (
+  
+    
+      
+        
+          
+            f
+          
+        
+        ×
+        
+          
+            g
+          
+        
+      
+    
+    {\displaystyle {\mathcal {f}}\times {\mathcal {g}}}
+  ) has generating function f(x)g(x).
+
+
+=== sequences ===
+a (finite) sequence generalizes the idea of the pair as defined above. sequences are arbitrary cartesian products of a combinatorial object with itself. formally:
+
+  
+    
+      
+        
+          
+            seq
+          
+        
+        (
+        
+          
+            f
+          
+        
+        )
+        =
+        ϵ
+         
+        ∪
+         
+        
+          
+            f
+          
+        
+         
+        ∪
+         
+        
+          
+            f
+          
+        
+        
+        ×
+        
+        
+          
+            f
+          
+        
+         
+        ∪
+         
+        
+          
+            f
+          
+        
+        
+        ×
+        
+        
+          
+            f
+          
+        
+        
+        ×
+        
+        
+          
+            f
+          
+        
+         
+        ∪
+        ⋯
+      
+    
+    {\displaystyle {\mbox{seq}}({\mathcal {f}})=\epsilon \ \cup \ {\mathcal {f}}\ \cup \ {\mathcal {f}}\!\times \!{\mathcal {f}}\ \cup \ {\mathcal {f}}\!\times \!{\mathcal {f}}\!\times \!{\mathcal {f}}\ \cup \cdots }
+  to put the above in words: an empty sequence or a sequence of one element or a sequence of two elements or a sequence of three elements, etc.
+the generating function would be:
+
+  
+    
+      
+        1
+        +
+        f
+        (
+        x
+        )
+        +
+        [
+        f
+        (
+        x
+        )
+        
+          ]
+          
+            2
+          
+        
+        +
+        [
+        f
+        (
+        x
+        )
+        
+          ]
+          
+            3
+          
+        
+        +
+        ⋯
+        =
+        
+          
+            1
+            
+              1
+              −
+              f
+              (
+              x
+              )
+            
+          
+        
+        .
+      
+    
+    {\displaystyle 1+f(x)+[f(x)]^{2}+[f(x)]^{3}+\cdots ={\frac {1}{1-f(x)}}.}
+  
+
+
+== combinatorial structures ==
+the above operations can now be used to enumerate common combinatorial objects including trees (binary and plane), dyck paths and cycles. a combinatorial structure is composed of atoms. for example, with trees the atoms would be the nodes. the atoms which compose the object can either be labeled or unlabeled. unlabeled atoms are indistinguishable from each other, while labelled atoms are distinct. therefore, for a combinatorial object consisting of labeled atoms a new object can be formed by simply swapping two or more atoms.
+
+
+=== binary and plane trees ===
+binary and plane trees are examples of an unlabeled combinatorial structure. trees consist of nodes linked by edges in such a way that there are no cycles. there is generally a node called the root, which has no parent node. in plane trees each node can have an arbitrary number of children. in binary trees, a special case of plane trees, each node can have either two or no children. let 
+  
+    
+      
+        
+          
+            p
+          
+        
+      
+    
+    {\displaystyle {\mathcal {p}}}
+   denote the family of all plane trees. then this family can be recursively defined as follows:
+
+  
+    
+      
+        
+          
+            p
+          
+        
+        =
+        {
+        ∙
+        }
+        ×
+        
+        
+          
+            seq
+          
+        
+        (
+        
+          
+            p
+          
+        
+        )
+      
+    
+    {\displaystyle {\mathcal {p}}=\{\bullet \}\times \,{\mbox{seq}}({\mathcal {p}})}
+  in this case 
+  
+    
+      
+        {
+        ∙
+        }
+      
+    
+    {\displaystyle \{\bullet \}}
+   represents the family of objects consisting of one node. this has generating function x. let p(x) denote the generating function 
+  
+    
+      
+        
+          
+            p
+          
+        
+      
+    
+    {\displaystyle {\mathcal {p}}}
+  .
+putting the above description in words: a plane tree consists of a node to which is attached an arbitrary number of subtrees, each of which is also a plane tree. using the operation on families of combinatorial structures developed earlier, this translates to a recursive generating function:
+
+  
+    
+      
+        p
+        (
+        x
+        )
+        =
+        x
+        
+        
+          
+            1
+            
+              1
+              −
+              p
+              (
+              x
+              )
+            
+          
+        
+      
+    
+    {\displaystyle p(x)=x\,{\frac {1}{1-p(x)}}}
+  after solving for p(x):
+
+  
+    
+      
+        p
+        (
+        x
+        )
+        =
+        
+          
+            
+              1
+              −
+              
+                
+                  1
+                  −
+                  4
+                  x
+                
+              
+            
+            2
+          
+        
+      
+    
+    {\displaystyle p(x)={\frac {1-{\sqrt {1-4x}}}{2}}}
+  an explicit formula for the number of plane trees of size n can now be determined by extracting the coefficient of xn:
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  p
+                  
+                    n
+                  
+                
+              
+              
+                
+                =
+                [
+                
+                  x
+                  
+                    n
+                  
+                
+                ]
+                p
+                (
+                x
+                )
+                =
+                [
+                
+                  x
+                  
+                    n
+                  
+                
+                ]
+                
+                  
+                    
+                      1
+                      −
+                      
+                        
+                          1
+                          −
+                          4
+                          x
+                        
+                      
+                    
+                    2
+                  
+                
+              
+            
+            
+              
+              
+                
+                =
+                [
+                
+                  x
+                  
+                    n
+                  
+                
+                ]
+                
+                  
+                    1
+                    2
+                  
+                
+                −
+                [
+                
+                  x
+                  
+                    n
+                  
+                
+                ]
+                
+                  
+                    1
+                    2
+                  
+                
+                
+                  
+                    1
+                    −
+                    4
+                    x
+                  
+                
+              
+            
+            
+              
+              
+                
+                =
+                −
+                
+                  
+                    1
+                    2
+                  
+                
+                [
+                
+                  x
+                  
+                    n
+                  
+                
+                ]
+                
+                  ∑
+                  
+                    k
+                    =
+                    0
+                  
+                  
+                    ∞
+                  
+                
+                
+                  
+                    
+                      (
+                    
+                    
+                      
+                        
+                          1
+                          2
+                        
+                      
+                      k
+                    
+                    
+                      )
+                    
+                  
+                
+                (
+                −
+                4
+                x
+                
+                  )
+                  
+                    k
+                  
+                
+              
+            
+            
+              
+              
+                
+                =
+                −
+                
+                  
+                    1
+                    2
+                  
+                
+                
+                  
+                    
+                      (
+                    
+                    
+                      
+                        
+                          1
+                          2
+                        
+                      
+                      n
+                    
+                    
+                      )
+                    
+                  
+                
+                (
+                −
+                4
+                
+                  )
+                  
+                    n
+                  
+                
+              
+            
+            
+              
+              
+                
+                =
+                
+                  
+                    1
+                    n
+                  
+                
+                
+                  
+                    
+                      (
+                    
+                    
+                      
+                        2
+                        n
+                        −
+                        2
+                      
+                      
+                        n
+                        −
+                        1
+                      
+                    
+                    
+                      )
+                    
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}p_{n}&=[x^{n}]p(x)=[x^{n}]{\frac {1-{\sqrt {1-4x}}}{2}}\\[6pt]&=[x^{n}]{\frac {1}{2}}-[x^{n}]{\frac {1}{2}}{\sqrt {1-4x}}\\[6pt]&=-{\frac {1}{2}}[x^{n}]\sum _{k=0}^{\infty }{{\frac {1}{2}} \choose k}(-4x)^{k}\\[6pt]&=-{\frac {1}{2}}{{\frac {1}{2}} \choose n}(-4)^{n}\\[6pt]&={\frac {1}{n}}{2n-2 \choose n-1}\end{aligned}}}
+  note: the notation [xn] f(x) refers to the coefficient of xn in f(x).
+the series expansion of the square root is based on  newton's generalization of the binomial theorem. to get from the fourth to fifth line manipulations using the generalized binomial coefficient is needed.
+the expression on the last line is equal to the (n − 1)st catalan number. therefore, pn = cn−1.
+
+
+== see also ==
+
+
+== references ==
+zeilberger, doron, enumerative and algebraic combinatorics
+björner, anders and stanley, richard p., a combinatorial miscellany
+graham, ronald l.,  grötschel m., and lovász, lászló, eds. (1996). handbook of combinatorics, volumes 1 and 2.  elsevier (north-holland), amsterdam, and mit press, cambridge, mass. isbn 0-262-07169-x.
+joseph, george gheverghese (1994) [1991]. the crest of the peacock: non-european roots of mathematics (2nd ed.). london: penguin books. isbn 0-14-012529-9.
+loehr, nicholas a. (2011).  bijective combinatorics.  crc press.  isbn 143984884x,  isbn 978-1439848845.
+stanley, richard p. (1997, 1999).  enumerative combinatorics, volumes 1 and 2. cambridge university press.  isbn 0-521-55309-1, isbn 0-521-56069-1.
+goulden, ian p. and jackson, david m. (2004).  combinatorial enumeration. dover publications.  isbn 0486435970.
+combinatorial analysis – an article in encyclopædia britannica eleventh edition
+riordan, john (1958). an introduction to combinatorial analysis, wiley & sons, new york (republished).
+riordan, john (1968). combinatorial identities, wiley & sons, new york (republished).
+wilf, herbert s. (1994). generatingfunctionology (2nd ed.). boston, ma: academic press. isbn 0-12-751956-4. zbl 0831.05001.

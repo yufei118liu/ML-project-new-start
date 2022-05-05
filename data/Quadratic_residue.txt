@@ -1,0 +1,1733 @@
+in number theory, an integer q is called a quadratic residue modulo n if it is congruent to a perfect square modulo n; i.e., if there exists an integer x such that:
+
+  
+    
+      
+        
+          x
+          
+            2
+          
+        
+        ≡
+        q
+        
+          
+          (
+          mod
+          
+          n
+          )
+        
+        .
+      
+    
+    {\displaystyle x^{2}\equiv q{\pmod {n}}.}
+  otherwise, q is called a  quadratic nonresidue modulo n.
+originally an abstract mathematical concept from the branch of number theory known as modular arithmetic, quadratic residues are now used in applications ranging from acoustical engineering to cryptography and the factoring of large numbers.
+
+
+== history, conventions, and elementary facts ==
+fermat, euler, lagrange, legendre, and other number theorists of the 17th and 18th centuries established theorems and formed conjectures about quadratic residues, but the first systematic treatment is § iv of gauss's disquisitiones arithmeticae (1801). article 95 introduces the terminology "quadratic residue" and "quadratic nonresidue", and states that if the context makes it clear, the adjective "quadratic" may be dropped.
+for a given n a list of the quadratic residues modulo n may be obtained by simply squaring the numbers 0, 1, ..., n − 1. because a2 ≡ (n − a)2 (mod n), the list of squares modulo n is symmetric around n/2, and the list only needs to go that high. this can be seen in the table below.
+thus, the number of quadratic residues modulo n cannot exceed n/2 + 1 (n even) or (n + 1)/2 (n odd).the product of two residues is always a residue.
+
+
+=== prime modulus ===
+modulo 2, every integer is a quadratic residue.
+modulo an odd prime number p there are (p + 1)/2 residues (including 0) and (p − 1)/2 nonresidues, by euler's criterion. in this case, it is customary to consider 0 as a special case and work within the multiplicative group of nonzero elements of the field z/pz. (in other words, every congruence class except zero modulo p has a multiplicative inverse. this is not true for composite moduli.)following this convention, the multiplicative inverse of a residue is a residue, and the inverse of a nonresidue is a nonresidue.following this convention, modulo an odd prime number there are an equal number of residues and nonresidues.modulo a prime, the product of two nonresidues is a residue and the product of a nonresidue and a (nonzero) residue is a nonresidue.the first supplement to the law of quadratic reciprocity is that if p ≡ 1 (mod 4) then −1 is a quadratic residue modulo p, and if p ≡ 3 (mod 4) then −1 is a nonresidue modulo p. this implies the following:
+if p ≡ 1 (mod 4) the negative of a residue modulo p is a residue and the negative of a nonresidue is a nonresidue.
+if p ≡ 3 (mod 4) the negative of a residue modulo p is a nonresidue and the negative of a nonresidue is a residue.
+
+
+=== prime power modulus ===
+all odd squares are ≡ 1 (mod 8) and thus also ≡ 1 (mod 4). if a is an odd number and m = 8, 16, or some higher power of 2, then a is a residue modulo m if and only if a ≡ 1 (mod 8).
+for example, mod (32) the odd squares are
+12 ≡ 152 ≡ 1
+32 ≡ 132 ≡ 9
+52 ≡ 112 ≡ 25
+72 ≡ 92  ≡ 49 ≡ 17and the even ones are
+
+02 ≡ 82 ≡ 162 ≡ 0
+22 ≡ 62≡ 102 ≡ 142≡ 4
+42 ≡ 122 ≡ 16.
+so a nonzero number is a residue mod 8, 16, etc., if and only if it is of the form 4k(8n + 1).
+a number a relatively prime to an odd prime p is a residue modulo any power of p if and only if it is a residue modulo p.if the modulus is pn,
+
+then pka
+is a residue modulo pn if k ≥ n
+is a nonresidue modulo pn if k < n is odd
+is a residue modulo pn if k < n is even and a is a residue
+is a nonresidue modulo pn if k < n is even and a is a nonresidue.notice that the rules are different for powers of two and powers of odd primes.
+modulo an odd prime power n = pk, the products of residues and nonresidues relatively prime to p obey the same rules as they do mod p; p is a nonresidue, and in general all the residues and nonresidues obey the same rules, except that the products will be zero if the power of p in the product ≥ n.
+modulo 8, the product of the nonresidues 3 and 5 is the nonresidue 7, and likewise for permutations of 3, 5 and 7. in fact, the multiplicative group of the non-residues and 1 form the klein four-group.
+
+
+=== composite modulus not a prime power ===
+the basic fact in this case is
+
+if a is a residue modulo n, then a is a residue modulo pk for every prime power dividing n.
+if a is a nonresidue modulo n, then a is a nonresidue modulo pk for at least one prime power dividing n.modulo a composite number, the product of two residues is a residue. the product of a residue and a nonresidue may be a residue, a nonresidue, or zero.
+
+for example, from the table for modulus 6   
+ 1, 2, 3, 4, 5 (residues in bold).
+the product of the residue 3 and the nonresidue 5 is the residue 3, whereas the product of the residue 4 and the nonresidue 2 is the nonresidue 2.
+
+also, the product of two nonresidues may be either a residue, a nonresidue, or zero.
+
+for example, from the table for modulus 15   
+ 1, 2, 3, 4, 5, 6, 7, 8,  9, 10, 11, 12, 13, 14 (residues in bold).
+the product of the nonresidues 2 and 8 is the residue 1, whereas the product of the nonresidues 2 and 7 is the nonresidue 14.
+
+this phenomenon can best be described using the vocabulary of abstract algebra. the congruence classes relatively prime to the modulus are a group under multiplication, called the group of units of the ring z/nz, and the squares are a subgroup of it. different nonresidues may belong to different cosets, and there is no simple rule that predicts which one their product will be in. modulo a prime, there is only the subgroup of squares and a single coset.
+the fact that, e.g., modulo 15 the product of the nonresidues 3 and 5, or of the nonresidue 5 and the residue 9, or the two residues 9 and 10 are all zero comes from working in the full ring z/nz, which has zero divisors for composite n.
+for this reason some authors add to the definition that a quadratic residue a must not only be a square but must also be relatively prime to the modulus n. (a is coprime to n if and only if a2 is coprime to n.)
+although it makes things tidier, this article does not insist that residues must be coprime to the modulus.
+
+
+== notations ==
+gauss used r and n to denote residuosity and non-residuosity, respectively;
+
+for example, 2 r 7 and 5 n 7, or 1 r 8 and 3 n 8.although this notation is compact and convenient for some purposes, a more useful notation is the legendre symbol, also called the quadratic character, which is defined for all integers a and positive odd prime numbers p as
+
+  
+    
+      
+        
+          (
+          
+            
+              a
+              p
+            
+          
+          )
+        
+        =
+        
+          
+            {
+            
+              
+                
+                  
+                  
+                  
+                  0
+                
+                
+                  
+                     if 
+                  
+                  p
+                  
+                     divides 
+                  
+                  a
+                
+              
+              
+                
+                  +
+                  1
+                
+                
+                  
+                     if 
+                  
+                  a
+                  r
+                  ⁡
+                  p
+                  
+                     and 
+                  
+                  p
+                  
+                     does not divide 
+                  
+                  a
+                
+              
+              
+                
+                  −
+                  1
+                
+                
+                  
+                     if 
+                  
+                  a
+                  n
+                  ⁡
+                  p
+                  
+                     and 
+                  
+                  p
+                  
+                     does not divide 
+                  
+                  a
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle \left({\frac {a}{p}}\right)={\begin{cases}\;\;\,0&{\text{ if }}p{\text{ divides }}a\\+1&{\text{ if }}a\operatorname {r} p{\text{ and }}p{\text{ does not divide }}a\\-1&{\text{ if }}a\operatorname {n} p{\text{ and }}p{\text{ does not divide }}a\end{cases}}}
+  there are two reasons why numbers ≡ 0 (mod p) are treated specially. as we have seen,  it makes many formulas and theorems easier to state. the other (related) reason is that the quadratic character is a homomorphism from the multiplicative group of nonzero congruence classes modulo p to the complex numbers under multiplication. setting 
+  
+    
+      
+        (
+        
+          
+            
+              
+                n
+                p
+              
+              p
+            
+          
+        
+        )
+        =
+        0
+      
+    
+    {\displaystyle ({\tfrac {np}{p}})=0}
+   allows its domain to be extended to the multiplicative semigroup of all the integers.one advantage of this notation over gauss's is that the legendre symbol is a function that can be used in formulas.  it can also easily be generalized to cubic, quartic and higher power residues.there is a generalization of the legendre symbol for composite values of p, the jacobi symbol, but its properties are not as simple: if m is composite and the jacobi symbol 
+  
+    
+      
+        (
+        
+          
+            
+              a
+              m
+            
+          
+        
+        )
+        =
+        −
+        1
+        ,
+      
+    
+    {\displaystyle ({\tfrac {a}{m}})=-1,}
+   then a n m, and if a r m then 
+  
+    
+      
+        (
+        
+          
+            
+              a
+              m
+            
+          
+        
+        )
+        =
+        1
+        ,
+      
+    
+    {\displaystyle ({\tfrac {a}{m}})=1,}
+   but if 
+  
+    
+      
+        (
+        
+          
+            
+              a
+              m
+            
+          
+        
+        )
+        =
+        1
+      
+    
+    {\displaystyle ({\tfrac {a}{m}})=1}
+   we do not know whether a r m or a n m. for example: 
+  
+    
+      
+        (
+        
+          
+            
+              2
+              15
+            
+          
+        
+        )
+        =
+        1
+      
+    
+    {\displaystyle ({\tfrac {2}{15}})=1}
+   and 
+  
+    
+      
+        (
+        
+          
+            
+              4
+              15
+            
+          
+        
+        )
+        =
+        1
+      
+    
+    {\displaystyle ({\tfrac {4}{15}})=1}
+  , but 2 n 15 and 4 r 15. if m is prime, the jacobi and legendre symbols agree.
+
+
+== distribution of quadratic residues ==
+although quadratic residues appear to occur in a rather random pattern modulo n, and this has been exploited in such applications as acoustics and cryptography, their distribution also exhibits some striking regularities.
+using dirichlet's theorem on primes in arithmetic progressions, the law of quadratic reciprocity, and the chinese remainder theorem (crt) it is easy to see that for any m > 0 there are primes p such that the numbers 1, 2, ..., m are all residues modulo p.
+
+for example, if p ≡ 1 (mod 8), (mod 12), (mod 5) and (mod 28), then by the law of quadratic reciprocity 2, 3, 5, and 7 will all be residues modulo p, and thus all numbers 1–10 will be. the crt says that this is the same as p ≡ 1 (mod 840), and dirichlet's theorem says there are an infinite number of primes of this form. 2521 is the smallest, and indeed 12 ≡ 1, 10462 ≡ 2, 1232 ≡ 3, 22 ≡ 4, 6432 ≡ 5, 872 ≡ 6, 6682 ≡ 7, 4292 ≡ 8, 32 ≡ 9, and 5292 ≡ 10 (mod 2521).
+
+
+=== dirichlet's formulas ===
+the first of these regularities stems from peter gustav lejeune dirichlet's work (in the 1830s) on the analytic formula for the class number of binary quadratic forms. let q be a prime number, s a complex variable, and define a dirichlet l-function as
+
+  
+    
+      
+        l
+        (
+        s
+        )
+        =
+        
+          ∑
+          
+            n
+            =
+            1
+          
+          
+            ∞
+          
+        
+        
+          (
+          
+            
+              n
+              q
+            
+          
+          )
+        
+        
+          n
+          
+            −
+            s
+          
+        
+        .
+      
+    
+    {\displaystyle l(s)=\sum _{n=1}^{\infty }\left({\frac {n}{q}}\right)n^{-s}.}
+  dirichlet showed that if q ≡ 3 (mod 4), then
+
+  
+    
+      
+        l
+        (
+        1
+        )
+        =
+        −
+        
+          
+            π
+            
+              q
+            
+          
+        
+        
+          ∑
+          
+            n
+            =
+            1
+          
+          
+            q
+            −
+            1
+          
+        
+        
+          
+            n
+            q
+          
+        
+        
+          (
+          
+            
+              n
+              q
+            
+          
+          )
+        
+        >
+        0.
+      
+    
+    {\displaystyle l(1)=-{\frac {\pi }{\sqrt {q}}}\sum _{n=1}^{q-1}{\frac {n}{q}}\left({\frac {n}{q}}\right)>0.}
+  therefore, in this case (prime q ≡ 3 (mod 4)), the sum of the quadratic residues minus the sum of the nonresidues in the range 1, 2, ..., q − 1 is a negative number.
+
+for example, modulo 11,
+
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10 (residues in bold)1 + 4 + 9 + 5 + 3 = 22, 2 + 6 + 7 + 8 + 10 = 33, and the difference is −11. 
+in fact the difference will always be an odd multiple of q if q > 3. in contrast, for prime q ≡ 1 (mod 4), the sum of the quadratic residues minus the sum of the nonresidues in the range 1, 2, ..., q − 1 is zero, implying that both sums equal 
+  
+    
+      
+        
+          
+            
+              q
+              (
+              q
+              −
+              1
+              )
+            
+            4
+          
+        
+      
+    
+    {\displaystyle {\frac {q(q-1)}{4}}}
+  .dirichlet also proved that for prime q ≡ 3 (mod 4),
+
+  
+    
+      
+        l
+        (
+        1
+        )
+        =
+        
+          
+            π
+            
+              
+                (
+                
+                  2
+                  −
+                  
+                    (
+                    
+                      
+                        2
+                        q
+                      
+                    
+                    )
+                  
+                
+                )
+              
+              
+              
+                
+                  q
+                
+              
+            
+          
+        
+        
+          ∑
+          
+            n
+            =
+            1
+          
+          
+            
+              
+                q
+                −
+                1
+              
+              2
+            
+          
+        
+        
+          (
+          
+            
+              n
+              q
+            
+          
+          )
+        
+        >
+        0.
+      
+    
+    {\displaystyle l(1)={\frac {\pi }{\left(2-\left({\frac {2}{q}}\right)\right)\!{\sqrt {q}}}}\sum _{n=1}^{\frac {q-1}{2}}\left({\frac {n}{q}}\right)>0.}
+  this implies that there are more quadratic residues than nonresidues among the numbers 1, 2, ..., (q − 1)/2.
+
+for example, modulo 11 there are four residues less than 6 (namely 1, 3, 4, and 5), but only one nonresidue (2).
+an intriguing fact about these two theorems is that all known proofs rely on analysis; no-one has ever published a simple or direct proof of either statement.
+
+
+=== law of quadratic reciprocity ===
+
+if p and q are odd primes, then:
+((p is a quadratic residue mod q) if and only if (q is a quadratic residue mod p)) if and only if (at least one of p and q is congruent to 1 mod 4).
+that is:
+
+  
+    
+      
+        
+          (
+          
+            
+              p
+              q
+            
+          
+          )
+        
+        
+          (
+          
+            
+              q
+              p
+            
+          
+          )
+        
+        =
+        (
+        −
+        1
+        
+          )
+          
+            
+              
+                
+                  p
+                  −
+                  1
+                
+                2
+              
+            
+            ⋅
+            
+              
+                
+                  q
+                  −
+                  1
+                
+                2
+              
+            
+          
+        
+      
+    
+    {\displaystyle \left({\frac {p}{q}}\right)\left({\frac {q}{p}}\right)=(-1)^{{\frac {p-1}{2}}\cdot {\frac {q-1}{2}}}}
+  where 
+  
+    
+      
+        
+          (
+          
+            
+              p
+              q
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \left({\frac {p}{q}}\right)}
+   is the legendre symbol.
+thus, for numbers a and odd primes p that don't divide a:
+
+
+=== pairs of residues and nonresidues ===
+modulo a prime p, the number of pairs n, n + 1 where n r p and n + 1 r p, or n n p and n + 1 r p, etc., are almost equal. more precisely, let p be an odd prime. for i, j = 0, 1 define the sets
+
+  
+    
+      
+        
+          a
+          
+            i
+            j
+          
+        
+        =
+        
+          {
+          
+            k
+            ∈
+            {
+            1
+            ,
+            2
+            ,
+            …
+            ,
+            p
+            −
+            2
+            }
+            :
+            
+              (
+              
+                
+                  k
+                  p
+                
+              
+              )
+            
+            =
+            (
+            −
+            1
+            
+              )
+              
+                i
+              
+            
+            ∧
+            
+              (
+              
+                
+                  
+                    k
+                    +
+                    1
+                  
+                  p
+                
+              
+              )
+            
+            =
+            (
+            −
+            1
+            
+              )
+              
+                j
+              
+            
+          
+          }
+        
+        ,
+      
+    
+    {\displaystyle a_{ij}=\left\{k\in \{1,2,\dots ,p-2\}:\left({\frac {k}{p}}\right)=(-1)^{i}\land \left({\frac {k+1}{p}}\right)=(-1)^{j}\right\},}
+  and let
+
+  
+    
+      
+        
+          α
+          
+            i
+            j
+          
+        
+        =
+        
+          |
+        
+        
+          a
+          
+            i
+            j
+          
+        
+        
+          |
+        
+        .
+      
+    
+    {\displaystyle \alpha _{ij}=|a_{ij}|.}
+  that is,
+
+α00 is the number of residues that are followed by a residue,
+α01 is the number of residues that are followed by a nonresidue,
+α10 is the number of nonresidues that are followed by a residue, and
+α11 is the number of nonresidues that are followed by a nonresidue.then if p ≡ 1 (mod 4)
+
+  
+    
+      
+        
+          α
+          
+            00
+          
+        
+        =
+        
+          
+            
+              p
+              −
+              5
+            
+            4
+          
+        
+        ,
+        
+        
+          α
+          
+            01
+          
+        
+        =
+        
+          α
+          
+            10
+          
+        
+        =
+        
+          α
+          
+            11
+          
+        
+        =
+        
+          
+            
+              p
+              −
+              1
+            
+            4
+          
+        
+      
+    
+    {\displaystyle \alpha _{00}={\frac {p-5}{4}},\;\alpha _{01}=\alpha _{10}=\alpha _{11}={\frac {p-1}{4}}}
+  and if p ≡ 3 (mod 4)
+
+  
+    
+      
+        
+          α
+          
+            01
+          
+        
+        =
+        
+          
+            
+              p
+              +
+              1
+            
+            4
+          
+        
+        ,
+        
+        
+          α
+          
+            00
+          
+        
+        =
+        
+          α
+          
+            10
+          
+        
+        =
+        
+          α
+          
+            11
+          
+        
+        =
+        
+          
+            
+              p
+              −
+              3
+            
+            4
+          
+        
+        .
+      
+    
+    {\displaystyle \alpha _{01}={\frac {p+1}{4}},\;\alpha _{00}=\alpha _{10}=\alpha _{11}={\frac {p-3}{4}}.}
+  for example: (residues in bold)
+modulo 17
+
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16
+a00 = {1,8,15},
+a01 = {2,4,9,13},
+a10 = {3,7,12,14},
+a11 = {5,6,10,11}.modulo 19
+
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18
+a00 = {4,5,6,16},
+a01 = {1,7,9,11,17},
+a10 = {3,8,10,15},
+a11 = {2,12,13,14}. 
+gauss (1828) introduced this sort of counting when he proved that if p ≡ 1 (mod 4) then x4 ≡ 2 (mod p) can be solved if and only if p = a2 + 64 b2.
+
+
+=== the pólya–vinogradov inequality ===
+the values of 
+  
+    
+      
+        (
+        
+          
+            
+              a
+              p
+            
+          
+        
+        )
+      
+    
+    {\displaystyle ({\tfrac {a}{p}})}
+   for consecutive values of a mimic a random variable like a coin flip. specifically, pólya and vinogradov proved (independently) in 1918 that for any nonprincipal dirichlet character χ(n) modulo q and any integers m and n,
+
+  
+    
+      
+        
+          |
+          
+            
+              ∑
+              
+                n
+                =
+                m
+                +
+                1
+              
+              
+                m
+                +
+                n
+              
+            
+            χ
+            (
+            n
+            )
+          
+          |
+        
+        =
+        o
+        
+          (
+          
+            
+              
+                q
+              
+            
+            log
+            ⁡
+            q
+          
+          )
+        
+        ,
+      
+    
+    {\displaystyle \left|\sum _{n=m+1}^{m+n}\chi (n)\right|=o\left({\sqrt {q}}\log q\right),}
+  in big o notation. setting
+
+  
+    
+      
+        χ
+        (
+        n
+        )
+        =
+        
+          (
+          
+            
+              n
+              q
+            
+          
+          )
+        
+        ,
+      
+    
+    {\displaystyle \chi (n)=\left({\frac {n}{q}}\right),}
+  this shows that the number of quadratic residues modulo q in any interval of length n is
+
+  
+    
+      
+        
+          
+            1
+            2
+          
+        
+        n
+        +
+        o
+        (
+        
+          
+            q
+          
+        
+        log
+        ⁡
+        q
+        )
+        .
+      
+    
+    {\displaystyle {\frac {1}{2}}n+o({\sqrt {q}}\log q).}
+  it is easy to prove that
+
+  
+    
+      
+        
+          |
+          
+            
+              ∑
+              
+                n
+                =
+                m
+                +
+                1
+              
+              
+                m
+                +
+                n
+              
+            
+            
+              (
+              
+                
+                  n
+                  q
+                
+              
+              )
+            
+          
+          |
+        
+        <
+        
+          
+            q
+          
+        
+        log
+        ⁡
+        q
+        .
+      
+    
+    {\displaystyle \left|\sum _{n=m+1}^{m+n}\left({\frac {n}{q}}\right)\right|<{\sqrt {q}}\log q.}
+  in fact,
+
+  
+    
+      
+        
+          |
+          
+            
+              ∑
+              
+                n
+                =
+                m
+                +
+                1
+              
+              
+                m
+                +
+                n
+              
+            
+            
+              (
+              
+                
+                  n
+                  q
+                
+              
+              )
+            
+          
+          |
+        
+        <
+        
+          
+            4
+            
+              π
+              
+                2
+              
+            
+          
+        
+        
+          
+            q
+          
+        
+        log
+        ⁡
+        q
+        +
+        0.41
+        
+          
+            q
+          
+        
+        +
+        0.61.
+      
+    
+    {\displaystyle \left|\sum _{n=m+1}^{m+n}\left({\frac {n}{q}}\right)\right|<{\frac {4}{\pi ^{2}}}{\sqrt {q}}\log q+0.41{\sqrt {q}}+0.61.}
+  montgomery and vaughan improved this in 1977, showing that, if the generalized riemann hypothesis is true then
+
+  
+    
+      
+        
+          |
+          
+            
+              ∑
+              
+                n
+                =
+                m
+                +
+                1
+              
+              
+                m
+                +
+                n
+              
+            
+            χ
+            (
+            n
+            )
+          
+          |
+        
+        =
+        o
+        
+          (
+          
+            
+              
+                q
+              
+            
+            log
+            ⁡
+            log
+            ⁡
+            q
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle \left|\sum _{n=m+1}^{m+n}\chi (n)\right|=o\left({\sqrt {q}}\log \log q\right).}
+  this result cannot be substantially improved, for schur had proved in 1918 that
+
+  
+    
+      
+        
+          max
+          
+            n
+          
+        
+        
+          |
+          
+            
+              ∑
+              
+                n
+                =
+                1
+              
+              
+                n
+              
+            
+            
+              (
+              
+                
+                  n
+                  q
+                
+              
+              )
+            
+          
+          |
+        
+        >
+        
+          
+            1
+            
+              2
+              π
+            
+          
+        
+        
+          
+            q
+          
+        
+      
+    
+    {\displaystyle \max _{n}\left|\sum _{n=1}^{n}\left({\frac {n}{q}}\right)\right|>{\frac {1}{2\pi }}{\sqrt {q}}}
+  and paley had proved in 1932 that
+
+  
+    
+      
+        
+          max
+          
+            n
+          
+        
+        
+          |
+          
+            
+              ∑
+              
+                n
+                =
+                1
+              
+              
+                n
+              
+            
+            
+              (
+              
+                
+                  d
+                  n
+                
+              
+              )
+            
+          
+          |
+        
+        >
+        
+          
+            1
+            7
+          
+        
+        
+          
+            d
+          
+        
+        log
+        ⁡
+        log
+        ⁡
+        d
+      
+    
+    {\displaystyle \max _{n}\left|\sum _{n=1}^{n}\left({\frac {d}{n}}\right)\right|>{\frac {1}{7}}{\sqrt {d}}\log \log d}
+  for infinitely many d > 0.
+
+
+=== least quadratic non-residue ===
+the least quadratic residue mod p is clearly 1.  the question of the magnitude of the least quadratic non-residue n(p) is more subtle, but it is always prime, with 7 appearing for the first time at 71.
+the pólya–vinogradov inequality above gives o(√p log p). 
+the best unconditional estimate is n(p) ≪ pθ for any θ>1/4√e, obtained by estimates of burgess on character sums.assuming the generalised riemann hypothesis, ankeny obtained n(p) ≪ (log p)2.linnik showed that the number of p less than x such that n(p) > xε is bounded by a constant depending on ε.the least quadratic non-residues mod p for odd primes p are:
+
+2, 2, 3, 2, 2, 3, 2, 5, 2, 3, 2, ... (sequence a053760 in the oeis)
+
+
+=== quadratic excess ===
+let p be an odd prime.  the quadratic excess e(p) is the number of quadratic residues on the range (0,p/2) minus the number in the range (p/2,p) (sequence a178153 in the oeis).  for p congruent to 1 mod 4, the excess is zero, since −1 is a quadratic residue and the residues are symmetric under r ↔ p−r.  for p congruent to 3 mod 4, the excess e is always positive.
+
+
+== complexity of finding square roots ==
+that is, given a number a and a modulus n, how hard is it
+
+to tell whether an x solving x2 ≡ a (mod n) exists
+assuming one does exist, to calculate it?an important difference between prime and composite moduli shows up here. modulo a prime p, a quadratic residue a has 1 + (a|p)  roots (i.e. zero if a n p, one if a ≡ 0 (mod p), or two if a r p and gcd(a,p) = 1.)
+in general if a composite modulus n is written as a product of powers of distinct primes, and there are n1 roots modulo the first one, n2 mod the second, ..., there will be n1n2... roots modulo n.
+the theoretical way solutions modulo the prime powers are combined to make solutions modulo n is called the chinese remainder theorem; it can be implemented with an efficient algorithm.
+for example:
+solve x2 ≡ 6 (mod 15).
+x2 ≡ 6 (mod 3) has one solution, 0; x2 ≡ 6 (mod 5) has two, 1 and 4.
+and there are two solutions modulo 15, namely 6 and 9.solve x2 ≡ 4 (mod 15).
+x2 ≡ 4 (mod 3) has two solutions, 1 and 2; x2 ≡ 4 (mod 5) has two, 2 and 3.
+and there are four solutions modulo 15, namely 2, 7, 8, and 13.solve x2 ≡ 7 (mod 15).
+x2 ≡ 7 (mod 3) has two solutions, 1 and 2; x2 ≡ 7 (mod 5) has no solutions.
+and there are no solutions modulo 15.
+
+
+=== prime or prime power modulus ===
+first off, if the modulus n is prime the legendre symbol 
+  
+    
+      
+        
+          (
+          
+            
+              a
+              n
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \left({\frac {a}{n}}\right)}
+   can be quickly computed using a variation of euclid's algorithm or the euler's criterion. if it is −1 there is no solution.
+secondly, assuming that 
+  
+    
+      
+        
+          (
+          
+            
+              a
+              n
+            
+          
+          )
+        
+        =
+        1
+      
+    
+    {\displaystyle \left({\frac {a}{n}}\right)=1}
+  , if n ≡ 3 (mod 4), lagrange found that the solutions are given by
+
+  
+    
+      
+        x
+        ≡
+        ±
+        
+        
+          a
+          
+            (
+            n
+            +
+            1
+            )
+            
+              /
+            
+            4
+          
+        
+        
+          
+          (
+          mod
+          
+          n
+          )
+        
+        ,
+      
+    
+    {\displaystyle x\equiv \pm \;a^{(n+1)/4}{\pmod {n}},}
+  and legendre found a similar solution if n ≡ 5 (mod 8):
+
+  
+    
+      
+        x
+        ≡
+        
+          
+            {
+            
+              
+                
+                  ±
+                  
+                  
+                    a
+                    
+                      (
+                      n
+                      +
+                      3
+                      )
+                      
+                        /
+                      
+                      8
+                    
+                  
+                  
+                    
+                    (
+                    mod
+                    
+                    n
+                    )
+                  
+                
+                
+                  
+                     if 
+                  
+                  a
+                  
+                     is a quartic residue modulo 
+                  
+                  n
+                
+              
+              
+                
+                  ±
+                  
+                  
+                    a
+                    
+                      (
+                      n
+                      +
+                      3
+                      )
+                      
+                        /
+                      
+                      8
+                    
+                  
+                  
+                    2
+                    
+                      (
+                      n
+                      −
+                      1
+                      )
+                      
+                        /
+                      
+                      4
+                    
+                  
+                  
+                    
+                    (
+                    mod
+                    
+                    n
+                    )
+                  
+                
+                
+                  
+                     if 
+                  
+                  a
+                  
+                     is a quartic non-residue modulo 
+                  
+                  n
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle x\equiv {\begin{cases}\pm \;a^{(n+3)/8}{\pmod {n}}&{\text{ if }}a{\text{ is a quartic residue modulo }}n\\\pm \;a^{(n+3)/8}2^{(n-1)/4}{\pmod {n}}&{\text{ if }}a{\text{ is a quartic non-residue modulo }}n\end{cases}}}
+  for prime n ≡ 1 (mod 8), however, there is no known formula. tonelli (in 1891) and cipolla  found efficient algorithms that work for all prime moduli. both algorithms require finding a quadratic nonresidue modulo n, and there is no efficient deterministic algorithm known for doing that. but since half the numbers between 1 and n are nonresidues, picking numbers x at random and calculating the legendre symbol 
+  
+    
+      
+        
+          (
+          
+            
+              x
+              n
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \left({\frac {x}{n}}\right)}
+   until a nonresidue is found will quickly produce one.  a slight variant of this algorithm is the tonelli–shanks algorithm.
+if the modulus n is a prime power n = pe, a solution may be found modulo p and "lifted" to a solution modulo n using hensel's lemma or an algorithm of gauss.
+
+
+=== composite modulus ===
+if the modulus n has been factored into prime powers the solution was discussed above.
+if n is not congruent to 2 modulo 4 and the kronecker symbol 
+  
+    
+      
+        
+          (
+          
+            
+              
+                a
+                n
+              
+            
+          
+          )
+        
+        =
+        −
+        1
+      
+    
+    {\displaystyle \left({\tfrac {a}{n}}\right)=-1}
+   then there is no solution; if n is congruent to 2 modulo 4 and 
+  
+    
+      
+        
+          (
+          
+            
+              
+                a
+                
+                  n
+                  
+                    /
+                  
+                  2
+                
+              
+            
+          
+          )
+        
+        =
+        −
+        1
+      
+    
+    {\displaystyle \left({\tfrac {a}{n/2}}\right)=-1}
+  , then there is also no solution. if n is not congruent to 2 modulo 4 and 
+  
+    
+      
+        
+          (
+          
+            
+              
+                a
+                n
+              
+            
+          
+          )
+        
+        =
+        1
+      
+    
+    {\displaystyle \left({\tfrac {a}{n}}\right)=1}
+  , or n is congruent to 2 modulo 4 and 
+  
+    
+      
+        
+          (
+          
+            
+              
+                a
+                
+                  n
+                  
+                    /
+                  
+                  2
+                
+              
+            
+          
+          )
+        
+        =
+        1
+      
+    
+    {\displaystyle \left({\tfrac {a}{n/2}}\right)=1}
+  , there may or may not be one.
+if the complete factorization of n is not known, and 
+  
+    
+      
+        
+          (
+          
+            
+              
+                a
+                n
+              
+            
+          
+          )
+        
+        =
+        1
+      
+    
+    {\displaystyle \left({\tfrac {a}{n}}\right)=1}
+   and n is not congruent to 2 modulo 4, or n is congruent to 2 modulo 4 and 
+  
+    
+      
+        
+          (
+          
+            
+              
+                a
+                
+                  n
+                  
+                    /
+                  
+                  2
+                
+              
+            
+          
+          )
+        
+        =
+        1
+      
+    
+    {\displaystyle \left({\tfrac {a}{n/2}}\right)=1}
+  , the problem is known to be equivalent to integer factorization of n (i.e. an efficient solution to either problem could be used to solve the other efficiently).
+
+the above discussion indicates how knowing the factors of n allows us to find the roots efficiently. say there were an efficient algorithm for finding square roots modulo a composite number. the article congruence of squares discusses how finding two numbers x and y where x2 ≡ y2 (mod n) and x ≠ ±y suffices to factorize n efficiently. generate a random number, square it modulo n, and have the efficient square root algorithm find a root. repeat until it returns a number not equal to the one we originally squared (or its negative modulo n), then follow the algorithm described in congruence of squares. the efficiency of the factoring algorithm depends on the exact characteristics of the root-finder (e.g. does it return all roots? just the smallest one? a random one?), but it will be efficient.
+determining whether a is a quadratic residue or nonresidue modulo n (denoted a r n or a n n) can be done efficiently for prime n by computing the legendre symbol. however, for composite n, this forms the quadratic residuosity problem, which is not known to be as hard as factorization, but is assumed to be quite hard.
+on the other hand, if we want to know if there is a solution for x less than some given limit c, this problem is np-complete; however, this is a fixed-parameter tractable problem, where c is the parameter.
+in general, to determine if a is a quadratic residue modulo composite n, one can use the following theorem:let n > 1, and gcd(a,n) = 1. then x2 ≡ a (mod n) is solvable if and only if:
+
+the legendre symbol 
+  
+    
+      
+        
+          (
+          
+            
+              
+                a
+                p
+              
+            
+          
+          )
+        
+        =
+        1
+      
+    
+    {\displaystyle \left({\tfrac {a}{p}}\right)=1}
+   for all odd prime divisors p of n.
+a ≡ 1 (mod 4) if n is divisible by 4 but not 8; or a ≡ 1 (mod 8) if n is divisible by 8.note: this theorem essentially requires that the factorization of n is known.  also notice that if gcd(a,n) = m, then the congruence can be reduced to a/m ≡ x2/m (mod n/m), but then this takes the problem away from quadratic residues (unless m is a square).
+
+
+== the number of quadratic residues ==
+the list of the number of quadratic residues modulo n, for n = 1, 2, 3 ..., looks like:
+
+1, 2, 2, 2, 3, 4, 4, 3, 4, 6, 6, 4, 7, 8, 6, ... (sequence a000224 in the oeis)a formula to count the number of squares modulo n is given by stangl.
+
+
+== applications of quadratic residues ==
+
+
+=== acoustics ===
+sound diffusers have been based on number-theoretic concepts such as primitive roots and quadratic residues.
+
+
+=== graph theory ===
+paley graphs are dense undirected graphs, one for each prime p ≡ 1 (mod 4), that form an infinite family of conference graphs, which yield an infinite family of symmetric conference matrices.
+paley digraphs are directed analogs of paley graphs, one for each p ≡ 3 (mod 4), that yield antisymmetric conference matrices.
+the construction of these graphs uses quadratic residues.
+
+
+=== cryptography ===
+the fact that finding a square root of a number modulo a large composite n is equivalent to factoring (which is widely believed to be a hard problem) has been used for constructing cryptographic schemes such as the rabin cryptosystem and the oblivious transfer. the quadratic residuosity problem is the basis for the goldwasser-micali cryptosystem.
+the discrete logarithm is a similar problem that is also used in cryptography.
+
+
+=== primality testing ===
+euler's criterion is a formula for the legendre symbol (a|p) where p is prime. if p is composite the formula may or may not compute (a|p) correctly. the solovay–strassen primality test for whether a given number n is prime or composite picks a random a and computes (a|n) using a modification of euclid's algorithm, and also using euler's criterion. if the results disagree, n is composite; if they agree, n may be composite or prime. for a composite n at least 1/2 the values of a in the range 2, 3, ...,  n − 1 will return "n is composite"; for prime n none will. if, after using many different values of a, n has not been proved composite it is called a "probable prime".
+the miller–rabin primality test is based on the same principles. there is a deterministic version of it, but the proof that it works depends on the generalized riemann hypothesis; the output from this test is "n is definitely composite" or "either n is prime or the grh is false". if the second output ever occurs for a composite n, then the grh would be false, which would have implications through many branches of mathematics.
+
+
+=== integer factorization ===
+in § vi of the disquisitiones arithmeticae gauss discusses two factoring algorithms that use quadratic residues and the law of quadratic reciprocity.
+several modern factorization algorithms (including dixon's algorithm, the continued fraction method, the quadratic sieve, and the number field sieve) generate small quadratic residues (modulo the number being factorized) in an attempt to find a congruence of squares which will yield a factorization. the number field sieve is the fastest general-purpose factorization algorithm known.
+
+
+== table of quadratic residues ==
+the following table (sequence a096008 in the oeis) lists the quadratic residues mod 1 to 75 (a red number means it is not coprime to n). (for the quadratic residues coprime to n, see oeis: a096103, and for nonzero quadratic residues, see oeis: a046071.)
+
+
+== see also ==
+euler's criterion
+gauss's lemma
+zolotarev's lemma
+character sum
+law of quadratic reciprocity
+quadratic residue code
+
+
+== notes ==
+
+
+== references ==
+the disquisitiones arithmeticae has been translated from gauss's ciceronian latin into english and german. the german edition includes all of his papers on number theory: all the proofs of quadratic reciprocity, the determination of the sign of the gauss sum, the investigations into biquadratic reciprocity, and unpublished notes.
+
+gauss, carl friedrich; clarke, arthur a. (translator into english) (1986), disquisitiones arithemeticae (second corrected ed.), new york: springer, isbn 0-387-96254-9 {{citation}}: |first2= has generic name (help)
+gauss, carl friedrich; maser, h. (translator into german) (1965), untersuchungen über hohere arithmetik [disquisitiones arithemeticae & other papers on number theory] (second ed.), new york: chelsea, isbn 0-8284-0191-8 {{citation}}: |first2= has generic name (help)
+bach, eric; shallit, jeffrey (1996), efficient algorithms, algorithmic number theory, vol. i, cambridge: the mit press, isbn 0-262-02405-5
+crandall, richard; pomerance, carl (2001), prime numbers: a computational perspective, new york: springer, isbn 0-387-94777-9
+davenport, harold (2000), multiplicative number theory (third ed.), new york: springer, isbn 0-387-95097-4
+garey, michael r.; johnson, david s. (1979), computers and intractability: a guide to the theory of np-completeness, w. h. freeman, isbn 0-7167-1045-5 a7.1: an1, pg.249.
+hardy, g. h.; wright, e. m. (1980), an introduction to the theory of numbers (fifth ed.), oxford: oxford university press, isbn 978-0-19-853171-5
+ireland, kenneth; rosen, michael (1990), a classical introduction to modern number theory (second ed.), new york: springer, isbn 0-387-97329-x
+lemmermeyer, franz (2000), reciprocity laws: from euler to eisenstein, berlin: springer, isbn 3-540-66957-4
+manders, kenneth l.; adleman, leonard (1978), "np-complete decision problems for binary quadratics", journal of computer and system sciences, 16 (2): 168–184, doi:10.1016/0022-0000(78)90044-2.
+
+
+== external links ==
+weisstein, eric w. "quadratic residue". mathworld.
+proof of pólya–vinogradov inequality at planetmath.

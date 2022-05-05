@@ -1,0 +1,946 @@
+the value function of an optimization problem gives the value attained by the objective function at a solution, while only depending on the parameters of the problem. in a controlled dynamical system, the value function represents the optimal payoff of the system over the interval [t, t1] when started at the time-t state variable x(t)=x. if the objective function represents some cost that is to be minimized, the value function can be interpreted as the cost to finish the optimal program, and is thus referred to as "cost-to-go function." in an economic context, where the objective function usually represents utility, the value function is conceptually equivalent to the indirect utility function.in a problem of optimal control, the value function is defined as the supremum of the objective function taken over the set of admissible controls. given 
+  
+    
+      
+        (
+        
+          t
+          
+            0
+          
+        
+        ,
+        
+          x
+          
+            0
+          
+        
+        )
+        ∈
+        [
+        0
+        ,
+        
+          t
+          
+            1
+          
+        
+        ]
+        ×
+        
+          
+            r
+          
+          
+            d
+          
+        
+      
+    
+    {\displaystyle (t_{0},x_{0})\in [0,t_{1}]\times \mathbb {r} ^{d}}
+  , a typical optimal control problem is to
+
+  
+    
+      
+        
+          maximize
+        
+        
+        j
+        (
+        
+          t
+          
+            0
+          
+        
+        ,
+        
+          x
+          
+            0
+          
+        
+        ;
+        u
+        )
+        =
+        
+          ∫
+          
+            
+              t
+              
+                0
+              
+            
+          
+          
+            
+              t
+              
+                1
+              
+            
+          
+        
+        i
+        (
+        t
+        ,
+        x
+        (
+        t
+        )
+        ,
+        u
+        (
+        t
+        )
+        )
+        
+        
+          d
+        
+        t
+        +
+        ϕ
+        (
+        x
+        (
+        
+          t
+          
+            1
+          
+        
+        )
+        )
+      
+    
+    {\displaystyle {\text{maximize}}\quad j(t_{0},x_{0};u)=\int _{t_{0}}^{t_{1}}i(t,x(t),u(t))\,\mathrm {d} t+\phi (x(t_{1}))}
+  subject to
+
+  
+    
+      
+        
+          
+            
+              
+                d
+              
+              x
+              (
+              t
+              )
+            
+            
+              
+                d
+              
+              t
+            
+          
+        
+        =
+        f
+        (
+        t
+        ,
+        x
+        (
+        t
+        )
+        ,
+        u
+        (
+        t
+        )
+        )
+      
+    
+    {\displaystyle {\frac {\mathrm {d} x(t)}{\mathrm {d} t}}=f(t,x(t),u(t))}
+  with initial state variable 
+  
+    
+      
+        x
+        (
+        
+          t
+          
+            0
+          
+        
+        )
+        =
+        
+          x
+          
+            0
+          
+        
+      
+    
+    {\displaystyle x(t_{0})=x_{0}}
+  . the objective function 
+  
+    
+      
+        j
+        (
+        
+          t
+          
+            0
+          
+        
+        ,
+        
+          x
+          
+            0
+          
+        
+        ;
+        u
+        )
+      
+    
+    {\displaystyle j(t_{0},x_{0};u)}
+   is to be maximized over all admissible controls 
+  
+    
+      
+        u
+        ∈
+        u
+        [
+        
+          t
+          
+            0
+          
+        
+        ,
+        
+          t
+          
+            1
+          
+        
+        ]
+      
+    
+    {\displaystyle u\in u[t_{0},t_{1}]}
+  , where 
+  
+    
+      
+        u
+      
+    
+    {\displaystyle u}
+   is a lebesgue measurable function from 
+  
+    
+      
+        [
+        
+          t
+          
+            0
+          
+        
+        ,
+        
+          t
+          
+            1
+          
+        
+        ]
+      
+    
+    {\displaystyle [t_{0},t_{1}]}
+   to some prescribed arbitrary set in 
+  
+    
+      
+        
+          
+            r
+          
+          
+            m
+          
+        
+      
+    
+    {\displaystyle \mathbb {r} ^{m}}
+  . the value function is then defined as 
+
+with 
+  
+    
+      
+        v
+        (
+        
+          t
+          
+            1
+          
+        
+        ,
+        x
+        (
+        
+          t
+          
+            1
+          
+        
+        )
+        )
+        =
+        ϕ
+        (
+        x
+        (
+        
+          t
+          
+            1
+          
+        
+        )
+        )
+      
+    
+    {\displaystyle v(t_{1},x(t_{1}))=\phi (x(t_{1}))}
+  , where 
+  
+    
+      
+        ϕ
+        (
+        x
+        (
+        
+          t
+          
+            1
+          
+        
+        )
+        )
+      
+    
+    {\displaystyle \phi (x(t_{1}))}
+   is the "scrap value". if the optimal pair of control and state trajectories is 
+  
+    
+      
+        (
+        
+          x
+          
+            ∗
+          
+        
+        ,
+        
+          u
+          
+            ∗
+          
+        
+        )
+      
+    
+    {\displaystyle (x^{\ast },u^{\ast })}
+  , then 
+  
+    
+      
+        v
+        (
+        
+          t
+          
+            0
+          
+        
+        ,
+        
+          x
+          
+            0
+          
+        
+        )
+        =
+        j
+        (
+        
+          t
+          
+            0
+          
+        
+        ,
+        
+          x
+          
+            0
+          
+        
+        ;
+        
+          u
+          
+            ∗
+          
+        
+        )
+      
+    
+    {\displaystyle v(t_{0},x_{0})=j(t_{0},x_{0};u^{\ast })}
+  . the function 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   that gives the optimal control 
+  
+    
+      
+        
+          u
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle u^{\ast }}
+   based on the current state 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   is called a feedback control policy, or simply a policy function.bellman's principle of optimality roughly states that any optimal policy at time 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+  , 
+  
+    
+      
+        
+          t
+          
+            0
+          
+        
+        ≤
+        t
+        ≤
+        
+          t
+          
+            1
+          
+        
+      
+    
+    {\displaystyle t_{0}\leq t\leq t_{1}}
+   taking the current state 
+  
+    
+      
+        x
+        (
+        t
+        )
+      
+    
+    {\displaystyle x(t)}
+   as "new" initial condition must be optimal for the remaining problem. if the value function happens to be continuously differentiable, this gives rise to an important partial differential equation known as hamilton–jacobi–bellman equation,
+
+  
+    
+      
+        −
+        
+          
+            
+              ∂
+              v
+              (
+              t
+              ,
+              x
+              )
+            
+            
+              ∂
+              t
+            
+          
+        
+        =
+        
+          max
+          
+            u
+          
+        
+        
+          {
+          
+            i
+            (
+            t
+            ,
+            x
+            ,
+            u
+            )
+            +
+            
+              
+                
+                  ∂
+                  v
+                  (
+                  t
+                  ,
+                  x
+                  )
+                
+                
+                  ∂
+                  x
+                
+              
+            
+            f
+            (
+            t
+            ,
+            x
+            ,
+            u
+            )
+          
+          }
+        
+      
+    
+    {\displaystyle -{\frac {\partial v(t,x)}{\partial t}}=\max _{u}\left\{i(t,x,u)+{\frac {\partial v(t,x)}{\partial x}}f(t,x,u)\right\}}
+  where the maximand on the right-hand side can also be re-written as the hamiltonian, 
+  
+    
+      
+        h
+        
+          (
+          
+            t
+            ,
+            x
+            ,
+            u
+            ,
+            λ
+          
+          )
+        
+        =
+        i
+        (
+        t
+        ,
+        x
+        ,
+        u
+        )
+        +
+        λ
+        f
+        (
+        t
+        ,
+        x
+        ,
+        u
+        )
+      
+    
+    {\displaystyle h\left(t,x,u,\lambda \right)=i(t,x,u)+\lambda f(t,x,u)}
+  , as
+
+  
+    
+      
+        −
+        
+          
+            
+              ∂
+              v
+              (
+              t
+              ,
+              x
+              )
+            
+            
+              ∂
+              t
+            
+          
+        
+        =
+        
+          max
+          
+            u
+          
+        
+        h
+        (
+        t
+        ,
+        x
+        ,
+        u
+        ,
+        λ
+        )
+      
+    
+    {\displaystyle -{\frac {\partial v(t,x)}{\partial t}}=\max _{u}h(t,x,u,\lambda )}
+  with 
+  
+    
+      
+        ∂
+        v
+        (
+        t
+        ,
+        x
+        )
+        
+          /
+        
+        ∂
+        x
+        =
+        λ
+        (
+        t
+        )
+      
+    
+    {\displaystyle \partial v(t,x)/\partial x=\lambda (t)}
+   playing the role of the costate variables. given this definition, we further have 
+  
+    
+      
+        
+          d
+        
+        λ
+        (
+        t
+        )
+        
+          /
+        
+        
+          d
+        
+        t
+        =
+        
+          ∂
+          
+            2
+          
+        
+        v
+        (
+        t
+        ,
+        x
+        )
+        
+          /
+        
+        ∂
+        x
+        ∂
+        t
+        +
+        
+          ∂
+          
+            2
+          
+        
+        v
+        (
+        t
+        ,
+        x
+        )
+        
+          /
+        
+        ∂
+        
+          x
+          
+            2
+          
+        
+        ⋅
+        f
+        (
+        x
+        )
+      
+    
+    {\displaystyle \mathrm {d} \lambda (t)/\mathrm {d} t=\partial ^{2}v(t,x)/\partial x\partial t+\partial ^{2}v(t,x)/\partial x^{2}\cdot f(x)}
+  , and after differentiating both sides of the hjb equation with respect to 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  ,
+
+  
+    
+      
+        −
+        
+          
+            
+              
+                ∂
+                
+                  2
+                
+              
+              v
+              (
+              t
+              ,
+              x
+              )
+            
+            
+              ∂
+              t
+              ∂
+              x
+            
+          
+        
+        =
+        
+          
+            
+              ∂
+              i
+            
+            
+              ∂
+              x
+            
+          
+        
+        +
+        
+          
+            
+              
+                ∂
+                
+                  2
+                
+              
+              v
+              (
+              t
+              ,
+              x
+              )
+            
+            
+              ∂
+              
+                x
+                
+                  2
+                
+              
+            
+          
+        
+        f
+        (
+        x
+        )
+        +
+        
+          
+            
+              ∂
+              v
+              (
+              t
+              ,
+              x
+              )
+            
+            
+              ∂
+              x
+            
+          
+        
+        
+          
+            
+              ∂
+              f
+              (
+              x
+              )
+            
+            
+              ∂
+              x
+            
+          
+        
+      
+    
+    {\displaystyle -{\frac {\partial ^{2}v(t,x)}{\partial t\partial x}}={\frac {\partial i}{\partial x}}+{\frac {\partial ^{2}v(t,x)}{\partial x^{2}}}f(x)+{\frac {\partial v(t,x)}{\partial x}}{\frac {\partial f(x)}{\partial x}}}
+  which after replacing the appropriate terms recovers the costate equation
+
+  
+    
+      
+        −
+        
+          
+            
+              λ
+              ˙
+            
+          
+        
+        (
+        t
+        )
+        =
+        
+          
+            
+              ∂
+              i
+            
+            
+              ∂
+              x
+            
+          
+        
+        +
+        λ
+        (
+        t
+        )
+        
+          
+            
+              ∂
+              f
+              (
+              x
+              )
+            
+            
+              ∂
+              x
+            
+          
+        
+        =
+        
+          
+            
+              ∂
+              h
+            
+            
+              ∂
+              x
+            
+          
+        
+      
+    
+    {\displaystyle -{\dot {\lambda }}(t)={\frac {\partial i}{\partial x}}+\lambda (t){\frac {\partial f(x)}{\partial x}}={\frac {\partial h}{\partial x}}}
+  where 
+  
+    
+      
+        
+          
+            
+              λ
+              ˙
+            
+          
+        
+        (
+        t
+        )
+      
+    
+    {\displaystyle {\dot {\lambda }}(t)}
+   is newton notation for the derivative with respect to time.the value function is the unique viscosity solution to the hamilton–jacobi–bellman equation. in an online closed-loop approximate optimal control, the value function is also a lyapunov function that establishes global asymptotic stability of the closed-loop system.
+
+
+== references ==
+
+
+== further reading ==
+caputo, michael r. (2005). "necessary and sufficient conditions for isoperimetric problems". foundations of dynamic economic analysis : optimal control theory and applications. new york: cambridge university press. pp. 174–210. isbn 0-521-60368-4.
+clarke, frank h.; loewen, philip d. (1986). "the value function in optimal control: sensitivity, controllability, and time-optimality". siam journal on control and optimization. 24 (2): 243–263. doi:10.1137/0324014.
+lafrance, jeffrey t.; barney, l. dwayne (1991). "the envelope theorem in dynamic optimization" (pdf). journal of economic dynamics and control. 15 (2): 355–385. doi:10.1016/0165-1889(91)90018-v.
+stengel, robert f. (1994). "conditions for optimality". optimal control and estimation. new york: dover. pp. 201–222. isbn 0-486-68200-5.

@@ -1,0 +1,3426 @@
+in mathematics, the euclidean algorithm, or euclid's algorithm, is an efficient method for computing the greatest common divisor (gcd) of two integers (numbers), the largest number that divides them both without a remainder. it is named after the ancient greek mathematician euclid, who first described it in his elements (c. 300 bc).
+it is an example of an algorithm, a step-by-step procedure for performing a calculation according to well-defined rules,
+and is one of the oldest algorithms in common use. it can be used to reduce fractions to their simplest form, and is a part of many other number-theoretic and cryptographic calculations.
+the euclidean algorithm is based on the principle that the greatest common divisor of two numbers does not change if the larger number is replaced by its difference with the smaller number.  for example, 21 is the gcd of 252 and 105 (as 252 = 21 × 12 and 105 = 21 × 5), and the same number 21 is also the gcd of 105 and  252 − 105 = 147. since this replacement reduces the larger of the two numbers, repeating this process gives successively smaller pairs of numbers until the two numbers become equal.  when that occurs, they are the gcd of the original two numbers.  by reversing the steps or using the extended euclidean algorithm, the gcd can be expressed as a linear combination of the two original numbers, that is the sum of the two numbers, each multiplied by an integer (for example, 21 = 5 × 105 + (−2) × 252). the fact that the gcd can always be expressed in this way is known as bézout's identity.
+the version of the euclidean algorithm described above (and by euclid) can take many subtraction steps to find the gcd when one of the given numbers is much bigger than the other. a more efficient version of the algorithm shortcuts these steps, instead replacing the larger of the two numbers by its remainder when divided by the smaller of the two (with this version, the algorithm stops when reaching a zero remainder). with this improvement, the algorithm never requires more steps than five times the number of digits (base 10) of the smaller integer.  this was proven by gabriel lamé in 1844, and marks the beginning of computational complexity theory.  additional methods for improving the algorithm's efficiency were developed in the 20th century.
+the euclidean algorithm has many theoretical and practical applications. it is used for reducing fractions to their simplest form and for performing division in modular arithmetic. computations using this algorithm form part of the cryptographic protocols that are used to secure internet communications, and in methods for breaking these cryptosystems by factoring large composite numbers. the euclidean algorithm may be used to solve diophantine equations, such as finding numbers that satisfy multiple congruences according to the chinese remainder theorem, to construct continued fractions, and to find accurate rational approximations to real numbers.   finally, it can be used as a basic tool for proving theorems in number theory such as lagrange's four-square theorem and the uniqueness of prime factorizations. the original algorithm was described only for natural numbers and geometric lengths (real numbers), but the algorithm was generalized in the 19th century to other types of numbers, such as gaussian integers and polynomials of one variable. this led to modern abstract algebraic notions such as euclidean domains.
+
+
+== background: greatest common divisor ==
+
+the euclidean algorithm calculates the greatest common divisor (gcd) of two natural numbers a and b. the greatest common divisor g is the largest natural number that divides both a and b without leaving a remainder. synonyms for the gcd include the greatest common factor (gcf), the highest common factor (hcf), the highest common divisor (hcd), and the greatest common measure (gcm). the greatest common divisor is often written as gcd(a, b) or, more simply, as (a, b), although the latter notation is ambiguous, also used for concepts such as an ideal in the ring of integers, which is closely related to gcd.
+if gcd(a, b) = 1, then a and b are said to be coprime (or relatively prime). this property does not imply that a or b are themselves prime numbers. for example, neither 6 nor 35 is a prime number, since they both have two prime factors: 6 = 2 × 3 and 35 = 5 × 7. nevertheless, 6 and 35 are coprime. no natural number other than 1 divides both 6 and 35, since they have no prime factors in common.
+
+let g = gcd(a, b). since a and b are both multiples of g, they can be written a = mg and b = ng, and there is no larger number g > g for which this is true. the natural numbers m and n must be coprime, since any common factor could be factored out of m and n to make g greater. thus, any other number c that divides both a and b must also divide g. the greatest common divisor g of a and b is the unique (positive) common divisor of a and b that is divisible by any other common divisor c.the gcd can be visualized as follows. consider a rectangular area a by b, and any common divisor c that divides both a and b exactly. the sides of the rectangle can be divided into segments of length c, which divides the rectangle into a grid of squares of side length c. the greatest common divisor g is the largest value of c for which this is possible. for illustration, a 24-by-60 rectangular area can be divided into a grid of: 1-by-1 squares, 2-by-2 squares, 3-by-3 squares, 4-by-4 squares, 6-by-6 squares or 12-by-12 squares. therefore, 12 is the greatest common divisor of 24 and 60. a 24-by-60 rectangular area can be divided into a grid of 12-by-12 squares, with two squares along one edge (24/12 = 2) and five squares along the other (60/12 = 5).
+the gcd of two numbers a and b is the product of the prime factors shared by the two numbers, where a same prime factor can be used multiple times, but only as long as the product of these factors divides both a and b. for example, since 1386 can be factored into 2 × 3 × 3 × 7 × 11, and 3213 can be factored into 3 × 3 × 3 × 7 × 17, the greatest common divisor of 1386 and 3213 equals 63 = 3 × 3 × 7, the product of their shared prime factors. if two numbers have no prime factors in common, their greatest common divisor is 1 (obtained here as an instance of the empty product), in other words they are coprime. a key advantage of the euclidean algorithm is that it can find the gcd efficiently without having to compute the prime factors. factorization of large integers is believed to be a computationally very difficult problem, and the security of many widely used cryptographic protocols is based upon its infeasibility.another definition of the gcd is helpful in advanced mathematics, particularly ring theory. the greatest common divisor g  of two nonzero numbers a and b is also their smallest positive integral linear combination, that is, the smallest positive number of the form ua + vb where u and v are integers. the set of all integral linear combinations of a and b is actually the same as the set of all multiples of g (mg, where m is an integer). in modern mathematical language, the ideal generated by a and b is the ideal generated by g alone (an ideal generated by a single element is called a principal ideal, and all ideals of the integers are principal ideals). some properties of the gcd are in fact easier to see with this description, for instance the fact that any common divisor of a and b also divides the gcd (it divides both terms of ua + vb). the equivalence of this gcd definition with the other definitions is described below.
+the gcd of three or more numbers equals the product of the prime factors common to all the numbers, but it can also be calculated by repeatedly taking the gcds of pairs of numbers. for example,
+
+gcd(a, b, c) = gcd(a, gcd(b, c)) = gcd(gcd(a, b), c) = gcd(gcd(a, c), b).thus, euclid's algorithm, which computes the gcd of two integers, suffices to calculate the gcd of arbitrarily many integers.
+
+
+== description ==
+
+
+=== procedure ===
+the euclidean algorithm proceeds in a series of steps such that the output of each step is used as an input for the next one. let k be an integer that counts the steps of the algorithm, starting with zero. thus, the initial step corresponds to k = 0, the next step corresponds to k = 1, and so on.
+each step begins with two nonnegative remainders rk−1 and rk−2. since the algorithm ensures that the remainders decrease steadily with every step, rk−1 is less than its predecessor rk−2. the goal of the kth step is to find a quotient qk and remainder rk that satisfy the equation
+
+  
+    
+      
+        
+          r
+          
+            k
+            −
+            2
+          
+        
+        =
+        
+          q
+          
+            k
+          
+        
+        
+          r
+          
+            k
+            −
+            1
+          
+        
+        +
+        
+          r
+          
+            k
+          
+        
+      
+    
+    {\displaystyle r_{k-2}=q_{k}r_{k-1}+r_{k}}
+  and that have 0 ≤ rk < rk−1. in other words, multiples of the smaller number rk−1 are subtracted from the larger number rk−2 until the remainder rk is smaller than rk−1.
+in the initial step (k = 0), the remainders r−2 and r−1 equal a and b, the numbers for which the gcd is sought. in the next step (k = 1), the remainders equal b and the remainder r0 of the initial step, and so on. thus, the algorithm can be written as a sequence of equations
+
+  
+    
+      
+        
+          
+            
+              
+                a
+              
+              
+                
+                =
+                
+                  q
+                  
+                    0
+                  
+                
+                b
+                +
+                
+                  r
+                  
+                    0
+                  
+                
+              
+            
+            
+              
+                b
+              
+              
+                
+                =
+                
+                  q
+                  
+                    1
+                  
+                
+                
+                  r
+                  
+                    0
+                  
+                
+                +
+                
+                  r
+                  
+                    1
+                  
+                
+              
+            
+            
+              
+                
+                  r
+                  
+                    0
+                  
+                
+              
+              
+                
+                =
+                
+                  q
+                  
+                    2
+                  
+                
+                
+                  r
+                  
+                    1
+                  
+                
+                +
+                
+                  r
+                  
+                    2
+                  
+                
+              
+            
+            
+              
+                
+                  r
+                  
+                    1
+                  
+                
+              
+              
+                
+                =
+                
+                  q
+                  
+                    3
+                  
+                
+                
+                  r
+                  
+                    2
+                  
+                
+                +
+                
+                  r
+                  
+                    3
+                  
+                
+              
+            
+            
+              
+              
+                
+                
+                
+                
+                ⋮
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}a&=q_{0}b+r_{0}\\b&=q_{1}r_{0}+r_{1}\\r_{0}&=q_{2}r_{1}+r_{2}\\r_{1}&=q_{3}r_{2}+r_{3}\\&\,\,\,\vdots \end{aligned}}}
+  if a is smaller than b, the first step of the algorithm swaps the numbers. for example, if a < b, the initial quotient q0 equals zero, and the remainder r0 is a. thus, rk is smaller than its predecessor rk−1 for all k ≥ 0.
+since the remainders decrease with every step but can never be negative, a remainder rn must eventually equal zero, at which point the algorithm stops. the final nonzero remainder rn−1 is the greatest common divisor of a and b. the number n cannot be infinite because there are only a finite number of nonnegative integers between the initial remainder r0 and zero.
+
+
+=== proof of validity ===
+the validity of the euclidean algorithm can be proven by a two-step argument. in the first step, the final nonzero remainder rn−1 is shown to divide both a and b. since it is a common divisor, it must be less than or equal to the greatest common divisor g. in the second step, it is shown that any common divisor of a and b, including g, must divide rn−1; therefore, g must be less than or equal to rn−1. these two conclusions are inconsistent unless rn−1 = g.
+to demonstrate that rn−1 divides both a and b (the first step), rn−1 divides its predecessor rn−2
+rn−2 = qn rn−1since the final remainder rn is zero. rn−1 also divides its next predecessor rn−3
+rn−3 = qn−1 rn−2 + rn−1because it divides both terms on the right-hand side of the equation. iterating the same argument, rn−1 divides all the preceding remainders, including a and b. none of the preceding remainders rn−2, rn−3, etc. divide a and b, since they leave a remainder. since rn−1 is a common divisor of a and b, rn−1 ≤ g.
+in the second step, any natural number c that divides both a and b (in other words, any common divisor of a and b) divides the remainders rk. by definition, a and b can be written as multiples of c : a = mc and b = nc, where m and n are natural numbers. therefore, c divides the initial remainder r0, since r0 = a − q0b = mc − q0nc = (m − q0n)c. an analogous argument shows that c also divides the subsequent remainders r1, r2, etc. therefore, the greatest common divisor g must divide rn−1, which implies that g ≤ rn−1. since the first part of the argument showed the reverse (rn−1 ≤ g), it follows that g = rn−1. thus, g is the greatest common divisor of all the succeeding pairs:
+g = gcd(a, b) = gcd(b, r0) = gcd(r0, r1) = … = gcd(rn−2, rn−1) = rn−1.
+
+
+=== worked example ===
+
+for illustration, the euclidean algorithm can be used to find the greatest common divisor of a = 1071 and b = 462. to begin, multiples of 462 are subtracted from 1071 until the remainder is less than 462. two such multiples can be subtracted (q0 = 2), leaving a remainder of 147:
+
+1071 = 2 × 462 + 147.then multiples of 147 are subtracted from 462 until the remainder is less than 147. three multiples can be subtracted (q1 = 3), leaving a remainder of 21:
+
+462 = 3 × 147 + 21.then multiples of 21 are subtracted from 147 until the remainder is less than 21. seven multiples can be subtracted (q2 = 7), leaving no remainder:
+
+147 = 7 × 21 + 0.since the last remainder is zero, the algorithm ends with 21 as the greatest common divisor of 1071 and 462. this agrees with the gcd(1071, 462) found by prime factorization above. in tabular form, the steps are:
+
+
+=== visualization ===
+the euclidean algorithm can be visualized in terms of the tiling analogy given above for the greatest common divisor. assume that we wish to cover an a-by-b rectangle with square tiles exactly, where a is the larger of the two numbers. we first attempt to tile the rectangle using b-by-b square tiles; however, this leaves an r0-by-b residual rectangle untiled, where r0 < b. we then attempt to tile the residual rectangle with r0-by-r0 square tiles. this leaves a second residual rectangle r1-by-r0, which we attempt to tile using r1-by-r1 square tiles, and so on. the sequence ends when there is no residual rectangle, i.e., when the square tiles cover the previous residual rectangle exactly. the length of the sides of the smallest square tile is the gcd of the dimensions of the original rectangle. for example, the smallest square tile in the adjacent figure is 21-by-21 (shown in red), and 21 is the gcd of 1071 and 462, the dimensions of the original rectangle (shown in green).
+
+
+=== euclidean division ===
+
+at every step k, the euclidean algorithm computes a quotient qk and remainder rk from two numbers rk−1 and rk−2
+rk−2 = qk rk−1 + rkwhere the rk is non-negative and is strictly less than the absolute value of rk−1. the theorem which underlies the definition of the euclidean division ensures that such a quotient and remainder always exist and are unique.in euclid's original version of the algorithm, the quotient and remainder are found by repeated subtraction; that is, rk−1 is subtracted from rk−2 repeatedly until the remainder rk is smaller than rk−1. after that rk and rk−1 are exchanged and the process is iterated. euclidean division reduces all the steps between two exchanges into a single step, which is thus more efficient. moreover, the quotients are not needed, thus one may replace euclidean division by the modulo operation, which gives only the remainder. thus the iteration of the euclidean algorithm becomes simply
+
+rk = rk−2 mod rk−1.
+
+
+=== implementations ===
+implementations of the algorithm may be expressed in pseudocode. for example, the division-based version may be programmed as
+function gcd(a, b)
+    while b ≠ 0
+        t := b
+        b := a mod b
+        a := t
+    return a
+
+at the beginning of the kth iteration, the variable b holds the latest remainder rk−1, whereas the variable a holds its predecessor, rk−2. the step b := a mod b is equivalent to the above recursion formula rk ≡ rk−2 mod rk−1. the temporary variable t holds the value of rk−1 while the next remainder rk is being calculated. at the end of the loop iteration, the variable b holds the remainder rk, whereas the variable a holds its predecessor, rk−1.
+(if negative inputs are allowed, or if the mod function may return negative values, the last line must be changed into return max(a, −a).)
+in the subtraction-based version, which was euclid's original version, the remainder calculation (b := a mod b) is replaced by repeated subtraction. contrary to the division-based version, which works with arbitrary integers as input, the subtraction-based version supposes that the input consists of positive integers and stops when a = b:
+
+function gcd(a, b)
+    while a ≠ b 
+        if a > b
+            a := a − b
+        else
+            b := b − a
+    return a
+
+the variables a and b alternate holding the previous remainders rk−1 and rk−2. assume that a is larger than b at the beginning of an iteration; then a equals rk−2, since rk−2 > rk−1. during the loop iteration, a is reduced by multiples of the previous remainder b until a is smaller than b. then a is the next remainder rk. then b is reduced by multiples of a until it is again smaller than a, giving the next remainder rk+1, and so on.
+the recursive version is based on the equality of the gcds of successive remainders and the stopping condition gcd(rn−1, 0) = rn−1.
+
+function gcd(a, b)
+    if b = 0
+        return a
+    else
+        return gcd(b, a mod b)
+
+(as above, if negative inputs are allowed, or if the mod function may return negative values, the instruction "return a" must be changed into "return max(a, −a)".)
+for illustration, the gcd(1071, 462) is calculated from the equivalent gcd(462, 1071 mod 462) = gcd(462, 147). the latter gcd is calculated from the gcd(147, 462 mod 147) = gcd(147, 21), which in turn is calculated from the gcd(21, 147 mod 21) = gcd(21, 0) = 21.
+
+
+=== method of least absolute remainders ===
+in another version of euclid's algorithm, the quotient at each step is increased by one if the resulting negative remainder is smaller in magnitude than the typical positive remainder. previously, the equation
+
+rk−2 = qk rk−1 + rkassumed that |rk−1| > rk > 0. however, an alternative negative remainder ek can be computed:
+
+rk−2 = (qk + 1) rk−1 + ekif rk−1 > 0 or
+
+rk−2 = (qk − 1) rk−1 + ekif rk−1 < 0.
+if rk is replaced by ek. when |ek| < |rk|, then one gets a variant of euclidean algorithm such that
+
+|rk| ≤ |rk−1| / 2at each step.
+leopold kronecker has shown that this version requires the fewest steps of any version of euclid's algorithm. more generally, it has been proven that, for every input numbers a and b, the number of steps is minimal if and only if qk is chosen in order that 
+  
+    
+      
+        
+          |
+          
+            
+              
+                r
+                
+                  k
+                  +
+                  1
+                
+              
+              
+                r
+                
+                  k
+                
+              
+            
+          
+          |
+        
+        <
+        
+          
+            1
+            φ
+          
+        
+        ∼
+        0.618
+        ,
+      
+    
+    {\displaystyle \left|{\frac {r_{k+1}}{r_{k}}}\right|<{\frac {1}{\varphi }}\sim 0.618,}
+   where 
+  
+    
+      
+        φ
+      
+    
+    {\displaystyle \varphi }
+   is the golden ratio.
+
+
+== historical development ==
+
+the euclidean algorithm is one of the oldest algorithms in common use. it appears in euclid's elements (c. 300 bc), specifically in book 7 (propositions 1–2) and book 10 (propositions 2–3). in book 7, the algorithm is formulated for integers, whereas in book 10, it is formulated for lengths of line segments. (in modern usage, one would say it was formulated there for real numbers. but lengths, areas, and volumes, represented as real numbers in modern usage, are not measured in the same units and there is no natural unit of length, area, or volume; the concept of real numbers was unknown at that time.) the latter algorithm is geometrical. the gcd of two lengths a and b corresponds to the greatest length g that measures a and b evenly; in other words, the lengths a and b are both integer multiples of the length g.
+the algorithm was probably not discovered by euclid, who compiled results from earlier mathematicians in his elements. the mathematician and historian b. l. van der waerden suggests that book vii derives from a textbook on number theory written by mathematicians in the school of pythagoras. the algorithm was probably known by eudoxus of cnidus (about 375 bc). the algorithm may even pre-date eudoxus, judging from the use of the technical term ἀνθυφαίρεσις (anthyphairesis, reciprocal subtraction) in works by euclid and aristotle.centuries later, euclid's algorithm was discovered independently both in india and in china, primarily to solve diophantine equations that arose in astronomy and making accurate calendars. in the late 5th century, the indian mathematician and astronomer aryabhata described the algorithm as the "pulverizer", perhaps because of its effectiveness in solving diophantine equations. although a special case of the chinese remainder theorem had already been described in the chinese book sunzi suanjing, the general solution was published by qin jiushao in his 1247 book shushu jiuzhang (數書九章 mathematical treatise in nine sections). the euclidean algorithm was first described numerically and popularized in europe in the second edition of bachet's problèmes plaisants et délectables (pleasant and enjoyable problems, 1624). in europe, it was likewise used to solve diophantine equations and in developing continued fractions. the extended euclidean algorithm was published by the english mathematician nicholas saunderson, who attributed it to roger cotes as a method for computing continued fractions efficiently.in the 19th century, the euclidean algorithm led to the development of new number systems, such as gaussian integers and eisenstein integers. in 1815, carl gauss used the euclidean algorithm to demonstrate unique factorization of gaussian integers, although his work was first published in 1832. gauss mentioned the algorithm in his disquisitiones arithmeticae (published 1801), but only as a method for continued fractions. peter gustav lejeune dirichlet seems to have been the first to describe the euclidean algorithm as the basis for much of number theory. lejeune dirichlet noted that many results of number theory, such as unique factorization, would hold true for any other system of numbers to which the euclidean algorithm could be applied. lejeune dirichlet's lectures on number theory were edited and extended by richard dedekind, who used euclid's algorithm to study algebraic integers, a new general type of number. for example, dedekind was the first to prove fermat's two-square theorem using the unique factorization of gaussian integers. dedekind also defined the concept of a euclidean domain, a number system in which a generalized version of the euclidean algorithm can be defined (as described below). in the closing decades of the 19th century, the euclidean algorithm gradually became eclipsed by dedekind's more general theory of ideals.
+other applications of euclid's algorithm were developed in the 19th century. in 1829, charles sturm showed that the algorithm was useful in the sturm chain method for counting the real roots of polynomials in any given interval.the euclidean algorithm was the first integer relation algorithm, which is a method for finding integer relations between commensurate real numbers. several novel integer relation algorithms have been developed, such as the algorithm of helaman ferguson and r.w. forcade (1979) and the lll algorithm.in 1969, cole and davie developed a two-player game based on the euclidean algorithm, called the game of euclid, which has an optimal strategy. the players begin with two piles of a and b stones. the players take turns removing m multiples of the smaller pile from the larger. thus, if the two piles consist of x and y stones, where x is larger than y, the next player can reduce the larger pile from x stones to x − my stones, as long as the latter is a nonnegative integer. the winner is the first player to reduce one pile to zero stones.
+
+
+== mathematical applications ==
+
+
+=== bézout's identity ===
+bézout's identity states that the greatest common divisor g of two integers a and b can be represented as a linear sum of the original two numbers a and b. in other words, it is always possible to find integers s and t such that g = sa + tb.the integers s and t can be calculated from the quotients q0, q1, etc. by reversing the order of equations in euclid's algorithm. beginning with the next-to-last equation, g can be expressed in terms of the quotient qn−1 and the two preceding remainders, rn−2 and rn−3:
+
+g = rn−1 = rn−3 − qn−1 rn−2 .those two remainders can be likewise expressed in terms of their quotients and preceding remainders,
+
+rn−2 = rn−4 − qn−2 rn−3 and
+rn−3 = rn−5 − qn−3 rn−4 .substituting these formulae for rn−2 and rn−3 into the first equation yields g as a linear sum of the remainders rn−4 and rn−5. the process of substituting remainders by formulae involving their predecessors can be continued until the original numbers a and b are reached:
+
+r2 = r0 − q2 r1
+r1 = b − q1 r0
+r0 = a − q0 b.after all the remainders r0, r1, etc. have been substituted, the final equation expresses g as a linear sum of a and b: g = sa + tb. bézout's identity, and therefore the previous algorithm, can both be generalized to the context of euclidean domains.
+
+
+=== principal ideals and related problems ===
+bézout's identity provides yet another definition of the greatest common divisor g of two numbers a and b. consider the set of all numbers ua + vb, where u and v are any two integers. since a and b are both divisible by g, every number in the set is divisible by g. in other words, every number of the set is an integer multiple of g. this is true for every common divisor of a and b. however, unlike other common divisors, the greatest common divisor is a member of the set; by bézout's identity, choosing u = s and v = t gives g. a smaller common divisor cannot be a member of the set, since every member of the set must be divisible by g. conversely, any multiple m of g can be obtained by choosing u = ms and v = mt, where s and t are the integers of bézout's identity. this may be seen by multiplying bézout's identity by m,
+
+mg = msa + mtb.therefore, the set of all numbers ua + vb is equivalent to the set of multiples m of g. in other words, the set of all possible sums of integer multiples of two numbers (a and b) is equivalent to the set of multiples of gcd(a, b). the gcd is said to be the generator of the ideal of a and b. this gcd definition led to the modern abstract algebraic concepts of a principal ideal (an ideal generated by a single element) and a principal ideal domain (a domain in which every ideal is a principal ideal).
+certain problems can be solved using this result. for example, consider two measuring cups of volume a and b. by adding/subtracting u multiples of the first cup and v multiples of the second cup, any volume ua + vb can be measured out. these volumes are all multiples of g = gcd(a, b).
+
+
+=== extended euclidean algorithm ===
+
+the integers s and t of bézout's identity can be computed efficiently using the extended euclidean algorithm. this extension adds two recursive equations to euclid's algorithm
+sk = sk−2 − qksk−1
+tk = tk−2 − qktk−1with the starting values
+
+s−2 = 1, t−2 = 0
+s−1 = 0, t−1 = 1.using this recursion, bézout's integers s and t are given by s = sn and t = tn, where n+1 is the step on which the algorithm terminates with rn+1 = 0.
+the validity of this approach can be shown by induction. assume that the recursion formula is correct up to step k − 1 of the algorithm; in other words, assume that
+
+rj = sj a + tj bfor all j less than k. the kth step of the algorithm gives the equation
+
+rk = rk−2 − qkrk−1.since the recursion formula has been assumed to be correct for rk−2 and rk−1, they may be expressed in terms of the corresponding s and t variables
+
+rk = (sk−2 a + tk−2 b) − qk(sk−1 a + tk−1 b).rearranging this equation yields the recursion formula for step k, as required
+
+rk = sk a + tk b = (sk−2 − qksk−1) a + (tk−2 − qktk−1) b.
+
+
+=== matrix method ===
+the integers s and t can also be found using an equivalent matrix method. the sequence of equations of euclid's algorithm
+
+  
+    
+      
+        
+          
+            
+              
+                a
+              
+              
+                
+                =
+                
+                  q
+                  
+                    0
+                  
+                
+                b
+                +
+                
+                  r
+                  
+                    0
+                  
+                
+              
+            
+            
+              
+                b
+              
+              
+                
+                =
+                
+                  q
+                  
+                    1
+                  
+                
+                
+                  r
+                  
+                    0
+                  
+                
+                +
+                
+                  r
+                  
+                    1
+                  
+                
+              
+            
+            
+              
+              
+                
+                
+                
+                
+                ⋮
+              
+            
+            
+              
+                
+                  r
+                  
+                    n
+                    −
+                    2
+                  
+                
+              
+              
+                
+                =
+                
+                  q
+                  
+                    n
+                  
+                
+                
+                  r
+                  
+                    n
+                    −
+                    1
+                  
+                
+                +
+                0
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}a&=q_{0}b+r_{0}\\b&=q_{1}r_{0}+r_{1}\\&\,\,\,\vdots \\r_{n-2}&=q_{n}r_{n-1}+0\end{aligned}}}
+  can be written as a product of 2-by-2 quotient matrices multiplying a two-dimensional remainder vector
+
+  
+    
+      
+        
+          
+            (
+            
+              
+                
+                  a
+                
+              
+              
+                
+                  b
+                
+              
+            
+            )
+          
+        
+        =
+        
+          
+            (
+            
+              
+                
+                  
+                    q
+                    
+                      0
+                    
+                  
+                
+                
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  0
+                
+              
+            
+            )
+          
+        
+        
+          
+            (
+            
+              
+                
+                  b
+                
+              
+              
+                
+                  
+                    r
+                    
+                      0
+                    
+                  
+                
+              
+            
+            )
+          
+        
+        =
+        
+          
+            (
+            
+              
+                
+                  
+                    q
+                    
+                      0
+                    
+                  
+                
+                
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  0
+                
+              
+            
+            )
+          
+        
+        
+          
+            (
+            
+              
+                
+                  
+                    q
+                    
+                      1
+                    
+                  
+                
+                
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  0
+                
+              
+            
+            )
+          
+        
+        
+          
+            (
+            
+              
+                
+                  
+                    r
+                    
+                      0
+                    
+                  
+                
+              
+              
+                
+                  
+                    r
+                    
+                      1
+                    
+                  
+                
+              
+            
+            )
+          
+        
+        =
+        ⋯
+        =
+        
+          ∏
+          
+            i
+            =
+            0
+          
+          
+            n
+          
+        
+        
+          
+            (
+            
+              
+                
+                  
+                    q
+                    
+                      i
+                    
+                  
+                
+                
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  0
+                
+              
+            
+            )
+          
+        
+        
+          
+            (
+            
+              
+                
+                  
+                    r
+                    
+                      n
+                      −
+                      1
+                    
+                  
+                
+              
+              
+                
+                  0
+                
+              
+            
+            )
+          
+        
+        
+        .
+      
+    
+    {\displaystyle {\begin{pmatrix}a\\b\end{pmatrix}}={\begin{pmatrix}q_{0}&1\\1&0\end{pmatrix}}{\begin{pmatrix}b\\r_{0}\end{pmatrix}}={\begin{pmatrix}q_{0}&1\\1&0\end{pmatrix}}{\begin{pmatrix}q_{1}&1\\1&0\end{pmatrix}}{\begin{pmatrix}r_{0}\\r_{1}\end{pmatrix}}=\cdots =\prod _{i=0}^{n}{\begin{pmatrix}q_{i}&1\\1&0\end{pmatrix}}{\begin{pmatrix}r_{n-1}\\0\end{pmatrix}}\,.}
+  let m represent the product of all the quotient matrices
+
+  
+    
+      
+        
+          m
+        
+        =
+        
+          
+            (
+            
+              
+                
+                  
+                    m
+                    
+                      11
+                    
+                  
+                
+                
+                  
+                    m
+                    
+                      12
+                    
+                  
+                
+              
+              
+                
+                  
+                    m
+                    
+                      21
+                    
+                  
+                
+                
+                  
+                    m
+                    
+                      22
+                    
+                  
+                
+              
+            
+            )
+          
+        
+        =
+        
+          ∏
+          
+            i
+            =
+            0
+          
+          
+            n
+          
+        
+        
+          
+            (
+            
+              
+                
+                  
+                    q
+                    
+                      i
+                    
+                  
+                
+                
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  0
+                
+              
+            
+            )
+          
+        
+        =
+        
+          
+            (
+            
+              
+                
+                  
+                    q
+                    
+                      0
+                    
+                  
+                
+                
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  0
+                
+              
+            
+            )
+          
+        
+        
+          
+            (
+            
+              
+                
+                  
+                    q
+                    
+                      1
+                    
+                  
+                
+                
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  0
+                
+              
+            
+            )
+          
+        
+        ⋯
+        
+          
+            (
+            
+              
+                
+                  
+                    q
+                    
+                      n
+                    
+                  
+                
+                
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  0
+                
+              
+            
+            )
+          
+        
+        
+        .
+      
+    
+    {\displaystyle \mathbf {m} ={\begin{pmatrix}m_{11}&m_{12}\\m_{21}&m_{22}\end{pmatrix}}=\prod _{i=0}^{n}{\begin{pmatrix}q_{i}&1\\1&0\end{pmatrix}}={\begin{pmatrix}q_{0}&1\\1&0\end{pmatrix}}{\begin{pmatrix}q_{1}&1\\1&0\end{pmatrix}}\cdots {\begin{pmatrix}q_{n}&1\\1&0\end{pmatrix}}\,.}
+  this simplifies the euclidean algorithm to the form
+
+  
+    
+      
+        
+          
+            (
+            
+              
+                
+                  a
+                
+              
+              
+                
+                  b
+                
+              
+            
+            )
+          
+        
+        =
+        
+          m
+        
+        
+          
+            (
+            
+              
+                
+                  
+                    r
+                    
+                      n
+                      −
+                      1
+                    
+                  
+                
+              
+              
+                
+                  0
+                
+              
+            
+            )
+          
+        
+        =
+        
+          m
+        
+        
+          
+            (
+            
+              
+                
+                  g
+                
+              
+              
+                
+                  0
+                
+              
+            
+            )
+          
+        
+        
+        .
+      
+    
+    {\displaystyle {\begin{pmatrix}a\\b\end{pmatrix}}=\mathbf {m} {\begin{pmatrix}r_{n-1}\\0\end{pmatrix}}=\mathbf {m} {\begin{pmatrix}g\\0\end{pmatrix}}\,.}
+  to express g as a linear sum of a and b, both sides of this equation can be multiplied by the inverse of the matrix m. the determinant of m equals (−1)n+1, since it equals the product of the determinants of the quotient matrices, each of which is negative one. since the determinant of m is never zero, the vector of the final remainders can be solved using the inverse of m
+
+  
+    
+      
+        
+          
+            (
+            
+              
+                
+                  g
+                
+              
+              
+                
+                  0
+                
+              
+            
+            )
+          
+        
+        =
+        
+          
+            m
+          
+          
+            −
+            1
+          
+        
+        
+          
+            (
+            
+              
+                
+                  a
+                
+              
+              
+                
+                  b
+                
+              
+            
+            )
+          
+        
+        =
+        (
+        −
+        1
+        
+          )
+          
+            n
+            +
+            1
+          
+        
+        
+          
+            (
+            
+              
+                
+                  
+                    m
+                    
+                      22
+                    
+                  
+                
+                
+                  −
+                  
+                    m
+                    
+                      12
+                    
+                  
+                
+              
+              
+                
+                  −
+                  
+                    m
+                    
+                      21
+                    
+                  
+                
+                
+                  
+                    m
+                    
+                      11
+                    
+                  
+                
+              
+            
+            )
+          
+        
+        
+          
+            (
+            
+              
+                
+                  a
+                
+              
+              
+                
+                  b
+                
+              
+            
+            )
+          
+        
+        
+        .
+      
+    
+    {\displaystyle {\begin{pmatrix}g\\0\end{pmatrix}}=\mathbf {m} ^{-1}{\begin{pmatrix}a\\b\end{pmatrix}}=(-1)^{n+1}{\begin{pmatrix}m_{22}&-m_{12}\\-m_{21}&m_{11}\end{pmatrix}}{\begin{pmatrix}a\\b\end{pmatrix}}\,.}
+  since the top equation gives
+
+g = (−1)n+1 ( m22 a − m12 b),the two integers of bézout's identity are s = (−1)n+1m22 and t = (−1)nm12. the matrix method is as efficient as the equivalent recursion, with two multiplications and two additions per step of the euclidean algorithm.
+
+
+=== euclid's lemma and unique factorization ===
+bézout's identity is essential to many applications of euclid's algorithm, such as demonstrating the unique factorization of numbers into prime factors. to illustrate this, suppose that a number l can be written as a product of two factors u and v, that is, l = uv. if another number w also divides l but is coprime with u, then w must divide v, by the following argument: if the greatest common divisor of u and w is 1, then integers s and t can be found such that
+
+1 = su + tw .by bézout's identity. multiplying both sides by v gives the relation
+
+v = suv + twv = sl + twv .since w divides both terms on the right-hand side, it must also divide the left-hand side, v. this result is known as euclid's lemma. specifically, if a prime number divides l, then it must divide at least one factor of l. conversely, if a number w is coprime to each of a series of numbers a1, a2, ..., an, then w is also coprime to their product, a1 × a2 × ... × an.euclid's lemma suffices to prove that every number has a unique factorization into prime numbers. to see this, assume the contrary, that there are two independent factorizations of l into m and n prime factors, respectively
+
+l = p1p2…pm = q1q2…qn .since each prime p divides l by assumption, it must also divide one of the q factors; since each q is prime as well, it must be that p = q. iteratively dividing by the p factors shows that each p has an equal counterpart q; the two prime factorizations are identical except for their order. the unique factorization of numbers into primes has many applications in mathematical proofs, as shown below.
+
+
+=== linear diophantine equations ===
+
+diophantine equations are equations in which the solutions are restricted to integers; they are named after the 3rd-century alexandrian mathematician diophantus. a typical linear diophantine equation seeks integers x and y such that
+ax + by = cwhere a, b and c are given integers. this can be written as an equation for x in modular arithmetic:
+
+ax ≡ c mod b.let g be the greatest common divisor of a and b. both terms in ax + by are divisible by g; therefore, c must also be divisible by g, or the equation has no solutions. by dividing both sides by c/g, the equation can be reduced to bezout's identity
+
+sa + tb = gwhere s and t can be found by the extended euclidean algorithm. this provides one solution to the diophantine equation, x1 = s (c/g) and y1 = t (c/g).
+in general, a linear diophantine equation has no solutions, or an infinite number of solutions. to find the latter, consider two solutions, (x1, y1) and (x2, y2), where
+
+ax1 + by1 = c = ax2 + by2or equivalently
+
+a(x1 − x2) = b(y2 − y1).therefore, the smallest difference between two x solutions is b/g, whereas the smallest difference between two y solutions is a/g. thus, the solutions may be expressed as
+
+x = x1 − bu/g
+y = y1 + au/g.by allowing u to vary over all possible integers, an infinite family of solutions can be generated from a single solution (x1, y1). if the solutions are required to be positive integers (x > 0, y > 0), only a finite number of solutions may be possible. this restriction on the acceptable solutions allows some systems of diophantine equations with more unknowns than equations to have a finite number of solutions; this is impossible for a system of linear equations when the solutions can be any real number (see underdetermined system).
+
+
+=== multiplicative inverses and the rsa algorithm ===
+a finite field is a set of numbers with four generalized operations. the operations are called addition, subtraction, multiplication and division and have their usual properties, such as commutativity, associativity and distributivity. an example of a finite field is the set of 13 numbers {0, 1, 2, ..., 12} using modular arithmetic. in this field, the results of any mathematical operation (addition, subtraction, multiplication, or division) is reduced modulo 13; that is, multiples of 13 are added or subtracted until the result is brought within the range 0–12. for example, the result of 5 × 7 = 35 mod 13 = 9. such finite fields can be defined for any prime p; using more sophisticated definitions, they can also be defined for any power m of a prime p m. finite fields are often called galois fields, and are abbreviated as gf(p) or gf(p m).
+in such a field with m numbers, every nonzero element a has a unique modular multiplicative inverse, a−1 such that aa−1 = a−1a ≡ 1 mod m. this inverse can be found by solving the congruence equation ax ≡ 1 mod m, or the equivalent linear diophantine equation
+ax + my = 1.this equation can be solved by the euclidean algorithm, as described above. finding multiplicative inverses is an essential step in the rsa algorithm, which is widely used in electronic commerce; specifically, the equation determines the integer used to decrypt the message. although the rsa algorithm uses rings rather than fields, the euclidean algorithm can still be used to find a multiplicative inverse where one exists. the euclidean algorithm also has other applications in error-correcting codes; for example, it can be used as an alternative to the berlekamp–massey algorithm for decoding bch and reed–solomon codes, which are based on galois fields.
+
+
+=== chinese remainder theorem ===
+euclid's algorithm can also be used to solve multiple linear diophantine equations. such equations arise in the chinese remainder theorem, which describes a novel method to represent an integer x. instead of representing an integer by its digits, it may be represented by its remainders xi modulo a set of n coprime numbers mi:
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  x
+                  
+                    1
+                  
+                
+              
+              
+                
+                ≡
+                x
+                
+                  
+                  (
+                  mod
+                  
+                  
+                    m
+                    
+                      1
+                    
+                  
+                  )
+                
+              
+            
+            
+              
+                
+                  x
+                  
+                    2
+                  
+                
+              
+              
+                
+                ≡
+                x
+                
+                  
+                  (
+                  mod
+                  
+                  
+                    m
+                    
+                      2
+                    
+                  
+                  )
+                
+              
+            
+            
+              
+              
+                
+                
+                
+                
+                ⋮
+              
+            
+            
+              
+                
+                  x
+                  
+                    n
+                  
+                
+              
+              
+                
+                ≡
+                x
+                
+                  
+                  (
+                  mod
+                  
+                  
+                    m
+                    
+                      n
+                    
+                  
+                  )
+                
+                
+                .
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}x_{1}&\equiv x{\pmod {m_{1}}}\\x_{2}&\equiv x{\pmod {m_{2}}}\\&\,\,\,\vdots \\x_{n}&\equiv x{\pmod {m_{n}}}\,.\end{aligned}}}
+  the goal is to determine x from its n remainders xi. the solution is to combine the multiple equations into a single linear diophantine equation with a much larger modulus m that is the product of all the individual moduli mi, and define mi as
+
+  
+    
+      
+        
+          m
+          
+            i
+          
+        
+        =
+        
+          
+            m
+            
+              m
+              
+                i
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle m_{i}={\frac {m}{m_{i}}}.}
+  thus, each mi is the product of all the moduli except mi. the solution depends on finding n new numbers hi such that
+
+  
+    
+      
+        
+          m
+          
+            i
+          
+        
+        
+          h
+          
+            i
+          
+        
+        ≡
+        1
+        
+          
+          (
+          mod
+          
+          
+            m
+            
+              i
+            
+          
+          )
+        
+        
+        .
+      
+    
+    {\displaystyle m_{i}h_{i}\equiv 1{\pmod {m_{i}}}\,.}
+  with these numbers hi, any integer x can be reconstructed from its remainders xi by the equation
+
+  
+    
+      
+        x
+        ≡
+        (
+        
+          x
+          
+            1
+          
+        
+        
+          m
+          
+            1
+          
+        
+        
+          h
+          
+            1
+          
+        
+        +
+        
+          x
+          
+            2
+          
+        
+        
+          m
+          
+            2
+          
+        
+        
+          h
+          
+            2
+          
+        
+        +
+        ⋯
+        +
+        
+          x
+          
+            n
+          
+        
+        
+          m
+          
+            n
+          
+        
+        
+          h
+          
+            n
+          
+        
+        )
+        
+          
+          (
+          mod
+          
+          m
+          )
+        
+        
+        .
+      
+    
+    {\displaystyle x\equiv (x_{1}m_{1}h_{1}+x_{2}m_{2}h_{2}+\cdots +x_{n}m_{n}h_{n}){\pmod {m}}\,.}
+  since these numbers hi are the multiplicative inverses of the mi, they may be found using euclid's algorithm as described in the previous subsection.
+
+
+=== stern–brocot tree ===
+
+the euclidean algorithm can be used to arrange the set of all positive rational numbers into an infinite binary search tree, called the stern–brocot tree.
+the number 1 (expressed as a fraction 1/1) is placed at the root of the tree, and the location of any other number a/b can be found by computing gcd(a,b) using the original form of the euclidean algorithm, in which each step replaces the larger of the two given numbers by its difference with the smaller number (not its remainder), stopping when two equal numbers are reached. a step of the euclidean algorithm that replaces the first of the two numbers corresponds to a step in the tree from a node to its right child, and a step that replaces the second of the two numbers corresponds to a step in the tree from a node to its left child. the sequence of steps constructed in this way does not depend on whether a/b is given in lowest terms, and forms a path from the root to a node containing the number a/b. this fact can be used to prove that each positive rational number appears exactly once in this tree.
+for example, 3/4 can be found by starting at the root, going to the left once, then to the right twice:
+
+  
+    
+      
+        
+          
+            
+              
+              
+                
+                gcd
+                (
+                3
+                ,
+                4
+                )
+              
+              
+                ←
+              
+            
+            
+              
+                =
+                
+
+                
+              
+              
+                
+                gcd
+                (
+                3
+                ,
+                1
+                )
+              
+              
+                →
+              
+            
+            
+              
+                =
+                
+
+                
+              
+              
+                
+                gcd
+                (
+                2
+                ,
+                1
+                )
+              
+              
+                →
+              
+            
+            
+              
+                =
+                
+
+                
+              
+              
+                
+                gcd
+                (
+                1
+                ,
+                1
+                )
+                .
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}&\gcd(3,4)&\leftarrow \\={}&\gcd(3,1)&\rightarrow \\={}&\gcd(2,1)&\rightarrow \\={}&\gcd(1,1).\end{aligned}}}
+  the euclidean algorithm has almost the same relationship to another binary tree on the rational numbers called the calkin–wilf tree.  the difference is that the path is reversed:  instead of producing a path from the root of the tree to a target,  it produces a path from the target to the root.
+
+
+=== continued fractions ===
+the euclidean algorithm has a close relationship with continued fractions. the sequence of equations can be written in the form
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  
+                    a
+                    b
+                  
+                
+              
+              
+                
+                =
+                
+                  q
+                  
+                    0
+                  
+                
+                +
+                
+                  
+                    
+                      r
+                      
+                        0
+                      
+                    
+                    b
+                  
+                
+              
+            
+            
+              
+                
+                  
+                    b
+                    
+                      r
+                      
+                        0
+                      
+                    
+                  
+                
+              
+              
+                
+                =
+                
+                  q
+                  
+                    1
+                  
+                
+                +
+                
+                  
+                    
+                      r
+                      
+                        1
+                      
+                    
+                    
+                      r
+                      
+                        0
+                      
+                    
+                  
+                
+              
+            
+            
+              
+                
+                  
+                    
+                      r
+                      
+                        0
+                      
+                    
+                    
+                      r
+                      
+                        1
+                      
+                    
+                  
+                
+              
+              
+                
+                =
+                
+                  q
+                  
+                    2
+                  
+                
+                +
+                
+                  
+                    
+                      r
+                      
+                        2
+                      
+                    
+                    
+                      r
+                      
+                        1
+                      
+                    
+                  
+                
+              
+            
+            
+              
+              
+                
+                
+                
+                
+                ⋮
+              
+            
+            
+              
+                
+                  
+                    
+                      r
+                      
+                        k
+                        −
+                        2
+                      
+                    
+                    
+                      r
+                      
+                        k
+                        −
+                        1
+                      
+                    
+                  
+                
+              
+              
+                
+                =
+                
+                  q
+                  
+                    k
+                  
+                
+                +
+                
+                  
+                    
+                      r
+                      
+                        k
+                      
+                    
+                    
+                      r
+                      
+                        k
+                        −
+                        1
+                      
+                    
+                  
+                
+              
+            
+            
+              
+              
+                
+                
+                
+                
+                ⋮
+              
+            
+            
+              
+                
+                  
+                    
+                      r
+                      
+                        n
+                        −
+                        2
+                      
+                    
+                    
+                      r
+                      
+                        n
+                        −
+                        1
+                      
+                    
+                  
+                
+              
+              
+                
+                =
+                
+                  q
+                  
+                    n
+                  
+                
+                
+                .
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}{\frac {a}{b}}&=q_{0}+{\frac {r_{0}}{b}}\\{\frac {b}{r_{0}}}&=q_{1}+{\frac {r_{1}}{r_{0}}}\\{\frac {r_{0}}{r_{1}}}&=q_{2}+{\frac {r_{2}}{r_{1}}}\\&\,\,\,\vdots \\{\frac {r_{k-2}}{r_{k-1}}}&=q_{k}+{\frac {r_{k}}{r_{k-1}}}\\&\,\,\,\vdots \\{\frac {r_{n-2}}{r_{n-1}}}&=q_{n}\,.\end{aligned}}}
+  the last term on the right-hand side always equals the inverse of the left-hand side of the next equation. thus, the first two equations may be combined to form
+
+  
+    
+      
+        
+          
+            a
+            b
+          
+        
+        =
+        
+          q
+          
+            0
+          
+        
+        +
+        
+          
+            
+              
+                
+              
+              
+                
+                  1
+                
+              
+            
+            
+              
+                
+              
+              
+                
+                  
+                    q
+                    
+                      1
+                    
+                  
+                  +
+                  
+                    
+                      
+                        
+                          
+                        
+                        
+                          
+                            
+                              r
+                              
+                                1
+                              
+                            
+                          
+                        
+                      
+                      
+                        
+                          
+                        
+                        
+                          
+                            
+                              r
+                              
+                                0
+                              
+                            
+                          
+                        
+                      
+                    
+                  
+                
+              
+            
+          
+        
+        
+        .
+      
+    
+    {\displaystyle {\frac {a}{b}}=q_{0}+{\cfrac {1}{q_{1}+{\cfrac {r_{1}}{r_{0}}}}}\,.}
+  the third equation may be used to substitute the denominator term r1/r0, yielding
+
+  
+    
+      
+        
+          
+            a
+            b
+          
+        
+        =
+        
+          q
+          
+            0
+          
+        
+        +
+        
+          
+            
+              
+                
+              
+              
+                
+                  1
+                
+              
+            
+            
+              
+                
+              
+              
+                
+                  
+                    q
+                    
+                      1
+                    
+                  
+                  +
+                  
+                    
+                      
+                        
+                          
+                        
+                        
+                          
+                            1
+                          
+                        
+                      
+                      
+                        
+                          
+                        
+                        
+                          
+                            
+                              q
+                              
+                                2
+                              
+                            
+                            +
+                            
+                              
+                                
+                                  
+                                    
+                                  
+                                  
+                                    
+                                      
+                                        r
+                                        
+                                          2
+                                        
+                                      
+                                    
+                                  
+                                
+                                
+                                  
+                                    
+                                  
+                                  
+                                    
+                                      
+                                        r
+                                        
+                                          1
+                                        
+                                      
+                                    
+                                  
+                                
+                              
+                            
+                          
+                        
+                      
+                    
+                  
+                
+              
+            
+          
+        
+        
+        .
+      
+    
+    {\displaystyle {\frac {a}{b}}=q_{0}+{\cfrac {1}{q_{1}+{\cfrac {1}{q_{2}+{\cfrac {r_{2}}{r_{1}}}}}}}\,.}
+  the final ratio of remainders rk/rk−1 can always be replaced using the next equation in the series, up to the final equation. the result is a continued fraction
+
+  
+    
+      
+        
+          
+            a
+            b
+          
+        
+        =
+        
+          q
+          
+            0
+          
+        
+        +
+        
+          
+            
+              
+                
+              
+              
+                
+                  1
+                
+              
+            
+            
+              
+                
+              
+              
+                
+                  
+                    q
+                    
+                      1
+                    
+                  
+                  +
+                  
+                    
+                      
+                        
+                          
+                        
+                        
+                          
+                            1
+                          
+                        
+                      
+                      
+                        
+                          
+                        
+                        
+                          
+                            
+                              q
+                              
+                                2
+                              
+                            
+                            +
+                            
+                              
+                                
+                                  
+                                    
+                                  
+                                  
+                                    
+                                      1
+                                    
+                                  
+                                
+                                
+                                  
+                                    
+                                  
+                                  
+                                    
+                                      ⋱
+                                      +
+                                      
+                                        
+                                          
+                                            
+                                              
+                                            
+                                            
+                                              
+                                                1
+                                              
+                                            
+                                          
+                                          
+                                            
+                                              
+                                            
+                                            
+                                              
+                                                
+                                                  q
+                                                  
+                                                    n
+                                                  
+                                                
+                                              
+                                            
+                                          
+                                        
+                                      
+                                    
+                                  
+                                
+                              
+                            
+                          
+                        
+                      
+                    
+                  
+                
+              
+            
+          
+        
+        =
+        [
+        
+          q
+          
+            0
+          
+        
+        ;
+        
+          q
+          
+            1
+          
+        
+        ,
+        
+          q
+          
+            2
+          
+        
+        ,
+        …
+        ,
+        
+          q
+          
+            n
+          
+        
+        ]
+        
+        .
+      
+    
+    {\displaystyle {\frac {a}{b}}=q_{0}+{\cfrac {1}{q_{1}+{\cfrac {1}{q_{2}+{\cfrac {1}{\ddots +{\cfrac {1}{q_{n}}}}}}}}}=[q_{0};q_{1},q_{2},\ldots ,q_{n}]\,.}
+  in the worked example above, the gcd(1071, 462) was calculated, and the quotients qk were 2, 3 and 7, respectively. therefore, the fraction 1071/462 may be written
+
+  
+    
+      
+        
+          
+            1071
+            462
+          
+        
+        =
+        2
+        +
+        
+          
+            
+              
+                
+              
+              
+                
+                  1
+                
+              
+            
+            
+              
+                
+              
+              
+                
+                  3
+                  +
+                  
+                    
+                      
+                        
+                          
+                        
+                        
+                          
+                            1
+                          
+                        
+                      
+                      
+                        
+                          
+                        
+                        
+                          
+                            7
+                          
+                        
+                      
+                    
+                  
+                
+              
+            
+          
+        
+        =
+        [
+        2
+        ;
+        3
+        ,
+        7
+        ]
+      
+    
+    {\displaystyle {\frac {1071}{462}}=2+{\cfrac {1}{3+{\cfrac {1}{7}}}}=[2;3,7]}
+  as can be confirmed by calculation.
+
+
+=== factorization algorithms ===
+calculating a greatest common divisor is an essential step in several integer factorization algorithms, such as pollard's rho algorithm, shor's algorithm, dixon's factorization method and the lenstra elliptic curve factorization. the euclidean algorithm may be used to find this gcd efficiently. continued fraction factorization uses continued fractions, which are determined using euclid's algorithm.
+
+
+== algorithmic efficiency ==
+
+the computational efficiency of euclid's algorithm has been studied thoroughly. this efficiency can be described by the number of division steps the algorithm requires, multiplied by the computational expense of each step. the first known analysis of euclid's algorithm is due to a. a. l. reynaud in 1811, who showed that the number of division steps on input (u, v) is bounded by v; later he improved this to v/2  + 2. later, in 1841, p. j. e. finck showed that the number of division steps is at most 2 log2 v + 1, and hence euclid's algorithm runs in time polynomial in the size of the input. émile léger, in 1837, studied the worst case, which is when the inputs are consecutive fibonacci numbers. finck's analysis was refined by gabriel lamé in 1844, who showed that the number of steps required for completion is never more than five times the number h of base-10 digits of the smaller number b.in the uniform cost model (suitable for analyzing the complexity of gcd calculation on numbers that fit into a single machine word), each step of the algorithm takes constant time, and lamé's analysis implies that the total running time is also o(h). however, in a model of computation suitable for computation with larger numbers, the computational expense of a single remainder computation in the algorithm can be as large as o(h2). in this case the total time for all of the steps of the algorithm can be analyzed using a telescoping series, showing that it is also o(h2). modern algorithmic techniques based on the schönhage–strassen algorithm for fast integer multiplication can be used to speed this up, leading to quasilinear algorithms for the gcd.
+
+
+=== number of steps ===
+the number of steps to calculate the gcd of two natural numbers, a and b, may be denoted by t(a, b). if g is the gcd of a and b, then a = mg and b = ng for two coprime numbers m and n. then
+
+t(a, b) = t(m, n)as may be seen by dividing all the steps in the euclidean algorithm by g. by the same argument, the number of steps remains the same if a and b are multiplied by a common factor w: t(a, b) = t(wa, wb). therefore, the number of steps t may vary dramatically between neighboring pairs of numbers, such as t(a, b) and t(a, b + 1), depending on the size of the two gcds.
+the recursive nature of the euclidean algorithm gives another equation
+
+t(a, b) = 1 + t(b, r0) = 2 + t(r0, r1) = … = n + t(rn−2, rn−1) = n + 1where t(x, 0) = 0 by assumption.
+
+
+==== worst-case ====
+if the euclidean algorithm requires n steps for a pair of natural numbers a > b > 0, the smallest values of a and b for which this is true are the fibonacci numbers fn+2 and fn+1, respectively. more precisely, if the euclidean algorithm requires n steps for the pair a > b, then one has a ≥ fn+2 and b ≥ fn+1. this can be shown by induction. if n = 1, b divides a with no remainder; the smallest natural numbers for which this is true is b = 1 and a = 2, which are f2 and f3, respectively. now assume that the result holds for all values of n up to m − 1. the first step of the m-step algorithm is a = q0b + r0, and the euclidean algorithm requires m − 1 steps for the pair b > r0. by induction hypothesis, one has b ≥ fm+1 and r0 ≥ fm. therefore, a = q0b + r0 ≥ b + r0 ≥ fm+1 + fm = fm+2,
+which is the desired inequality.
+this proof, published by gabriel lamé in 1844, represents the beginning of computational complexity theory, and also the first practical application of the fibonacci numbers.this result suffices to show that the number of steps in euclid's algorithm can never be more than five times the number of its digits (base 10). for if the algorithm requires n steps, then b is greater than or equal to fn+1 which in turn is greater than or equal to φn−1, where φ is the golden ratio. since b ≥ φn−1, then n − 1 ≤ logφb. since log10φ > 1/5, (n − 1)/5 < log10φ logφb = log10b. thus, n ≤ 5 log10b. thus, the euclidean algorithm always needs less than o(h) divisions, where h is the number of digits in the smaller number b.
+
+
+==== average ====
+the average number of steps taken by the euclidean algorithm has been defined in three different ways. the first definition is the average time t(a) required to calculate the gcd of a given number a and a smaller natural number b chosen with equal probability from the integers 0 to a − 1
+
+  
+    
+      
+        t
+        (
+        a
+        )
+        =
+        
+          
+            1
+            a
+          
+        
+        
+          ∑
+          
+            0
+            ≤
+            b
+            <
+            a
+          
+        
+        t
+        (
+        a
+        ,
+        b
+        )
+        .
+      
+    
+    {\displaystyle t(a)={\frac {1}{a}}\sum _{0\leq b<a}t(a,b).}
+  however, since t(a, b) fluctuates dramatically with the gcd of the two numbers, the averaged function t(a) is likewise "noisy".to reduce this noise, a second average τ(a) is taken over all numbers coprime with a
+
+  
+    
+      
+        τ
+        (
+        a
+        )
+        =
+        
+          
+            1
+            
+              φ
+              (
+              a
+              )
+            
+          
+        
+        
+          ∑
+          
+            
+              
+                
+                  
+                    0
+                    ≤
+                    b
+                    <
+                    a
+                  
+                
+                
+                  
+                    gcd
+                    (
+                    a
+                    ,
+                    b
+                    )
+                    =
+                    1
+                  
+                
+              
+            
+          
+        
+        t
+        (
+        a
+        ,
+        b
+        )
+        .
+      
+    
+    {\displaystyle \tau (a)={\frac {1}{\varphi (a)}}\sum _{\begin{smallmatrix}0\leq b<a\\\gcd(a,b)=1\end{smallmatrix}}t(a,b).}
+  there are φ(a) coprime integers less than a, where φ is euler's totient function. this tau average grows smoothly with a
+
+  
+    
+      
+        τ
+        (
+        a
+        )
+        =
+        
+          
+            12
+            
+              π
+              
+                2
+              
+            
+          
+        
+        ln
+        ⁡
+        2
+        ln
+        ⁡
+        a
+        +
+        c
+        +
+        o
+        (
+        
+          a
+          
+            −
+            1
+            
+              /
+            
+            6
+            −
+            ε
+          
+        
+        )
+      
+    
+    {\displaystyle \tau (a)={\frac {12}{\pi ^{2}}}\ln 2\ln a+c+o(a^{-1/6-\varepsilon })}
+  with the residual error being of order a−(1/6) + ε, where ε is infinitesimal. the constant c (porter's constant) in this formula equals
+
+  
+    
+      
+        c
+        =
+        −
+        
+          
+            1
+            2
+          
+        
+        +
+        
+          
+            
+              6
+              ln
+              ⁡
+              2
+            
+            
+              π
+              
+                2
+              
+            
+          
+        
+        
+          (
+          
+            4
+            γ
+            −
+            
+              
+                24
+                
+                  π
+                  
+                    2
+                  
+                
+              
+            
+            
+              ζ
+              ′
+            
+            (
+            2
+            )
+            +
+            3
+            ln
+            ⁡
+            2
+            −
+            2
+          
+          )
+        
+        ≈
+        1.467
+      
+    
+    {\displaystyle c=-{\frac {1}{2}}+{\frac {6\ln 2}{\pi ^{2}}}\left(4\gamma -{\frac {24}{\pi ^{2}}}\zeta '(2)+3\ln 2-2\right)\approx 1.467}
+  where γ is the euler–mascheroni constant and ζ' is the derivative of the riemann zeta function. the leading coefficient (12/π2) ln 2 was determined by two independent methods.since the first average can be calculated from the tau average by summing over the divisors d of a
+
+  
+    
+      
+        t
+        (
+        a
+        )
+        =
+        
+          
+            1
+            a
+          
+        
+        
+          ∑
+          
+            d
+            ∣
+            a
+          
+        
+        φ
+        (
+        d
+        )
+        τ
+        (
+        d
+        )
+      
+    
+    {\displaystyle t(a)={\frac {1}{a}}\sum _{d\mid a}\varphi (d)\tau (d)}
+  it can be approximated by the formula
+
+  
+    
+      
+        t
+        (
+        a
+        )
+        ≈
+        c
+        +
+        
+          
+            12
+            
+              π
+              
+                2
+              
+            
+          
+        
+        ln
+        ⁡
+        2
+        
+          (
+          
+            ln
+            ⁡
+            a
+            −
+            
+              ∑
+              
+                d
+                ∣
+                a
+              
+            
+            
+              
+                
+                  λ
+                  (
+                  d
+                  )
+                
+                d
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle t(a)\approx c+{\frac {12}{\pi ^{2}}}\ln 2\left(\ln a-\sum _{d\mid a}{\frac {\lambda (d)}{d}}\right)}
+  where λ(d) is the mangoldt function.a third average y(n) is defined as the mean number of steps required when both a and b are chosen randomly (with uniform distribution) from 1 to n
+
+  
+    
+      
+        y
+        (
+        n
+        )
+        =
+        
+          
+            1
+            
+              n
+              
+                2
+              
+            
+          
+        
+        
+          ∑
+          
+            a
+            =
+            1
+          
+          
+            n
+          
+        
+        
+          ∑
+          
+            b
+            =
+            1
+          
+          
+            n
+          
+        
+        t
+        (
+        a
+        ,
+        b
+        )
+        =
+        
+          
+            1
+            n
+          
+        
+        
+          ∑
+          
+            a
+            =
+            1
+          
+          
+            n
+          
+        
+        t
+        (
+        a
+        )
+        .
+      
+    
+    {\displaystyle y(n)={\frac {1}{n^{2}}}\sum _{a=1}^{n}\sum _{b=1}^{n}t(a,b)={\frac {1}{n}}\sum _{a=1}^{n}t(a).}
+  substituting the approximate formula for t(a) into this equation yields an estimate for y(n)
+
+  
+    
+      
+        y
+        (
+        n
+        )
+        ≈
+        
+          
+            12
+            
+              π
+              
+                2
+              
+            
+          
+        
+        ln
+        ⁡
+        2
+        ln
+        ⁡
+        n
+        +
+        0.06.
+      
+    
+    {\displaystyle y(n)\approx {\frac {12}{\pi ^{2}}}\ln 2\ln n+0.06.}
+  
+
+
+=== computational expense per step ===
+in each step k of the euclidean algorithm, the quotient qk and remainder rk are computed for a given pair of integers rk−2 and rk−1
+rk−2 = qk rk−1 + rk.the computational expense per step is associated chiefly with finding qk, since the remainder rk can be calculated quickly from rk−2, rk−1, and qk
+rk = rk−2 − qk rk−1.the computational expense of dividing h-bit numbers scales as o(h(ℓ+1)), where ℓ is the length of the quotient.for comparison, euclid's original subtraction-based algorithm can be much slower. a single integer division is equivalent to the quotient q number of subtractions. if the ratio of a and b is very large, the quotient is large and many subtractions will be required. on the other hand, it has been shown that the quotients are very likely to be small integers. the probability of a given quotient q is approximately ln|u/(u − 1)| where u = (q + 1)2. for illustration, the probability of a quotient of 1, 2, 3, or 4 is roughly 41.5%, 17.0%, 9.3%, and 5.9%, respectively. since the operation of subtraction is faster than division, particularly for large numbers, the subtraction-based euclid's algorithm is competitive with the division-based version. this is exploited in the binary version of euclid's algorithm.combining the estimated number of steps with the estimated computational expense per step shows that the euclid's algorithm grows quadratically (h2) with the average number of digits h in the initial two numbers a and b. let h0, h1, ..., hn−1 represent the number of digits in the successive remainders r0, r1, ..., rn−1. since the number of steps n grows linearly with h, the running time is bounded by
+
+  
+    
+      
+        o
+        
+          
+            (
+          
+        
+        
+          ∑
+          
+            i
+            <
+            n
+          
+        
+        
+          h
+          
+            i
+          
+        
+        (
+        
+          h
+          
+            i
+          
+        
+        −
+        
+          h
+          
+            i
+            +
+            1
+          
+        
+        +
+        2
+        )
+        
+          
+            )
+          
+        
+        ⊆
+        o
+        
+          
+            (
+          
+        
+        h
+        
+          ∑
+          
+            i
+            <
+            n
+          
+        
+        (
+        
+          h
+          
+            i
+          
+        
+        −
+        
+          h
+          
+            i
+            +
+            1
+          
+        
+        +
+        2
+        )
+        
+          
+            )
+          
+        
+        ⊆
+        o
+        (
+        h
+        (
+        
+          h
+          
+            0
+          
+        
+        +
+        2
+        n
+        )
+        )
+        ⊆
+        o
+        (
+        
+          h
+          
+            2
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle o{\big (}\sum _{i<n}h_{i}(h_{i}-h_{i+1}+2){\big )}\subseteq o{\big (}h\sum _{i<n}(h_{i}-h_{i+1}+2){\big )}\subseteq o(h(h_{0}+2n))\subseteq o(h^{2}).}
+  
+
+
+=== alternative methods ===
+euclid's algorithm is widely used in practice, especially for small numbers, due to its simplicity. for comparison, the efficiency of alternatives to euclid's algorithm may be determined.
+one inefficient approach to finding the gcd of two natural numbers a and b is to calculate all their common divisors; the gcd is then the largest common divisor. the common divisors can be found by dividing both numbers by successive integers from 2 to the smaller number b. the number of steps of this approach grows linearly with b, or exponentially in the number of digits. another inefficient approach is to find the prime factors of one or both numbers. as noted above, the gcd equals the product of the prime factors shared by the two numbers a and b. present methods for prime factorization are also inefficient; many modern cryptography systems even rely on that inefficiency.the binary gcd algorithm is an efficient alternative that substitutes division with faster operations by exploiting the binary representation used by computers. however, this alternative also scales like o(h²). it is generally faster than the euclidean algorithm on real computers, even though it scales in the same way. additional efficiency can be gleaned by examining only the leading digits of the two numbers a and b. the binary algorithm can be extended to other bases (k-ary algorithms), with up to fivefold increases in speed. lehmer's gcd algorithm uses the same general principle as the binary algorithm to speed up gcd computations in arbitrary bases.
+a recursive approach for very large integers (with more than 25,000 digits) leads to quasilinear integer gcd algorithms, such as those of schönhage, and stehlé and zimmermann. these algorithms exploit the 2×2 matrix form of the euclidean algorithm given above. these quasilinear methods generally scale as o(h (log h)2 (log log h)).
+
+
+== generalizations ==
+although the euclidean algorithm is used to find the greatest common divisor of two natural numbers (positive integers), it may be generalized to the real numbers, and to other mathematical objects, such as polynomials, quadratic integers and hurwitz quaternions. in the latter cases, the euclidean algorithm is used to demonstrate the crucial property of unique factorization, i.e., that such numbers can be factored uniquely into irreducible elements, the counterparts of prime numbers. unique factorization is essential to many proofs of number theory.
+
+
+=== rational and real numbers ===
+euclid's algorithm can be applied to real numbers, as described by euclid in book 10 of his elements. the goal of the algorithm is to identify a real number g such that two given real numbers, a and b, are integer multiples of it: a = mg and b = ng, where m and n are integers. this identification is equivalent to finding an integer relation among the real numbers a and b; that is, it determines integers s and t such that sa + tb = 0. euclid uses this algorithm to treat the question of incommensurable lengths.the real-number euclidean algorithm differs from its integer counterpart in two respects. first, the remainders rk are real numbers, although the quotients qk are integers as before. second, the algorithm is not guaranteed to end in a finite number n of steps. if it does, the fraction a/b is a rational number, i.e., the ratio of two integers
+
+  
+    
+      
+        
+          
+            a
+            b
+          
+        
+        =
+        
+          
+            
+              m
+              g
+            
+            
+              n
+              g
+            
+          
+        
+        =
+        
+          
+            m
+            n
+          
+        
+        ,
+      
+    
+    {\displaystyle {\frac {a}{b}}={\frac {mg}{ng}}={\frac {m}{n}},}
+  and can be written as a finite continued fraction [q0; q1, q2, ..., qn]. if the algorithm does not stop, the fraction a/b is an irrational number and can be described by an infinite continued fraction [q0; q1, q2, …]. examples of infinite continued fractions are the golden ratio φ = [1; 1, 1, ...] and the square root of two, √2 = [1; 2, 2, ...]. the algorithm is unlikely to stop, since almost all ratios a/b of two real numbers are irrational.an infinite continued fraction may be truncated at a step k [q0; q1, q2, ..., qk] to yield an approximation to a/b that improves as k is increased. the approximation is described by convergents mk/nk; the numerator and denominators are coprime and obey the recurrence relation
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  m
+                  
+                    k
+                  
+                
+              
+              
+                
+                =
+                
+                  q
+                  
+                    k
+                  
+                
+                
+                  m
+                  
+                    k
+                    −
+                    1
+                  
+                
+                +
+                
+                  m
+                  
+                    k
+                    −
+                    2
+                  
+                
+              
+            
+            
+              
+                
+                  n
+                  
+                    k
+                  
+                
+              
+              
+                
+                =
+                
+                  q
+                  
+                    k
+                  
+                
+                
+                  n
+                  
+                    k
+                    −
+                    1
+                  
+                
+                +
+                
+                  n
+                  
+                    k
+                    −
+                    2
+                  
+                
+                ,
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}m_{k}&=q_{k}m_{k-1}+m_{k-2}\\n_{k}&=q_{k}n_{k-1}+n_{k-2},\end{aligned}}}
+  where m−1 = n−2 = 1 and m−2 = n−1 = 0 are the initial values of the recursion. the convergent mk/nk is the best rational number approximation to a/b with denominator nk:
+
+  
+    
+      
+        
+          |
+          
+            
+              
+                a
+                b
+              
+            
+            −
+            
+              
+                
+                  m
+                  
+                    k
+                  
+                
+                
+                  n
+                  
+                    k
+                  
+                
+              
+            
+          
+          |
+        
+        <
+        
+          
+            1
+            
+              n
+              
+                k
+              
+              
+                2
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle \left|{\frac {a}{b}}-{\frac {m_{k}}{n_{k}}}\right|<{\frac {1}{n_{k}^{2}}}.}
+  
+
+
+=== polynomials ===
+
+polynomials in a single variable x can be added, multiplied and factored into irreducible polynomials, which are the analogs of the prime numbers for integers. the greatest common divisor polynomial g(x) of two polynomials a(x) and b(x) is defined as the product of their shared irreducible polynomials, which can be identified using the euclidean algorithm. the basic procedure is similar to that for integers. at each step k, a quotient polynomial qk(x) and a remainder polynomial rk(x) are identified to satisfy the recursive equation
+
+  
+    
+      
+        
+          r
+          
+            k
+            −
+            2
+          
+        
+        (
+        x
+        )
+        =
+        
+          q
+          
+            k
+          
+        
+        (
+        x
+        )
+        
+          r
+          
+            k
+            −
+            1
+          
+        
+        (
+        x
+        )
+        +
+        
+          r
+          
+            k
+          
+        
+        (
+        x
+        )
+        ,
+      
+    
+    {\displaystyle r_{k-2}(x)=q_{k}(x)r_{k-1}(x)+r_{k}(x),}
+  where r−2(x) = a(x) and r−1(x) = b(x). each quotient polynomial is chosen such that each remainder is either zero or has a degree that is smaller than the degree of its predecessor: deg[rk(x)] < deg[rk−1(x)]. since the degree is a nonnegative integer, and since it decreases with every step, the euclidean algorithm concludes in a finite number of steps. the last nonzero remainder is the greatest common divisor of the original two polynomials, a(x) and b(x).for example, consider the following two quartic polynomials, which each factor into two quadratic polynomials
+
+  
+    
+      
+        
+          
+            
+              
+                a
+                (
+                x
+                )
+              
+              
+                
+                =
+                
+                  x
+                  
+                    4
+                  
+                
+                −
+                4
+                
+                  x
+                  
+                    3
+                  
+                
+                +
+                4
+                
+                  x
+                  
+                    2
+                  
+                
+                −
+                3
+                x
+                +
+                14
+                =
+                (
+                
+                  x
+                  
+                    2
+                  
+                
+                −
+                5
+                x
+                +
+                7
+                )
+                (
+                
+                  x
+                  
+                    2
+                  
+                
+                +
+                x
+                +
+                2
+                )
+                
+                
+                  and
+                
+              
+            
+            
+              
+                b
+                (
+                x
+                )
+              
+              
+                
+                =
+                
+                  x
+                  
+                    4
+                  
+                
+                +
+                8
+                
+                  x
+                  
+                    3
+                  
+                
+                +
+                12
+                
+                  x
+                  
+                    2
+                  
+                
+                +
+                17
+                x
+                +
+                6
+                =
+                (
+                
+                  x
+                  
+                    2
+                  
+                
+                +
+                7
+                x
+                +
+                3
+                )
+                (
+                
+                  x
+                  
+                    2
+                  
+                
+                +
+                x
+                +
+                2
+                )
+                .
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}a(x)&=x^{4}-4x^{3}+4x^{2}-3x+14=(x^{2}-5x+7)(x^{2}+x+2)\qquad {\text{and}}\\b(x)&=x^{4}+8x^{3}+12x^{2}+17x+6=(x^{2}+7x+3)(x^{2}+x+2).\end{aligned}}}
+  dividing a(x) by b(x) yields a remainder r0(x) = x3 + (2/3)x2 + (5/3)x − (2/3). in the next step, b(x) is divided by r0(x) yielding a remainder r1(x) = x2 + x + 2. finally, dividing r0(x) by r1(x) yields a zero remainder, indicating that r1(x) is the greatest common divisor polynomial of a(x) and b(x), consistent with their factorization.
+many of the applications described above for integers carry over to polynomials. the euclidean algorithm can be used to solve linear diophantine equations and chinese remainder problems for polynomials; continued fractions of polynomials can also be defined.
+the polynomial euclidean algorithm has other applications, such as sturm chains, a method for counting the zeros of a polynomial that lie inside a given real interval. this in turn has applications in several areas, such as the routh–hurwitz stability criterion in control theory.finally, the coefficients of the polynomials need not be drawn from integers, real numbers or even the complex numbers. for example, the coefficients may be drawn from a general field, such as the finite fields gf(p) described above. the corresponding conclusions about the euclidean algorithm and its applications hold even for such polynomials.
+
+
+=== gaussian integers ===
+
+the gaussian integers are complex numbers of the form α = u + vi, where u and v are ordinary integers and i is the square root of negative one. by defining an analog of the euclidean algorithm, gaussian integers can be shown to be uniquely factorizable, by the argument above. this unique factorization is helpful in many applications, such as deriving all pythagorean triples or proving fermat's theorem on sums of two squares. in general, the euclidean algorithm is convenient in such applications, but not essential; for example, the theorems can often be proven by other arguments.
+the euclidean algorithm developed for two gaussian integers α and β is nearly the same as that for ordinary integers, but differs in two respects. as before, we set r−2 = α and r−1 = β, and the task at each step k is to identify a quotient qk and a remainder rk such that
+
+  
+    
+      
+        
+          r
+          
+            k
+          
+        
+        =
+        
+          r
+          
+            k
+            −
+            2
+          
+        
+        −
+        
+          q
+          
+            k
+          
+        
+        
+          r
+          
+            k
+            −
+            1
+          
+        
+        ,
+      
+    
+    {\displaystyle r_{k}=r_{k-2}-q_{k}r_{k-1},}
+  where every remainder is strictly smaller than its predecessor: |rk| < |rk−1|. the first difference is that the quotients and remainders are themselves gaussian integers, and thus are complex numbers. the quotients qk are generally found by rounding the real and complex parts of the exact ratio (such as the complex number α/β) to the nearest integers. the second difference lies in the necessity of defining how one complex remainder can be "smaller" than another. to do this, a norm function f(u + vi) = u2 + v2 is defined, which converts every gaussian integer u + vi into an ordinary integer. after each step k of the euclidean algorithm, the norm of the remainder f(rk) is smaller than the norm of the preceding remainder, f(rk−1). since the norm is a nonnegative integer and decreases with every step, the euclidean algorithm for gaussian integers ends in a finite number of steps. the final nonzero remainder is gcd(α, β), the gaussian integer of largest norm that divides both α and β; it is unique up to multiplication by a unit, ±1 or ±i.many of the other applications of the euclidean algorithm carry over to gaussian integers. for example, it can be used to solve linear diophantine equations and chinese remainder problems for gaussian integers; continued fractions of gaussian integers can also be defined.
+
+
+=== euclidean domains ===
+a set of elements under two binary operations, denoted as addition and multiplication, is called a euclidean domain if it forms a commutative ring r and, roughly speaking, if a generalized euclidean algorithm can be performed on them. the two operations of such a ring need not be the addition and multiplication of ordinary arithmetic; rather, they can be more general, such as the operations of a mathematical group or monoid. nevertheless, these general operations should respect many of the laws governing ordinary arithmetic, such as commutativity, associativity and distributivity.
+the generalized euclidean algorithm requires a euclidean function, i.e., a mapping f from r into the set of nonnegative integers such that, for any two nonzero elements a and b in r, there exist q and r in r such that a = qb + r and f(r) < f(b). examples of such mappings are the absolute value for integers, the degree for univariate polynomials, and the norm for gaussian integers above. the basic principle is that each step of the algorithm reduces f inexorably; hence, if f can be reduced only a finite number of times, the algorithm must stop in a finite number of steps. this principle relies on the well-ordering property of the non-negative integers, which asserts that every non-empty set of non-negative integers has a smallest member.the fundamental theorem of arithmetic applies to any euclidean domain: any number from a euclidean domain can be factored uniquely into irreducible elements. any euclidean domain is a unique factorization domain (ufd), although the converse is not true. the euclidean domains and the ufd's are subclasses of the gcd domains, domains in which a greatest common divisor of two numbers always exists. in other words, a greatest common divisor may exist (for all pairs of elements in a domain), although it may not be possible to find it using a euclidean algorithm. a euclidean domain is always a principal ideal domain (pid), an integral domain in which every ideal is a principal ideal. again, the converse is not true: not every pid is a euclidean domain.
+the unique factorization of euclidean domains is useful in many applications. for example, the unique factorization of the gaussian integers is convenient in deriving formulae for all pythagorean triples and in proving fermat's theorem on sums of two squares. unique factorization was also a key element in an attempted proof of fermat's last theorem published in 1847 by gabriel lamé, the same mathematician who analyzed the efficiency of euclid's algorithm, based on a suggestion of joseph liouville. lamé's approach required the unique factorization of numbers of the form x + ωy, where x and y are integers, and ω = e2iπ/n is an nth root of 1, that is, ωn = 1. although this approach succeeds for some values of n (such as n = 3, the eisenstein integers), in general such numbers do not factor uniquely. this failure of unique factorization in some cyclotomic fields led ernst kummer to the concept of ideal numbers and, later, richard dedekind to ideals.
+
+
+==== unique factorization of quadratic integers ====
+
+the quadratic integer rings are helpful to illustrate euclidean domains. quadratic integers are generalizations of the gaussian integers in which the imaginary unit i is replaced by a number ω. thus, they have the form u + vω, where u and v are integers and ω has one of two forms, depending on a parameter d. if d does not equal a multiple of four plus one, then
+
+  
+    
+      
+        ω
+        =
+        
+          
+            d
+          
+        
+        .
+      
+    
+    {\displaystyle \omega ={\sqrt {d}}.}
+  if, however, d does equal a multiple of four plus one, then
+
+  
+    
+      
+        ω
+        =
+        
+          
+            
+              1
+              +
+              
+                
+                  d
+                
+              
+            
+            2
+          
+        
+        .
+      
+    
+    {\displaystyle \omega ={\frac {1+{\sqrt {d}}}{2}}.}
+  if the function f corresponds to a norm function, such as that used to order the gaussian integers above, then the domain is known as norm-euclidean. the norm-euclidean rings of quadratic integers are exactly those where d is one of the values −11, −7, −3, −2, −1, 2, 3, 5, 6, 7, 11, 13, 17, 19, 21, 29, 33, 37, 41, 57, or 73. the cases d = −1 and d = −3 yield the gaussian integers and eisenstein integers, respectively.
+if f is allowed to be any euclidean function, then the list of possible values of d for which the domain is euclidean is not yet known. the first example of a euclidean domain that was not norm-euclidean (with d = 69) was published in 1994. in 1973, weinberger proved that a quadratic integer ring with d > 0 is euclidean if, and only if, it is a principal ideal domain, provided that the generalized riemann hypothesis holds.
+
+
+=== noncommutative rings ===
+the euclidean algorithm may be applied to some noncommutative rings such as the set of hurwitz quaternions. let α and β represent two elements from such a ring. they have a common right divisor δ if α = ξδ and β = ηδ for some choice of ξ and η in the ring. similarly, they have a common left divisor if α = dξ and β = dη for some choice of ξ and η in the ring. since multiplication is not commutative, there are two versions of the euclidean algorithm, one for right divisors and one for left divisors. choosing the right divisors, the first step in finding the gcd(α, β) by the euclidean algorithm can be written
+
+  
+    
+      
+        
+          ρ
+          
+            0
+          
+        
+        =
+        α
+        −
+        
+          ψ
+          
+            0
+          
+        
+        β
+        =
+        (
+        ξ
+        −
+        
+          ψ
+          
+            0
+          
+        
+        η
+        )
+        δ
+        ,
+      
+    
+    {\displaystyle \rho _{0}=\alpha -\psi _{0}\beta =(\xi -\psi _{0}\eta )\delta ,}
+  where ψ0 represents the quotient and ρ0 the remainder. this equation shows that any common right divisor of α and β is likewise a common divisor of the remainder ρ0. the analogous equation for the left divisors would be
+
+  
+    
+      
+        
+          ρ
+          
+            0
+          
+        
+        =
+        α
+        −
+        β
+        
+          ψ
+          
+            0
+          
+        
+        =
+        δ
+        (
+        ξ
+        −
+        η
+        
+          ψ
+          
+            0
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle \rho _{0}=\alpha -\beta \psi _{0}=\delta (\xi -\eta \psi _{0}).}
+  with either choice, the process is repeated as above until the greatest common right or left divisor is identified. as in the euclidean domain, the "size" of the remainder ρ0 (formally, its norm) must be strictly smaller than β, and there must be only a finite number of possible sizes for ρ0, so that the algorithm is guaranteed to terminate.most of the results for the gcd carry over to noncommutative numbers. for example, bézout's identity states that the right gcd(α, β) can be expressed as a linear combination of α and β. in other words, there are numbers σ and τ such that
+
+  
+    
+      
+        
+          γ
+          
+            right
+          
+        
+        =
+        σ
+        α
+        +
+        τ
+        β
+        .
+      
+    
+    {\displaystyle \gamma _{\text{right}}=\sigma \alpha +\tau \beta .}
+  the analogous identity for the left gcd is nearly the same:
+
+  
+    
+      
+        
+          γ
+          
+            left
+          
+        
+        =
+        α
+        σ
+        +
+        β
+        τ
+        .
+      
+    
+    {\displaystyle \gamma _{\text{left}}=\alpha \sigma +\beta \tau .}
+  bézout's identity can be used to solve diophantine equations. for instance, one of the standard proofs of lagrange's four-square theorem, that every positive integer can be represented as a sum of four squares, is based on quaternion gcds in this way.
+
+
+== see also ==
+euclidean rhythm, a method for using the euclidean algorithm to generate musical rhythms
+
+
+== notes ==
+
+
+== references ==
+
+
+== bibliography ==
+cohen, h. (1993). a course in computational algebraic number theory. new york: springer-verlag. isbn 0-387-55640-0.
+cohn, h. (1962). advanced number theory. new york: dover. isbn 0-486-64023-x.
+cox, d.; little, j.; o'shea, d. (1997). ideals, varieties, and algorithms: an introduction to computational algebraic geometry and commutative algebra (2nd ed.). springer-verlag. isbn 0-387-94680-2.
+crandall, r.; pomerance, c. (2001). prime numbers: a computational perspective (1st ed.). new york: springer-verlag. isbn 0-387-94777-9.
+lejeune dirichlet, p. g. (1894).  dedekind, richard (ed.). vorlesungen über zahlentheorie (lectures on number theory) (in german). braunschweig: vieweg. lccn 03005859. oclc 490186017.. see also vorlesungen über zahlentheorie
+knuth, d. e. (1997). the art of computer programming, volume 2: seminumerical algorithms (3rd ed.). addison–wesley. isbn 0-201-89684-2.
+leveque, w. j. (1996) [1977]. fundamentals of number theory. new york: dover. isbn 0-486-68906-9.
+mollin, r. a. (2008). fundamental number theory with applications (2nd ed.). boca raton: chapman & hall/crc. isbn 978-1-4200-6659-3.
+ore, o. (1948). number theory and its history. new york: mcgraw–hill.
+rosen, k. h. (2000). elementary number theory and its applications (4th ed.). reading, ma: addison–wesley. isbn 0-201-87073-8.
+schroeder, m. (2005). number theory in science and communication (4th ed.). springer-verlag. isbn 0-387-15800-6.
+stark, h. (1978). an introduction to number theory. mit press. isbn 0-262-69060-8.
+stillwell, j. (1997). numbers and geometry. new york: springer-verlag. isbn 0-387-98289-2.
+stillwell, j. (2003). elements of number theory. new york: springer-verlag. isbn 0-387-95587-9.
+tattersall, j. j. (2005). elementary number theory in nine chapters. cambridge: cambridge university press. isbn 978-0-521-85014-8.
+
+
+== external links ==
+demonstrations of euclid's algorithm
+weisstein, eric w. "euclidean algorithm". mathworld.
+euclid's algorithm at cut-the-knot
+euclid's algorithm at planetmath.
+the euclidean algorithm at mathpages
+euclid's game at cut-the-knot
+music and euclid's algorithm

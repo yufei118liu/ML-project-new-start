@@ -1,0 +1,2399 @@
+in mathematical analysis and in probability theory, a σ-algebra (also σ-field) on a set x is a collection σ of subsets of x, is closed under complement, and is closed under countable unions and countable intersections. the pair (x, σ) is called a measurable space.
+the σ-algebras are a subset of the set algebras; elements of the latter only need to be closed under the union or intersection of finitely many subsets, which is a weaker condition.the main use of σ-algebras is in the definition of measures; specifically, the collection of those subsets for which a given measure is defined is necessarily a σ-algebra. this concept is important in mathematical analysis as the foundation for lebesgue integration, and in probability theory, where it is interpreted as the collection of events which can be assigned probabilities. also, in probability, σ-algebras are pivotal in the definition of conditional expectation.
+in statistics, (sub) σ-algebras are needed for the formal mathematical definition of a sufficient statistic, particularly when the statistic is a function or a random process and the notion of conditional density is not applicable.
+if x = {a, b, c, d}, one possible σ-algebra on x is σ = { ∅, {a, b}, {c, d}, {a, b, c, d} }, where ∅ is the empty set. in general, a finite algebra is always a σ-algebra.
+if {a1, a2, a3, …} is a countable partition of x then the collection of all unions of sets in the partition (including the empty set) is a σ-algebra.
+a more useful example is the set of subsets of the real line formed by starting with all open intervals and adding in all countable unions, countable intersections, and relative complements and continuing this process (by transfinite iteration through all countable ordinals) until the relevant closure properties are achieved (a construction known as the borel hierarchy).
+
+
+== motivation ==
+there are at least three key motivators for σ-algebras: defining measures, manipulating limits of sets, and managing partial information characterized by sets.
+
+
+=== measure ===
+a measure on x is a function that assigns a non-negative real number to subsets of x; this can be thought of as making precise a notion of "size" or "volume" for sets. we want the size of the union of disjoint sets to be the sum of their individual sizes, even for an infinite sequence of disjoint sets.
+one would like to assign a size to every subset of x, but in many natural settings, this is not possible. for example, the axiom of choice implies that when the size under consideration is the ordinary notion of length for subsets of the real line, then there exist sets for which no size exists, for example, the vitali sets. for this reason, one considers instead a smaller collection of privileged subsets of x. these subsets will be called the measurable sets. they are closed under operations that one would expect for measurable sets, that is, the complement of a measurable set is a measurable set and the countable union of measurable sets is a measurable set.  non-empty collections of sets with these properties are called σ-algebras.
+
+
+=== limits of sets ===
+many uses of measure, such as the probability concept of almost sure convergence, involve limits of sequences of sets. for this, closure under countable unions and intersections is paramount. set limits are defined as follows on σ-algebras.
+
+the limit supremum of a sequence a1, a2, a3, ..., each of which is a subset of x, is
+  
+    
+      
+        
+          lim sup
+          
+            n
+            →
+            ∞
+          
+        
+        
+          a
+          
+            n
+          
+        
+        =
+        
+          ⋂
+          
+            n
+            =
+            1
+          
+          
+            ∞
+          
+        
+        
+          ⋃
+          
+            m
+            =
+            n
+          
+          
+            ∞
+          
+        
+        
+          a
+          
+            m
+          
+        
+        .
+      
+    
+    {\displaystyle \limsup _{n\to \infty }a_{n}=\bigcap _{n=1}^{\infty }\bigcup _{m=n}^{\infty }a_{m}.}
+  the limit infimum of a sequence a1, a2, a3, ..., each of which is a subset of x, is
+  
+    
+      
+        
+          lim inf
+          
+            n
+            →
+            ∞
+          
+        
+        
+          a
+          
+            n
+          
+        
+        =
+        
+          ⋃
+          
+            n
+            =
+            1
+          
+          
+            ∞
+          
+        
+        
+          ⋂
+          
+            m
+            =
+            n
+          
+          
+            ∞
+          
+        
+        
+          a
+          
+            m
+          
+        
+        .
+      
+    
+    {\displaystyle \liminf _{n\to \infty }a_{n}=\bigcup _{n=1}^{\infty }\bigcap _{m=n}^{\infty }a_{m}.}
+  if, in fact,
+  
+    
+      
+        
+          lim inf
+          
+            n
+            →
+            ∞
+          
+        
+        
+          a
+          
+            n
+          
+        
+        =
+        
+          lim sup
+          
+            n
+            →
+            ∞
+          
+        
+        
+          a
+          
+            n
+          
+        
+        ,
+      
+    
+    {\displaystyle \liminf _{n\to \infty }a_{n}=\limsup _{n\to \infty }a_{n},}
+  
+then the 
+  
+    
+      
+        
+          lim
+          
+            n
+            →
+            ∞
+          
+        
+        
+          a
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \lim _{n\to \infty }a_{n}}
+   exists as that common set.
+
+
+=== sub σ-algebras ===
+in much of probability, especially when conditional expectation is involved, one is concerned with sets that represent only part of all the possible information that can be observed. this partial information can be characterized with a smaller σ-algebra which is a subset of the principal σ-algebra; it consists of the collection of subsets relevant only to and determined only by the partial information. a simple example suffices to illustrate this idea.
+imagine you and another person are betting on a game that involves flipping a coin repeatedly and observing whether it comes up heads (h) or tails (t). since you and your opponent are each infinitely wealthy, there is no limit to how long the game can last. this means the sample space ω must consist of all possible infinite sequences of h or t:
+
+  
+    
+      
+        ω
+        =
+        {
+        h
+        ,
+        t
+        
+          }
+          
+            ∞
+          
+        
+        =
+        {
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        ,
+        
+          x
+          
+            3
+          
+        
+        ,
+        …
+        )
+        :
+        
+          x
+          
+            i
+          
+        
+        ∈
+        {
+        h
+        ,
+        t
+        }
+        ,
+        i
+        ≥
+        1
+        }
+        .
+      
+    
+    {\displaystyle \omega =\{h,t\}^{\infty }=\{(x_{1},x_{2},x_{3},\dots ):x_{i}\in \{h,t\},i\geq 1\}.}
+  however, after n flips of the coin, you may want to determine or revise your betting strategy in advance of the next flip. the observed information at that point can be described in terms of the 2n possibilities for the first n flips. formally, since you need to use subsets of ω, this is codified as the σ-algebra
+
+  
+    
+      
+        
+          
+            
+              g
+            
+          
+          
+            n
+          
+        
+        =
+        {
+        a
+        ×
+        {
+        h
+        ,
+        t
+        
+          }
+          
+            ∞
+          
+        
+        :
+        a
+        ⊂
+        {
+        h
+        ,
+        t
+        
+          }
+          
+            n
+          
+        
+        }
+        .
+      
+    
+    {\displaystyle {\mathcal {g}}_{n}=\{a\times \{h,t\}^{\infty }:a\subset \{h,t\}^{n}\}.}
+  observe that then
+
+  
+    
+      
+        
+          
+            
+              g
+            
+          
+          
+            1
+          
+        
+        ⊂
+        
+          
+            
+              g
+            
+          
+          
+            2
+          
+        
+        ⊂
+        
+          
+            
+              g
+            
+          
+          
+            3
+          
+        
+        ⊂
+        ⋯
+        ⊂
+        
+          
+            
+              g
+            
+          
+          
+            ∞
+          
+        
+        ,
+      
+    
+    {\displaystyle {\mathcal {g}}_{1}\subset {\mathcal {g}}_{2}\subset {\mathcal {g}}_{3}\subset \cdots \subset {\mathcal {g}}_{\infty },}
+  where 
+  
+    
+      
+        
+          
+            
+              g
+            
+          
+          
+            ∞
+          
+        
+      
+    
+    {\displaystyle {\mathcal {g}}_{\infty }}
+   is the smallest σ-algebra containing all the others.
+
+
+== definition and properties ==
+
+
+=== definition ===
+let x be some set, and let 
+  
+    
+      
+        p
+        (
+        x
+        )
+      
+    
+    {\displaystyle p(x)}
+   represent its power set. then a subset 
+  
+    
+      
+        σ
+        ⊆
+        p
+        (
+        x
+        )
+      
+    
+    {\displaystyle \sigma \subseteq p(x)}
+   is called a σ-algebra if it satisfies the following three properties:
+x is in σ, and x is considered to be the universal set in the following context.
+σ is closed under complementation: if a is in σ, then so is its complement, x \ a.
+σ is closed under countable unions: if a1, a2, a3, ... are in σ, then so is a = a1 ∪ a2 ∪ a3 ∪ … .from these properties, it follows that the σ-algebra is also closed under countable intersections (by applying de morgan's laws).
+it also follows that the empty set ∅ is in σ, since by (1) x is in σ and (2) asserts that its complement, the empty set, is also in σ.  moreover, since {x, ∅} satisfies condition (3) as well, it follows that {x, ∅} is the smallest possible σ-algebra on x.  the largest possible σ-algebra on x is 
+  
+    
+      
+        p
+        (
+        x
+        )
+      
+    
+    {\displaystyle p(x)}
+  .
+elements of the σ-algebra are called measurable sets. an ordered pair (x, σ), where x is a set and σ is a σ-algebra over x, is called a measurable space. a function between two measurable spaces is called a measurable function if the preimage of every measurable set is measurable. the collection of measurable spaces forms a category, with the measurable functions as morphisms. measures are defined as certain types of functions from a σ-algebra to [0, ∞].
+a σ-algebra is both a π-system and a dynkin system (λ-system). the converse is true as well, by dynkin's theorem (below).
+
+
+=== dynkin's π-λ theorem ===
+this theorem (or the related monotone class theorem) is an essential tool for proving many results about properties of specific σ-algebras. it capitalizes on the nature of two simpler classes of sets, namely the following.
+
+a π-system p is a collection of subsets of x that is closed under finitely many intersections, and
+a dynkin system (or λ-system) d is a collection of subsets of x that contains x and is closed under complement and under countable unions of disjoint subsets.dynkin's π-λ theorem says, if p is a π-system and d is a dynkin system that contains p then the σ-algebra σ(p) generated by p is contained in d.  since certain π-systems are relatively simple classes, it may not be hard to verify that all sets in p enjoy the property under consideration while, on the other hand, showing that the collection d of all subsets with the property is a dynkin system can also be straightforward. dynkin's π-λ theorem then implies that all sets in σ(p) enjoy the property, avoiding the task of checking it for an arbitrary set in σ(p).
+one of the most fundamental uses of the π-λ theorem is to show equivalence of separately defined measures or integrals. for example, it is used to equate a probability for a random variable x with the lebesgue-stieltjes integral typically associated with computing the probability:
+
+  
+    
+      
+        
+          p
+        
+        (
+        x
+        ∈
+        a
+        )
+        =
+        
+          ∫
+          
+            a
+          
+        
+        
+        f
+        (
+        d
+        x
+        )
+      
+    
+    {\displaystyle \mathbb {p} (x\in a)=\int _{a}\,f(dx)}
+   for all a in the borel σ-algebra on r,where f(x) is the cumulative distribution function for x, defined on r, while 
+  
+    
+      
+        
+          p
+        
+      
+    
+    {\displaystyle \mathbb {p} }
+   is a probability measure, defined on a σ-algebra σ of subsets of some sample space ω.
+
+
+=== combining σ-algebras ===
+suppose 
+  
+    
+      
+        
+          {
+          
+            σ
+            
+              α
+            
+          
+          :
+          α
+          ∈
+          
+            
+              a
+            
+          
+          }
+        
+      
+    
+    {\displaystyle \textstyle \{\sigma _{\alpha }:\alpha \in {\mathcal {a}}\}}
+   is a collection of σ-algebras on a space x.
+
+the intersection of a collection of σ-algebras is a σ-algebra. to emphasize its character as a σ-algebra, it often is denoted by:
+  
+    
+      
+        
+          ⋀
+          
+            α
+            ∈
+            
+              
+                a
+              
+            
+          
+        
+        
+          σ
+          
+            α
+          
+        
+        .
+      
+    
+    {\displaystyle \bigwedge _{\alpha \in {\mathcal {a}}}\sigma _{\alpha }.}
+  
+sketch of proof: let σ∗ denote the intersection. since x is in every σα, σ∗ is not empty. closure under complement and countable unions for every σα implies the same must be true for σ∗. therefore, σ∗ is a σ-algebra.the union of a collection of σ-algebras is not generally a σ-algebra, or even an algebra, but it generates a σ-algebra known as the join which typically is denoted
+  
+    
+      
+        
+          ⋁
+          
+            α
+            ∈
+            
+              
+                a
+              
+            
+          
+        
+        
+          σ
+          
+            α
+          
+        
+        =
+        σ
+        
+          (
+          
+            
+              ⋃
+              
+                α
+                ∈
+                
+                  
+                    a
+                  
+                
+              
+            
+            
+              σ
+              
+                α
+              
+            
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle \bigvee _{\alpha \in {\mathcal {a}}}\sigma _{\alpha }=\sigma \left(\bigcup _{\alpha \in {\mathcal {a}}}\sigma _{\alpha }\right).}
+  
+a π-system that generates the join is
+
+  
+    
+      
+        
+          
+            p
+          
+        
+        =
+        
+          {
+          
+            
+              ⋂
+              
+                i
+                =
+                1
+              
+              
+                n
+              
+            
+            
+              a
+              
+                i
+              
+            
+            :
+            
+              a
+              
+                i
+              
+            
+            ∈
+            
+              σ
+              
+                
+                  α
+                  
+                    i
+                  
+                
+              
+            
+            ,
+            
+              α
+              
+                i
+              
+            
+            ∈
+            
+              
+                a
+              
+            
+            ,
+             
+            n
+            ≥
+            1
+          
+          }
+        
+        .
+      
+    
+    {\displaystyle {\mathcal {p}}=\left\{\bigcap _{i=1}^{n}a_{i}:a_{i}\in \sigma _{\alpha _{i}},\alpha _{i}\in {\mathcal {a}},\ n\geq 1\right\}.}
+  
+sketch of proof: by the case n = 1, it is seen that each 
+  
+    
+      
+        
+          σ
+          
+            α
+          
+        
+        ⊂
+        
+          
+            p
+          
+        
+      
+    
+    {\displaystyle \sigma _{\alpha }\subset {\mathcal {p}}}
+  , so
+
+  
+    
+      
+        
+          ⋃
+          
+            α
+            ∈
+            
+              
+                a
+              
+            
+          
+        
+        
+          σ
+          
+            α
+          
+        
+        ⊂
+        
+          
+            p
+          
+        
+        .
+      
+    
+    {\displaystyle \bigcup _{\alpha \in {\mathcal {a}}}\sigma _{\alpha }\subset {\mathcal {p}}.}
+  
+this implies
+
+  
+    
+      
+        σ
+        
+          (
+          
+            
+              ⋃
+              
+                α
+                ∈
+                
+                  
+                    a
+                  
+                
+              
+            
+            
+              σ
+              
+                α
+              
+            
+          
+          )
+        
+        ⊂
+        σ
+        (
+        
+          
+            p
+          
+        
+        )
+      
+    
+    {\displaystyle \sigma \left(\bigcup _{\alpha \in {\mathcal {a}}}\sigma _{\alpha }\right)\subset \sigma ({\mathcal {p}})}
+  
+by the definition of a σ-algebra generated by a collection of subsets. on the other hand,
+
+  
+    
+      
+        
+          
+            p
+          
+        
+        ⊂
+        σ
+        
+          (
+          
+            
+              ⋃
+              
+                α
+                ∈
+                
+                  
+                    a
+                  
+                
+              
+            
+            
+              σ
+              
+                α
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle {\mathcal {p}}\subset \sigma \left(\bigcup _{\alpha \in {\mathcal {a}}}\sigma _{\alpha }\right)}
+  
+which, by dynkin's π-λ theorem, implies
+
+  
+    
+      
+        σ
+        (
+        
+          
+            p
+          
+        
+        )
+        ⊂
+        σ
+        
+          (
+          
+            
+              ⋃
+              
+                α
+                ∈
+                
+                  
+                    a
+                  
+                
+              
+            
+            
+              σ
+              
+                α
+              
+            
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle \sigma ({\mathcal {p}})\subset \sigma \left(\bigcup _{\alpha \in {\mathcal {a}}}\sigma _{\alpha }\right).}
+  
+
+
+=== σ-algebras for subspaces ===
+suppose y is a subset of x and let (x, σ) be a measurable space.
+
+the collection {y ∩ b: b ∈ σ} is a σ-algebra of subsets of y.
+suppose (y, λ) is a measurable space. the collection {a ⊂ x : a ∩ y ∈ λ} is a σ-algebra of subsets of x.
+
+
+=== relation to σ-ring ===
+a σ-algebra σ is just a σ-ring that contains the universal set x. a σ-ring need not be a σ-algebra, as for example measurable subsets of zero lebesgue measure in the real line are a σ-ring, but not a σ-algebra since the real line has infinite measure and thus cannot be obtained by their countable union. if, instead of zero measure, one takes measurable subsets of finite lebesgue measure, those are a ring but not a σ-ring, since the real line can be obtained by their countable union yet its measure is not finite.
+
+
+=== typographic note ===
+σ-algebras are sometimes denoted using calligraphic capital letters, or the fraktur typeface. thus (x, σ) may be denoted as 
+  
+    
+      
+        
+          (
+          x
+          ,
+          
+          
+            
+              f
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \scriptstyle (x,\,{\mathcal {f}})}
+   or  
+  
+    
+      
+        
+          (
+          x
+          ,
+          
+          
+            
+              f
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \scriptstyle (x,\,{\mathfrak {f}})}
+  .
+
+
+== particular cases and examples ==
+
+
+=== separable σ-algebras ===
+a separable σ-algebra (or separable σ-field) is a σ-algebra 
+  
+    
+      
+        
+          
+            f
+          
+        
+      
+    
+    {\displaystyle {\mathcal {f}}}
+   that is a separable space when considered as a metric space with metric 
+  
+    
+      
+        ρ
+        (
+        a
+        ,
+        b
+        )
+        =
+        μ
+        (
+        a
+        
+          
+            △
+          
+        
+        b
+        )
+      
+    
+    {\displaystyle \rho (a,b)=\mu (a{\mathbin {\triangle }}b)}
+   for 
+  
+    
+      
+        a
+        ,
+        b
+        ∈
+        
+          
+            f
+          
+        
+      
+    
+    {\displaystyle a,b\in {\mathcal {f}}}
+   and a given measure 
+  
+    
+      
+        μ
+      
+    
+    {\displaystyle \mu }
+   (and with 
+  
+    
+      
+        △
+      
+    
+    {\displaystyle \triangle }
+   being the symmetric difference operator).  note that any σ-algebra generated by a countable collection of sets is separable, but the converse need not hold. for example, the lebesgue σ-algebra is separable (since every lebesgue measurable set is equivalent to some borel set) but not countably generated (since its cardinality is higher than continuum).
+a separable measure space has a natural pseudometric that renders it separable as a pseudometric space.  the distance between two sets is defined as the measure of the symmetric difference of the two sets.  note that the symmetric difference of two distinct sets can have measure zero; hence the pseudometric as defined above need not to be a true metric.  however, if sets whose symmetric difference has measure zero are identified into a single equivalence class, the resulting quotient set can be properly metrized by the induced metric.  if the measure space is separable, it can be shown that the corresponding metric space is, too.
+
+
+=== simple set-based examples ===
+let x be any set.
+
+the family consisting only of the empty set and the set x, called the minimal or trivial σ-algebra over x.
+the power set of x, called the discrete σ-algebra.
+the collection {∅, a, ac, x} is a simple σ-algebra generated by the subset a.
+the collection of subsets of x which are countable or whose complements are countable is a σ-algebra (which is distinct from the power set of x if and only if x is uncountable). this is the σ-algebra generated by the singletons of x. note: "countable" includes finite or empty.
+the collection of all unions of sets in a countable partition of x is a σ-algebra.
+
+
+=== stopping time sigma-algebras ===
+a stopping time 
+  
+    
+      
+        τ
+      
+    
+    {\displaystyle \tau }
+   can define a 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+  -algebra 
+  
+    
+      
+        
+          
+            
+              f
+            
+          
+          
+            τ
+          
+        
+      
+    
+    {\displaystyle {\mathcal {f}}_{\tau }}
+  , the
+so-called stopping time sigma-algebra, which in a filtered probability space describes the information up to the random time 
+  
+    
+      
+        τ
+      
+    
+    {\displaystyle \tau }
+   in the sense that, if the filtered probability space is interpreted as a random experiment, the maximum information that can be found out about the experiment from arbitrarily often repeating it until the time 
+  
+    
+      
+        τ
+      
+    
+    {\displaystyle \tau }
+   is 
+  
+    
+      
+        
+          
+            
+              f
+            
+          
+          
+            τ
+          
+        
+      
+    
+    {\displaystyle {\mathcal {f}}_{\tau }}
+  .
+
+
+== σ-algebras generated by families of sets ==
+
+
+=== σ-algebra generated by an arbitrary family ===
+let f be an arbitrary family of subsets of x. then there exists a unique smallest σ-algebra which contains every set in f (even though f may or may not itself be a σ-algebra). it is, in fact, the intersection of all σ-algebras containing f. (see intersections of σ-algebras above.) this σ-algebra is denoted σ(f) and is called the σ-algebra generated by f.
+if f is empty, then σ(f)={x, ∅}.  otherwise σ(f) consists of all the subsets of x that can be made from elements of f by a countable number of complement, union and intersection operations.
+for a simple example, consider the set x = {1, 2, 3}. then the σ-algebra generated by the single subset {1} is σ({{1}}) = {∅, {1}, {2, 3}, {1, 2, 3}}. by an abuse of notation, when a collection of subsets contains only one element, a, one may write σ(a) instead of σ({a}); in the prior example σ({1}) instead of σ({{1}}). indeed, using σ(a1, a2, ...) to mean σ({a1, a2, ...}) is also quite common.
+there are many families of subsets that generate useful σ-algebras. some of these are presented here.
+
+
+=== σ-algebra generated by a function ===
+if 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   is a function from a set 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   to a set 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   and 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   is a 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+  -algebra of subsets of 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+  , then the 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+  -algebra generated by the function 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+  , denoted by 
+  
+    
+      
+        σ
+        (
+        f
+        )
+      
+    
+    {\displaystyle \sigma (f)}
+  , is the collection of all inverse images 
+  
+    
+      
+        
+          f
+          
+            −
+            1
+          
+        
+        (
+        s
+        )
+      
+    
+    {\displaystyle f^{-1}(s)}
+   of the sets 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+   in 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+  . i.e.
+
+  
+    
+      
+        σ
+        (
+        f
+        )
+        =
+        {
+        
+          f
+          
+            −
+            1
+          
+        
+        (
+        s
+        )
+        
+        
+          |
+        
+        
+        s
+        ∈
+        b
+        }
+        .
+      
+    
+    {\displaystyle \sigma (f)=\{f^{-1}(s)\,|\,s\in b\}.}
+  a function f from a set x to a set y is measurable with respect to a σ-algebra σ of subsets of x if and only if σ(f) is a subset of σ.
+one common situation, and understood by default if b is not specified explicitly, is when y is a metric or topological space and b is the collection of borel sets on y.
+if f is a function from x to rn then σ(f) is generated by the family of subsets which are inverse images of intervals/rectangles in rn:
+
+  
+    
+      
+        σ
+        (
+        f
+        )
+        =
+        σ
+        
+          (
+          
+            {
+            
+              f
+              
+                −
+                1
+              
+            
+            (
+            [
+            
+              a
+              
+                1
+              
+            
+            ,
+            
+              b
+              
+                1
+              
+            
+            ]
+            ×
+            ⋯
+            ×
+            [
+            
+              a
+              
+                n
+              
+            
+            ,
+            
+              b
+              
+                n
+              
+            
+            ]
+            )
+            :
+            
+              a
+              
+                i
+              
+            
+            ,
+            
+              b
+              
+                i
+              
+            
+            ∈
+            
+              r
+            
+            }
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle \sigma (f)=\sigma \left(\{f^{-1}([a_{1},b_{1}]\times \cdots \times [a_{n},b_{n}]):a_{i},b_{i}\in \mathbb {r} \}\right).}
+  a useful property is the following. assume f is a measurable map from (x, σx) to (s, σs) and g is a measurable map from (x, σx) to (t, σt). if there exists a measurable map h from (t, σt) to (s, σs) such that f(x) = h(g(x)) for all x, then σ(f) ⊂ σ(g). if s is finite or countably infinite or, more generally, (s, σs) is a standard borel space (e.g., a separable complete metric space with its associated borel sets), then the converse is also true. examples of standard borel spaces include rn with its borel sets and r∞ with the cylinder σ-algebra described below.
+
+
+=== borel and lebesgue σ-algebras ===
+an important example is the borel algebra over any topological space: the σ-algebra generated by the open sets (or, equivalently, by the closed sets). note that this σ-algebra is not, in general, the whole power set. for a non-trivial example that is not a borel set, see the vitali set or non-borel sets.
+on the euclidean space rn, another σ-algebra is of importance: that of all lebesgue measurable sets. this σ-algebra contains more sets than the borel σ-algebra on rn and is preferred in integration theory, as it gives a complete measure space.
+
+
+=== product σ-algebra ===
+let 
+  
+    
+      
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          σ
+          
+            1
+          
+        
+        )
+      
+    
+    {\displaystyle (x_{1},\sigma _{1})}
+   and 
+  
+    
+      
+        (
+        
+          x
+          
+            2
+          
+        
+        ,
+        
+          σ
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle (x_{2},\sigma _{2})}
+   be two measurable spaces. the σ-algebra for the corresponding product space 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+        ×
+        
+          x
+          
+            2
+          
+        
+      
+    
+    {\displaystyle x_{1}\times x_{2}}
+   is called the product σ-algebra and is defined by
+
+  
+    
+      
+        
+          σ
+          
+            1
+          
+        
+        ×
+        
+          σ
+          
+            2
+          
+        
+        =
+        σ
+        (
+        {
+        
+          b
+          
+            1
+          
+        
+        ×
+        
+          b
+          
+            2
+          
+        
+        :
+        
+          b
+          
+            1
+          
+        
+        ∈
+        
+          σ
+          
+            1
+          
+        
+        ,
+        
+          b
+          
+            2
+          
+        
+        ∈
+        
+          σ
+          
+            2
+          
+        
+        }
+        )
+        .
+      
+    
+    {\displaystyle \sigma _{1}\times \sigma _{2}=\sigma (\{b_{1}\times b_{2}:b_{1}\in \sigma _{1},b_{2}\in \sigma _{2}\}).}
+  observe that 
+  
+    
+      
+        {
+        
+          b
+          
+            1
+          
+        
+        ×
+        
+          b
+          
+            2
+          
+        
+        :
+        
+          b
+          
+            1
+          
+        
+        ∈
+        
+          σ
+          
+            1
+          
+        
+        ,
+        
+          b
+          
+            2
+          
+        
+        ∈
+        
+          σ
+          
+            2
+          
+        
+        }
+      
+    
+    {\displaystyle \{b_{1}\times b_{2}:b_{1}\in \sigma _{1},b_{2}\in \sigma _{2}\}}
+   is a π-system.
+the borel σ-algebra for rn is generated by half-infinite rectangles and by finite rectangles. for example,
+
+  
+    
+      
+        
+          
+            b
+          
+        
+        (
+        
+          
+            r
+          
+          
+            n
+          
+        
+        )
+        =
+        σ
+        
+          (
+          
+            {
+            
+              (
+              −
+              ∞
+              ,
+              
+                b
+                
+                  1
+                
+              
+              ]
+              ×
+              ⋯
+              ×
+              (
+              −
+              ∞
+              ,
+              
+                b
+                
+                  n
+                
+              
+              ]
+              :
+              
+                b
+                
+                  i
+                
+              
+              ∈
+              
+                r
+              
+            
+            }
+          
+          )
+        
+        =
+        σ
+        
+          (
+          
+            {
+            
+              (
+              
+                a
+                
+                  1
+                
+              
+              ,
+              
+                b
+                
+                  1
+                
+              
+              ]
+              ×
+              ⋯
+              ×
+              (
+              
+                a
+                
+                  n
+                
+              
+              ,
+              
+                b
+                
+                  n
+                
+              
+              ]
+              :
+              
+                a
+                
+                  i
+                
+              
+              ,
+              
+                b
+                
+                  i
+                
+              
+              ∈
+              
+                r
+              
+            
+            }
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle {\mathcal {b}}(\mathbb {r} ^{n})=\sigma \left(\left\{(-\infty ,b_{1}]\times \cdots \times (-\infty ,b_{n}]:b_{i}\in \mathbb {r} \right\}\right)=\sigma \left(\left\{(a_{1},b_{1}]\times \cdots \times (a_{n},b_{n}]:a_{i},b_{i}\in \mathbb {r} \right\}\right).}
+  for each of these two examples, the generating family is a π-system.
+
+
+=== σ-algebra generated by cylinder sets ===
+suppose
+
+  
+    
+      
+        x
+        ⊂
+        
+          
+            r
+          
+          
+            
+              t
+            
+          
+        
+        =
+        {
+        f
+        :
+        f
+        (
+        t
+        )
+        ∈
+        
+          r
+        
+        ,
+         
+        t
+        ∈
+        
+          t
+        
+        }
+      
+    
+    {\displaystyle x\subset \mathbb {r} ^{\mathbb {t} }=\{f:f(t)\in \mathbb {r} ,\ t\in \mathbb {t} \}}
+  is a set of real-valued functions. let 
+  
+    
+      
+        
+          
+            b
+          
+        
+        (
+        
+          r
+        
+        )
+      
+    
+    {\displaystyle {\mathcal {b}}(\mathbb {r} )}
+   denote the borel subsets of r. a cylinder subset of x is a finitely restricted set defined as
+
+  
+    
+      
+        
+          c
+          
+            
+              t
+              
+                1
+              
+            
+            ,
+            …
+            ,
+            
+              t
+              
+                n
+              
+            
+          
+        
+        (
+        
+          b
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          b
+          
+            n
+          
+        
+        )
+        =
+        {
+        f
+        ∈
+        x
+        :
+        f
+        (
+        
+          t
+          
+            i
+          
+        
+        )
+        ∈
+        
+          b
+          
+            i
+          
+        
+        ,
+        1
+        ≤
+        i
+        ≤
+        n
+        }
+        .
+      
+    
+    {\displaystyle c_{t_{1},\dots ,t_{n}}(b_{1},\dots ,b_{n})=\{f\in x:f(t_{i})\in b_{i},1\leq i\leq n\}.}
+  each
+
+  
+    
+      
+        {
+        
+          c
+          
+            
+              t
+              
+                1
+              
+            
+            ,
+            …
+            ,
+            
+              t
+              
+                n
+              
+            
+          
+        
+        (
+        
+          b
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          b
+          
+            n
+          
+        
+        )
+        :
+        
+          b
+          
+            i
+          
+        
+        ∈
+        
+          
+            b
+          
+        
+        (
+        
+          r
+        
+        )
+        ,
+        1
+        ≤
+        i
+        ≤
+        n
+        }
+      
+    
+    {\displaystyle \{c_{t_{1},\dots ,t_{n}}(b_{1},\dots ,b_{n}):b_{i}\in {\mathcal {b}}(\mathbb {r} ),1\leq i\leq n\}}
+  is a π-system that generates a σ-algebra 
+  
+    
+      
+        
+          
+            σ
+            
+              
+                t
+                
+                  1
+                
+              
+              ,
+              …
+              ,
+              
+                t
+                
+                  n
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle \textstyle \sigma _{t_{1},\dots ,t_{n}}}
+  . then the family of subsets
+
+  
+    
+      
+        
+          
+            
+              f
+            
+          
+          
+            x
+          
+        
+        =
+        
+          ⋃
+          
+            n
+            =
+            1
+          
+          
+            ∞
+          
+        
+        
+          ⋃
+          
+            
+              t
+              
+                i
+              
+            
+            ∈
+            
+              t
+            
+            ,
+            i
+            ≤
+            n
+          
+        
+        
+          σ
+          
+            
+              t
+              
+                1
+              
+            
+            ,
+            …
+            ,
+            
+              t
+              
+                n
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\mathcal {f}}_{x}=\bigcup _{n=1}^{\infty }\bigcup _{t_{i}\in \mathbb {t} ,i\leq n}\sigma _{t_{1},\dots ,t_{n}}}
+  is an algebra that generates the cylinder σ-algebra for x. this σ-algebra is a subalgebra of the borel σ-algebra determined by the product topology of 
+  
+    
+      
+        
+          
+            r
+          
+          
+            
+              t
+            
+          
+        
+      
+    
+    {\displaystyle \mathbb {r} ^{\mathbb {t} }}
+   restricted to x.
+an important special case is when 
+  
+    
+      
+        
+          t
+        
+      
+    
+    {\displaystyle \mathbb {t} }
+   is the set of natural numbers and x is a set of real-valued sequences. in this case, it suffices to consider the cylinder sets
+
+  
+    
+      
+        
+          c
+          
+            n
+          
+        
+        (
+        
+          b
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          b
+          
+            n
+          
+        
+        )
+        =
+        (
+        
+          b
+          
+            1
+          
+        
+        ×
+        ⋯
+        ×
+        
+          b
+          
+            n
+          
+        
+        ×
+        
+          
+            r
+          
+          
+            ∞
+          
+        
+        )
+        ∩
+        x
+        =
+        {
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+        ,
+        
+          x
+          
+            n
+            +
+            1
+          
+        
+        ,
+        …
+        )
+        ∈
+        x
+        :
+        
+          x
+          
+            i
+          
+        
+        ∈
+        
+          b
+          
+            i
+          
+        
+        ,
+        1
+        ≤
+        i
+        ≤
+        n
+        }
+        ,
+      
+    
+    {\displaystyle c_{n}(b_{1},\dots ,b_{n})=(b_{1}\times \cdots \times b_{n}\times \mathbb {r} ^{\infty })\cap x=\{(x_{1},x_{2},\dots ,x_{n},x_{n+1},\dots )\in x:x_{i}\in b_{i},1\leq i\leq n\},}
+  for which
+
+  
+    
+      
+        
+          σ
+          
+            n
+          
+        
+        =
+        σ
+        (
+        {
+        
+          c
+          
+            n
+          
+        
+        (
+        
+          b
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          b
+          
+            n
+          
+        
+        )
+        :
+        
+          b
+          
+            i
+          
+        
+        ∈
+        
+          
+            b
+          
+        
+        (
+        
+          r
+        
+        )
+        ,
+        1
+        ≤
+        i
+        ≤
+        n
+        }
+        )
+      
+    
+    {\displaystyle \sigma _{n}=\sigma (\{c_{n}(b_{1},\dots ,b_{n}):b_{i}\in {\mathcal {b}}(\mathbb {r} ),1\leq i\leq n\})}
+  is a non-decreasing sequence of σ-algebras.
+
+
+=== σ-algebra generated by random variable or vector ===
+suppose 
+  
+    
+      
+        (
+        ω
+        ,
+        σ
+        ,
+        
+          p
+        
+        )
+      
+    
+    {\displaystyle (\omega ,\sigma ,\mathbb {p} )}
+   is a probability space. if 
+  
+    
+      
+        
+          y
+          :
+          ω
+          →
+          
+            
+              r
+            
+            
+              n
+            
+          
+        
+      
+    
+    {\displaystyle \textstyle y:\omega \to \mathbb {r} ^{n}}
+   is measurable with respect to the borel σ-algebra on rn then y is called a random variable (n = 1) or random vector (n > 1). the σ-algebra generated by y is
+
+  
+    
+      
+        σ
+        (
+        y
+        )
+        =
+        {
+        
+          y
+          
+            −
+            1
+          
+        
+        (
+        a
+        )
+        :
+        a
+        ∈
+        
+          
+            b
+          
+        
+        (
+        
+          
+            r
+          
+          
+            n
+          
+        
+        )
+        }
+        .
+      
+    
+    {\displaystyle \sigma (y)=\{y^{-1}(a):a\in {\mathcal {b}}(\mathbb {r} ^{n})\}.}
+  
+
+
+=== σ-algebra generated by a stochastic process ===
+suppose 
+  
+    
+      
+        (
+        ω
+        ,
+        σ
+        ,
+        
+          p
+        
+        )
+      
+    
+    {\displaystyle (\omega ,\sigma ,\mathbb {p} )}
+   is a probability space and 
+  
+    
+      
+        
+          
+            r
+          
+          
+            
+              t
+            
+          
+        
+      
+    
+    {\displaystyle \mathbb {r} ^{\mathbb {t} }}
+   is the set of real-valued functions on 
+  
+    
+      
+        
+          t
+        
+      
+    
+    {\displaystyle \mathbb {t} }
+  . if 
+  
+    
+      
+        
+          y
+          :
+          ω
+          →
+          x
+          ⊂
+          
+            
+              r
+            
+            
+              
+                t
+              
+            
+          
+        
+      
+    
+    {\displaystyle \textstyle y:\omega \to x\subset \mathbb {r} ^{\mathbb {t} }}
+   is measurable with respect to the cylinder σ-algebra 
+  
+    
+      
+        σ
+        (
+        
+          
+            
+              f
+            
+          
+          
+            x
+          
+        
+        )
+      
+    
+    {\displaystyle \sigma ({\mathcal {f}}_{x})}
+   (see above) for x then y is called a stochastic process or random process. the σ-algebra generated by y is
+
+  
+    
+      
+        σ
+        (
+        y
+        )
+        =
+        
+          {
+          
+            
+              y
+              
+                −
+                1
+              
+            
+            (
+            a
+            )
+            :
+            a
+            ∈
+            σ
+            (
+            
+              
+                
+                  f
+                
+              
+              
+                x
+              
+            
+            )
+          
+          }
+        
+        =
+        σ
+        (
+        {
+        
+          y
+          
+            −
+            1
+          
+        
+        (
+        a
+        )
+        :
+        a
+        ∈
+        
+          
+            
+              f
+            
+          
+          
+            x
+          
+        
+        }
+        )
+        ,
+      
+    
+    {\displaystyle \sigma (y)=\left\{y^{-1}(a):a\in \sigma ({\mathcal {f}}_{x})\right\}=\sigma (\{y^{-1}(a):a\in {\mathcal {f}}_{x}\}),}
+  the σ-algebra generated by the inverse images of cylinder sets.
+
+
+== see also ==
+join (sigma algebra)
+measurable function
+sample space
+sigma ring
+sigma additivity
+
+
+== references ==
+
+
+== external links ==
+"algebra of sets", encyclopedia of mathematics, ems press, 2001 [1994]
+sigma algebra from planetmath.

@@ -1,0 +1,3080 @@
+in mathematics, elliptic curve primality testing techniques, or elliptic curve primality proving (ecpp), are among the quickest and most widely used methods in primality proving. it is an idea put forward by shafi goldwasser and joe kilian in 1986 and turned into an algorithm by a. o. l. atkin the same year.  the algorithm was altered and improved by several collaborators subsequently, and notably by atkin and françois morain, in 1993.  the concept of using elliptic curves in factorization had been developed by h. w. lenstra in 1985, and the implications for its use in primality testing (and proving) followed quickly.
+primality testing is a field that has been around since the time of fermat, in whose time most algorithms were based on factoring, which become unwieldy with large input; modern algorithms treat the problems of determining whether a number is prime and what its factors are separately.  it became of practical importance with the advent of modern cryptography.  although many current tests result in a probabilistic output (n is either shown composite, or probably prime, such as with the baillie–psw primality test or the miller–rabin test), the elliptic curve test proves primality (or compositeness) with a quickly verifiable certificate.previously-known prime-proving methods such as the pocklington primality test required at least partial factorization of 
+  
+    
+      
+        n
+        ±
+        1
+      
+    
+    {\displaystyle n\pm 1}
+   in order to prove that 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   is prime. as a result, these methods required some luck and are generally slow in practice.
+
+
+== elliptic curve primality proving ==
+it is a general-purpose algorithm, meaning it does not depend on the number being of a special form. ecpp is currently in practice the fastest known algorithm for testing the primality of general numbers, but the worst-case execution time is not known. ecpp heuristically runs in time:
+
+  
+    
+      
+        o
+        (
+        (
+        log
+        ⁡
+        n
+        
+          )
+          
+            5
+            +
+            ε
+          
+        
+        )
+        
+      
+    
+    {\displaystyle o((\log n)^{5+\varepsilon })\,}
+  for some 
+  
+    
+      
+        ε
+        >
+        0
+      
+    
+    {\displaystyle \varepsilon >0}
+  . this exponent may be decreased to 
+  
+    
+      
+        4
+        +
+        ε
+      
+    
+    {\displaystyle 4+\varepsilon }
+   for some versions by heuristic arguments. ecpp works the same way as most other primality tests do, finding a group and showing its size is such that 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   is prime.  for ecpp the group is an elliptic curve over a finite set of quadratic forms such that 
+  
+    
+      
+        p
+        −
+        1
+      
+    
+    {\displaystyle p-1}
+   is trivial to factor over the group.
+ecpp generates an atkin–goldwasser–kilian–morain certificate of primality by recursion and then
+attempts to verify the certificate. the step that takes the most cpu time is the certificate generation, because factoring over a class field must be performed. the certificate can be verified quickly, allowing a check of operation to take very little time.
+as of march 2022, the largest prime that has been proved with ecpp method is the repunit r(49081), which has 49,081 digits. the certification by paul underwood took 20 months using marcel martin's primo software.
+
+
+== proposition ==
+the elliptic curve primality tests are based on criteria analogous to the pocklington criterion, on which that test is based,  where the group
+
+  
+    
+      
+        (
+        
+          z
+        
+        
+          /
+        
+        n
+        
+          z
+        
+        
+          )
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle (\mathbb {z} /n\mathbb {z} )^{*}}
+   is replaced by 
+  
+    
+      
+        e
+        (
+        
+          z
+        
+        
+          /
+        
+        n
+        
+          z
+        
+        )
+        ,
+      
+    
+    {\displaystyle e(\mathbb {z} /n\mathbb {z} ),}
+   and e is a properly chosen elliptic curve. we will now state a proposition on which to base our test, which is analogous to the pocklington criterion, and gives rise to the goldwasser–kilian–atkin form of the elliptic curve primality test.
+let n be a positive integer, and e be the set which  is defined by the equation 
+  
+    
+      
+        
+          y
+          
+            2
+          
+        
+        =
+        
+          x
+          
+            3
+          
+        
+        +
+        a
+        x
+        +
+        b
+        
+          mod
+          
+            n
+          
+        
+        .
+      
+    
+    {\displaystyle y^{2}=x^{3}+ax+b{\bmod {n}}.}
+   consider e over 
+  
+    
+      
+        
+          z
+        
+        
+          /
+        
+        n
+        
+          z
+        
+        ,
+      
+    
+    {\displaystyle \mathbb {z} /n\mathbb {z} ,}
+   use the usual addition law on e, and write 0 for the neutral element on e.
+let m be an integer.  if there is a prime q which divides m, and is greater than 
+  
+    
+      
+        
+          
+            (
+            
+              
+                
+                  n
+                  
+                    4
+                  
+                
+              
+              +
+              1
+            
+            )
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \left({\sqrt[{4}]{n}}+1\right)^{2}}
+   and there exists a point p on e such that
+(1) mp = 0
+(2) (m/q)p is defined and not equal to 0
+then n is prime.
+
+
+=== proof ===
+if n is composite, then there exists a prime 
+  
+    
+      
+        p
+        ≤
+        
+          
+            n
+          
+        
+      
+    
+    {\displaystyle p\leq {\sqrt {n}}}
+   that divides n.  define 
+  
+    
+      
+        
+          e
+          
+            p
+          
+        
+      
+    
+    {\displaystyle e_{p}}
+   as the elliptic curve defined by the same equation as e but evaluated modulo p rather than modulo n.  define 
+  
+    
+      
+        
+          m
+          
+            p
+          
+        
+      
+    
+    {\displaystyle m_{p}}
+   as the order of the group 
+  
+    
+      
+        
+          e
+          
+            p
+          
+        
+      
+    
+    {\displaystyle e_{p}}
+  .  by hasse's theorem on elliptic curves we know
+
+  
+    
+      
+        
+          m
+          
+            p
+          
+        
+        ≤
+        p
+        +
+        1
+        +
+        2
+        
+          
+            p
+          
+        
+        =
+        
+          
+            (
+            
+              
+                
+                  p
+                
+              
+              +
+              1
+            
+            )
+          
+          
+            2
+          
+        
+        ≤
+        
+          
+            (
+            
+              
+                
+                  n
+                  
+                    4
+                  
+                
+              
+              +
+              1
+            
+            )
+          
+          
+            2
+          
+        
+        <
+        q
+      
+    
+    {\displaystyle m_{p}\leq p+1+2{\sqrt {p}}=\left({\sqrt {p}}+1\right)^{2}\leq \left({\sqrt[{4}]{n}}+1\right)^{2}<q}
+  and thus 
+  
+    
+      
+        gcd
+        (
+        q
+        ,
+        
+          m
+          
+            p
+          
+        
+        )
+        =
+        1
+      
+    
+    {\displaystyle \gcd(q,m_{p})=1}
+   and there exists an integer u with the property that
+
+  
+    
+      
+        u
+        q
+        ≡
+        1
+        
+          mod
+          
+            
+              m
+              
+                p
+              
+            
+          
+        
+      
+    
+    {\displaystyle uq\equiv 1{\bmod {m_{p}}}}
+  let 
+  
+    
+      
+        
+          p
+          
+            p
+          
+        
+      
+    
+    {\displaystyle p_{p}}
+   be the point p evaluated modulo p. thus, on 
+  
+    
+      
+        
+          e
+          
+            p
+          
+        
+      
+    
+    {\displaystyle e_{p}}
+   we have
+
+  
+    
+      
+        (
+        m
+        
+          /
+        
+        q
+        )
+        
+          p
+          
+            p
+          
+        
+        =
+        u
+        q
+        (
+        m
+        
+          /
+        
+        q
+        )
+        
+          p
+          
+            p
+          
+        
+        =
+        u
+        m
+        
+          p
+          
+            p
+          
+        
+        =
+        0
+        ,
+      
+    
+    {\displaystyle (m/q)p_{p}=uq(m/q)p_{p}=ump_{p}=0,}
+  by (1), as 
+  
+    
+      
+        m
+        
+          p
+          
+            p
+          
+        
+      
+    
+    {\displaystyle mp_{p}}
+   is calculated using the same method as mp, except modulo p rather than modulo n (and 
+  
+    
+      
+        p
+        ∣
+        n
+      
+    
+    {\displaystyle p\mid n}
+  ).
+this contradicts (2), because if (m/q)p is defined and not equal to 0 (mod n), then the same method calculated modulo p instead of modulo n will yield:
+
+  
+    
+      
+        (
+        m
+        
+          /
+        
+        q
+        )
+        
+          p
+          
+            p
+          
+        
+        ≠
+        0.
+      
+    
+    {\displaystyle (m/q)p_{p}\neq 0.}
+  
+
+
+== goldwasser–kilian algorithm ==
+from this proposition an algorithm can be constructed to prove an integer, n, is prime.  this is done as follows:choose three integers at random, a, x, y and set
+
+  
+    
+      
+        b
+        ≡
+        
+          y
+          
+            2
+          
+        
+        −
+        
+          x
+          
+            3
+          
+        
+        −
+        a
+        x
+        
+          
+          (
+          mod
+          
+          n
+          )
+        
+      
+    
+    {\displaystyle b\equiv y^{2}-x^{3}-ax{\pmod {n}}}
+  now p = (x,y) is a point on e, where we have that e is defined by 
+  
+    
+      
+        
+          y
+          
+            2
+          
+        
+        =
+        
+          x
+          
+            3
+          
+        
+        +
+        a
+        x
+        +
+        b
+      
+    
+    {\displaystyle y^{2}=x^{3}+ax+b}
+  .  next we need an algorithm to count the number of points on e.   applied to e, this algorithm (koblitz and others suggest schoof's algorithm) produces a number m which is the number of points on curve e over fn, provided n is prime. if the point-counting algorithm stops at an undefined expression this allows to determine a non-trivial factor of n. if it succeeds, we apply a criterion for deciding whether our curve e is acceptable.
+if we can write m in the form 
+  
+    
+      
+        m
+        =
+        k
+        q
+      
+    
+    {\displaystyle m=kq}
+   where 
+  
+    
+      
+        k
+        ≥
+        2
+      
+    
+    {\displaystyle k\geq 2}
+   is a small integer and q a large probable prime (a number that passes a probabilistic primality test, for example), then we do not discard e. otherwise, we discard our curve and randomly select another triple (a, x, y) to start over. the idea here is to find an m that is divisible by a large prime number q. this prime is a few digits smaller than m (or n) so q will be easier to prove prime than n.
+assuming we find a curve which passes the criterion, proceed to calculate mp and kp. if any of the two calculations produce an undefined expression, we can get a non-trivial factor of n. if both calculations succeed, we examine the results.
+if 
+  
+    
+      
+        m
+        p
+        ≠
+        0
+      
+    
+    {\displaystyle mp\neq 0}
+   it is clear that n is not prime, because if n were prime then e would have order m, and any element of e would become 0 on multiplication by m.  if kp = 0, then the algorithm discards e and starts over with a different a, x, y triple.
+now if 
+  
+    
+      
+        m
+        p
+        =
+        0
+      
+    
+    {\displaystyle mp=0}
+   and 
+  
+    
+      
+        k
+        p
+        ≠
+        0
+      
+    
+    {\displaystyle kp\neq 0}
+   then our previous proposition tells us that n is prime.  however, there is one possible problem, which is the primality of q.  this is verified using the same algorithm.  so we have described a recursive algorithm, where the primality of n depends on the primality of q and indeed smaller 'probable primes' until some threshold is reached where q is considered small enough to apply a non-recursive deterministic algorithm.
+
+
+== problems with the algorithm ==
+atkin and morain state "the problem with gk is that schoof's algorithm seems almost impossible to implement."  it is very slow and cumbersome to count all of the points on e using schoof's algorithm, which is the preferred algorithm for the goldwasser–kilian algorithm.  however, the original algorithm by schoof is not efficient enough to provide the number of points in short time. these comments have
+to be seen in the historical context, before the improvements by elkies and atkin to schoof's method.
+a second problem koblitz notes is the difficulty of finding the curve e whose number of points is of the form kq, as above.  there is no known theorem which guarantees we can find a suitable e in polynomially many attempts. the distribution of primes on the hasse interval
+
+  
+    
+      
+        [
+        p
+        +
+        1
+        −
+        2
+        
+          
+            p
+          
+        
+        ,
+        p
+        +
+        1
+        +
+        2
+        
+          
+            p
+          
+        
+        ]
+      
+    
+    {\displaystyle [p+1-2{\sqrt {p}},p+1+2{\sqrt {p}}]}
+  ,
+which contains m, is not the same as the distribution of primes in the group orders, counting curves with multiplicity. however, this is not a significant problem in practice.
+
+
+== atkin–morain elliptic curve primality test (ecpp) ==
+in a 1993 paper, atkin and morain described an algorithm ecpp which avoided the trouble of relying on a cumbersome point counting algorithm (schoof's).   the algorithm still relies on the proposition stated above, but rather than randomly generating elliptic curves and searching for a proper m, their idea was to construct a curve e where the number of points is easy to compute.  complex multiplication is key in the construction of the curve.
+now, given an n for which primality needs to be proven we need to find a suitable m and q, just as in the goldwasser–kilian test, that will fulfill the proposition and prove the primality of n. (of course, a point p and the curve itself, e, must also be found.)
+ecpp uses complex multiplication to construct the curve e, doing so in a way that allows for m (the number of points on e) to be easily computed.  we will now describe this method:
+utilization of complex multiplication requires a negative discriminant, d, such that d can be written as the product of two elements  
+  
+    
+      
+        d
+        =
+        π
+        
+          
+            
+              π
+              ¯
+            
+          
+        
+      
+    
+    {\displaystyle d=\pi {\bar {\pi }}}
+  , or completely equivalently, we can write the equation:
+
+  
+    
+      
+        
+          a
+          
+            2
+          
+        
+        +
+        
+          |
+        
+        d
+        
+          |
+        
+        
+          b
+          
+            2
+          
+        
+        =
+        4
+        n
+        
+      
+    
+    {\displaystyle a^{2}+|d|b^{2}=4n\,}
+  for some a, b.  if we can describe n in terms of either of these forms, we can create an elliptic curve e on 
+  
+    
+      
+        
+          z
+        
+        
+          /
+        
+        n
+        
+          z
+        
+      
+    
+    {\displaystyle \mathbb {z} /n\mathbb {z} }
+   with complex multiplication (described in detail below), and the number of points is given by:
+
+  
+    
+      
+        
+          |
+        
+        e
+        (
+        
+          z
+        
+        
+          /
+        
+        n
+        
+          z
+        
+        )
+        
+          |
+        
+        =
+        n
+        +
+        1
+        −
+        π
+        −
+        
+          
+            
+              π
+              ¯
+            
+          
+        
+        =
+        n
+        +
+        1
+        −
+        a
+        .
+        
+      
+    
+    {\displaystyle |e(\mathbb {z} /n\mathbb {z} )|=n+1-\pi -{\bar {\pi }}=n+1-a.\,}
+  for n to split into the two elements, we need that 
+  
+    
+      
+        
+          (
+          
+            
+              d
+              n
+            
+          
+          )
+        
+        =
+        1
+      
+    
+    {\displaystyle \left({\frac {d}{n}}\right)=1}
+   (where 
+  
+    
+      
+        
+          (
+          
+            
+              d
+              n
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \left({\frac {d}{n}}\right)}
+   denotes the legendre symbol).  this is a necessary condition, and we achieve sufficiency if the class number h(d) of the order in 
+  
+    
+      
+        
+          q
+        
+        (
+        
+          
+            d
+          
+        
+        )
+      
+    
+    {\displaystyle \mathbb {q} ({\sqrt {d}})}
+   is 1.  this happens for only 13 values of d, which are the elements of {−3, −4, −7, −8, −11, −12, −16, −19, −27, −28, −43, −67, −163}
+
+
+== the test ==
+pick discriminants d in sequence of increasing h(d).  for each d check if 
+  
+    
+      
+        
+          (
+          
+            
+              d
+              n
+            
+          
+          )
+        
+        =
+        1
+      
+    
+    {\displaystyle \left({\frac {d}{n}}\right)=1}
+   and whether 4n can be written as:
+
+  
+    
+      
+        
+          a
+          
+            2
+          
+        
+        +
+        
+          |
+        
+        d
+        
+          |
+        
+        
+          b
+          
+            2
+          
+        
+        =
+        4
+        n
+        
+      
+    
+    {\displaystyle a^{2}+|d|b^{2}=4n\,}
+  this part can be verified using cornacchia's algorithm.  once acceptable d and a have been discovered, calculate 
+  
+    
+      
+        m
+        =
+        n
+        +
+        1
+        −
+        a
+      
+    
+    {\displaystyle m=n+1-a}
+  .  now if m has a prime factor q of size
+
+  
+    
+      
+        q
+        >
+        (
+        
+          n
+          
+            1
+            
+              /
+            
+            4
+          
+        
+        +
+        1
+        
+          )
+          
+            2
+          
+        
+      
+    
+    {\displaystyle q>(n^{1/4}+1)^{2}}
+  use the complex multiplication method to construct the curve e and a point p on it.
+then we can use our proposition to verify the primality of n.  note that if m does not have a large prime factor or cannot be factored quickly enough, another choice of d can be made.
+
+
+== complex multiplication method ==
+for completeness, we will provide an overview of complex multiplication, the way in which an elliptic curve can be created, given our d (which can be written as a product of two elements).
+assume first that 
+  
+    
+      
+        d
+        ≠
+        −
+        3
+      
+    
+    {\displaystyle d\neq -3}
+   and 
+  
+    
+      
+        d
+        ≠
+        −
+        4
+      
+    
+    {\displaystyle d\neq -4}
+   (these cases are much more easily done).  it is necessary to calculate the elliptic j-invariants of the h(d) classes of the order of discriminant d as complex numbers.  there are several formulas to calculate these.
+next create the monic polynomial 
+  
+    
+      
+        
+          h
+          
+            d
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle h_{d}(x)}
+  , which has roots corresponding to the h(d) values.  note, that 
+  
+    
+      
+        
+          h
+          
+            d
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle h_{d}(x)}
+   is the class polynomial.  from complex multiplication theory, we know that 
+  
+    
+      
+        
+          h
+          
+            d
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle h_{d}(x)}
+   has integer coefficients, which allows us to estimate these coefficients accurately enough to discover their true values.
+now, if n is prime, cm tells us that 
+  
+    
+      
+        
+          h
+          
+            d
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle h_{d}(x)}
+   splits modulo n into a product of h(d) linear factors, based on the fact that d was chosen so that n splits as the product of two elements.  now if j is one of the h(d) roots modulo n we can define e as:
+
+  
+    
+      
+        
+          y
+          
+            2
+          
+        
+        =
+        
+          x
+          
+            3
+          
+        
+        −
+        3
+        k
+        
+          c
+          
+            2
+            r
+          
+        
+        x
+        +
+        2
+        k
+        
+          c
+          
+            3
+            r
+          
+        
+        ,
+        
+           where 
+        
+        k
+        =
+        
+          
+            j
+            
+              j
+              −
+              1728
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle y^{2}=x^{3}-3kc^{2r}x+2kc^{3r},{\text{ where }}k={\frac {j}{j-1728}},}
+  c is any quadratic nonresidue mod n, and r is either 0 or 1.
+given a root j there are only two possible nonisomorphic choices of e, one for each choice of r.  we have the cardinality of these curves as
+
+  
+    
+      
+        
+          |
+        
+        e
+        (
+        
+          z
+        
+        
+          /
+        
+        n
+        
+          z
+        
+        )
+        
+          |
+        
+        =
+        n
+        +
+        1
+        −
+        a
+      
+    
+    {\displaystyle |e(\mathbb {z} /n\mathbb {z} )|=n+1-a}
+   or 
+  
+    
+      
+        
+          |
+        
+        e
+        (
+        
+          z
+        
+        
+          /
+        
+        n
+        
+          z
+        
+        )
+        
+          |
+        
+        =
+        n
+        +
+        1
+        +
+        a
+      
+    
+    {\displaystyle |e(\mathbb {z} /n\mathbb {z} )|=n+1+a}
+  
+
+
+=== discussion ===
+just as with the goldwasser–killian test, this one leads to a down-run procedure.  again, the culprit is q.  once we find a q that works, we must check it to be prime, so in fact we are doing the whole test now for q.  then again we may have to perform the test for factors of q.  this leads to a nested certificate where at each level we have an elliptic curve e, an m and the prime in doubt, q.
+
+
+== example of atkin–morain ecpp ==
+we construct an example to prove that 
+  
+    
+      
+        n
+        =
+        167
+      
+    
+    {\displaystyle n=167}
+   is prime using the atkin–morain ecpp test.  first proceed through the set of 13 possible discriminants, testing whether the legendre symbol 
+  
+    
+      
+        (
+        d
+        
+          /
+        
+        n
+        )
+        =
+        1
+      
+    
+    {\displaystyle (d/n)=1}
+  , and if 4n can be written as 
+  
+    
+      
+        4
+        n
+        =
+        
+          a
+          
+            2
+          
+        
+        +
+        
+          |
+        
+        d
+        
+          |
+        
+        
+          b
+          
+            2
+          
+        
+      
+    
+    {\displaystyle 4n=a^{2}+|d|b^{2}}
+  .
+for our example 
+  
+    
+      
+        d
+        =
+        −
+        43
+      
+    
+    {\displaystyle d=-43}
+   is chosen. this is because 
+  
+    
+      
+        (
+        d
+        
+          /
+        
+        n
+        )
+        =
+        (
+        −
+        43
+        
+          /
+        
+        167
+        )
+        =
+        1
+      
+    
+    {\displaystyle (d/n)=(-43/167)=1}
+   and also, using cornacchia's algorithm, we know that 
+  
+    
+      
+        4
+        ⋅
+        (
+        167
+        )
+        =
+        
+          25
+          
+            2
+          
+        
+        +
+        (
+        43
+        )
+        (
+        
+          1
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle 4\cdot (167)=25^{2}+(43)(1^{2})}
+   and thus a = 25 and b = 1.
+the next step is to calculate m. this is easily done as 
+  
+    
+      
+        m
+        =
+        n
+        +
+        1
+        −
+        a
+      
+    
+    {\displaystyle m=n+1-a}
+   which yields 
+  
+    
+      
+        m
+        =
+        167
+        +
+        1
+        −
+        25
+        =
+        143.
+      
+    
+    {\displaystyle m=167+1-25=143.}
+   next we need to find a probable prime divisor of m, which was referred to as q. it must satisfy the condition that 
+  
+    
+      
+        q
+        >
+        (
+        
+          n
+          
+            1
+            
+              /
+            
+            4
+          
+        
+        +
+        1
+        
+          )
+          
+            2
+          
+        
+        .
+      
+    
+    {\displaystyle q>(n^{1/4}+1)^{2}.}
+  
+in this case, m = 143 = 11×13. so unfortunately we cannot choose 11 or 13 as our q, for it does not satisfy the necessary inequality. we are saved, however, by an analogous proposition to that which we stated before the goldwasser–kilian algorithm, which comes from a paper by morain. it states, that given our m, we look for an s which divides m, 
+  
+    
+      
+        s
+        >
+        (
+        
+          n
+          
+            1
+            
+              /
+            
+            4
+          
+        
+        +
+        1
+        
+          )
+          
+            2
+          
+        
+      
+    
+    {\displaystyle s>(n^{1/4}+1)^{2}}
+  , but is not necessarily prime, and check whether, for each 
+  
+    
+      
+        
+          p
+          
+            i
+          
+        
+      
+    
+    {\displaystyle p_{i}}
+   which divides s
+
+  
+    
+      
+        (
+        m
+        
+          /
+        
+        
+          p
+          
+            i
+          
+        
+        )
+        p
+        ≠
+        
+          p
+          
+            ∞
+          
+        
+      
+    
+    {\displaystyle (m/p_{i})p\neq p_{\infty }}
+  for some point p on our yet to be constructed curve.
+if s satisfies the inequality, and its prime factors satisfy the above, then n is prime.
+so in our case, we choose s = m = 143. thus our possible 
+  
+    
+      
+        
+          p
+          
+            i
+          
+        
+      
+    
+    {\displaystyle p_{i}}
+  's are 11 and 13. first, it is clear that 
+  
+    
+      
+        143
+        >
+        (
+        
+          167
+          
+            1
+            
+              /
+            
+            4
+          
+        
+        +
+        1
+        
+          )
+          
+            2
+          
+        
+      
+    
+    {\displaystyle 143>(167^{1/4}+1)^{2}}
+  , and so we need only check the values of
+
+  
+    
+      
+        (
+        143
+        
+          /
+        
+        11
+        )
+        p
+        =
+        13
+        p
+        
+        
+           and 
+        
+        
+        (
+        143
+        
+          /
+        
+        13
+        )
+        p
+        =
+        11
+        p
+        .
+      
+    
+    {\displaystyle (143/11)p=13p\qquad {\text{ and }}\qquad (143/13)p=11p.}
+  but before we can do this, we must construct our curve, and choose a point p. in order to construct the curve, we make use of complex multiplication. in our case we compute the j-invariant
+
+  
+    
+      
+        j
+        ≡
+        −
+        
+          960
+          
+            3
+          
+        
+        
+          
+          (
+          mod
+          
+          167
+          )
+        
+        ≡
+        107
+        
+          
+          (
+          mod
+          
+          167
+          )
+        
+        .
+      
+    
+    {\displaystyle j\equiv -960^{3}{\pmod {167}}\equiv 107{\pmod {167}}.}
+  next we compute
+
+  
+    
+      
+        k
+        =
+        
+          
+            j
+            
+              1728
+              −
+              j
+            
+          
+        
+        
+          
+          (
+          mod
+          
+          167
+          )
+        
+        ≡
+        158
+        
+          
+          (
+          mod
+          
+          167
+          )
+        
+      
+    
+    {\displaystyle k={\frac {j}{1728-j}}{\pmod {167}}\equiv 158{\pmod {167}}}
+  and we know our elliptic curve is of the form:
+
+  
+    
+      
+        
+          y
+          
+            2
+          
+        
+        =
+        
+          x
+          
+            3
+          
+        
+        +
+        3
+        k
+        
+          c
+          
+            2
+          
+        
+        x
+        +
+        2
+        k
+        
+          c
+          
+            3
+          
+        
+      
+    
+    {\displaystyle y^{2}=x^{3}+3kc^{2}x+2kc^{3}}
+  ,where k is as described previously and c a non-square in 
+  
+    
+      
+        
+          
+            f
+          
+          
+            167
+          
+        
+      
+    
+    {\displaystyle \mathbb {f} _{167}}
+  . so we can begin with
+
+  
+    
+      
+        
+          
+            
+              
+                r
+              
+              
+                
+                =
+                0
+              
+            
+            
+              
+                3
+                k
+              
+              
+                
+                ≡
+                140
+                
+                  
+                  (
+                  mod
+                  
+                  167
+                  )
+                
+              
+            
+            
+              
+                2
+                k
+              
+              
+                
+                ≡
+                149
+                
+                  
+                  (
+                  mod
+                  
+                  167
+                  )
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}r&=0\\3k&\equiv 140{\pmod {167}}\\2k&\equiv 149{\pmod {167}}\end{aligned}}}
+  which yields
+
+  
+    
+      
+        e
+        :
+        
+          y
+          
+            2
+          
+        
+        =
+        
+          x
+          
+            3
+          
+        
+        +
+        140
+        x
+        +
+        149
+        
+          
+          (
+          mod
+          
+          167
+          )
+        
+      
+    
+    {\displaystyle e:y^{2}=x^{3}+140x+149{\pmod {167}}}
+  now, utilizing the point p = (6,6) on e it can be verified that 
+  
+    
+      
+        143
+        p
+        =
+        
+          p
+          
+            ∞
+          
+        
+        .
+      
+    
+    {\displaystyle 143p=p_{\infty }.}
+  
+it is simple to check that 13(6, 6) = (12, 65) and 11p = (140, 147), and so, by morain's proposition, n is prime.
+
+
+== complexity and running times ==
+goldwasser and kilian's elliptic curve primality proving algorithm terminates in expected polynomial time for at least
+
+  
+    
+      
+        1
+        −
+        o
+        
+          (
+          
+            2
+            
+              −
+              n
+              
+                
+                  1
+                  
+                    log
+                    ⁡
+                    log
+                    ⁡
+                    n
+                  
+                
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle 1-o\left(2^{-n{\frac {1}{\log \log n}}}\right)}
+  of prime inputs.
+
+
+=== conjecture ===
+let 
+  
+    
+      
+        π
+        (
+        x
+        )
+      
+    
+    {\displaystyle \pi (x)}
+   be the number of primes smaller than x
+
+  
+    
+      
+        ∃
+        
+          c
+          
+            1
+          
+        
+        ,
+        
+          c
+          
+            2
+          
+        
+        >
+        0
+        :
+        π
+        (
+        x
+        +
+        
+          
+            x
+          
+        
+        )
+        −
+        π
+        (
+        x
+        )
+        ≥
+        
+          
+            
+              
+                c
+                
+                  2
+                
+              
+              
+                
+                  x
+                
+              
+            
+            
+              
+                log
+                
+                  
+                    c
+                    
+                      1
+                    
+                  
+                
+              
+              ⁡
+              x
+            
+          
+        
+      
+    
+    {\displaystyle \exists c_{1},c_{2}>0:\pi (x+{\sqrt {x}})-\pi (x)\geq {\frac {c_{2}{\sqrt {x}}}{\log ^{c_{1}}x}}}
+  for sufficiently large x.
+if one accepts this conjecture then the goldwasser–kilian algorithm terminates in expected polynomial time for every input.  also, if our n is of length k, then the algorithm creates a certificate of size 
+  
+    
+      
+        o
+        (
+        
+          k
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle o(k^{2})}
+   that can be verified in 
+  
+    
+      
+        o
+        (
+        
+          k
+          
+            4
+          
+        
+        )
+      
+    
+    {\displaystyle o(k^{4})}
+  .now consider another conjecture, which will give us a bound on the total time of the algorithm.
+
+
+=== conjecture 2 ===
+suppose there exist positive constants 
+  
+    
+      
+        
+          c
+          
+            1
+          
+        
+      
+    
+    {\displaystyle c_{1}}
+   and 
+  
+    
+      
+        
+          c
+          
+            2
+          
+        
+      
+    
+    {\displaystyle c_{2}}
+   such that the amount of primes in the interval
+
+  
+    
+      
+        [
+        x
+        ,
+        x
+        +
+        
+          
+            2
+            x
+          
+        
+        ]
+        ,
+        x
+        ≥
+        2
+      
+    
+    {\displaystyle [x,x+{\sqrt {2x}}],x\geq 2}
+     is larger than   
+  
+    
+      
+        
+          c
+          
+            1
+          
+        
+        
+          
+            x
+          
+        
+        (
+        log
+        ⁡
+        x
+        
+          )
+          
+            −
+            
+              c
+              
+                2
+              
+            
+          
+        
+      
+    
+    {\displaystyle c_{1}{\sqrt {x}}(\log x)^{-c_{2}}}
+  then the goldwasser kilian algorithm proves the primality of n in an expected time of
+
+  
+    
+      
+        o
+        (
+        
+          log
+          
+            10
+            +
+            
+              c
+              
+                2
+              
+            
+          
+        
+        ⁡
+        n
+        )
+      
+    
+    {\displaystyle o(\log ^{10+c_{2}}n)}
+  for the atkin–morain algorithm, the running time stated is
+
+  
+    
+      
+        o
+        (
+        (
+        log
+        ⁡
+        n
+        
+          )
+          
+            6
+            +
+            ϵ
+          
+        
+        )
+      
+    
+    {\displaystyle o((\log n)^{6+\epsilon })}
+   for some 
+  
+    
+      
+        ϵ
+        >
+        0
+      
+    
+    {\displaystyle \epsilon >0}
+  
+
+
+== primes of special form ==
+for some forms of numbers, it is possible to find 'short-cuts' to a primality proof. this is the case for the mersenne numbers. in fact, due to their special structure, which allows for easier verification of primality, the six largest known prime numbers are all mersenne number. there has been a method in use for some time to verify primality of mersenne numbers, known as the lucas–lehmer test. this test does not rely on elliptic curves. however we present a result where numbers of the form 
+  
+    
+      
+        n
+        =
+        
+          2
+          
+            k
+          
+        
+        n
+        −
+        1
+      
+    
+    {\displaystyle n=2^{k}n-1}
+   where 
+  
+    
+      
+        k
+        ,
+        n
+        ∈
+        
+          z
+        
+        ,
+        k
+        ≥
+        2
+      
+    
+    {\displaystyle k,n\in \mathbb {z} ,k\geq 2}
+  , n odd can be proven prime (or composite) using elliptic curves. of course this will also provide a method for proving primality of mersenne numbers, which correspond to the case where n = 1. there is a method in place for testing this form of number without elliptic curves (with a limitation on the size of k) known as the lucas–lehmer–riesel test. the following method is drawn from the paper primality test for 
+  
+    
+      
+        
+          2
+          
+            k
+          
+        
+        n
+        −
+        1
+      
+    
+    {\displaystyle 2^{k}n-1}
+   using elliptic curves, by yu tsumura.
+
+
+=== group structure of e(fn) ===
+we take e as our elliptic curve, where e is of the form 
+  
+    
+      
+        
+          y
+          
+            2
+          
+        
+        =
+        
+          x
+          
+            3
+          
+        
+        −
+        m
+        x
+      
+    
+    {\displaystyle y^{2}=x^{3}-mx}
+   for 
+  
+    
+      
+        m
+        ∈
+        
+          z
+        
+        ,
+        m
+        ≢
+        0
+        
+          mod
+          
+            p
+          
+        
+        ,
+      
+    
+    {\displaystyle m\in \mathbb {z} ,m\not \equiv 0{\bmod {p}},}
+   where 
+  
+    
+      
+        p
+        ≡
+        3
+        
+          mod
+          
+            4
+          
+        
+      
+    
+    {\displaystyle p\equiv 3{\bmod {4}}}
+   is prime, and 
+  
+    
+      
+        p
+        +
+        1
+        =
+        
+          2
+          
+            k
+          
+        
+        n
+        ,
+      
+    
+    {\displaystyle p+1=2^{k}n,}
+   with 
+  
+    
+      
+        k
+        ∈
+        
+          z
+        
+        ,
+        k
+        ≥
+        2
+        ,
+        n
+      
+    
+    {\displaystyle k\in \mathbb {z} ,k\geq 2,n}
+   odd.
+
+theorem 1. 
+  
+    
+      
+        e
+        (
+        
+          
+            f
+          
+          
+            p
+          
+        
+        )
+        =
+        p
+        +
+        1.
+      
+    
+    {\displaystyle e(\mathbb {f} _{p})=p+1.}
+  theorem 2. 
+  
+    
+      
+        e
+        (
+        
+          
+            f
+          
+          
+            p
+          
+        
+        )
+        ≅
+        
+          
+            z
+          
+          
+            
+              2
+              
+                k
+              
+            
+            n
+          
+        
+      
+    
+    {\displaystyle e(\mathbb {f} _{p})\cong \mathbb {z} _{2^{k}n}}
+   or 
+  
+    
+      
+        e
+        (
+        
+          
+            f
+          
+          
+            p
+          
+        
+        )
+        ≅
+        
+          
+            z
+          
+          
+            2
+          
+        
+        ⊕
+        
+          
+            z
+          
+          
+            
+              2
+              
+                k
+                −
+                1
+              
+            
+            n
+          
+        
+      
+    
+    {\displaystyle e(\mathbb {f} _{p})\cong \mathbb {z} _{2}\oplus \mathbb {z} _{2^{k-1}n}}
+   depending on whether or not m is a quadratic residue modulo p.theorem 3. let q = (x,y) on e be such that x a quadratic non-residue modulo p. then the order of q is divisible by 
+  
+    
+      
+        
+          2
+          
+            k
+          
+        
+      
+    
+    {\displaystyle 2^{k}}
+   in the cyclic group 
+  
+    
+      
+        e
+        (
+        
+          
+            f
+          
+          
+            p
+          
+        
+        )
+        ≅
+        
+          
+            z
+          
+          
+            
+              2
+              
+                k
+              
+            
+            n
+          
+        
+        .
+      
+    
+    {\displaystyle e(\mathbb {f} _{p})\cong \mathbb {z} _{2^{k}n}.}
+  first we will present the case where n is relatively small with respect to 
+  
+    
+      
+        
+          2
+          
+            k
+          
+        
+      
+    
+    {\displaystyle 2^{k}}
+  , and this will require one more theorem:
+
+theorem 4. choose a 
+  
+    
+      
+        λ
+        >
+        1
+      
+    
+    {\displaystyle \lambda >1}
+   and suppose
+
+  
+    
+      
+        n
+        ≤
+        
+          
+            
+              p
+            
+            λ
+          
+        
+        
+        
+          and
+        
+        
+        λ
+        
+          
+            p
+          
+        
+        >
+        
+          
+            (
+            
+              
+                
+                  p
+                  
+                    4
+                  
+                
+              
+              +
+              1
+            
+            )
+          
+          
+            2
+          
+        
+        .
+      
+    
+    {\displaystyle n\leq {\frac {\sqrt {p}}{\lambda }}\qquad {\text{and}}\qquad \lambda {\sqrt {p}}>\left({\sqrt[{4}]{p}}+1\right)^{2}.}
+  
+then p is a prime if and only if there exists a q = (x,y) on e, such that 
+  
+    
+      
+        gcd
+        
+          (
+          
+            s
+            
+              i
+            
+          
+          ,
+          p
+          )
+        
+        =
+        1
+      
+    
+    {\displaystyle \gcd {(s_{i},p)}=1}
+   for i = 1, 2, ...,k − 1 and 
+  
+    
+      
+        
+          s
+          
+            k
+          
+        
+        ≡
+        0
+        
+          
+          (
+          mod
+          
+          p
+          )
+        
+        ,
+      
+    
+    {\displaystyle s_{k}\equiv 0{\pmod {p}},}
+   where 
+  
+    
+      
+        
+          s
+          
+            i
+          
+        
+      
+    
+    {\displaystyle s_{i}}
+   is a sequence with initial value 
+  
+    
+      
+        
+          s
+          
+            0
+          
+        
+        =
+        x
+      
+    
+    {\displaystyle s_{0}=x}
+  .
+
+
+== the algorithm ==
+we provide the following algorithm, which relies mainly on theorems 3 and 4.  to verify the primality of a given number 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  , perform the following steps:
+(1) choose 
+  
+    
+      
+        x
+        ∈
+        
+          z
+        
+      
+    
+    {\displaystyle x\in \mathbb {z} }
+   such that 
+  
+    
+      
+        
+          (
+          
+            
+              x
+              n
+            
+          
+          )
+        
+        =
+        −
+        1
+      
+    
+    {\displaystyle \left({\frac {x}{n}}\right)=-1}
+  ,  and find 
+  
+    
+      
+        y
+        ∈
+        
+          z
+        
+        ,
+        y
+        ≢
+        0
+        
+          
+          (
+          mod
+          
+          2
+          )
+        
+      
+    
+    {\displaystyle y\in \mathbb {z} ,y\not \equiv 0{\pmod {2}}}
+   such that 
+  
+    
+      
+        
+          (
+          
+            
+              
+                
+                  x
+                  
+                    3
+                  
+                
+                −
+                
+                  y
+                  
+                    2
+                  
+                
+              
+              n
+            
+          
+          )
+        
+        =
+        1
+      
+    
+    {\displaystyle \left({\frac {x^{3}-y^{2}}{n}}\right)=1}
+  .
+take  
+  
+    
+      
+        m
+        =
+        
+          
+            
+              
+                x
+                
+                  3
+                
+              
+              −
+              
+                y
+                
+                  2
+                
+              
+            
+            x
+          
+        
+        
+        mod
+        
+        
+        n
+      
+    
+    {\displaystyle m={\frac {x^{3}-y^{2}}{x}}\mod n}
+   and 
+  
+    
+      
+        m
+        ≢
+        0
+        
+          
+          (
+          mod
+          
+          n
+          )
+        
+      
+    
+    {\displaystyle m\not \equiv 0{\pmod {n}}}
+  .
+then 
+  
+    
+      
+        
+          q
+          ′
+        
+        =
+        (
+        x
+        ,
+        y
+        )
+      
+    
+    {\displaystyle q'=(x,y)}
+   is on 
+  
+    
+      
+        e
+        :
+        
+          y
+          
+            2
+          
+        
+        =
+        
+          x
+          
+            3
+          
+        
+        −
+        m
+        x
+      
+    
+    {\displaystyle e:y^{2}=x^{3}-mx}
+  .
+calculate 
+  
+    
+      
+        q
+        =
+        n
+        
+          q
+          ′
+        
+      
+    
+    {\displaystyle q=nq'}
+  .  if 
+  
+    
+      
+        q
+        ∈
+        e
+      
+    
+    {\displaystyle q\in e}
+   then 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   is composite, otherwise proceed to (2).
+(2)  set 
+  
+    
+      
+        
+          s
+          
+            i
+          
+        
+      
+    
+    {\displaystyle s_{i}}
+   as the sequence with initial value 
+  
+    
+      
+        q
+      
+    
+    {\displaystyle q}
+  .  calculate 
+  
+    
+      
+        
+          s
+          
+            i
+          
+        
+      
+    
+    {\displaystyle s_{i}}
+   for 
+  
+    
+      
+        i
+        =
+      
+    
+    {\displaystyle i=}
+  
+  
+    
+      
+        1
+        ,
+        2
+        ,
+        3
+        ,
+        .
+        .
+        .
+        ,
+        k
+        −
+        1
+      
+    
+    {\displaystyle 1,2,3,...,k-1}
+  .
+if 
+  
+    
+      
+        gcd
+        (
+        
+          
+            s
+            
+              i
+            
+          
+          ,
+          n
+        
+        )
+        >
+        1
+      
+    
+    {\displaystyle \gcd({s_{i},n})>1}
+    for an 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  , where    
+  
+    
+      
+        1
+        ≤
+        i
+        ≤
+        k
+        −
+        1
+      
+    
+    {\displaystyle 1\leq i\leq k-1}
+   then 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   is composite. otherwise, proceed to (3).
+(3) if 
+  
+    
+      
+        
+          s
+          
+            k
+          
+        
+        ≡
+        0
+        
+          
+          (
+          mod
+          
+          n
+          )
+        
+      
+    
+    {\displaystyle s_{k}\equiv 0{\pmod {n}}}
+     then 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   is prime.  otherwise, 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   is composite.  this completes the test.
+
+
+== justification of the algorithm ==
+in (1), an elliptic curve, e is picked, along with a point q on e, such that the x-coordinate of q is a quadratic nonresidue.  we can say
+
+  
+    
+      
+        
+          (
+          
+            
+              m
+              n
+            
+          
+          )
+        
+        =
+        
+          (
+          
+            
+              
+                
+                  
+                    x
+                    
+                      3
+                    
+                  
+                  −
+                  
+                    y
+                    
+                      2
+                    
+                  
+                
+                x
+              
+              n
+            
+          
+          )
+        
+        =
+        
+          (
+          
+            
+              x
+              n
+            
+          
+          )
+        
+        
+          (
+          
+            
+              
+                
+                  x
+                  
+                    3
+                  
+                
+                −
+                
+                  y
+                  
+                    2
+                  
+                
+              
+              n
+            
+          
+          )
+        
+        =
+        −
+        1
+        ⋅
+        1
+        =
+        −
+        1.
+      
+    
+    {\displaystyle \left({\frac {m}{n}}\right)=\left({\frac {\frac {x^{3}-y^{2}}{x}}{n}}\right)=\left({\frac {x}{n}}\right)\left({\frac {x^{3}-y^{2}}{n}}\right)=-1\cdot 1=-1.}
+  thus, if n is prime, q' has order divisible by 
+  
+    
+      
+        
+          2
+          
+            k
+          
+        
+      
+    
+    {\displaystyle 2^{k}}
+  , by theorem 3,
+and therefore the order of q' is 
+  
+    
+      
+        
+          2
+          
+            k
+          
+        
+        d
+      
+    
+    {\displaystyle 2^{k}d}
+     d | n.
+this means q = nq' has order 
+  
+    
+      
+        
+          2
+          
+            k
+          
+        
+      
+    
+    {\displaystyle 2^{k}}
+  .  therefore, if (1) concludes that n is composite, it truly is composite.  (2) and (3) check if q has order 
+  
+    
+      
+        
+          2
+          
+            k
+          
+        
+      
+    
+    {\displaystyle 2^{k}}
+  .  thus, if (2) or (3) conclude n is composite, it is composite.
+now, if the algorithm concludes that n is prime, then that means 
+  
+    
+      
+        
+          s
+          
+            1
+          
+        
+      
+    
+    {\displaystyle s_{1}}
+   satisfies the condition of theorem 4, and so n is truly prime.
+there is an algorithm as well for when n is large; however, for this we refer to the aforementioned article.
+
+
+== references ==
+
+
+== external links ==
+elliptic curves and primality proving by atkin and morain.
+weisstein, eric w. "elliptic curve primality proving". mathworld.
+chris caldwell, "primality proving 4.2: elliptic curves and the ecpp test" at the prime pages.
+françois morain, "the ecpp home page" (includes old ecpp software for some architectures).
+marcel martin, "primo" (binary for linux 64-bit)
+pari/gp, a computer algebra system with functions to create atkin-morain and primo primality certificates
+gmp-ecpp, a free ecpp implementation
+lidia, a free c++ library for linux with ecpp support

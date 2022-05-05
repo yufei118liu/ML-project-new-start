@@ -1,0 +1,1633 @@
+in fourier analysis, a multiplier operator is a type of linear operator, or transformation of functions. these operators act on a function by altering its fourier transform. specifically they multiply the fourier transform of a function by a specified function known as the multiplier or symbol. occasionally, the term multiplier operator itself is shortened simply to multiplier. in simple terms, the multiplier reshapes the frequencies involved in any function. this class of operators turns out to be broad: general theory shows that a translation-invariant operator on a group which obeys some (very mild) regularity conditions can be expressed as a multiplier operator, and conversely. many familiar operators, such as translations and differentiation, are multiplier operators, although there are many more complicated examples such as the hilbert transform.
+in signal processing, a multiplier operator is called a "filter", and the multiplier is the filter's frequency response (or transfer function).
+in the wider context, multiplier operators are special cases of spectral multiplier operators, which arise from the functional calculus of an operator (or family of commuting operators). they are also special cases of pseudo-differential operators, and more generally fourier integral operators. there are natural questions in this field that are still open, such as characterizing the lp bounded multiplier operators (see below).
+multiplier operators are unrelated to lagrange multipliers, except that they both involve the multiplication operation.
+for the necessary background on the fourier transform, see that page. additional important background may be found on the pages operator norm and lp space.
+
+
+== examples ==
+in the setting of periodic functions defined on the unit circle, the fourier transform of a function is simply the sequence of its fourier coefficients. to see that differentiation can be realized as multiplier, consider the fourier series for the derivative of a periodic function 
+  
+    
+      
+        f
+        (
+        t
+        )
+        .
+      
+    
+    {\displaystyle f(t).}
+   after using integration by parts in the definition of the fourier coefficient we have that
+
+  
+    
+      
+        
+          
+            f
+          
+        
+        (
+        
+          f
+          ′
+        
+        )
+        (
+        n
+        )
+        =
+        
+          ∫
+          
+            −
+            π
+          
+          
+            π
+          
+        
+        
+          f
+          ′
+        
+        (
+        t
+        )
+        
+          e
+          
+            −
+            i
+            n
+            t
+          
+        
+        
+        d
+        t
+        =
+        
+          ∫
+          
+            −
+            π
+          
+          
+            π
+          
+        
+        (
+        i
+        n
+        )
+        f
+        (
+        t
+        )
+        
+          e
+          
+            −
+            i
+            n
+            t
+          
+        
+        
+        d
+        t
+        =
+        i
+        n
+        ⋅
+        
+          
+            f
+          
+        
+        (
+        f
+        )
+        (
+        n
+        )
+      
+    
+    {\displaystyle {\mathcal {f}}(f')(n)=\int _{-\pi }^{\pi }f'(t)e^{-int}\,dt=\int _{-\pi }^{\pi }(in)f(t)e^{-int}\,dt=in\cdot {\mathcal {f}}(f)(n)}
+  .so, formally, it follows that the fourier series for the derivative is simply the fourier series for 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   multiplied by a factor 
+  
+    
+      
+        i
+        n
+      
+    
+    {\displaystyle in}
+  . this is the same as saying that differentiation is a multiplier operator with multiplier 
+  
+    
+      
+        i
+        n
+      
+    
+    {\displaystyle in}
+  .
+an example of a multiplier operator acting on functions on the real line is the hilbert transform. it can be shown that the hilbert transform is a multiplier operator whose multiplier is given by the 
+  
+    
+      
+        m
+        (
+        ξ
+        )
+        =
+        −
+        i
+        sgn
+        ⁡
+        (
+        ξ
+        )
+      
+    
+    {\displaystyle m(\xi )=-i\operatorname {sgn} (\xi )}
+  , where sgn is the signum function.
+finally another important example of a multiplier is the characteristic function of the unit cube in 
+  
+    
+      
+        
+          
+            r
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \mathbb {r} ^{n}}
+   which arises in the study of "partial sums" for the fourier transform (see convergence of fourier series).
+
+
+== definition ==
+multiplier operators can be defined on any group g for which the fourier transform is also defined (in particular, on any locally compact abelian group). the general definition is as follows. if 
+  
+    
+      
+        f
+        :
+        g
+        →
+        
+          c
+        
+      
+    
+    {\displaystyle f:g\to \mathbb {c} }
+   is a sufficiently regular function, let 
+  
+    
+      
+        
+          
+            
+              f
+              ^
+            
+          
+        
+        :
+        
+          
+            
+              g
+              ^
+            
+          
+        
+        →
+        
+          c
+        
+      
+    
+    {\displaystyle {\hat {f}}:{\hat {g}}\to \mathbb {c} }
+   denote its fourier transform (where 
+  
+    
+      
+        
+          
+            
+              g
+              ^
+            
+          
+        
+      
+    
+    {\displaystyle {\hat {g}}}
+   is the pontryagin dual of g). let 
+  
+    
+      
+        m
+        :
+        
+          
+            
+              g
+              ^
+            
+          
+        
+        →
+        
+          c
+        
+      
+    
+    {\displaystyle m:{\hat {g}}\to \mathbb {c} }
+   denote another function, which we shall call the multiplier. then the multiplier operator 
+  
+    
+      
+        t
+        =
+        
+          t
+          
+            m
+          
+        
+      
+    
+    {\displaystyle t=t_{m}}
+   associated to this symbol m is defined via the formula
+
+  
+    
+      
+        
+          
+            
+              
+                t
+                f
+              
+              ^
+            
+          
+        
+        (
+        ξ
+        )
+        :=
+        m
+        (
+        ξ
+        )
+        
+          
+            
+              f
+              ^
+            
+          
+        
+        (
+        ξ
+        )
+        .
+      
+    
+    {\displaystyle {\widehat {tf}}(\xi ):=m(\xi ){\hat {f}}(\xi ).}
+  in other words, the fourier transform of tf at a frequency ξ is given by the fourier transform of f at that frequency, multiplied by the value of the multiplier at that frequency. this explains the terminology "multiplier".
+note that the above definition only defines tf implicitly; in order to recover tf explicitly one needs to invert the fourier transform. this can be easily done if both f and m are sufficiently smooth and integrable. one of the major problems in the subject is to determine, for any specified multiplier m, whether the corresponding fourier multiplier operator continues to be well-defined when f has very low regularity, for instance if it is only assumed to lie in an lp space. see the discussion on the "boundedness problem" below. as a bare minimum, one usually requires the multiplier m to be bounded and measurable; this is sufficient to establish boundedness on 
+  
+    
+      
+        
+          l
+          
+            2
+          
+        
+      
+    
+    {\displaystyle l^{2}}
+   but is in general not strong enough to give boundedness on other spaces.
+one can view the multiplier operator t as the composition of three operators, namely the fourier transform, the operation of pointwise multiplication by m, and then the inverse fourier transform. equivalently, t is the conjugation of the pointwise multiplication operator by the fourier transform. thus one can think of multiplier operators as operators which are diagonalized by the fourier transform.
+
+
+== multiplier operators on common groups ==
+we now specialize the above general definition to specific groups g. first consider the unit circle 
+  
+    
+      
+        g
+        =
+        
+          r
+        
+        
+          /
+        
+        2
+        π
+        
+          z
+        
+        ;
+      
+    
+    {\displaystyle g=\mathbb {r} /2\pi \mathbb {z} ;}
+   functions on g can thus be thought of as 2π-periodic functions on the real line. in this group, the pontryagin dual is the group of integers, 
+  
+    
+      
+        
+          
+            
+              g
+              ^
+            
+          
+        
+        =
+        
+          z
+        
+        .
+      
+    
+    {\displaystyle {\hat {g}}=\mathbb {z} .}
+   the fourier transform (for sufficiently regular functions f) is given by
+
+  
+    
+      
+        
+          
+            
+              f
+              ^
+            
+          
+        
+        (
+        n
+        )
+        :=
+        
+          
+            1
+            
+              2
+              π
+            
+          
+        
+        
+          ∫
+          
+            0
+          
+          
+            2
+            π
+          
+        
+        f
+        (
+        t
+        )
+        
+          e
+          
+            −
+            i
+            n
+            t
+          
+        
+        d
+        t
+      
+    
+    {\displaystyle {\hat {f}}(n):={\frac {1}{2\pi }}\int _{0}^{2\pi }f(t)e^{-int}dt}
+  and the inverse fourier transform is given by
+
+  
+    
+      
+        f
+        (
+        t
+        )
+        =
+        
+          ∑
+          
+            n
+            =
+            −
+            ∞
+          
+          
+            ∞
+          
+        
+        
+          
+            
+              f
+              ^
+            
+          
+        
+        (
+        n
+        )
+        
+          e
+          
+            i
+            n
+            t
+          
+        
+        .
+      
+    
+    {\displaystyle f(t)=\sum _{n=-\infty }^{\infty }{\hat {f}}(n)e^{int}.}
+  a multiplier in this setting is simply a sequence 
+  
+    
+      
+        (
+        
+          m
+          
+            n
+          
+        
+        
+          )
+          
+            n
+            =
+            −
+            ∞
+          
+          
+            ∞
+          
+        
+      
+    
+    {\displaystyle (m_{n})_{n=-\infty }^{\infty }}
+   of numbers, and the operator 
+  
+    
+      
+        t
+        =
+        
+          t
+          
+            m
+          
+        
+      
+    
+    {\displaystyle t=t_{m}}
+   associated to this multiplier is then given by the formula
+
+  
+    
+      
+        (
+        t
+        f
+        )
+        (
+        t
+        )
+        :=
+        
+          ∑
+          
+            n
+            =
+            −
+            ∞
+          
+          
+            ∞
+          
+        
+        
+          m
+          
+            n
+          
+        
+        
+          
+            
+              f
+              ^
+            
+          
+        
+        (
+        n
+        )
+        
+          e
+          
+            i
+            n
+            t
+          
+        
+        ,
+      
+    
+    {\displaystyle (tf)(t):=\sum _{n=-\infty }^{\infty }m_{n}{\hat {f}}(n)e^{int},}
+  at least for sufficiently well-behaved choices of the multiplier 
+  
+    
+      
+        (
+        
+          m
+          
+            n
+          
+        
+        
+          )
+          
+            n
+            =
+            −
+            ∞
+          
+          
+            ∞
+          
+        
+      
+    
+    {\displaystyle (m_{n})_{n=-\infty }^{\infty }}
+   and the function f.
+now let g be a euclidean space 
+  
+    
+      
+        g
+        =
+        
+          
+            r
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle g=\mathbb {r} ^{n}}
+  . here the dual group is also euclidean, 
+  
+    
+      
+        
+          
+            
+              g
+              ^
+            
+          
+        
+        =
+        
+          
+            r
+          
+          
+            n
+          
+        
+        ,
+      
+    
+    {\displaystyle {\hat {g}}=\mathbb {r} ^{n},}
+   and the fourier and inverse fourier transforms are given by the formulae
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  
+                    
+                      f
+                      ^
+                    
+                  
+                
+                (
+                ξ
+                )
+                :=
+                
+
+                
+              
+              
+                
+                
+                  ∫
+                  
+                    
+                      
+                        r
+                      
+                      
+                        n
+                      
+                    
+                  
+                
+                f
+                (
+                x
+                )
+                
+                  e
+                  
+                    −
+                    2
+                    π
+                    i
+                    x
+                    ⋅
+                    ξ
+                  
+                
+                d
+                x
+              
+            
+            
+              
+                f
+                (
+                x
+                )
+                =
+                
+
+                
+              
+              
+                
+                
+                  ∫
+                  
+                    
+                      
+                        r
+                      
+                      
+                        n
+                      
+                    
+                  
+                
+                
+                  
+                    
+                      f
+                      ^
+                    
+                  
+                
+                (
+                ξ
+                )
+                
+                  e
+                  
+                    2
+                    π
+                    i
+                    x
+                    ⋅
+                    ξ
+                  
+                
+                d
+                ξ
+                .
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}{\hat {f}}(\xi ):={}&\int _{\mathbb {r} ^{n}}f(x)e^{-2\pi ix\cdot \xi }dx\\f(x)={}&\int _{\mathbb {r} ^{n}}{\hat {f}}(\xi )e^{2\pi ix\cdot \xi }d\xi .\end{aligned}}}
+  a multiplier in this setting is a function 
+  
+    
+      
+        m
+        :
+        
+          
+            r
+          
+          
+            n
+          
+        
+        →
+        
+          c
+        
+        ,
+      
+    
+    {\displaystyle m:\mathbb {r} ^{n}\to \mathbb {c} ,}
+   and the associated multiplier operator 
+  
+    
+      
+        t
+        =
+        
+          t
+          
+            m
+          
+        
+      
+    
+    {\displaystyle t=t_{m}}
+   is defined by
+
+  
+    
+      
+        t
+        f
+        (
+        x
+        )
+        :=
+        
+          ∫
+          
+            
+              
+                r
+              
+              
+                n
+              
+            
+          
+        
+        m
+        (
+        ξ
+        )
+        
+          
+            
+              f
+              ^
+            
+          
+        
+        (
+        ξ
+        )
+        
+          e
+          
+            2
+            π
+            i
+            x
+            ⋅
+            ξ
+          
+        
+        d
+        ξ
+        ,
+      
+    
+    {\displaystyle tf(x):=\int _{\mathbb {r} ^{n}}m(\xi ){\hat {f}}(\xi )e^{2\pi ix\cdot \xi }d\xi ,}
+  again assuming sufficiently strong regularity and boundedness assumptions on the multiplier and function.
+in the sense of distributions, there is no difference between multiplier operators and convolution operators; every multiplier t can also be expressed in the form tf = f∗k for some distribution k, known as the convolution kernel of t. in this view, translation by an amount x0 is convolution with a dirac delta function δ(· − x0), differentiation is convolution with δ'. further examples are given in the table below.
+
+
+== diagrams ==
+
+
+== further examples ==
+
+
+=== on the unit circle ===
+the following table shows some common examples of multiplier operators on the unit circle 
+  
+    
+      
+        g
+        =
+        
+          r
+        
+        
+          /
+        
+        2
+        π
+        
+          z
+        
+        .
+      
+    
+    {\displaystyle g=\mathbb {r} /2\pi \mathbb {z} .}
+  
+
+
+=== on the euclidean space ===
+the following table shows some common examples of multiplier operators on euclidean space 
+  
+    
+      
+        g
+        =
+        
+          
+            r
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle g=\mathbb {r} ^{n}}
+  .
+
+
+=== general considerations ===
+the map 
+  
+    
+      
+        m
+        ↦
+        
+          t
+          
+            m
+          
+        
+      
+    
+    {\displaystyle m\mapsto t_{m}}
+   is a homomorphism of c*-algebras. this follows because the sum of two multiplier operators 
+  
+    
+      
+        
+          t
+          
+            m
+          
+        
+      
+    
+    {\displaystyle t_{m}}
+   and 
+  
+    
+      
+        
+          t
+          
+            
+              m
+              ′
+            
+          
+        
+      
+    
+    {\displaystyle t_{m'}}
+   is a multiplier operators with multiplier 
+  
+    
+      
+        m
+        +
+        
+          m
+          ′
+        
+      
+    
+    {\displaystyle m+m'}
+  , the composition of these two multiplier operators is a multiplier operator with multiplier 
+  
+    
+      
+        m
+        
+          m
+          ′
+        
+        ,
+      
+    
+    {\displaystyle mm',}
+   and the adjoint of a multiplier operator 
+  
+    
+      
+        
+          t
+          
+            m
+          
+        
+      
+    
+    {\displaystyle t_{m}}
+   is another multiplier operator with multiplier 
+  
+    
+      
+        
+          
+            m
+            ¯
+          
+        
+      
+    
+    {\displaystyle {\overline {m}}}
+  .
+in particular, we see that any two multiplier operators commute with each other. it is known that multiplier operators are translation-invariant. conversely, one can show that any translation-invariant linear operator which is bounded on l2(g) is a multiplier operator.
+
+
+== the lp boundedness problem ==
+the lp boundedness problem (for any particular p) for a given group g is, stated simply, to identify the multipliers m such that the corresponding multiplier operator is bounded from lp(g) to lp(g). such multipliers are usually simply referred to as "lp multipliers". note that as multiplier operators are always linear, such operators are bounded if and only if they are continuous. this problem is considered to be extremely difficult in general, but many special cases can be treated. the problem depends greatly on p, although there is a duality relationship: if 
+  
+    
+      
+        1
+        
+          /
+        
+        p
+        +
+        1
+        
+          /
+        
+        q
+        =
+        1
+      
+    
+    {\displaystyle 1/p+1/q=1}
+   and 1 ≤ p, q ≤ ∞, then a multiplier operator is bounded on lp if and only if it is bounded on lq.
+the riesz-thorin theorem shows that if a multiplier operator is bounded on two different lp spaces, then it is also bounded on all intermediate spaces. hence we get that the space of multipliers is smallest for l1 and l∞ and grows as one approaches l2, which has the largest multiplier space.
+
+
+=== boundedness on l2 ===
+this is the easiest case. parseval's theorem allows to solve this problem completely and obtain that a function m is an l2(g) multiplier if and only if it is bounded and measurable.
+
+
+=== boundedness on l1 or l∞ ===
+this case is more complicated than the hilbertian (l2) case, but is fully resolved. the following is true:
+theorem: in the euclidean space 
+  
+    
+      
+        
+          
+            r
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \mathbb {r} ^{n}}
+   a function 
+  
+    
+      
+        m
+        (
+        ξ
+        )
+      
+    
+    {\displaystyle m(\xi )}
+   is an l1 multiplier (equivalently an l∞ multiplier) if and only if there exists a finite borel measure μ such that m is the fourier transform of μ.
+(the "if" part is a simple calculation. the "only if" part here is more complicated.)
+
+
+=== boundedness on lp for 1 < p < ∞ ===
+in this general case, necessary and sufficient conditions for boundedness have not been established, even for euclidean space or the unit circle. however, several necessary conditions and several sufficient conditions are known. for instance it is known that in order for a multiplier operator to be bounded on even a single lp space, the multiplier must be bounded and measurable (this follows from the characterisation of l2 multipliers above and the inclusion property). however, this is not sufficient except when p = 2.
+results that give sufficient conditions for boundedness are known as multiplier theorems. three such results are given below.
+
+
+==== marcinkiewicz multiplier theorem ====
+let 
+  
+    
+      
+        m
+        :
+        
+          r
+        
+        →
+        
+          r
+        
+      
+    
+    {\displaystyle m:\mathbb {r} \to \mathbb {r} }
+   be a bounded function that is continuously differentiable on every set of the form 
+  
+    
+      
+        
+          (
+          
+            −
+            
+              2
+              
+                j
+                +
+                1
+              
+            
+            ,
+            −
+            
+              2
+              
+                j
+              
+            
+          
+          )
+        
+        ∪
+        
+          (
+          
+            
+              2
+              
+                j
+              
+            
+            ,
+            
+              2
+              
+                j
+                +
+                1
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \left(-2^{j+1},-2^{j}\right)\cup \left(2^{j},2^{j+1}\right)}
+   for 
+  
+    
+      
+        j
+        ∈
+        
+          z
+        
+      
+    
+    {\displaystyle j\in \mathbb {z} }
+   and has derivative such that
+
+  
+    
+      
+        
+          sup
+          
+            j
+            ∈
+            
+              z
+            
+          
+        
+        
+          (
+          
+            
+              ∫
+              
+                −
+                
+                  2
+                  
+                    j
+                    +
+                    1
+                  
+                
+              
+              
+                −
+                
+                  2
+                  
+                    j
+                  
+                
+              
+            
+            
+              |
+              
+                
+                  m
+                  ′
+                
+                (
+                ξ
+                )
+              
+              |
+            
+            
+            d
+            ξ
+            +
+            
+              ∫
+              
+                
+                  2
+                  
+                    j
+                  
+                
+              
+              
+                
+                  2
+                  
+                    j
+                    +
+                    1
+                  
+                
+              
+            
+            
+              |
+              
+                
+                  m
+                  ′
+                
+                (
+                ξ
+                )
+              
+              |
+            
+            
+            d
+            ξ
+          
+          )
+        
+        <
+        ∞
+        .
+      
+    
+    {\displaystyle \sup _{j\in \mathbb {z} }\left(\int _{-2^{j+1}}^{-2^{j}}\left|m'(\xi )\right|\,d\xi +\int _{2^{j}}^{2^{j+1}}\left|m'(\xi )\right|\,d\xi \right)<\infty .}
+  then m is an lp multiplier for all 1 < p < ∞.
+
+
+==== mikhlin multiplier theorem ====
+let m be a bounded function on 
+  
+    
+      
+        
+          
+            r
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \mathbb {r} ^{n}}
+   which is smooth except possibly at the origin, and such that the function 
+  
+    
+      
+        
+          |
+        
+        x
+        
+          
+            |
+          
+          
+            k
+          
+        
+        
+          |
+          
+            
+              ∇
+              
+                k
+              
+            
+            m
+          
+          |
+        
+      
+    
+    {\textstyle |x|^{k}\left|\nabla ^{k}m\right|}
+   is bounded for all integers 
+  
+    
+      
+        0
+        ≤
+        k
+        ≤
+        
+          
+            n
+            2
+          
+        
+        +
+        1
+      
+    
+    {\textstyle 0\leq k\leq {\frac {n}{2}}+1}
+  : then m is an lp multiplier for all 1 < p < ∞.
+this is a special case of the hörmander-mikhlin multiplier theorem.
+the proofs of these two theorems are fairly tricky, involving techniques from calderón–zygmund theory and the marcinkiewicz interpolation theorem: for the original proof, see mikhlin (1956) or mikhlin (1965, pp. 225–240).
+
+
+==== radial multipliers ====
+for radial multipliers, a necessary and sufficient condition for 
+  
+    
+      
+        
+          l
+          
+            p
+          
+        
+        
+          (
+          
+            
+              r
+            
+            
+              n
+            
+          
+          )
+        
+      
+    
+    {\displaystyle l^{p}\left(\mathbb {r} ^{n}\right)}
+   boundedness is known for some partial range of 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+  . let 
+  
+    
+      
+        n
+        ≥
+        4
+      
+    
+    {\displaystyle n\geq 4}
+   and 
+  
+    
+      
+        1
+        <
+        p
+        <
+        2
+        
+          
+            
+              n
+              −
+              1
+            
+            
+              n
+              +
+              1
+            
+          
+        
+      
+    
+    {\textstyle 1<p<2{\frac {n-1}{n+1}}}
+  . suppose that 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   is a radial multiplier compactly supported away from the origin. then 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   is an 
+  
+    
+      
+        
+          l
+          
+            p
+          
+        
+        
+          (
+          
+            
+              r
+            
+            
+              n
+            
+          
+          )
+        
+      
+    
+    {\displaystyle l^{p}\left(\mathbb {r} ^{n}\right)}
+   multiplier if and only if the fourier transform of 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   belongs to 
+  
+    
+      
+        
+          l
+          
+            p
+          
+        
+        
+          (
+          
+            
+              r
+            
+            
+              n
+            
+          
+          )
+        
+      
+    
+    {\displaystyle l^{p}\left(\mathbb {r} ^{n}\right)}
+  .
+this is a theorem of heo, nazarov, and seeger. they also provided a necessary and sufficient condition which is valid without the compact support assumption on 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+  .
+
+
+=== examples ===
+translations are bounded operators on any lp. differentiation is not bounded on any lp. the hilbert transform is bounded only for p strictly between 1 and ∞. the fact that it is unbounded on l∞ is easy, since it is well known that the hilbert transform of a step function is unbounded. duality gives the same for p = 1. however, both the marcinkiewicz and mikhlin multiplier theorems show that the hilbert transform is bounded in lp for all 1 < p < ∞.
+another interesting case on the unit circle is when the sequence 
+  
+    
+      
+        (
+        
+          x
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle (x_{n})}
+   that is being proposed as a multiplier is constant for n in each of the sets 
+  
+    
+      
+        
+          {
+          
+            
+              2
+              
+                n
+              
+            
+            ,
+            …
+            ,
+            
+              2
+              
+                n
+                +
+                1
+              
+            
+            −
+            1
+          
+          }
+        
+      
+    
+    {\displaystyle \left\{2^{n},\ldots ,2^{n+1}-1\right\}}
+   and 
+  
+    
+      
+        
+          {
+          
+            −
+            
+              2
+              
+                n
+                +
+                1
+              
+            
+            +
+            1
+            ,
+            …
+            ,
+            −
+            
+              2
+              
+                n
+              
+            
+          
+          }
+        
+        .
+      
+    
+    {\displaystyle \left\{-2^{n+1}+1,\ldots ,-2^{n}\right\}.}
+   from the marcinkiewicz multiplier theorem (adapted to the context of the unit circle) we see that any such sequence (also assumed to be bounded, of course) is a multiplier for every 1 < p < ∞.
+in one dimension, the disk multiplier operator 
+  
+    
+      
+        
+          s
+          
+            r
+          
+          
+            0
+          
+        
+      
+    
+    {\displaystyle s_{r}^{0}}
+  (see table above) is bounded on lp for every 1 < p < ∞. however, in 1972, charles fefferman showed the surprising result that in two and higher dimensions the disk multiplier operator 
+  
+    
+      
+        
+          s
+          
+            r
+          
+          
+            0
+          
+        
+      
+    
+    {\displaystyle s_{r}^{0}}
+   is unbounded on lp for every p ≠ 2. the corresponding problem for bochner–riesz multipliers is only partially solved; see also bochner–riesz conjecture.
+
+
+== see also ==
+calderón–zygmund lemma
+marcinkiewicz theorem
+singular integrals
+singular integral operators of convolution type
+
+
+== notes ==
+
+
+=== works cited ===
+duoandikoetxea, javier (2001), fourier analysis, american mathematical society, isbn 0-8218-2172-5
+stein, elias m. (1970), singular integrals and differentiability properties of functions, princeton university press
+
+
+=== general references ===
+grafakos, loukas (2008), classical fourier analysis (2nd ed.), springer, isbn 978-0-387-09431-1
+katznelson, yitzhak (2004), an introduction to harmonic analysis, cambridge university press, isbn 978-0-521-54359-0
+hörmander, lars (1960), "estimates for translation invariant operators in lp spaces", acta mathematica, 104: 93–140, doi:10.1007/bf02547187
+hörmander, lars (1990), the analysis of linear partial differential operators, i. distribution theory and fourier analysis (2nd ed.), springer-verlag, isbn 3-540-52343-x
+mikhlin, solomon g. (1956), "on the multipliers of fourier integrals", doklady akademii nauk sssr, 109: 701–703, zbl 0073.08402 (in russian).
+mikhlin, solomon g. (1965), multidimensional singular integrals and integral equations, international series of monographs in pure and applied mathematics, vol. 83, pergamon press, zbl 0129.07701. this contains a comprehensive survey of all results known at the time of publication, including a sketch of the history.
+rudin, walter (1962), fourier analysis on groups, interscience
+torchinsky, alberto (2004), real-variable methods in harmonic analysis, dover, isbn 0-486-43508-3

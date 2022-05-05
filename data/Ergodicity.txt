@@ -1,0 +1,4465 @@
+in mathematics, ergodicity expresses the idea that a point of a moving system, either a dynamical system or a stochastic process, will eventually visit all parts of the space that the system moves in, in a uniform and random sense. this implies that the average behavior of the system can be deduced from the trajectory of a "typical" point. equivalently, a sufficiently large collection of random samples from a process can represent the average statistical properties of the entire process.  ergodicity is a property of the system; it is a statement that the system cannot be reduced or factored into smaller components. ergodic theory is the study of systems possessing ergodicity. 
+ergodic systems occur in a broad range of systems in physics and in geometry. this can be roughly understood to be due to a common phenomenon: the motion of particles, that is, geodesics on a hyperbolic manifold are divergent; when that manifold is compact, that is, of finite size, those orbits return to the same general area, eventually filling the entire space.
+ergodic systems capture the common-sense, every-day notions of randomness, such that smoke might come to fill all of a smoke-filled room, or that a block of metal might eventually come to have the same temperature throughout, or that flips of a fair coin may come up heads and tails half the time. a stronger concept than ergodicity is that of mixing, which aims to mathematically describe the common-sense notions of mixing, such as mixing drinks or mixing cooking ingredients.
+the proper mathematical formulation of ergodicity is founded on the formal definitions of measure theory and dynamical systems, and rather specifically on the notion of a measure-preserving dynamical system. the origins of ergodicity lie in statistical physics, where ludwig boltzmann formulated the ergodic hypothesis.
+
+
+== informal explanation ==
+ergodicity occurs in broad settings in physics and mathematics. all of these settings are unified by a common mathematical description, that of the measure-preserving dynamical system. an informal description of this, and a definition of ergodicity with respect to it, is given immediately below. this is followed by a description of ergodicity in stochastic processes. they are one and the same, despite using dramatically different notation and language. 
+
+
+=== measure-preserving dynamical systems ===
+the mathematical definition of ergodicity aims to capture ordinary every-day ideas about randomness. this includes ideas about systems that move in such a way as to (eventually) fill up all of space, such as diffusion and brownian motion, as well as common-sense notions of mixing, such as mixing paints, drinks, cooking ingredients,  industrial process mixing, smoke in a smoke-filled room, the dust in saturn's rings and so on.  to provide a solid mathematical footing, descriptions of ergodic systems begin with the definition of a measure-preserving dynamical system. this is written as 
+  
+    
+      
+        (
+        x
+        ,
+        
+          
+            a
+          
+        
+        ,
+        μ
+        ,
+        t
+        )
+        .
+      
+    
+    {\displaystyle (x,{\mathcal {a}},\mu ,t).}
+  
+the set 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   is understood to be the total space to be filled: the mixing bowl, the smoke-filled room, etc. the measure 
+  
+    
+      
+        μ
+      
+    
+    {\displaystyle \mu }
+   is understood to define the natural volume of the space 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   and of its subspaces.  the collection of subspaces is denoted by 
+  
+    
+      
+        
+          
+            a
+          
+        
+      
+    
+    {\displaystyle {\mathcal {a}}}
+  , and the size of any given subset 
+  
+    
+      
+        a
+        ⊂
+        x
+      
+    
+    {\displaystyle a\subset x}
+   is 
+  
+    
+      
+        μ
+        (
+        a
+        )
+      
+    
+    {\displaystyle \mu (a)}
+  ; the size is its volume.  naively, one could imagine 
+  
+    
+      
+        
+          
+            a
+          
+        
+      
+    
+    {\displaystyle {\mathcal {a}}}
+   to be the power set of 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  ; this doesn't quite work, as not all subsets of a space have a volume (famously, the banach-tarski paradox). thus, conventionally, 
+  
+    
+      
+        
+          
+            a
+          
+        
+      
+    
+    {\displaystyle {\mathcal {a}}}
+   consists of the measurable subsets—the subsets that do have a volume. it is always taken to be a borel set—the collection of subsets that can be constructed by taking intersections, unions and set complements of open sets; these can always be taken to be measurable. 
+the time evolution of the system is described by a map 
+  
+    
+      
+        t
+        :
+        x
+        →
+        x
+      
+    
+    {\displaystyle t:x\to x}
+  . given some subset 
+  
+    
+      
+        a
+        ⊂
+        x
+      
+    
+    {\displaystyle a\subset x}
+  , its map 
+  
+    
+      
+        t
+        (
+        a
+        )
+      
+    
+    {\displaystyle t(a)}
+   will in general be a deformed version of 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   – it is squashed or stretched, folded or cut into pieces. mathematical examples include the baker's map and the horseshoe map, both inspired by bread-making. the set 
+  
+    
+      
+        t
+        (
+        a
+        )
+      
+    
+    {\displaystyle t(a)}
+   must have the same volume as 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  ; the squashing/stretching does not alter the volume of the space, only its distribution. such a system is "measure-preserving" (area-preserving, volume-preserving).
+a formal difficulty arises when one tries to reconcile the volume of sets with the need to preserve their size under a map. the problem arises because, in general, several different points in the domain of a function can map to the same point in its range; that is, there may be 
+  
+    
+      
+        x
+        ≠
+        y
+      
+    
+    {\displaystyle x\neq y}
+   with 
+  
+    
+      
+        t
+        (
+        x
+        )
+        =
+        t
+        (
+        y
+        )
+      
+    
+    {\displaystyle t(x)=t(y)}
+  . worse, a single point 
+  
+    
+      
+        x
+        ∈
+        x
+      
+    
+    {\displaystyle x\in x}
+   has no size. these difficulties can be avoided by working with the inverse map 
+  
+    
+      
+        
+          t
+          
+            −
+            1
+          
+        
+        :
+        
+          
+            a
+          
+        
+        →
+        
+          
+            a
+          
+        
+      
+    
+    {\displaystyle t^{-1}:{\mathcal {a}}\to {\mathcal {a}}}
+  ; it will map any given subset 
+  
+    
+      
+        a
+        ⊂
+        x
+      
+    
+    {\displaystyle a\subset x}
+   to the parts that were assembled to make it: these parts are 
+  
+    
+      
+        
+          t
+          
+            −
+            1
+          
+        
+        (
+        a
+        )
+        ∈
+        
+          
+            a
+          
+        
+      
+    
+    {\displaystyle t^{-1}(a)\in {\mathcal {a}}}
+  . it has the important property of not losing track of where things came from.  more strongly, it has the important property that any (measure-preserving) map 
+  
+    
+      
+        
+          
+            a
+          
+        
+        →
+        
+          
+            a
+          
+        
+      
+    
+    {\displaystyle {\mathcal {a}}\to {\mathcal {a}}}
+   is the inverse of some map 
+  
+    
+      
+        x
+        →
+        x
+      
+    
+    {\displaystyle x\to x}
+  . the proper definition of a volume-preserving map is one for which 
+  
+    
+      
+        μ
+        (
+        a
+        )
+        =
+        μ
+        
+          
+            
+              (
+              
+                
+                  t
+                  
+                    −
+                    1
+                  
+                
+                (
+                a
+                )
+              
+              )
+            
+          
+        
+      
+    
+    {\displaystyle \mu (a)=\mu {\mathord {\left(t^{-1}(a)\right)}}}
+   because 
+  
+    
+      
+        
+          t
+          
+            −
+            1
+          
+        
+        (
+        a
+        )
+      
+    
+    {\displaystyle t^{-1}(a)}
+   describes all the pieces-parts that 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   came from.
+one is now interested in studying the time evolution of the system. if a set 
+  
+    
+      
+        a
+        ∈
+        
+          
+            a
+          
+        
+      
+    
+    {\displaystyle a\in {\mathcal {a}}}
+   eventually comes to fill all of 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   over a long period of time (that is, if 
+  
+    
+      
+        
+          t
+          
+            n
+          
+        
+        (
+        a
+        )
+      
+    
+    {\displaystyle t^{n}(a)}
+   approaches all of 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   for large 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  ), the system is said to be ergodic. if every set 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   behaves in this way, the system is a conservative system, placed in contrast to a dissipative system, where some subsets 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   wander away, never to be returned to. an example would be water running downhill: once it's run down, it will never come back up again. the lake that forms at the bottom of this river can, however, become well-mixed. the ergodic decomposition theorem states that every ergodic system can be split into two parts: the conservative part, and the dissipative part.
+mixing is a stronger statement than ergodicity. mixing asks for this ergodic property to hold between any two sets 
+  
+    
+      
+        a
+        ,
+        b
+      
+    
+    {\displaystyle a,b}
+  , and not just between some set 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   and 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  . that is, given any two sets 
+  
+    
+      
+        a
+        ,
+        b
+        ∈
+        
+          
+            a
+          
+        
+      
+    
+    {\displaystyle a,b\in {\mathcal {a}}}
+  , a system is said to be (topologically) mixing if there is an integer 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   such that, for all 
+  
+    
+      
+        a
+        ,
+        b
+      
+    
+    {\displaystyle a,b}
+   and 
+  
+    
+      
+        n
+        >
+        n
+      
+    
+    {\displaystyle n>n}
+  , one has that 
+  
+    
+      
+        
+          t
+          
+            n
+          
+        
+        (
+        a
+        )
+        ∩
+        b
+        ≠
+        ∅
+      
+    
+    {\displaystyle t^{n}(a)\cap b\neq \varnothing }
+  .  here, 
+  
+    
+      
+        ∩
+      
+    
+    {\displaystyle \cap }
+   denotes set intersection and 
+  
+    
+      
+        ∅
+      
+    
+    {\displaystyle \varnothing }
+   is the empty set.  other notions of mixing include strong and weak mixing, which describe the notion that the mixed substances intermingle everywhere, in equal proportion. this can be non-trivial, as practical experience of trying to mix sticky, gooey substances shows.
+
+
+=== processes ===
+the above discussion appeals to a physical sense of a volume. the volume does not have to literally be some portion of 3d space; it can be some abstract volume. this is generally the case in statistical systems, where the volume (the measure) is given by the probability. the total volume corresponds to probability one. this correspondence works because the axioms of probability theory are identical to those of measure theory; these are the kolmogorov axioms.the idea of a volume can be very abstract. consider, for example, the set of all possible coin-flips: the set of infinite sequences of heads and tails. assigning the volume of 1 to this space, it is clear that half of all such sequences start with heads, and half start with tails. one can slice up this volume in other ways: one can say "i don't care about the first 
+  
+    
+      
+        n
+        −
+        1
+      
+    
+    {\displaystyle n-1}
+   coin-flips; but i want the 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  'th of them to be heads, and then i don't care about what comes after that". this can be written as the set 
+  
+    
+      
+        (
+        ∗
+        ,
+        ⋯
+        ,
+        ∗
+        ,
+        h
+        ,
+        ∗
+        ,
+        ⋯
+        )
+      
+    
+    {\displaystyle (*,\cdots ,*,h,*,\cdots )}
+   where 
+  
+    
+      
+        ∗
+      
+    
+    {\displaystyle *}
+   is "don't care" and 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   is "heads". the volume of this space is again (obviously!) one-half.  
+the above is enough to build up a measure-preserving dynamical system, in its entirety. the sets of 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   or 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   occurring in the  
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  'th place are called cylinder sets. the set of all possible intersections, unions and complements of the cylinder sets then form the borel set 
+  
+    
+      
+        
+          
+            a
+          
+        
+      
+    
+    {\displaystyle {\mathcal {a}}}
+   defined above. in formal terms, the cylinder sets form the base for a topology on the space 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   of all possible infinite-length coin-flips. the measure 
+  
+    
+      
+        μ
+      
+    
+    {\displaystyle \mu }
+   has all of the common-sense properties one might hope for: the measure of a cylinder set with 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   in the 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+  'th position, and 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   in the 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  'th position is obviously 1/4, and so on. these common-sense properties persist for set-complement and set-union: everything except for 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   and 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   in locations 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   and 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   obviously has the volume of 3/4. all together, these form the axioms of a sigma-additive measure; measure-preserving dynamical systems always use sigma-additive measures. for coin flips, this measure is called the bernoulli measure.
+for the coin-flip process, the time-evolution operator 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   is the shift operator that says "throw away the first coin-flip, and keep the rest". formally, if 
+  
+    
+      
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        ,
+        ⋯
+        )
+      
+    
+    {\displaystyle (x_{1},x_{2},\cdots )}
+   is a sequence of coin-flips, then 
+  
+    
+      
+        t
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        ,
+        ⋯
+        )
+        =
+        (
+        
+          x
+          
+            2
+          
+        
+        ,
+        
+          x
+          
+            3
+          
+        
+        ,
+        ⋯
+        )
+      
+    
+    {\displaystyle t(x_{1},x_{2},\cdots )=(x_{2},x_{3},\cdots )}
+  . the measure is obviously shift-invariant: as long as we are talking about some set 
+  
+    
+      
+        a
+        ∈
+        
+          
+            a
+          
+        
+      
+    
+    {\displaystyle a\in {\mathcal {a}}}
+   where the first coin-flip 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+        =
+        ∗
+      
+    
+    {\displaystyle x_{1}=*}
+   is the "don't care" value, then the volume 
+  
+    
+      
+        μ
+        (
+        a
+        )
+      
+    
+    {\displaystyle \mu (a)}
+   does not change: 
+  
+    
+      
+        μ
+        (
+        a
+        )
+        =
+        μ
+        (
+        t
+        (
+        a
+        )
+        )
+      
+    
+    {\displaystyle \mu (a)=\mu (t(a))}
+  . in order to avoid talking about the first coin-flip, it is easier to define 
+  
+    
+      
+        
+          t
+          
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle t^{-1}}
+   as inserting a "don't care" value into the first position: 
+  
+    
+      
+        
+          t
+          
+            −
+            1
+          
+        
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        ,
+        ⋯
+        )
+        =
+        (
+        ∗
+        ,
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        ,
+        ⋯
+        )
+      
+    
+    {\displaystyle t^{-1}(x_{1},x_{2},\cdots )=(*,x_{1},x_{2},\cdots )}
+  .  with this definition, one obviously has that 
+  
+    
+      
+        μ
+        
+          
+            
+              (
+              
+                
+                  t
+                  
+                    −
+                    1
+                  
+                
+                (
+                a
+                )
+              
+              )
+            
+          
+        
+        =
+        μ
+        (
+        a
+        )
+      
+    
+    {\displaystyle \mu {\mathord {\left(t^{-1}(a)\right)}}=\mu (a)}
+   with no constraints on 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  . this is again an example of why 
+  
+    
+      
+        
+          t
+          
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle t^{-1}}
+   is used in the formal definitions.
+the above development takes a random process, the bernoulli process, and converts it to a measure-preserving dynamical system 
+  
+    
+      
+        (
+        x
+        ,
+        
+          
+            a
+          
+        
+        ,
+        μ
+        ,
+        t
+        )
+        .
+      
+    
+    {\displaystyle (x,{\mathcal {a}},\mu ,t).}
+   the same conversion (equivalence, isomorphism) can be applied to any stochastic process. thus, an informal definition of ergodicity is that a sequence is ergodic if it visits all of 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  ; such sequences are "typical" for the process. another is that its statistical properties can be deduced from a single, sufficiently long, random sample of the process (thus uniformly sampling all of 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  ), or that any collection of random samples from a process must represent the average statistical properties of the entire process (that is, samples drawn uniformly from 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   are representative of 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   as a whole.) in the present example, a sequence of coin flips, where half are heads, and half are tails, is a "typical" sequence.
+there are several important points to be made about the bernoulli process. if one writes 0 for tails and 1 for heads, one gets the set of all infinite strings of binary digits. these correspond to the base-two expansion of real numbers. explicitly, given a sequence 
+  
+    
+      
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        ,
+        ⋯
+        )
+      
+    
+    {\displaystyle (x_{1},x_{2},\cdots )}
+  , the corresponding real number is
+
+  
+    
+      
+        y
+        =
+        
+          ∑
+          
+            n
+            =
+            1
+          
+          
+            ∞
+          
+        
+        
+          
+            
+              x
+              
+                n
+              
+            
+            
+              2
+              
+                n
+              
+            
+          
+        
+      
+    
+    {\displaystyle y=\sum _{n=1}^{\infty }{\frac {x_{n}}{2^{n}}}}
+  the statement that the bernoulli process is ergodic is equivalent to the statement that the real numbers are uniformly distributed.  the set of all such strings can be written in a variety of ways: 
+  
+    
+      
+        {
+        h
+        ,
+        t
+        
+          }
+          
+            ∞
+          
+        
+        =
+        {
+        h
+        ,
+        t
+        
+          }
+          
+            ω
+          
+        
+        =
+        {
+        0
+        ,
+        1
+        
+          }
+          
+            ω
+          
+        
+        =
+        
+          2
+          
+            ω
+          
+        
+        =
+        
+          2
+          
+            
+              n
+            
+          
+        
+        .
+      
+    
+    {\displaystyle \{h,t\}^{\infty }=\{h,t\}^{\omega }=\{0,1\}^{\omega }=2^{\omega }=2^{\mathbb {n} }.}
+   this set is the cantor set, sometimes called the cantor space to avoid confusion with the cantor function 
+
+  
+    
+      
+        c
+        (
+        x
+        )
+        =
+        
+          ∑
+          
+            n
+            =
+            1
+          
+          
+            ∞
+          
+        
+        
+          
+            
+              x
+              
+                n
+              
+            
+            
+              3
+              
+                n
+              
+            
+          
+        
+      
+    
+    {\displaystyle c(x)=\sum _{n=1}^{\infty }{\frac {x_{n}}{3^{n}}}}
+  in the end, these are all "the same thing". 
+the cantor set plays key roles in many branches of mathematics. in recreational mathematics, it underpins the period-doubling fractals; in analysis, it appears in a vast variety of theorems. a key one for stochastic processes is the wold decomposition, which states that any stationary process can be decomposed into a pair of uncorrelated processes, one deterministic, and the other being a moving average process.
+the ornstein isomorphism theorem states that every stationary stochastic process is equivalent to a bernoulli scheme (a bernoulli process with an n-sided (and possibly unfair) gaming die).  other results include that every non-dissipative ergodic system is equivalent to the markov odometer, sometimes called an "adding machine" because it looks like elementary-school addition, that is, taking a base-n digit sequence, adding one, and propagating the carry bits. the proof of equivalence is very abstract; understanding the result is not: by adding one at each time step, every possible state of the odometer is visited, until it rolls over, and starts again. likewise, ergodic systems visit each state, uniformly, moving on to the next, until they have all been visited.
+systems that generate (infinite) sequences of n letters are studied by means of symbolic dynamics. important special cases include subshifts of finite type and sofic systems.
+
+
+== history and etymology ==
+the term ergodic is commonly thought to derive from the greek words ἔργον (ergon: "work") and ὁδός (hodos: "path", "way"), as chosen by ludwig boltzmann while he was working on a problem in statistical mechanics. at the same time it is also claimed to be a derivation of ergomonode, coined by boltzmann in a relatively obscure paper from 1884. the etymology appears to be contested in other ways as well.the idea of ergodicity was born in the field of thermodynamics, where it was necessary to relate the individual states of gas molecules to the temperature of a gas as a whole and its time evolution thereof. in order to do this, it was necessary to state what exactly it means for gases to mix well together, so that thermodynamic equilibrium could be defined with mathematical rigor. once the theory was well developed in physics, it was rapidly formalized and extended, so that ergodic theory has long been an independent area of mathematics in itself. as part of that progression, more than one slightly different definition of ergodicity and multitudes of interpretations of the concept in different fields coexist.for example, in classical physics the term implies that a system satisfies the ergodic hypothesis of thermodynamics, the relevant state space being position and momentum space. 
+in dynamical systems theory the state space is usually taken to be a more general phase space. on the other hand in coding theory the state space is often discrete in both time and state, with less concomitant structure. in all those fields the ideas of time average and ensemble average can also carry extra baggage as well—as is the case with the many possible thermodynamically relevant partition functions used to define ensemble averages in physics, back again. as such the measure theoretic formalization of the concept also serves as a unifying discipline. in 1913 michel plancherel proved the strict impossibility for ergodicity for a purely mechanical system.
+
+
+== occurrence ==
+a review of ergodicity in physics, and in geometry follows. in all cases, the notion of ergodicity is exactly the same as that for dynamical systems; there is no difference, except for outlook, notation, style of thinking and the journals where results are published.
+
+
+=== in physics ===
+physical systems can be split into three categories: classical mechanics, which describes machines with a finite number of moving parts, quantum mechanics, which describes the structure of atoms, and statistical mechanics, which describes gases, liquids, solids; this includes condensed matter physics. the case of classical mechanics is discussed in the next section, on ergodicity in geometry. as to quantum mechanics, although there is a conception of quantum chaos, there is no clear definition of ergodocity; what this might be is hotly debated. this section reviews ergodicity in statistical mechanics.
+the above abstract definition of a volume is required as the appropriate setting for definitions of ergodicity in physics. consider a container of liquid, or gas, or plasma, or other collection of atoms or particles. each and every particle 
+  
+    
+      
+        
+          x
+          
+            i
+          
+        
+      
+    
+    {\displaystyle x_{i}}
+   has a 3d position, and a 3d velocity, and is thus described by six numbers: a point in six-dimensional space 
+  
+    
+      
+        
+          
+            r
+          
+          
+            6
+          
+        
+        .
+      
+    
+    {\displaystyle \mathbb {r} ^{6}.}
+    if there are 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   of these particles in the system, a complete description requires 
+  
+    
+      
+        6
+        n
+      
+    
+    {\displaystyle 6n}
+   numbers. any one system is just a single point in 
+  
+    
+      
+        
+          
+            r
+          
+          
+            6
+            n
+          
+        
+        .
+      
+    
+    {\displaystyle \mathbb {r} ^{6n}.}
+   the physical system is not all of 
+  
+    
+      
+        
+          
+            r
+          
+          
+            6
+            n
+          
+        
+      
+    
+    {\displaystyle \mathbb {r} ^{6n}}
+  , of course; if it's a box of width, height and length 
+  
+    
+      
+        w
+        ×
+        h
+        ×
+        l
+      
+    
+    {\displaystyle w\times h\times l}
+   then a point is in 
+  
+    
+      
+        
+          
+            (
+            
+              w
+              ×
+              h
+              ×
+              l
+              ×
+              
+                
+                  r
+                
+                
+                  3
+                
+              
+            
+            )
+          
+          
+            n
+          
+        
+        .
+      
+    
+    {\displaystyle \left(w\times h\times l\times \mathbb {r} ^{3}\right)^{n}.}
+   nor can velocities be infinite: they are scaled by some probability measure, for example the boltzmann–gibbs measure for a gas.  none-the-less, for 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   close to avogadro's number, this is obviously a very large space. this space is called the canonical ensemble. 
+a physical system is said to be ergodic if any representative point of the system eventually comes to visit the entire volume of the system. for the above example, this implies that any given atom not only visits every part of the box 
+  
+    
+      
+        w
+        ×
+        h
+        ×
+        l
+      
+    
+    {\displaystyle w\times h\times l}
+   with uniform probability, but it does so with every possible velocity, with probability given by the boltzmann distribution for that velocity (so, uniform with respect to that measure).  the ergodic hypothesis states that physical systems actually are ergodic. multiple time scales are at work: gasses and liquids appear to be ergodic over short time scales. ergodicity in a solid can be viewed in terms of the vibrational modes or phonons, as obviously the atoms in a solid do not exchange locations. glasses present a challenge to the ergodic hypothesis; time scales are assumed to be in the millions of years, but results are contentious. spin glasses present particular difficulties.
+formal mathematical proofs of ergodicity in statistical physics are hard to come by; most high-dimensional many-body systems are assumed to be ergodic, without mathematical proof. exceptions include the dynamical billiards, which model billiard ball-type collisions of atoms in an ideal gas or plasma. the first hard-sphere ergodicity theorem was for sinai's billiards, which considers two balls, one of them taken as being stationary, at the origin. as the second ball collides, it moves away; applying periodic boundary conditions, it then returns to collide again. by appeal to homogeneity, this return of the "second" ball can instead be taken to be "just some other atom" that has come into range, and is moving to collide with the atom at the origin (which can be taken to be just "any other atom".) this is one of the few formal proofs that exist; there are no equivalent statements e.g. for atoms in a liquid, interacting via van der waals forces, even if it would be common sense to believe that such systems are ergodic (and mixing).  more precise physical arguments can be made, though.
+
+
+=== in geometry ===
+ergodicity is a wide-spread phenomenon in the study of riemannian manifolds. a quick sequence of examples, from simple to complicated, illustrates this point. 
+the geodesic flow of a flat torus following any irrational direction is ergodic; informally this means that when drawing a straight line in a square starting at any point, and with an irrational angle with respect to the sides, if every time one meets a side one starts over on the opposite side with the same angle, the line will eventually meet every subset of positive measure. more generally on any flat surface there are many ergodic directions for the geodesic flow. 
+there are similar results for negatively curved compact riemann surfaces; note that in this case the definition of geodesic flow is much more involved since there is no notion of constant direction on a non-flat surface. more generally the geodesic flow on a negatively curved compact riemannian manifolds is ergodic, in fact it satisfies the stronger property of being an anosov flow.
+
+
+=== in finance ===
+ergodicity is widely observed in finance and investment, and many theories in these fields assume ergodicity, explicitly or implicitly. the ergodic assumption is prevalent in modern portfolio theory, discounted cash flow (dcf) models, and aggregate indicator models that infuse macroeconomics, among others.
+the situations modeled by these theories can be useful. but often they are only useful during much, but not all, of any particular time period under study. they can therefore miss some of the largest deviations from the standard model, such as financial crises, debt crises and systemic risk in the banking system that occur only infrequently.
+nassim nicholas taleb has pointed out that a very important part of empirical reality in finance and investment is non-ergodic. an even statistical distribution of probabilities, where the system returns to every possible state an infinite number of times, is simply not the case we observe in situations where “absorbing states" are reached, a state where ruin is seen. the death of an individual, or total loss of everything, or the devolution or dismemberment of a nation state and the legal regime that accompanied it, are all absorbing states. thus, in finance, path dependence matters. a path where an individual, firm or country hits a "stop"—an absorbing barrier, "anything that prevents people with skin in the game from emerging from it, and to which the system will invariably tend. let us call these situations ruin, as the entity cannot emerge from the condition. the central problem is that if there is a possibility of ruin, cost benefit analyses are no longer possible."—will be non-ergodic.  all traditional models based on standard probabilistic statistics break down in these extreme situations.
+
+
+== definition for discrete-time systems ==
+
+
+=== formal definition ===
+let 
+  
+    
+      
+        (
+        x
+        ,
+        
+          
+            b
+          
+        
+        )
+      
+    
+    {\displaystyle (x,{\mathcal {b}})}
+   be a measurable space. if 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   is a measurable function from 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   to itself and 
+  
+    
+      
+        μ
+      
+    
+    {\displaystyle \mu }
+   a probability measure on 
+  
+    
+      
+        (
+        x
+        ,
+        
+          
+            b
+          
+        
+        )
+      
+    
+    {\displaystyle (x,{\mathcal {b}})}
+   then we say that 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   is 
+  
+    
+      
+        μ
+      
+    
+    {\displaystyle \mu }
+  -ergodic or 
+  
+    
+      
+        μ
+      
+    
+    {\displaystyle \mu }
+   is an ergodic measure for 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   if 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   preserves 
+  
+    
+      
+        μ
+      
+    
+    {\displaystyle \mu }
+   and the following condition holds: 
+
+for any 
+  
+    
+      
+        a
+        ∈
+        
+          
+            b
+          
+        
+      
+    
+    {\displaystyle a\in {\mathcal {b}}}
+   such that 
+  
+    
+      
+        
+          t
+          
+            −
+            1
+          
+        
+        (
+        a
+        )
+        ⊂
+        a
+      
+    
+    {\displaystyle t^{-1}(a)\subset a}
+   either 
+  
+    
+      
+        μ
+        (
+        a
+        )
+        =
+        0
+      
+    
+    {\displaystyle \mu (a)=0}
+   or 
+  
+    
+      
+        μ
+        (
+        a
+        )
+        =
+        1
+      
+    
+    {\displaystyle \mu (a)=1}
+  .in other words there are no 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+  -invariant subsets up to measure 0 (with respect to 
+  
+    
+      
+        μ
+      
+    
+    {\displaystyle \mu }
+  ). recall that 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   preserving 
+  
+    
+      
+        μ
+      
+    
+    {\displaystyle \mu }
+   (or 
+  
+    
+      
+        μ
+      
+    
+    {\displaystyle \mu }
+   being 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+  -invariant) means that 
+  
+    
+      
+        μ
+        
+          
+            
+              (
+              
+                
+                  t
+                  
+                    −
+                    1
+                  
+                
+                (
+                a
+                )
+              
+              )
+            
+          
+        
+        =
+        μ
+        (
+        a
+        )
+      
+    
+    {\displaystyle \mu {\mathord {\left(t^{-1}(a)\right)}}=\mu (a)}
+   for all 
+  
+    
+      
+        a
+        ∈
+        
+          
+            b
+          
+        
+      
+    
+    {\displaystyle a\in {\mathcal {b}}}
+   (see also measure-preserving dynamical system).
+
+
+=== examples ===
+the simplest example is when 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   is a finite set and 
+  
+    
+      
+        μ
+      
+    
+    {\displaystyle \mu }
+   the counting measure. then a self-map of 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   preserves 
+  
+    
+      
+        μ
+      
+    
+    {\displaystyle \mu }
+   if and only if it is a bijection, and it is ergodic if and only if 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   has only one orbit (that is, for every 
+  
+    
+      
+        x
+        ,
+        y
+        ∈
+        x
+      
+    
+    {\displaystyle x,y\in x}
+   there exists 
+  
+    
+      
+        k
+        ∈
+        
+          n
+        
+      
+    
+    {\displaystyle k\in \mathbb {n} }
+   such that 
+  
+    
+      
+        y
+        =
+        
+          t
+          
+            k
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle y=t^{k}(x)}
+  ). for example, if 
+  
+    
+      
+        x
+        =
+        {
+        1
+        ,
+        2
+        ,
+        …
+        ,
+        n
+        }
+      
+    
+    {\displaystyle x=\{1,2,\ldots ,n\}}
+   then the cycle 
+  
+    
+      
+        (
+        1
+        
+        2
+        
+        ⋯
+        
+        n
+        )
+      
+    
+    {\displaystyle (1\,2\,\cdots \,n)}
+   is ergodic, but the permutation 
+  
+    
+      
+        (
+        1
+        
+        2
+        )
+        (
+        3
+        
+        4
+        
+        ⋯
+        
+        n
+        )
+      
+    
+    {\displaystyle (1\,2)(3\,4\,\cdots \,n)}
+   is not (it has the two invariant subsets 
+  
+    
+      
+        {
+        1
+        ,
+        2
+        }
+      
+    
+    {\displaystyle \{1,2\}}
+   and 
+  
+    
+      
+        {
+        3
+        ,
+        4
+        ,
+        …
+        ,
+        n
+        }
+      
+    
+    {\displaystyle \{3,4,\ldots ,n\}}
+  ). 
+
+
+=== equivalent formulations ===
+the definition given above admits the following immediate reformulations: 
+
+for every 
+  
+    
+      
+        a
+        ∈
+        
+          
+            b
+          
+        
+      
+    
+    {\displaystyle a\in {\mathcal {b}}}
+   with 
+  
+    
+      
+        μ
+        
+          
+            
+              (
+              
+                
+                  t
+                  
+                    −
+                    1
+                  
+                
+                (
+                a
+                )
+                △
+                a
+              
+              )
+            
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle \mu {\mathord {\left(t^{-1}(a)\bigtriangleup a\right)}}=0}
+   we have 
+  
+    
+      
+        μ
+        (
+        a
+        )
+        =
+        0
+      
+    
+    {\displaystyle \mu (a)=0}
+   or 
+  
+    
+      
+        μ
+        (
+        a
+        )
+        =
+        1
+        
+      
+    
+    {\displaystyle \mu (a)=1\,}
+   (where 
+  
+    
+      
+        △
+      
+    
+    {\displaystyle \bigtriangleup }
+   denotes the symmetric difference);
+for every 
+  
+    
+      
+        a
+        ∈
+        
+          
+            b
+          
+        
+      
+    
+    {\displaystyle a\in {\mathcal {b}}}
+   with positive measure we have 
+  
+    
+      
+        μ
+        
+          
+            
+              (
+              
+                
+                  ⋃
+                  
+                    n
+                    =
+                    1
+                  
+                  
+                    ∞
+                  
+                
+                
+                  t
+                  
+                    −
+                    n
+                  
+                
+                (
+                a
+                )
+              
+              )
+            
+          
+        
+        =
+        1
+      
+    
+    {\textstyle \mu {\mathord {\left(\bigcup _{n=1}^{\infty }t^{-n}(a)\right)}}=1}
+  ;
+for every two sets 
+  
+    
+      
+        a
+        ,
+        b
+        ∈
+        
+          
+            b
+          
+        
+      
+    
+    {\displaystyle a,b\in {\mathcal {b}}}
+   of positive measure, there exists 
+  
+    
+      
+        n
+        >
+        0
+      
+    
+    {\displaystyle n>0}
+   such that 
+  
+    
+      
+        μ
+        
+          
+            
+              (
+              
+                
+                  (
+                  
+                    
+                      t
+                      
+                        −
+                        n
+                      
+                    
+                    (
+                    a
+                    )
+                  
+                  )
+                
+                ∩
+                b
+              
+              )
+            
+          
+        
+        >
+        0
+      
+    
+    {\displaystyle \mu {\mathord {\left(\left(t^{-n}(a)\right)\cap b\right)}}>0}
+  ;
+every measurable function 
+  
+    
+      
+        f
+        :
+        x
+        →
+        
+          r
+        
+      
+    
+    {\displaystyle f:x\to \mathbb {r} }
+   with 
+  
+    
+      
+        f
+        ∘
+        t
+        =
+        f
+      
+    
+    {\displaystyle f\circ t=f}
+   is constant on a subset of full measure.importantly for applications, the condition in the last characterisation can be restricted to square-integrable functions only:
+
+if 
+  
+    
+      
+        f
+        ∈
+        
+          l
+          
+            2
+          
+        
+        (
+        x
+        ,
+        μ
+        )
+      
+    
+    {\displaystyle f\in l^{2}(x,\mu )}
+   and 
+  
+    
+      
+        f
+        ∘
+        t
+        =
+        f
+      
+    
+    {\displaystyle f\circ t=f}
+   then 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   is constant almost everywhere.
+
+
+=== further examples ===
+
+
+==== bernoulli shifts and subshifts ====
+
+let 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+   be a finite set and 
+  
+    
+      
+        x
+        =
+        
+          s
+          
+            
+              z
+            
+          
+        
+      
+    
+    {\displaystyle x=s^{\mathbb {z} }}
+   with 
+  
+    
+      
+        μ
+      
+    
+    {\displaystyle \mu }
+   the product measure (each factor 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+   being endowed with its counting measure). then the shift operator 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   defined by 
+  
+    
+      
+        t
+        
+          (
+          
+            (
+            
+              s
+              
+                k
+              
+            
+            
+              )
+              
+                k
+                ∈
+                
+                  z
+                
+              
+            
+            )
+          
+          )
+        
+        =
+        (
+        
+          s
+          
+            k
+            +
+            1
+          
+        
+        
+          )
+          
+            k
+            ∈
+            
+              z
+            
+          
+        
+      
+    
+    {\displaystyle t\left((s_{k})_{k\in \mathbb {z} })\right)=(s_{k+1})_{k\in \mathbb {z} }}
+   is 
+  
+    
+      
+        μ
+      
+    
+    {\displaystyle \mu }
+  -ergodic.there are many more ergodic measures for the shift map 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   on 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  . periodic sequences give finitely supported measures. more interestingly, there are infinitely-supported ones which are subshifts of finite type.
+
+
+==== irrational rotations ====
+
+let 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   be the unit circle 
+  
+    
+      
+        {
+        z
+        ∈
+        
+          c
+        
+        ,
+        
+        
+          |
+        
+        z
+        
+          |
+        
+        =
+        1
+        }
+      
+    
+    {\displaystyle \{z\in \mathbb {c} ,\,|z|=1\}}
+  , with its lebesgue measure 
+  
+    
+      
+        μ
+      
+    
+    {\displaystyle \mu }
+  . for any 
+  
+    
+      
+        θ
+        ∈
+        
+          r
+        
+      
+    
+    {\displaystyle \theta \in \mathbb {r} }
+   the rotation of 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   of angle 
+  
+    
+      
+        θ
+      
+    
+    {\displaystyle \theta }
+   is given by 
+  
+    
+      
+        
+          t
+          
+            θ
+          
+        
+        (
+        z
+        )
+        =
+        
+          e
+          
+            2
+            i
+            π
+            θ
+          
+        
+        z
+      
+    
+    {\displaystyle t_{\theta }(z)=e^{2i\pi \theta }z}
+  . if 
+  
+    
+      
+        θ
+        ∈
+        
+          q
+        
+      
+    
+    {\displaystyle \theta \in \mathbb {q} }
+   then 
+  
+    
+      
+        
+          t
+          
+            θ
+          
+        
+      
+    
+    {\displaystyle t_{\theta }}
+   is not ergodic for the lebesgue measure as it has infinitely many finite orbits. on the other hand, if 
+  
+    
+      
+        θ
+      
+    
+    {\displaystyle \theta }
+   is irrational then 
+  
+    
+      
+        
+          t
+          
+            θ
+          
+        
+      
+    
+    {\displaystyle t_{\theta }}
+   is ergodic.
+
+
+==== arnold's cat map ====
+
+let 
+  
+    
+      
+        x
+        =
+        
+          
+            r
+          
+          
+            2
+          
+        
+        
+          /
+        
+        
+          
+            z
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle x=\mathbb {r} ^{2}/\mathbb {z} ^{2}}
+   be the 2-torus. then any element 
+  
+    
+      
+        g
+        ∈
+        
+          
+            s
+            l
+          
+          
+            2
+          
+        
+        (
+        
+          z
+        
+        )
+      
+    
+    {\displaystyle g\in \mathrm {sl} _{2}(\mathbb {z} )}
+   defines a self-map of 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   since 
+  
+    
+      
+        g
+        
+          (
+          
+            
+              z
+            
+            
+              2
+            
+          
+          )
+        
+        =
+        
+          
+            z
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle g\left(\mathbb {z} ^{2}\right)=\mathbb {z} ^{2}}
+  . when 
+  
+    
+      
+        g
+        =
+        
+          (
+          
+            
+              
+                
+                  2
+                
+                
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  1
+                
+              
+            
+          
+          )
+        
+      
+    
+    {\textstyle g=\left({\begin{array}{cc}2&1\\1&1\end{array}}\right)}
+   one obtains the so-called arnold's cat map, which is ergodic for the lebesgue measure on the torus.
+
+
+=== ergodic theorems ===
+
+if 
+  
+    
+      
+        μ
+      
+    
+    {\displaystyle \mu }
+   is a probability measure on a space 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   which is ergodic for a transformation 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   the pointwise ergodic theorem of g. birkhoff states that for every measurable functions 
+  
+    
+      
+        f
+        :
+        x
+        →
+        
+          r
+        
+      
+    
+    {\displaystyle f:x\to \mathbb {r} }
+   and for 
+  
+    
+      
+        μ
+      
+    
+    {\displaystyle \mu }
+  -almost every point 
+  
+    
+      
+        x
+        ∈
+        x
+      
+    
+    {\displaystyle x\in x}
+   the time average on the orbit of 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   converges to the space average of 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+  . formally this means that 
+
+the mean ergodic theorem of j. von neumann is a similar, weaker statement about averaged translates of square-integrable functions.
+
+
+=== related properties ===
+
+
+==== dense orbits ====
+an immediate consequence of the definition of ergodicity is that on a topological space 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  , and if 
+  
+    
+      
+        
+          
+            b
+          
+        
+      
+    
+    {\displaystyle {\mathcal {b}}}
+   is the σ-algebra of borel sets, if 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   is 
+  
+    
+      
+        μ
+      
+    
+    {\displaystyle \mu }
+  -ergodic then 
+  
+    
+      
+        μ
+      
+    
+    {\displaystyle \mu }
+  -almost every orbit of 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   is dense in the support of 
+  
+    
+      
+        μ
+      
+    
+    {\displaystyle \mu }
+  . 
+this is not an equivalence since for a transformation which is not uniquely ergodic, but for which there is an ergodic measure with full support 
+  
+    
+      
+        
+          μ
+          
+            0
+          
+        
+      
+    
+    {\displaystyle \mu _{0}}
+  , for any other ergodic measure 
+  
+    
+      
+        
+          μ
+          
+            1
+          
+        
+      
+    
+    {\displaystyle \mu _{1}}
+   the measure 
+  
+    
+      
+        
+          
+            1
+            2
+          
+        
+        (
+        
+          μ
+          
+            0
+          
+        
+        +
+        
+          μ
+          
+            1
+          
+        
+        )
+      
+    
+    {\textstyle {\frac {1}{2}}(\mu _{0}+\mu _{1})}
+   is not ergodic for 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   but its orbits are dense in the support. explicit examples can be constructed with shift-invariant measures.
+
+
+==== mixing ====
+
+a transformation 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   of a probability measure space 
+  
+    
+      
+        (
+        x
+        ,
+        μ
+        )
+      
+    
+    {\displaystyle (x,\mu )}
+   is said to be mixing for the measure 
+  
+    
+      
+        μ
+      
+    
+    {\displaystyle \mu }
+   if for any measurable sets 
+  
+    
+      
+        a
+        ,
+        b
+        ⊂
+        x
+      
+    
+    {\displaystyle a,b\subset x}
+   the following holds: 
+
+it is immediate that a mixing transformation is also ergodic (taking 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   to be a 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+  -stable subset and 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   its complement). the converse is not true, for example a rotation with irrational angle on the circle (which is ergodic per the examples above) is not mixing (for a sufficiently small interval its successive images will not intersect itself most of the time). bernoulli shifts are mixing, and so is arnold's cat map.
+this notion of mixing is sometimes called strong mixing, as opposed to weak mixing which means that 
+
+
+==== proper ergodicity ====
+the transformation 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   is said to be properly ergodic if it does not have an orbit of full measure. in the discrete case this means that the measure 
+  
+    
+      
+        μ
+      
+    
+    {\displaystyle \mu }
+   is not supported on a finite orbit of 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+  .
+
+
+== definition for continuous-time dynamical systems ==
+the definition is essentially the same for continuous-time dynamical systems as for a single transformation. let 
+  
+    
+      
+        (
+        x
+        ,
+        
+          
+            b
+          
+        
+        )
+      
+    
+    {\displaystyle (x,{\mathcal {b}})}
+   be a measurable space and for each 
+  
+    
+      
+        t
+        ∈
+        
+          
+            r
+          
+          
+            +
+          
+        
+      
+    
+    {\displaystyle t\in \mathbb {r} _{+}}
+  , then such a system is given by a family 
+  
+    
+      
+        
+          t
+          
+            t
+          
+        
+      
+    
+    {\displaystyle t_{t}}
+   of measurable functions from 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   to itself, so that for any 
+  
+    
+      
+        t
+        ,
+        s
+        ∈
+        
+          
+            r
+          
+          
+            +
+          
+        
+      
+    
+    {\displaystyle t,s\in \mathbb {r} _{+}}
+   the relation 
+  
+    
+      
+        
+          t
+          
+            s
+            +
+            t
+          
+        
+        =
+        
+          t
+          
+            s
+          
+        
+        ∘
+        
+          t
+          
+            t
+          
+        
+      
+    
+    {\displaystyle t_{s+t}=t_{s}\circ t_{t}}
+   holds (usually it is also asked that the orbit map from 
+  
+    
+      
+        
+          
+            r
+          
+          
+            +
+          
+        
+        ×
+        x
+        →
+        x
+      
+    
+    {\displaystyle \mathbb {r} _{+}\times x\to x}
+   is also measurable). if 
+  
+    
+      
+        μ
+      
+    
+    {\displaystyle \mu }
+   is a probability measure on 
+  
+    
+      
+        (
+        x
+        ,
+        
+          
+            b
+          
+        
+        )
+      
+    
+    {\displaystyle (x,{\mathcal {b}})}
+   then we say that 
+  
+    
+      
+        
+          t
+          
+            t
+          
+        
+      
+    
+    {\displaystyle t_{t}}
+   is 
+  
+    
+      
+        μ
+      
+    
+    {\displaystyle \mu }
+  -ergodic or 
+  
+    
+      
+        μ
+      
+    
+    {\displaystyle \mu }
+   is an ergodic measure for 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   if each 
+  
+    
+      
+        
+          t
+          
+            t
+          
+        
+      
+    
+    {\displaystyle t_{t}}
+   preserves 
+  
+    
+      
+        μ
+      
+    
+    {\displaystyle \mu }
+   and the following condition holds: 
+
+for any 
+  
+    
+      
+        a
+        ∈
+        
+          
+            b
+          
+        
+      
+    
+    {\displaystyle a\in {\mathcal {b}}}
+  , if for all 
+  
+    
+      
+        t
+        ∈
+        
+          
+            r
+          
+          
+            +
+          
+        
+      
+    
+    {\displaystyle t\in \mathbb {r} _{+}}
+   we have 
+  
+    
+      
+        
+          t
+          
+            t
+          
+          
+            −
+            1
+          
+        
+        (
+        a
+        )
+        ⊂
+        a
+      
+    
+    {\displaystyle t_{t}^{-1}(a)\subset a}
+   then either 
+  
+    
+      
+        μ
+        (
+        a
+        )
+        =
+        0
+      
+    
+    {\displaystyle \mu (a)=0}
+   or 
+  
+    
+      
+        μ
+        (
+        a
+        )
+        =
+        1
+      
+    
+    {\displaystyle \mu (a)=1}
+  .
+
+
+=== examples ===
+as in the discrete case the simplest example is that of a transitive action, for instance the action on the circle given by 
+  
+    
+      
+        
+          t
+          
+            t
+          
+        
+        (
+        z
+        )
+        =
+        
+          e
+          
+            2
+            i
+            π
+            t
+          
+        
+        z
+      
+    
+    {\displaystyle t_{t}(z)=e^{2i\pi t}z}
+   is ergodic for lebesgue measure. 
+an example with infinitely many orbits is given by the flow along an irrational slope on the torus: let 
+  
+    
+      
+        x
+        =
+        
+          
+            s
+          
+          
+            1
+          
+        
+        ×
+        
+          
+            s
+          
+          
+            1
+          
+        
+      
+    
+    {\displaystyle x=\mathbb {s} ^{1}\times \mathbb {s} ^{1}}
+   and 
+  
+    
+      
+        α
+        ∈
+        
+          r
+        
+      
+    
+    {\displaystyle \alpha \in \mathbb {r} }
+  . let 
+  
+    
+      
+        
+          t
+          
+            t
+          
+        
+        (
+        
+          z
+          
+            1
+          
+        
+        ,
+        
+          z
+          
+            2
+          
+        
+        )
+        =
+        
+          (
+          
+            
+              e
+              
+                2
+                i
+                π
+                t
+              
+            
+            
+              z
+              
+                1
+              
+            
+            ,
+            
+              e
+              
+                2
+                α
+                i
+                π
+                t
+              
+            
+            
+              z
+              
+                2
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle t_{t}(z_{1},z_{2})=\left(e^{2i\pi t}z_{1},e^{2\alpha i\pi t}z_{2}\right)}
+  ; then if 
+  
+    
+      
+        α
+        ∉
+        
+          q
+        
+      
+    
+    {\displaystyle \alpha \not \in \mathbb {q} }
+   this is ergodic for the lebesgue measure. 
+
+
+=== ergodic flows ===
+further examples of ergodic flows are:
+
+billiards in convex euclidean domains;
+the geodesic flow of a negatively curved riemannian manifold of finite volume is ergodic (for the normalised volume measure);
+the horocycle flow on a hyperbolic manifold of finite volume is ergodic (for the normalised volume measure)
+
+
+== ergodicity in compact metric spaces ==
+if 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   is a compact metric space it is naturally endowed with the σ-algebra of borel sets. the additional structure coming from the topology then allows a much more detailed theory for ergodic transformations and measures on 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  . 
+
+
+=== functional analysis interpretation ===
+a very powerful alternate definition of ergodic measures can be given using the theory of banach spaces. radon measures on 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   form a banach space of which the set 
+  
+    
+      
+        
+          
+            p
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle {\mathcal {p}}(x)}
+   of probability measures on 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   is a convex subset. given a continuous transformation 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   of 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   the subset 
+  
+    
+      
+        
+          
+            p
+          
+        
+        (
+        x
+        
+          )
+          
+            t
+          
+        
+      
+    
+    {\displaystyle {\mathcal {p}}(x)^{t}}
+   of 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+  -invariant measures is a closed convex subset, and a measure is ergodic for 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   if and only if it is an extreme point of this convex.
+
+
+==== existence of ergodic measures ====
+in the setting above it follows from the banach-alaoglu theorem that there always exists extremal points in 
+  
+    
+      
+        
+          
+            p
+          
+        
+        (
+        x
+        
+          )
+          
+            t
+          
+        
+      
+    
+    {\displaystyle {\mathcal {p}}(x)^{t}}
+  . hence a transformation of a compact metric space always admits ergodic measures. 
+
+
+==== ergodic decomposition ====
+in general an invariant measure need not be ergodic, but as a consequence of choquet theory it can always be expressed as the barycenter of a probability measure on the set of ergodic measures. this is referred to as the ergodic decomposition of the measure.
+
+
+==== example ====
+in the case of 
+  
+    
+      
+        x
+        =
+        {
+        1
+        ,
+        …
+        ,
+        n
+        }
+      
+    
+    {\displaystyle x=\{1,\ldots ,n\}}
+   and 
+  
+    
+      
+        t
+        =
+        (
+        1
+        
+        2
+        )
+        (
+        3
+        
+        4
+        
+        ⋯
+        
+        n
+        )
+      
+    
+    {\displaystyle t=(1\,2)(3\,4\,\cdots \,n)}
+   the counting measure is not ergodic. the ergodic measures for 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   are the uniform measures 
+  
+    
+      
+        
+          μ
+          
+            1
+          
+        
+        ,
+        
+          μ
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \mu _{1},\mu _{2}}
+   supported on the subsets 
+  
+    
+      
+        {
+        1
+        ,
+        2
+        }
+      
+    
+    {\displaystyle \{1,2\}}
+   and 
+  
+    
+      
+        {
+        3
+        ,
+        …
+        ,
+        n
+        }
+      
+    
+    {\displaystyle \{3,\ldots ,n\}}
+   and every 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+  -invariant probability measure can be written in the form 
+  
+    
+      
+        t
+        
+          μ
+          
+            1
+          
+        
+        +
+        (
+        1
+        −
+        t
+        )
+        
+          μ
+          
+            2
+          
+        
+      
+    
+    {\displaystyle t\mu _{1}+(1-t)\mu _{2}}
+   for some 
+  
+    
+      
+        t
+        ∈
+        [
+        0
+        ,
+        1
+        ]
+      
+    
+    {\displaystyle t\in [0,1]}
+  . in particular 
+  
+    
+      
+        
+          
+            2
+            n
+          
+        
+        
+          μ
+          
+            1
+          
+        
+        +
+        
+          
+            
+              n
+              −
+              2
+            
+            n
+          
+        
+        
+          μ
+          
+            2
+          
+        
+      
+    
+    {\textstyle {\frac {2}{n}}\mu _{1}+{\frac {n-2}{n}}\mu _{2}}
+   is the ergodic decomposition of the counting measure. 
+
+
+==== continuous systems ====
+everything in this section transfers verbatim to continuous actions of 
+  
+    
+      
+        
+          r
+        
+      
+    
+    {\displaystyle \mathbb {r} }
+   or 
+  
+    
+      
+        
+          
+            r
+          
+          
+            +
+          
+        
+      
+    
+    {\displaystyle \mathbb {r} _{+}}
+   on compact metric spaces. 
+
+
+=== unique ergodicity ===
+the transformation 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   is said to be uniquely ergodic if there is a unique borel probability measure 
+  
+    
+      
+        μ
+      
+    
+    {\displaystyle \mu }
+   on 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   which is ergodic for 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+  . 
+in the examples considered above, irrational rotations of the circle are uniquely ergodic; shift maps are not.
+
+
+== probabilistic interpretation: ergodic processes ==
+
+if 
+  
+    
+      
+        
+          
+            (
+            
+              x
+              
+                n
+              
+            
+            )
+          
+          
+            n
+            ≥
+            1
+          
+        
+      
+    
+    {\displaystyle \left(x_{n}\right)_{n\geq 1}}
+   is a discrete-time stochastic process on a space 
+  
+    
+      
+        ω
+      
+    
+    {\displaystyle \omega }
+  , it is said to be ergodic if the joint distribution of the variables on 
+  
+    
+      
+        
+          ω
+          
+            
+              n
+            
+          
+        
+      
+    
+    {\displaystyle \omega ^{\mathbb {n} }}
+   is invariant under the shift map 
+  
+    
+      
+        
+          
+            (
+            
+              x
+              
+                n
+              
+            
+            )
+          
+          
+            n
+            ≥
+            1
+          
+        
+        ↦
+        
+          
+            (
+            
+              x
+              
+                n
+                +
+                1
+              
+            
+            )
+          
+          
+            n
+            ≥
+            1
+          
+        
+      
+    
+    {\displaystyle \left(x_{n}\right)_{n\geq 1}\mapsto \left(x_{n+1}\right)_{n\geq 1}}
+  . this is a particular case of the notions discussed above. 
+the simplest case is that of an independent and identically distributed process which corresponds to the shift map described above. another important case is that of a markov chain which is discussed in detail below. 
+a similar interpretation holds for continuous-time stochastic processes though the construction of the measurable structure of the action is more complicated.
+
+
+== ergodicity of markov chains ==
+
+
+=== the dynamical system associated with a markov chain ===
+let 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+   be a finite set. a markov chain on 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+   is defined by a matrix 
+  
+    
+      
+        p
+        ∈
+        [
+        0
+        ,
+        1
+        
+          ]
+          
+            s
+            ×
+            s
+          
+        
+      
+    
+    {\displaystyle p\in [0,1]^{s\times s}}
+  , where 
+  
+    
+      
+        p
+        (
+        
+          s
+          
+            1
+          
+        
+        ,
+        
+          s
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle p(s_{1},s_{2})}
+   is the transition probability from 
+  
+    
+      
+        
+          s
+          
+            1
+          
+        
+      
+    
+    {\displaystyle s_{1}}
+   to 
+  
+    
+      
+        
+          s
+          
+            2
+          
+        
+      
+    
+    {\displaystyle s_{2}}
+  , so for every 
+  
+    
+      
+        s
+        ∈
+        s
+      
+    
+    {\displaystyle s\in s}
+   we have 
+  
+    
+      
+        
+          ∑
+          
+            
+              s
+              ′
+            
+            ∈
+            s
+          
+        
+        p
+        (
+        s
+        ,
+        
+          s
+          ′
+        
+        )
+        =
+        1
+      
+    
+    {\textstyle \sum _{s'\in s}p(s,s')=1}
+  . a stationary measure for 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   is a probability measure 
+  
+    
+      
+        ν
+      
+    
+    {\displaystyle \nu }
+   on 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+   such that 
+  
+    
+      
+        ν
+        p
+        =
+        ν
+      
+    
+    {\displaystyle \nu p=\nu }
+   ; that is 
+  
+    
+      
+        
+          ∑
+          
+            
+              s
+              ′
+            
+            ∈
+            s
+          
+        
+        ν
+        (
+        
+          s
+          ′
+        
+        )
+        p
+        (
+        
+          s
+          ′
+        
+        ,
+        s
+        )
+        =
+        ν
+        (
+        s
+        )
+      
+    
+    {\textstyle \sum _{s'\in s}\nu (s')p(s',s)=\nu (s)}
+   for all 
+  
+    
+      
+        s
+        ∈
+        s
+      
+    
+    {\displaystyle s\in s}
+  . 
+using this data we can define a probability measure 
+  
+    
+      
+        
+          μ
+          
+            ν
+          
+        
+      
+    
+    {\displaystyle \mu _{\nu }}
+   on the set 
+  
+    
+      
+        x
+        =
+        
+          s
+          
+            
+              z
+            
+          
+        
+      
+    
+    {\displaystyle x=s^{\mathbb {z} }}
+   with its product σ-algebra by giving the measures of the cylinders as follows:
+
+stationarity of 
+  
+    
+      
+        ν
+      
+    
+    {\displaystyle \nu }
+   then means that the measure 
+  
+    
+      
+        
+          μ
+          
+            ν
+          
+        
+      
+    
+    {\displaystyle \mu _{\nu }}
+   is invariant under the shift map 
+  
+    
+      
+        t
+        
+          (
+          
+            
+              
+                (
+                
+                  s
+                  
+                    k
+                  
+                
+                )
+              
+              
+                k
+                ∈
+                
+                  z
+                
+              
+            
+            )
+          
+          )
+        
+        =
+        
+          
+            (
+            
+              s
+              
+                k
+                +
+                1
+              
+            
+            )
+          
+          
+            k
+            ∈
+            
+              z
+            
+          
+        
+      
+    
+    {\displaystyle t\left(\left(s_{k}\right)_{k\in \mathbb {z} })\right)=\left(s_{k+1}\right)_{k\in \mathbb {z} }}
+  .
+
+
+=== criterion for ergodicity ===
+the measure 
+  
+    
+      
+        
+          μ
+          
+            ν
+          
+        
+      
+    
+    {\displaystyle \mu _{\nu }}
+   is always ergodic for the shift map if the associated markov chain is irreducible (any state can be reached with positive probability from any other state in a finite number of steps).the hypotheses above imply that there is a unique stationary measure for the markov chain. in terms of the matrix 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   a sufficient condition for this is that 1 be a simple eigenvalue of the matrix 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   and all other eigenvalues of 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   (in 
+  
+    
+      
+        
+          c
+        
+      
+    
+    {\displaystyle \mathbb {c} }
+  ) are of modulus <1.  
+note that in probability theory the markov chain is called ergodic if in addition each state is aperiodic (the times where the return probability is positive are not multiples of a single integer >1). this is not necessary for the invariant measure to be ergodic; hence the notions of "ergodicity" for a markov chain and the associated shift-invariant measure are different (the one for the chain is strictly stronger).moreover the criterion is an "if and only if" if all communicating classes in the chain are recurrent and we consider all stationary measures.
+
+
+=== examples ===
+
+
+==== counting measure ====
+if 
+  
+    
+      
+        p
+        (
+        s
+        ,
+        
+          s
+          ′
+        
+        )
+        =
+        1
+        
+          /
+        
+        
+          |
+        
+        s
+        
+          |
+        
+      
+    
+    {\displaystyle p(s,s')=1/|s|}
+   for all 
+  
+    
+      
+        s
+        ,
+        
+          s
+          ′
+        
+        ∈
+        s
+      
+    
+    {\displaystyle s,s'\in s}
+   then the stationary measure is the counting measure, the measure 
+  
+    
+      
+        
+          μ
+          
+            p
+          
+        
+      
+    
+    {\displaystyle \mu _{p}}
+   is the product of counting measures. the markov chain is ergodic, so the shift example from above is a special case of the criterion. 
+
+
+==== non-ergodic markov chains ====
+markov chains with recurring communicating classes are not irreducible are not ergodic, and this can be seen immediately as follows. if 
+  
+    
+      
+        
+          s
+          
+            1
+          
+        
+        ⊊
+        s
+      
+    
+    {\displaystyle s_{1}\subsetneq s}
+   are two distinct recurrent communicating classes there are nonzero stationary measures 
+  
+    
+      
+        
+          ν
+          
+            1
+          
+        
+        ,
+        
+          ν
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \nu _{1},\nu _{2}}
+   supported on 
+  
+    
+      
+        
+          s
+          
+            1
+          
+        
+        ,
+        
+          s
+          
+            2
+          
+        
+      
+    
+    {\displaystyle s_{1},s_{2}}
+   respectively and the subsets 
+  
+    
+      
+        
+          s
+          
+            1
+          
+          
+            
+              z
+            
+          
+        
+      
+    
+    {\displaystyle s_{1}^{\mathbb {z} }}
+   and 
+  
+    
+      
+        
+          s
+          
+            2
+          
+          
+            
+              z
+            
+          
+        
+      
+    
+    {\displaystyle s_{2}^{\mathbb {z} }}
+   are both shift-invariant and of measure 1.2 for the invariant probability measure 
+  
+    
+      
+        
+          
+            1
+            2
+          
+        
+        (
+        
+          ν
+          
+            1
+          
+        
+        +
+        
+          ν
+          
+            2
+          
+        
+        )
+      
+    
+    {\textstyle {\frac {1}{2}}(\nu _{1}+\nu _{2})}
+  . a very simple example of that is the chain on 
+  
+    
+      
+        s
+        =
+        {
+        1
+        ,
+        2
+        }
+      
+    
+    {\displaystyle s=\{1,2\}}
+   given by the matrix 
+  
+    
+      
+        
+          (
+          
+            
+              
+                
+                  1
+                
+                
+                  0
+                
+              
+              
+                
+                  0
+                
+                
+                  1
+                
+              
+            
+          
+          )
+        
+      
+    
+    {\textstyle \left({\begin{array}{cc}1&0\\0&1\end{array}}\right)}
+   (both states are stationary). 
+
+
+==== a periodic chain ====
+the markov chain on 
+  
+    
+      
+        s
+        =
+        {
+        1
+        ,
+        2
+        }
+      
+    
+    {\displaystyle s=\{1,2\}}
+   given by the matrix 
+  
+    
+      
+        
+          (
+          
+            
+              
+                
+                  0
+                
+                
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  0
+                
+              
+            
+          
+          )
+        
+      
+    
+    {\textstyle \left({\begin{array}{cc}0&1\\1&0\end{array}}\right)}
+   is irreducible but periodic. thus it is not ergodic in the sense of markov chain though the associated measure 
+  
+    
+      
+        μ
+      
+    
+    {\displaystyle \mu }
+   on 
+  
+    
+      
+        {
+        1
+        ,
+        2
+        
+          }
+          
+            
+              z
+            
+          
+        
+      
+    
+    {\displaystyle \{1,2\}^{\mathbb {z} }}
+   is ergodic for the shift map. however the shift is not mixing for this measure, as for the sets 
+
+and 
+
+we have 
+  
+    
+      
+        μ
+        (
+        a
+        )
+        =
+        
+          
+            1
+            2
+          
+        
+        =
+        μ
+        (
+        b
+        )
+      
+    
+    {\textstyle \mu (a)={\frac {1}{2}}=\mu (b)}
+   but 
+
+
+== generalisations ==
+the definition of ergodicity also makes sense for group actions. the classical theory (for invertible transformations) corresponds to actions of 
+  
+    
+      
+        
+          z
+        
+      
+    
+    {\displaystyle \mathbb {z} }
+   or 
+  
+    
+      
+        
+          r
+        
+      
+    
+    {\displaystyle \mathbb {r} }
+  . 
+for non-abelian groups there might not be invariant measures even on compact metric spaces. however the definition of ergodicity carries over unchanged if one replaces invariant measures by quasi-invariant measures. 
+important examples are the action of a semisimple lie group (or a lattice therein) on its furstenberg boundary.
+a measurable equivalence relation it is said to be ergodic if all saturated subsets are either null or conull.
+
+
+== notes ==
+
+
+== references ==
+walters, peter (1982). an introduction to ergodic theory. springer. isbn 0-387-95152-0.
+brin, michael; garrett, stuck (2002). introduction to dynamical systems. cambridge university press. isbn 0-521-80841-3.
+
+
+== external links ==
+karma dajani and sjoerd dirksin, "a simple introduction to ergodic theory"

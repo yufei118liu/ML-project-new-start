@@ -1,0 +1,7265 @@
+the ising model (; german: [ˈiːzɪŋ]) (or lenz-ising model or ising-lenz model), named after the physicists ernst ising and wilhelm lenz, is a mathematical model of ferromagnetism in statistical mechanics. the model consists of discrete variables that represent magnetic dipole moments of atomic "spins" that can be in one of two states (+1 or −1). the spins are arranged in a graph, usually a lattice (where the local structure repeats periodically in all directions), allowing each spin to interact with its neighbors. neighboring spins that agree have a lower energy than those that disagree; the system tends to the lowest energy but heat disturbs this tendency, thus creating the possibility of different structural phases. the model allows the identification of phase transitions as a simplified model of reality. the two-dimensional square-lattice ising model is one of the simplest statistical models to show a phase transition.the ising model was invented by the physicist wilhelm lenz (1920), who gave it as a problem to his student ernst ising. the one-dimensional ising model was solved by ising (1925) alone in his 1924 thesis; it has no phase transition. the two-dimensional square-lattice ising model is much harder and was only given an analytic description much later, by lars onsager (1944). it is usually solved by a transfer-matrix method, although there exist different approaches, more related to quantum field theory.
+in dimensions greater than four, the phase transition of the ising model is described by mean-field theory.
+the ising problem without an external field can be equivalently formulated as a graph maximum cut (max-cut) problem that can be solved via combinatorial optimization.
+
+
+== definition ==
+consider a set λ of lattice sites, each with a set of adjacent sites (e.g. a graph) forming a d-dimensional lattice.  for each lattice site k ∈ λ there is a discrete variable σk such that σk  ∈ {+1, −1}, representing the site's spin. a spin configuration, σ = (σk)k ∈ λ is an assignment of spin value to each lattice site.
+for any two adjacent sites i, j ∈ λ there is an interaction jij. also a site j ∈ λ has an external magnetic field hj interacting with it. the energy of a configuration σ is given by the hamiltonian function
+
+  
+    
+      
+        h
+        (
+        σ
+        )
+        =
+        −
+        
+          ∑
+          
+            ⟨
+            i
+             
+            j
+            ⟩
+          
+        
+        
+          j
+          
+            i
+            j
+          
+        
+        
+          σ
+          
+            i
+          
+        
+        
+          σ
+          
+            j
+          
+        
+        −
+        μ
+        
+          ∑
+          
+            j
+          
+        
+        
+          h
+          
+            j
+          
+        
+        
+          σ
+          
+            j
+          
+        
+        ,
+      
+    
+    {\displaystyle h(\sigma )=-\sum _{\langle i~j\rangle }j_{ij}\sigma _{i}\sigma _{j}-\mu \sum _{j}h_{j}\sigma _{j},}
+  where the first sum is over pairs of adjacent spins (every pair is counted once). the notation ⟨ij⟩ indicates that sites i and j are nearest neighbors. the magnetic moment is given by µ. note that the sign in the second term of the hamiltonian above should actually be positive because the electron's magnetic moment is antiparallel to its spin, but the negative term is used conventionally. the configuration probability is given by the  boltzmann distribution with inverse temperature β ≥ 0:
+
+  
+    
+      
+        
+          p
+          
+            β
+          
+        
+        (
+        σ
+        )
+        =
+        
+          
+            
+              e
+              
+                −
+                β
+                h
+                (
+                σ
+                )
+              
+            
+            
+              z
+              
+                β
+              
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle p_{\beta }(\sigma )={\frac {e^{-\beta h(\sigma )}}{z_{\beta }}},}
+  where β = (kbt)−1, and the normalization constant
+
+  
+    
+      
+        
+          z
+          
+            β
+          
+        
+        =
+        
+          ∑
+          
+            σ
+          
+        
+        
+          e
+          
+            −
+            β
+            h
+            (
+            σ
+            )
+          
+        
+      
+    
+    {\displaystyle z_{\beta }=\sum _{\sigma }e^{-\beta h(\sigma )}}
+  is the partition function. for a function f of the spins ("observable"), one denotes by
+
+  
+    
+      
+        ⟨
+        f
+        
+          ⟩
+          
+            β
+          
+        
+        =
+        
+          ∑
+          
+            σ
+          
+        
+        f
+        (
+        σ
+        )
+        
+          p
+          
+            β
+          
+        
+        (
+        σ
+        )
+      
+    
+    {\displaystyle \langle f\rangle _{\beta }=\sum _{\sigma }f(\sigma )p_{\beta }(\sigma )}
+  the expectation (mean) value of f.
+the configuration probabilities pβ(σ) represent the probability that (in equilibrium) the system is in a state with configuration σ.
+
+
+=== discussion ===
+the minus sign on each term of the hamiltonian function h(σ) is conventional. using this sign convention, ising models can be classified according to the sign of the interaction: if, for a pair i, j
+
+  
+    
+      
+        
+          j
+          
+            i
+            j
+          
+        
+        >
+        0
+      
+    
+    {\displaystyle j_{ij}>0}
+  , the interaction is called ferromagnetic,
+
+  
+    
+      
+        
+          j
+          
+            i
+            j
+          
+        
+        <
+        0
+      
+    
+    {\displaystyle j_{ij}<0}
+  , the interaction is called antiferromagnetic,
+
+  
+    
+      
+        
+          j
+          
+            i
+            j
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle j_{ij}=0}
+  , the spins are noninteracting.the system is called ferromagnetic or antiferromagnetic if all interactions are ferromagnetic or all are antiferromagnetic.  the original ising models were ferromagnetic, and it is still often assumed that "ising model" means a ferromagnetic ising model.
+in a ferromagnetic ising model, spins desire to be aligned: the configurations in which adjacent spins are of the same sign have higher probability. in an antiferromagnetic model, adjacent spins tend to have opposite signs.
+the sign convention of h(σ) also explains how a spin site j interacts with the external field. namely, the spin site wants to line up with the external field. if:
+
+  
+    
+      
+        
+          h
+          
+            j
+          
+        
+        >
+        0
+      
+    
+    {\displaystyle h_{j}>0}
+  , the spin site j desires to line up in the positive direction,
+
+  
+    
+      
+        
+          h
+          
+            j
+          
+        
+        <
+        0
+      
+    
+    {\displaystyle h_{j}<0}
+  , the spin site j desires to line up in the negative direction,
+
+  
+    
+      
+        
+          h
+          
+            j
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle h_{j}=0}
+  , there is no external influence on the spin site.
+
+
+=== simplifications ===
+ising models are often examined without an external field interacting with the lattice, that is, h = 0 for all j in the lattice λ. using this simplification, the hamiltonian becomes
+
+  
+    
+      
+        h
+        (
+        σ
+        )
+        =
+        −
+        
+          ∑
+          
+            ⟨
+            i
+             
+            j
+            ⟩
+          
+        
+        
+          j
+          
+            i
+            j
+          
+        
+        
+          σ
+          
+            i
+          
+        
+        
+          σ
+          
+            j
+          
+        
+        .
+      
+    
+    {\displaystyle h(\sigma )=-\sum _{\langle i~j\rangle }j_{ij}\sigma _{i}\sigma _{j}.}
+  when the external field is zero everywhere, h = 0, the ising model is symmetric under switching the value of the spin in all the lattice sites; a nonzero field breaks this symmetry.
+another common simplification is to assume that all of the nearest neighbors ⟨ij⟩ have the same interaction strength. then we can set jij = j for all pairs i, j in λ. in this case the hamiltonian is further simplified to
+
+  
+    
+      
+        h
+        (
+        σ
+        )
+        =
+        −
+        j
+        
+          ∑
+          
+            ⟨
+            i
+             
+            j
+            ⟩
+          
+        
+        
+          σ
+          
+            i
+          
+        
+        
+          σ
+          
+            j
+          
+        
+        .
+      
+    
+    {\displaystyle h(\sigma )=-j\sum _{\langle i~j\rangle }\sigma _{i}\sigma _{j}.}
+  
+
+
+=== connection to graph maximum cut ===
+a subset s of the vertex set v(g) of a weighted undirected graph g determines a cut of the graph g into s and its complementary subset g\s. the size of the cut is the sum of the weights of the edges between s and g\s. a maximum cut size is at least the size of any other cut, varying s.
+for the ising model without an external field on a graph g, the hamiltonian becomes the following sum over the graph edges e(g)
+
+  
+    
+      
+        h
+        (
+        σ
+        )
+        =
+        −
+        
+          ∑
+          
+            i
+            j
+            ∈
+            e
+            (
+            g
+            )
+          
+        
+        
+          j
+          
+            i
+            j
+          
+        
+        
+          σ
+          
+            i
+          
+        
+        
+          σ
+          
+            j
+          
+        
+      
+    
+    {\displaystyle h(\sigma )=-\sum _{ij\in e(g)}j_{ij}\sigma _{i}\sigma _{j}}
+  .
+here each vertex i of the graph is a spin site that takes a spin value 
+  
+    
+      
+        
+          σ
+          
+            i
+          
+        
+        =
+        ±
+        1
+      
+    
+    {\displaystyle \sigma _{i}=\pm 1}
+  . a given spin configuration 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+   partitions the set of vertices 
+  
+    
+      
+        v
+        (
+        g
+        )
+      
+    
+    {\displaystyle v(g)}
+   into two 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+  -depended subsets, those with spin up 
+  
+    
+      
+        
+          v
+          
+            +
+          
+        
+      
+    
+    {\displaystyle v^{+}}
+   and those with spin down 
+  
+    
+      
+        
+          v
+          
+            −
+          
+        
+      
+    
+    {\displaystyle v^{-}}
+  . we denote by 
+  
+    
+      
+        δ
+        (
+        
+          v
+          
+            +
+          
+        
+        )
+      
+    
+    {\displaystyle \delta (v^{+})}
+   the 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+  -depended set of edges that connects the two complementary vertex subsets 
+  
+    
+      
+        
+          v
+          
+            +
+          
+        
+      
+    
+    {\displaystyle v^{+}}
+   and 
+  
+    
+      
+        
+          v
+          
+            −
+          
+        
+      
+    
+    {\displaystyle v^{-}}
+  . the size 
+  
+    
+      
+        
+          |
+          
+            δ
+            (
+            
+              v
+              
+                +
+              
+            
+            )
+          
+          |
+        
+      
+    
+    {\displaystyle \left|\delta (v^{+})\right|}
+   of the cut 
+  
+    
+      
+        δ
+        (
+        
+          v
+          
+            +
+          
+        
+        )
+      
+    
+    {\displaystyle \delta (v^{+})}
+   to bipartite the weighted undirected graph g can be defined as
+
+  
+    
+      
+        
+          |
+          
+            δ
+            (
+            
+              v
+              
+                +
+              
+            
+            )
+          
+          |
+        
+        =
+        
+          
+            1
+            2
+          
+        
+        
+          ∑
+          
+            i
+            j
+            ∈
+            δ
+            (
+            
+              v
+              
+                +
+              
+            
+            )
+          
+        
+        
+          w
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle \left|\delta (v^{+})\right|={\frac {1}{2}}\sum _{ij\in \delta (v^{+})}w_{ij}}
+  ,
+where 
+  
+    
+      
+        
+          w
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle w_{ij}}
+   denotes a weight of the edge 
+  
+    
+      
+        i
+        j
+      
+    
+    {\displaystyle ij}
+   and the scaling 1/2 is introduced to compensate for double counting the same weights 
+  
+    
+      
+        
+          w
+          
+            i
+            j
+          
+        
+        =
+        
+          w
+          
+            j
+            i
+          
+        
+      
+    
+    {\displaystyle w_{ij}=w_{ji}}
+  .
+the identities
+
+  
+    
+      
+        
+          
+            
+              
+                h
+                (
+                σ
+                )
+              
+              
+                
+                =
+                −
+                
+                  ∑
+                  
+                    i
+                    j
+                    ∈
+                    e
+                    (
+                    
+                      v
+                      
+                        +
+                      
+                    
+                    )
+                  
+                
+                
+                  j
+                  
+                    i
+                    j
+                  
+                
+                −
+                
+                  ∑
+                  
+                    i
+                    j
+                    ∈
+                    e
+                    (
+                    
+                      v
+                      
+                        −
+                      
+                    
+                    )
+                  
+                
+                
+                  j
+                  
+                    i
+                    j
+                  
+                
+                +
+                
+                  ∑
+                  
+                    i
+                    j
+                    ∈
+                    δ
+                    (
+                    
+                      v
+                      
+                        +
+                      
+                    
+                    )
+                  
+                
+                
+                  j
+                  
+                    i
+                    j
+                  
+                
+              
+            
+            
+              
+              
+                
+                =
+                −
+                
+                  ∑
+                  
+                    i
+                    j
+                    ∈
+                    e
+                    (
+                    g
+                    )
+                  
+                
+                
+                  j
+                  
+                    i
+                    j
+                  
+                
+                +
+                2
+                
+                  ∑
+                  
+                    i
+                    j
+                    ∈
+                    δ
+                    (
+                    
+                      v
+                      
+                        +
+                      
+                    
+                    )
+                  
+                
+                
+                  j
+                  
+                    i
+                    j
+                  
+                
+                ,
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}h(\sigma )&=-\sum _{ij\in e(v^{+})}j_{ij}-\sum _{ij\in e(v^{-})}j_{ij}+\sum _{ij\in \delta (v^{+})}j_{ij}\\&=-\sum _{ij\in e(g)}j_{ij}+2\sum _{ij\in \delta (v^{+})}j_{ij},\end{aligned}}}
+  
+where the total sum in the first term does not depend on 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+  , imply that minimizing 
+  
+    
+      
+        h
+        (
+        σ
+        )
+      
+    
+    {\displaystyle h(\sigma )}
+   in 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+   is equivalent to minimizing 
+  
+    
+      
+        
+          ∑
+          
+            i
+            j
+            ∈
+            δ
+            (
+            
+              v
+              
+                +
+              
+            
+            )
+          
+        
+        
+          j
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle \sum _{ij\in \delta (v^{+})}j_{ij}}
+  . defining the edge weight 
+  
+    
+      
+        
+          w
+          
+            i
+            j
+          
+        
+        =
+        −
+        
+          j
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle w_{ij}=-j_{ij}}
+   thus turns the ising problem without an external field into a graph max-cut problem
+ maximizing the cut size 
+  
+    
+      
+        
+          |
+          
+            δ
+            (
+            
+              v
+              
+                +
+              
+            
+            )
+          
+          |
+        
+      
+    
+    {\displaystyle \left|\delta (v^{+})\right|}
+  , which is related to the ising hamiltonian as follows,
+
+  
+    
+      
+        h
+        (
+        σ
+        )
+        =
+        
+          ∑
+          
+            i
+            j
+            ∈
+            e
+            (
+            g
+            )
+          
+        
+        
+          w
+          
+            i
+            j
+          
+        
+        −
+        4
+        
+          |
+          
+            δ
+            (
+            
+              v
+              
+                +
+              
+            
+            )
+          
+          |
+        
+        .
+      
+    
+    {\displaystyle h(\sigma )=\sum _{ij\in e(g)}w_{ij}-4\left|\delta (v^{+})\right|.}
+  
+
+
+=== questions ===
+a significant number of statistical questions to ask about this model are in the limit of large numbers of spins:
+
+in a typical configuration, are most of the spins +1 or −1, or are they split equally?
+if a spin at any given position i is 1, what is the probability that the spin at position j is also 1?
+if β is changed, is there a phase transition?
+on a lattice λ, what is the fractal dimension of the shape of a large cluster of +1 spins?
+
+
+== basic properties and history ==
+
+the most studied case of the ising model is the translation-invariant ferromagnetic zero-field model on a d-dimensional lattice, namely, λ = zd, jij = 1, h = 0.
+in his 1924 phd thesis, ising solved the model for the d = 1 case, which can be thought of as a linear horizontal lattice where each site only interacts with its left and right neighbor.  in one dimension, the solution admits no phase transition. namely, for any positive β, the correlations ⟨σiσj⟩ decay exponentially in |i − j|:
+
+  
+    
+      
+        ⟨
+        
+          σ
+          
+            i
+          
+        
+        
+          σ
+          
+            j
+          
+        
+        
+          ⟩
+          
+            β
+          
+        
+        ≤
+        c
+        exp
+        ⁡
+        
+          
+            (
+          
+        
+        −
+        c
+        (
+        β
+        )
+        
+          |
+        
+        i
+        −
+        j
+        
+          |
+        
+        
+          
+            )
+          
+        
+        ,
+      
+    
+    {\displaystyle \langle \sigma _{i}\sigma _{j}\rangle _{\beta }\leq c\exp {\big (}-c(\beta )|i-j|{\big )},}
+  and the system is disordered. on the basis of this result, he incorrectly concluded that this model does not exhibit phase behaviour in any dimension.
+the ising model undergoes a phase transition between an ordered and a disordered phase in 2 dimensions or more. namely, the system is disordered for small β, whereas for large β the system exhibits ferromagnetic order:
+
+  
+    
+      
+        ⟨
+        
+          σ
+          
+            i
+          
+        
+        
+          σ
+          
+            j
+          
+        
+        
+          ⟩
+          
+            β
+          
+        
+        ≥
+        c
+        (
+        β
+        )
+        >
+        0.
+      
+    
+    {\displaystyle \langle \sigma _{i}\sigma _{j}\rangle _{\beta }\geq c(\beta )>0.}
+  this was first proven by rudolf peierls in 1936, using what is now called a peierls argument.
+the ising model on a two-dimensional square lattice with no magnetic field was analytically solved by lars onsager (1944). onsager showed that the correlation functions and free energy of the ising model are determined by a noninteracting lattice fermion. onsager announced the formula for the spontaneous magnetization for the 2-dimensional model in 1949 but did not give a derivation. yang (1952) gave the first published proof of this formula, using a limit formula for fredholm determinants, proved in 1951 by szegő in direct response to onsager's work.
+
+
+== historical significance ==
+one of democritus' arguments in support of atomism was that atoms naturally explain the sharp phase boundaries observed in materials, as when ice melts to water or water turns to steam. his idea was that small changes in atomic-scale properties would lead to big changes in the aggregate behavior. others believed that matter is inherently continuous, not atomic, and that the large-scale properties of matter are not reducible to basic atomic properties.
+while the laws of chemical bonding made it clear to nineteenth century chemists that atoms were real, among physicists the debate continued well into the early twentieth century. atomists, notably james clerk maxwell and ludwig boltzmann, applied hamilton's formulation of newton's laws to large systems, and found that the statistical behavior of the atoms  correctly describes room temperature gases. but classical statistical mechanics did not account for all of the properties of liquids and solids, nor of gases at low temperature.
+once modern quantum mechanics was formulated, atomism was no longer in conflict with experiment, but this did not lead to a universal acceptance of statistical mechanics, which went beyond atomism.  josiah willard gibbs had given a complete formalism to reproduce the laws of thermodynamics from the laws of mechanics. but many faulty arguments survived from the 19th century, when statistical mechanics was considered dubious. the lapses in intuition mostly stemmed from the fact that the limit of an infinite statistical system has many zero-one laws which are absent in finite systems: an infinitesimal change in a parameter can lead to big differences in the overall, aggregate behavior, as democritus expected.
+
+
+=== no phase transitions in finite volume ===
+in the early part of the twentieth century, some believed that the partition function could never describe a phase transition, based on the following argument:
+
+the partition function is a sum of e−βe over all configurations.
+the exponential function is everywhere analytic as a function of β.
+the sum of analytic functions is an analytic function.this argument works for a finite sum of exponentials, and correctly establishes that there are no singularities in the free energy of a system of a finite size. for systems which are in the thermodynamic limit (that is, for infinite systems) the infinite sum can lead to singularities. the convergence to the thermodynamic limit is fast, so that the phase behavior is apparent already on a relatively small lattice, even though the singularities are smoothed out by the system's finite size.
+this was first established by rudolf peierls in the ising model.
+
+
+=== peierls droplets ===
+shortly after lenz and ising constructed the ising model, peierls was able to explicitly show that a phase transition occurs in two dimensions.
+to do this, he compared the high-temperature and low-temperature limits. at infinite temperature (β = 0) all configurations have equal probability. each spin is completely independent of any other, and if typical configurations at infinite temperature are plotted so that plus/minus are represented by black and white, they look like television snow. for high, but not infinite temperature, there are small correlations between neighboring positions, the snow tends to clump a little bit, but the screen stays randomly looking, and there is no net excess of black or white.
+a quantitative measure of the excess is the magnetization, which is the average value of the spin:
+
+  
+    
+      
+        m
+        =
+        
+          
+            1
+            n
+          
+        
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            n
+          
+        
+        
+          σ
+          
+            i
+          
+        
+        .
+      
+    
+    {\displaystyle m={\frac {1}{n}}\sum _{i=1}^{n}\sigma _{i}.}
+  a bogus argument analogous to the argument in the last section now establishes that the magnetization in the ising model is always zero.
+
+every configuration of spins has equal energy to the configuration with all spins flipped.
+so for every configuration with magnetization m there is a configuration with magnetization −m with equal probability.
+the system should therefore spend equal amounts of time in the configuration with magnetization m as with magnetization −m.
+so the average magnetization (over all time) is zero.as before, this only proves that the average magnetization is zero at any finite volume. for an infinite system, fluctuations might not be able to push the system from a mostly plus state to a mostly minus with a nonzero probability.
+for very high temperatures, the magnetization is zero, as it is at infinite temperature. to see this, note that if spin a has only a small correlation ε with spin b, and b is only weakly correlated with c, but c is otherwise independent of a, the amount of correlation of a and c goes like ε2. for two spins separated by distance l, the amount of correlation goes as εl, but if there is more than one path by which the correlations can travel, this amount is enhanced by the number of paths.
+the number of paths of length l on a square lattice in d dimensions is
+
+  
+    
+      
+        n
+        (
+        l
+        )
+        =
+        (
+        2
+        d
+        
+          )
+          
+            l
+          
+        
+        ,
+      
+    
+    {\displaystyle n(l)=(2d)^{l},}
+  since there are 2d choices for where to go at each step.
+a bound on the total correlation is given by the contribution to the correlation by summing over all paths linking two points, which is bounded above by the sum over all paths of length l divided by
+
+  
+    
+      
+        
+          ∑
+          
+            l
+          
+        
+        (
+        2
+        d
+        
+          )
+          
+            l
+          
+        
+        
+          ε
+          
+            l
+          
+        
+        ,
+      
+    
+    {\displaystyle \sum _{l}(2d)^{l}\varepsilon ^{l},}
+  which goes to zero when ε is small.
+at low temperatures (β ≫ 1) the configurations are near the lowest-energy configuration, the one where all the spins are plus or all the spins are minus. peierls asked whether it is statistically possible at low temperature, starting with all the spins minus, to fluctuate to a state where most of the spins are plus. for this to happen, droplets of plus spin must be able to congeal to make the plus state.
+the energy of a droplet of plus spins in a minus background is proportional to the perimeter of the droplet l, where plus spins and minus spins neighbor each other. for a droplet with perimeter l, the area is somewhere between (l − 2)/2 (the straight line) and (l/4)2 (the square box). the probability cost for introducing a droplet has the factor e−βl, but this contributes to the partition function multiplied by the total number of droplets with perimeter l, which is less than the total number of paths of length l:
+
+  
+    
+      
+        n
+        (
+        l
+        )
+        <
+        
+          4
+          
+            2
+            l
+          
+        
+        .
+      
+    
+    {\displaystyle n(l)<4^{2l}.}
+  so that the total spin contribution from droplets, even overcounting by allowing each site to have a separate droplet, is bounded above by
+
+  
+    
+      
+        
+          ∑
+          
+            l
+          
+        
+        
+          l
+          
+            2
+          
+        
+        
+          4
+          
+            2
+            l
+          
+        
+        
+          e
+          
+            −
+            4
+            β
+            l
+          
+        
+        ,
+      
+    
+    {\displaystyle \sum _{l}l^{2}4^{2l}e^{-4\beta l},}
+  which goes to zero at large β. for β sufficiently large, this exponentially suppresses long loops, so that they cannot occur, and the magnetization never fluctuates too far from −1.
+so peierls established that the magnetization in the ising model eventually defines superselection sectors, separated domains not linked by finite fluctuations.
+
+
+=== kramers–wannier duality ===
+
+kramers and wannier were able to show that the high-temperature expansion and the low-temperature expansion of the model are equal up to an overall rescaling of the free energy. this allowed the phase-transition point in the two-dimensional model to be determined exactly (under the assumption that there is a unique critical point).
+
+
+=== yang–lee zeros ===
+
+after onsager's solution, yang and lee investigated the way in which the partition function becomes singular as the temperature approaches the critical temperature.
+
+
+== monte carlo methods for numerical simulation ==
+
+
+=== definitions ===
+the ising model can often be difficult to evaluate numerically if there are many states in the system. consider an ising model with
+
+l = |λ|: the total number of sites on the lattice,
+σj ∈ {−1, +1}: an individual spin site on the lattice, j = 1, ..., l,
+s ∈ {−1, +1}l: state of the system.since every spin site has ±1 spin, there are 2l different states that are possible. this motivates the reason for the ising model to be simulated using monte carlo methods.the hamiltonian that is commonly used to represent the energy of the model when using monte carlo methods is
+
+  
+    
+      
+        h
+        (
+        σ
+        )
+        =
+        −
+        j
+        
+          ∑
+          
+            ⟨
+            i
+             
+            j
+            ⟩
+          
+        
+        
+          σ
+          
+            i
+          
+        
+        
+          σ
+          
+            j
+          
+        
+        −
+        h
+        
+          ∑
+          
+            j
+          
+        
+        
+          σ
+          
+            j
+          
+        
+        .
+      
+    
+    {\displaystyle h(\sigma )=-j\sum _{\langle i~j\rangle }\sigma _{i}\sigma _{j}-h\sum _{j}\sigma _{j}.}
+  furthermore, the hamiltonian is further simplified by assuming zero external field h, since many questions that are posed to be solved using the model can be answered in absence of an external field. this leads us to the following energy equation for state σ:
+
+  
+    
+      
+        h
+        (
+        σ
+        )
+        =
+        −
+        j
+        
+          ∑
+          
+            ⟨
+            i
+             
+            j
+            ⟩
+          
+        
+        
+          σ
+          
+            i
+          
+        
+        
+          σ
+          
+            j
+          
+        
+        .
+      
+    
+    {\displaystyle h(\sigma )=-j\sum _{\langle i~j\rangle }\sigma _{i}\sigma _{j}.}
+  given this hamiltonian, quantities of interest such as the specific heat or the magnetization of the magnet at a given temperature can be calculated.
+
+
+=== metropolis algorithm ===
+
+
+==== overview ====
+the metropolis–hastings algorithm is the most commonly used monte carlo algorithm to calculate ising model estimations. the algorithm first chooses selection probabilities g(μ, ν), which represent the probability that state ν is selected by the algorithm out of all states, given that one is in state μ. it then uses acceptance probabilities a(μ, ν) so that detailed balance is satisfied. if the new state ν is accepted, then we move to that state and repeat with selecting a new state and deciding to accept it. if ν is not accepted then we stay in μ. this process is repeated until some stopping criterion is met, which for the ising model is often when the lattice becomes ferromagnetic, meaning all of the sites point in the same direction.when implementing the algorithm, one must ensure that g(μ, ν) is selected such that ergodicity is met. in thermal equilibrium a system's energy only fluctuates within a small range. this is the motivation behind the concept of single-spin-flip dynamics, which states that in each transition, we will only change one of the spin sites on the lattice.  furthermore, by using single- spin-flip dynamics, one can get from any state to any other state by flipping each site that differs between the two states one at a time.
+the maximum amount of change between the energy of the present state, hμ and any possible new state's energy hν (using single-spin-flip dynamics) is 2j between the spin we choose to "flip" to move to the new state and that spin's neighbor. thus, in a 1d ising model, where each site has two neighbors (left and right), the maximum difference in energy would be 4j.
+let c represent the lattice coordination number; the number of nearest neighbors that any lattice site has. we assume that all sites have the same number of neighbors due to periodic boundary conditions. it is important to note that the metropolis–hastings algorithm does not perform well around the critical point due to critical slowing down. other techniques such as multigrid methods, niedermayer's algorithm, swendsen–wang algorithm, or the wolff algorithm are required in order to resolve the model near the critical point; a requirement for determining the critical exponents of the system.
+open-source packages implementing these algorithms are available.
+
+
+==== specification ====
+specifically for the ising model and using single-spin-flip dynamics, one can establish the following.
+since there are l total sites on the lattice, using single-spin-flip as the only way we transition to another state, we can see that there are a total of l new states ν from our present state μ. the algorithm assumes that the selection probabilities are equal to the l states: g(μ, ν) = 1/l. detailed balance tells us that the following equation must hold:
+
+  
+    
+      
+        
+          
+            
+              p
+              (
+              μ
+              ,
+              ν
+              )
+            
+            
+              p
+              (
+              ν
+              ,
+              μ
+              )
+            
+          
+        
+        =
+        
+          
+            
+              g
+              (
+              μ
+              ,
+              ν
+              )
+              a
+              (
+              μ
+              ,
+              ν
+              )
+            
+            
+              g
+              (
+              ν
+              ,
+              μ
+              )
+              a
+              (
+              ν
+              ,
+              μ
+              )
+            
+          
+        
+        =
+        
+          
+            
+              a
+              (
+              μ
+              ,
+              ν
+              )
+            
+            
+              a
+              (
+              ν
+              ,
+              μ
+              )
+            
+          
+        
+        =
+        
+          
+            
+              
+                p
+                
+                  β
+                
+              
+              (
+              ν
+              )
+            
+            
+              
+                p
+                
+                  β
+                
+              
+              (
+              μ
+              )
+            
+          
+        
+        =
+        
+          
+            
+              
+                
+                  1
+                  z
+                
+              
+              
+                e
+                
+                  −
+                  β
+                  (
+                  
+                    h
+                    
+                      ν
+                    
+                  
+                  )
+                
+              
+            
+            
+              
+                
+                  1
+                  z
+                
+              
+              
+                e
+                
+                  −
+                  β
+                  (
+                  
+                    h
+                    
+                      μ
+                    
+                  
+                  )
+                
+              
+            
+          
+        
+        =
+        
+          e
+          
+            −
+            β
+            (
+            
+              h
+              
+                ν
+              
+            
+            −
+            
+              h
+              
+                μ
+              
+            
+            )
+          
+        
+        .
+      
+    
+    {\displaystyle {\frac {p(\mu ,\nu )}{p(\nu ,\mu )}}={\frac {g(\mu ,\nu )a(\mu ,\nu )}{g(\nu ,\mu )a(\nu ,\mu )}}={\frac {a(\mu ,\nu )}{a(\nu ,\mu )}}={\frac {p_{\beta }(\nu )}{p_{\beta }(\mu )}}={\frac {{\frac {1}{z}}e^{-\beta (h_{\nu })}}{{\frac {1}{z}}e^{-\beta (h_{\mu })}}}=e^{-\beta (h_{\nu }-h_{\mu })}.}
+  thus, we want to select the acceptance probability for our algorithm to satisfy
+
+  
+    
+      
+        
+          
+            
+              a
+              (
+              μ
+              ,
+              ν
+              )
+            
+            
+              a
+              (
+              ν
+              ,
+              μ
+              )
+            
+          
+        
+        =
+        
+          e
+          
+            −
+            β
+            (
+            
+              h
+              
+                ν
+              
+            
+            −
+            
+              h
+              
+                μ
+              
+            
+            )
+          
+        
+        .
+      
+    
+    {\displaystyle {\frac {a(\mu ,\nu )}{a(\nu ,\mu )}}=e^{-\beta (h_{\nu }-h_{\mu })}.}
+  if hν > hμ, then a(ν, μ) > a(μ, ν). metropolis sets the larger of a(μ, ν) or a(ν, μ) to be 1. by this reasoning the acceptance algorithm is:
+
+  
+    
+      
+        a
+        (
+        μ
+        ,
+        ν
+        )
+        =
+        
+          
+            {
+            
+              
+                
+                  
+                    e
+                    
+                      −
+                      β
+                      (
+                      
+                        h
+                        
+                          ν
+                        
+                      
+                      −
+                      
+                        h
+                        
+                          μ
+                        
+                      
+                      )
+                    
+                  
+                  ,
+                
+                
+                  
+                    if 
+                  
+                  
+                    h
+                    
+                      ν
+                    
+                  
+                  −
+                  
+                    h
+                    
+                      μ
+                    
+                  
+                  >
+                  0
+                  ,
+                
+              
+              
+                
+                  1
+                
+                
+                  
+                    otherwise
+                  
+                  .
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle a(\mu ,\nu )={\begin{cases}e^{-\beta (h_{\nu }-h_{\mu })},&{\text{if }}h_{\nu }-h_{\mu }>0,\\1&{\text{otherwise}}.\end{cases}}}
+  the basic form of the algorithm is as follows:
+
+pick a spin site using selection probability g(μ, ν) and calculate the contribution to the energy involving this spin.
+flip the value of the spin and calculate the new contribution.
+if the new energy is less, keep the flipped value.
+if the new energy is more, only keep with probability 
+  
+    
+      
+        
+          e
+          
+            −
+            β
+            (
+            
+              h
+              
+                ν
+              
+            
+            −
+            
+              h
+              
+                μ
+              
+            
+            )
+          
+        
+        .
+      
+    
+    {\displaystyle e^{-\beta (h_{\nu }-h_{\mu })}.}
+  
+repeat.the change in energy hν − hμ only depends on the value of the spin and its nearest graph neighbors. so if the graph is not too connected, the algorithm is fast. this process will eventually produce a pick from the distribution.
+
+
+=== viewing the ising model as a markov chain ===
+it is possible to view the ising model as a markov chain, as the immediate probability pβ(ν) of transitioning to a future state ν only depends on the present state μ. the metropolis algorithm is actually a version of a markov chain monte carlo simulation, and since we use single-spin-flip dynamics in the metropolis algorithm, every state can be viewed as having links to exactly l other states, where each transition corresponds to flipping a single spin site to the opposite value. furthermore, since the energy equation hσ change only depends on the nearest-neighbor interaction strength j, the ising model and its variants such the sznajd model can be seen as a form of a voter model for opinion dynamics.
+
+
+== one dimension ==
+the thermodynamic limit exists as long as the interaction decay is 
+  
+    
+      
+        
+          j
+          
+            i
+            j
+          
+        
+        ∼
+        
+          |
+        
+        i
+        −
+        j
+        
+          
+            |
+          
+          
+            −
+            α
+          
+        
+      
+    
+    {\displaystyle j_{ij}\sim |i-j|^{-\alpha }}
+   with α > 1.
+in the case of ferromagnetic interaction 
+  
+    
+      
+        
+          j
+          
+            i
+            j
+          
+        
+        ∼
+        
+          |
+        
+        i
+        −
+        j
+        
+          
+            |
+          
+          
+            −
+            α
+          
+        
+      
+    
+    {\displaystyle j_{ij}\sim |i-j|^{-\alpha }}
+   with 1 < α < 2, dyson proved, by comparison with the hierarchical case, that there is phase transition at small enough temperature.
+in the case of ferromagnetic interaction 
+  
+    
+      
+        
+          j
+          
+            i
+            j
+          
+        
+        ∼
+        
+          |
+        
+        i
+        −
+        j
+        
+          
+            |
+          
+          
+            −
+            2
+          
+        
+      
+    
+    {\displaystyle j_{ij}\sim |i-j|^{-2}}
+  , fröhlich and spencer proved that there is phase transition at small enough temperature (in contrast with the hierarchical case).
+in the case of interaction 
+  
+    
+      
+        
+          j
+          
+            i
+            j
+          
+        
+        ∼
+        
+          |
+        
+        i
+        −
+        j
+        
+          
+            |
+          
+          
+            −
+            α
+          
+        
+      
+    
+    {\displaystyle j_{ij}\sim |i-j|^{-\alpha }}
+   with α > 2 (which includes the case of finite-range interactions), there is no phase transition at any positive temperature (i.e. finite β), since the free energy is analytic in the thermodynamic parameters.
+in the case of nearest neighbor interactions, e. ising provided an exact solution of the model. at any positive temperature (i.e. finite β) the free energy is analytic in the thermodynamics parameters, and the truncated two-point spin correlation decays exponentially fast. at zero temperature (i.e. infinite β), there is a second-order phase transition: the free energy is infinite, and the truncated two-point spin correlation does not decay (remains constant). therefore, t = 0 is the critical temperature of this case. scaling formulas are satisfied.
+
+
+=== ising's exact solution ===
+in the nearest neighbor case (with periodic or free boundary conditions) an exact solution is available. the hamiltonian of the one-dimensional ising model on a lattice of l sites with periodic boundary conditions is
+
+  
+    
+      
+        h
+        (
+        σ
+        )
+        =
+        −
+        j
+        
+          ∑
+          
+            i
+            =
+            1
+            ,
+            …
+            ,
+            l
+            −
+            1
+          
+        
+        
+          σ
+          
+            i
+          
+        
+        
+          σ
+          
+            i
+            +
+            1
+          
+        
+        −
+        h
+        
+          ∑
+          
+            i
+          
+        
+        
+          σ
+          
+            i
+          
+        
+        ,
+      
+    
+    {\displaystyle h(\sigma )=-j\sum _{i=1,\ldots ,l-1}\sigma _{i}\sigma _{i+1}-h\sum _{i}\sigma _{i},}
+  where j and h can be any number, since in this simplified case j is a constant representing the interaction strength between the nearest neighbors and h is the constant external magnetic field applied to lattice sites. then the
+free energy is
+
+  
+    
+      
+        f
+        (
+        β
+        ,
+        h
+        )
+        =
+        −
+        
+          lim
+          
+            l
+            →
+            ∞
+          
+        
+        
+          
+            1
+            
+              β
+              l
+            
+          
+        
+        ln
+        ⁡
+        z
+        (
+        β
+        )
+        =
+        −
+        
+          
+            1
+            β
+          
+        
+        ln
+        ⁡
+        
+          (
+          
+            
+              e
+              
+                β
+                j
+              
+            
+            cosh
+            ⁡
+            β
+            h
+            +
+            
+              
+                
+                  e
+                  
+                    2
+                    β
+                    j
+                  
+                
+                (
+                sinh
+                ⁡
+                β
+                h
+                
+                  )
+                  
+                    2
+                  
+                
+                +
+                
+                  e
+                  
+                    −
+                    2
+                    β
+                    j
+                  
+                
+              
+            
+          
+          )
+        
+        ,
+      
+    
+    {\displaystyle f(\beta ,h)=-\lim _{l\to \infty }{\frac {1}{\beta l}}\ln z(\beta )=-{\frac {1}{\beta }}\ln \left(e^{\beta j}\cosh \beta h+{\sqrt {e^{2\beta j}(\sinh \beta h)^{2}+e^{-2\beta j}}}\right),}
+  and the spin-spin correlation (i.e. the covariance) is
+
+  
+    
+      
+        ⟨
+        
+          σ
+          
+            i
+          
+        
+        
+          σ
+          
+            j
+          
+        
+        ⟩
+        −
+        ⟨
+        
+          σ
+          
+            i
+          
+        
+        ⟩
+        ⟨
+        
+          σ
+          
+            j
+          
+        
+        ⟩
+        =
+        c
+        (
+        β
+        )
+        
+          e
+          
+            −
+            c
+            (
+            β
+            )
+            
+              |
+            
+            i
+            −
+            j
+            
+              |
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle \langle \sigma _{i}\sigma _{j}\rangle -\langle \sigma _{i}\rangle \langle \sigma _{j}\rangle =c(\beta )e^{-c(\beta )|i-j|},}
+  where c(β) and c(β) are positive functions for t > 0. for t → 0, though, the inverse correlation length c(β) vanishes.
+
+
+==== proof ====
+the proof of this result is a simple computation.
+if h = 0, it is very easy to obtain the free energy in the case of free boundary condition, i.e. when
+
+  
+    
+      
+        h
+        (
+        σ
+        )
+        =
+        −
+        j
+        (
+        
+          σ
+          
+            1
+          
+        
+        
+          σ
+          
+            2
+          
+        
+        +
+        ⋯
+        +
+        
+          σ
+          
+            l
+            −
+            1
+          
+        
+        
+          σ
+          
+            l
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle h(\sigma )=-j(\sigma _{1}\sigma _{2}+\cdots +\sigma _{l-1}\sigma _{l}).}
+  then the model factorizes under the change of variables
+
+  
+    
+      
+        
+          σ
+          
+            j
+          
+          ′
+        
+        =
+        
+          σ
+          
+            j
+          
+        
+        
+          σ
+          
+            j
+            −
+            1
+          
+        
+        ,
+        
+        j
+        ≥
+        2.
+      
+    
+    {\displaystyle \sigma '_{j}=\sigma _{j}\sigma _{j-1},\quad j\geq 2.}
+  this gives
+
+  
+    
+      
+        z
+        (
+        β
+        )
+        =
+        
+          ∑
+          
+            
+              σ
+              
+                1
+              
+            
+            ,
+            …
+            ,
+            
+              σ
+              
+                l
+              
+            
+          
+        
+        
+          e
+          
+            β
+            j
+            
+              σ
+              
+                1
+              
+            
+            
+              σ
+              
+                2
+              
+            
+          
+        
+        
+          e
+          
+            β
+            j
+            
+              σ
+              
+                2
+              
+            
+            
+              σ
+              
+                3
+              
+            
+          
+        
+        ⋯
+        
+          e
+          
+            β
+            j
+            
+              σ
+              
+                l
+                −
+                1
+              
+            
+            
+              σ
+              
+                l
+              
+            
+          
+        
+        =
+        2
+        
+          ∏
+          
+            j
+            =
+            2
+          
+          
+            l
+          
+        
+        
+          ∑
+          
+            
+              σ
+              
+                j
+              
+              ′
+            
+          
+        
+        
+          e
+          
+            β
+            j
+            
+              σ
+              
+                j
+              
+              ′
+            
+          
+        
+        =
+        2
+        
+          
+            [
+            
+              
+                e
+                
+                  β
+                  j
+                
+              
+              +
+              
+                e
+                
+                  −
+                  β
+                  j
+                
+              
+            
+            ]
+          
+          
+            l
+            −
+            1
+          
+        
+        .
+      
+    
+    {\displaystyle z(\beta )=\sum _{\sigma _{1},\ldots ,\sigma _{l}}e^{\beta j\sigma _{1}\sigma _{2}}e^{\beta j\sigma _{2}\sigma _{3}}\cdots e^{\beta j\sigma _{l-1}\sigma _{l}}=2\prod _{j=2}^{l}\sum _{\sigma '_{j}}e^{\beta j\sigma '_{j}}=2\left[e^{\beta j}+e^{-\beta j}\right]^{l-1}.}
+  therefore, the free energy is
+
+  
+    
+      
+        f
+        (
+        β
+        ,
+        0
+        )
+        =
+        −
+        
+          
+            1
+            β
+          
+        
+        ln
+        ⁡
+        
+          [
+          
+            
+              e
+              
+                β
+                j
+              
+            
+            +
+            
+              e
+              
+                −
+                β
+                j
+              
+            
+          
+          ]
+        
+        .
+      
+    
+    {\displaystyle f(\beta ,0)=-{\frac {1}{\beta }}\ln \left[e^{\beta j}+e^{-\beta j}\right].}
+  with the same change of variables
+
+  
+    
+      
+        ⟨
+        
+          σ
+          
+            j
+          
+        
+        
+          σ
+          
+            j
+            +
+            n
+          
+        
+        ⟩
+        =
+        
+          
+            [
+            
+              
+                
+                  
+                    e
+                    
+                      β
+                      j
+                    
+                  
+                  −
+                  
+                    e
+                    
+                      −
+                      β
+                      j
+                    
+                  
+                
+                
+                  
+                    e
+                    
+                      β
+                      j
+                    
+                  
+                  +
+                  
+                    e
+                    
+                      −
+                      β
+                      j
+                    
+                  
+                
+              
+            
+            ]
+          
+          
+            n
+          
+        
+        ,
+      
+    
+    {\displaystyle \langle \sigma _{j}\sigma _{j+n}\rangle =\left[{\frac {e^{\beta j}-e^{-\beta j}}{e^{\beta j}+e^{-\beta j}}}\right]^{n},}
+  hence it decays exponentially as soon as t ≠ 0; but for t = 0, i.e. in the limit β → ∞ there is no decay.
+if h ≠ 0 we need the transfer matrix method. for the periodic boundary conditions case is the following. the partition function is
+
+  
+    
+      
+        z
+        (
+        β
+        )
+        =
+        
+          ∑
+          
+            
+              σ
+              
+                1
+              
+            
+            ,
+            …
+            ,
+            
+              σ
+              
+                l
+              
+            
+          
+        
+        
+          e
+          
+            β
+            h
+            
+              σ
+              
+                1
+              
+            
+          
+        
+        
+          e
+          
+            β
+            j
+            
+              σ
+              
+                1
+              
+            
+            
+              σ
+              
+                2
+              
+            
+          
+        
+        
+          e
+          
+            β
+            h
+            
+              σ
+              
+                2
+              
+            
+          
+        
+        
+          e
+          
+            β
+            j
+            
+              σ
+              
+                2
+              
+            
+            
+              σ
+              
+                3
+              
+            
+          
+        
+        ⋯
+        
+          e
+          
+            β
+            h
+            
+              σ
+              
+                l
+              
+            
+          
+        
+        
+          e
+          
+            β
+            j
+            
+              σ
+              
+                l
+              
+            
+            
+              σ
+              
+                1
+              
+            
+          
+        
+        =
+        
+          ∑
+          
+            
+              σ
+              
+                1
+              
+            
+            ,
+            …
+            ,
+            
+              σ
+              
+                l
+              
+            
+          
+        
+        
+          v
+          
+            
+              σ
+              
+                1
+              
+            
+            ,
+            
+              σ
+              
+                2
+              
+            
+          
+        
+        
+          v
+          
+            
+              σ
+              
+                2
+              
+            
+            ,
+            
+              σ
+              
+                3
+              
+            
+          
+        
+        ⋯
+        
+          v
+          
+            
+              σ
+              
+                l
+              
+            
+            ,
+            
+              σ
+              
+                1
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle z(\beta )=\sum _{\sigma _{1},\ldots ,\sigma _{l}}e^{\beta h\sigma _{1}}e^{\beta j\sigma _{1}\sigma _{2}}e^{\beta h\sigma _{2}}e^{\beta j\sigma _{2}\sigma _{3}}\cdots e^{\beta h\sigma _{l}}e^{\beta j\sigma _{l}\sigma _{1}}=\sum _{\sigma _{1},\ldots ,\sigma _{l}}v_{\sigma _{1},\sigma _{2}}v_{\sigma _{2},\sigma _{3}}\cdots v_{\sigma _{l},\sigma _{1}}.}
+  the coefficients 
+  
+    
+      
+        
+          v
+          
+            σ
+            ,
+            
+              σ
+              ′
+            
+          
+        
+      
+    
+    {\displaystyle v_{\sigma ,\sigma '}}
+   can be seen as the entries of a matrix. there are different possible choices: a convenient one (because the matrix is symmetric) is
+
+  
+    
+      
+        
+          v
+          
+            σ
+            ,
+            
+              σ
+              ′
+            
+          
+        
+        =
+        
+          e
+          
+            
+              
+                
+                  β
+                  h
+                
+                2
+              
+            
+            σ
+          
+        
+        
+          e
+          
+            β
+            j
+            σ
+            
+              σ
+              ′
+            
+          
+        
+        
+          e
+          
+            
+              
+                
+                  β
+                  h
+                
+                2
+              
+            
+            
+              σ
+              ′
+            
+          
+        
+      
+    
+    {\displaystyle v_{\sigma ,\sigma '}=e^{{\frac {\beta h}{2}}\sigma }e^{\beta j\sigma \sigma '}e^{{\frac {\beta h}{2}}\sigma '}}
+  or
+
+  
+    
+      
+        v
+        =
+        
+          
+            [
+            
+              
+                
+                  
+                    e
+                    
+                      β
+                      (
+                      h
+                      +
+                      j
+                      )
+                    
+                  
+                
+                
+                  
+                    e
+                    
+                      −
+                      β
+                      j
+                    
+                  
+                
+              
+              
+                
+                  
+                    e
+                    
+                      −
+                      β
+                      j
+                    
+                  
+                
+                
+                  
+                    e
+                    
+                      −
+                      β
+                      (
+                      h
+                      −
+                      j
+                      )
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        .
+      
+    
+    {\displaystyle v={\begin{bmatrix}e^{\beta (h+j)}&e^{-\beta j}\\e^{-\beta j}&e^{-\beta (h-j)}\end{bmatrix}}.}
+  in matrix formalism
+
+  
+    
+      
+        z
+        (
+        β
+        )
+        =
+        tr
+        ⁡
+        
+          (
+          
+            v
+            
+              l
+            
+          
+          )
+        
+        =
+        
+          λ
+          
+            1
+          
+          
+            l
+          
+        
+        +
+        
+          λ
+          
+            2
+          
+          
+            l
+          
+        
+        =
+        
+          λ
+          
+            1
+          
+          
+            l
+          
+        
+        
+          [
+          
+            1
+            +
+            
+              
+                (
+                
+                  
+                    
+                      λ
+                      
+                        2
+                      
+                    
+                    
+                      λ
+                      
+                        1
+                      
+                    
+                  
+                
+                )
+              
+              
+                l
+              
+            
+          
+          ]
+        
+        ,
+      
+    
+    {\displaystyle z(\beta )=\operatorname {tr} \left(v^{l}\right)=\lambda _{1}^{l}+\lambda _{2}^{l}=\lambda _{1}^{l}\left[1+\left({\frac {\lambda _{2}}{\lambda _{1}}}\right)^{l}\right],}
+  where λ1 is the highest eigenvalue of v, while λ2 is the other eigenvalue:
+
+  
+    
+      
+        
+          λ
+          
+            1
+          
+        
+        =
+        
+          e
+          
+            β
+            j
+          
+        
+        cosh
+        ⁡
+        β
+        h
+        +
+        
+          
+            
+              e
+              
+                2
+                β
+                j
+              
+            
+            (
+            sinh
+            ⁡
+            β
+            h
+            
+              )
+              
+                2
+              
+            
+            +
+            
+              e
+              
+                −
+                2
+                β
+                j
+              
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle \lambda _{1}=e^{\beta j}\cosh \beta h+{\sqrt {e^{2\beta j}(\sinh \beta h)^{2}+e^{-2\beta j}}},}
+  and |λ2| < λ1. this gives the formula of the free energy.
+
+
+==== comments ====
+the energy of the lowest state is −jl, when all the spins are the same. for any other configuration, the extra energy is equal to 2j times the number of sign changes that are encountered when scanning the configuration from left to right.
+if we designate the number of sign changes in a configuration as k, the difference in energy from the lowest energy state is 2k. since the energy is additive in the number of flips, the probability p of having a spin-flip at each position is independent. the ratio of the probability of finding a flip to the probability of not finding one is the boltzmann factor:
+
+  
+    
+      
+        
+          
+            p
+            
+              1
+              −
+              p
+            
+          
+        
+        =
+        
+          e
+          
+            −
+            2
+            β
+            j
+          
+        
+        .
+      
+    
+    {\displaystyle {\frac {p}{1-p}}=e^{-2\beta j}.}
+  the problem is reduced to independent biased coin tosses. this essentially completes the mathematical description.
+from the description in terms of independent tosses, the statistics of the model for long lines can be understood. the line splits into domains. each domain is of average length exp(2β). the length of a domain is distributed exponentially, since there is a constant probability at any step of encountering a flip. the domains never become infinite, so a long system is never magnetized. each step reduces the correlation between a spin and its neighbor by an amount proportional to p, so the correlations fall off exponentially.
+
+  
+    
+      
+        ⟨
+        
+          s
+          
+            i
+          
+        
+        
+          s
+          
+            j
+          
+        
+        ⟩
+        ∝
+        
+          e
+          
+            −
+            p
+            
+              |
+            
+            i
+            −
+            j
+            
+              |
+            
+          
+        
+        .
+      
+    
+    {\displaystyle \langle s_{i}s_{j}\rangle \propto e^{-p|i-j|}.}
+  the partition function is the volume of configurations, each configuration weighted by its boltzmann weight. since each configuration is described by the sign-changes, the partition function factorizes:
+
+  
+    
+      
+        z
+        =
+        
+          ∑
+          
+            configs
+          
+        
+        
+          e
+          
+            
+              ∑
+              
+                k
+              
+            
+            
+              s
+              
+                k
+              
+            
+          
+        
+        =
+        
+          ∏
+          
+            k
+          
+        
+        (
+        1
+        +
+        p
+        )
+        =
+        (
+        1
+        +
+        p
+        
+          )
+          
+            l
+          
+        
+        .
+      
+    
+    {\displaystyle z=\sum _{\text{configs}}e^{\sum _{k}s_{k}}=\prod _{k}(1+p)=(1+p)^{l}.}
+  the logarithm divided by l is the free energy density:
+
+  
+    
+      
+        β
+        f
+        =
+        log
+        ⁡
+        (
+        1
+        +
+        p
+        )
+        =
+        log
+        ⁡
+        
+          (
+          
+            1
+            +
+            
+              
+                
+                  e
+                  
+                    −
+                    2
+                    β
+                    j
+                  
+                
+                
+                  1
+                  +
+                  
+                    e
+                    
+                      −
+                      2
+                      β
+                      j
+                    
+                  
+                
+              
+            
+          
+          )
+        
+        ,
+      
+    
+    {\displaystyle \beta f=\log(1+p)=\log \left(1+{\frac {e^{-2\beta j}}{1+e^{-2\beta j}}}\right),}
+  which is analytic away from β = ∞. a sign of a phase transition is a non-analytic free energy, so the one-dimensional model does not have a phase transition.
+
+
+=== one-dimensional solution with transverse field ===
+to express the ising hamiltonian using a quantum mechanical description of spins, we replace the spin variables with their respective pauli matrices. however, depending on the direction of the magnetic field, we can create a transverse-field or longitudinal-field hamiltonian. the transverse-field hamiltonian is given by
+
+  
+    
+      
+        h
+        (
+        σ
+        )
+        =
+        −
+        j
+        
+          ∑
+          
+            i
+            =
+            1
+            ,
+            …
+            ,
+            l
+          
+        
+        
+          σ
+          
+            i
+          
+          
+            z
+          
+        
+        
+          σ
+          
+            i
+            +
+            1
+          
+          
+            z
+          
+        
+        −
+        h
+        
+          ∑
+          
+            i
+          
+        
+        
+          σ
+          
+            i
+          
+          
+            x
+          
+        
+        .
+      
+    
+    {\displaystyle h(\sigma )=-j\sum _{i=1,\ldots ,l}\sigma _{i}^{z}\sigma _{i+1}^{z}-h\sum _{i}\sigma _{i}^{x}.}
+  the transverse-field model experiences a phase transition between an ordered and disordered regime at j ~ h.  this can be shown by a mapping of pauli matrices
+
+  
+    
+      
+        
+          σ
+          
+            n
+          
+          
+            z
+          
+        
+        =
+        
+          ∏
+          
+            i
+            =
+            1
+          
+          
+            n
+          
+        
+        
+          t
+          
+            i
+          
+          
+            x
+          
+        
+        ,
+      
+    
+    {\displaystyle \sigma _{n}^{z}=\prod _{i=1}^{n}t_{i}^{x},}
+  
+  
+    
+      
+        
+          σ
+          
+            n
+          
+          
+            x
+          
+        
+        =
+        
+          t
+          
+            n
+          
+          
+            z
+          
+        
+        
+          t
+          
+            n
+            +
+            1
+          
+          
+            z
+          
+        
+        .
+      
+    
+    {\displaystyle \sigma _{n}^{x}=t_{n}^{z}t_{n+1}^{z}.}
+  upon rewriting the hamiltonian in terms of this change-of-basis matrices, we obtain
+
+  
+    
+      
+        h
+        (
+        σ
+        )
+        =
+        −
+        h
+        
+          ∑
+          
+            i
+            =
+            1
+            ,
+            …
+            ,
+            l
+          
+        
+        
+          t
+          
+            i
+          
+          
+            z
+          
+        
+        
+          t
+          
+            i
+            +
+            1
+          
+          
+            z
+          
+        
+        −
+        j
+        
+          ∑
+          
+            i
+          
+        
+        
+          t
+          
+            i
+          
+          
+            x
+          
+        
+        .
+      
+    
+    {\displaystyle h(\sigma )=-h\sum _{i=1,\ldots ,l}t_{i}^{z}t_{i+1}^{z}-j\sum _{i}t_{i}^{x}.}
+  since the roles of h and j are switched, the hamiltonian undergoes a transition at j = h.
+
+
+== two dimensions ==
+in the ferromagnetic  case there is a phase transition. at low temperature, the peierls argument proves positive magnetization for the nearest neighbor case and then, by the griffiths inequality, also when longer range interactions are added. meanwhile, at high temperature, the cluster expansion gives analyticity of the thermodynamic functions.
+in the nearest-neighbor case, the free energy was exactly computed by onsager, through the equivalence of the model with free fermions on lattice. the spin-spin correlation functions were computed by mccoy and wu.
+
+
+=== onsager's exact solution ===
+
+onsager (1944) obtained the following analytical expression for the free energy of the ising model on the anisotropic square lattice when the magnetic field 
+  
+    
+      
+        h
+        =
+        0
+      
+    
+    {\displaystyle h=0}
+   in the thermodynamic limit as a function of temperature and the horizontal and vertical interaction energies 
+  
+    
+      
+        
+          j
+          
+            1
+          
+        
+      
+    
+    {\displaystyle j_{1}}
+   and 
+  
+    
+      
+        
+          j
+          
+            2
+          
+        
+      
+    
+    {\displaystyle j_{2}}
+  , respectively
+
+  
+    
+      
+        −
+        β
+        f
+        =
+        ln
+        ⁡
+        2
+        +
+        
+          
+            1
+            
+              8
+              
+                π
+                
+                  2
+                
+              
+            
+          
+        
+        
+          ∫
+          
+            0
+          
+          
+            2
+            π
+          
+        
+        d
+        
+          θ
+          
+            1
+          
+        
+        
+          ∫
+          
+            0
+          
+          
+            2
+            π
+          
+        
+        d
+        
+          θ
+          
+            2
+          
+        
+        ln
+        ⁡
+        [
+        cosh
+        ⁡
+        (
+        2
+        β
+        
+          j
+          
+            1
+          
+        
+        )
+        cosh
+        ⁡
+        (
+        2
+        β
+        
+          j
+          
+            2
+          
+        
+        )
+        −
+        sinh
+        ⁡
+        (
+        2
+        β
+        
+          j
+          
+            1
+          
+        
+        )
+        cos
+        ⁡
+        (
+        
+          θ
+          
+            1
+          
+        
+        )
+        −
+        sinh
+        ⁡
+        (
+        2
+        β
+        
+          j
+          
+            2
+          
+        
+        )
+        cos
+        ⁡
+        (
+        
+          θ
+          
+            2
+          
+        
+        )
+        ]
+        .
+      
+    
+    {\displaystyle -\beta f=\ln 2+{\frac {1}{8\pi ^{2}}}\int _{0}^{2\pi }d\theta _{1}\int _{0}^{2\pi }d\theta _{2}\ln[\cosh(2\beta j_{1})\cosh(2\beta j_{2})-\sinh(2\beta j_{1})\cos(\theta _{1})-\sinh(2\beta j_{2})\cos(\theta _{2})].}
+  from this expression for the free energy, all thermodynamic functions of the model can be calculated by using an appropriate derivative. the 2d ising model was the first model to exhibit a continuous phase transition at a positive temperature. it occurs at the temperature 
+  
+    
+      
+        
+          t
+          
+            c
+          
+        
+      
+    
+    {\displaystyle t_{c}}
+   which solves the equation
+
+  
+    
+      
+        sinh
+        ⁡
+        
+          (
+          
+            
+              
+                2
+                
+                  j
+                  
+                    1
+                  
+                
+              
+              
+                k
+                
+                  t
+                  
+                    c
+                  
+                
+              
+            
+          
+          )
+        
+        sinh
+        ⁡
+        
+          (
+          
+            
+              
+                2
+                
+                  j
+                  
+                    2
+                  
+                
+              
+              
+                k
+                
+                  t
+                  
+                    c
+                  
+                
+              
+            
+          
+          )
+        
+        =
+        1.
+      
+    
+    {\displaystyle \sinh \left({\frac {2j_{1}}{kt_{c}}}\right)\sinh \left({\frac {2j_{2}}{kt_{c}}}\right)=1.}
+  in the isotropic case when the horizontal and vertical interaction energies are equal 
+  
+    
+      
+        
+          j
+          
+            1
+          
+        
+        =
+        
+          j
+          
+            2
+          
+        
+        =
+        j
+      
+    
+    {\displaystyle j_{1}=j_{2}=j}
+  , the critical temperature 
+  
+    
+      
+        
+          t
+          
+            c
+          
+        
+      
+    
+    {\displaystyle t_{c}}
+   occurs at the following point
+
+  
+    
+      
+        
+          t
+          
+            c
+          
+        
+        =
+        
+          
+            
+              2
+              j
+            
+            
+              k
+              ln
+              ⁡
+              (
+              1
+              +
+              
+                
+                  2
+                
+              
+              )
+            
+          
+        
+      
+    
+    {\displaystyle t_{c}={\frac {2j}{k\ln(1+{\sqrt {2}})}}}
+  when the interaction energies 
+  
+    
+      
+        
+          j
+          
+            1
+          
+        
+      
+    
+    {\displaystyle j_{1}}
+  , 
+  
+    
+      
+        
+          j
+          
+            2
+          
+        
+      
+    
+    {\displaystyle j_{2}}
+   are both negative, the ising model becomes an antiferromagnet. since the square lattice is bi-partite, it is invariant under this change when the magnetic field 
+  
+    
+      
+        h
+        =
+        0
+      
+    
+    {\displaystyle h=0}
+  , so the free energy and critical temperature are the same for the antiferromagnetic case. for the triangular lattice, which is not bi-partite, the ferromagnetic and antiferromagnetic ising model behave notably differently.
+
+
+==== transfer matrix ====
+start with an analogy with quantum mechanics. the ising model on a long periodic lattice has a partition function
+
+  
+    
+      
+        
+          ∑
+          
+            {
+            s
+            }
+          
+        
+        exp
+        ⁡
+        
+          
+            (
+          
+        
+        
+          ∑
+          
+            i
+            j
+          
+        
+        
+          s
+          
+            i
+            ,
+            j
+          
+        
+        
+          (
+          
+            
+              s
+              
+                i
+                ,
+                j
+                +
+                1
+              
+            
+            +
+            
+              s
+              
+                i
+                +
+                1
+                ,
+                j
+              
+            
+          
+          )
+        
+        
+          
+            )
+          
+        
+        .
+      
+    
+    {\displaystyle \sum _{\{s\}}\exp {\biggl (}\sum _{ij}s_{i,j}\left(s_{i,j+1}+s_{i+1,j}\right){\biggr )}.}
+  think of the i direction as space, and the j direction as time. this is an independent sum over all the values that the spins can take at each time slice. this is a type of path integral, it is the sum over all spin histories.
+a path integral can be rewritten as a hamiltonian evolution. the hamiltonian steps through time by performing a unitary rotation between time t and time t + δt:
+
+  
+    
+      
+        u
+        =
+        
+          e
+          
+            i
+            h
+            δ
+            t
+          
+        
+      
+    
+    {\displaystyle u=e^{ih\delta t}}
+  the product of the u matrices, one after the other, is the total time evolution operator, which is the path integral we started with.
+
+  
+    
+      
+        
+          u
+          
+            n
+          
+        
+        =
+        (
+        
+          e
+          
+            i
+            h
+            δ
+            t
+          
+        
+        
+          )
+          
+            n
+          
+        
+        =
+        ∫
+        d
+        x
+        
+          e
+          
+            i
+            l
+          
+        
+      
+    
+    {\displaystyle u^{n}=(e^{ih\delta t})^{n}=\int dxe^{il}}
+  where n is the number of time slices. the sum over all paths is given by a product of matrices, each matrix element is the transition probability from one slice to the next.
+similarly, one can divide the sum over all partition function configurations into slices, where each slice is the one-dimensional configuration at time 1. this defines the transfer matrix:
+
+  
+    
+      
+        
+          t
+          
+            
+              c
+              
+                1
+              
+            
+            
+              c
+              
+                2
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle t_{c_{1}c_{2}}.}
+  the configuration in each slice is a one-dimensional collection of spins. at each time slice, t has matrix elements between two configurations of spins, one in the immediate future and one in the immediate past. these two configurations are c1 and c2, and they are all one-dimensional spin configurations. we can think of the vector space that t acts on as all complex linear combinations of these. using quantum mechanical notation:
+
+  
+    
+      
+        
+          |
+        
+        a
+        ⟩
+        =
+        
+          ∑
+          
+            s
+          
+        
+        a
+        (
+        s
+        )
+        
+          |
+        
+        s
+        ⟩
+      
+    
+    {\displaystyle |a\rangle =\sum _{s}a(s)|s\rangle }
+  where each basis vector 
+  
+    
+      
+        
+          |
+        
+        s
+        ⟩
+      
+    
+    {\displaystyle |s\rangle }
+   is a spin configuration of a one-dimensional ising model.
+like the hamiltonian, the transfer matrix acts on all linear combinations of states.  the partition function is a matrix function of t, which is defined by the sum over all histories which come back to the original configuration after n steps:
+
+  
+    
+      
+        z
+        =
+        
+          t
+          r
+        
+        (
+        
+          t
+          
+            n
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle z=\mathrm {tr} (t^{n}).}
+  since this is a matrix equation, it can be evaluated in any basis. so if we can diagonalize the matrix t, we can find z.
+
+
+==== t in terms of pauli matrices ====
+the contribution to the partition function for each past/future pair of configurations on a slice is the sum of two terms. there is the number of spin flips in the past slice and there is the number of spin flips between the past and future slice. define an operator on configurations which flips the spin at site i:
+
+  
+    
+      
+        
+          σ
+          
+            i
+          
+          
+            x
+          
+        
+        .
+      
+    
+    {\displaystyle \sigma _{i}^{x}.}
+  in the usual ising basis, acting on any linear combination of past configurations, it produces the same linear combination but with the spin at position i of each basis vector flipped.
+define a second operator which multiplies the basis vector by +1 and −1 according to the spin at position i:
+
+  
+    
+      
+        
+          σ
+          
+            i
+          
+          
+            z
+          
+        
+        .
+      
+    
+    {\displaystyle \sigma _{i}^{z}.}
+  t can be written in terms of these:
+
+  
+    
+      
+        
+          ∑
+          
+            i
+          
+        
+        a
+        
+          σ
+          
+            i
+          
+          
+            x
+          
+        
+        +
+        b
+        
+          σ
+          
+            i
+          
+          
+            z
+          
+        
+        
+          σ
+          
+            i
+            +
+            1
+          
+          
+            z
+          
+        
+      
+    
+    {\displaystyle \sum _{i}a\sigma _{i}^{x}+b\sigma _{i}^{z}\sigma _{i+1}^{z}}
+  where a and b are constants which are to be determined so as to reproduce the partition function. the interpretation is that the statistical configuration at this slice contributes according to both the number of spin flips in the slice, and whether or not the spin at position i has flipped.
+
+
+==== spin flip creation and annihilation operators ====
+just as in the one-dimensional case, we will shift attention from the spins to the spin-flips. the σz term in t counts the number of spin flips, which we can write in terms of spin-flip creation and annihilation operators:
+
+  
+    
+      
+        ∑
+        c
+        
+          ψ
+          
+            i
+          
+          
+            †
+          
+        
+        
+          ψ
+          
+            i
+          
+        
+        .
+        
+      
+    
+    {\displaystyle \sum c\psi _{i}^{\dagger }\psi _{i}.\,}
+  the first term flips a spin, so depending on the basis state it either:
+
+moves a spin-flip one unit to the right
+moves a spin-flip one unit to the left
+produces two spin-flips on neighboring sites
+destroys two spin-flips on neighboring sites.writing this out in terms of creation and annihilation operators:
+
+  
+    
+      
+        
+          σ
+          
+            i
+          
+          
+            x
+          
+        
+        =
+        d
+        
+          
+            
+              ψ
+              
+                †
+              
+            
+          
+          
+            i
+          
+        
+        
+          ψ
+          
+            i
+            +
+            1
+          
+        
+        +
+        
+          d
+          
+            ∗
+          
+        
+        
+          
+            
+              ψ
+              
+                †
+              
+            
+          
+          
+            i
+          
+        
+        
+          ψ
+          
+            i
+            −
+            1
+          
+        
+        +
+        c
+        
+          ψ
+          
+            i
+          
+        
+        
+          ψ
+          
+            i
+            +
+            1
+          
+        
+        +
+        
+          c
+          
+            ∗
+          
+        
+        
+          
+            
+              ψ
+              
+                †
+              
+            
+          
+          
+            i
+          
+        
+        
+          
+            
+              ψ
+              
+                †
+              
+            
+          
+          
+            i
+            +
+            1
+          
+        
+        .
+      
+    
+    {\displaystyle \sigma _{i}^{x}=d{\psi ^{\dagger }}_{i}\psi _{i+1}+d^{*}{\psi ^{\dagger }}_{i}\psi _{i-1}+c\psi _{i}\psi _{i+1}+c^{*}{\psi ^{\dagger }}_{i}{\psi ^{\dagger }}_{i+1}.}
+  ignore the constant coefficients, and focus attention on the form. they are all quadratic. since the coefficients are constant, this means that the t matrix can be diagonalized by fourier transforms.
+carrying out the diagonalization produces the onsager free energy.
+
+
+==== onsager's formula for spontaneous magnetization ====
+onsager famously announced the following expression for the spontaneous magnetization m of a two-dimensional ising ferromagnet on the square lattice at two different conferences in 1948, though without proof
+
+  
+    
+      
+        m
+        =
+        
+          
+            (
+            
+              1
+              −
+              
+                
+                  [
+                  
+                    sinh
+                    ⁡
+                    2
+                    β
+                    
+                      j
+                      
+                        1
+                      
+                    
+                    sinh
+                    ⁡
+                    2
+                    β
+                    
+                      j
+                      
+                        2
+                      
+                    
+                  
+                  ]
+                
+                
+                  −
+                  2
+                
+              
+            
+            )
+          
+          
+            
+              1
+              8
+            
+          
+        
+      
+    
+    {\displaystyle m=\left(1-\left[\sinh 2\beta j_{1}\sinh 2\beta j_{2}\right]^{-2}\right)^{\frac {1}{8}}}
+  where 
+  
+    
+      
+        
+          j
+          
+            1
+          
+        
+      
+    
+    {\displaystyle j_{1}}
+   and 
+  
+    
+      
+        
+          j
+          
+            2
+          
+        
+      
+    
+    {\displaystyle j_{2}}
+   are horizontal and vertical interaction energies.
+a complete derivation was only given in 1951 by yang (1952) using a limiting process of transfer matrix eigenvalues. the proof was subsequently greatly simplified in 1963 by montroll, potts, and ward using szegő's limit formula for toeplitz determinants by treating the magnetization as the limit of correlation functions.
+
+
+=== minimal model ===
+
+at the critical point, the two-dimensional ising model is a two-dimensional conformal field theory. the spin and energy correlation functions are described by a minimal model, which has been exactly solved.
+
+
+== three dimensions ==
+in three as in two dimensions, the most studied case of the ising model is the translation-invariant model on a cubic lattice with nearest-neighbor coupling in the zero magnetic field. top theoreticians searched for an analytical three-dimensional solution for many decades, which would be analogous to onsager's solution in the two-dimensional case. by now it is believed that such a solution does not exist, although there is no proof.
+in three dimensions, the ising model was shown to have a representation in terms of non-interacting fermionic strings by alexander polyakov and vladimir dotsenko. this construction has been carried on the lattice, and the continuum limit, conjecturally describing the critical point, is unknown.
+
+
+=== istrail's np-completeness result for the general spin glass model ===
+in 2000, sorin istrail of sandia national laboratories proved that the nonplanar ising model is np-complete. that is, assuming p ≠ np, the general spin glass ising model is exactly solvable only in planar cases, so solutions for dimensions higher that two are also intractable. istrail's result only concerns the spin glass model with spatially varying couplings, and tells nothing about ising's original ferromagnetic model with equal couplings.
+
+
+=== phase transition ===
+in three as in two dimensions, peierl's argument shows that there is a phase transition. this phase transition is rigorously known to be continuous (in the sense that correlation length diverges and the magnetization goes to zero), and is called the critical point. it is believed that the critical point can be described by a renormalization group fixed point of the wilson-kadanoff renormalization group transformation. it is also believed that the phase transition can be described by a three-dimensional unitary conformal field theory, as evidenced by monte carlo simulations and theoretical arguments. although it is an open problem to establish rigorously the renormalization group picture or the conformal field theory picture, theoretical physicists have used these two methods to compute the critical exponents of the phase transition, which agree with the experiments and with the monte carlo simulations.
+this conformal field theory describing the three-dimensional ising critical point is under active investigation using the method of the conformal bootstrap. this method currently yields the most precise information about the structure of the critical theory (see ising critical exponents).
+
+
+== four dimensions and above ==
+in any dimension, the ising model can be productively described by a locally varying mean field. the field is defined as the average spin value over a large region, but not so large so as to include the entire system. the field still has slow variations from point to point, as the averaging volume moves. these fluctuations in the field are described by a continuum field theory in the infinite system limit.
+
+
+=== local field ===
+the field h is defined as the long wavelength fourier components of the spin variable, in the limit that the wavelengths are long. there are many ways to take the long wavelength average, depending on the details of how high wavelengths are cut off. the details are not too important, since the goal is to find the statistics of h and not the spins. once the correlations in h are known, the long-distance correlations between the spins will be proportional to the long-distance correlations in h.
+for any value of the slowly varying field h, the free energy (log-probability) is a local analytic function of h and its gradients. the free energy f(h) is defined to be the sum over all ising configurations which are consistent with the long wavelength field. since h is a coarse description, there are many ising configurations consistent with each value of h, so long as not too much exactness is required for the match.
+since the allowed range of values of the spin in any region only depends on the values of h within one averaging volume from that region, the free energy contribution from each region only depends on the value of h there and in the neighboring regions. so f is a sum over all regions of a local contribution, which only depends on h and its derivatives.
+by symmetry in h, only even powers contribute. by reflection symmetry on a square lattice, only even powers of gradients contribute. writing out the first few terms in the free energy:
+
+  
+    
+      
+        β
+        f
+        =
+        ∫
+        
+          d
+          
+            d
+          
+        
+        x
+        
+          [
+          
+            a
+            
+              h
+              
+                2
+              
+            
+            +
+            
+              ∑
+              
+                i
+                =
+                1
+              
+              
+                d
+              
+            
+            
+              z
+              
+                i
+              
+            
+            (
+            
+              ∂
+              
+                i
+              
+            
+            h
+            
+              )
+              
+                2
+              
+            
+            +
+            λ
+            
+              h
+              
+                4
+              
+            
+            +
+            ⋯
+          
+          ]
+        
+        .
+      
+    
+    {\displaystyle \beta f=\int d^{d}x\left[ah^{2}+\sum _{i=1}^{d}z_{i}(\partial _{i}h)^{2}+\lambda h^{4}+\cdots \right].}
+  on a square lattice, symmetries guarantee that the coefficients zi of the derivative terms are all equal. but even for an anisotropic ising model, where the zi's in different directions are different, the fluctuations in h are isotropic in a coordinate system where the different directions of space are rescaled.
+on any lattice, the derivative term
+
+  
+    
+      
+        
+          z
+          
+            i
+            j
+          
+        
+        
+        
+          ∂
+          
+            i
+          
+        
+        h
+        
+        
+          ∂
+          
+            j
+          
+        
+        h
+      
+    
+    {\displaystyle z_{ij}\,\partial _{i}h\,\partial _{j}h}
+  is a positive definite quadratic form, and can be used to define the metric for space. so any translationally invariant ising model is rotationally invariant at long distances, in coordinates that make zij = δij. rotational symmetry emerges spontaneously at large distances just because there aren't very many low order terms. at higher order multicritical points, this accidental symmetry is lost.
+since βf is a function of a slowly spatially varying field, the probability of any field configuration is:
+
+  
+    
+      
+        p
+        (
+        h
+        )
+        ∝
+        
+          e
+          
+            −
+            ∫
+            
+              d
+              
+                d
+              
+            
+            x
+            
+              [
+              
+                a
+                
+                  h
+                  
+                    2
+                  
+                
+                +
+                z
+                
+                  |
+                
+                ∇
+                h
+                
+                  
+                    |
+                  
+                  
+                    2
+                  
+                
+                +
+                λ
+                
+                  h
+                  
+                    4
+                  
+                
+              
+              ]
+            
+          
+        
+        .
+      
+    
+    {\displaystyle p(h)\propto e^{-\int d^{d}x\left[ah^{2}+z|\nabla h|^{2}+\lambda h^{4}\right]}.}
+  the statistical average of any product of h terms is equal to:
+
+  
+    
+      
+        ⟨
+        h
+        (
+        
+          x
+          
+            1
+          
+        
+        )
+        h
+        (
+        
+          x
+          
+            2
+          
+        
+        )
+        ⋯
+        h
+        (
+        
+          x
+          
+            n
+          
+        
+        )
+        ⟩
+        =
+        
+          
+            
+              ∫
+              d
+              h
+              
+              p
+              (
+              h
+              )
+              h
+              (
+              
+                x
+                
+                  1
+                
+              
+              )
+              h
+              (
+              
+                x
+                
+                  2
+                
+              
+              )
+              ⋯
+              h
+              (
+              
+                x
+                
+                  n
+                
+              
+              )
+            
+            
+              ∫
+              d
+              h
+              
+              p
+              (
+              h
+              )
+            
+          
+        
+        .
+      
+    
+    {\displaystyle \langle h(x_{1})h(x_{2})\cdots h(x_{n})\rangle ={\int dh\,p(h)h(x_{1})h(x_{2})\cdots h(x_{n}) \over \int dh\,p(h)}.}
+  the denominator in this expression is called the partition function, and the integral over all possible values of h is a statistical path integral. it integrates exp(βf) over all values of h, over all the long wavelength fourier components of the spins. f is a euclidean lagrangian for the field h, the only difference between this and the quantum field theory of a scalar field being that all the derivative terms enter with a positive sign, and there is no overall factor of i.
+
+  
+    
+      
+        z
+        =
+        ∫
+        d
+        h
+        
+        
+          e
+          
+            −
+            ∫
+            
+              d
+              
+                d
+              
+            
+            x
+            
+              [
+              
+                a
+                
+                  h
+                  
+                    2
+                  
+                
+                +
+                z
+                
+                  |
+                
+                ∇
+                h
+                
+                  
+                    |
+                  
+                  
+                    2
+                  
+                
+                +
+                λ
+                
+                  h
+                  
+                    4
+                  
+                
+              
+              ]
+            
+          
+        
+      
+    
+    {\displaystyle z=\int dh\,e^{-\int d^{d}x\left[ah^{2}+z|\nabla h|^{2}+\lambda h^{4}\right]}}
+  
+
+
+=== dimensional analysis ===
+the form of f can be used to predict which terms are most important by dimensional analysis. dimensional analysis is not completely straightforward, because the scaling of h needs to be determined.
+in the generic case, choosing the scaling law for h is easy, since the only term that contributes is the first one,
+
+  
+    
+      
+        f
+        =
+        ∫
+        
+          d
+          
+            d
+          
+        
+        x
+        
+        a
+        
+          h
+          
+            2
+          
+        
+        .
+      
+    
+    {\displaystyle f=\int d^{d}x\,ah^{2}.}
+  this term is the most significant,  but it gives trivial behavior. this form of the free energy is ultralocal, meaning that it is a sum of an independent contribution from each point. this is like the spin-flips in the one-dimensional ising model. every value of h at any point fluctuates completely independently of the value at any other point.
+the scale of the field can be redefined to absorb the coefficient a, and then it is clear that a only determines the overall scale of fluctuations. the ultralocal model describes the long wavelength high temperature behavior of the ising model, since in this limit the fluctuation averages are independent from point to point.
+to find the critical point, lower the temperature. as the temperature goes down, the fluctuations in h go up because the fluctuations are more correlated. this means that the average of a large number of spins does not become small as quickly as if they were uncorrelated, because they tend to be the same. this corresponds to decreasing a in the system of units where h does not absorb a. the phase transition can only happen when the subleading terms in f can contribute, but since the first term dominates at long distances, the coefficient a must be tuned to zero. this is the location of the critical point:
+
+  
+    
+      
+        f
+        =
+        ∫
+        
+          d
+          
+            d
+          
+        
+        x
+        
+          [
+          
+            t
+            
+              h
+              
+                2
+              
+            
+            +
+            λ
+            
+              h
+              
+                4
+              
+            
+            +
+            z
+            (
+            ∇
+            h
+            
+              )
+              
+                2
+              
+            
+          
+          ]
+        
+        ,
+      
+    
+    {\displaystyle f=\int d^{d}x\left[th^{2}+\lambda h^{4}+z(\nabla h)^{2}\right],}
+  where t is a parameter which goes through zero at the transition.
+since t is vanishing, fixing the scale of the field using this term makes the other terms blow up. once t is small, the scale of the field can either be set to fix the coefficient of the h4 term or the (∇h)2 term to 1.
+
+
+=== magnetization ===
+to find the magnetization, fix the scaling of h so that λ is one. now the field h has dimension −d/4, so that h4ddx is dimensionless, and z has dimension 2 − d/2. in this scaling, the gradient term is only important at long distances for d ≤ 4. above four dimensions, at long wavelengths, the overall magnetization is only affected by the ultralocal terms.
+there is one subtle point. the field h is fluctuating statistically, and the fluctuations can shift the zero point of t. to see how, consider h4 split in the following way:
+
+  
+    
+      
+        h
+        (
+        x
+        
+          )
+          
+            4
+          
+        
+        =
+        −
+        ⟨
+        h
+        (
+        x
+        
+          )
+          
+            2
+          
+        
+        
+          ⟩
+          
+            2
+          
+        
+        +
+        2
+        ⟨
+        h
+        (
+        x
+        
+          )
+          
+            2
+          
+        
+        ⟩
+        h
+        (
+        x
+        
+          )
+          
+            2
+          
+        
+        +
+        
+          
+            (
+            
+              h
+              (
+              x
+              
+                )
+                
+                  2
+                
+              
+              −
+              ⟨
+              h
+              (
+              x
+              
+                )
+                
+                  2
+                
+              
+              ⟩
+            
+            )
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle h(x)^{4}=-\langle h(x)^{2}\rangle ^{2}+2\langle h(x)^{2}\rangle h(x)^{2}+\left(h(x)^{2}-\langle h(x)^{2}\rangle \right)^{2}}
+  the first term is a constant contribution to the free energy, and can be ignored. the second term is a finite shift in t. the third term is a quantity that scales to zero at long distances. this means that when analyzing the scaling of t by dimensional analysis, it is the shifted t that is important. this was historically very confusing, because the shift in t at any finite λ is finite, but near the transition t is very small. the fractional change in t is very large, and in units where t is fixed the shift looks infinite.
+the magnetization is at the minimum of the free energy, and this is an analytic equation. in terms of the shifted t,
+
+  
+    
+      
+        
+          
+            ∂
+            
+              ∂
+              h
+            
+          
+        
+        
+          (
+          
+            t
+            
+              h
+              
+                2
+              
+            
+            +
+            λ
+            
+              h
+              
+                4
+              
+            
+          
+          )
+        
+        =
+        2
+        t
+        h
+        +
+        4
+        λ
+        
+          h
+          
+            3
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle {\partial  \over \partial h}\left(th^{2}+\lambda h^{4}\right)=2th+4\lambda h^{3}=0}
+  for t < 0, the minima are at h proportional to the square root of t. so landau's catastrophe argument is correct in dimensions larger than 5. the magnetization exponent in dimensions higher than 5 is equal to the mean-field value.
+when t is negative, the fluctuations about the new minimum are described by a new positive quadratic coefficient. since this term always dominates, at temperatures below the transition the fluctuations again become ultralocal at long distances.
+
+
+=== fluctuations ===
+to find the behavior of fluctuations, rescale the field to fix the gradient term. then the length scaling dimension of the field is 1 − d/2. now the field has constant quadratic spatial fluctuations at all temperatures. the scale dimension of the h2 term is 2, while the scale dimension of the h4 term is 4 − d. for d < 4, the h4 term has positive scale dimension. in dimensions higher than 4 it has negative scale dimensions.
+this is an essential difference. in dimensions higher than 4, fixing the scale of the gradient term means that the coefficient of the h4 term is less and less important at longer and longer wavelengths. the dimension at which nonquadratic contributions begin to contribute is known as the critical dimension. in the ising model, the critical dimension is 4.
+in dimensions above 4, the critical fluctuations are described by a purely quadratic free energy at long wavelengths. this means that the correlation functions are all computable from as gaussian averages:
+
+  
+    
+      
+        ⟨
+        s
+        (
+        x
+        )
+        s
+        (
+        y
+        )
+        ⟩
+        ∝
+        ⟨
+        h
+        (
+        x
+        )
+        h
+        (
+        y
+        )
+        ⟩
+        =
+        g
+        (
+        x
+        −
+        y
+        )
+        =
+        ∫
+        
+          
+            
+              d
+              k
+            
+            
+              (
+              2
+              π
+              
+                )
+                
+                  d
+                
+              
+            
+          
+        
+        
+          
+            
+              e
+              
+                i
+                k
+                (
+                x
+                −
+                y
+                )
+              
+            
+            
+              
+                k
+                
+                  2
+                
+              
+              +
+              t
+            
+          
+        
+      
+    
+    {\displaystyle \langle s(x)s(y)\rangle \propto \langle h(x)h(y)\rangle =g(x-y)=\int {dk \over (2\pi )^{d}}{e^{ik(x-y)} \over k^{2}+t}}
+  valid when x − y is large. the function g(x − y) is the analytic continuation to imaginary time of the feynman propagator, since the free energy is the analytic continuation of the quantum field action for a free scalar field. for dimensions 5 and higher, all the other correlation functions at long distances are then determined by wick's theorem. all the odd moments are zero, by ± symmetry. the even moments are the sum over all partition into pairs of the product of g(x − y) for each pair.
+
+  
+    
+      
+        ⟨
+        s
+        (
+        
+          x
+          
+            1
+          
+        
+        )
+        s
+        (
+        
+          x
+          
+            2
+          
+        
+        )
+        ⋯
+        s
+        (
+        
+          x
+          
+            2
+            n
+          
+        
+        )
+        ⟩
+        =
+        
+          c
+          
+            n
+          
+        
+        ∑
+        g
+        (
+        
+          x
+          
+            i
+            1
+          
+        
+        ,
+        
+          x
+          
+            j
+            1
+          
+        
+        )
+        g
+        (
+        
+          x
+          
+            i
+            2
+          
+        
+        ,
+        
+          x
+          
+            j
+            2
+          
+        
+        )
+        …
+        g
+        (
+        
+          x
+          
+            i
+            n
+          
+        
+        ,
+        
+          x
+          
+            j
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle \langle s(x_{1})s(x_{2})\cdots s(x_{2n})\rangle =c^{n}\sum g(x_{i1},x_{j1})g(x_{i2},x_{j2})\ldots g(x_{in},x_{jn})}
+  where c is the proportionality constant. so knowing g is enough. it determines all the multipoint correlations of the field.
+
+
+=== the critical two-point function ===
+to determine the form of g, consider that the fields in a path integral obey the classical equations of motion derived by varying the free energy:
+
+  
+    
+      
+        
+          
+            
+              
+              
+              
+                
+                  (
+                  
+                    −
+                    
+                      ∇
+                      
+                        x
+                      
+                      
+                        2
+                      
+                    
+                    +
+                    t
+                  
+                  )
+                
+                ⟨
+                h
+                (
+                x
+                )
+                h
+                (
+                y
+                )
+                ⟩
+              
+              
+                
+                =
+                0
+              
+            
+            
+              
+                →
+                
+
+                
+              
+              
+              
+                
+                  ∇
+                  
+                    2
+                  
+                
+                g
+                (
+                x
+                )
+                +
+                t
+                g
+                (
+                x
+                )
+              
+              
+                
+                =
+                0
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}&&\left(-\nabla _{x}^{2}+t\right)\langle h(x)h(y)\rangle &=0\\\rightarrow {}&&\nabla ^{2}g(x)+tg(x)&=0\end{aligned}}}
+  this is valid at noncoincident points only, since the correlations of h are singular when points collide. h obeys classical equations of motion for the same reason that quantum mechanical operators obey them—its fluctuations are defined by a path integral.
+at the critical point t = 0, this is laplace's equation, which can be solved by gauss's method from electrostatics. define an electric field analog by
+
+  
+    
+      
+        e
+        =
+        ∇
+        g
+      
+    
+    {\displaystyle e=\nabla g}
+  away from the origin:
+
+  
+    
+      
+        ∇
+        ⋅
+        e
+        =
+        0
+      
+    
+    {\displaystyle \nabla \cdot e=0}
+  since g is spherically symmetric in d dimensions, and e is the radial gradient of g. integrating over a large d − 1 dimensional sphere,
+
+  
+    
+      
+        ∫
+        
+          d
+          
+            d
+            −
+            1
+          
+        
+        s
+        
+          e
+          
+            r
+          
+        
+        =
+        
+          c
+          o
+          n
+          s
+          t
+          a
+          n
+          t
+        
+      
+    
+    {\displaystyle \int d^{d-1}se_{r}=\mathrm {constant} }
+  this gives:
+
+  
+    
+      
+        e
+        =
+        
+          
+            c
+            
+              r
+              
+                d
+                −
+                1
+              
+            
+          
+        
+      
+    
+    {\displaystyle e={c \over r^{d-1}}}
+  and g can be found by integrating with respect to r.
+
+  
+    
+      
+        g
+        (
+        r
+        )
+        =
+        
+          
+            c
+            
+              r
+              
+                d
+                −
+                2
+              
+            
+          
+        
+      
+    
+    {\displaystyle g(r)={c \over r^{d-2}}}
+  the constant c fixes the overall normalization of the field.
+
+
+=== g(r) away from the critical point ===
+when t does not equal zero, so that h is fluctuating at a temperature slightly away from critical, the two point function decays at long distances. the equation it obeys is altered:
+
+  
+    
+      
+        
+          ∇
+          
+            2
+          
+        
+        g
+        +
+        t
+        g
+        =
+        0
+        →
+        
+          
+            1
+            
+              r
+              
+                d
+                −
+                1
+              
+            
+          
+        
+        
+          
+            d
+            
+              d
+              r
+            
+          
+        
+        
+          (
+          
+            
+              r
+              
+                d
+                −
+                1
+              
+            
+            
+              
+                
+                  d
+                  g
+                
+                
+                  d
+                  r
+                
+              
+            
+          
+          )
+        
+        +
+        t
+        g
+        (
+        r
+        )
+        =
+        0
+      
+    
+    {\displaystyle \nabla ^{2}g+tg=0\to {1 \over r^{d-1}}{d \over dr}\left(r^{d-1}{dg \over dr}\right)+tg(r)=0}
+  for r small compared with 
+  
+    
+      
+        
+          
+            t
+          
+        
+      
+    
+    {\displaystyle {\sqrt {t}}}
+  , the solution diverges exactly the same way as in the critical case, but the long distance behavior is modified.
+to see how, it is convenient to represent the two point function as an integral, introduced by schwinger in the quantum field theory context:
+
+  
+    
+      
+        g
+        (
+        x
+        )
+        =
+        ∫
+        d
+        τ
+        
+          
+            1
+            
+              
+                (
+                
+                  
+                    2
+                    π
+                    τ
+                  
+                
+                )
+              
+              
+                d
+              
+            
+          
+        
+        
+          e
+          
+            −
+            
+              
+                
+                  x
+                  
+                    2
+                  
+                
+                
+                  4
+                  τ
+                
+              
+            
+            −
+            t
+            τ
+          
+        
+      
+    
+    {\displaystyle g(x)=\int d\tau {1 \over \left({\sqrt {2\pi \tau }}\right)^{d}}e^{-{x^{2} \over 4\tau }-t\tau }}
+  this is g, since the fourier transform of this integral is easy. each fixed τ contribution is a gaussian in x, whose fourier transform is another gaussian of reciprocal width in k.
+
+  
+    
+      
+        g
+        (
+        k
+        )
+        =
+        ∫
+        d
+        τ
+        
+          e
+          
+            −
+            (
+            
+              k
+              
+                2
+              
+            
+            −
+            t
+            )
+            τ
+          
+        
+        =
+        
+          
+            1
+            
+              
+                k
+                
+                  2
+                
+              
+              −
+              t
+            
+          
+        
+      
+    
+    {\displaystyle g(k)=\int d\tau e^{-(k^{2}-t)\tau }={1 \over k^{2}-t}}
+  this is the inverse of the operator ∇2 − t in k-space, acting on the unit function in k-space, which is the fourier transform of a delta function source localized at the origin. so it satisfies the same equation as g with the same boundary conditions that determine the strength of the divergence at 0.
+the interpretation of the integral representation over the proper time τ is that the two point function is the sum over all random walk paths that link position 0 to position x over time τ. the density of these paths at time τ at position x  is gaussian, but the random walkers disappear at a steady rate proportional to t so that the gaussian at time τ is diminished in height by a factor that decreases steadily exponentially. in the quantum field theory context, these are the paths of relativistically localized quanta in a formalism that follows the paths of individual particles. in the pure statistical context, these paths still appear by the mathematical correspondence with quantum fields, but their interpretation is less directly physical.
+the integral representation immediately shows that g(r) is positive, since it is represented as a weighted sum of positive gaussians. it also gives the rate of decay at large r, since the proper time for a random walk to reach position τ is r2 and in this time, the gaussian height has decayed by 
+  
+    
+      
+        
+          e
+          
+            −
+            t
+            τ
+          
+        
+        =
+        
+          e
+          
+            −
+            t
+            
+              r
+              
+                2
+              
+            
+          
+        
+      
+    
+    {\displaystyle e^{-t\tau }=e^{-tr^{2}}}
+  . the decay factor appropriate for position r is therefore 
+  
+    
+      
+        
+          e
+          
+            −
+            
+              
+                t
+              
+            
+            r
+          
+        
+      
+    
+    {\displaystyle e^{-{\sqrt {t}}r}}
+  .
+a heuristic approximation for g(r) is:
+
+  
+    
+      
+        g
+        (
+        r
+        )
+        ≈
+        
+          
+            
+              e
+              
+                −
+                
+                  
+                    t
+                  
+                
+                r
+              
+            
+            
+              r
+              
+                d
+                −
+                2
+              
+            
+          
+        
+      
+    
+    {\displaystyle g(r)\approx {e^{-{\sqrt {t}}r} \over r^{d-2}}}
+  this is not an exact form, except in three dimensions, where interactions between paths become important. the exact forms in high dimensions are variants of bessel functions.
+
+
+=== symanzik polymer interpretation ===
+the interpretation of the correlations as fixed size quanta travelling along random walks gives a way of understanding why the critical dimension of the h4 interaction is 4. the term h4 can be thought of as the square of the density of the random walkers at any point. in order for such a term to alter the finite order correlation functions, which only introduce a few new random walks into the fluctuating environment, the new paths must intersect. otherwise, the square of the density is just proportional to the density and only shifts the h2 coefficient by a constant. but the intersection probability of random walks depends on the dimension, and random walks in dimension higher than 4 do not intersect.
+the fractal dimension of an ordinary random walk is 2. the number of balls of size ε required to cover the path increase as ε−2. two objects of fractal dimension 2 will intersect with reasonable probability only in a space of dimension 4 or less, the same condition as for a generic pair of planes. kurt symanzik argued that this implies that the critical ising fluctuations in dimensions higher than 4 should be described by a free field. this argument eventually became a mathematical proof.
+
+
+=== 4 − ε dimensions – renormalization group ===
+the ising model in four dimensions is described by a fluctuating field, but now the fluctuations are interacting. in the polymer representation, intersections of random walks are marginally possible. in  the quantum field continuation, the quanta interact.
+the negative logarithm of the probability of any field configuration h is the free energy function
+
+  
+    
+      
+        f
+        =
+        ∫
+        
+          d
+          
+            4
+          
+        
+        x
+        
+          [
+          
+            
+              
+                z
+                2
+              
+            
+            
+              |
+            
+            ∇
+            h
+            
+              
+                |
+              
+              
+                2
+              
+            
+            +
+            
+              
+                t
+                2
+              
+            
+            
+              h
+              
+                2
+              
+            
+            +
+            
+              
+                λ
+                
+                  4
+                  !
+                
+              
+            
+            
+              h
+              
+                4
+              
+            
+          
+          ]
+        
+        
+      
+    
+    {\displaystyle f=\int d^{4}x\left[{z \over 2}|\nabla h|^{2}+{t \over 2}h^{2}+{\lambda  \over 4!}h^{4}\right]\,}
+  the numerical factors are there to simplify the equations of motion. the goal is to understand the statistical fluctuations. like any other non-quadratic path integral, the correlation functions have a feynman expansion as particles travelling along random walks, splitting and rejoining at vertices. the interaction strength is parametrized by the classically dimensionless quantity λ.
+although dimensional analysis shows that both λ and z are dimensionless, this is misleading. the long wavelength statistical fluctuations are not exactly scale invariant, and only become scale invariant when the interaction strength vanishes.
+the reason is that there is a cutoff used to define h, and the cutoff defines the shortest wavelength. fluctuations of h at wavelengths near the cutoff can affect the longer-wavelength fluctuations. if the system is scaled along with the cutoff, the parameters will scale by dimensional analysis, but then comparing parameters doesn't compare behavior because the rescaled system has more modes. if the system is rescaled in such a way that the short wavelength cutoff remains fixed, the long-wavelength fluctuations are modified.
+
+
+==== wilson renormalization ====
+a quick heuristic way of studying the scaling is to cut off the h wavenumbers at a point λ. fourier modes of h with wavenumbers larger than λ are not allowed to fluctuate. a rescaling of length that make the whole system smaller increases all wavenumbers, and moves some fluctuations above the cutoff.
+to restore the old cutoff, perform a partial integration over all the wavenumbers which used to be forbidden, but are now fluctuating. in feynman diagrams, integrating over a fluctuating mode at wavenumber k links up lines carrying momentum k in a correlation function in pairs, with a factor of the inverse propagator.
+under rescaling, when the system is shrunk by a factor of (1+b), the t coefficient scales up by a factor (1+b)2 by dimensional analysis. the change in t for infinitesimal b is 2bt. the other two coefficients are dimensionless and do not change at all.
+the lowest order effect of integrating out can be calculated from the equations of motion:
+
+  
+    
+      
+        
+          ∇
+          
+            2
+          
+        
+        h
+        +
+        t
+        h
+        =
+        −
+        
+          
+            λ
+            6
+          
+        
+        
+          h
+          
+            3
+          
+        
+        .
+      
+    
+    {\displaystyle \nabla ^{2}h+th=-{\lambda  \over 6}h^{3}.}
+  this equation is an identity inside any correlation function away from other insertions.  after integrating out the modes with λ < k < (1+b)λ, it will be a slightly different identity.
+since the form of the equation will be preserved, to find the change in coefficients it is sufficient to analyze the change in the h3 term. in a feynman diagram expansion, the h3 term in a correlation function inside a correlation has three dangling lines. joining two of them at large wavenumber k gives a change h3 with one dangling line, so proportional to h:
+
+  
+    
+      
+        δ
+        
+          h
+          
+            3
+          
+        
+        =
+        3
+        h
+        
+          ∫
+          
+            λ
+            <
+            
+              |
+            
+            k
+            
+              |
+            
+            <
+            (
+            1
+            +
+            b
+            )
+            λ
+          
+        
+        
+          
+            
+              
+                d
+                
+                  4
+                
+              
+              k
+            
+            
+              (
+              2
+              π
+              
+                )
+                
+                  4
+                
+              
+            
+          
+        
+        
+          
+            1
+            
+              (
+              
+                k
+                
+                  2
+                
+              
+              +
+              t
+              )
+            
+          
+        
+      
+    
+    {\displaystyle \delta h^{3}=3h\int _{\lambda <|k|<(1+b)\lambda }{d^{4}k \over (2\pi )^{4}}{1 \over (k^{2}+t)}}
+  the factor of 3 comes from the fact that the loop can be closed in three different ways.
+the integral should be split into two parts:
+
+  
+    
+      
+        ∫
+        d
+        k
+        
+          
+            1
+            
+              k
+              
+                2
+              
+            
+          
+        
+        −
+        t
+        ∫
+        d
+        k
+        
+          
+            1
+            
+              
+                k
+                
+                  2
+                
+              
+              (
+              
+                k
+                
+                  2
+                
+              
+              +
+              t
+              )
+            
+          
+        
+        =
+        a
+        
+          λ
+          
+            2
+          
+        
+        b
+        +
+        b
+        b
+        t
+      
+    
+    {\displaystyle \int dk{1 \over k^{2}}-t\int dk{1 \over k^{2}(k^{2}+t)}=a\lambda ^{2}b+bbt}
+  the first part is not proportional to t, and in the equation of motion it can be absorbed by a constant shift in t. it is caused by the fact that the h3 term has a linear part. only the second term, which varies from t to t, contributes to the critical scaling.
+this new linear term adds to the first term on the left hand side, changing t by an amount proportional to t. the total change in t is the sum of the term from dimensional analysis and this second term from operator products:
+
+  
+    
+      
+        δ
+        t
+        =
+        
+          (
+          
+            2
+            −
+            
+              
+                
+                  b
+                  λ
+                
+                2
+              
+            
+          
+          )
+        
+        b
+        t
+      
+    
+    {\displaystyle \delta t=\left(2-{b\lambda  \over 2}\right)bt}
+  so t is rescaled, but its dimension is anomalous, it is changed by an amount proportional to the value of λ.
+but λ also changes. the change in λ requires considering the lines splitting and then quickly rejoining. the lowest order process is one where one of the three lines from h3 splits into three, which quickly joins with one of the other lines from the same vertex. the correction to the vertex is
+
+  
+    
+      
+        δ
+        λ
+        =
+        −
+        
+          
+            
+              3
+              
+                λ
+                
+                  2
+                
+              
+            
+            2
+          
+        
+        
+          ∫
+          
+            k
+          
+        
+        d
+        k
+        
+          
+            1
+            
+              (
+              
+                k
+                
+                  2
+                
+              
+              +
+              t
+              
+                )
+                
+                  2
+                
+              
+            
+          
+        
+        =
+        −
+        
+          
+            
+              3
+              
+                λ
+                
+                  2
+                
+              
+            
+            2
+          
+        
+        b
+      
+    
+    {\displaystyle \delta \lambda =-{3\lambda ^{2} \over 2}\int _{k}dk{1 \over (k^{2}+t)^{2}}=-{3\lambda ^{2} \over 2}b}
+  the numerical factor is three times bigger because there is an extra factor of three in choosing which of the three new lines to contract. so
+
+  
+    
+      
+        δ
+        λ
+        =
+        −
+        3
+        b
+        
+          λ
+          
+            2
+          
+        
+        b
+      
+    
+    {\displaystyle \delta \lambda =-3b\lambda ^{2}b}
+  these two equations together define the renormalization group equations in four dimensions:
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  
+                    
+                      d
+                      t
+                    
+                    t
+                  
+                
+              
+              
+                
+                =
+                
+                  (
+                  
+                    2
+                    −
+                    
+                      
+                        
+                          b
+                          λ
+                        
+                        2
+                      
+                    
+                  
+                  )
+                
+                b
+              
+            
+            
+              
+                
+                  
+                    
+                      d
+                      λ
+                    
+                    λ
+                  
+                
+              
+              
+                
+                =
+                
+                  
+                    
+                      −
+                      3
+                      b
+                      λ
+                    
+                    2
+                  
+                
+                b
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}{dt \over t}&=\left(2-{b\lambda  \over 2}\right)b\\{d\lambda  \over \lambda }&={-3b\lambda  \over 2}b\end{aligned}}}
+  the coefficient b is determined by the formula
+
+  
+    
+      
+        b
+        b
+        =
+        
+          ∫
+          
+            λ
+            <
+            
+              |
+            
+            k
+            
+              |
+            
+            <
+            (
+            1
+            +
+            b
+            )
+            λ
+          
+        
+        
+          
+            
+              
+                d
+                
+                  4
+                
+              
+              k
+            
+            
+              (
+              2
+              π
+              
+                )
+                
+                  4
+                
+              
+            
+          
+        
+        
+          
+            1
+            
+              k
+              
+                4
+              
+            
+          
+        
+      
+    
+    {\displaystyle bb=\int _{\lambda <|k|<(1+b)\lambda }{d^{4}k \over (2\pi )^{4}}{1 \over k^{4}}}
+  and is proportional to the area of a three-dimensional sphere of radius λ, times the width of the integration region bλ divided by λ4:
+
+  
+    
+      
+        b
+        =
+        (
+        2
+        
+          π
+          
+            2
+          
+        
+        
+          λ
+          
+            3
+          
+        
+        )
+        
+          
+            1
+            
+              (
+              2
+              π
+              
+                )
+                
+                  4
+                
+              
+            
+          
+        
+        
+          b
+          λ
+        
+        
+          
+            1
+            
+              b
+              
+                λ
+                
+                  4
+                
+              
+            
+          
+        
+        =
+        
+          
+            1
+            
+              8
+              
+                π
+                
+                  2
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle b=(2\pi ^{2}\lambda ^{3}){1 \over (2\pi )^{4}}{b\lambda }{1 \over b\lambda ^{4}}={1 \over 8\pi ^{2}}}
+  in other dimensions, the constant b changes, but the same constant appears both in the t flow and in the coupling flow. the reason is that the derivative with respect to t of the closed loop with a single vertex is a closed loop with two vertices. this means that the only difference between the scaling of the coupling and the t is the combinatorial factors from joining and splitting.
+
+
+==== wilson–fisher fixed point ====
+to investigate three dimensions starting from the four-dimensional theory should be possible, because the intersection probabilities of random walks depend continuously on the dimensionality of the space. in the language of feynman graphs, the coupling does not change very much when the dimension is changed.
+the process of continuing away from dimension 4 is not completely well defined without a prescription for how to do it. the prescription is only well defined on diagrams. it replaces the schwinger representation in dimension 4 with the schwinger representation in dimension 4 − ε defined by:
+
+  
+    
+      
+        g
+        (
+        x
+        −
+        y
+        )
+        =
+        ∫
+        d
+        τ
+        
+          
+            1
+            
+              t
+              
+                
+                  d
+                  2
+                
+              
+            
+          
+        
+        
+          e
+          
+            
+              
+                
+                  x
+                  
+                    2
+                  
+                
+                
+                  2
+                  τ
+                
+              
+            
+            +
+            t
+            τ
+          
+        
+      
+    
+    {\displaystyle g(x-y)=\int d\tau {1 \over t^{d \over 2}}e^{{x^{2} \over 2\tau }+t\tau }}
+  in dimension 4 − ε, the coupling λ has positive scale dimension ε, and this must be added to the flow.
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  
+                    
+                      d
+                      λ
+                    
+                    λ
+                  
+                
+              
+              
+                
+                =
+                ε
+                −
+                3
+                b
+                λ
+              
+            
+            
+              
+                
+                  
+                    
+                      d
+                      t
+                    
+                    t
+                  
+                
+              
+              
+                
+                =
+                2
+                −
+                λ
+                b
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}{d\lambda  \over \lambda }&=\varepsilon -3b\lambda \\{dt \over t}&=2-\lambda b\end{aligned}}}
+  the coefficient b is dimension dependent, but it will cancel.  the fixed point for λ is no longer zero, but at:
+
+  
+    
+      
+        λ
+        =
+        
+          
+            ε
+            
+              3
+              b
+            
+          
+        
+      
+    
+    {\displaystyle \lambda ={\varepsilon  \over 3b}}
+  where the scale dimensions of t is altered by an amount λb = ε/3.
+the magnetization exponent is altered proportionately to:
+
+  
+    
+      
+        
+          
+            
+              1
+              2
+            
+          
+        
+        
+          (
+          
+            1
+            −
+            
+              
+                ε
+                3
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle {\tfrac {1}{2}}\left(1-{\varepsilon  \over 3}\right)}
+  which is .333 in 3 dimensions (ε = 1) and .166 in 2 dimensions (ε = 2). this is not so far off from the measured exponent .308 and the onsager two dimensional exponent .125.
+
+
+=== infinite dimensions – mean field ===
+
+the behavior of an ising model on a fully connected graph may be completely understood by mean-field theory. this type of description is appropriate to very-high-dimensional square lattices, because then each site has a very large number of neighbors.
+the idea is that if each spin is connected to a large number of spins, only the average ratio of + spins to − spins is important, since the fluctuations about this mean will be small. the mean field h is the average fraction of spins which are + minus the average fraction of spins which are −. the energy cost of flipping a single spin in the mean field h is ±2jnh. it is convenient to redefine j to absorb the factor n, so that the limit n → ∞ is smooth. in terms of the new j, the energy cost for flipping a spin is ±2jh.
+this energy cost gives the ratio of probability p that the spin is + to the probability 1−p that the spin is −. this ratio is the boltzmann factor:
+
+  
+    
+      
+        
+          
+            p
+            
+              1
+              −
+              p
+            
+          
+        
+        =
+        
+          e
+          
+            2
+            β
+            j
+            h
+          
+        
+      
+    
+    {\displaystyle {p \over 1-p}=e^{2\beta jh}}
+  so that
+
+  
+    
+      
+        p
+        =
+        
+          
+            1
+            
+              1
+              +
+              
+                e
+                
+                  −
+                  2
+                  β
+                  j
+                  h
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle p={1 \over 1+e^{-2\beta jh}}}
+  the mean value of the spin is given by averaging 1 and −1 with the weights p and 1 − p, so the mean value is 2p − 1. but this average is the same for all spins, and is therefore equal to h.
+
+  
+    
+      
+        h
+        =
+        2
+        p
+        −
+        1
+        =
+        
+          
+            
+              1
+              −
+              
+                e
+                
+                  −
+                  2
+                  β
+                  j
+                  h
+                
+              
+            
+            
+              1
+              +
+              
+                e
+                
+                  −
+                  2
+                  β
+                  j
+                  h
+                
+              
+            
+          
+        
+        =
+        tanh
+        ⁡
+        (
+        β
+        j
+        h
+        )
+      
+    
+    {\displaystyle h=2p-1={1-e^{-2\beta jh} \over 1+e^{-2\beta jh}}=\tanh(\beta jh)}
+  the solutions to this equation are the possible consistent mean fields. for βj < 1 there is only the one solution at h = 0. for bigger values of β there are three solutions, and the solution at h = 0 is unstable.
+the instability means that increasing the mean field above zero a little bit produces a statistical fraction of spins which are + which is bigger than the value of the mean field. so a mean field which fluctuates above zero will produce an even greater mean field, and will eventually settle at the stable solution. this means that for temperatures below the critical value βj = 1 the mean-field ising model undergoes a phase transition in the limit of large n.
+above the critical temperature, fluctuations in h are damped because the mean field restores the fluctuation to zero field. below the critical temperature, the mean field is driven to a new equilibrium value, which is either the positive h or negative h solution to the equation.
+for βj = 1 + ε, just below the critical temperature, the value of h can be calculated from the taylor expansion of the hyperbolic tangent:
+
+  
+    
+      
+        h
+        =
+        tanh
+        ⁡
+        (
+        β
+        j
+        h
+        )
+        ≈
+        (
+        1
+        +
+        ε
+        )
+        h
+        −
+        
+          
+            
+              (
+              1
+              +
+              ε
+              
+                )
+                
+                  3
+                
+              
+              
+                h
+                
+                  3
+                
+              
+            
+            3
+          
+        
+      
+    
+    {\displaystyle h=\tanh(\beta jh)\approx (1+\varepsilon )h-{(1+\varepsilon )^{3}h^{3} \over 3}}
+  dividing by h to discard the unstable solution at h = 0, the stable solutions are:
+
+  
+    
+      
+        h
+        =
+        
+          
+            3
+            ε
+          
+        
+      
+    
+    {\displaystyle h={\sqrt {3\varepsilon }}}
+  the spontaneous magnetization h grows near the critical point as the square root of the change in temperature. this is true whenever h can be calculated from the solution of an analytic equation which is symmetric between positive and negative values, which led landau to suspect that all ising type phase transitions in all dimensions should follow this law.
+the mean-field exponent is universal because changes in the character of solutions of analytic equations are always described by catastrophes in the taylor series, which is a polynomial equation. by symmetry, the equation for h must only have odd powers of h on the right hand side. changing β should only smoothly change the coefficients. the transition happens when the coefficient of h on the right hand side is 1. near the transition:
+
+  
+    
+      
+        h
+        =
+        
+          
+            
+              ∂
+              (
+              β
+              f
+              )
+            
+            
+              ∂
+              h
+            
+          
+        
+        =
+        (
+        1
+        +
+        a
+        ε
+        )
+        h
+        +
+        b
+        
+          h
+          
+            3
+          
+        
+        +
+        ⋯
+      
+    
+    {\displaystyle h={\partial (\beta f) \over \partial h}=(1+a\varepsilon )h+bh^{3}+\cdots }
+  whatever a and b are, so long as neither of them is tuned to zero, the spontaneous magnetization will grow as the square root of ε. this argument can only fail if the free energy βf is either non-analytic or non-generic at the exact β where the transition occurs.
+but the spontaneous magnetization in magnetic systems and the density in gasses near the critical point are measured very accurately. the density and the magnetization in three dimensions have the same power-law dependence on the temperature near the critical point, but the behavior from experiments is:
+
+  
+    
+      
+        h
+        ∝
+        
+          ε
+          
+            0.308
+          
+        
+      
+    
+    {\displaystyle h\propto \varepsilon ^{0.308}}
+  the exponent is also universal, since it is the same in the ising model as in the experimental magnet and gas, but it is not equal to the mean-field value. this was a great surprise.
+this is also true in two dimensions, where
+
+  
+    
+      
+        h
+        ∝
+        
+          ε
+          
+            0.125
+          
+        
+      
+    
+    {\displaystyle h\propto \varepsilon ^{0.125}}
+  but there it was not a surprise, because it was predicted by onsager.
+
+
+=== low dimensions – block spins ===
+in three dimensions, the perturbative series from the field theory is an expansion in a coupling constant λ which is not particularly small. the effective size of the coupling at the fixed point is one over the branching factor of the particle paths, so the expansion parameter is about 1/3. in two dimensions, the perturbative expansion parameter is 2/3.
+but renormalization can also be productively applied to the spins directly, without passing to an average field. historically, this approach is due to leo kadanoff and predated the perturbative ε expansion.
+the idea is to integrate out lattice spins iteratively, generating a flow in couplings. but now the couplings are lattice energy coefficients. the fact that a continuum description exists guarantees that this iteration will converge to a fixed point when the temperature is tuned to criticality.
+
+
+==== migdal–kadanoff renormalization ====
+write the two-dimensional ising model with an infinite number of possible higher order interactions. to keep spin reflection symmetry, only even powers contribute:
+
+  
+    
+      
+        e
+        =
+        
+          ∑
+          
+            i
+            j
+          
+        
+        
+          j
+          
+            i
+            j
+          
+        
+        
+          s
+          
+            i
+          
+        
+        
+          s
+          
+            j
+          
+        
+        +
+        ∑
+        
+          j
+          
+            i
+            j
+            k
+            l
+          
+        
+        
+          s
+          
+            i
+          
+        
+        
+          s
+          
+            j
+          
+        
+        
+          s
+          
+            k
+          
+        
+        
+          s
+          
+            l
+          
+        
+        …
+        .
+      
+    
+    {\displaystyle e=\sum _{ij}j_{ij}s_{i}s_{j}+\sum j_{ijkl}s_{i}s_{j}s_{k}s_{l}\ldots .}
+  by translation invariance, jij is only a function of i-j. by the accidental rotational symmetry, at large i and j its size only depends on the magnitude of the two-dimensional vector i − j. the higher order coefficients are also similarly restricted.
+the renormalization iteration divides the lattice into two parts – even spins and odd spins. the odd spins live on the odd-checkerboard lattice positions, and the even ones on the even-checkerboard. when the spins are indexed by the position (i,j), the odd sites are those with i + j odd and the even sites those with i + j even, and even sites are only connected to odd sites.
+the two possible values of the odd spins will be integrated out, by summing over both possible values. this will produce a new free energy function for the remaining even spins, with new adjusted couplings. the even spins are again in a lattice, with axes tilted at 45 degrees to the old ones. unrotating the system restores the old configuration, but with new parameters. these parameters describe the interaction between spins at distances 
+  
+    
+      
+        
+          
+            
+              2
+            
+          
+        
+      
+    
+    {\displaystyle \scriptstyle {\sqrt {2}}}
+   larger.
+starting from the ising model and repeating this iteration eventually changes all the couplings. when the temperature is higher than the critical temperature, the couplings will converge to zero, since the spins at large distances are uncorrelated. but when the temperature is critical, there will be nonzero coefficients linking spins at all orders. the flow can be approximated by only considering the first few terms. this truncated flow will produce better and better approximations to the critical exponents when more terms are included.
+the simplest approximation is to keep only the usual j term, and discard everything else. this will generate a flow in j, analogous to the flow in t at the fixed point of λ in the ε expansion.
+to find the change in j, consider the four neighbors of an odd site. these are the only spins which interact with it. the multiplicative contribution to the partition function from the sum over the two values of the spin at the odd site is:
+
+  
+    
+      
+        
+          e
+          
+            j
+            (
+            
+              n
+              
+                +
+              
+            
+            −
+            
+              n
+              
+                −
+              
+            
+            )
+          
+        
+        +
+        
+          e
+          
+            j
+            (
+            
+              n
+              
+                −
+              
+            
+            −
+            
+              n
+              
+                +
+              
+            
+            )
+          
+        
+        =
+        2
+        cosh
+        ⁡
+        (
+        j
+        [
+        
+          n
+          
+            +
+          
+        
+        −
+        
+          n
+          
+            −
+          
+        
+        ]
+        )
+      
+    
+    {\displaystyle e^{j(n_{+}-n_{-})}+e^{j(n_{-}-n_{+})}=2\cosh(j[n_{+}-n_{-}])}
+  where n± is the number of neighbors which are ±. ignoring the factor of 2, the free energy contribution from this odd site is:
+
+  
+    
+      
+        f
+        =
+        log
+        ⁡
+        (
+        cosh
+        ⁡
+        [
+        j
+        (
+        
+          n
+          
+            +
+          
+        
+        −
+        
+          n
+          
+            −
+          
+        
+        )
+        ]
+        )
+        .
+      
+    
+    {\displaystyle f=\log(\cosh[j(n_{+}-n_{-})]).}
+  this includes nearest neighbor and next-nearest neighbor interactions, as expected, but also a four-spin interaction which is to be discarded. to truncate to nearest neighbor interactions, consider that the difference in energy between all spins the same and equal numbers + and – is:
+
+  
+    
+      
+        δ
+        f
+        =
+        ln
+        ⁡
+        (
+        cosh
+        ⁡
+        [
+        4
+        j
+        ]
+        )
+        .
+      
+    
+    {\displaystyle \delta f=\ln(\cosh[4j]).}
+  from nearest neighbor couplings, the difference in energy between all spins equal and staggered spins is 8j. the difference in energy between all spins equal and nonstaggered but net zero spin is 4j. ignoring four-spin interactions, a reasonable truncation is the average of these two energies or 6j. since each link will contribute to two odd spins, the right value to compare with the previous one is half that:
+
+  
+    
+      
+        3
+        
+          j
+          ′
+        
+        =
+        ln
+        ⁡
+        (
+        cosh
+        ⁡
+        [
+        4
+        j
+        ]
+        )
+        .
+      
+    
+    {\displaystyle 3j'=\ln(\cosh[4j]).}
+  for small j, this quickly flows to zero coupling. large j's flow to large couplings. the magnetization exponent is determined from the slope of the equation at the fixed point.
+variants of this method produce good numerical approximations for the critical exponents when many terms are included, in both two and three dimensions.
+
+
+== applications ==
+
+
+=== magnetism ===
+the original motivation for the model was the phenomenon of ferromagnetism. iron is magnetic; once it is magnetized it stays magnetized for a long time compared to any atomic time.
+in the 19th century, it was thought that magnetic fields are due to currents in matter, and ampère postulated that permanent magnets are caused by permanent atomic currents. the motion of classical charged particles could not explain permanent currents though, as shown by larmor. in order to have ferromagnetism, the atoms must have permanent magnetic moments which are not due to the motion of classical charges.
+once the electron's spin was discovered, it was clear that the magnetism should be due to a large number of electron spins all oriented in the same direction. it was natural to ask how the electrons' spins all know which direction to point in, because the electrons on one side of a magnet don't directly interact with the electrons on the other side. they can only influence their neighbors. the ising model was designed to investigate whether a large fraction of the electron spins could be oriented in the same direction using only local forces.
+
+
+=== lattice gas ===
+the ising model can be reinterpreted as a statistical model for the motion of atoms. since the kinetic energy depends only on momentum and not on position, while the statistics of the positions only depends on the potential energy, the thermodynamics of the gas only depends on the potential energy for each configuration of atoms.
+a coarse model is to make space-time a lattice and imagine that each position either contains an atom or it doesn't. the space of configuration is that of independent bits bi, where each bit is either 0 or 1 depending on whether the position is occupied or not. an attractive interaction reduces the energy of two nearby atoms. if the attraction is only between nearest neighbors, the energy is reduced by −4jbibj for each occupied neighboring pair.
+the density of the atoms can be controlled by adding a chemical potential, which is a multiplicative probability cost for adding one more atom. a multiplicative factor in probability can be reinterpreted as an additive term in the logarithm – the energy. the extra energy of a configuration with n atoms is changed by μn. the probability cost of one more atom is a factor of exp(−βμ).
+so the energy of the lattice gas is:
+
+  
+    
+      
+        e
+        =
+        −
+        
+          
+            1
+            2
+          
+        
+        
+          ∑
+          
+            ⟨
+            i
+            ,
+            j
+            ⟩
+          
+        
+        4
+        j
+        
+          b
+          
+            i
+          
+        
+        
+          b
+          
+            j
+          
+        
+        +
+        
+          ∑
+          
+            i
+          
+        
+        μ
+        
+          b
+          
+            i
+          
+        
+      
+    
+    {\displaystyle e=-{\frac {1}{2}}\sum _{\langle i,j\rangle }4jb_{i}b_{j}+\sum _{i}\mu b_{i}}
+  rewriting the bits in terms of spins, 
+  
+    
+      
+        
+          b
+          
+            i
+          
+        
+        =
+        (
+        
+          s
+          
+            i
+          
+        
+        +
+        1
+        )
+        
+          /
+        
+        2.
+      
+    
+    {\displaystyle b_{i}=(s_{i}+1)/2.}
+  
+
+  
+    
+      
+        e
+        =
+        −
+        
+          
+            1
+            2
+          
+        
+        
+          ∑
+          
+            ⟨
+            i
+            ,
+            j
+            ⟩
+          
+        
+        j
+        
+          s
+          
+            i
+          
+        
+        
+          s
+          
+            j
+          
+        
+        −
+        
+          
+            1
+            2
+          
+        
+        
+          ∑
+          
+            i
+          
+        
+        (
+        4
+        j
+        −
+        μ
+        )
+        
+          s
+          
+            i
+          
+        
+      
+    
+    {\displaystyle e=-{\frac {1}{2}}\sum _{\langle i,j\rangle }js_{i}s_{j}-{\frac {1}{2}}\sum _{i}(4j-\mu )s_{i}}
+  for lattices where every site has an equal number of neighbors, this is the ising model with a magnetic field h = (zj − μ)/2, where z is the number of neighbors.
+in biological systems, modified versions of the lattice gas model have been used to understand a range of binding behaviors. these include the binding of ligands to receptors in the cell surface, the binding of chemotaxis proteins to the flagellar motor, and the condensation of dna.
+
+
+=== neuroscience ===
+the activity of neurons in the brain can be modelled statistically. each neuron at any time is either active + or inactive −. the active neurons are those that send an action potential down the axon in any given time window, and the inactive ones are those that do not. because the neural activity at any one time is modelled by independent bits, hopfield suggested that a dynamical ising model would provide a first approximation to a neural network which is capable of learning.following the general approach of jaynes, a recent interpretation of schneidman, berry, segev and bialek,
+is that the ising model is useful for any model of neural function, because a statistical model for neural activity should be chosen using the principle of maximum entropy. given a collection of neurons, a statistical model which can reproduce the average firing rate for each neuron introduces a lagrange multiplier for each neuron:
+
+  
+    
+      
+        e
+        =
+        −
+        
+          ∑
+          
+            i
+          
+        
+        
+          h
+          
+            i
+          
+        
+        
+          s
+          
+            i
+          
+        
+      
+    
+    {\displaystyle e=-\sum _{i}h_{i}s_{i}}
+  but the activity of each neuron in this model is statistically independent. to allow for pair correlations, when one neuron tends to fire (or not to fire) along with another, introduce pair-wise lagrange multipliers:
+
+  
+    
+      
+        e
+        =
+        −
+        
+          
+            
+              1
+              2
+            
+          
+        
+        
+          ∑
+          
+            i
+            j
+          
+        
+        
+          j
+          
+            i
+            j
+          
+        
+        
+          s
+          
+            i
+          
+        
+        
+          s
+          
+            j
+          
+        
+        −
+        
+          ∑
+          
+            i
+          
+        
+        
+          h
+          
+            i
+          
+        
+        
+          s
+          
+            i
+          
+        
+      
+    
+    {\displaystyle e=-{\tfrac {1}{2}}\sum _{ij}j_{ij}s_{i}s_{j}-\sum _{i}h_{i}s_{i}}
+  where 
+  
+    
+      
+        
+          j
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle j_{ij}}
+   are not restricted to neighbors. note that this generalization of ising model is sometimes called the quadratic exponential binary distribution in statistics.
+this energy function only introduces probability biases for a spin having a value and for a pair of spins having the same value. higher order correlations are unconstrained by the multipliers. an activity pattern sampled from this distribution requires the largest number of bits to store in a computer, in the most efficient coding scheme imaginable, as compared with any other distribution with the same average activity and pairwise correlations. this means that ising models are relevant to any system which is described by bits which are as random as possible, with constraints on the pairwise correlations and the average number of 1s, which frequently occurs in both the physical and social sciences.
+
+
+=== spin glasses ===
+with the ising model the so-called spin glasses can also be described, by the usual hamiltonian
+
+  
+    
+      
+        
+          
+            
+              h
+              ^
+            
+          
+        
+        =
+        −
+        
+          
+            1
+            2
+          
+        
+        
+        ∑
+        
+          j
+          
+            i
+            ,
+            k
+          
+        
+        
+        
+          s
+          
+            i
+          
+        
+        
+        
+          s
+          
+            k
+          
+        
+        ,
+      
+    
+    {\displaystyle {\hat {h}}=-{\frac {1}{2}}\,\sum j_{i,k}\,s_{i}\,s_{k},}
+  
+where the s-variables describe the ising spins, while the ji,k are taken from a random distribution.  for spin glasses a typical distribution chooses antiferromagnetic bonds with probability p and ferromagnetic bonds with probability 1 − p.  these bonds stay fixed or "quenched" even in the presence of thermal fluctuations. when p = 0 we have the original ising model. this system deserves interest in its own; particularly one has "non-ergodic" properties leading to strange relaxation behaviour. much attention has been also attracted by the related bond and site dilute ising model, especially in two dimensions, leading to intriguing critical behavior.
+
+
+=== sea ice ===
+2d melt pond approximations can be created using the ising model; sea ice topography data bears rather heavily on the results. the state variable is binary for a simple 2d approximation, being either water or ice.
+
+
+== see also ==
+
+
+== footnotes ==
+
+
+== references ==
+
+
+== external links ==
+ising model at the net advance of physics
+barry arthur cipra, "the ising model is np-complete", siam news, vol. 33, no. 6; online edition (.pdf)
+science world article on the ising model
+a dynamical 2d ising java applet by ucsc
+a dynamical 2d ising java applet
+a larger/more complicated 2d ising java applet
+ising model simulation by enrique zeleny, the wolfram demonstrations project
+phase transitions on lattices
+three-dimensional proof for ising model impossible, sandia researcher claims
+interactive monte carlo simulation of the ising, xy and heisenberg models with 3d graphics(requires webgl compatible browser)
+ising model code , image denoising example with ising model
+david tong's lecture notes   provide a good introduction
+the cartoon picture of magnets that has transformed science - quanta magazine article about ising model
+simulation of the 2-dimensional ising model in julia: https://github.com/cossio/squareisingmodel.jl

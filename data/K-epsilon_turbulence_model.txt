@@ -1,0 +1,544 @@
+k-epsilon (k-ε) turbulence model is the most common model used in computational fluid dynamics (cfd) to simulate mean flow characteristics for turbulent flow conditions. it is a two equation model that gives a general description of turbulence by means of two transport equations (partial differential equations, pdes). the original impetus for the k-epsilon model was to improve the mixing-length model, as well as to find an alternative to algebraically prescribing turbulent length scales in moderate to high complexity flows.
+the first transported variable is the turbulent kinetic energy (k).
+the second transported variable is the rate of dissipation of turbulent kinetic energy (ε).
+
+
+== principle ==
+unlike earlier turbulence models, k-ε model focuses on the mechanisms that affect the turbulent kinetic energy. the mixing length model lacks this kind of generality. the underlying assumption of this model is that the turbulent viscosity is isotropic, in other words, the ratio between reynolds stress and mean rate of deformations is the same in all directions.
+
+
+== standard k-ε turbulence model ==
+the exact k-ε equations contain many unknown and unmeasurable terms. for a much more practical approach, the standard k-ε turbulence model (launder and spalding, 1974) is used which is based on our best understanding of the relevant processes, thus minimizing unknowns and presenting a set of equations which can be applied to a large number of turbulent applications.
+for turbulent kinetic energy  k
+
+  
+    
+      
+        
+          
+            
+              ∂
+              (
+              ρ
+              k
+              )
+            
+            
+              ∂
+              t
+            
+          
+        
+        +
+        
+          
+            
+              ∂
+              (
+              ρ
+              k
+              
+                u
+                
+                  i
+                
+              
+              )
+            
+            
+              ∂
+              
+                x
+                
+                  i
+                
+              
+            
+          
+        
+        =
+        
+          
+            ∂
+            
+              ∂
+              
+                x
+                
+                  j
+                
+              
+            
+          
+        
+        
+          [
+          
+            
+              
+                
+                  μ
+                  
+                    t
+                  
+                
+                
+                  σ
+                  
+                    k
+                  
+                
+              
+            
+            
+              
+                
+                  ∂
+                  k
+                
+                
+                  ∂
+                  
+                    x
+                    
+                      j
+                    
+                  
+                
+              
+            
+          
+          ]
+        
+        +
+        2
+        
+          
+            μ
+            
+              t
+            
+          
+        
+        
+          
+            e
+            
+              i
+              j
+            
+          
+        
+        
+          
+            e
+            
+              i
+              j
+            
+          
+        
+        −
+        ρ
+        ε
+      
+    
+    {\displaystyle {\frac {\partial (\rho k)}{\partial t}}+{\frac {\partial (\rho ku_{i})}{\partial x_{i}}}={\frac {\partial }{\partial x_{j}}}\left[{\frac {\mu _{t}}{\sigma _{k}}}{\frac {\partial k}{\partial x_{j}}}\right]+2{\mu _{t}}{e_{ij}}{e_{ij}}-\rho \varepsilon }
+  for dissipation  
+  
+    
+      
+        ε
+      
+    
+    {\displaystyle \varepsilon }
+  
+
+  
+    
+      
+        
+          
+            
+              ∂
+              (
+              ρ
+              ε
+              )
+            
+            
+              ∂
+              t
+            
+          
+        
+        +
+        
+          
+            
+              ∂
+              (
+              ρ
+              ε
+              
+                u
+                
+                  i
+                
+              
+              )
+            
+            
+              ∂
+              
+                x
+                
+                  i
+                
+              
+            
+          
+        
+        =
+        
+          
+            ∂
+            
+              ∂
+              
+                x
+                
+                  j
+                
+              
+            
+          
+        
+        
+          [
+          
+            
+              
+                
+                  μ
+                  
+                    t
+                  
+                
+                
+                  σ
+                  
+                    ε
+                  
+                
+              
+            
+            
+              
+                
+                  ∂
+                  ε
+                
+                
+                  ∂
+                  
+                    x
+                    
+                      j
+                    
+                  
+                
+              
+            
+          
+          ]
+        
+        +
+        
+          c
+          
+            1
+            ε
+          
+        
+        
+          
+            ε
+            k
+          
+        
+        2
+        
+          
+            μ
+            
+              t
+            
+          
+        
+        
+          
+            e
+            
+              i
+              j
+            
+          
+        
+        
+          
+            e
+            
+              i
+              j
+            
+          
+        
+        −
+        
+          c
+          
+            2
+            ε
+          
+        
+        ρ
+        
+          
+            
+              ε
+              
+                2
+              
+            
+            k
+          
+        
+      
+    
+    {\displaystyle {\frac {\partial (\rho \varepsilon )}{\partial t}}+{\frac {\partial (\rho \varepsilon u_{i})}{\partial x_{i}}}={\frac {\partial }{\partial x_{j}}}\left[{\frac {\mu _{t}}{\sigma _{\varepsilon }}}{\frac {\partial \varepsilon }{\partial x_{j}}}\right]+c_{1\varepsilon }{\frac {\varepsilon }{k}}2{\mu _{t}}{e_{ij}}{e_{ij}}-c_{2\varepsilon }\rho {\frac {\varepsilon ^{2}}{k}}}
+  where
+
+  
+    
+      
+        
+          u
+          
+            i
+          
+        
+      
+    
+    {\displaystyle u_{i}}
+   represents velocity component in corresponding direction
+  
+    
+      
+        
+          e
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle e_{ij}}
+   represents component of rate of deformation
+  
+    
+      
+        
+          μ
+          
+            t
+          
+        
+      
+    
+    {\displaystyle \mu _{t}}
+   represents eddy viscosity
+  
+    
+      
+        
+          μ
+          
+            t
+          
+        
+        =
+        ρ
+        
+          c
+          
+            μ
+          
+        
+        
+          
+            
+              k
+              
+                2
+              
+            
+            ε
+          
+        
+      
+    
+    {\displaystyle \mu _{t}=\rho c_{\mu }{\frac {k^{2}}{\varepsilon }}}
+  the equations also consist of some adjustable constants 
+  
+    
+      
+        
+          σ
+          
+            k
+          
+        
+      
+    
+    {\displaystyle \sigma _{k}}
+  , 
+  
+    
+      
+        
+          σ
+          
+            ε
+          
+        
+      
+    
+    {\displaystyle \sigma _{\varepsilon }}
+   , 
+  
+    
+      
+        
+          c
+          
+            1
+            ε
+          
+        
+      
+    
+    {\displaystyle c_{1\varepsilon }}
+   and 
+  
+    
+      
+        
+          c
+          
+            2
+            ε
+          
+        
+      
+    
+    {\displaystyle c_{2\varepsilon }}
+  . the values of these constants have been arrived at by numerous iterations of data fitting for a wide range of turbulent flows. these are as follows: 
+  
+    
+      
+        
+          c
+          
+            μ
+          
+        
+        =
+        0.09
+      
+    
+    {\displaystyle c_{\mu }=0.09}
+              
+  
+    
+      
+        
+          σ
+          
+            k
+          
+        
+        =
+        1.00
+      
+    
+    {\displaystyle \sigma _{k}=1.00}
+              
+  
+    
+      
+        
+          σ
+          
+            ε
+          
+        
+        =
+        1.30
+      
+    
+    {\displaystyle \sigma _{\varepsilon }=1.30}
+              
+  
+    
+      
+        
+          c
+          
+            1
+            ε
+          
+        
+        =
+        1.44
+      
+    
+    {\displaystyle c_{1\varepsilon }=1.44}
+              
+  
+    
+      
+        
+          c
+          
+            2
+            ε
+          
+        
+        =
+        1.92
+      
+    
+    {\displaystyle c_{2\varepsilon }=1.92}
+  
+
+
+== applications ==
+the k-ε model has been tailored specifically for planar shear layers and recirculating flows. this model is the most widely used and validated turbulence model with applications ranging from industrial to environmental flows, which explains its popularity. it is usually useful for free-shear layer flows with relatively small pressure gradients as well as in confined flows where the reynolds shear stresses are most important. it can also be stated as the simplest turbulence model  for which only initial and/or boundary conditions needs to be supplied.
+however it is more expensive in terms of memory than the mixing length model as it requires two extra pdes. this model would be an inappropriate choice for problems such as inlets and compressors as accuracy has been shown experimentally to be reduced for flows containing large adverse pressure gradients. the k-ε model also performs poorly in a variety of important cases such as unconfined flows, curved boundary layers, rotating flows and flows in non-circular ducts.
+
+
+== other models ==
+realizable k-ε model: an immediate benefit of the realizable k-ɛ model is that it provides improved predictions for the spreading rate of both planar and round jets. it also exhibits superior performance for flows involving rotation, boundary layers under strong adverse pressure gradients, separation, and recirculation. in virtually every measure of comparison, realizable k-ɛ demonstrates a superior ability to capture the mean flow of the complex structures.
+k-ω model: used when there are wall effects present within the case.
+reynolds stress equation model: in case of complex turbulent flows, reynolds stress models are able to provide better predictions. such flows include turbulent flows with high degrees of anisotropy, significant streamline curvature, flow separation, zones of recirculation and influence of mean rotation effects.
+
+
+== references ==
+
+
+== notes ==
+'an introduction to computational fluid dynamics: the finite volume method (2nd edition)' , h. versteeg,  w. malalasekera; pearson education limited; 2007; isbn 0131274988
+'turbulence modeling for cfd' 2nd ed. , wilcox c. d. ; dcw industries ; 1998 ; isbn 0963605100
+'an introduction to turbulence and its measurement' , bradshaw, p. ; pergamon press ; 1971 ; isbn 0080166210

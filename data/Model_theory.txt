@@ -1,0 +1,3342 @@
+in mathematical logic, model theory is the study of the relationship between formal theories (a collection of sentences in a formal language expressing statements about a mathematical structure), and their models (those structures in which the statements of the theory hold). the aspects investigated include the number and size of models of a theory, the relationship of different models to each other, and their interaction with the formal language itself. in particular, model theorists also investigate the sets that can be defined in a model of a theory, and the relationship of such definable sets to each other.
+as a separate discipline, model theory goes back to alfred tarski, who first used the term "theory of models" in publication in 1954.
+since the 1970s, the subject has been shaped decisively by saharon shelah's stability theory.
+compared to other areas of mathematical logic such as proof theory, model theory is often less concerned with formal rigour and closer in spirit to classical mathematics.
+this has prompted the comment that "if proof theory is about the sacred, then model theory is about the profane".
+the applications of model theory to algebraic and diophantine geometry reflect this proximity to classical mathematics, as they often involve an integration of algebraic and model-theoretic results and techniques.
+the most prominent scholarly organization in the field of model theory is the association for symbolic logic.
+
+
+== overview ==
+this page focuses on finitary first order model theory of infinite structures.
+the relative emphasis placed on the class of models of a theory as opposed to the class of definable sets within a model fluctuated in the history of the subject, and the two directions are summarised by the pithy characterisations from 1973 and 1997 respectively:
+
+model theory = universal algebra + logicwhere universal algebra stands for mathematical structures and logic for logical theories; and
+
+model theory = algebraic geometry − fields.where logical formulas are to definable sets what equations are to varieties over a field.nonetheless, the interplay of classes of models and the sets definable in them has been crucial to the development of model theory throughout its history. for instance, while stability was originally introduced  to classify theories by their numbers of models in a given cardinality, stability theory proved crucial to understanding the geometry of definable sets.
+
+
+== fundamental notions of first-order model theory ==
+
+
+=== first-order logic ===
+
+a first-order formula is built out of atomic formulas such as r(f(x,y),z) or y = x + 1 by means of the boolean connectives 
+  
+    
+      
+        ¬
+        ,
+        ∧
+        ,
+        ∨
+        ,
+        →
+      
+    
+    {\displaystyle \neg ,\land ,\lor ,\rightarrow }
+   and prefixing of quantifiers 
+  
+    
+      
+        ∀
+        v
+      
+    
+    {\displaystyle \forall v}
+   or 
+  
+    
+      
+        ∃
+        v
+      
+    
+    {\displaystyle \exists v}
+  . a sentence is a formula in which each occurrence of a variable is in the scope of a corresponding quantifier. examples for formulas are φ (or φ(x) to mark the fact that at most x is an unbound variable in φ) and ψ defined as follows:
+
+  
+    
+      
+        
+          
+            
+              
+                φ
+              
+              
+                =
+              
+              
+                ∀
+                u
+                ∀
+                v
+                (
+                ∃
+                w
+                (
+                x
+                ×
+                w
+                =
+                u
+                ×
+                v
+                )
+                →
+                (
+                ∃
+                w
+                (
+                x
+                ×
+                w
+                =
+                u
+                )
+                ∨
+                ∃
+                w
+                (
+                x
+                ×
+                w
+                =
+                v
+                )
+                )
+                )
+                ∧
+                x
+                ≠
+                0
+                ∧
+                x
+                ≠
+                1
+                ,
+                :
+              
+            
+            
+              
+                ψ
+              
+              
+                =
+              
+              
+                ∀
+                u
+                ∀
+                v
+                (
+                (
+                u
+                ×
+                v
+                =
+                x
+                )
+                →
+                (
+                u
+                =
+                x
+                )
+                ∨
+                (
+                v
+                =
+                x
+                )
+                )
+                ∧
+                x
+                ≠
+                0
+                ∧
+                x
+                ≠
+                1.
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{array}{lcl}\varphi &=&\forall u\forall v(\exists w(x\times w=u\times v)\rightarrow (\exists w(x\times w=u)\lor \exists w(x\times w=v)))\land x\neq 0\land x\neq 1,:\\\psi &=&\forall u\forall v((u\times v=x)\rightarrow (u=x)\lor (v=x))\land x\neq 0\land x\neq 1.\end{array}}}
+  (note that the equality symbol has a double meaning here.) it is intuitively clear how to translate such formulas into mathematical meaning. in the σsmr-structure 
+  
+    
+      
+        
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\mathcal {n}}}
+   of the natural numbers, for example, an element n satisfies the formula φ if and only if n is a prime number. the formula ψ similarly defines irreducibility. tarski gave a rigorous definition, sometimes called "tarski's definition of truth", for the satisfaction relation 
+  
+    
+      
+        ⊨
+      
+    
+    {\displaystyle \models }
+  , so that one easily proves:
+
+  
+    
+      
+        
+          
+            n
+          
+        
+        ⊨
+        φ
+        (
+        n
+        )
+        
+        ⟺
+        
+        n
+      
+    
+    {\displaystyle {\mathcal {n}}\models \varphi (n)\iff n}
+   is a prime number.
+
+  
+    
+      
+        
+          
+            n
+          
+        
+        ⊨
+        ψ
+        (
+        n
+        )
+        
+        ⟺
+        
+        n
+      
+    
+    {\displaystyle {\mathcal {n}}\models \psi (n)\iff n}
+   is irreducible.a set 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   of sentences is called a (first-order) theory. a theory is satisfiable if it has a model 
+  
+    
+      
+        
+          
+            m
+          
+        
+        ⊨
+        t
+      
+    
+    {\displaystyle {\mathcal {m}}\models t}
+  , i.e. a structure (of the appropriate signature) which satisfies all the sentences in the set 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+  .  a complete theory is a theory that contains every sentence or its negation.
+the complete theory of all sentences satisfied by a structure is also called the theory of that structure.
+gödel's completeness theorem (not to be confused with his incompleteness theorems) says that a theory has a model if and only if it is consistent, i.e. no contradiction is proved by the theory.
+therefore, model theorists often use "consistent" as a synonym for "satisfiable".
+
+
+=== basic model-theoretic concepts ===
+a signature or language is a set of non-logical symbols such that each symbol is either a function symbol or a relation symbol and has a specified arity. a structure is a set 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   together with interpretations of each of the symbols of the signature as relations and functions on 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   (not to be confused with the interpretation of one structure in another). a common signature for ordered rings is 
+  
+    
+      
+        
+          σ
+          
+            o
+            r
+          
+        
+        =
+        {
+        0
+        ,
+        1
+        ,
+        +
+        ,
+        ×
+        ,
+        −
+        ,
+        <
+        }
+      
+    
+    {\displaystyle \sigma _{or}=\{0,1,+,\times ,-,<\}}
+  , where 
+  
+    
+      
+        0
+      
+    
+    {\displaystyle 0}
+   and 
+  
+    
+      
+        1
+      
+    
+    {\displaystyle 1}
+   are 0-ary function symbols (also known as constant symbols), 
+  
+    
+      
+        +
+      
+    
+    {\displaystyle +}
+   and 
+  
+    
+      
+        ×
+      
+    
+    {\displaystyle \times }
+   are binary function symbols, 
+  
+    
+      
+        −
+      
+    
+    {\displaystyle -}
+   is a unary function symbol, and 
+  
+    
+      
+        <
+      
+    
+    {\displaystyle <}
+   is a binary relation symbol. then, when these symbols are interpreted to correspond with their usual meaning on 
+  
+    
+      
+        
+          q
+        
+      
+    
+    {\displaystyle \mathbb {q} }
+   (so that e.g. 
+  
+    
+      
+        +
+      
+    
+    {\displaystyle +}
+   is a function from 
+  
+    
+      
+        
+          
+            q
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \mathbb {q} ^{2}}
+   to 
+  
+    
+      
+        
+          q
+        
+      
+    
+    {\displaystyle \mathbb {q} }
+   and 
+  
+    
+      
+        <
+      
+    
+    {\displaystyle <}
+   is a subset of 
+  
+    
+      
+        
+          
+            q
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \mathbb {q} ^{2}}
+  ), one obtains a structure 
+  
+    
+      
+        (
+        
+          q
+        
+        ,
+        
+          σ
+          
+            o
+            r
+          
+        
+        )
+      
+    
+    {\displaystyle (\mathbb {q} ,\sigma _{or})}
+  . a structure 
+  
+    
+      
+        
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\mathcal {n}}}
+   is said to model a set of first-order sentences 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   in the given language if each sentence in 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   is true in 
+  
+    
+      
+        
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\mathcal {n}}}
+   with respect to the interpretation of the signature previously specified for 
+  
+    
+      
+        
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\mathcal {n}}}
+  .
+a substructure  
+  
+    
+      
+        
+          
+            a
+          
+        
+      
+    
+    {\displaystyle {\mathcal {a}}}
+   of a σ-structure 
+  
+    
+      
+        
+          
+            b
+          
+        
+      
+    
+    {\displaystyle {\mathcal {b}}}
+   is a subset of its domain, closed under all functions in its signature σ, which is regarded as a σ-structure by restricting all functions and relations in σ to the subset.
+this generalises the analogous concepts from algebra; for instance, a subgroup is a substructure in the signature with multiplication and inverse.
+a substructure is said to be elementary if for any first-order formula φ and any elements a1, ..., an  of 
+  
+    
+      
+        
+          
+            a
+          
+        
+      
+    
+    {\displaystyle {\mathcal {a}}}
+  ,
+
+  
+    
+      
+        
+          
+            a
+          
+        
+        ⊨
+        φ
+        (
+        
+          a
+          
+            1
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          a
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle {\mathcal {a}}\models \varphi (a_{1},...,a_{n})}
+   if and only if 
+  
+    
+      
+        
+          
+            b
+          
+        
+        ⊨
+        φ
+        (
+        
+          a
+          
+            1
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          a
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle {\mathcal {b}}\models \varphi (a_{1},...,a_{n})}
+  .in particular, if φ is a sentence and 
+  
+    
+      
+        
+          
+            a
+          
+        
+      
+    
+    {\displaystyle {\mathcal {a}}}
+   an elementary substructure of 
+  
+    
+      
+        
+          
+            b
+          
+        
+      
+    
+    {\displaystyle {\mathcal {b}}}
+  , then  
+  
+    
+      
+        
+          
+            a
+          
+        
+        ⊨
+        φ
+      
+    
+    {\displaystyle {\mathcal {a}}\models \varphi }
+   if and only if  
+  
+    
+      
+        
+          
+            b
+          
+        
+        ⊨
+        φ
+      
+    
+    {\displaystyle {\mathcal {b}}\models \varphi }
+  . thus, an elementary substructure is a model of a theory exactly when the superstructure is a model. therefore, while the field of algebraic numbers 
+  
+    
+      
+        
+          
+            
+              q
+            
+            ¯
+          
+        
+      
+    
+    {\displaystyle {\overline {\mathbb {q} }}}
+   is an elementary substructure of the field of complex numbers 
+  
+    
+      
+        
+          c
+        
+      
+    
+    {\displaystyle \mathbb {c} }
+  , the rational field 
+  
+    
+      
+        
+          q
+        
+      
+    
+    {\displaystyle \mathbb {q} }
+   is not, as we can express "there is a square root of 2" as a first-order sentence satisfied by 
+  
+    
+      
+        
+          c
+        
+      
+    
+    {\displaystyle \mathbb {c} }
+   but not by 
+  
+    
+      
+        
+          q
+        
+      
+    
+    {\displaystyle \mathbb {q} }
+  .
+an embedding of a σ-structure 
+  
+    
+      
+        
+          
+            a
+          
+        
+      
+    
+    {\displaystyle {\mathcal {a}}}
+   into another σ-structure 
+  
+    
+      
+        
+          
+            b
+          
+        
+      
+    
+    {\displaystyle {\mathcal {b}}}
+   is a map f: a → b between the domains which can be written as an isomorphism of 
+  
+    
+      
+        
+          
+            a
+          
+        
+      
+    
+    {\displaystyle {\mathcal {a}}}
+   with a substructure of 
+  
+    
+      
+        
+          
+            b
+          
+        
+      
+    
+    {\displaystyle {\mathcal {b}}}
+  . if it can be written as an isomorphism with an elementary substructure, it is called an elementary embedding. every embedding is an injective homomorphism, but the converse holds only if the signature contains no relation symbols, such as in groups or fields.
+a field or a vector space can be regarded as a (commutative) group by simply ignoring some of its structure. the corresponding notion in model theory is that of a reduct of a structure to a subset of the original signature. the opposite relation is called an expansion - e.g. the (additive) group of the rational numbers, regarded as a structure in the signature {+,0} can be expanded to a field with the signature {×,+,1,0} or to an ordered group with the signature {+,0,<}.
+similarly, if σ' is a signature that extends another signature σ, then a complete σ'-theory can be restricted to σ by intersecting the set of its sentences with the set of σ-formulas. conversely, a complete σ-theory can be regarded as a σ'-theory, and one can extend it (in more than one way) to a complete σ'-theory. the terms reduct and expansion are sometimes applied to this relation as well.
+
+
+=== compactness and the löwenheim-skolem theorem ===
+the compactness theorem states that a set of sentences s is satisfiable if every finite subset of s is satisfiable. the analogous statement with consistent instead of satisfiable is trivial, since every proof can have only a finite number of antecedents used in the proof. the completeness theorem allows us to transfer this to satisfiability. however, there are also several direct (semantic) proofs of the compactness theorem.
+as a corollary (i.e., its contrapositive), the compactness theorem says that every unsatisfiable first-order theory has a finite unsatisfiable subset. this theorem is of central importance in model theory, where the words "by compactness" are commonplace.another cornerstone of first-order model theory is the löwenheim-skolem theorem. 
+according to the löwenheim-skolem theorem, every infinite structure in a countable signature has a countable elementary substructure. conversely, for any infinite cardinal κ every infinite structure in a countable signature that is of cardinality less than κ can be elementarily embedded in another structure  of cardinality κ (there is a straightforward generalisation to uncountable signatures). in particular, the löwenheim-skolem theorem implies that any theory in a countable signature with infinite models has a countable model as well as arbitrarily large models.in a certain sense made precise by lindström's theorem, first-order logic is the most expressive logic for which both the löwenheim–skolem theorem and the compactness theorem hold.
+
+
+== definability ==
+
+
+=== definable sets ===
+in model theory, definable sets are important objects of study. for instance, in 
+  
+    
+      
+        
+          n
+        
+      
+    
+    {\displaystyle \mathbb {n} }
+   the formula
+
+  
+    
+      
+        ∀
+        u
+        ∀
+        v
+        (
+        ∃
+        w
+        (
+        x
+        ×
+        w
+        =
+        u
+        ×
+        v
+        )
+        →
+        (
+        ∃
+        w
+        (
+        x
+        ×
+        w
+        =
+        u
+        )
+        ∨
+        ∃
+        w
+        (
+        x
+        ×
+        w
+        =
+        v
+        )
+        )
+        )
+        ∧
+        x
+        ≠
+        0
+        ∧
+        x
+        ≠
+        1
+      
+    
+    {\displaystyle \forall u\forall v(\exists w(x\times w=u\times v)\rightarrow (\exists w(x\times w=u)\lor \exists w(x\times w=v)))\land x\neq 0\land x\neq 1}
+  defines the subset of prime numbers, while the formula
+
+  
+    
+      
+        ∃
+        y
+        (
+        2
+        ×
+        y
+        =
+        x
+        )
+      
+    
+    {\displaystyle \exists y(2\times y=x)}
+  defines the subset of even numbers.
+in a similar way, formulas with n free variables define subsets of 
+  
+    
+      
+        
+          
+            
+              m
+            
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\mathcal {m}}^{n}}
+  . for example, in a field, the formula
+
+  
+    
+      
+        y
+        =
+        x
+        ×
+        x
+      
+    
+    {\displaystyle y=x\times x}
+  defines the curve of all 
+  
+    
+      
+        (
+        x
+        ,
+        y
+        )
+      
+    
+    {\displaystyle (x,y)}
+   such that 
+  
+    
+      
+        y
+        =
+        
+          x
+          
+            2
+          
+        
+      
+    
+    {\displaystyle y=x^{2}}
+  .
+both of the definitions mentioned here are parameter-free, that is, the defining formulas don't mention any fixed domain elements. however, one can also consider definitions with parameters from the model.
+for instance, in 
+  
+    
+      
+        
+          r
+        
+      
+    
+    {\displaystyle \mathbb {r} }
+  , the formula
+
+  
+    
+      
+        y
+        =
+        x
+        ×
+        x
+        +
+        π
+      
+    
+    {\displaystyle y=x\times x+\pi }
+  uses the parameter 
+  
+    
+      
+        π
+      
+    
+    {\displaystyle \pi }
+   from 
+  
+    
+      
+        
+          r
+        
+      
+    
+    {\displaystyle \mathbb {r} }
+   to define a curve.
+
+
+=== eliminating quantifiers ===
+in general, definable sets without quantifiers are easy to describe, while definable sets involving possibly nested quantifiers can be much more complicated.this makes quantifier elimination a crucial tool for analysing definable sets: 
+a theory t has quantifier elimination if every first-order formula φ(x1, ..., xn) over its signature is equivalent modulo t to a first-order formula ψ(x1, ..., xn) without quantifiers, i.e. 
+  
+    
+      
+        ∀
+        
+          x
+          
+            1
+          
+        
+        …
+        ∀
+        
+          x
+          
+            n
+          
+        
+        (
+        ϕ
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+        )
+        ↔
+        ψ
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+        )
+        )
+      
+    
+    {\displaystyle \forall x_{1}\dots \forall x_{n}(\phi (x_{1},\dots ,x_{n})\leftrightarrow \psi (x_{1},\dots ,x_{n}))}
+   holds in all models of t.
+if the theory of a structure has quantifier elimination, every set definable in a structure is definable by a quantifier-free formula over the same parameters as the original definition.
+for example, the theory of algebraically closed fields in the signature σring = (×,+,−,0,1) has quantifier elimination. this means that in an algebraically closed field,  every formula is equivalent to a boolean combination of equations between polynomials.
+if a theory does not have quantifier elimination, one can add additional symbols to its signature so that it does. axiomatisability and quantifier elimination results for specific theories, especially in algebra, were among the early landmark results of model theory. but often instead of quantifier elimination a weaker property suffices:
+a theory t is called model-complete if every substructure of a model of t which is itself a model of t is an elementary substructure. there is a useful criterion for testing whether a substructure is an elementary substructure, called the tarski–vaught test. it follows from this criterion that a theory t is model-complete if and only if every first-order formula φ(x1, ..., xn) over its signature is equivalent modulo t to an existential first-order formula, i.e. a formula of the following form:
+
+  
+    
+      
+        ∃
+        
+          v
+          
+            1
+          
+        
+        …
+        ∃
+        
+          v
+          
+            m
+          
+        
+        ψ
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+        ,
+        
+          v
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          v
+          
+            m
+          
+        
+        )
+      
+    
+    {\displaystyle \exists v_{1}\dots \exists v_{m}\psi (x_{1},\dots ,x_{n},v_{1},\dots ,v_{m})}
+  ,where ψ is quantifier free. a theory that is not model-complete may have a model completion, which is a related model-complete theory that is not, in general, an extension of the original theory. a more general notion is that of a model companion.
+
+
+=== minimality ===
+in every structure, every finite subset 
+  
+    
+      
+        {
+        
+          a
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          a
+          
+            n
+          
+        
+        }
+      
+    
+    {\displaystyle \{a_{1},\dots ,a_{n}\}}
+   is definable with parameters: simply use the formula
+
+  
+    
+      
+        x
+        =
+        
+          a
+          
+            1
+          
+        
+        ∨
+        ⋯
+        ∨
+        x
+        =
+        
+          a
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x=a_{1}\vee \dots \vee x=a_{n}}
+  .since we can negate this formula, every cofinite subset (which includes all but finitely many elements of the domain) is also always definable.
+this leads to the concept of a minimal structure. 
+a structure 
+  
+    
+      
+        
+          
+            m
+          
+        
+      
+    
+    {\displaystyle {\mathcal {m}}}
+   is called minimal if every subset 
+  
+    
+      
+        a
+        ⊆
+        
+          
+            m
+          
+        
+      
+    
+    {\displaystyle a\subseteq {\mathcal {m}}}
+   definable with parameters from 
+  
+    
+      
+        
+          
+            m
+          
+        
+      
+    
+    {\displaystyle {\mathcal {m}}}
+   is either finite or cofinite.
+the corresponding concept at the level of theories is called strong minimality:
+a theory t is called strongly minimal if every model of t is minimal.
+a structure is called strongly minimal if the theory of that structure is strongly minimal. equivalently, a structure is strongly minimal if every elementary extension is minimal.
+since the theory of algebraically closed fields has quantifier elimination, every definable subset of an algebraically closed field is definable by a quantifier-free formula in one variable. quantifier-free formulas in one variable express boolean combinations of polynomial equations in one variable, and since a nontrivial polynomial equation in one variable has only a finite number of solutions, the theory of algebraically closed fields is strongly minimal.on the other hand, the field 
+  
+    
+      
+        
+          r
+        
+      
+    
+    {\displaystyle \mathbb {r} }
+   of real numbers is not minimal: consider, for instance, the definable set
+
+  
+    
+      
+        φ
+        (
+        x
+        )
+        
+        =
+        
+        ∃
+        y
+        (
+        y
+        ×
+        y
+        =
+        x
+        )
+      
+    
+    {\displaystyle \varphi (x)\;=\;\exists y(y\times y=x)}
+  .this defines the subset of non-negative real numbers, which is neither finite nor cofinite.
+one can in fact use 
+  
+    
+      
+        φ
+      
+    
+    {\displaystyle \varphi }
+   to define arbitrary intervals on the real number line.
+it turns out that these suffice to represent every definable subset of 
+  
+    
+      
+        
+          r
+        
+      
+    
+    {\displaystyle \mathbb {r} }
+  .
+this generalisation of minimality has been very useful in the model theory of ordered structures.
+a densely totally ordered structure 
+  
+    
+      
+        
+          
+            m
+          
+        
+      
+    
+    {\displaystyle {\mathcal {m}}}
+   in a signature including a symbol for the order relation is called o-minimal if every subset 
+  
+    
+      
+        a
+        ⊆
+        
+          
+            m
+          
+        
+      
+    
+    {\displaystyle a\subseteq {\mathcal {m}}}
+   definable with parameters from 
+  
+    
+      
+        
+          
+            m
+          
+        
+      
+    
+    {\displaystyle {\mathcal {m}}}
+   is a finite union of points and intervals.
+
+
+=== definable and interpretable structures ===
+
+particularly important are those definable sets that are also substructures, i. e. contain all constants and are closed under function application. for instance, one can study the definable subgroups of a certain group.
+however, there is no need to limit oneself to substructures in the same signature. since formulas with n free variables  define subsets of 
+  
+    
+      
+        
+          
+            
+              m
+            
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\mathcal {m}}^{n}}
+  , n-ary relations can also be definable. functions are definable if the function graph is a definable relation, and constants 
+  
+    
+      
+        a
+        ∈
+        
+          
+            m
+          
+        
+      
+    
+    {\displaystyle a\in {\mathcal {m}}}
+   are definable if there is a formula 
+  
+    
+      
+        φ
+        (
+        x
+        )
+      
+    
+    {\displaystyle \varphi (x)}
+   such that a is the only element of 
+  
+    
+      
+        
+          
+            m
+          
+        
+      
+    
+    {\displaystyle {\mathcal {m}}}
+   such that  
+  
+    
+      
+        φ
+        (
+        a
+        )
+      
+    
+    {\displaystyle \varphi (a)}
+   is true.
+in this way, one can study definable groups and fields in general structures, for instance, which has been important in geometric stability theory.
+one can even go one step further, and move beyond immediate substructures.
+given a mathematical structure, there are very often associated structures which can be constructed as a quotient of part of the original structure via an equivalence relation. an important example is a quotient group of a group. 
+one might say that to understand the full structure one must understand these quotients. when the equivalence relation is definable, we can give the previous sentence a precise meaning. we say that these structures are interpretable.
+a key fact is that one can translate sentences from the language of the interpreted structures to the language of the original structure. thus one can show that if a structure 
+  
+    
+      
+        
+          
+            m
+          
+        
+      
+    
+    {\displaystyle {\mathcal {m}}}
+   interprets another whose theory is undecidable, then 
+  
+    
+      
+        
+          
+            m
+          
+        
+      
+    
+    {\displaystyle {\mathcal {m}}}
+   itself is undecidable.
+
+
+== types ==
+
+
+=== basic notions ===
+for a sequence of elements 
+  
+    
+      
+        
+          a
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          a
+          
+            n
+          
+        
+      
+    
+    {\displaystyle a_{1},\dots ,a_{n}}
+   of a structure 
+  
+    
+      
+        
+          
+            m
+          
+        
+      
+    
+    {\displaystyle {\mathcal {m}}}
+   and a subset a of 
+  
+    
+      
+        
+          
+            m
+          
+        
+      
+    
+    {\displaystyle {\mathcal {m}}}
+  , one can consider the set of all first-order formulas 
+  
+    
+      
+        φ
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle \varphi (x_{1},\dots ,x_{n})}
+   with parameters in a that are satisfied by 
+  
+    
+      
+        
+          a
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          a
+          
+            n
+          
+        
+      
+    
+    {\displaystyle a_{1},\dots ,a_{n}}
+  . this is called the complete (n-)type realised by 
+  
+    
+      
+        
+          a
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          a
+          
+            n
+          
+        
+      
+    
+    {\displaystyle a_{1},\dots ,a_{n}}
+   over a.
+if there is an automorphism of 
+  
+    
+      
+        
+          
+            m
+          
+        
+      
+    
+    {\displaystyle {\mathcal {m}}}
+   that is constant on a and sends 
+  
+    
+      
+        
+          a
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          a
+          
+            n
+          
+        
+      
+    
+    {\displaystyle a_{1},\dots ,a_{n}}
+   to 
+  
+    
+      
+        
+          b
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          b
+          
+            n
+          
+        
+      
+    
+    {\displaystyle b_{1},\dots ,b_{n}}
+   respectively, then 
+  
+    
+      
+        
+          a
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          a
+          
+            n
+          
+        
+      
+    
+    {\displaystyle a_{1},\dots ,a_{n}}
+   and  
+  
+    
+      
+        
+          b
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          b
+          
+            n
+          
+        
+      
+    
+    {\displaystyle b_{1},\dots ,b_{n}}
+   realise the same complete type over a.
+the real number line 
+  
+    
+      
+        
+          r
+        
+      
+    
+    {\displaystyle \mathbb {r} }
+  , viewed as a structure with only the order relation {<}, will serve as a running example in this section.
+every element 
+  
+    
+      
+        a
+        ∈
+        
+          r
+        
+      
+    
+    {\displaystyle a\in \mathbb {r} }
+   satisfies the same 1-type over the empty set. this is clear since any two real numbers a and b are connected by the order automorphism that shifts all numbers by b-a. the complete 2-type over the empty set realised by a pair of numbers 
+  
+    
+      
+        
+          a
+          
+            1
+          
+        
+        ,
+        
+          a
+          
+            2
+          
+        
+      
+    
+    {\displaystyle a_{1},a_{2}}
+   depends on their order: either 
+  
+    
+      
+        
+          a
+          
+            1
+          
+        
+        <
+        
+          a
+          
+            2
+          
+        
+      
+    
+    {\displaystyle a_{1}<a_{2}}
+  , 
+  
+    
+      
+        
+          a
+          
+            1
+          
+        
+        =
+        
+          a
+          
+            2
+          
+        
+      
+    
+    {\displaystyle a_{1}=a_{2}}
+   or 
+  
+    
+      
+        
+          a
+          
+            2
+          
+        
+        <
+        
+          a
+          
+            1
+          
+        
+      
+    
+    {\displaystyle a_{2}<a_{1}}
+  .
+over the subset 
+  
+    
+      
+        
+          z
+        
+        ⊆
+        
+          r
+        
+      
+    
+    {\displaystyle \mathbb {z} \subseteq \mathbb {r} }
+   of integers, the 1-type of a non-integer  real number a depends on its value rounded down to the nearest integer.
+more generally, whenever 
+  
+    
+      
+        
+          
+            m
+          
+        
+      
+    
+    {\displaystyle {\mathcal {m}}}
+   is a structure and a a subset of 
+  
+    
+      
+        
+          
+            m
+          
+        
+      
+    
+    {\displaystyle {\mathcal {m}}}
+  , a (partial) n-type over a is a set of formulas p with at most n free variables that are realised in an elementary extension 
+  
+    
+      
+        
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\mathcal {n}}}
+   of 
+  
+    
+      
+        
+          
+            m
+          
+        
+      
+    
+    {\displaystyle {\mathcal {m}}}
+  .  
+if p contains every such formula or its negation, then p is complete. the set of complete n-types over a is often written as 
+  
+    
+      
+        
+          s
+          
+            n
+          
+          
+            
+              m
+            
+          
+        
+        (
+        a
+        )
+      
+    
+    {\displaystyle s_{n}^{\mathcal {m}}(a)}
+  . if a is the empty set, then the type space only depends on the theory 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   of 
+  
+    
+      
+        
+          
+            m
+          
+        
+      
+    
+    {\displaystyle {\mathcal {m}}}
+  . the notation 
+  
+    
+      
+        
+          s
+          
+            n
+          
+        
+        (
+        t
+        )
+      
+    
+    {\displaystyle s_{n}(t)}
+   is commonly used for the set of types over the empty set consistent with 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+  .  
+if there is a single formula 
+  
+    
+      
+        φ
+      
+    
+    {\displaystyle \varphi }
+   such that the theory of 
+  
+    
+      
+        
+          
+            m
+          
+        
+      
+    
+    {\displaystyle {\mathcal {m}}}
+   implies 
+  
+    
+      
+        φ
+        →
+        ψ
+      
+    
+    {\displaystyle \varphi \rightarrow \psi }
+   for every formula 
+  
+    
+      
+        ψ
+      
+    
+    {\displaystyle \psi }
+   in p, then p is called isolated.
+since the real numbers 
+  
+    
+      
+        
+          r
+        
+      
+    
+    {\displaystyle \mathbb {r} }
+   are archimedean, there is no real number larger than every integer. however, a compactness argument shows that there is an elementary extension of the real number line in which there is an element larger than any integer.
+therefore, the set of formulas 
+  
+    
+      
+        {
+        n
+        <
+        x
+        
+          |
+        
+        n
+        ∈
+        
+          z
+        
+        }
+      
+    
+    {\displaystyle \{n<x|n\in \mathbb {z} \}}
+   is  a 1-type over 
+  
+    
+      
+        
+          z
+        
+        ⊆
+        
+          r
+        
+      
+    
+    {\displaystyle \mathbb {z} \subseteq \mathbb {r} }
+   that is not realised in the real number line 
+  
+    
+      
+        
+          r
+        
+      
+    
+    {\displaystyle \mathbb {r} }
+  .
+a subset of 
+  
+    
+      
+        
+          
+            
+              m
+            
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\mathcal {m}}^{n}}
+   that can be expressed as exactly those elements of 
+  
+    
+      
+        
+          
+            
+              m
+            
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\mathcal {m}}^{n}}
+   realising a certain type over a is called type-definable over a.
+for an algebraic example, suppose 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   is an algebraically closed field. the theory has quantifier elimination . this allows us to show that a type is determined exactly by the polynomial equations it contains. thus the set of complete 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  -types over a subfield 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   corresponds to the set of prime ideals of the polynomial ring 
+  
+    
+      
+        a
+        [
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+        ]
+      
+    
+    {\displaystyle a[x_{1},\ldots ,x_{n}]}
+  , and the type-definable sets are exactly the affine varieties.
+
+
+=== structures and types ===
+while not every type is realised in every structure, every structure realises its isolated types.
+if the only types over the empty set that are realised in a structure are the isolated types, then the structure is called atomic.
+on the other hand, no structure realises every type over every parameter set; if one takes all of 
+  
+    
+      
+        
+          
+            m
+          
+        
+      
+    
+    {\displaystyle {\mathcal {m}}}
+   as the parameter set, then every 1-type over 
+  
+    
+      
+        
+          
+            m
+          
+        
+      
+    
+    {\displaystyle {\mathcal {m}}}
+   realised in 
+  
+    
+      
+        
+          
+            m
+          
+        
+      
+    
+    {\displaystyle {\mathcal {m}}}
+   is isolated by a formula of the form a = x for an 
+  
+    
+      
+        a
+        ∈
+        
+          
+            m
+          
+        
+      
+    
+    {\displaystyle a\in {\mathcal {m}}}
+  . however, any proper elementary extension of 
+  
+    
+      
+        
+          
+            m
+          
+        
+      
+    
+    {\displaystyle {\mathcal {m}}}
+   contains an element that is not in 
+  
+    
+      
+        
+          
+            m
+          
+        
+      
+    
+    {\displaystyle {\mathcal {m}}}
+  . therefore a weaker notion has been introduced that captures the idea of a structure realising all types it could be expected to realise.
+a structure is called saturated if it realises every type over a parameter set 
+  
+    
+      
+        a
+        ⊂
+        
+          
+            m
+          
+        
+      
+    
+    {\displaystyle a\subset {\mathcal {m}}}
+    that is of smaller cardinality than 
+  
+    
+      
+        
+          
+            m
+          
+        
+      
+    
+    {\displaystyle {\mathcal {m}}}
+   itself.
+while an automorphism that is constant on a will always preserve types over a, it is generally not true that any two sequences 
+  
+    
+      
+        
+          a
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          a
+          
+            n
+          
+        
+      
+    
+    {\displaystyle a_{1},\dots ,a_{n}}
+   and 
+  
+    
+      
+        
+          b
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          b
+          
+            n
+          
+        
+      
+    
+    {\displaystyle b_{1},\dots ,b_{n}}
+   that satisfy the same type over a can be mapped to each other by such an automorphism. a structure 
+  
+    
+      
+        
+          
+            m
+          
+        
+      
+    
+    {\displaystyle {\mathcal {m}}}
+   in which this converse does holds for all a of smaller cardinality than 
+  
+    
+      
+        
+          
+            m
+          
+        
+      
+    
+    {\displaystyle {\mathcal {m}}}
+   is called homogeneous.
+the real number line is atomic in the language that contains only the order 
+  
+    
+      
+        <
+      
+    
+    {\displaystyle <}
+  , since all n-types over the empty set realised by  
+  
+    
+      
+        
+          a
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          a
+          
+            n
+          
+        
+      
+    
+    {\displaystyle a_{1},\dots ,a_{n}}
+   in  
+  
+    
+      
+        
+          r
+        
+      
+    
+    {\displaystyle \mathbb {r} }
+   are isolated by the order relations between the  
+  
+    
+      
+        
+          a
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          a
+          
+            n
+          
+        
+      
+    
+    {\displaystyle a_{1},\dots ,a_{n}}
+  . it is not saturated, however, since it does not realise any 1-type over the countable set 
+  
+    
+      
+        
+          z
+        
+      
+    
+    {\displaystyle \mathbb {z} }
+   that implies x to be larger than any integer.
+the rational number line  
+  
+    
+      
+        
+          q
+        
+      
+    
+    {\displaystyle \mathbb {q} }
+   is saturated, in contrast, since  
+  
+    
+      
+        
+          q
+        
+      
+    
+    {\displaystyle \mathbb {q} }
+   is itself countable and therefore only has to realise types over finite subsets to be saturated.
+
+
+=== stone spaces ===
+the set of definable subsets of 
+  
+    
+      
+        
+          
+            
+              m
+            
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\mathcal {m}}^{n}}
+   over some parameters 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   is a boolean algebra. by stone's representation theorem for boolean algebras there is a natural dual topological space, which consists exactly of the complete 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  -types over 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  . the topology generated  by sets of the form 
+  
+    
+      
+        {
+        p
+        
+          |
+        
+        φ
+        ∈
+        p
+        }
+      
+    
+    {\displaystyle \{p|\varphi \in p\}}
+   for single formulas 
+  
+    
+      
+        φ
+      
+    
+    {\displaystyle \varphi }
+  . this is called the stone space of n-types over a.
+this topology explains some of the terminology used in model theory: the compactness theorem says that the stone space is a compact topological space, and a type p is isolated if and only if p is an isolated point in the stone topology.
+while types in algebraically closed fields correspond to the spectrum of the polynomial ring, the topology on the type space is the constructible topology: a set of types is basic open iff it is of the form 
+  
+    
+      
+        {
+        p
+        :
+        f
+        (
+        x
+        )
+        =
+        0
+        ∈
+        p
+        }
+      
+    
+    {\displaystyle \{p:f(x)=0\in p\}}
+   or of the form 
+  
+    
+      
+        {
+        p
+        :
+        f
+        (
+        x
+        )
+        ≠
+        0
+        ∈
+        p
+        }
+      
+    
+    {\displaystyle \{p:f(x)\neq 0\in p\}}
+  . this is finer than the zariski topology.
+
+
+== constructing models ==
+
+
+=== realising and omitting types ===
+constructing models that realise certain types and do not realise others is an important task in model theory.
+not realising a type is referred to as omitting it, and is generally possible by the (countable) omitting types theorem:
+
+let 
+  
+    
+      
+        
+          
+            t
+          
+        
+      
+    
+    {\displaystyle {\mathcal {t}}}
+   be a theory in a countable signature and let 
+  
+    
+      
+        φ
+      
+    
+    {\displaystyle \phi }
+   be a countable set of non-isolated types over the empty set.
+then there is a model 
+  
+    
+      
+        
+          
+            m
+          
+        
+      
+    
+    {\displaystyle {\mathcal {m}}}
+   of 
+  
+    
+      
+        
+          
+            t
+          
+        
+      
+    
+    {\displaystyle {\mathcal {t}}}
+   which omits every type in 
+  
+    
+      
+        φ
+      
+    
+    {\displaystyle \phi }
+  .this implies that if a theory in a countable signature has only countably many types over the empty set, then this theory has an atomic model.
+on the other hand, there is always an elementary extension in which any set of types over a fixed parameter set is realised:
+
+let 
+  
+    
+      
+        
+          
+            m
+          
+        
+      
+    
+    {\displaystyle {\mathcal {m}}}
+   be a structure and let 
+  
+    
+      
+        φ
+      
+    
+    {\displaystyle \phi }
+   be a set of complete types over a given parameter set 
+  
+    
+      
+        a
+        ⊂
+        
+          
+            m
+          
+        
+        .
+      
+    
+    {\displaystyle a\subset {\mathcal {m}}.}
+  
+then there is an elementary extension 
+  
+    
+      
+        
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\mathcal {n}}}
+   of 
+  
+    
+      
+        
+          
+            m
+          
+        
+      
+    
+    {\displaystyle {\mathcal {m}}}
+   which realises every type in 
+  
+    
+      
+        φ
+      
+    
+    {\displaystyle \phi }
+  .however, since the parameter set is fixed and there is no mention here of the cardinality of 
+  
+    
+      
+        
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\mathcal {n}}}
+  , this does not imply that every theory has a saturated model.
+in fact, whether every theory has a saturated model is independent of the zermelo-fraenkel axioms of set theory, and is true if the generalised continuum hypothesis holds.
+
+
+=== ultraproducts ===
+ultraproducts are used as a general technique for constructing models that realise certain types.
+an ultraproduct is obtained from the direct product of a set of structures over an index set i by identifying those tuples that agree on almost all entries, where almost all is made precise by an ultrafilter u on i. an ultraproduct of copies of the same structure is known as an ultrapower.
+the key to using ultraproducts in model theory is łoś's theorem:
+
+let 
+  
+    
+      
+        
+          
+            
+              m
+            
+          
+          
+            i
+          
+        
+      
+    
+    {\displaystyle {\mathcal {m}}_{i}}
+   be a set of 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+  -structures indexed by an index set i and u an ultrafilter on i. then any 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+  -formula 
+  
+    
+      
+        φ
+        (
+        [
+        (
+        
+          a
+          
+            i
+          
+        
+        
+          )
+          
+            i
+            ∈:
+            i
+          
+        
+        ]
+        )
+      
+    
+    {\displaystyle \varphi ([(a_{i})_{i\in :i}])}
+   is true in the ultraproduct of the 
+  
+    
+      
+        
+          
+            
+              m
+            
+          
+          
+            i
+          
+        
+      
+    
+    {\displaystyle {\mathcal {m}}_{i}}
+   by 
+  
+    
+      
+        u
+      
+    
+    {\displaystyle u}
+   if the set of all 
+  
+    
+      
+        i
+        ∈
+        i
+      
+    
+    {\displaystyle i\in i}
+   for which 
+  
+    
+      
+        
+          
+            
+              m
+            
+          
+          
+            i
+          
+        
+        ⊨
+        φ
+        (
+        
+          a
+          
+            i
+          
+        
+        )
+      
+    
+    {\displaystyle {\mathcal {m}}_{i}\models \varphi (a_{i})}
+   lies in u.in particular, any ultraproduct of models of a theory is itself a model of that theory, and thus if two models have isomorphic ultrapowers, they are elementarily equivalent.
+the keisler-shelah theorem provides a converse:
+
+if  
+  
+    
+      
+        
+          
+            m
+          
+        
+      
+    
+    {\displaystyle {\mathcal {m}}}
+   and 
+  
+    
+      
+        
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\mathcal {n}}}
+   are elementary equivalent, then there is a set i and an ultrafilter u on i such that the ultrapowers by u of 
+  
+    
+      
+        
+          
+            m
+          
+        
+      
+    
+    {\displaystyle {\mathcal {m}}}
+   and :
+  
+    
+      
+        
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\mathcal {n}}}
+   are isomorphic.therefore, ultraproducts provide a way to talk about elementary equivalence that avoids mentioning first-order theories at all. basic theorems of model theory such as the compactness theorem have alternative proofs using ultraproducts, and they can be used to construct saturated elementary extensions if they exist.
+
+
+== categoricity ==
+
+a theory was originally called categorical if it determines a structure up to isomorphism. it turns out that this definition is not useful, due to serious restrictions in the expressivity of first-order logic. the löwenheim–skolem theorem implies that if a theory t has an infinite model for some infinite cardinal number, then it has a model of size κ for any sufficiently large cardinal number κ. since two models of different sizes cannot possibly be isomorphic, only finite structures can be described by a categorical theory.
+however, the weaker notion of κ-categoricity for a cardinal κ has become a key concept in model theory. a theory t is called κ-categorical if any two models of t that are of cardinality κ are isomorphic. it turns out that the question of κ-categoricity depends critically on whether κ is bigger than the cardinality of the language (i.e. 
+  
+    
+      
+        
+          ℵ
+          
+            0
+          
+        
+      
+    
+    {\displaystyle \aleph _{0}}
+   + |σ|, where |σ| is the cardinality of the signature). for finite or countable signatures this means that there is a fundamental difference between 
+  
+    
+      
+        ω
+      
+    
+    {\displaystyle \omega }
+  -cardinality and κ-cardinality for uncountable κ.
+
+
+=== ω-categoricity ===
+
+  
+    
+      
+        ω
+      
+    
+    {\displaystyle \omega }
+  -categorical theories can be characterised by properties of their type space:
+
+for a complete first-order theory t in a finite or countable signature the following conditions are equivalent:
+t is 
+  
+    
+      
+        ω
+      
+    
+    {\displaystyle \omega }
+  -categorical.
+every type in sn(t) is isolated.
+for every natural number n, sn(t) is finite.
+for every natural number n, the number of formulas φ(x1, ..., xn) in n free variables, up to equivalence modulo t, is finite.the theory of 
+  
+    
+      
+        (
+        
+          q
+        
+        ,
+        <
+        )
+      
+    
+    {\displaystyle (\mathbb {q} ,<)}
+  , which is also the theory of 
+  
+    
+      
+        (
+        
+          r
+        
+        ,
+        <
+        )
+      
+    
+    {\displaystyle (\mathbb {r} ,<)}
+  , is 
+  
+    
+      
+        ω
+      
+    
+    {\displaystyle \omega }
+  -categorical, as every n-type 
+  
+    
+      
+        p
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle p(x_{1},\dots ,x_{n})}
+   over the empty set is isolated by the pairwise order relation between the 
+  
+    
+      
+        
+          x
+          
+            i
+          
+        
+      
+    
+    {\displaystyle x_{i}}
+  .
+this means that every countable dense linear order is order-isomorphic to the rational number line. on the other hand, the theories of 
+  
+    
+      
+        
+          q
+        
+      
+    
+    {\displaystyle \mathbb {q} }
+  , 
+  
+    
+      
+        
+          r
+        
+      
+    
+    {\displaystyle \mathbb {r} }
+   and 
+  
+    
+      
+        
+          c
+        
+      
+    
+    {\displaystyle \mathbb {c} }
+   as fields are not 
+  
+    
+      
+        ω
+      
+    
+    {\displaystyle \omega }
+  -categorical. this follows from the fact that in all those fields, any of the infinitely many natural numbers can be defined by a formula of the form 
+  
+    
+      
+        x
+        =
+        1
+        +
+        ⋯
+        +
+        1
+      
+    
+    {\displaystyle x=1+\dots +1}
+  .
+
+  
+    
+      
+        
+          ℵ
+          
+            0
+          
+        
+      
+    
+    {\displaystyle \aleph _{0}}
+  -categorical theories and their countable models also have strong ties with oligomorphic groups:
+
+a complete first-order theory t in a finite or countable signature  is 
+  
+    
+      
+        ω
+      
+    
+    {\displaystyle \omega }
+  -categorical if and only if its automorphism group is oligomorphic.the equivalent charcaterisations of this subsection, due independently to engeler, ryll-nardzewski and svenonius, are sometimes referred to as the ryll-nardzewski theorem.
+in combinatorial signatures, a common source of 
+  
+    
+      
+        ω
+      
+    
+    {\displaystyle \omega }
+  -categorical theories are fraïssé limits, which are obtained as the limit of amalgamating all possible configurations of a class of finite relational structures.
+
+
+=== uncountable categoricity ===
+michael morley showed in 1963 that there is only one notion of uncountable categoricity for theories in countable languages.
+morley's categoricity theorem
+if a first-order theory t in a finite or countable signature is κ-categorical for some uncountable cardinal κ, then t is κ-categorical for all uncountable cardinals κ.morley's proof revealed deep connections between uncountable categoricity and the internal structure of the models,  which became the starting point of classification theory and stability theory. 
+uncountably categorical theories are from many points of view the most well-behaved theories.
+in particular, complete strongly minimal theories are uncountably categorical. this shows that the theory of algebraically closed fields of a given characteristic is uncountably categorical, with the transcendence degree of the field determining its isomorphism type.
+a theory that is both 
+  
+    
+      
+        ω
+      
+    
+    {\displaystyle \omega }
+  -categorical and uncountably categorical is called totally categorical.
+
+
+== stability theory ==
+
+a key factor in the structure of the class of models of a first-order theory is its place in the stability hierarchy. 
+
+a complete theory t is called 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+  -stable for a cardinal 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+   if for any model 
+  
+    
+      
+        
+          
+            m
+          
+        
+      
+    
+    {\displaystyle {\mathcal {m}}}
+   of t and any parameter set 
+  
+    
+      
+        a
+        ⊂
+        
+          
+            m
+          
+        
+      
+    
+    {\displaystyle a\subset {\mathcal {m}}}
+   of :cardinality not exceeding 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+  , there are at most 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+   complete t-types over a.a theory is called stable if it is 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+  -stable for some infinite cardinal 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+  . traditionally, theories that are 
+  
+    
+      
+        
+          ℵ
+          
+            0
+          
+        
+      
+    
+    {\displaystyle \aleph _{0}}
+  -stable are called 
+  
+    
+      
+        ω
+      
+    
+    {\displaystyle \omega }
+  -stable.
+
+
+=== the stability hierarchy ===
+a fundamental result in stability theory is the stability spectrum theorem, which implies that every complete theory t in a countable signature falls in one of the following classes:
+
+there are no cardinals 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+   such that t is 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+  -stable.
+t is 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+  -stable if and only if 
+  
+    
+      
+        
+          λ
+          
+            
+              ℵ
+              
+                0
+              
+            
+          
+        
+        =
+        λ
+      
+    
+    {\displaystyle \lambda ^{\aleph _{0}}=\lambda }
+    (see cardinal exponentiation for an explanation of 
+  
+    
+      
+        
+          λ
+          
+            
+              ℵ
+              
+                0
+              
+            
+          
+        
+      
+    
+    {\displaystyle \lambda ^{\aleph _{0}}}
+  ).
+t is 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+  -stable for any 
+  
+    
+      
+        λ
+        ≥
+        
+          2
+          
+            
+              ℵ
+              
+                0
+              
+            
+          
+        
+      
+    
+    {\displaystyle \lambda \geq 2^{\aleph _{0}}}
+   (where 
+  
+    
+      
+        
+          2
+          
+            
+              ℵ
+              
+                0
+              
+            
+          
+        
+      
+    
+    {\displaystyle 2^{\aleph _{0}}}
+   is the cardinality of the continuum).a theory of the first type is called unstable, a theory of the second type is called strictly stable and a theory of the third type is called superstable.
+furthermore, if a theory is 
+  
+    
+      
+        ω
+      
+    
+    {\displaystyle \omega }
+  -stable, it is stable in every infinite cardinal, so 
+  
+    
+      
+        ω
+      
+    
+    {\displaystyle \omega }
+  -stability is stronger than superstability.
+many construction in model theory are easier when restricted to stable theories; for instance, every model of a stable theory has a saturated elementary extension, regardless of whether the generalised continuum hypothesis is true.shelah's original motivation for studying stable theories was to decide how many models a countable theory has of any uncountable cardinality. 
+if a theory is uncountably categorical, then it is 
+  
+    
+      
+        ω
+      
+    
+    {\displaystyle \omega }
+  -stable. more generally, the main gap theorem implies that if there is an uncountable cardinal 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+   such that a theory t has less than 
+  
+    
+      
+        
+          2
+          
+            λ
+          
+        
+      
+    
+    {\displaystyle 2^{\lambda }}
+   models of cardinality 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+  , then t is superstable.
+
+
+=== geometric stability theory ===
+the stability hierarchy is also crucial for analysing the geometry of definable sets within a model of a theory.  
+in 
+  
+    
+      
+        ω
+      
+    
+    {\displaystyle \omega }
+  -stable theories, morley rank is an important dimension notion for definable sets s within a model. it is defined by transfinite induction:
+
+the morley rank is at least 0 if s is non-empty.
+for α a successor ordinal, the morley rank is at least α if in some elementary extension n of m, the set s has infinitely many disjoint definable subsets, each of rank at least α − 1.
+for α a non-zero limit ordinal, the morley rank is at least α if it is at least β for all β less than α.a theory t in which every definable set has well-defined morley rank is called totally transcendental; if t is countable, then t is totally transcendental if and only if t is 
+  
+    
+      
+        ω
+      
+    
+    {\displaystyle \omega }
+  -stable.
+morley rank can be extended to types by setting the morley rank of a type to be the minimum of the morley ranks of the formulas in the type. thus, one can also speak of the morley rank of an element a over a parameter set a, defined as the morley rank of the type of a over a.  
+there are also analogues of morley rank which are well-defined if and only if a theory is superstable (u-rank) or merely stable (shelah's 
+  
+    
+      
+        ∞
+      
+    
+    {\displaystyle \infty }
+  -rank).
+those dimension notions can be used to define notions of independence and of generic extensions.
+more recently, stability has been decomposed into simplicity and "not the independence property" (nip). 
+simple theories are those theories in which a well-behaved notion of independence can be defined, while nip theories generalise o-minimal structures.
+they are related to stability since a theory is stable if and only if it is nip and simple, and various aspects of stability theory have been generalised to theories in one of these classes.
+
+
+== non-elementary model theory ==
+model-theoretic results have been generalised beyond elementary classes, that is, classes axiomatisable by a first-order theory.
+model theory in higher-order logics or infinitary logics is hampered by the fact that completeness and compactness do not in general hold for these logics. this is made concrete by lindstrom's theorem, stating roughly that first-order logic is essentially the strongest logic in which both the löwenheim-skolem theorems and compactness hold. however, model theoretic techniques have been developed extensively for these logics too. it turns out, however, that much of the model theory of more expressive logical languages is independent of zermelo-fraenkel set theory.more recently, alongside the shift in focus to complete stable and categorical theories, there has been work on classes of models defined semantically rather than axiomatised by a logical theory.
+one example is homogeneous model theory, which studies the class of substructures of arbitrarily large homogeneous models. fundamental results of stability theory and geometric stability theory generalise to this setting.
+as a generalisation of strongly minimal theories, quasiminimally excellent classes are those in which every definable set is either countable or co-countable.  they are key to the model theory of the complex exponential function.
+the most general semantic framework in which stability is studied are abstract elementary classes, which are defined by a strong substructure relation generalising that of an elementary substructure. even though its definition is purely semantic, every abstract elementary class can be presented as the models of a first-order theory which omit certain types. generalising stability-theoretic notions to abstract elementary classes is an ongoing research program.
+
+
+== selected applications ==
+among the early successes of model theory are tarski's proofs of quantifier elimination for various algebraically interesting classes, such as the real closed fields, boolean algebras and algebraically closed fields of a given characteristic. quantifier elimination allowed tarski to show that the first-order theories of real-closed and algebraically closed fields as well as the first-order theory of boolean algebras are decidable, classify the boolean algebras up to elementary equivalence and show that the theories of real-closed fields and algebraically closed fields of a given characteristic are unique. furthermore, quantifier elimination provided a precise description of definable relations on algebraically closed fields as algebraic varieties and of the definable relations on real-closed fields as semialgebraic sets  in the 1960s, the introduction of the ultraproduct construction led to new applications in algebra. this includes ax's work on pseudofinite fields, proving that the theory of finite fields is decidable, and ax and kochen's proof of as special case of artin's conjecture on diophantine equations, the ax-kochen theorem. the ultraproduct construction also led to abraham robinson's development of nonstandard analysis, which aims to provide a rigorous calculus of infinitesimals.more recently, the connection between stability and the geometry of definable sets led to several applications from algebraic and diophantine geometry,  including ehud hrushovski's 1996 proof of the geometric mordell-lang conjecture in all characteristics in 2001, similar methods were used to prove a generalisation of the manin-mumford conjecture.
+in 2011, jonathan pila applied techniques around o-minimality to prove the  andré-oort conjecture for products of modular curves.in a separate strand of inquiries that also grew around stable theories, laskowski showed in 1992 that  nip theories describe exactly those definable classes that are pac-learnable in machine learning theory. this has led to several interactions between these separate areas. in 2018, the correspondence was extended as hunter and chase showed that stable theories correspond to online learnable classes.
+
+
+== history ==
+model theory as a subject has existed since approximately the middle of the 20th century, and the name was coined by alfred tarski, a member of the lwów–warsaw school, in 1954. however some earlier research, especially in mathematical logic, is often regarded as being of a model-theoretical nature in retrospect. the first significant result in what is now model theory was a special case of the downward löwenheim–skolem theorem, published by leopold löwenheim in 1915. the compactness theorem was implicit in work by thoralf skolem, but it was first published in 1930, as a lemma in kurt gödel's proof of his completeness theorem. the löwenheim–skolem theorem and the compactness theorem received their respective general forms in 1936 and 1941 from anatoly maltsev.
+the development of model theory as an independent discipline was brought on by alfred tarski during the interbellum. tarski's work included logical consequence, deductive systems, the algebra of logic, the theory of definability, and the semantic definition of truth, among other topics. his semantic methods culminated in the model theory he and a number of his berkeley students developed in the 1950s and '60s.
+in the further history of the discipline, different strands began to emerge, and the focus of the subject shifted. in the 1960s, techniques around ultraproducts became a popular tool in model theory. at the same time, researchers such as james ax were investigating the first-order model theory of various algebraic classes, and others such as h. jerome keisler were extending the concepts and results of first-order model theory to other logical systems. then, inspired by morley's problem, shelah developed stability theory. his work around stability changed the complexion of model theory, giving rise to a whole new class of concepts. this is known as the paradigm shift  
+over the next decades, it became clear that the resulting stability hierarchy is closely connected to the geometry of sets that are definable in those models; this gave rise to the subdiscipline now known as geometric stability theory. an example of an influential proof from geometric model theory is hrushovski's proof of the mordell–lang conjecture for function fields.
+
+
+== connections to related branches of mathematical logic ==
+
+
+=== finite model theory ===
+
+finite model theory, which concentrates on finite structures, diverges significantly from the study of infinite structures in both the problems studied and the techniques used. in particular, many central results of classical model theory that fail when restricted to finite structures. this includes the compactness theorem, gödel's completeness theorem, and the method of ultraproducts for first-order logic. at the interface of finite and infinite model theory are algorithmic or computable model theory and the study of 0-1 laws, where the infinite models of a generic theory of a class of structures provide information on the distribution of finite models. 
+prominent application areas of fmt are descriptive complexity theory, database theory and formal language theory.
+
+
+=== set theory ===
+any set theory (which is expressed in a countable language), if it is consistent, has a countable model; this is known as skolem's paradox, since there are sentences in set theory which postulate the existence of uncountable sets and yet these sentences are true in our countable model. particularly the proof of the independence of the continuum hypothesis requires considering sets in models which appear to be uncountable when viewed from within the model, but are countable to someone outside the model.the model-theoretic viewpoint has been useful in set theory; for example in kurt gödel's work on the constructible universe, which, along with the method of forcing developed by paul cohen can be shown to prove the (again philosophically interesting) independence of the axiom of choice and the continuum hypothesis from the other axioms of set theory.in the other direction, model theory is itself formalised within zermelo-fraenkel set theory. for instance, the development of the fundamentals of model theory (such as the compactness theorem) rely on the axiom of choice,  and is in fact equivalent over zermelo-fraenkel set theory without choice to the boolean prime ideal theorem.  other results in model theory depend on set-theoretic axioms beyond the standard zfc framework.  for example, if the continuum hypothesis holds then every countable model has an ultrapower which is saturated (in its own cardinality).  similarly, if the generalized continuum hypothesis holds then every model has a saturated elementary extension.  neither of these results are provable in zfc alone.  finally, some questions arising from model theory (such as compactness for infinitary logics) have been shown to be equivalent to large cardinal axioms.
+
+
+== see also ==
+
+
+== notes ==
+
+
+== references ==
+
+
+=== canonical textbooks ===
+chang, chen chung; keisler, h. jerome (1990) [1973]. model theory. studies in logic and the foundations of mathematics (3rd ed.). elsevier. isbn 978-0-444-88054-3.
+hodges, wilfrid (1997). a shorter model theory. cambridge: cambridge university press. isbn 978-0-521-58713-6.
+kopperman, r. (1972). model theory and its applications. boston: allyn and bacon.
+marker, david (2002). model theory: an introduction. graduate texts in mathematics 217. springer. isbn 0-387-98760-6.
+
+
+=== other textbooks ===
+bell, john l.; slomson, alan b. (2006) [1969]. models and ultraproducts: an introduction (reprint of 1974 ed.). dover publications. isbn 0-486-44979-3.
+ebbinghaus, heinz-dieter; flum, jörg; thomas, wolfgang (1994). mathematical logic. springer. isbn 0-387-94258-0.
+hinman, peter g. (2005). fundamentals of mathematical logic. a k peters. isbn 1-56881-262-0.
+hodges, wilfrid (1993). model theory. cambridge university press. isbn 0-521-30442-3.
+manzano, maría (1999). model theory. oxford university press. isbn 0-19-853851-0.
+poizat, bruno (2000). a course in model theory. springer. isbn 0-387-98655-3.
+rautenberg, wolfgang (2010). a concise introduction to mathematical logic (3rd ed.). new york: springer science+business media. doi:10.1007/978-1-4419-1221-3. isbn 978-1-4419-1220-6.
+rothmaler, philipp (2000). introduction to model theory (new ed.). taylor & francis. isbn 90-5699-313-5.
+tent, katrin; ziegler, martin (2012). a course in model theory. cambridge university press. isbn 9780521763240.
+kirby, jonathan (2019). an invitation to model theory. cambridge university press. isbn 978-1-107-16388-1.
+
+
+=== free online texts ===
+chatzidakis, zoé (2001). introduction to model theory (pdf). pp. 26 pages.
+pillay, anand (2002). lecture notes – model theory (pdf). pp. 61 pages.
+"model theory", encyclopedia of mathematics, ems press, 2001 [1994]
+hodges, wilfrid, model theory. the stanford encyclopedia of philosophy, e. zalta (ed.).
+hodges, wilfrid, first-order model theory. the stanford encyclopedia of philosophy, e. zalta (ed.).
+simmons, harold (2004), an introduction to good old fashioned model theory. notes of an introductory course for postgraduates (with exercises).
+j. barwise and s. feferman (editors), model-theoretic logics, perspectives in mathematical logic, volume 8, new york: springer-verlag, 1985.

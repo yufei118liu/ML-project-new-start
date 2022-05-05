@@ -1,0 +1,606 @@
+in linear algebra, the rank of a matrix a is the dimension of the vector space generated (or spanned) by its columns. this corresponds to the maximal number of linearly independent columns of a. this, in turn, is identical to the dimension of the vector space spanned by its rows. rank is thus a measure of the "nondegenerateness" of the system of linear equations and linear transformation encoded by a. there are multiple equivalent definitions of rank. a matrix's rank is one of its most fundamental characteristics.
+the rank is commonly denoted by rank(a) or rk(a); sometimes the parentheses are not written, as in rank a.
+
+
+== main definitions ==
+in this section, we give some definitions of the rank of a matrix.  many definitions are possible; see alternative definitions for several of these.
+the column rank of a is the dimension of the column space of a, while the row rank of a is the dimension of the row space of a.
+a fundamental result in linear algebra is that the column rank and the row rank are always equal. (two proofs of this result are given in § proofs that column rank = row rank, below.)  this number (i.e., the number of linearly independent rows or columns) is simply called the rank of a.
+a matrix is said to have full rank if its rank equals the largest possible for a matrix of the same dimensions, which is the lesser of the number of rows and columns.  a matrix is said to be rank-deficient if it does not have full rank. the rank deficiency of a matrix is the difference between the lesser of the number of rows and columns, and the rank.
+the rank of a linear map or operator 
+  
+    
+      
+        φ
+      
+    
+    {\displaystyle \phi }
+   is defined as the dimension of its image:where 
+  
+    
+      
+        dim
+      
+    
+    {\displaystyle \dim }
+   is the dimension of a vector space, and 
+  
+    
+      
+        img
+      
+    
+    {\displaystyle \operatorname {img} }
+   is the image of a map.
+
+
+== examples ==
+the matrix
+
+has rank 2: the first two columns are linearly independent, so the rank is at least 2, but since the third is a linear combination of the first two (the second subtracted from the first), the three columns are linearly dependent so the rank must be less than 3.
+the matrix
+
+has rank 1: there are nonzero columns, so the rank is positive, but any pair of columns is linearly dependent.  similarly, the transpose
+
+of a has rank 1.  indeed, since the column vectors of a are the row vectors of the transpose of a, the statement that the column rank of a matrix equals its row rank is equivalent to the statement that the rank of a matrix is equal to the rank of its transpose, i.e., rank(a) = rank(at).
+
+
+== computing the rank of a matrix ==
+
+
+=== rank from row echelon forms ===
+
+a common approach to finding the rank of a matrix is to reduce it to a simpler form, generally row echelon form, by elementary row operations. row operations do not change the row space (hence do not change the row rank), and, being invertible, map the column space to an isomorphic space (hence do not change the column rank). once in row echelon form, the rank is clearly the same for both row rank and column rank, and equals the number of pivots (or basic columns) and also the number of non-zero rows.
+for example, the matrix a given by
+
+can be put in reduced row-echelon form by using the following elementary row operations:
+
+the final matrix (in row echelon form) has two non-zero rows and thus the rank of matrix a is 2.
+
+
+=== computation ===
+when applied to floating point computations on computers, basic gaussian elimination (lu decomposition) can be unreliable, and a rank-revealing decomposition should be used instead. an effective alternative is the singular value decomposition (svd), but there are other less expensive choices, such as qr decomposition with pivoting (so-called rank-revealing qr factorization), which are still more numerically robust than gaussian elimination. numerical determination of rank requires a criterion for deciding when a value, such as a singular value from the svd, should be treated as zero, a practical choice which depends on both the matrix and the application.
+
+
+== proofs that column rank = row rank ==
+
+
+=== proof using row reduction ===
+the fact that the column and row ranks of any matrix are equal forms is fundamental in linear algebra. many proofs have been given. one of the most elementary ones has been sketched in § rank from row echelon forms. here is a variant of this proof:
+it is straightforward to show that neither the row rank nor the column rank are changed by an elementary row operation. as gaussian elimination proceeds by elementary row operations, the reduced row echelon form of a matrix has the same row rank and the same column rank as the original matrix. further elementary column operations allow putting the matrix in the form of an identity matrix possibly bordered by rows and columns of zeros. again, this changes neither the row rank nor the column rank. it is immediate that both the row and column ranks of this resulting matrix is the number of its nonzero entries.
+we present two other proofs of this result. the first uses only basic properties of linear combinations of vectors, and is valid over any field. the proof is based upon wardlaw (2005). the second uses orthogonality and is valid for matrices over the real numbers; it is based upon mackiw (1995). both proofs can be found in the book by banerjee and roy (2014).
+
+
+=== proof using linear combinations ===
+let a be an m × n matrix. let the column rank of a be r, and let c1, ..., cr be any basis for the column space of a. place these as the columns of an m × r matrix c. every column of a can be expressed as a linear combination of the r columns in c. this means that there is an r × n matrix r such that a = cr. r is the matrix whose ith column is formed from the coefficients giving the ith column of a as a linear combination of the r columns of c. in other words, r is the matrix which contains the multiples for the bases of the column space of a (which is c), which are then used to form a as a whole. now, each row of a is given by a linear combination of the r rows of r. therefore, the rows of r form a spanning set of the row space of a and, by the steinitz exchange lemma, the row rank of a cannot exceed r. this proves that the row rank of a is less than or equal to the column rank of a. this result can be applied to any matrix, so apply the result to the transpose of a. since the row rank of the transpose of a is the column rank of a and the column rank of the transpose of a is the row rank of a, this establishes the reverse inequality and we obtain the equality of the row rank and the column rank of a. (also see rank factorization.)
+
+
+=== proof using orthogonality ===
+let a be an m × n matrix with entries in the real numbers whose row rank is r. therefore, the dimension of the row space of a is r.  let x1, x2, …, xr be a basis of the row space of a. we claim that the vectors ax1, ax2, …, axr are linearly independent. to see why, consider a linear homogeneous relation involving these vectors with scalar coefficients c1, c2, …, cr:
+
+where v = c1x1 + c2x2 + ⋯ + crxr.  we make two observations: (a) v is a linear combination of vectors in the row space of a, which implies that v belongs to the row space of a, and (b) since av = 0, the vector v is orthogonal to every row vector of a and, hence, is orthogonal to every vector in the row space of a. the facts (a) and (b) together imply that v is orthogonal to itself, which proves that v = 0 or, by the definition of v,
+
+but recall that the xi were chosen as a basis of the row space of a and so are linearly independent. this implies that c1 = c2 = ⋯ = cr = 0.  it follows that ax1, ax2, …, axr are linearly independent.
+now, each axi is obviously a vector in the column space of a. so, ax1, ax2, …, axr is a set of r linearly independent vectors in the column space of a and, hence, the dimension of the column space of a (i.e., the column rank of a) must be at least as big as r. this proves that row rank of a is no larger than the column rank of a.  now apply this result to the transpose of a to get the reverse inequality and conclude as in the previous proof.
+
+
+== alternative definitions ==
+in all the definitions in this section, the matrix a is taken to be an m × n matrix over an arbitrary field f.
+
+
+=== dimension of image ===
+given the matrix 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  , there is an associated linear mapping
+
+defined by
+
+the rank of 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   is the dimension of the image of 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+  .  this definition has the advantage that it can be applied to any linear map without need for a specific matrix.
+
+
+=== rank in terms of nullity ===
+given the same linear mapping f as above, the rank is n minus the dimension of the kernel of f.  the rank–nullity theorem states that this definition is equivalent to the preceding one.
+
+
+=== column rank – dimension of column space ===
+the rank of a is the maximal number of linearly independent columns 
+  
+    
+      
+        
+          
+            c
+          
+          
+            1
+          
+        
+        ,
+        
+          
+            c
+          
+          
+            2
+          
+        
+        ,
+        …
+        ,
+        
+          
+            c
+          
+          
+            k
+          
+        
+      
+    
+    {\displaystyle \mathbf {c} _{1},\mathbf {c} _{2},\dots ,\mathbf {c} _{k}}
+   of a; this is the dimension of the column space of a (the column space being the subspace of fm generated by the columns of a, which is in fact just the image of the linear map f associated to a).
+
+
+=== row rank – dimension of row space ===
+the rank of a is the maximal number of linearly independent rows of a; this is the dimension of the row space of a.
+
+
+=== decomposition rank ===
+the rank of a is the smallest integer k such that a can be factored as 
+  
+    
+      
+        a
+        =
+        c
+        r
+      
+    
+    {\displaystyle a=cr}
+  , where c is an m × k matrix and r is a k × n matrix. in fact, for all integers k, the following are equivalent:
+
+the column rank of a is less than or equal to k,
+there exist k columns 
+  
+    
+      
+        
+          
+            c
+          
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          
+            c
+          
+          
+            k
+          
+        
+      
+    
+    {\displaystyle \mathbf {c} _{1},\ldots ,\mathbf {c} _{k}}
+   of size m such that every column of a is a linear combination of 
+  
+    
+      
+        
+          
+            c
+          
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          
+            c
+          
+          
+            k
+          
+        
+      
+    
+    {\displaystyle \mathbf {c} _{1},\ldots ,\mathbf {c} _{k}}
+  ,
+there exist an 
+  
+    
+      
+        m
+        ×
+        k
+      
+    
+    {\displaystyle m\times k}
+   matrix c and a 
+  
+    
+      
+        k
+        ×
+        n
+      
+    
+    {\displaystyle k\times n}
+   matrix r such that 
+  
+    
+      
+        a
+        =
+        c
+        r
+      
+    
+    {\displaystyle a=cr}
+   (when k is the rank, this is a rank factorization of a),
+there exist k rows 
+  
+    
+      
+        
+          
+            r
+          
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          
+            r
+          
+          
+            k
+          
+        
+      
+    
+    {\displaystyle \mathbf {r} _{1},\ldots ,\mathbf {r} _{k}}
+   of size n such that every row of a is a linear combination of 
+  
+    
+      
+        
+          
+            r
+          
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          
+            r
+          
+          
+            k
+          
+        
+      
+    
+    {\displaystyle \mathbf {r} _{1},\ldots ,\mathbf {r} _{k}}
+  ,
+the row rank of a is less than or equal to k.indeed, the following equivalences are obvious: 
+  
+    
+      
+        (
+        1
+        )
+        ⇔
+        (
+        2
+        )
+        ⇔
+        (
+        3
+        )
+        ⇔
+        (
+        4
+        )
+        ⇔
+        (
+        5
+        )
+      
+    
+    {\displaystyle (1)\leftrightarrow (2)\leftrightarrow (3)\leftrightarrow (4)\leftrightarrow (5)}
+  .
+for example, to prove (3) from (2), take c to be the matrix whose columns are 
+  
+    
+      
+        
+          
+            c
+          
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          
+            c
+          
+          
+            k
+          
+        
+      
+    
+    {\displaystyle \mathbf {c} _{1},\ldots ,\mathbf {c} _{k}}
+   from (2).
+to prove (2) from (3), take 
+  
+    
+      
+        
+          
+            c
+          
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          
+            c
+          
+          
+            k
+          
+        
+      
+    
+    {\displaystyle \mathbf {c} _{1},\ldots ,\mathbf {c} _{k}}
+   to be the columns of c.
+it follows from the equivalence 
+  
+    
+      
+        (
+        1
+        )
+        ⇔
+        (
+        5
+        )
+      
+    
+    {\displaystyle (1)\leftrightarrow (5)}
+   that the row rank is equal to the column rank.
+as in the case of the "dimension of image" characterization, this can be generalized to a definition of the rank of any linear map: the rank of a linear map f : v → w is the minimal dimension k of an intermediate space x such that f can be written as the composition of a map v → x and a map x → w. unfortunately, this definition does not suggest an efficient manner to compute the rank (for which it is better to use one of the alternative definitions). see rank factorization for details.
+
+
+=== rank in terms of singular values ===
+the rank of a equals the number of non-zero singular values, which is the same as the number of non-zero diagonal elements in σ in the singular value decomposition 
+  
+    
+      
+        a
+        =
+        u
+        σ
+        
+          v
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle a=u\sigma v^{*}}
+  .
+
+
+=== determinantal rank – size of largest non-vanishing minor ===
+the rank of a is the largest order of any non-zero minor in a.  (the order of a minor is the side-length of the square sub-matrix of which it is the determinant.) like the decomposition rank characterization, this does not give an efficient way of computing the rank, but it is useful theoretically: a single non-zero minor witnesses a lower bound (namely its order) for the rank of the matrix, which can be useful (for example) to prove that certain operations do not lower the rank of a matrix.
+a non-vanishing p-minor (p × p submatrix with non-zero determinant) shows that the rows and columns of that submatrix are linearly independent, and thus those rows and columns of the full matrix are linearly independent (in the full matrix), so the row and column rank are at least as large as the determinantal rank; however, the converse is less straightforward.  the equivalence of determinantal rank and column rank is a strengthening of the statement that if the span of n vectors has dimension p, then p of those vectors span the space (equivalently, that one can choose a spanning set that is a subset of the vectors): the equivalence implies that a subset of the rows and a subset of the columns simultaneously define an invertible submatrix (equivalently, if the span of n vectors has dimension p, then p of these vectors span the space and there is a set of p coordinates on which they are linearly independent).
+
+
+=== tensor rank – minimum number of simple tensors ===
+
+the rank of a is the smallest number k such that a can be written as a sum of k rank 1 matrices, where a matrix is defined to have rank 1 if and only if it can be written as a nonzero product 
+  
+    
+      
+        c
+        ⋅
+        r
+      
+    
+    {\displaystyle c\cdot r}
+   of a column vector c and a row vector r.  this notion of rank is called tensor rank; it can be generalized in the separable models interpretation of the singular value decomposition.
+
+
+== properties ==
+we assume that a is an m × n matrix, and we define the linear map f by f(x) = ax as above.
+
+the rank of an m × n matrix is a nonnegative integer and cannot be greater than either m or n. that is,  a matrix that has rank min(m, n) is said to have full rank; otherwise, the matrix is rank deficient.
+only a zero matrix has rank zero.
+f is injective (or "one-to-one") if and only if a has rank n (in this case, we say that a has full column rank).
+f is surjective (or "onto") if and only if a has rank m (in this case, we say that a has full row rank).
+if a is a square matrix (i.e., m = n), then a is invertible if and only if a has rank n (that is, a has full rank).
+if b is any n × k matrix, then 
+if b is an n × k matrix of rank n, then 
+if c is an l × m matrix of rank m, then 
+the rank of a is equal to r if and only if there exists an invertible m × m matrix x and an invertible n × n matrix y such that  where ir denotes the r × r identity matrix.
+sylvester’s rank inequality: if a is an m × n matrix and b is n × k, then  this is a special case of the next inequality.
+the inequality due to frobenius: if ab, abc and bc are defined, then 
+subadditivity:  when a and b are of the same dimension.  as a consequence, a rank-k matrix can be written as the sum of k rank-1 matrices, but not fewer.
+the rank of a matrix plus the nullity of the matrix equals the number of columns of the matrix. (this is the rank–nullity theorem.)
+if a is a matrix over the real numbers then the rank of a and the rank of its corresponding gram matrix are equal. thus, for real matrices  this can be shown by proving equality of their null spaces. the null space of the gram matrix is given by vectors x for which 
+  
+    
+      
+        
+          a
+          
+            
+              t
+            
+          
+        
+        a
+        
+          x
+        
+        =
+        0.
+      
+    
+    {\displaystyle a^{\mathrm {t} }a\mathbf {x} =0.}
+   if this condition is fulfilled, we also have 
+  
+    
+      
+        0
+        =
+        
+          
+            x
+          
+          
+            
+              t
+            
+          
+        
+        
+          a
+          
+            
+              t
+            
+          
+        
+        a
+        x
+        =
+        
+          
+            |
+            
+              a
+              
+                x
+              
+            
+            |
+          
+          
+            2
+          
+        
+        .
+      
+    
+    {\displaystyle 0=\mathbf {x} ^{\mathrm {t} }a^{\mathrm {t} }ax=\left|a\mathbf {x} \right|^{2}.}
+  
+if a is a matrix over the complex numbers and 
+  
+    
+      
+        
+          
+            a
+            ¯
+          
+        
+      
+    
+    {\displaystyle {\overline {a}}}
+   denotes the complex conjugate of a and a∗ the conjugate transpose of a (i.e., the adjoint of a), then 
+
+
+== applications ==
+one useful application of calculating the rank of a matrix is the computation of the number of solutions of a system of linear equations. according to the rouché–capelli theorem, the system is inconsistent if the rank of the augmented matrix is greater than the rank of the coefficient matrix. if, on the other hand, the ranks of these two matrices are equal, then the system must have at least one solution. the solution is unique if and only if the rank equals the number of variables. otherwise the general solution has k free parameters where k is the difference between the number of variables and the rank.  in this case (and assuming the system of equations is in the real or complex numbers) the system of equations has infinitely many solutions.
+in control theory, the rank of a matrix can be used to determine whether a linear system is controllable, or observable.
+in the field of communication complexity, the rank of the communication matrix of a function gives bounds on the amount of communication needed for two parties to compute the function.
+
+
+== generalization ==
+there are different generalizations of the concept of rank to matrices over arbitrary rings, where column rank, row rank, dimension of column space, and dimension of row space of a matrix may be different from the others or may not exist.
+thinking of matrices as tensors, the tensor rank generalizes to arbitrary tensors; for tensors of order greater than 2 (matrices are order 2 tensors), rank is very hard to compute, unlike for matrices.
+there is a notion of rank for smooth maps between smooth manifolds. it is equal to the linear rank of the derivative.
+
+
+== matrices as tensors ==
+matrix rank should not be confused with tensor order, which is called tensor rank. tensor order is the number of indices required to write a tensor, and thus matrices all have tensor order 2. more precisely, matrices are tensors of type (1,1), having one row index and one column index, also called covariant order 1 and contravariant order 1; see tensor (intrinsic definition) for details.
+the tensor rank of a matrix can also mean the minimum number of simple tensors necessary to express the matrix as a linear combination, and that this definition does agree with matrix rank as here discussed.
+
+
+== see also ==
+matroid rank
+nonnegative rank (linear algebra)
+rank (differential topology)
+multicollinearity
+linear dependence
+
+
+== notes ==
+
+
+== references ==
+
+
+== sources ==
+axler, sheldon (2015). linear algebra done right. undergraduate texts in mathematics (3rd ed.).  springer. isbn 978-3-319-11079-0.
+halmos, paul richard (1974) [1958]. finite-dimensional vector spaces. undergraduate texts in mathematics (2nd ed.).  springer. isbn 0-387-90093-4.
+hefferon, jim (2020). linear algebra (4th ed.). isbn 978-1-944325-11-4.
+katznelson, yitzhak; katznelson, yonatan r. (2008). a (terse) introduction to linear algebra. american mathematical society. isbn 978-0-8218-4419-9.
+roman, steven (2005). advanced linear algebra. undergraduate texts in mathematics (2nd ed.). springer. isbn 0-387-24766-1.
+valenza, robert j. (1993) [1951]. linear algebra: an introduction to abstract mathematics. undergraduate texts in mathematics (3rd ed.).  springer. isbn 3-540-94099-5.
+
+
+== further reading ==
+roger a. horn and charles r. johnson (1985). matrix analysis. isbn 978-0-521-38632-6.
+kaw, autar k. two chapters from the book introduction to matrix algebra: 1. vectors [1] and system of equations [2]
+mike brookes: matrix reference manual. [3]

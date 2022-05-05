@@ -1,0 +1,2769 @@
+stochastic gradient descent (often abbreviated sgd) is an iterative method for optimizing an objective function with suitable smoothness properties (e.g. differentiable or subdifferentiable). it can be regarded as a stochastic approximation of gradient descent optimization, since it replaces the actual gradient (calculated from the entire data set) by an estimate thereof (calculated from a randomly selected subset of the data). especially in high-dimensional optimization problems this reduces the very high computational burden, achieving faster iterations in trade for a lower convergence rate.while the basic idea behind stochastic approximation can be traced back to the robbins–monro algorithm of the 1950s, stochastic gradient descent has become an important optimization method in machine learning.
+
+
+== background ==
+
+both statistical estimation and machine learning consider the problem of minimizing an objective function that has the form of a sum:
+
+  
+    
+      
+        q
+        (
+        w
+        )
+        =
+        
+          
+            1
+            n
+          
+        
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            n
+          
+        
+        
+          q
+          
+            i
+          
+        
+        (
+        w
+        )
+        ,
+      
+    
+    {\displaystyle q(w)={\frac {1}{n}}\sum _{i=1}^{n}q_{i}(w),}
+  where the parameter 
+  
+    
+      
+        w
+      
+    
+    {\displaystyle w}
+   that minimizes 
+  
+    
+      
+        q
+        (
+        w
+        )
+      
+    
+    {\displaystyle q(w)}
+   is to be estimated. each summand function 
+  
+    
+      
+        
+          q
+          
+            i
+          
+        
+      
+    
+    {\displaystyle q_{i}}
+   is typically associated with the 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  -th observation in the data set (used for training).
+in classical statistics, sum-minimization problems arise in least squares and in maximum-likelihood estimation (for independent observations).  the general class of estimators that arise as minimizers of sums are called m-estimators. however, in statistics, it has been long recognized that requiring even local minimization is too restrictive for some problems of maximum-likelihood estimation. therefore, contemporary statistical theorists often consider stationary points of the likelihood function (or zeros of its derivative, the score function, and other estimating equations).
+the sum-minimization problem also arises for empirical risk minimization. in this case, 
+  
+    
+      
+        
+          q
+          
+            i
+          
+        
+        (
+        w
+        )
+      
+    
+    {\displaystyle q_{i}(w)}
+   is the value of the loss function at 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  -th example, and 
+  
+    
+      
+        q
+        (
+        w
+        )
+      
+    
+    {\displaystyle q(w)}
+   is the empirical risk.
+when used to minimize the above function, a standard (or "batch") gradient descent method would perform the following iterations:
+
+  
+    
+      
+        w
+        :=
+        w
+        −
+        η
+        ∇
+        q
+        (
+        w
+        )
+        =
+        w
+        −
+        
+          
+            η
+            n
+          
+        
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            n
+          
+        
+        ∇
+        
+          q
+          
+            i
+          
+        
+        (
+        w
+        )
+        ,
+      
+    
+    {\displaystyle w:=w-\eta \nabla q(w)=w-{\frac {\eta }{n}}\sum _{i=1}^{n}\nabla q_{i}(w),}
+  where 
+  
+    
+      
+        η
+      
+    
+    {\displaystyle \eta }
+   is a step size (sometimes called the learning rate in machine learning).
+in many cases, the summand functions have a simple form that enables inexpensive evaluations of the sum-function and the sum gradient. for example, in statistics, one-parameter exponential families allow economical function-evaluations and gradient-evaluations.
+however, in other cases, evaluating the sum-gradient may require expensive evaluations of the gradients from all summand functions. when the training set is enormous and no simple formulas exist, evaluating the sums of gradients becomes very expensive, because evaluating the gradient requires evaluating all the summand functions' gradients. to economize on the computational cost at every iteration, stochastic gradient descent samples a subset of summand functions at every step. this is very effective in the case of large-scale machine learning problems.
+
+
+== iterative method ==
+
+in stochastic (or "on-line") gradient descent, the true gradient of 
+  
+    
+      
+        q
+        (
+        w
+        )
+      
+    
+    {\displaystyle q(w)}
+   is approximated by a gradient at a single sample:
+
+  
+    
+      
+        w
+        :=
+        w
+        −
+        η
+        ∇
+        
+          q
+          
+            i
+          
+        
+        (
+        w
+        )
+        .
+      
+    
+    {\displaystyle w:=w-\eta \nabla q_{i}(w).}
+  as the algorithm sweeps through the training set, it performs the above update for each training sample. several passes can be made over the training set until the algorithm converges. if this is done, the data can be shuffled for each pass to prevent cycles. typical implementations may use an adaptive learning rate so that the algorithm converges.in pseudocode, stochastic gradient descent can be presented as :
+
+a compromise between computing the true gradient and the gradient at a single sample is to compute the gradient against more than one training sample (called a "mini-batch") at each step.  this can perform significantly better than "true" stochastic gradient descent described, because the code can make use of vectorization libraries rather than computing each step separately as was first shown in  where it was called "the bunch-mode back-propagation algorithm".  it may also result in smoother convergence, as the gradient computed at each step is averaged over more training sample.
+the convergence of stochastic gradient descent has been analyzed using the theories of convex minimization and of stochastic approximation. briefly, when the learning rates 
+  
+    
+      
+        η
+      
+    
+    {\displaystyle \eta }
+   decrease with an appropriate rate,
+and subject to relatively mild assumptions, stochastic gradient descent converges almost surely to a global minimum 
+when the objective function is convex or pseudoconvex, 
+and otherwise converges almost surely to a local minimum.
+this is in fact a consequence of the robbins–siegmund theorem.
+
+
+== example ==
+let's suppose we want to fit a straight line 
+  
+    
+      
+        
+          
+            
+              y
+              ^
+            
+          
+        
+        =
+        
+        
+          w
+          
+            1
+          
+        
+        +
+        
+          w
+          
+            2
+          
+        
+        x
+      
+    
+    {\displaystyle {\hat {y}}=\!w_{1}+w_{2}x}
+   to a training set with observations 
+  
+    
+      
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle (x_{1},x_{2},\ldots ,x_{n})}
+   and corresponding estimated responses 
+  
+    
+      
+        (
+        
+          
+            
+              
+                y
+                
+                  1
+                
+              
+              ^
+            
+          
+        
+        ,
+        
+          
+            
+              
+                y
+                
+                  2
+                
+              
+              ^
+            
+          
+        
+        ,
+        …
+        ,
+        
+          
+            
+              
+                y
+                
+                  n
+                
+              
+              ^
+            
+          
+        
+        )
+      
+    
+    {\displaystyle ({\hat {y_{1}}},{\hat {y_{2}}},\ldots ,{\hat {y_{n}}})}
+   using least squares. the objective function to be minimized is:
+
+  
+    
+      
+        q
+        (
+        w
+        )
+        =
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            n
+          
+        
+        
+          q
+          
+            i
+          
+        
+        (
+        w
+        )
+        =
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            n
+          
+        
+        
+          
+            (
+            
+              
+                
+                  
+                    
+                      y
+                      
+                        i
+                      
+                    
+                    ^
+                  
+                
+              
+              −
+              
+                y
+                
+                  i
+                
+              
+            
+            )
+          
+          
+            2
+          
+        
+        =
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            n
+          
+        
+        
+          
+            (
+            
+              
+                w
+                
+                  1
+                
+              
+              +
+              
+                w
+                
+                  2
+                
+              
+              
+                x
+                
+                  i
+                
+              
+              −
+              
+                y
+                
+                  i
+                
+              
+            
+            )
+          
+          
+            2
+          
+        
+        .
+      
+    
+    {\displaystyle q(w)=\sum _{i=1}^{n}q_{i}(w)=\sum _{i=1}^{n}\left({\hat {y_{i}}}-y_{i}\right)^{2}=\sum _{i=1}^{n}\left(w_{1}+w_{2}x_{i}-y_{i}\right)^{2}.}
+  the last line in the above pseudocode for this specific problem will become:
+
+  
+    
+      
+        
+          
+            [
+            
+              
+                
+                  
+                    w
+                    
+                      1
+                    
+                  
+                
+              
+              
+                
+                  
+                    w
+                    
+                      2
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        :=
+        
+          
+            [
+            
+              
+                
+                  
+                    w
+                    
+                      1
+                    
+                  
+                
+              
+              
+                
+                  
+                    w
+                    
+                      2
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        −
+        η
+        
+          
+            [
+            
+              
+                
+                  
+                    
+                      ∂
+                      
+                        ∂
+                        
+                          w
+                          
+                            1
+                          
+                        
+                      
+                    
+                  
+                  (
+                  
+                    w
+                    
+                      1
+                    
+                  
+                  +
+                  
+                    w
+                    
+                      2
+                    
+                  
+                  
+                    x
+                    
+                      i
+                    
+                  
+                  −
+                  
+                    y
+                    
+                      i
+                    
+                  
+                  
+                    )
+                    
+                      2
+                    
+                  
+                
+              
+              
+                
+                  
+                    
+                      ∂
+                      
+                        ∂
+                        
+                          w
+                          
+                            2
+                          
+                        
+                      
+                    
+                  
+                  (
+                  
+                    w
+                    
+                      1
+                    
+                  
+                  +
+                  
+                    w
+                    
+                      2
+                    
+                  
+                  
+                    x
+                    
+                      i
+                    
+                  
+                  −
+                  
+                    y
+                    
+                      i
+                    
+                  
+                  
+                    )
+                    
+                      2
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        =
+        
+          
+            [
+            
+              
+                
+                  
+                    w
+                    
+                      1
+                    
+                  
+                
+              
+              
+                
+                  
+                    w
+                    
+                      2
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        −
+        η
+        
+          
+            [
+            
+              
+                
+                  2
+                  (
+                  
+                    w
+                    
+                      1
+                    
+                  
+                  +
+                  
+                    w
+                    
+                      2
+                    
+                  
+                  
+                    x
+                    
+                      i
+                    
+                  
+                  −
+                  
+                    y
+                    
+                      i
+                    
+                  
+                  )
+                
+              
+              
+                
+                  2
+                  
+                    x
+                    
+                      i
+                    
+                  
+                  (
+                  
+                    w
+                    
+                      1
+                    
+                  
+                  +
+                  
+                    w
+                    
+                      2
+                    
+                  
+                  
+                    x
+                    
+                      i
+                    
+                  
+                  −
+                  
+                    y
+                    
+                      i
+                    
+                  
+                  )
+                
+              
+            
+            ]
+          
+        
+        .
+      
+    
+    {\displaystyle {\begin{bmatrix}w_{1}\\w_{2}\end{bmatrix}}:={\begin{bmatrix}w_{1}\\w_{2}\end{bmatrix}}-\eta {\begin{bmatrix}{\frac {\partial }{\partial w_{1}}}(w_{1}+w_{2}x_{i}-y_{i})^{2}\\{\frac {\partial }{\partial w_{2}}}(w_{1}+w_{2}x_{i}-y_{i})^{2}\end{bmatrix}}={\begin{bmatrix}w_{1}\\w_{2}\end{bmatrix}}-\eta {\begin{bmatrix}2(w_{1}+w_{2}x_{i}-y_{i})\\2x_{i}(w_{1}+w_{2}x_{i}-y_{i})\end{bmatrix}}.}
+  note that in each iteration (also called update), the gradient is only evaluated at a single point 
+  
+    
+      
+        
+          x
+          
+            i
+          
+        
+      
+    
+    {\displaystyle x_{i}}
+   instead of at the set of all samples.
+the key difference compared to standard (batch) gradient descent is that only one piece of data from the dataset is used to calculate the step, and the piece of data is picked randomly at each step.
+
+
+== notable applications ==
+stochastic gradient descent is a popular algorithm for training a wide range of models in machine learning, including (linear) support vector machines, logistic regression (see, e.g., vowpal wabbit) and graphical models. when combined with the backpropagation algorithm, it is the de facto standard algorithm for training artificial neural networks. its use has been also reported in the geophysics community, specifically to applications of full waveform inversion (fwi).stochastic gradient descent competes with the l-bfgs algorithm, which is also widely used. stochastic gradient descent has been used since at least 1960 for training linear regression models, originally under the name adaline.another stochastic gradient descent algorithm is the least mean squares (lms) adaptive filter.
+
+
+== extensions and variants ==
+many improvements on the basic stochastic gradient descent algorithm have been proposed and used. in particular, in machine learning, the need to set a learning rate (step size) has been recognized as problematic. setting this parameter too high can cause the algorithm to diverge; setting it too low makes it slow to converge. a conceptually simple extension of stochastic gradient descent makes the learning rate a decreasing function ηt of the iteration number t, giving a learning rate schedule, so that the first iterations cause large changes in the parameters, while the later ones do only fine-tuning. such schedules have been known since the work of macqueen on k-means clustering. practical guidance on choosing the step size in several variants of sgd is given by spall.
+
+
+=== implicit updates (isgd) ===
+as mentioned earlier, classical stochastic gradient descent is generally sensitive to learning rate η. fast convergence requires large learning rates but this may induce numerical instability. the problem can be largely solved by considering implicit updates whereby the stochastic gradient is evaluated at the next iterate rather than the current one:
+
+  
+    
+      
+        
+          w
+          
+            
+              n
+              e
+              w
+            
+          
+        
+        :=
+        
+          w
+          
+            
+              o
+              l
+              d
+            
+          
+        
+        −
+        η
+        ∇
+        
+          q
+          
+            i
+          
+        
+        (
+        
+          w
+          
+            
+              n
+              e
+              w
+            
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle w^{\rm {new}}:=w^{\rm {old}}-\eta \nabla q_{i}(w^{\rm {new}}).}
+  this equation is implicit since 
+  
+    
+      
+        
+          w
+          
+            
+              n
+              e
+              w
+            
+          
+        
+      
+    
+    {\displaystyle w^{\rm {new}}}
+   appears on both sides of the equation. it is a stochastic form of the proximal gradient method since the update
+can also be written as:
+
+  
+    
+      
+        
+          w
+          
+            
+              n
+              e
+              w
+            
+          
+        
+        :=
+        arg
+        ⁡
+        
+          min
+          
+            w
+          
+        
+        {
+        
+          q
+          
+            i
+          
+        
+        (
+        w
+        )
+        +
+        
+          
+            1
+            
+              2
+              η
+            
+          
+        
+        
+          |
+        
+        
+          |
+        
+        w
+        −
+        
+          w
+          
+            
+              o
+              l
+              d
+            
+          
+        
+        
+          |
+        
+        
+          
+            |
+          
+          
+            2
+          
+        
+        }
+        .
+      
+    
+    {\displaystyle w^{\rm {new}}:=\arg \min _{w}\{q_{i}(w)+{\frac {1}{2\eta }}||w-w^{\rm {old}}||^{2}\}.}
+  as an example, 
+consider least squares with features 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+        ∈
+        
+          
+            r
+          
+          
+            p
+          
+        
+      
+    
+    {\displaystyle x_{1},\ldots ,x_{n}\in \mathbb {r} ^{p}}
+   and observations
+
+  
+    
+      
+        
+          y
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          y
+          
+            n
+          
+        
+        ∈
+        
+          r
+        
+      
+    
+    {\displaystyle y_{1},\ldots ,y_{n}\in \mathbb {r} }
+  . we wish to solve:
+
+  
+    
+      
+        
+          min
+          
+            w
+          
+        
+        
+          ∑
+          
+            j
+            =
+            1
+          
+          
+            n
+          
+        
+        (
+        
+          y
+          
+            j
+          
+        
+        −
+        
+          x
+          
+            j
+          
+          ′
+        
+        w
+        
+          )
+          
+            2
+          
+        
+        ,
+      
+    
+    {\displaystyle \min _{w}\sum _{j=1}^{n}(y_{j}-x_{j}'w)^{2},}
+  where 
+  
+    
+      
+        
+          x
+          
+            j
+          
+          ′
+        
+        w
+        =
+        
+          x
+          
+            j
+            1
+          
+        
+        
+          w
+          
+            1
+          
+        
+        +
+        
+          x
+          
+            j
+            ,
+            2
+          
+        
+        
+          w
+          
+            2
+          
+        
+        +
+        .
+        .
+        .
+        +
+        
+          x
+          
+            j
+            ,
+            p
+          
+        
+        
+          w
+          
+            p
+          
+        
+      
+    
+    {\displaystyle x_{j}'w=x_{j1}w_{1}+x_{j,2}w_{2}+...+x_{j,p}w_{p}}
+    indicates the inner product.
+note that 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   could have "1" as the first element to include an intercept. classical stochastic gradient descent proceeds as follows:
+
+  
+    
+      
+        
+          w
+          
+            
+              n
+              e
+              w
+            
+          
+        
+        =
+        
+          w
+          
+            
+              o
+              l
+              d
+            
+          
+        
+        +
+        η
+        (
+        
+          y
+          
+            i
+          
+        
+        −
+        
+          x
+          
+            i
+          
+          ′
+        
+        
+          w
+          
+            
+              o
+              l
+              d
+            
+          
+        
+        )
+        
+          x
+          
+            i
+          
+        
+      
+    
+    {\displaystyle w^{\rm {new}}=w^{\rm {old}}+\eta (y_{i}-x_{i}'w^{\rm {old}})x_{i}}
+  where 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   is uniformly sampled between 1 and 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  . although theoretical convergence of this procedure happens under relatively mild assumptions, in practice the procedure can be quite unstable. in particular, when 
+  
+    
+      
+        η
+      
+    
+    {\displaystyle \eta }
+   is misspecified so that 
+  
+    
+      
+        i
+        −
+        η
+        
+          x
+          
+            i
+          
+        
+        
+          x
+          
+            i
+          
+          ′
+        
+      
+    
+    {\displaystyle i-\eta x_{i}x_{i}'}
+   has large absolute eigenvalues with high probability, the procedure may diverge numerically within a few iterations. in contrast, implicit stochastic gradient descent (shortened as isgd) can be solved in closed-form as:
+
+  
+    
+      
+        
+          w
+          
+            
+              n
+              e
+              w
+            
+          
+        
+        =
+        
+          w
+          
+            
+              o
+              l
+              d
+            
+          
+        
+        +
+        
+          
+            η
+            
+              1
+              +
+              η
+              
+                |
+              
+              
+                |
+              
+              
+                x
+                
+                  i
+                
+              
+              
+                |
+              
+              
+                
+                  |
+                
+                
+                  2
+                
+              
+            
+          
+        
+        (
+        
+          y
+          
+            i
+          
+        
+        −
+        
+          x
+          
+            i
+          
+          ′
+        
+        
+          w
+          
+            
+              o
+              l
+              d
+            
+          
+        
+        )
+        
+          x
+          
+            i
+          
+        
+        .
+      
+    
+    {\displaystyle w^{\rm {new}}=w^{\rm {old}}+{\frac {\eta }{1+\eta ||x_{i}||^{2}}}(y_{i}-x_{i}'w^{\rm {old}})x_{i}.}
+  this procedure will remain numerically stable virtually for all 
+  
+    
+      
+        η
+      
+    
+    {\displaystyle \eta }
+   as the learning rate is now normalized. such comparison between classical and implicit stochastic gradient descent in the least squares problem is very similar to the comparison between least mean squares (lms) and 
+normalized least mean squares filter (nlms).
+even though a closed-form solution for isgd is only possible in least squares, the procedure can be efficiently implemented in a wide range of models. specifically, suppose that 
+  
+    
+      
+        
+          q
+          
+            i
+          
+        
+        (
+        w
+        )
+      
+    
+    {\displaystyle q_{i}(w)}
+   depends on 
+  
+    
+      
+        w
+      
+    
+    {\displaystyle w}
+   only through a linear combination with features 
+  
+    
+      
+        
+          x
+          
+            i
+          
+        
+      
+    
+    {\displaystyle x_{i}}
+  , so that we can write 
+  
+    
+      
+        
+          ∇
+          
+            w
+          
+        
+        
+          q
+          
+            i
+          
+        
+        (
+        w
+        )
+        =
+        −
+        q
+        (
+        
+          x
+          
+            i
+          
+          ′
+        
+        w
+        )
+        
+          x
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \nabla _{w}q_{i}(w)=-q(x_{i}'w)x_{i}}
+  , where 
+
+  
+    
+      
+        q
+        (
+        )
+        ∈
+        
+          r
+        
+      
+    
+    {\displaystyle q()\in \mathbb {r} }
+   may depend on 
+  
+    
+      
+        
+          x
+          
+            i
+          
+        
+        ,
+        
+          y
+          
+            i
+          
+        
+      
+    
+    {\displaystyle x_{i},y_{i}}
+   as well but not on 
+  
+    
+      
+        w
+      
+    
+    {\displaystyle w}
+   except through 
+  
+    
+      
+        
+          x
+          
+            i
+          
+          ′
+        
+        w
+      
+    
+    {\displaystyle x_{i}'w}
+  . least squares obeys this rule, and so does logistic regression, and most generalized linear models. for instance, in least squares, 
+  
+    
+      
+        q
+        (
+        
+          x
+          
+            i
+          
+          ′
+        
+        w
+        )
+        =
+        
+          y
+          
+            i
+          
+        
+        −
+        
+          x
+          
+            i
+          
+          ′
+        
+        w
+      
+    
+    {\displaystyle q(x_{i}'w)=y_{i}-x_{i}'w}
+  , and in logistic regression 
+  
+    
+      
+        q
+        (
+        
+          x
+          
+            i
+          
+          ′
+        
+        w
+        )
+        =
+        
+          y
+          
+            i
+          
+        
+        −
+        s
+        (
+        
+          x
+          
+            i
+          
+          ′
+        
+        w
+        )
+      
+    
+    {\displaystyle q(x_{i}'w)=y_{i}-s(x_{i}'w)}
+  , where 
+  
+    
+      
+        s
+        (
+        u
+        )
+        =
+        
+          e
+          
+            u
+          
+        
+        
+          /
+        
+        (
+        1
+        +
+        
+          e
+          
+            u
+          
+        
+        )
+      
+    
+    {\displaystyle s(u)=e^{u}/(1+e^{u})}
+   is the logistic function. in poisson regression, 
+  
+    
+      
+        q
+        (
+        
+          x
+          
+            i
+          
+          ′
+        
+        w
+        )
+        =
+        
+          y
+          
+            i
+          
+        
+        −
+        
+          e
+          
+            
+              x
+              
+                i
+              
+              ′
+            
+            w
+          
+        
+      
+    
+    {\displaystyle q(x_{i}'w)=y_{i}-e^{x_{i}'w}}
+  , and so on.
+in such settings, isgd is simply implemented as follows. let 
+  
+    
+      
+        f
+        (
+        ξ
+        )
+        =
+        η
+        q
+        (
+        
+          x
+          
+            i
+          
+          ′
+        
+        
+          w
+          
+            o
+            l
+            d
+          
+        
+        +
+        ξ
+        
+          |
+        
+        
+          |
+        
+        
+          x
+          
+            i
+          
+        
+        
+          |
+        
+        
+          
+            |
+          
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle f(\xi )=\eta q(x_{i}'w^{old}+\xi ||x_{i}||^{2})}
+  , where 
+  
+    
+      
+        ξ
+      
+    
+    {\displaystyle \xi }
+   is scalar.
+then, isgd is equivalent to:
+
+  
+    
+      
+        
+          w
+          
+            
+              n
+              e
+              w
+            
+          
+        
+        =
+        
+          w
+          
+            
+              o
+              l
+              d
+            
+          
+        
+        +
+        
+          ξ
+          
+            ∗
+          
+        
+        
+          x
+          
+            i
+          
+        
+        ,
+         
+        
+          where
+        
+         
+        
+          ξ
+          
+            ∗
+          
+        
+        =
+        f
+        (
+        
+          ξ
+          
+            ∗
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle w^{\rm {new}}=w^{\rm {old}}+\xi ^{\ast }x_{i},~{\text{where}}~\xi ^{\ast }=f(\xi ^{\ast }).}
+  the scaling factor 
+  
+    
+      
+        
+          ξ
+          
+            ∗
+          
+        
+        ∈
+        
+          r
+        
+      
+    
+    {\displaystyle \xi ^{\ast }\in \mathbb {r} }
+   can be found through the bisection method since 
+in most regular models, such as the aforementioned generalized linear models, function 
+  
+    
+      
+        q
+        (
+        )
+      
+    
+    {\displaystyle q()}
+   is decreasing, 
+and thus the search bounds for 
+  
+    
+      
+        
+          ξ
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle \xi ^{\ast }}
+   are 
+
+  
+    
+      
+        [
+        min
+        (
+        0
+        ,
+        f
+        (
+        0
+        )
+        )
+        ,
+        max
+        (
+        0
+        ,
+        f
+        (
+        0
+        )
+        )
+        ]
+      
+    
+    {\displaystyle [\min(0,f(0)),\max(0,f(0))]}
+  .
+
+
+=== momentum ===
+further proposals include the momentum method, which appeared in rumelhart, hinton and williams' paper on backpropagation learning. stochastic gradient descent with momentum remembers the update δw at each iteration, and determines the next update as a linear combination of the gradient and the previous update:
+
+  
+    
+      
+        δ
+        w
+        :=
+        α
+        δ
+        w
+        −
+        η
+        ∇
+        
+          q
+          
+            i
+          
+        
+        (
+        w
+        )
+      
+    
+    {\displaystyle \delta w:=\alpha \delta w-\eta \nabla q_{i}(w)}
+  
+
+  
+    
+      
+        w
+        :=
+        w
+        +
+        δ
+        w
+      
+    
+    {\displaystyle w:=w+\delta w}
+  that leads to:
+
+  
+    
+      
+        w
+        :=
+        w
+        −
+        η
+        ∇
+        
+          q
+          
+            i
+          
+        
+        (
+        w
+        )
+        +
+        α
+        δ
+        w
+      
+    
+    {\displaystyle w:=w-\eta \nabla q_{i}(w)+\alpha \delta w}
+  where the parameter 
+  
+    
+      
+        w
+      
+    
+    {\displaystyle w}
+   which minimizes 
+  
+    
+      
+        q
+        (
+        w
+        )
+      
+    
+    {\displaystyle q(w)}
+   is to be estimated, 
+  
+    
+      
+        η
+      
+    
+    {\displaystyle \eta }
+   is a step size (sometimes called the learning rate in machine learning) and 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+   is an exponential decay factor between 0 and 1 that determines the relative contribution of the current gradient and earlier gradients to the weight change.
+the name momentum stems from an analogy to momentum in physics: the weight vector 
+  
+    
+      
+        w
+      
+    
+    {\displaystyle w}
+  , thought of as a particle traveling through parameter space, incurs acceleration from the gradient of the loss ("force"). unlike in classical stochastic gradient descent, it tends to keep traveling in the same direction, preventing oscillations. momentum has been used successfully by computer scientists in the training of artificial neural networks for several decades.
+the momentum method  is closely related to underdamped langevin dynamics, and may be combined with simulated annealing. 
+
+
+=== averaging ===
+averaged stochastic gradient descent, invented independently by ruppert and polyak in the late 1980s, is ordinary stochastic gradient descent that records an average of its parameter vector over time. that is, the update is the same as for ordinary stochastic gradient descent, but the algorithm also keeps track of
+
+  
+    
+      
+        
+          
+            
+              w
+              ¯
+            
+          
+        
+        =
+        
+          
+            1
+            t
+          
+        
+        
+          ∑
+          
+            i
+            =
+            0
+          
+          
+            t
+            −
+            1
+          
+        
+        
+          w
+          
+            i
+          
+        
+      
+    
+    {\displaystyle {\bar {w}}={\frac {1}{t}}\sum _{i=0}^{t-1}w_{i}}
+  .when optimization is done, this averaged parameter vector takes the place of w.
+
+
+=== adagrad ===
+adagrad (for adaptive gradient algorithm) is a modified stochastic gradient descent algorithm with per-parameter learning rate, first published in 2011. informally, this increases the learning rate for sparser parameters and decreases the learning rate for ones that are less sparse. this strategy often improves convergence performance over standard stochastic gradient descent in settings where data is sparse and sparse parameters are more informative. examples of such applications include natural language processing and image recognition.  it still has a base learning rate η, but this is multiplied with the elements of a vector {gj,j}  which is the diagonal of the outer product matrix
+
+  
+    
+      
+        g
+        =
+        
+          ∑
+          
+            τ
+            =
+            1
+          
+          
+            t
+          
+        
+        
+          g
+          
+            τ
+          
+        
+        
+          g
+          
+            τ
+          
+          
+            
+              t
+            
+          
+        
+      
+    
+    {\displaystyle g=\sum _{\tau =1}^{t}g_{\tau }g_{\tau }^{\mathsf {t}}}
+  where 
+  
+    
+      
+        
+          g
+          
+            τ
+          
+        
+        =
+        ∇
+        
+          q
+          
+            i
+          
+        
+        (
+        w
+        )
+      
+    
+    {\displaystyle g_{\tau }=\nabla q_{i}(w)}
+  , the gradient, at iteration τ. the diagonal is given by
+
+  
+    
+      
+        
+          g
+          
+            j
+            ,
+            j
+          
+        
+        =
+        
+          ∑
+          
+            τ
+            =
+            1
+          
+          
+            t
+          
+        
+        
+          g
+          
+            τ
+            ,
+            j
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle g_{j,j}=\sum _{\tau =1}^{t}g_{\tau ,j}^{2}}
+  .this vector is updated after every iteration. the formula for an update is now
+
+  
+    
+      
+        w
+        :=
+        w
+        −
+        η
+        
+        
+          d
+          i
+          a
+          g
+        
+        (
+        g
+        
+          )
+          
+            −
+            
+              
+                1
+                2
+              
+            
+          
+        
+        ⊙
+        g
+      
+    
+    {\displaystyle w:=w-\eta \,\mathrm {diag} (g)^{-{\frac {1}{2}}}\odot g}
+  or, written as per-parameter updates,
+
+  
+    
+      
+        
+          w
+          
+            j
+          
+        
+        :=
+        
+          w
+          
+            j
+          
+        
+        −
+        
+          
+            η
+            
+              
+                g
+                
+                  j
+                  ,
+                  j
+                
+              
+            
+          
+        
+        
+          g
+          
+            j
+          
+        
+        .
+      
+    
+    {\displaystyle w_{j}:=w_{j}-{\frac {\eta }{\sqrt {g_{j,j}}}}g_{j}.}
+  each {g(i,i)}  gives rise to a scaling factor for the learning rate that applies to a single parameter wi. since the denominator in this factor, 
+  
+    
+      
+        
+          
+            
+              g
+              
+                i
+              
+            
+          
+        
+        =
+        
+          
+            
+              ∑
+              
+                τ
+                =
+                1
+              
+              
+                t
+              
+            
+            
+              g
+              
+                τ
+              
+              
+                2
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\sqrt {g_{i}}}={\sqrt {\sum _{\tau =1}^{t}g_{\tau }^{2}}}}
+   is the ℓ2 norm of previous derivatives, extreme parameter updates get dampened, while parameters that get few or small updates receive higher learning rates.while designed for convex problems, adagrad has been successfully applied to non-convex optimization.
+
+
+=== rmsprop ===
+rmsprop (for root mean square propagation) is also a method in which the learning rate is adapted for each of the parameters. the idea is to divide the learning rate for a weight by a running average of the magnitudes of recent gradients for that weight.
+so, first the running average is calculated in terms of means square,
+
+  
+    
+      
+        v
+        (
+        w
+        ,
+        t
+        )
+        :=
+        γ
+        v
+        (
+        w
+        ,
+        t
+        −
+        1
+        )
+        +
+        (
+        1
+        −
+        γ
+        )
+        (
+        ∇
+        
+          q
+          
+            i
+          
+        
+        (
+        w
+        )
+        
+          )
+          
+            2
+          
+        
+      
+    
+    {\displaystyle v(w,t):=\gamma v(w,t-1)+(1-\gamma )(\nabla q_{i}(w))^{2}}
+  where, 
+  
+    
+      
+        γ
+      
+    
+    {\displaystyle \gamma }
+   is the forgetting factor.
+and the parameters are updated as,
+
+  
+    
+      
+        w
+        :=
+        w
+        −
+        
+          
+            η
+            
+              v
+              (
+              w
+              ,
+              t
+              )
+            
+          
+        
+        ∇
+        
+          q
+          
+            i
+          
+        
+        (
+        w
+        )
+      
+    
+    {\displaystyle w:=w-{\frac {\eta }{\sqrt {v(w,t)}}}\nabla q_{i}(w)}
+  rmsprop has shown good adaptation of learning rate in different applications. rmsprop can be seen as a generalization of rprop and is capable to work with mini-batches as well opposed to only full-batches.
+
+
+=== adam ===
+adam (short for adaptive moment estimation) is an update to the rmsprop optimizer. in this optimization algorithm, running averages of both the gradients and the second moments of the gradients are used. given parameters 
+  
+    
+      
+        
+          w
+          
+            (
+            t
+            )
+          
+        
+      
+    
+    {\displaystyle w^{(t)}}
+   and a loss function 
+  
+    
+      
+        
+          l
+          
+            (
+            t
+            )
+          
+        
+      
+    
+    {\displaystyle l^{(t)}}
+  , where 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   indexes the current training iteration (indexed at 
+  
+    
+      
+        0
+      
+    
+    {\displaystyle 0}
+  ), adam's parameter update is given by:
+
+  
+    
+      
+        
+          m
+          
+            w
+          
+          
+            (
+            t
+            +
+            1
+            )
+          
+        
+        ←
+        
+          β
+          
+            1
+          
+        
+        
+          m
+          
+            w
+          
+          
+            (
+            t
+            )
+          
+        
+        +
+        (
+        1
+        −
+        
+          β
+          
+            1
+          
+        
+        )
+        
+          ∇
+          
+            w
+          
+        
+        
+          l
+          
+            (
+            t
+            )
+          
+        
+      
+    
+    {\displaystyle m_{w}^{(t+1)}\leftarrow \beta _{1}m_{w}^{(t)}+(1-\beta _{1})\nabla _{w}l^{(t)}}
+  
+
+  
+    
+      
+        
+          v
+          
+            w
+          
+          
+            (
+            t
+            +
+            1
+            )
+          
+        
+        ←
+        
+          β
+          
+            2
+          
+        
+        
+          v
+          
+            w
+          
+          
+            (
+            t
+            )
+          
+        
+        +
+        (
+        1
+        −
+        
+          β
+          
+            2
+          
+        
+        )
+        (
+        
+          ∇
+          
+            w
+          
+        
+        
+          l
+          
+            (
+            t
+            )
+          
+        
+        
+          )
+          
+            2
+          
+        
+      
+    
+    {\displaystyle v_{w}^{(t+1)}\leftarrow \beta _{2}v_{w}^{(t)}+(1-\beta _{2})(\nabla _{w}l^{(t)})^{2}}
+  
+  
+    
+      
+        
+          
+            
+              
+                m
+                ^
+              
+            
+          
+          
+            w
+          
+        
+        =
+        
+          
+            
+              m
+              
+                w
+              
+              
+                (
+                t
+                +
+                1
+                )
+              
+            
+            
+              1
+              −
+              
+                β
+                
+                  1
+                
+                
+                  t
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\hat {m}}_{w}={\frac {m_{w}^{(t+1)}}{1-\beta _{1}^{t}}}}
+  
+
+  
+    
+      
+        
+          
+            
+              
+                v
+                ^
+              
+            
+          
+          
+            w
+          
+        
+        =
+        
+          
+            
+              v
+              
+                w
+              
+              
+                (
+                t
+                +
+                1
+                )
+              
+            
+            
+              1
+              −
+              
+                β
+                
+                  2
+                
+                
+                  t
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\hat {v}}_{w}={\frac {v_{w}^{(t+1)}}{1-\beta _{2}^{t}}}}
+  
+  
+    
+      
+        
+          w
+          
+            (
+            t
+            +
+            1
+            )
+          
+        
+        ←
+        
+          w
+          
+            (
+            t
+            )
+          
+        
+        −
+        η
+        
+          
+            
+              
+                
+                  
+                    m
+                    ^
+                  
+                
+              
+              
+                w
+              
+            
+            
+              
+                
+                  
+                    
+                      
+                        
+                          v
+                          ^
+                        
+                      
+                    
+                    
+                      w
+                    
+                  
+                
+              
+              +
+              ϵ
+            
+          
+        
+      
+    
+    {\displaystyle w^{(t+1)}\leftarrow w^{(t)}-\eta {\frac {{\hat {m}}_{w}}{{\sqrt {{\hat {v}}_{w}}}+\epsilon }}}
+  where 
+  
+    
+      
+        ϵ
+      
+    
+    {\displaystyle \epsilon }
+   is a small scalar (e.g. 
+  
+    
+      
+        
+          10
+          
+            −
+            8
+          
+        
+      
+    
+    {\displaystyle 10^{-8}}
+  ) used to prevent division by 0, and 
+  
+    
+      
+        
+          β
+          
+            1
+          
+        
+      
+    
+    {\displaystyle \beta _{1}}
+   (e.g. 0.9) and 
+  
+    
+      
+        
+          β
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \beta _{2}}
+   (e.g. 0.999) are the forgetting factors for gradients and second moments of gradients, respectively. squaring and square-rooting is done element-wise.
+
+
+=== backtracking line search ===
+backtracking line search is another variant of gradient descent. all of the below are sourced from the mentioned link. it is based on a condition known as the armijo–goldstein condition. both methods allow learning rates to change at each iteration; however, the manner of the change is different. backtracking line search uses function evaluations to check armijo's condition, and in principle the loop in the algorithm for determining the learning rates can be long and unknown in advance. adaptive sgd does not need a loop in determining learning rates. on the other hand, adaptive sgd does not guarantee the "descent property" – which backtracking line search enjoys – which is that 
+  
+    
+      
+        f
+        (
+        
+          x
+          
+            n
+            +
+            1
+          
+        
+        )
+        ≤
+        f
+        (
+        
+          x
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle f(x_{n+1})\leq f(x_{n})}
+   for all n. if the gradient of the cost function is globally lipschitz continuous, with lipschitz constant l, and learning rate is chosen of the order 1/l, then the standard version of sgd is a special case of backtracking line search.
+
+
+=== second-order methods ===
+a stochastic analogue of the standard (deterministic) newton–raphson algorithm (a "second-order" method) provides an asymptotically optimal or near-optimal form of iterative optimization in the setting of stochastic approximation. a method that uses direct measurements of the hessian matrices of the summands in the empirical risk function was developed by byrd, hansen, nocedal, and singer. however, directly determining the required hessian matrices for optimization may not be possible in practice. practical and theoretically sound methods for second-order versions of sgd that do not require direct hessian information are given by spall and others. (a less efficient method based on finite differences, instead of simultaneous perturbations, is given by ruppert.) these methods not requiring direct hessian information are based on either values of the summands in the above empirical risk function or values of the gradients of the summands (i.e., the sgd inputs). in particular, second-order optimality is asymptotically achievable without direct calculation of the hessian matrices of the summands in the empirical risk function.
+
+
+== notes ==
+
+
+== see also ==
+backtracking line search
+coordinate descent – changes one coordinate at a time, rather than one example
+linear classifier
+online machine learning
+stochastic hill climbing
+
+
+== references ==
+
+
+== further reading ==
+bottou, léon (2004), "stochastic learning", advanced lectures on machine learning, lnai, vol. 3176, springer, pp. 146–168, isbn 978-3-540-23122-6
+buduma, nikhil; locascio, nicholas (2017), "beyond gradient descent", fundamentals of deep learning : designing next-generation machine intelligence algorithms, o'reilly
+lecun, yann a.; bottou, léon; orr, genevieve b.; müller, klaus-robert (2012), "efficient backprop", neural networks: tricks of the trade, springer, pp. 9–48, isbn 978-3-642-35288-1
+spall, james c. (2003), introduction to stochastic search and optimization, wiley, isbn 978-0-471-33052-3
+
+
+== external links ==
+using stochastic gradient descent in c++, boost, ublas for linear regression
+machine learning algorithms
+"gradient descent, how neural networks learn". 3blue1brown. october 16, 2017. archived from the original on 2021-12-22 – via youtube.
+goh (april 4, 2017). "why momentum really works". distill. 2 (4). doi:10.23915/distill.00006. interactive paper explaining momentum.

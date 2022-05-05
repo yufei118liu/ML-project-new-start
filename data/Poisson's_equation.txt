@@ -1,0 +1,204 @@
+poisson's equation is an elliptic partial differential equation of broad utility in theoretical physics. for example, the solution to poisson's equation is the potential field caused by a given electric charge or mass density distribution; with the potential field known, one can then calculate electrostatic or gravitational (force) field. it is a generalization of laplace's equation, which is also frequently seen in physics.  the equation is named after french mathematician and physicist siméon denis poisson.
+
+
+== statement of the equation ==
+poisson's equation is  where 
+  
+    
+      
+        δ
+      
+    
+    {\displaystyle \delta }
+   is the laplace operator, and 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   and 
+  
+    
+      
+        φ
+      
+    
+    {\displaystyle \varphi }
+   are real or complex-valued functions on a manifold. usually, 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   is given and 
+  
+    
+      
+        φ
+      
+    
+    {\displaystyle \varphi }
+   is sought. when the manifold is euclidean space, the laplace operator is often denoted as ∇2 and so poisson's equation is frequently written as 
+in three-dimensional cartesian coordinates, it takes the form
+
+when 
+  
+    
+      
+        f
+        =
+        0
+      
+    
+    {\displaystyle f=0}
+   identically we obtain laplace's equation.
+poisson's equation may be solved using a green's function:
+
+where the integral is over all of space. a general exposition of the green's function for poisson's equation is given in the article on the screened poisson equation. there are various methods for numerical solution, such as the relaxation method, an iterative algorithm.
+
+
+== newtonian gravity ==
+
+in the case of a gravitational field g due to an attracting massive object of density ρ, gauss's law for gravity in differential form can be used to obtain the corresponding poisson equation for gravity,
+
+since the gravitational field is conservative (and irrotational), it can be expressed in terms of a scalar potential φ,
+
+substituting into gauss's law
+
+yields poisson's equation for gravity,
+
+if the mass density is zero, poisson's equation reduces to laplace's equation. the corresponding green's function can be used to calculate the potential at distance r from a central point mass m (i.e., the fundamental solution). in three dimensions the potential is
+
+which is equivalent to newton's law of universal gravitation.
+
+
+== electrostatics ==
+
+one of the cornerstones of electrostatics is setting up and solving problems described by the poisson equation. solving the poisson equation amounts to finding the electric potential φ for a given charge distribution 
+  
+    
+      
+        
+          ρ
+          
+            f
+          
+        
+      
+    
+    {\displaystyle \rho _{f}}
+  .
+the mathematical details behind poisson's equation in electrostatics are as follows (si units are used rather than gaussian units, which are also frequently used in electromagnetism).
+starting with gauss's law for electricity (also one of maxwell's equations) in differential form, one has
+
+where 
+  
+    
+      
+        
+          ∇
+        
+        ⋅
+      
+    
+    {\displaystyle \mathbf {\nabla } \cdot }
+   is the divergence operator, d = electric displacement field, and ρf = free charge volume density (describing charges brought from outside).
+assuming the medium is linear, isotropic, and homogeneous (see polarization density), we have the constitutive equation,
+
+where ε is the permittivity of the medium and e is the electric field.
+substituting this into gauss's law and assuming ε is spatially constant in the region of interest yields
+
+where 
+  
+    
+      
+        ρ
+      
+    
+    {\displaystyle \rho }
+   is a total volume charge density. in electrostatics, we assume that there is no magnetic field (the argument that follows also holds in the presence of a constant magnetic field). then, we have that
+
+where ∇× is the curl operator. this equation means that we can write the electric field as the gradient of a scalar function φ (called the electric potential), since the curl of any gradient is zero. thus we can write,
+
+where the minus sign is introduced so that φ is identified as the potential energy per unit charge.
+the derivation of poisson's equation under these circumstances is straightforward. substituting the potential gradient for the electric field,
+
+directly produces poisson's equation for electrostatics, which is
+
+solving poisson's equation for the potential requires knowing the charge density distribution. if the charge density is zero, then laplace's equation results. if the charge density follows a boltzmann distribution, then the poisson-boltzmann equation results. the poisson–boltzmann equation plays a role in the development of the debye–hückel theory of dilute electrolyte solutions.
+using green's function, the potential at distance r from a central point charge q  (i.e., the fundamental solution) is:
+
+which is coulomb's law of electrostatics. (for historic reasons, and unlike gravity's model above, the 
+  
+    
+      
+        4
+        π
+      
+    
+    {\displaystyle 4\pi }
+   factor appears here and not in gauss's law.)
+the above discussion assumes that the magnetic field is not varying in time. the same poisson equation arises even if it does vary in time, as long as the coulomb gauge is used. in this more general context, computing φ is no longer sufficient to calculate e, since e also depends on the magnetic vector potential a, which must be independently computed. see maxwell's equation in potential formulation for more on φ and a in maxwell's equations and how poisson's equation is obtained in this case.
+
+
+=== potential of a gaussian charge density ===
+if there is a static spherically symmetric gaussian charge density
+
+where q is the total charge, then the solution φ(r) of poisson's equation,
+
+is given by
+
+where erf(x) is the error function.
+this solution can be checked explicitly by evaluating ∇2φ.
+note that, for r much greater than σ, the erf function approaches unity and the potential φ(r) approaches the point charge potential
+
+as one would expect. furthermore, the error function approaches 1 extremely quickly as its argument increases; in practice for r > 3σ the relative error is smaller than one part in a thousand.
+
+
+== surface reconstruction ==
+surface reconstruction is an inverse problem. the goal is to digitally reconstruct a smooth surface based on a large number of points pi (a point cloud) where each point also carries an estimate of the local surface normal ni. poisson's equation can be utilized to solve this problem with a technique called poisson surface reconstruction.the goal of this technique is to reconstruct an implicit function f whose value is zero at the points pi and whose gradient at the points pi equals the normal vectors ni. the set of (pi, ni) is thus modeled as a continuous vector field v.  the implicit function f is found by integrating the vector field v. since not every vector field is the gradient of a function, the problem may or may not have a solution: the necessary and sufficient condition for a smooth vector field v to be the gradient of a function f is that the curl of v must be identically zero. in case this condition is difficult to impose, it is still possible to perform a least-squares fit to minimize the difference between v and the gradient of f.
+in order to effectively apply poisson's equation to the problem of surface reconstruction, it is necessary to find a good discretization of the vector field v. the basic approach is to bound the data with a finite difference grid. for a function valued at the nodes of such a grid, its gradient can be represented as valued on staggered grids, i.e. on grids whose nodes lie in between the nodes of the original grid. it is convenient to define three staggered grids, each shifted in one and only one direction corresponding to the components of the normal data. on each staggered grid we perform [trilinear interpolation] on the set of points. the interpolation weights are then used to distribute the magnitude of the associated component of ni onto the nodes of the particular staggered grid cell containing pi. kazhdan and coauthors give a more accurate method of discretization using an adaptive finite difference grid, i.e. the cells of the grid are smaller (the grid is more finely divided) where there are more data points. they suggest implementing this technique with an adaptive octree.
+
+
+== fluid dynamics ==
+for the incompressible navier–stokes equations, given by:
+
+the equation for the pressure field 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   is an example of a nonlinear poisson equation:
+
+notice that the above trace is not sign-definite.
+
+
+== see also ==
+
+discrete poisson equation
+poisson–boltzmann equation
+helmholtz equation
+uniqueness theorem for poisson's equation
+weak formulation
+
+
+== references ==
+
+
+== further reading ==
+evans, lawrence c. (1998). partial differential equations. providence (ri): american mathematical society. isbn 0-8218-0772-2.
+mathews, jon; walker, robert l. (1970). mathematical methods of physics (2nd ed.). new york: w. a. benjamin. isbn 0-8053-7002-1.
+polyanin, andrei d. (2002). handbook of linear partial differential equations for engineers and scientists. boca raton (fl): chapman & hall/crc press. isbn 1-58488-299-9.
+
+
+== external links ==
+"poisson equation", encyclopedia of mathematics, ems press, 2001 [1994]
+poisson equation at eqworld: the world of mathematical equations
+poisson's equation on planetmath.

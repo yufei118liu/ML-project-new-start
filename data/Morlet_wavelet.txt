@@ -1,0 +1,528 @@
+in mathematics, the morlet wavelet (or gabor wavelet) is a wavelet composed of a complex exponential (carrier) multiplied by a gaussian window (envelope).  this wavelet is closely related to human perception, both hearing and vision.
+
+
+== history ==
+
+in 1946, physicist dennis gabor, applying ideas from quantum physics, introduced the use of gaussian-windowed sinusoids for time-frequency decomposition, which he referred to as atoms, and which provide the best trade-off between spatial and frequency resolution.  these are used in the gabor transform, a type of short-time fourier transform.  in 1984, jean morlet introduced gabor's work to the seismology community and, with goupillaud and grossmann, modified it to keep the same wavelet shape over equal octave intervals, resulting in the first formalization of the continuous wavelet transform.
+
+
+== definition ==
+the wavelet is defined as a constant 
+  
+    
+      
+        
+          κ
+          
+            σ
+          
+        
+      
+    
+    {\displaystyle \kappa _{\sigma }}
+   subtracted from a plane wave and then localised by a gaussian window:
+
+  
+    
+      
+        
+          ψ
+          
+            σ
+          
+        
+        (
+        t
+        )
+        =
+        
+          c
+          
+            σ
+          
+        
+        
+          π
+          
+            −
+            
+              
+                1
+                4
+              
+            
+          
+        
+        
+          e
+          
+            −
+            
+              
+                1
+                2
+              
+            
+            
+              t
+              
+                2
+              
+            
+          
+        
+        (
+        
+          e
+          
+            i
+            σ
+            t
+          
+        
+        −
+        
+          κ
+          
+            σ
+          
+        
+        )
+      
+    
+    {\displaystyle \psi _{\sigma }(t)=c_{\sigma }\pi ^{-{\frac {1}{4}}}e^{-{\frac {1}{2}}t^{2}}(e^{i\sigma t}-\kappa _{\sigma })}
+  where 
+  
+    
+      
+        
+          κ
+          
+            σ
+          
+        
+        =
+        
+          e
+          
+            −
+            
+              
+                1
+                2
+              
+            
+            
+              σ
+              
+                2
+              
+            
+          
+        
+      
+    
+    {\displaystyle \kappa _{\sigma }=e^{-{\frac {1}{2}}\sigma ^{2}}}
+   is defined by the admissibility criterion,
+and the normalisation constant 
+  
+    
+      
+        
+          c
+          
+            σ
+          
+        
+      
+    
+    {\displaystyle c_{\sigma }}
+   is:
+
+  
+    
+      
+        
+          c
+          
+            σ
+          
+        
+        =
+        
+          
+            (
+            
+              1
+              +
+              
+                e
+                
+                  −
+                  
+                    σ
+                    
+                      2
+                    
+                  
+                
+              
+              −
+              2
+              
+                e
+                
+                  −
+                  
+                    
+                      3
+                      4
+                    
+                  
+                  
+                    σ
+                    
+                      2
+                    
+                  
+                
+              
+            
+            )
+          
+          
+            −
+            
+              
+                1
+                2
+              
+            
+          
+        
+      
+    
+    {\displaystyle c_{\sigma }=\left(1+e^{-\sigma ^{2}}-2e^{-{\frac {3}{4}}\sigma ^{2}}\right)^{-{\frac {1}{2}}}}
+  the fourier transform of the morlet wavelet is:
+
+  
+    
+      
+        
+          
+            
+              
+                ψ
+                ^
+              
+            
+          
+          
+            σ
+          
+        
+        (
+        ω
+        )
+        =
+        
+          c
+          
+            σ
+          
+        
+        
+          π
+          
+            −
+            
+              
+                1
+                4
+              
+            
+          
+        
+        
+          (
+          
+            
+              e
+              
+                −
+                
+                  
+                    1
+                    2
+                  
+                
+                (
+                σ
+                −
+                ω
+                
+                  )
+                  
+                    2
+                  
+                
+              
+            
+            −
+            
+              κ
+              
+                σ
+              
+            
+            
+              e
+              
+                −
+                
+                  
+                    1
+                    2
+                  
+                
+                
+                  ω
+                  
+                    2
+                  
+                
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle {\hat {\psi }}_{\sigma }(\omega )=c_{\sigma }\pi ^{-{\frac {1}{4}}}\left(e^{-{\frac {1}{2}}(\sigma -\omega )^{2}}-\kappa _{\sigma }e^{-{\frac {1}{2}}\omega ^{2}}\right)}
+  the "central frequency" 
+  
+    
+      
+        
+          ω
+          
+            ψ
+          
+        
+      
+    
+    {\displaystyle \omega _{\psi }}
+   is the position of the global maximum of 
+  
+    
+      
+        
+          
+            
+              
+                ψ
+                ^
+              
+            
+          
+          
+            σ
+          
+        
+        (
+        ω
+        )
+      
+    
+    {\displaystyle {\hat {\psi }}_{\sigma }(\omega )}
+   which, in this case, is given by the positive solution to:
+
+  
+    
+      
+        
+          ω
+          
+            ψ
+          
+        
+        =
+        σ
+        
+          
+            1
+            
+              1
+              −
+              
+                e
+                
+                  −
+                  σ
+                  
+                    ω
+                    
+                      ψ
+                    
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle \omega _{\psi }=\sigma {\frac {1}{1-e^{-\sigma \omega _{\psi }}}}}
+  which can be solved by a fixed-point iteration starting at 
+  
+    
+      
+        
+          ω
+          
+            ψ
+          
+        
+        =
+        σ
+      
+    
+    {\displaystyle \omega _{\psi }=\sigma }
+   (the fixed-point iterations converge to the unique positive solution for any initial 
+  
+    
+      
+        
+          ω
+          
+            ψ
+          
+        
+        >
+        0
+      
+    
+    {\displaystyle \omega _{\psi }>0}
+  ).the parameter 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+   in the morlet wavelet allows trade between time and frequency resolutions. conventionally, the restriction 
+  
+    
+      
+        σ
+        >
+        5
+      
+    
+    {\displaystyle \sigma >5}
+   is used to avoid problems with the morlet wavelet at low 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+   (high temporal resolution).for signals containing only slowly varying frequency and amplitude modulations (audio, for example) it is not necessary to use small values of 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+  . in this case, 
+  
+    
+      
+        
+          κ
+          
+            σ
+          
+        
+      
+    
+    {\displaystyle \kappa _{\sigma }}
+   becomes very small (e.g. 
+  
+    
+      
+        σ
+        >
+        5
+        
+        ⇒
+        
+        
+          κ
+          
+            σ
+          
+        
+        <
+        
+          10
+          
+            −
+            5
+          
+        
+        
+      
+    
+    {\displaystyle \sigma >5\quad \rightarrow \quad \kappa _{\sigma }<10^{-5}\,}
+  ) and is, therefore, often neglected. under the restriction 
+  
+    
+      
+        σ
+        >
+        5
+      
+    
+    {\displaystyle \sigma >5}
+  , the frequency of the morlet wavelet is conventionally taken to be 
+  
+    
+      
+        
+          ω
+          
+            ψ
+          
+        
+        ≃
+        σ
+      
+    
+    {\displaystyle \omega _{\psi }\simeq \sigma }
+  .the wavelet exists as a complex version or a purely real-valued version.  some distinguish between the "real morlet" vs the "complex morlet".  others consider the complex version to be the "gabor wavelet", while the real-valued version is the "morlet wavelet".
+
+
+== uses ==
+
+
+=== use in medicine ===
+in magnetic resonance spectroscopy imaging, the morlet wavelet transform method offers an intuitive bridge between frequency and time information which can clarify the interpretation of complex head trauma spectra obtained with fourier transform. the morlet wavelet transform, however, is not intended as a replacement for the fourier transform, but rather a supplement that allows qualitative access to time related changes and takes advantage of the multiple dimensions available in a free induction decay analysis.the application of the morlet wavelet analysis is also used to discriminate abnormal heartbeat behavior in the electrocardiogram (ecg). since the variation of the abnormal heartbeat is a non-stationary signal, this signal is suitable for wavelet-based analysis.
+
+
+=== use in music ===
+the morlet wavelet transform is used in pitch estimation and can produce more accurate results than fourier transform techniques. the morlet wavelet transform is capable of capturing short bursts of repeating and alternating music notes with a clear start and end time for each note.
+
+
+== see also ==
+constant-q transform
+gabor wavelet
+
+
+== references ==
+
+p. goupillaud, a. grossman, and j. morlet. cycle-octave and related transforms in seismic signal analysis. geoexploration, 23:85-102, 1984
+n. delprat, b. escudié, p. guillemain, r. kronland-martinet, p. tchamitchian, and b. torrésani. asymptotic wavelet and gabor analysis: extraction of instantaneous frequencies. ieee trans. inf. th., 38:644-664, 1992

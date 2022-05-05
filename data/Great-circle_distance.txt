@@ -1,0 +1,1000 @@
+the great-circle distance, orthodromic distance, or spherical distance is the distance along a great circle.
+it is the shortest distance between two points on the surface of a sphere, measured along the surface of the sphere (as opposed to a straight line through the sphere's interior). the distance between two points in euclidean space is the length of a straight line between them, but on the sphere there are no straight lines. in spaces with curvature, straight lines are replaced by geodesics. geodesics on the sphere are circles on the sphere whose centers coincide with the center of the sphere, and are called 'great circles'.
+the determination of the great-circle distance is part of the more general problem of great-circle navigation, which also computes the azimuths at the end points and intermediate way-points.
+through any two points on a sphere that are not antipodal points (directly opposite each other), there is a unique great circle. the two points separate the great circle into two arcs. the length of the shorter arc is the great-circle distance between the points. a great circle endowed with such a distance is called a riemannian circle in riemannian geometry.
+between antipodal points, there are infinitely many great circles, and all great circle arcs between antipodal points have a length of half the circumference of the circle, or 
+  
+    
+      
+        π
+        r
+      
+    
+    {\displaystyle \pi r}
+  , where r is the radius of the sphere.
+the earth is nearly spherical, so great-circle distance formulas give the distance between points on the surface of the earth correct to within about 0.5%.the vertex is the highest-latitude point on a great circle.
+
+
+== formulae ==
+
+let 
+  
+    
+      
+        
+          λ
+          
+            1
+          
+        
+        ,
+        
+          ϕ
+          
+            1
+          
+        
+      
+    
+    {\displaystyle \lambda _{1},\phi _{1}}
+   and 
+  
+    
+      
+        
+          λ
+          
+            2
+          
+        
+        ,
+        
+          ϕ
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \lambda _{2},\phi _{2}}
+   be the geographical longitude and latitude of two points 1 and 2, and 
+  
+    
+      
+        δ
+        λ
+        ,
+        δ
+        ϕ
+      
+    
+    {\displaystyle \delta \lambda ,\delta \phi }
+   be their absolute differences; then 
+  
+    
+      
+        δ
+        σ
+      
+    
+    {\displaystyle \delta \sigma }
+  , the central angle between them, is given by the spherical law of cosines if one of the poles is used as an auxiliary third point on the sphere:
+
+  
+    
+      
+        δ
+        σ
+        =
+        arccos
+        ⁡
+        
+          
+            (
+          
+        
+        sin
+        ⁡
+        
+          ϕ
+          
+            1
+          
+        
+        sin
+        ⁡
+        
+          ϕ
+          
+            2
+          
+        
+        +
+        cos
+        ⁡
+        
+          ϕ
+          
+            1
+          
+        
+        cos
+        ⁡
+        
+          ϕ
+          
+            2
+          
+        
+        cos
+        ⁡
+        (
+        δ
+        λ
+        )
+        
+          
+            )
+          
+        
+        .
+      
+    
+    {\displaystyle \delta \sigma =\arccos {\bigl (}\sin \phi _{1}\sin \phi _{2}+\cos \phi _{1}\cos \phi _{2}\cos(\delta \lambda ){\bigr )}.}
+  the problem is normally expressed in terms of finding the central angle 
+  
+    
+      
+        δ
+        σ
+      
+    
+    {\displaystyle \delta \sigma }
+  . given this angle in radians, the actual arc length d on a sphere of radius r can be trivially computed as
+
+  
+    
+      
+        d
+        =
+        r
+        
+        δ
+        σ
+        .
+      
+    
+    {\displaystyle d=r\,\delta \sigma .}
+  
+
+
+=== computational formulas ===
+on computer systems with low floating point precision, the spherical law of cosines formula can have large rounding errors if the distance is small (if the two points are a kilometer apart on the surface of the earth, the cosine of the central angle is near 0.99999999). for modern 64-bit floating-point numbers, the spherical law of cosines formula, given above, does not have serious rounding errors for distances larger than a few meters on the surface of the earth. the haversine formula is numerically better-conditioned for small distances:
+
+  
+    
+      
+        
+          
+            
+              
+                δ
+                σ
+              
+              
+                
+                =
+                archav
+                ⁡
+                
+                  (
+                  
+                    hav
+                    ⁡
+                    
+                      (
+                      
+                        δ
+                        ϕ
+                      
+                      )
+                    
+                    +
+                    
+                      (
+                      
+                        1
+                        −
+                        hav
+                        ⁡
+                        (
+                        δ
+                        ϕ
+                        )
+                        −
+                        hav
+                        ⁡
+                        (
+                        
+                          ϕ
+                          
+                            1
+                          
+                        
+                        +
+                        
+                          ϕ
+                          
+                            2
+                          
+                        
+                        )
+                      
+                      )
+                    
+                    ⋅
+                    hav
+                    ⁡
+                    
+                      (
+                      
+                        δ
+                        λ
+                      
+                      )
+                    
+                  
+                  )
+                
+              
+            
+            
+              
+              
+                
+                =
+                2
+                arcsin
+                ⁡
+                
+                  
+                    
+                      sin
+                      
+                        2
+                      
+                    
+                    ⁡
+                    
+                      (
+                      
+                        
+                          
+                            δ
+                            ϕ
+                          
+                          2
+                        
+                      
+                      )
+                    
+                    +
+                    
+                      (
+                      
+                        1
+                        −
+                        
+                          sin
+                          
+                            2
+                          
+                        
+                        ⁡
+                        
+                          (
+                          
+                            
+                              
+                                δ
+                                ϕ
+                              
+                              2
+                            
+                          
+                          )
+                        
+                        −
+                        
+                          sin
+                          
+                            2
+                          
+                        
+                        ⁡
+                        
+                          (
+                          
+                            
+                              
+                                
+                                  ϕ
+                                  
+                                    1
+                                  
+                                
+                                +
+                                
+                                  ϕ
+                                  
+                                    2
+                                  
+                                
+                              
+                              2
+                            
+                          
+                          )
+                        
+                      
+                      )
+                    
+                    ⋅
+                    
+                      sin
+                      
+                        2
+                      
+                    
+                    ⁡
+                    
+                      (
+                      
+                        
+                          
+                            δ
+                            λ
+                          
+                          2
+                        
+                      
+                      )
+                    
+                  
+                
+                .
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}\delta \sigma &=\operatorname {archav} \left(\operatorname {hav} \left(\delta \phi \right)+\left(1-\operatorname {hav} (\delta \phi )-\operatorname {hav} (\phi _{1}+\phi _{2})\right)\cdot \operatorname {hav} \left(\delta \lambda \right)\right)\\&=2\arcsin {\sqrt {\sin ^{2}\left({\frac {\delta \phi }{2}}\right)+\left(1-\sin ^{2}\left({\frac {\delta \phi }{2}}\right)-\sin ^{2}\left({\frac {\phi _{1}+\phi _{2}}{2}}\right)\right)\cdot \sin ^{2}\left({\frac {\delta \lambda }{2}}\right)}}.\end{aligned}}}
+  historically, the use of this formula was simplified by the availability of tables for the haversine function: hav(θ) = sin2(θ/2).
+although this formula is accurate for most distances on a sphere, it too suffers from rounding errors for the special (and somewhat unusual) case of antipodal points. a formula that is accurate for all distances is the following special case of the vincenty formula for an ellipsoid with equal major and minor axes:
+
+  
+    
+      
+        δ
+        σ
+        =
+        arctan
+        ⁡
+        
+          
+            
+              
+                
+                  (
+                  
+                    cos
+                    ⁡
+                    
+                      ϕ
+                      
+                        2
+                      
+                    
+                    sin
+                    ⁡
+                    (
+                    δ
+                    λ
+                    )
+                  
+                  )
+                
+                
+                  2
+                
+              
+              +
+              
+                
+                  (
+                  
+                    cos
+                    ⁡
+                    
+                      ϕ
+                      
+                        1
+                      
+                    
+                    sin
+                    ⁡
+                    
+                      ϕ
+                      
+                        2
+                      
+                    
+                    −
+                    sin
+                    ⁡
+                    
+                      ϕ
+                      
+                        1
+                      
+                    
+                    cos
+                    ⁡
+                    
+                      ϕ
+                      
+                        2
+                      
+                    
+                    cos
+                    ⁡
+                    (
+                    δ
+                    λ
+                    )
+                  
+                  )
+                
+                
+                  2
+                
+              
+            
+            
+              sin
+              ⁡
+              
+                ϕ
+                
+                  1
+                
+              
+              sin
+              ⁡
+              
+                ϕ
+                
+                  2
+                
+              
+              +
+              cos
+              ⁡
+              
+                ϕ
+                
+                  1
+                
+              
+              cos
+              ⁡
+              
+                ϕ
+                
+                  2
+                
+              
+              cos
+              ⁡
+              (
+              δ
+              λ
+              )
+            
+          
+        
+        .
+      
+    
+    {\displaystyle \delta \sigma =\arctan {\frac {\sqrt {\left(\cos \phi _{2}\sin(\delta \lambda )\right)^{2}+\left(\cos \phi _{1}\sin \phi _{2}-\sin \phi _{1}\cos \phi _{2}\cos(\delta \lambda )\right)^{2}}}{\sin \phi _{1}\sin \phi _{2}+\cos \phi _{1}\cos \phi _{2}\cos(\delta \lambda )}}.}
+  
+
+
+=== vector version ===
+another representation of similar formulas, but using normal vectors instead of latitude and longitude to describe the positions, is found by means of 3d vector algebra, using the dot product, cross product, or a combination:
+
+  
+    
+      
+        
+          
+            
+              
+                δ
+                σ
+              
+              
+                
+                =
+                arccos
+                ⁡
+                
+                  (
+                  
+                    
+                      
+                        n
+                      
+                      
+                        1
+                      
+                    
+                    ⋅
+                    
+                      
+                        n
+                      
+                      
+                        2
+                      
+                    
+                  
+                  )
+                
+              
+            
+            
+              
+              
+                
+                =
+                arcsin
+                ⁡
+                
+                  |
+                  
+                    
+                      
+                        n
+                      
+                      
+                        1
+                      
+                    
+                    ×
+                    
+                      
+                        n
+                      
+                      
+                        2
+                      
+                    
+                  
+                  |
+                
+              
+            
+            
+              
+              
+                
+                =
+                arctan
+                ⁡
+                
+                  
+                    
+                      |
+                      
+                        
+                          
+                            n
+                          
+                          
+                            1
+                          
+                        
+                        ×
+                        
+                          
+                            n
+                          
+                          
+                            2
+                          
+                        
+                      
+                      |
+                    
+                    
+                      
+                        
+                          n
+                        
+                        
+                          1
+                        
+                      
+                      ⋅
+                      
+                        
+                          n
+                        
+                        
+                          2
+                        
+                      
+                    
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}\delta \sigma &=\arccos \left(\mathbf {n} _{1}\cdot \mathbf {n} _{2}\right)\\&=\arcsin \left|\mathbf {n} _{1}\times \mathbf {n} _{2}\right|\\&=\arctan {\frac {\left|\mathbf {n} _{1}\times \mathbf {n} _{2}\right|}{\mathbf {n} _{1}\cdot \mathbf {n} _{2}}}\\\end{aligned}}}
+  where 
+  
+    
+      
+        
+          
+            n
+          
+          
+            1
+          
+        
+      
+    
+    {\displaystyle \mathbf {n} _{1}}
+   and 
+  
+    
+      
+        
+          
+            n
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \mathbf {n} _{2}}
+   are the normals to the ellipsoid at the two positions 1 and 2. similarly to the equations above based on latitude and longitude, the expression based on arctan is the only one that is well-conditioned for all angles. the expression based on arctan requires the magnitude of the cross product over the dot product.
+
+
+=== from chord length ===
+a line through three-dimensional space between points of interest on a spherical earth is the chord of the great circle between the points. the central angle between the two points can be determined from the chord length. the great circle distance is proportional to the central angle.
+the great circle chord length, 
+  
+    
+      
+        
+          c
+          
+            h
+          
+        
+        
+        
+      
+    
+    {\displaystyle c_{h}\,\!}
+  , may be calculated as follows for the corresponding unit sphere, by means of cartesian subtraction:
+
+  
+    
+      
+        
+          
+            
+              
+                δ
+                
+                  x
+                
+              
+              
+                
+                =
+                cos
+                ⁡
+                
+                  ϕ
+                  
+                    2
+                  
+                
+                cos
+                ⁡
+                
+                  λ
+                  
+                    2
+                  
+                
+                −
+                cos
+                ⁡
+                
+                  ϕ
+                  
+                    1
+                  
+                
+                cos
+                ⁡
+                
+                  λ
+                  
+                    1
+                  
+                
+                ;
+              
+            
+            
+              
+                δ
+                
+                  y
+                
+              
+              
+                
+                =
+                cos
+                ⁡
+                
+                  ϕ
+                  
+                    2
+                  
+                
+                sin
+                ⁡
+                
+                  λ
+                  
+                    2
+                  
+                
+                −
+                cos
+                ⁡
+                
+                  ϕ
+                  
+                    1
+                  
+                
+                sin
+                ⁡
+                
+                  λ
+                  
+                    1
+                  
+                
+                ;
+              
+            
+            
+              
+                δ
+                
+                  z
+                
+              
+              
+                
+                =
+                sin
+                ⁡
+                
+                  ϕ
+                  
+                    2
+                  
+                
+                −
+                sin
+                ⁡
+                
+                  ϕ
+                  
+                    1
+                  
+                
+                ;
+              
+            
+            
+              
+                c
+              
+              
+                
+                =
+                
+                  
+                    (
+                    δ
+                    
+                      x
+                    
+                    
+                      )
+                      
+                        2
+                      
+                    
+                    +
+                    (
+                    δ
+                    
+                      y
+                    
+                    
+                      )
+                      
+                        2
+                      
+                    
+                    +
+                    (
+                    δ
+                    
+                      z
+                    
+                    
+                      )
+                      
+                        2
+                      
+                    
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}\delta {x}&=\cos \phi _{2}\cos \lambda _{2}-\cos \phi _{1}\cos \lambda _{1};\\\delta {y}&=\cos \phi _{2}\sin \lambda _{2}-\cos \phi _{1}\sin \lambda _{1};\\\delta {z}&=\sin \phi _{2}-\sin \phi _{1};\\c&={\sqrt {(\delta {x})^{2}+(\delta {y})^{2}+(\delta {z})^{2}}}\end{aligned}}}
+  the central angle is:
+
+  
+    
+      
+        δ
+        σ
+        =
+        2
+        arcsin
+        ⁡
+        
+          
+            c
+            2
+          
+        
+        .
+      
+    
+    {\displaystyle \delta \sigma =2\arcsin {\frac {c}{2}}.}
+  
+
+
+== radius for spherical earth ==
+
+the shape of the earth closely resembles a flattened sphere (a spheroid) with equatorial radius 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   of 6378.137 km; distance 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   from the center of the spheroid to each pole is 6356.7523142 km. when calculating the length of a short north-south line at the equator, the circle that best approximates that line has a radius of 
+  
+    
+      
+        
+          
+            
+              b
+              
+                2
+              
+            
+            a
+          
+        
+      
+    
+    {\textstyle {\frac {b^{2}}{a}}}
+   (which equals the meridian's semi-latus rectum), or 6335.439 km, while the spheroid at the poles is best approximated by a sphere of radius 
+  
+    
+      
+        
+          
+            
+              a
+              
+                2
+              
+            
+            b
+          
+        
+      
+    
+    {\textstyle {\frac {a^{2}}{b}}}
+  , or 6399.594 km, a 1% difference. so long as a spherical earth is assumed, any single formula for distance on the earth is only guaranteed correct within 0.5% (though better accuracy is possible if the formula is only intended to apply to a limited area). using the mean earth radius, 
+  
+    
+      
+        
+          r
+          
+            1
+          
+        
+        =
+        
+          
+            1
+            3
+          
+        
+        (
+        2
+        a
+        +
+        b
+        )
+        ≈
+        6371.009
+        
+           km
+        
+      
+    
+    {\textstyle r_{1}={\frac {1}{3}}(2a+b)\approx 6371.009{\text{ km}}}
+   (for the wgs84 ellipsoid) means that in the limit of small flattening, the mean square relative error in the estimates for distance is minimized.
+
+
+== see also ==
+
+
+== references and notes ==
+
+
+== external links ==
+greatcircle at mathworld

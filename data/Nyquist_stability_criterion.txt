@@ -1,0 +1,1936 @@
+in control theory and stability theory, the nyquist stability criterion or strecker–nyquist stability criterion, independently discovered by the german electrical engineer felix strecker at siemens in 1930 and the swedish-american electrical engineer harry nyquist at bell telephone laboratories in 1932, is a graphical technique for determining the stability of a dynamical system. because it only looks at the nyquist plot of the open loop systems, it can be applied without explicitly computing the poles and zeros of either the closed-loop or open-loop system (although the number of each type of right-half-plane singularities must be known). as a result, it can be applied to systems defined by non-rational functions, such as systems with delays. in contrast to bode plots, it can handle transfer functions with right half-plane singularities. in addition, there is a natural generalization to more complex systems with multiple inputs and multiple outputs, such as control systems for airplanes.
+the nyquist criterion is widely used in electronics and control system engineering, as well as other fields, for designing and analyzing systems with feedback. while nyquist is one of the most general stability tests, it is still restricted to linear time-invariant (lti) systems.  non-linear systems must use more complex stability criteria, such as lyapunov or the circle criterion. while nyquist is a graphical technique, it only provides a limited amount of intuition for why a system is stable or unstable, or how to modify an unstable system to be stable. techniques like bode plots, while less general, are sometimes a more useful design tool.
+
+
+== nyquist plot ==
+
+a nyquist plot is a parametric plot of a frequency response used in automatic control and signal processing.  the most common use of nyquist plots is for assessing the stability of a system with feedback.  in cartesian coordinates, the real part of the transfer function is plotted on the x-axis. the imaginary part is plotted on the y-axis. the frequency is swept as a parameter, resulting in a plot per frequency.  the same plot can be described using polar coordinates, where gain of the transfer function is the radial coordinate, and the phase of the transfer function is the corresponding angular coordinate.  the nyquist plot is named after harry nyquist, a former engineer at bell laboratories.
+assessment of the stability of a closed-loop negative feedback system is done by applying the nyquist stability criterion to the nyquist plot of the open-loop system (i.e. the same system without its feedback loop). this method is easily applicable even for systems with delays and other non-rational transfer functions, which may appear difficult to analyze with other methods. stability is determined by looking at the number of encirclements of the point (−1, 0). the range of gains over which the system will be stable can be determined by looking at crossings of the real axis. 
+the nyquist plot can provide some information about the shape of the transfer function. for instance, the plot provides information on the difference between the number of zeros and poles of the transfer function by the angle at which the curve approaches the origin.
+when drawn by hand, a cartoon version of the nyquist plot is sometimes used, which shows the linearity of the curve, but where coordinates are distorted to show more detail in regions of interest. when plotted computationally, one needs to be careful to cover all frequencies of interest. this typically means that the parameter is swept logarithmically, in order to cover a wide range of values.
+
+
+== background ==
+the mathematics uses the laplace transform, which transforms integrals and derivatives in the time domain to simple multiplication and division in the s domain.
+we consider a system whose transfer function is 
+  
+    
+      
+        g
+        (
+        s
+        )
+      
+    
+    {\displaystyle g(s)}
+  ; when placed in a closed loop with negative feedback 
+  
+    
+      
+        h
+        (
+        s
+        )
+      
+    
+    {\displaystyle h(s)}
+  , the closed loop transfer function (cltf) then becomes 
+  
+    
+      
+        
+          
+            g
+            
+              1
+              +
+              g
+              h
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {g}{1+gh}}}
+  . stability can be determined by examining the roots of the desensitivity factor polynomial 
+  
+    
+      
+        1
+        +
+        g
+        h
+      
+    
+    {\displaystyle 1+gh}
+  , e.g. using the routh array, but this method is somewhat tedious. conclusions can also be reached by examining the open loop transfer function (oltf) 
+  
+    
+      
+        g
+        h
+        (
+        s
+        )
+      
+    
+    {\displaystyle gh(s)}
+  , using its bode plots or, as here, its polar plot using the nyquist criterion, as follows.
+any laplace domain transfer function 
+  
+    
+      
+        
+          
+            t
+          
+        
+        (
+        s
+        )
+      
+    
+    {\displaystyle {\mathcal {t}}(s)}
+   can be expressed as the ratio of two polynomials: 
+  
+    
+      
+        
+          
+            t
+          
+        
+        (
+        s
+        )
+        =
+        
+          
+            
+              n
+              (
+              s
+              )
+            
+            
+              d
+              (
+              s
+              )
+            
+          
+        
+        .
+      
+    
+    {\displaystyle {\mathcal {t}}(s)={\frac {n(s)}{d(s)}}.}
+  
+the roots of 
+  
+    
+      
+        n
+        (
+        s
+        )
+      
+    
+    {\displaystyle n(s)}
+   are called the zeros of 
+  
+    
+      
+        
+          
+            t
+          
+        
+        (
+        s
+        )
+      
+    
+    {\displaystyle {\mathcal {t}}(s)}
+  , and the roots of 
+  
+    
+      
+        d
+        (
+        s
+        )
+      
+    
+    {\displaystyle d(s)}
+   are the poles of 
+  
+    
+      
+        
+          
+            t
+          
+        
+        (
+        s
+        )
+      
+    
+    {\displaystyle {\mathcal {t}}(s)}
+  . the poles of 
+  
+    
+      
+        
+          
+            t
+          
+        
+        (
+        s
+        )
+      
+    
+    {\displaystyle {\mathcal {t}}(s)}
+   are also said to be the roots of the characteristic equation 
+  
+    
+      
+        d
+        (
+        s
+        )
+        =
+        0
+      
+    
+    {\displaystyle d(s)=0}
+  .
+the stability of 
+  
+    
+      
+        
+          
+            t
+          
+        
+        (
+        s
+        )
+      
+    
+    {\displaystyle {\mathcal {t}}(s)}
+   is determined by the values of its poles: for stability, the real part of every pole must be negative. if 
+  
+    
+      
+        
+          
+            t
+          
+        
+        (
+        s
+        )
+      
+    
+    {\displaystyle {\mathcal {t}}(s)}
+   is formed by closing a negative unity feedback loop around the open-loop transfer function 
+  
+    
+      
+        g
+        h
+        (
+        s
+        )
+        =
+        
+          
+            
+              a
+              (
+              s
+              )
+            
+            
+              b
+              (
+              s
+              )
+            
+          
+        
+      
+    
+    {\displaystyle gh(s)={\frac {a(s)}{b(s)}}}
+  , then the roots of the characteristic equation are also the zeros of 
+  
+    
+      
+        1
+        +
+        g
+        h
+        (
+        s
+        )
+      
+    
+    {\displaystyle 1+gh(s)}
+  , or simply the roots of 
+  
+    
+      
+        a
+        (
+        s
+        )
+        +
+        b
+        (
+        s
+        )
+        =
+        0
+      
+    
+    {\displaystyle a(s)+b(s)=0}
+  .
+
+
+== cauchy's argument principle ==
+
+from complex analysis,  a contour 
+  
+    
+      
+        
+          γ
+          
+            s
+          
+        
+      
+    
+    {\displaystyle \gamma _{s}}
+   drawn in the complex 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+   plane,  encompassing but not passing through any number of zeros and poles of a function 
+  
+    
+      
+        f
+        (
+        s
+        )
+      
+    
+    {\displaystyle f(s)}
+  , can be mapped to another plane (named 
+  
+    
+      
+        f
+        (
+        s
+        )
+      
+    
+    {\displaystyle f(s)}
+   plane) by the function 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+  . precisely, each complex point 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+   in the contour 
+  
+    
+      
+        
+          γ
+          
+            s
+          
+        
+      
+    
+    {\displaystyle \gamma _{s}}
+   is mapped to the point  
+  
+    
+      
+        f
+        (
+        s
+        )
+      
+    
+    {\displaystyle f(s)}
+   in the new 
+  
+    
+      
+        f
+        (
+        s
+        )
+      
+    
+    {\displaystyle f(s)}
+   plane yielding a new contour. 
+the nyquist plot of 
+  
+    
+      
+        f
+        (
+        s
+        )
+      
+    
+    {\displaystyle f(s)}
+  , which is the contour 
+  
+    
+      
+        
+          γ
+          
+            f
+            (
+            s
+            )
+          
+        
+        =
+        f
+        (
+        
+          γ
+          
+            s
+          
+        
+        )
+      
+    
+    {\displaystyle \gamma _{f(s)}=f(\gamma _{s})}
+   will encircle the point 
+  
+    
+      
+        s
+        =
+        
+          −
+          1
+          
+            /
+          
+          k
+          +
+          j
+          0
+        
+      
+    
+    {\displaystyle s={-1/k+j0}}
+   of the 
+  
+    
+      
+        f
+        (
+        s
+        )
+      
+    
+    {\displaystyle f(s)}
+   plane 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   times, where 
+  
+    
+      
+        n
+        =
+        p
+        −
+        z
+      
+    
+    {\displaystyle n=p-z}
+   by cauchy's argument principle. here 
+  
+    
+      
+        z
+      
+    
+    {\displaystyle z}
+   and 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   are, respectively, the number of zeros of 
+  
+    
+      
+        1
+        +
+        k
+        f
+        (
+        s
+        )
+      
+    
+    {\displaystyle 1+kf(s)}
+   and poles of 
+  
+    
+      
+        f
+        (
+        s
+        )
+      
+    
+    {\displaystyle f(s)}
+   inside the contour 
+  
+    
+      
+        
+          γ
+          
+            s
+          
+        
+      
+    
+    {\displaystyle \gamma _{s}}
+  . note that we count encirclements in the 
+  
+    
+      
+        f
+        (
+        s
+        )
+      
+    
+    {\displaystyle f(s)}
+   plane in the same sense as the contour 
+  
+    
+      
+        
+          γ
+          
+            s
+          
+        
+      
+    
+    {\displaystyle \gamma _{s}}
+   and that encirclements in the opposite direction are negative encirclements.  that is, we consider clockwise encirclements to be positive and counterclockwise encirclements to be negative.
+instead of cauchy's argument principle, the original paper by harry nyquist in 1932 uses a less elegant approach. the approach explained here is similar to the approach used by leroy maccoll (fundamental theory of servomechanisms 1945) or by hendrik bode (network analysis and feedback amplifier design 1945), both of whom also worked for bell laboratories. this approach appears in most modern textbooks on control theory.
+
+
+== the nyquist criterion ==
+we first construct the nyquist contour, a contour that encompasses the right-half of the complex plane:
+
+a path traveling up the 
+  
+    
+      
+        j
+        ω
+      
+    
+    {\displaystyle j\omega }
+   axis, from 
+  
+    
+      
+        0
+        −
+        j
+        ∞
+      
+    
+    {\displaystyle 0-j\infty }
+   to 
+  
+    
+      
+        0
+        +
+        j
+        ∞
+      
+    
+    {\displaystyle 0+j\infty }
+  .
+a semicircular arc, with radius 
+  
+    
+      
+        r
+        →
+        ∞
+      
+    
+    {\displaystyle r\to \infty }
+  , that starts at 
+  
+    
+      
+        0
+        +
+        j
+        ∞
+      
+    
+    {\displaystyle 0+j\infty }
+   and travels clock-wise to 
+  
+    
+      
+        0
+        −
+        j
+        ∞
+      
+    
+    {\displaystyle 0-j\infty }
+  .
+the nyquist contour mapped through the function 
+  
+    
+      
+        1
+        +
+        g
+        (
+        s
+        )
+      
+    
+    {\displaystyle 1+g(s)}
+   yields a plot of 
+  
+    
+      
+        1
+        +
+        g
+        (
+        s
+        )
+      
+    
+    {\displaystyle 1+g(s)}
+   in the complex plane. by the argument principle, the number of clockwise encirclements of the origin must be the number of zeros of 
+  
+    
+      
+        1
+        +
+        g
+        (
+        s
+        )
+      
+    
+    {\displaystyle 1+g(s)}
+   in the right-half complex plane minus the number of poles of 
+  
+    
+      
+        1
+        +
+        g
+        (
+        s
+        )
+      
+    
+    {\displaystyle 1+g(s)}
+   in the right-half complex plane. if instead, the contour is mapped through the open-loop transfer function 
+  
+    
+      
+        g
+        (
+        s
+        )
+      
+    
+    {\displaystyle g(s)}
+  , the result is the nyquist plot of 
+  
+    
+      
+        g
+        (
+        s
+        )
+      
+    
+    {\displaystyle g(s)}
+  . by counting the resulting contour's encirclements of −1, we find the difference between the number of poles and zeros in the right-half complex plane of 
+  
+    
+      
+        1
+        +
+        g
+        (
+        s
+        )
+      
+    
+    {\displaystyle 1+g(s)}
+  . recalling that the zeros of 
+  
+    
+      
+        1
+        +
+        g
+        (
+        s
+        )
+      
+    
+    {\displaystyle 1+g(s)}
+   are the poles of the closed-loop system, and noting that the poles of 
+  
+    
+      
+        1
+        +
+        g
+        (
+        s
+        )
+      
+    
+    {\displaystyle 1+g(s)}
+   are same as the poles of 
+  
+    
+      
+        g
+        (
+        s
+        )
+      
+    
+    {\displaystyle g(s)}
+  , we now state the nyquist criterion:given a nyquist contour 
+  
+    
+      
+        
+          γ
+          
+            s
+          
+        
+      
+    
+    {\displaystyle \gamma _{s}}
+  , let 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   be the number of poles of 
+  
+    
+      
+        g
+        (
+        s
+        )
+      
+    
+    {\displaystyle g(s)}
+   encircled by 
+  
+    
+      
+        
+          γ
+          
+            s
+          
+        
+      
+    
+    {\displaystyle \gamma _{s}}
+  , and 
+  
+    
+      
+        z
+      
+    
+    {\displaystyle z}
+   be the number of zeros of 
+  
+    
+      
+        1
+        +
+        g
+        (
+        s
+        )
+      
+    
+    {\displaystyle 1+g(s)}
+   encircled by 
+  
+    
+      
+        
+          γ
+          
+            s
+          
+        
+      
+    
+    {\displaystyle \gamma _{s}}
+  .  alternatively, and more importantly, if 
+  
+    
+      
+        z
+      
+    
+    {\displaystyle z}
+   is the number of poles of the closed loop system in the right half plane, and 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   is the number of poles of the open-loop transfer function 
+  
+    
+      
+        g
+        (
+        s
+        )
+      
+    
+    {\displaystyle g(s)}
+   in the right half plane, the resultant contour in the 
+  
+    
+      
+        g
+        (
+        s
+        )
+      
+    
+    {\displaystyle g(s)}
+  -plane, 
+  
+    
+      
+        
+          γ
+          
+            g
+            (
+            s
+            )
+          
+        
+      
+    
+    {\displaystyle \gamma _{g(s)}}
+   shall encircle (clockwise) the point 
+  
+    
+      
+        (
+        −
+        1
+        +
+        j
+        0
+        )
+      
+    
+    {\displaystyle (-1+j0)}
+   
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   times such that 
+  
+    
+      
+        n
+        =
+        z
+        −
+        p
+      
+    
+    {\displaystyle n=z-p}
+  .if the system is originally open-loop unstable, feedback is necessary to stabilize the system.  right-half-plane (rhp) poles represent that instability.  for closed-loop stability of a system, the number of closed-loop roots in the right half of the s-plane must be zero. hence, the number of counter-clockwise encirclements about 
+  
+    
+      
+        −
+        1
+        +
+        j
+        0
+      
+    
+    {\displaystyle -1+j0}
+   must be equal to the number of open-loop poles in the rhp.  any clockwise encirclements of the critical point by the open-loop frequency response (when judged from low frequency to high frequency) would indicate that the feedback control system would be destabilizing if the loop were closed.  (using rhp zeros to "cancel out" rhp poles does not remove the instability, but rather ensures that the system will remain unstable even in the presence of feedback, since the closed-loop roots travel between open-loop poles and zeros in the presence of feedback. in fact, the rhp zero can make the unstable pole unobservable and therefore not stabilizable through feedback.)
+
+
+== the nyquist criterion for systems with poles on the imaginary axis ==
+the above consideration was conducted with an assumption that the open-loop transfer function 
+  
+    
+      
+        g
+        (
+        s
+        )
+      
+    
+    {\displaystyle g(s)}
+   does not have any pole on the imaginary axis (i.e. poles of the form 
+  
+    
+      
+        0
+        +
+        j
+        ω
+      
+    
+    {\displaystyle 0+j\omega }
+  ). this results from the requirement of the argument principle that the contour cannot pass through any pole of the mapping function. the most common case are systems with integrators (poles at zero).
+to be able to analyze systems with poles on the imaginary axis, the nyquist contour can be modified to avoid passing through the point 
+  
+    
+      
+        0
+        +
+        j
+        ω
+      
+    
+    {\displaystyle 0+j\omega }
+  . one way to do it is to construct a semicircular arc with radius 
+  
+    
+      
+        r
+        →
+        0
+      
+    
+    {\displaystyle r\to 0}
+   around 
+  
+    
+      
+        0
+        +
+        j
+        ω
+      
+    
+    {\displaystyle 0+j\omega }
+  , that starts at 
+  
+    
+      
+        0
+        +
+        j
+        (
+        ω
+        −
+        r
+        )
+      
+    
+    {\displaystyle 0+j(\omega -r)}
+   and travels anticlockwise to 
+  
+    
+      
+        0
+        +
+        j
+        (
+        ω
+        +
+        r
+        )
+      
+    
+    {\displaystyle 0+j(\omega +r)}
+  . such a modification implies that the phasor 
+  
+    
+      
+        g
+        (
+        s
+        )
+      
+    
+    {\displaystyle g(s)}
+   travels along an arc of infinite radius by 
+  
+    
+      
+        −
+        l
+        π
+      
+    
+    {\displaystyle -l\pi }
+  , where 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+   is the multiplicity of the pole on the imaginary axis.
+
+
+== mathematical derivation ==
+
+our goal is to, through this process, check for the stability of the transfer function of our unity feedback system with gain k, which is given by
+
+  
+    
+      
+        t
+        (
+        s
+        )
+        =
+        
+          
+            
+              k
+              g
+              (
+              s
+              )
+            
+            
+              1
+              +
+              k
+              g
+              (
+              s
+              )
+            
+          
+        
+      
+    
+    {\displaystyle t(s)={\frac {kg(s)}{1+kg(s)}}}
+  that is, we would like to check whether the characteristic equation of the above transfer function, given by
+
+  
+    
+      
+        d
+        (
+        s
+        )
+        =
+        1
+        +
+        k
+        g
+        (
+        s
+        )
+        =
+        0
+      
+    
+    {\displaystyle d(s)=1+kg(s)=0}
+  has zeros outside the open left-half-plane (commonly initialized as olhp).
+we suppose that we have a clockwise (i.e. negatively oriented) contour 
+  
+    
+      
+        
+          γ
+          
+            s
+          
+        
+      
+    
+    {\displaystyle \gamma _{s}}
+   enclosing the right half plane, with indentations as needed to avoid passing through zeros or poles of the function 
+  
+    
+      
+        g
+        (
+        s
+        )
+      
+    
+    {\displaystyle g(s)}
+  .  cauchy's argument principle states that 
+
+  
+    
+      
+        −
+        
+          
+            1
+            
+              2
+              π
+              i
+            
+          
+        
+        
+          ∮
+          
+            
+              γ
+              
+                s
+              
+            
+          
+        
+        
+          
+            
+              
+                d
+                ′
+              
+              (
+              s
+              )
+            
+            
+              d
+              (
+              s
+              )
+            
+          
+        
+        
+        d
+        s
+        =
+        n
+        =
+        z
+        −
+        p
+      
+    
+    {\displaystyle -{\frac {1}{2\pi i}}\oint _{\gamma _{s}}{d'(s) \over d(s)}\,ds=n=z-p}
+  where 
+  
+    
+      
+        z
+      
+    
+    {\displaystyle z}
+   denotes the number of zeros of 
+  
+    
+      
+        d
+        (
+        s
+        )
+      
+    
+    {\displaystyle d(s)}
+   enclosed by the contour and 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   denotes the number of poles of 
+  
+    
+      
+        d
+        (
+        s
+        )
+      
+    
+    {\displaystyle d(s)}
+   by the same contour.  rearranging, we have
+
+  
+    
+      
+        z
+        =
+        n
+        +
+        p
+      
+    
+    {\displaystyle z=n+p}
+  , which is to say
+
+  
+    
+      
+        z
+        =
+        −
+        
+          
+            1
+            
+              2
+              π
+              i
+            
+          
+        
+        
+          ∮
+          
+            
+              γ
+              
+                s
+              
+            
+          
+        
+        
+          
+            
+              
+                d
+                ′
+              
+              (
+              s
+              )
+            
+            
+              d
+              (
+              s
+              )
+            
+          
+        
+        
+        d
+        s
+        +
+        p
+      
+    
+    {\displaystyle z=-{\frac {1}{2\pi i}}\oint _{\gamma _{s}}{d'(s) \over d(s)}\,ds+p}
+  we then note that 
+  
+    
+      
+        d
+        (
+        s
+        )
+        =
+        1
+        +
+        k
+        g
+        (
+        s
+        )
+      
+    
+    {\displaystyle d(s)=1+kg(s)}
+   has exactly the same poles as 
+  
+    
+      
+        g
+        (
+        s
+        )
+      
+    
+    {\displaystyle g(s)}
+  .  thus, we may find 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   by counting the poles of 
+  
+    
+      
+        g
+        (
+        s
+        )
+      
+    
+    {\displaystyle g(s)}
+   that appear within the contour, that is, within the open right half plane (orhp).
+we will now rearrange the above integral via substitution.  that is, setting 
+  
+    
+      
+        u
+        (
+        s
+        )
+        =
+        d
+        (
+        s
+        )
+      
+    
+    {\displaystyle u(s)=d(s)}
+  , we have
+
+  
+    
+      
+        n
+        =
+        −
+        
+          
+            1
+            
+              2
+              π
+              i
+            
+          
+        
+        
+          ∮
+          
+            
+              γ
+              
+                s
+              
+            
+          
+        
+        
+          
+            
+              
+                d
+                ′
+              
+              (
+              s
+              )
+            
+            
+              d
+              (
+              s
+              )
+            
+          
+        
+        
+        d
+        s
+        =
+        −
+        
+          
+            1
+            
+              2
+              π
+              i
+            
+          
+        
+        
+          ∮
+          
+            u
+            (
+            
+              γ
+              
+                s
+              
+            
+            )
+          
+        
+        
+          
+            1
+            u
+          
+        
+        
+        d
+        u
+      
+    
+    {\displaystyle n=-{\frac {1}{2\pi i}}\oint _{\gamma _{s}}{d'(s) \over d(s)}\,ds=-{\frac {1}{2\pi i}}\oint _{u(\gamma _{s})}{1 \over u}\,du}
+  we then make a further substitution, setting 
+  
+    
+      
+        v
+        (
+        u
+        )
+        =
+        
+          
+            
+              u
+              −
+              1
+            
+            k
+          
+        
+      
+    
+    {\displaystyle v(u)={\frac {u-1}{k}}}
+  .  this gives us
+
+  
+    
+      
+        n
+        =
+        −
+        
+          
+            1
+            
+              2
+              π
+              i
+            
+          
+        
+        
+          ∮
+          
+            u
+            (
+            
+              γ
+              
+                s
+              
+            
+            )
+          
+        
+        
+          
+            1
+            u
+          
+        
+        
+        d
+        u
+        =
+        −
+        
+          
+            
+              1
+            
+            
+              2
+              π
+              i
+            
+          
+        
+        
+          ∮
+          
+            v
+            (
+            u
+            (
+            
+              γ
+              
+                s
+              
+            
+            )
+            )
+          
+        
+        
+          
+            1
+            
+              v
+              +
+              1
+              
+                /
+              
+              k
+            
+          
+        
+        
+        d
+        v
+      
+    
+    {\displaystyle n=-{\frac {1}{2\pi i}}\oint _{u(\gamma _{s})}{1 \over u}\,du=-{{1} \over {2\pi i}}\oint _{v(u(\gamma _{s}))}{1 \over {v+1/k}}\,dv}
+  we now note that 
+  
+    
+      
+        v
+        (
+        u
+        (
+        
+          γ
+          
+            s
+          
+        
+        )
+        )
+        =
+        
+          
+            
+              d
+              (
+              
+                γ
+                
+                  s
+                
+              
+              )
+              −
+              1
+            
+            
+              k
+            
+          
+        
+        =
+        g
+        (
+        
+          γ
+          
+            s
+          
+        
+        )
+      
+    
+    {\displaystyle v(u(\gamma _{s}))={{d(\gamma _{s})-1} \over {k}}=g(\gamma _{s})}
+   gives us the image of our contour under 
+  
+    
+      
+        g
+        (
+        s
+        )
+      
+    
+    {\displaystyle g(s)}
+  , which is to say our nyquist plot.  we may further reduce the integral
+
+  
+    
+      
+        n
+        =
+        −
+        
+          
+            1
+            
+              2
+              π
+              i
+            
+          
+        
+        
+          ∮
+          
+            g
+            (
+            
+              γ
+              
+                s
+              
+            
+            )
+            )
+          
+        
+        
+          
+            1
+            
+              v
+              +
+              1
+              
+                /
+              
+              k
+            
+          
+        
+        
+        d
+        v
+      
+    
+    {\displaystyle n=-{\frac {1}{2\pi i}}\oint _{g(\gamma _{s}))}{\frac {1}{v+1/k}}\,dv}
+  by applying cauchy's integral formula.  in fact, we find that the above integral corresponds precisely to the number of times the nyquist plot encircles the point 
+  
+    
+      
+        −
+        1
+        
+          /
+        
+        k
+      
+    
+    {\displaystyle -1/k}
+   clockwise.  thus, we may finally state that
+
+  
+    
+      
+        
+          
+            
+              
+                z
+                =
+                
+
+                
+              
+              
+                n
+                +
+                p
+              
+            
+            
+              
+                =
+                
+
+                
+              
+              
+                
+                  (number of times the nyquist plot encircles 
+                
+                
+                  −
+                  1
+                  
+                    /
+                  
+                  k
+                
+                
+                   clockwise)
+                
+              
+            
+            
+              
+              
+                
+                
+
+                
+                +
+                
+                  (number of poles of 
+                
+                g
+                (
+                s
+                )
+                
+                   in orhp)
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}z={}&n+p\\[6pt]={}&{\text{(number of times the nyquist plot encircles }}{-1/k}{\text{ clockwise)}}\\&{}+{\text{(number of poles of }}g(s){\text{ in orhp)}}\end{aligned}}}
+  we thus find that 
+  
+    
+      
+        t
+        (
+        s
+        )
+      
+    
+    {\displaystyle t(s)}
+   as defined above corresponds to a stable unity-feedback system when 
+  
+    
+      
+        z
+      
+    
+    {\displaystyle z}
+  , as evaluated above, is equal to 0.
+
+
+== summary ==
+if the open-loop transfer function 
+  
+    
+      
+        g
+        (
+        s
+        )
+      
+    
+    {\displaystyle g(s)}
+   has a zero pole of multiplicity 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+  , then the nyquist plot has a discontinuity at 
+  
+    
+      
+        ω
+        =
+        0
+      
+    
+    {\displaystyle \omega =0}
+  . during further analysis it should be assumed that the phasor travels 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+   times clockwise along a semicircle of infinite radius. after applying this rule, the zero poles should be neglected, i.e. if there are no other unstable poles, then the open-loop transfer function 
+  
+    
+      
+        g
+        (
+        s
+        )
+      
+    
+    {\displaystyle g(s)}
+   should be considered stable.
+if the open-loop transfer function 
+  
+    
+      
+        g
+        (
+        s
+        )
+      
+    
+    {\displaystyle g(s)}
+   is stable, then the closed-loop system is unstable, if and only if, the nyquist plot encircle the point −1 at least once.
+if the open-loop transfer function 
+  
+    
+      
+        g
+        (
+        s
+        )
+      
+    
+    {\displaystyle g(s)}
+   is unstable, then for the closed-loop system to be stable, there must be one counter-clockwise encirclement of −1 for each pole of 
+  
+    
+      
+        g
+        (
+        s
+        )
+      
+    
+    {\displaystyle g(s)}
+   in the right-half of the complex plane.
+the number of surplus encirclements (n + p greater than 0) is exactly the number of unstable poles of the closed-loop system.
+however, if the graph happens to pass through the point 
+  
+    
+      
+        −
+        1
+        +
+        j
+        0
+      
+    
+    {\displaystyle -1+j0}
+  , then deciding upon even the marginal stability of the system becomes difficult and the only conclusion that can be drawn from the graph is that there exist zeros on the 
+  
+    
+      
+        j
+        ω
+      
+    
+    {\displaystyle j\omega }
+   axis.
+
+
+== see also ==
+bibo stability
+bode plot
+routh–hurwitz stability criterion
+gain margin
+nichols plot
+hall circles
+phase margin
+barkhausen stability criterion
+circle criterion
+control engineering
+hankel singular value
+
+
+== references ==
+
+
+== further reading ==
+faulkner, e. a. (1969): introduction to the theory of linear systems; chapman & hall; isbn 0-412-09400-2
+pippard, a. b. (1985): response & stability; cambridge university press; isbn 0-521-31994-3
+gessing, r. (2004): control fundamentals; silesian university of technology; isbn 83-7335-176-0
+franklin, g. (2002): feedback control of dynamic systems; prentice hall, isbn 0-13-032393-4
+
+
+== external links ==
+applets with modifiable parameters
+eis spectrum analyser - a freeware program for analysis and simulation of impedance spectra
+matlab function for creating a nyquist plot of a frequency response of a dynamic system model.
+pid nyquist plot shaping - free interactive virtual tool, control loop simulator
+mathematica function for creating the nyquist plot

@@ -1,0 +1,2112 @@
+in mathematics, sheaf cohomology is the application of homological algebra to analyze the global sections of a sheaf on a topological space. broadly speaking, sheaf cohomology describes the obstructions to solving a geometric problem globally when it can be solved locally. the central work for the study of sheaf cohomology is grothendieck's 1957 tôhoku paper.
+sheaves, sheaf cohomology, and spectral sequences were invented by jean leray at the prisoner-of-war camp oflag xvii-a in austria.  from 1940 to 1945, leray and other prisoners organized a "université en captivité" in the camp.
+leray's definitions were simplified and clarified in the 1950s. it became clear that sheaf cohomology was not only a new approach to cohomology in algebraic topology, but also a powerful method in complex analytic geometry and algebraic geometry. these subjects often involve constructing global functions with specified local properties, and sheaf cohomology is ideally suited to such problems. many earlier results such as the riemann–roch theorem and the hodge theorem have been generalized or understood better using sheaf cohomology.
+
+
+== definition ==
+the category of sheaves of abelian groups on a topological space x is an abelian category, and so it makes sense to ask when a morphism f: b → c of sheaves is injective (a monomorphism) or surjective (an epimorphism). one answer is that f is injective (respectively surjective) if and only if the associated homomorphism on stalks bx → cx is injective (respectively surjective) for every point x in x. it follows that f is injective if and only if the homomorphism b(u) → c(u) of sections over u is injective for every open set u in x. surjectivity is more subtle, however: the morphism f is surjective if and only if for every open set u in x, every section s of c over u, and every point x in u, there is an open neighborhood v of x in u such that s restricted to v is the image of some section of b over v. (in words: every section of c lifts locally to sections of b.)
+as a result, the question arises: given a surjection b → c of sheaves and a section s of c over x, when is s the image of a section of b over x? this is a model for all kinds of local-vs.-global questions in geometry. sheaf cohomology gives a satisfactory general answer. namely, let a be the kernel of the surjection b → c, giving a short exact sequence
+
+  
+    
+      
+        0
+        →
+        a
+        →
+        b
+        →
+        c
+        →
+        0
+      
+    
+    {\displaystyle 0\to a\to b\to c\to 0}
+  of sheaves on x. then there is a long exact sequence of abelian groups, called sheaf cohomology groups:
+
+  
+    
+      
+        0
+        →
+        
+          h
+          
+            0
+          
+        
+        (
+        x
+        ,
+        a
+        )
+        →
+        
+          h
+          
+            0
+          
+        
+        (
+        x
+        ,
+        b
+        )
+        →
+        
+          h
+          
+            0
+          
+        
+        (
+        x
+        ,
+        c
+        )
+        →
+        
+          h
+          
+            1
+          
+        
+        (
+        x
+        ,
+        a
+        )
+        →
+        ⋯
+        ,
+      
+    
+    {\displaystyle 0\to h^{0}(x,a)\to h^{0}(x,b)\to h^{0}(x,c)\to h^{1}(x,a)\to \cdots ,}
+  where h0(x,a) is the group a(x) of global sections of a on x. for example, if the group h1(x,a) is zero, then this exact sequence implies that every global section of c lifts to a global section of b. more broadly, the exact sequence makes knowledge of higher cohomology groups a fundamental tool in aiming to understand sections of sheaves.
+grothendieck's definition of sheaf cohomology, now standard, uses the language of homological algebra. the essential point is to fix a topological space x and think of cohomology as a functor from sheaves of abelian groups on x to abelian groups. in more detail, start with the functor e ↦ e(x) from sheaves of abelian groups on x to abelian groups. this is left exact, but in general not right exact. then the groups hi(x,e) for integers i are defined as the right derived functors of the functor e ↦ e(x). this makes it automatic that hi(x,e) is zero for i < 0, and that h0(x,e) is the group e(x) of global sections. the long exact sequence above is also straightforward from this definition.
+the definition of derived functors uses that the category of sheaves of abelian groups on any topological space x has enough injectives; that is, for every sheaf e there is an injective sheaf i with an injection e → i. it follows that every sheaf e has an injective resolution:
+
+  
+    
+      
+        0
+        →
+        e
+        →
+        
+          i
+          
+            0
+          
+        
+        →
+        
+          i
+          
+            1
+          
+        
+        →
+        
+          i
+          
+            2
+          
+        
+        →
+        ⋯
+        .
+      
+    
+    {\displaystyle 0\to e\to i_{0}\to i_{1}\to i_{2}\to \cdots .}
+  then the sheaf cohomology groups hi(x,e) are the cohomology groups (the kernel of one homomorphism modulo the image of the previous one) of the chain complex of abelian groups:
+
+  
+    
+      
+        0
+        →
+        
+          i
+          
+            0
+          
+        
+        (
+        x
+        )
+        →
+        
+          i
+          
+            1
+          
+        
+        (
+        x
+        )
+        →
+        
+          i
+          
+            2
+          
+        
+        (
+        x
+        )
+        →
+        ⋯
+        .
+      
+    
+    {\displaystyle 0\to i_{0}(x)\to i_{1}(x)\to i_{2}(x)\to \cdots .}
+  standard arguments in homological algebra imply that these cohomology groups are independent of the choice of injective resolution of e.
+the definition is rarely used directly to compute sheaf cohomology. it is nonetheless powerful, because it works in great generality (any sheaf of abelian groups on any topological space), and it easily implies the formal properties of sheaf cohomology, such as the long exact sequence above. for specific classes of spaces or sheaves, there are many tools for computing sheaf cohomology, some discussed below.
+
+
+== functoriality ==
+for any continuous map f: x → y of topological spaces, and any sheaf e of abelian groups on y, there is a pullback homomorphism
+
+  
+    
+      
+        
+          f
+          
+            ∗
+          
+        
+        :
+        
+          h
+          
+            j
+          
+        
+        (
+        y
+        ,
+        e
+        )
+        →
+        
+          h
+          
+            j
+          
+        
+        (
+        x
+        ,
+        
+          f
+          
+            ∗
+          
+        
+        (
+        e
+        )
+        )
+      
+    
+    {\displaystyle f^{*}\colon h^{j}(y,e)\to h^{j}(x,f^{*}(e))}
+  for every integer j, where f*(e) denotes the inverse image sheaf or pullback sheaf. if f is the inclusion of a subspace x of y, f*(e) is the restriction of e to x, often just called e again, and the pullback of a section s from y to x is called the restriction s|x.
+pullback homomorphisms are used in the mayer–vietoris sequence, an important computational result. namely, let x be a topological space which is a union of two open subsets u and v, and let e be a sheaf on x. then there is a long exact sequence of abelian groups:
+
+  
+    
+      
+        0
+        →
+        
+          h
+          
+            0
+          
+        
+        (
+        x
+        ,
+        e
+        )
+        →
+        
+          h
+          
+            0
+          
+        
+        (
+        u
+        ,
+        e
+        )
+        ⊕
+        
+          h
+          
+            0
+          
+        
+        (
+        v
+        ,
+        e
+        )
+        →
+        
+          h
+          
+            0
+          
+        
+        (
+        u
+        ∩
+        v
+        ,
+        e
+        )
+        →
+        
+          h
+          
+            1
+          
+        
+        (
+        x
+        ,
+        e
+        )
+        →
+        ⋯
+        .
+      
+    
+    {\displaystyle 0\to h^{0}(x,e)\to h^{0}(u,e)\oplus h^{0}(v,e)\to h^{0}(u\cap v,e)\to h^{1}(x,e)\to \cdots .}
+  
+
+
+== sheaf cohomology with constant coefficients ==
+for a topological space x and an abelian group a, the constant sheaf ax means the sheaf of locally constant functions with values in a. the sheaf cohomology groups hj(x,ax) with constant coefficients are often written simply as hj(x,a), unless this could cause confusion with another version of cohomology such as singular cohomology.
+for a continuous map f: x → y and an abelian group a, the pullback sheaf f*(ay) is isomorphic to ax. as a result, the pullback homomorphism makes sheaf cohomology with constant coefficients into a contravariant functor from topological spaces to abelian groups.
+for any spaces x and y and any abelian group a, two homotopic maps f and g from x to y induce the same homomorphism on sheaf cohomology:
+
+  
+    
+      
+        
+          f
+          
+            ∗
+          
+        
+        =
+        
+          g
+          
+            ∗
+          
+        
+        :
+        
+          h
+          
+            j
+          
+        
+        (
+        y
+        ,
+        a
+        )
+        →
+        
+          h
+          
+            j
+          
+        
+        (
+        x
+        ,
+        a
+        )
+        .
+      
+    
+    {\displaystyle f^{*}=g^{*}:h^{j}(y,a)\to h^{j}(x,a).}
+  it follows that two homotopy equivalent spaces have isomorphic sheaf cohomology with constant coefficients.
+let x be a paracompact hausdorff space which is locally contractible, even in the weak sense that every open neighborhood u of a point x contains an open neighborhood v of x such that the inclusion v → u is homotopic to a constant map. then the singular cohomology groups of x with coefficients in an abelian group a are isomorphic to sheaf cohomology with constant coefficients, h*(x,ax). for example, this holds for x a topological manifold or a cw complex.
+as a result, many of the basic calculations of sheaf cohomology with constant coefficients are the same as calculations of singular cohomology. see the article on cohomology for the cohomology of spheres, projective spaces, tori, and surfaces.
+for arbitrary topological spaces, singular cohomology and sheaf cohomology (with constant coefficients) can be different. this happens even for h0. the singular cohomology h0(x,z) is the group of all functions from the set of path components of x to the integers z, whereas sheaf cohomology h0(x,zx) is the group of locally constant functions from x to z. these are different, for example, when x is the cantor set. indeed, the sheaf cohomology h0(x,zx) is a countable abelian group in that case, whereas the singular cohomology h0(x,z) is the group of all functions from x to z, which has cardinality
+
+  
+    
+      
+        
+          2
+          
+            
+              2
+              
+                
+                  ℵ
+                  
+                    0
+                  
+                
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle 2^{2^{\aleph _{0}}}.}
+  for a paracompact hausdorff space x and any sheaf e of abelian groups on x, the cohomology groups hj(x,e) are zero for j greater than the covering dimension of x. (this does not hold in the same generality for singular cohomology: for example, there is a compact subset of euclidean space r3 that has nonzero singular cohomology in infinitely many degrees.) the covering dimension agrees with the usual notion of dimension for a topological manifold or a cw complex.
+
+
+== flabby and soft sheaves ==
+a sheaf e of abelian groups on a topological space x is called acyclic if hj(x,e) = 0 for all j > 0. by the long exact sequence of sheaf cohomology, the cohomology of any sheaf can be computed from any acyclic resolution of e (rather than an injective resolution). injective sheaves are acyclic, but for computations it is useful to have other examples of acyclic sheaves.
+a sheaf e on x is called flabby (french: flasque) if every section of e on an open subset of x extends to a section of e on all of x. flabby sheaves are acyclic. godement defined sheaf cohomology via a canonical flabby resolution of any sheaf; since flabby sheaves are acyclic, godement's definition agrees with the definition of sheaf cohomology above.a sheaf e on a paracompact hausdorff space x is called soft if every section of the restriction of e to a closed subset of x extends to a section of e on all of x. every soft sheaf is acyclic.some examples of soft sheaves are the sheaf of real-valued continuous functions on any paracompact hausdorff space, or the sheaf of smooth (c∞) functions on any smooth manifold. more generally, any sheaf of modules over a soft sheaf of commutative rings is soft; for example, the sheaf of smooth sections of a vector bundle over a smooth manifold is soft.for example, these results form part of the proof of de rham's theorem. for a smooth manifold x, the poincaré lemma says that the de rham complex is a resolution of the constant sheaf rx:
+
+  
+    
+      
+        0
+        →
+        
+          
+            r
+          
+          
+            x
+          
+        
+        →
+        
+          ω
+          
+            x
+          
+          
+            0
+          
+        
+        →
+        
+          ω
+          
+            x
+          
+          
+            1
+          
+        
+        →
+        ⋯
+        ,
+      
+    
+    {\displaystyle 0\to \mathbf {r} _{x}\to \omega _{x}^{0}\to \omega _{x}^{1}\to \cdots ,}
+  where ωxj is the sheaf of smooth j-forms and the map ωxj → ωxj+1 is the exterior derivative d. by the results above, the sheaves ωxj are soft and therefore acyclic. it follows that the sheaf cohomology of x with real coefficients is isomorphic to the de rham cohomology of x, defined as the cohomology of the complex of real vector spaces:
+
+  
+    
+      
+        0
+        →
+        
+          ω
+          
+            x
+          
+          
+            0
+          
+        
+        (
+        x
+        )
+        →
+        
+          ω
+          
+            x
+          
+          
+            1
+          
+        
+        (
+        x
+        )
+        →
+        ⋯
+        .
+      
+    
+    {\displaystyle 0\to \omega _{x}^{0}(x)\to \omega _{x}^{1}(x)\to \cdots .}
+  the other part of de rham's theorem is to identify sheaf cohomology and singular cohomology of x with real coefficients; that holds in greater generality, as discussed above.
+
+
+== čech cohomology ==
+čech cohomology is an approximation to sheaf cohomology that is often useful for computations. namely, let 
+  
+    
+      
+        
+          
+            u
+          
+        
+      
+    
+    {\displaystyle {\mathcal {u}}}
+   be an open cover of a topological space x, and let e be a sheaf of abelian groups on x. write the open sets in the cover as ui for elements i of a set i, and fix an ordering of i. then čech cohomology 
+  
+    
+      
+        
+          h
+          
+            j
+          
+        
+        (
+        
+          
+            u
+          
+        
+        ,
+        e
+        )
+      
+    
+    {\displaystyle h^{j}({\mathcal {u}},e)}
+   is defined as the cohomology of an explicit complex of abelian groups with jth group
+
+  
+    
+      
+        
+          c
+          
+            j
+          
+        
+        (
+        
+          
+            u
+          
+        
+        ,
+        e
+        )
+        =
+        
+          ∏
+          
+            
+              i
+              
+                0
+              
+            
+            <
+            ⋯
+            <
+            
+              i
+              
+                j
+              
+            
+          
+        
+        e
+        (
+        
+          u
+          
+            
+              i
+              
+                0
+              
+            
+          
+        
+        ∩
+        ⋯
+        ∩
+        
+          u
+          
+            
+              i
+              
+                j
+              
+            
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle c^{j}({\mathcal {u}},e)=\prod _{i_{0}<\cdots <i_{j}}e(u_{i_{0}}\cap \cdots \cap u_{i_{j}}).}
+  there is a natural homomorphism 
+  
+    
+      
+        
+          h
+          
+            j
+          
+        
+        (
+        
+          
+            u
+          
+        
+        ,
+        e
+        )
+        →
+        
+          h
+          
+            j
+          
+        
+        (
+        x
+        ,
+        e
+        )
+      
+    
+    {\displaystyle h^{j}({\mathcal {u}},e)\to h^{j}(x,e)}
+  . thus čech cohomology is an approximation to sheaf cohomology using only the sections of e on finite intersections of the open sets ui.
+if every finite intersection v of the open sets in 
+  
+    
+      
+        
+          
+            u
+          
+        
+      
+    
+    {\displaystyle {\mathcal {u}}}
+   has no higher cohomology with coefficients in e, meaning that hj(v,e) = 0 for all j > 0, then the homomorphism from čech cohomology 
+  
+    
+      
+        
+          h
+          
+            j
+          
+        
+        (
+        
+          
+            u
+          
+        
+        ,
+        e
+        )
+      
+    
+    {\displaystyle h^{j}({\mathcal {u}},e)}
+   to sheaf cohomology is an isomorphism.another approach to relating čech cohomology to sheaf cohomology is as follows. the čech cohomology groups 
+  
+    
+      
+        
+          
+            
+              
+                h
+                ˇ
+              
+            
+          
+          
+            j
+          
+        
+        (
+        x
+        ,
+        e
+        )
+      
+    
+    {\displaystyle {\check {h}}^{j}(x,e)}
+   are defined as the direct limit of 
+  
+    
+      
+        
+          h
+          
+            j
+          
+        
+        (
+        
+          
+            u
+          
+        
+        ,
+        e
+        )
+      
+    
+    {\displaystyle h^{j}({\mathcal {u}},e)}
+   over all open covers 
+  
+    
+      
+        
+          
+            u
+          
+        
+      
+    
+    {\displaystyle {\mathcal {u}}}
+   of x (where open covers are ordered by refinement). there is a homomorphism 
+  
+    
+      
+        
+          
+            
+              
+                h
+                ˇ
+              
+            
+          
+          
+            j
+          
+        
+        (
+        x
+        ,
+        e
+        )
+        →
+        
+          h
+          
+            j
+          
+        
+        (
+        x
+        ,
+        e
+        )
+      
+    
+    {\displaystyle {\check {h}}^{j}(x,e)\to h^{j}(x,e)}
+   from čech cohomology to sheaf cohomology, which is an isomorphism for j ≤ 1. for arbitrary topological spaces, čech cohomology can differ from sheaf cohomology in higher degrees. conveniently, however, čech cohomology is isomorphic to sheaf cohomology for any sheaf on a paracompact hausdorff space.the isomorphism 
+  
+    
+      
+        
+          
+            
+              
+                h
+                ˇ
+              
+            
+          
+          
+            1
+          
+        
+        (
+        x
+        ,
+        e
+        )
+        ≅
+        
+          h
+          
+            1
+          
+        
+        (
+        x
+        ,
+        e
+        )
+      
+    
+    {\displaystyle {\check {h}}^{1}(x,e)\cong h^{1}(x,e)}
+   implies a description of h1(x,e) for any sheaf e of abelian groups on a topological space x: this group classifies the e-torsors (also called principal e-bundles) over x, up to isomorphism. (this statement generalizes to any sheaf of groups g, not necessarily abelian, using the non-abelian cohomology set h1(x,g).) by definition, an e-torsor over x is a sheaf s of sets together with an action of e on x such that every point in x has an open neighborhood on which s is isomorphic to e, with e acting on itself by translation. for example, on a ringed space (x,ox), it follows that the picard group of invertible sheaves on x is isomorphic to the sheaf cohomology group h1(x,ox*), where ox* is the sheaf of units in ox.
+
+
+== relative cohomology ==
+for a subset y of a topological space x and a sheaf e of abelian groups on x, one can define relative cohomology groups:
+
+  
+    
+      
+        
+          h
+          
+            y
+          
+          
+            j
+          
+        
+        (
+        x
+        ,
+        e
+        )
+        =
+        
+          h
+          
+            j
+          
+        
+        (
+        x
+        ,
+        x
+        −
+        y
+        ;
+        e
+        )
+      
+    
+    {\displaystyle h_{y}^{j}(x,e)=h^{j}(x,x-y;e)}
+  for integers j. other names are the cohomology of x with support in y, or (when y is closed in x) local cohomology. a long exact sequence relates relative cohomology to sheaf cohomology in the usual sense:
+
+  
+    
+      
+        ⋯
+        →
+        
+          h
+          
+            y
+          
+          
+            j
+          
+        
+        (
+        x
+        ,
+        e
+        )
+        →
+        
+          h
+          
+            j
+          
+        
+        (
+        x
+        ,
+        e
+        )
+        →
+        
+          h
+          
+            j
+          
+        
+        (
+        x
+        −
+        y
+        ,
+        e
+        )
+        →
+        
+          h
+          
+            y
+          
+          
+            j
+            +
+            1
+          
+        
+        (
+        x
+        ,
+        e
+        )
+        →
+        ⋯
+        .
+      
+    
+    {\displaystyle \cdots \to h_{y}^{j}(x,e)\to h^{j}(x,e)\to h^{j}(x-y,e)\to h_{y}^{j+1}(x,e)\to \cdots .}
+  when y is closed in x, cohomology with support in y can be defined as the derived functors of the functor
+
+  
+    
+      
+        
+          h
+          
+            y
+          
+          
+            0
+          
+        
+        (
+        x
+        ,
+        e
+        )
+        :=
+        {
+        s
+        ∈
+        e
+        (
+        x
+        )
+        :
+        s
+        
+          
+            |
+          
+          
+            x
+            −
+            y
+          
+        
+        =
+        0
+        }
+        ,
+      
+    
+    {\displaystyle h_{y}^{0}(x,e):=\{s\in e(x):s|_{x-y}=0\},}
+  the group of sections of e that are supported on y.
+there are several isomorphisms known as excision. for example, if x is a topological space with subspaces y and u such that the closure of y is contained in the interior of u, and e is a sheaf on x, then the restriction 
+
+  
+    
+      
+        
+          h
+          
+            y
+          
+          
+            j
+          
+        
+        (
+        x
+        ,
+        e
+        )
+        →
+        
+          h
+          
+            y
+          
+          
+            j
+          
+        
+        (
+        u
+        ,
+        e
+        )
+      
+    
+    {\displaystyle h_{y}^{j}(x,e)\to h_{y}^{j}(u,e)}
+  is an isomorphism. (so cohomology with support in a closed subset y only depends on the behavior of the space x and the sheaf e near y.) also, if x is a paracompact hausdorff space that is the union of closed subsets a and b, and e is a sheaf on x, then the restriction
+
+  
+    
+      
+        
+          h
+          
+            j
+          
+        
+        (
+        x
+        ,
+        b
+        ;
+        e
+        )
+        →
+        
+          h
+          
+            j
+          
+        
+        (
+        a
+        ,
+        a
+        ∩
+        b
+        ;
+        e
+        )
+      
+    
+    {\displaystyle h^{j}(x,b;e)\to h^{j}(a,a\cap b;e)}
+  is an isomorphism.
+
+
+== cohomology with compact support ==
+let x be a locally compact topological space. (in this article, a locally compact space is understood to be hausdorff.) for a sheaf e of abelian groups on x, one can define cohomology with compact support hcj(x,e). these groups are defined as the derived functors of the functor of compactly supported sections:
+
+  
+    
+      
+        
+          h
+          
+            c
+          
+          
+            0
+          
+        
+        (
+        x
+        ,
+        e
+        )
+        =
+        {
+        s
+        ∈
+        e
+        (
+        x
+        )
+        :
+        
+          there is a compact subset 
+        
+        k
+        
+           of 
+        
+        x
+        
+           with 
+        
+        s
+        
+          
+            |
+          
+          
+            x
+            −
+            k
+          
+        
+        =
+        0
+        }
+        .
+      
+    
+    {\displaystyle h_{c}^{0}(x,e)=\{s\in e(x):{\text{there is a compact subset }}k{\text{ of }}x{\text{ with }}s|_{x-k}=0\}.}
+  there is a natural homomorphism hcj(x,e) → 
+hj(x,e), which is an isomorphism for x compact.
+for a sheaf e on a locally compact space x, the compactly supported cohomology of x × r with coefficients in the pullback of e is a shift of the compactly supported cohomology of x:
+
+  
+    
+      
+        
+          h
+          
+            c
+          
+          
+            j
+            +
+            1
+          
+        
+        (
+        x
+        ×
+        
+          r
+        
+        ,
+        e
+        )
+        ≅
+        
+          h
+          
+            c
+          
+          
+            j
+          
+        
+        (
+        x
+        ,
+        e
+        )
+        .
+      
+    
+    {\displaystyle h_{c}^{j+1}(x\times \mathbf {r} ,e)\cong h_{c}^{j}(x,e).}
+  it follows, for example, that hcj(rn,z) is isomorphic to z if j = n and is zero otherwise.
+compactly supported cohomology is not functorial with respect to arbitrary continuous maps. for a proper map f: y → x of locally compact spaces and a sheaf e on x, however, there is a pullback homomorphism
+
+  
+    
+      
+        
+          f
+          
+            ∗
+          
+        
+        :
+        
+          h
+          
+            c
+          
+          
+            j
+          
+        
+        (
+        x
+        ,
+        e
+        )
+        →
+        
+          h
+          
+            c
+          
+          
+            j
+          
+        
+        (
+        y
+        ,
+        
+          f
+          
+            ∗
+          
+        
+        (
+        e
+        )
+        )
+      
+    
+    {\displaystyle f^{*}\colon h_{c}^{j}(x,e)\to h_{c}^{j}(y,f^{*}(e))}
+  on compactly supported cohomology. also, for an open subset u of a locally compact space x and a sheaf e on x, there is a pushforward homomorphism known as extension by zero:
+
+  
+    
+      
+        
+          h
+          
+            c
+          
+          
+            j
+          
+        
+        (
+        u
+        ,
+        e
+        )
+        →
+        
+          h
+          
+            c
+          
+          
+            j
+          
+        
+        (
+        x
+        ,
+        e
+        )
+        .
+      
+    
+    {\displaystyle h_{c}^{j}(u,e)\to h_{c}^{j}(x,e).}
+  both homomorphisms occur in the long exact localization sequence for compactly supported cohomology, for a locally compact space x and a closed subset y:
+
+  
+    
+      
+        ⋯
+        →
+        
+          h
+          
+            c
+          
+          
+            j
+          
+        
+        (
+        x
+        −
+        y
+        ,
+        e
+        )
+        →
+        
+          h
+          
+            c
+          
+          
+            j
+          
+        
+        (
+        x
+        ,
+        e
+        )
+        →
+        
+          h
+          
+            c
+          
+          
+            j
+          
+        
+        (
+        y
+        ,
+        e
+        )
+        →
+        
+          h
+          
+            c
+          
+          
+            j
+            +
+            1
+          
+        
+        (
+        x
+        −
+        y
+        ,
+        e
+        )
+        →
+        ⋯
+        .
+      
+    
+    {\displaystyle \cdots \to h_{c}^{j}(x-y,e)\to h_{c}^{j}(x,e)\to h_{c}^{j}(y,e)\to h_{c}^{j+1}(x-y,e)\to \cdots .}
+  
+
+
+== cup product ==
+for any sheaves a and b of abelian groups on a topological space x, there is a bilinear map, the cup product
+
+  
+    
+      
+        
+          h
+          
+            i
+          
+        
+        (
+        x
+        ,
+        a
+        )
+        ×
+        
+          h
+          
+            j
+          
+        
+        (
+        x
+        ,
+        b
+        )
+        →
+        
+          h
+          
+            i
+            +
+            j
+          
+        
+        (
+        x
+        ,
+        a
+        ⊗
+        b
+        )
+        ,
+      
+    
+    {\displaystyle h^{i}(x,a)\times h^{j}(x,b)\to h^{i+j}(x,a\otimes b),}
+  for all i and j. here a⊗b denotes the tensor product over z, but if a and b are sheaves of modules over some sheaf ox of commutative rings, then one can map further from hi+j(x,a⊗zb) to hi+j(x,a⊗oxb). in particular, for a sheaf ox of commutative rings, the cup product makes the direct sum
+
+  
+    
+      
+        
+          h
+          
+            ∗
+          
+        
+        (
+        x
+        ,
+        
+          o
+          
+            x
+          
+        
+        )
+        =
+        
+          ⨁
+          
+            j
+          
+        
+        
+          h
+          
+            j
+          
+        
+        (
+        x
+        ,
+        
+          o
+          
+            x
+          
+        
+        )
+      
+    
+    {\displaystyle h^{*}(x,o_{x})=\bigoplus _{j}h^{j}(x,o_{x})}
+  into a graded-commutative ring, meaning that
+
+  
+    
+      
+        v
+        u
+        =
+        (
+        −
+        1
+        
+          )
+          
+            i
+            j
+          
+        
+        u
+        v
+      
+    
+    {\displaystyle vu=(-1)^{ij}uv}
+  for all u in hi and v in hj.
+
+
+== complexes of sheaves ==
+the definition of sheaf cohomology as a derived functor extends to define cohomology of a topological space x with coefficients in any complex e of sheaves:
+
+  
+    
+      
+        ⋯
+        →
+        
+          e
+          
+            j
+          
+        
+        →
+        
+          e
+          
+            j
+            +
+            1
+          
+        
+        →
+        
+          e
+          
+            j
+            +
+            2
+          
+        
+        →
+        ⋯
+      
+    
+    {\displaystyle \cdots \to e_{j}\to e_{j+1}\to e_{j+2}\to \cdots }
+  in particular, if the complex e is bounded below (the sheaf ej is zero for j sufficiently negative), then e has an injective resolution i just as a single sheaf does. (by definition, i is a bounded below complex of injective sheaves with a chain map e → i that is a quasi-isomorphism.) then the cohomology groups hj(x,e) are defined as the cohomology of the complex of abelian groups
+
+  
+    
+      
+        ⋯
+        →
+        
+          i
+          
+            j
+          
+        
+        (
+        x
+        )
+        →
+        
+          i
+          
+            j
+            +
+            1
+          
+        
+        (
+        x
+        )
+        →
+        
+          i
+          
+            j
+            +
+            2
+          
+        
+        (
+        x
+        )
+        →
+        ⋯
+        .
+      
+    
+    {\displaystyle \cdots \to i_{j}(x)\to i_{j+1}(x)\to i_{j+2}(x)\to \cdots .}
+  the cohomology of a space with coefficients in a complex of sheaves was earlier called hypercohomology, but usually now just "cohomology".
+more generally, for any complex of sheaves e (not necessarily bounded below) on a space x, the cohomology group hj(x,e) is defined as a group of morphisms in the derived category of sheaves on x:
+
+  
+    
+      
+        
+          h
+          
+            j
+          
+        
+        (
+        x
+        ,
+        e
+        )
+        =
+        
+          hom
+          
+            d
+            (
+            x
+            )
+          
+        
+        ⁡
+        (
+        
+          
+            z
+          
+          
+            x
+          
+        
+        ,
+        e
+        [
+        j
+        ]
+        )
+        ,
+      
+    
+    {\displaystyle h^{j}(x,e)=\operatorname {hom} _{d(x)}(\mathbf {z} _{x},e[j]),}
+  where zx is the constant sheaf associated to the integers, and e[j] means the complex e shifted j steps to the left.
+
+
+== poincaré duality and generalizations ==
+a central result in topology is the poincaré duality theorem: for a closed oriented connected topological manifold x of dimension n and a field k, the group hn(x,k) is isomorphic to k, and the cup product
+
+  
+    
+      
+        
+          h
+          
+            j
+          
+        
+        (
+        x
+        ,
+        k
+        )
+        ×
+        
+          h
+          
+            n
+            −
+            j
+          
+        
+        (
+        x
+        ,
+        k
+        )
+        →
+        
+          h
+          
+            n
+          
+        
+        (
+        x
+        ,
+        k
+        )
+        ≅
+        k
+      
+    
+    {\displaystyle h^{j}(x,k)\times h^{n-j}(x,k)\to h^{n}(x,k)\cong k}
+  is a perfect pairing for all integers j. that is, the resulting map from hj(x,k) to the dual space hn−j(x,k)* is an isomorphism. in particular, the vector spaces hj(x,k) and hn−j(x,k)* have the same (finite) dimension.
+many generalizations are possible using the language of sheaf cohomology. if x is an oriented n-manifold, not necessarily compact or connected, and k is a field, then cohomology is the dual of cohomology with compact support:
+
+  
+    
+      
+        
+          h
+          
+            j
+          
+        
+        (
+        x
+        ,
+        k
+        )
+        ≅
+        
+          h
+          
+            c
+          
+          
+            n
+            −
+            j
+          
+        
+        (
+        x
+        ,
+        k
+        
+          )
+          
+            ∗
+          
+        
+        .
+      
+    
+    {\displaystyle h^{j}(x,k)\cong h_{c}^{n-j}(x,k)^{*}.}
+  for any manifold x and field k, there is a sheaf ox on x, the orientation sheaf, which is locally (but perhaps not globally) isomorphic to the constant sheaf k. one version of poincaré duality for an arbitrary n-manifold x is the isomorphism:
+
+  
+    
+      
+        
+          h
+          
+            j
+          
+        
+        (
+        x
+        ,
+        
+          o
+          
+            x
+          
+        
+        )
+        ≅
+        
+          h
+          
+            c
+          
+          
+            n
+            −
+            j
+          
+        
+        (
+        x
+        ,
+        k
+        
+          )
+          
+            ∗
+          
+        
+        .
+      
+    
+    {\displaystyle h^{j}(x,o_{x})\cong h_{c}^{n-j}(x,k)^{*}.}
+  more generally, if e is a locally constant sheaf of k-vector spaces on an n-manifold x and the stalks of e have finite dimension, then there is an isomorphism
+
+  
+    
+      
+        
+          h
+          
+            j
+          
+        
+        (
+        x
+        ,
+        
+          e
+          
+            ∗
+          
+        
+        ⊗
+        
+          o
+          
+            x
+          
+        
+        )
+        ≅
+        
+          h
+          
+            c
+          
+          
+            n
+            −
+            j
+          
+        
+        (
+        x
+        ,
+        e
+        
+          )
+          
+            ∗
+          
+        
+        .
+      
+    
+    {\displaystyle h^{j}(x,e^{*}\otimes o_{x})\cong h_{c}^{n-j}(x,e)^{*}.}
+  with coefficients in an arbitrary commutative ring rather than a field, poincaré duality is naturally formulated as an isomorphism from cohomology to borel–moore homology.
+verdier duality is a vast generalization. for any locally compact space x of finite dimension and any field k, there is an object dx in the derived category d(x) of sheaves on x called the dualizing complex (with coefficients in k). one case of verdier duality is the isomorphism:
+
+  
+    
+      
+        
+          h
+          
+            j
+          
+        
+        (
+        x
+        ,
+        
+          d
+          
+            x
+          
+        
+        )
+        ≅
+        
+          h
+          
+            c
+          
+          
+            −
+            j
+          
+        
+        (
+        x
+        ,
+        k
+        
+          )
+          
+            ∗
+          
+        
+        .
+      
+    
+    {\displaystyle h^{j}(x,d_{x})\cong h_{c}^{-j}(x,k)^{*}.}
+  for an n-manifold x, the dualizing complex dx is isomorphic to the shift ox[n] of the orientation sheaf. as a result, verdier duality includes poincaré duality as a special case.
+alexander duality is another useful generalization of poincaré duality. for any closed subset x of an oriented n-manifold m and any field k, there is an isomorphism:
+
+  
+    
+      
+        
+          h
+          
+            x
+          
+          
+            j
+          
+        
+        (
+        m
+        ,
+        k
+        )
+        ≅
+        
+          h
+          
+            c
+          
+          
+            n
+            −
+            j
+          
+        
+        (
+        x
+        ,
+        k
+        
+          )
+          
+            ∗
+          
+        
+        .
+      
+    
+    {\displaystyle h_{x}^{j}(m,k)\cong h_{c}^{n-j}(x,k)^{*}.}
+  this is interesting already for x a compact subset of m = rn, where it says (roughly speaking) that the cohomology of rn−x is the dual of the sheaf cohomology of x. in this statement, it is essential to consider sheaf cohomology rather than singular cohomology, unless one makes extra assumptions on x such as local contractibility.
+
+
+== higher direct images and the leray spectral sequence ==
+let f: x → y be a continuous map of topological spaces, and let e be a sheaf of abelian groups on x. the direct image sheaf f*e is the sheaf on y defined by
+
+  
+    
+      
+        (
+        
+          f
+          
+            ∗
+          
+        
+        e
+        )
+        (
+        u
+        )
+        =
+        e
+        (
+        
+          f
+          
+            −
+            1
+          
+        
+        (
+        u
+        )
+        )
+      
+    
+    {\displaystyle (f_{*}e)(u)=e(f^{-1}(u))}
+  for any open subset u of y. for example, if f is the map from x to a point, then f*e is the sheaf on a point corresponding to the group e(x) of global sections of e.
+the functor f* from sheaves on x to sheaves on y is left exact, but in general not right exact. the higher direct image sheaves rif*e on y are defined as the right derived functors of the functor f*. another description is that rif*e is the sheaf associated to the presheaf
+
+  
+    
+      
+        u
+        ↦
+        
+          h
+          
+            i
+          
+        
+        (
+        
+          f
+          
+            −
+            1
+          
+        
+        (
+        u
+        )
+        ,
+        e
+        )
+      
+    
+    {\displaystyle u\mapsto h^{i}(f^{-1}(u),e)}
+  on y. thus, the higher direct image sheaves describe the cohomology of inverse images of small open sets in y, roughly speaking.
+the leray spectral sequence relates cohomology on x to cohomology on y. namely, for any continuous map f: x → y and any sheaf e on x, there is a spectral sequence
+
+  
+    
+      
+        
+          e
+          
+            2
+          
+          
+            i
+            j
+          
+        
+        =
+        
+          h
+          
+            i
+          
+        
+        (
+        y
+        ,
+        
+          r
+          
+            j
+          
+        
+        
+          f
+          
+            ∗
+          
+        
+        e
+        )
+        ⇒
+        
+          h
+          
+            i
+            +
+            j
+          
+        
+        (
+        x
+        ,
+        e
+        )
+        .
+      
+    
+    {\displaystyle e_{2}^{ij}=h^{i}(y,r^{j}f_{*}e)\rightarrow h^{i+j}(x,e).}
+  this is a very general result. the special case where f is a fibration and e is a constant sheaf plays an important role in homotopy theory under the name of the serre spectral sequence. in that case, the higher direct image sheaves are locally constant, with stalks the cohomology groups of the fibers f of f, and so the serre spectral sequence can be written as
+
+  
+    
+      
+        
+          e
+          
+            2
+          
+          
+            i
+            j
+          
+        
+        =
+        
+          h
+          
+            i
+          
+        
+        (
+        y
+        ,
+        
+          h
+          
+            j
+          
+        
+        (
+        f
+        ,
+        a
+        )
+        )
+        ⇒
+        
+          h
+          
+            i
+            +
+            j
+          
+        
+        (
+        x
+        ,
+        a
+        )
+      
+    
+    {\displaystyle e_{2}^{ij}=h^{i}(y,h^{j}(f,a))\rightarrow h^{i+j}(x,a)}
+  for an abelian group a.
+a simple but useful case of the leray spectral sequence is that for any closed subset x of a topological space y and any sheaf e on x, writing f: x → y for the inclusion, there is an isomorphism
+
+  
+    
+      
+        
+          h
+          
+            i
+          
+        
+        (
+        y
+        ,
+        
+          f
+          
+            ∗
+          
+        
+        e
+        )
+        ≅
+        
+          h
+          
+            i
+          
+        
+        (
+        x
+        ,
+        e
+        )
+        .
+      
+    
+    {\displaystyle h^{i}(y,f_{*}e)\cong h^{i}(x,e).}
+  as a result, any question about sheaf cohomology on a closed subspace can be translated to a question about the direct image sheaf on the ambient space.
+
+
+== finiteness of cohomology ==
+there is a strong finiteness result on sheaf cohomology. let x be a compact hausdorff space, and let r be a principal ideal domain, for example a field or the ring z of integers. let e be a sheaf of r-modules on x, and assume that e has "locally finitely generated cohomology", meaning that for each point x in x, each integer j, and each open neighborhood u of x, there is an open neighborhood v ⊂ u of x such that the image of hj(u,e) → hj(v,e) is a finitely generated r-module. then the cohomology groups hj(x,e) are finitely generated r-modules.for example, for a compact hausdorff space x that is locally contractible (in the weak sense discussed above), the sheaf cohomology group hj(x,z) is finitely generated for every integer j.
+one case where the finiteness result applies is that of a constructible sheaf. let x be a topologically stratified space. in particular, x comes with a sequence of closed subsets
+
+  
+    
+      
+        x
+        =
+        
+          x
+          
+            n
+          
+        
+        ⊃
+        
+          x
+          
+            n
+            −
+            1
+          
+        
+        ⊃
+        ⋯
+        ⊃
+        
+          x
+          
+            −
+            1
+          
+        
+        =
+        ∅
+      
+    
+    {\displaystyle x=x_{n}\supset x_{n-1}\supset \cdots \supset x_{-1}=\emptyset }
+  such that each difference xi−xi−1 is a topological manifold of dimension i. a sheaf e of r-modules on x is constructible with respect to the given stratification if the restriction of e to each stratum xi−xi−1 is locally constant, with stalk a finitely generated r-module. a sheaf e on x that is constructible with respect to the given stratification has locally finitely generated cohomology. if x is compact, it follows that the cohomology groups hj(x,e) of x with coefficients in a constructible sheaf are finitely generated.
+more generally, suppose that x is compactifiable, meaning that there is a compact stratified space w containing x as an open subset, with w–x a union of connected components of strata. then, for any constructible sheaf e of r-modules on x, the r-modules hj(x,e) and hcj(x,e) are finitely generated. for example, any complex algebraic variety x, with its classical (euclidean) topology, is compactifiable in this sense.
+
+
+== cohomology of coherent sheaves ==
+
+in algebraic geometry and complex analytic geometry, coherent sheaves are a class of sheaves of particular geometric importance. for example, an algebraic vector bundle (on a locally noetherian scheme) or a holomorphic vector bundle (on a complex analytic space) can be viewed as a coherent sheaf, but coherent sheaves have the advantage over vector bundles that they form an abelian category. on a scheme, it is also useful to consider the quasi-coherent sheaves, which include the locally free sheaves of infinite rank.
+a great deal is known about the cohomology groups of a scheme or complex analytic space with coefficients in a coherent sheaf. this theory is a key technical tool in algebraic geometry. among the main theorems are results on the vanishing of cohomology in various situations, results on finite-dimensionality of cohomology, comparisons between coherent sheaf cohomology and singular cohomology such as hodge theory, and formulas on euler characteristics in coherent sheaf cohomology such as the riemann–roch theorem.
+
+
+== sheaves on a site ==
+in the 1960s, grothendieck defined the notion of a site, meaning a category equipped with a grothendieck topology. a site c axiomatizes the notion of a set of morphisms vα → u in c being a covering of u. a topological space x determines a site in a natural way: the category c has objects the open subsets of x, with morphisms being inclusions, and with a set of morphisms vα → u being called a covering of u if and only if u is the union of the open subsets vα. the motivating example of a grothendieck topology beyond that case was the étale topology on schemes. since then, many other grothendieck topologies have been used in algebraic geometry: the fpqc topology, the nisnevich topology, and so on.
+the definition of a sheaf works on any site. so one can talk about a sheaf of sets on a site, a sheaf of abelian groups on a site, and so on. the definition of sheaf cohomology as a derived functor also works on a site. so one has sheaf cohomology groups hj(x, e) for any object x of a site and any sheaf e of abelian groups. for the étale topology, this gives the notion of étale cohomology, which led to the proof of the weil conjectures. crystalline cohomology and many other cohomology theories in algebraic geometry are also defined as sheaf cohomology on an appropriate site.
+
+
+== notes ==
+
+
+== references ==
+barratt, m. g.; milnor, john (1962), "an example of anomalous singular homology", proceedings of the american mathematical society, 13: 293–297, doi:10.1090/s0002-9939-1962-0137110-9, mr 0137110
+borel, armand (1984), intersection cohomology, birkhäuser, isbn 0-8176-3274-3, mr 0788171
+bredon, glen e. (1997) [1967], sheaf theory (2nd ed.), berlin, new york: springer-verlag, doi:10.1007/978-1-4612-0647-7, isbn 978-0-387-94905-5, mr 1481706
+godement, roger (1973) [1958], topologie algébrique et théorie des faisceaux, paris: hermann, mr 0345092
+griffiths, phillip; harris, joseph (1994) [1978], principles of algebraic geometry, wiley classics library, new york: john wiley & sons, doi:10.1002/9781118032527, isbn 978-0-471-05059-9, mr 1288523
+grothendieck, a. (1957), "sur quelques points d'algèbre homologique", tôhoku mathematical journal, (2), 9: 119–221, doi:10.2748/tmj/1178244839, mr 0102537. english translation.
+hartshorne, robin (1977), algebraic geometry, berlin, new york: springer-verlag, isbn 978-0-387-90244-9, mr 0463157, oclc 13348052
+iversen, birger (1986), cohomology of sheaves, universitext, berlin, new york: springer-verlag, doi:10.1007/978-3-642-82783-9, isbn 978-3-540-16389-3, mr 0842190
+
+
+== external links ==
+the thread "sheaf cohomology and injective resolutions" on mathoverflow
+the "sheaf cohomology" on stack exchange

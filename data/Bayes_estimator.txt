@@ -1,0 +1,2923 @@
+in estimation theory and decision theory, a bayes estimator or a bayes action is an estimator or decision rule that minimizes the posterior expected value of a loss function (i.e., the posterior expected loss). equivalently, it maximizes the posterior expectation of a utility function. an alternative way of formulating an estimator within bayesian statistics is maximum a posteriori estimation.
+
+
+== definition ==
+suppose an unknown parameter 
+  
+    
+      
+        θ
+      
+    
+    {\displaystyle \theta }
+   is known to have a prior distribution 
+  
+    
+      
+        π
+      
+    
+    {\displaystyle \pi }
+  . let 
+  
+    
+      
+        
+          
+            
+              θ
+              ^
+            
+          
+        
+        =
+        
+          
+            
+              θ
+              ^
+            
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle {\widehat {\theta }}={\widehat {\theta }}(x)}
+   be an estimator of 
+  
+    
+      
+        θ
+      
+    
+    {\displaystyle \theta }
+    (based on some measurements x), and let 
+  
+    
+      
+        l
+        (
+        θ
+        ,
+        
+          
+            
+              θ
+              ^
+            
+          
+        
+        )
+      
+    
+    {\displaystyle l(\theta ,{\widehat {\theta }})}
+   be a loss function, such as squared error. the bayes risk of 
+  
+    
+      
+        
+          
+            
+              θ
+              ^
+            
+          
+        
+      
+    
+    {\displaystyle {\widehat {\theta }}}
+   is defined as 
+  
+    
+      
+        
+          e
+          
+            π
+          
+        
+        (
+        l
+        (
+        θ
+        ,
+        
+          
+            
+              θ
+              ^
+            
+          
+        
+        )
+        )
+      
+    
+    {\displaystyle e_{\pi }(l(\theta ,{\widehat {\theta }}))}
+  , where the expectation is taken over the probability distribution of 
+  
+    
+      
+        θ
+      
+    
+    {\displaystyle \theta }
+  : this defines the risk function as a function of 
+  
+    
+      
+        
+          
+            
+              θ
+              ^
+            
+          
+        
+      
+    
+    {\displaystyle {\widehat {\theta }}}
+  . an estimator 
+  
+    
+      
+        
+          
+            
+              θ
+              ^
+            
+          
+        
+      
+    
+    {\displaystyle {\widehat {\theta }}}
+   is said to be a bayes estimator if it minimizes the bayes risk among all estimators. equivalently, the estimator which minimizes the posterior expected loss 
+  
+    
+      
+        e
+        (
+        l
+        (
+        θ
+        ,
+        
+          
+            
+              θ
+              ^
+            
+          
+        
+        )
+        
+          |
+        
+        x
+        )
+      
+    
+    {\displaystyle e(l(\theta ,{\widehat {\theta }})|x)}
+   for each 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+    also minimizes the bayes risk and therefore is a bayes estimator.if the prior is improper then an estimator which minimizes the posterior expected loss for each 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   is called a generalized bayes estimator.
+
+
+== examples ==
+
+
+=== minimum mean square error estimation ===
+
+the most common risk function used for bayesian estimation is the mean square error (mse), also called squared error risk. the mse is defined by
+
+  
+    
+      
+        
+          m
+          s
+          e
+        
+        =
+        e
+        
+          [
+          
+            (
+            
+              
+                
+                  θ
+                  ^
+                
+              
+            
+            (
+            x
+            )
+            −
+            θ
+            
+              )
+              
+                2
+              
+            
+          
+          ]
+        
+        ,
+      
+    
+    {\displaystyle \mathrm {mse} =e\left[({\widehat {\theta }}(x)-\theta )^{2}\right],}
+  where the expectation is taken over the joint distribution of 
+  
+    
+      
+        θ
+      
+    
+    {\displaystyle \theta }
+   and 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  .
+
+
+==== posterior mean ====
+using the mse as risk, the bayes estimate of the unknown parameter is simply the mean of the posterior distribution,
+
+  
+    
+      
+        
+          
+            
+              θ
+              ^
+            
+          
+        
+        (
+        x
+        )
+        =
+        e
+        [
+        θ
+        
+          |
+        
+        x
+        ]
+        =
+        ∫
+        θ
+        
+        p
+        (
+        θ
+        
+          |
+        
+        x
+        )
+        
+        d
+        θ
+        .
+      
+    
+    {\displaystyle {\widehat {\theta }}(x)=e[\theta |x]=\int \theta \,p(\theta |x)\,d\theta .}
+  this is known as the minimum mean square error (mmse) estimator.
+
+
+=== bayes estimators for conjugate priors ===
+
+if there is no inherent reason to prefer one prior probability distribution over another, a conjugate prior is sometimes chosen for simplicity. a conjugate prior is defined as a prior distribution belonging to some parametric family, for which the resulting posterior distribution also belongs to the same family. this is an important property, since the bayes estimator, as well as its statistical properties (variance, confidence interval, etc.), can all be derived from the posterior distribution.
+conjugate priors are especially useful for sequential estimation, where the posterior of the current measurement is used as the prior in the next measurement. in sequential estimation, unless a conjugate prior is used, the posterior distribution typically becomes more complex with each added measurement, and the bayes estimator cannot usually be calculated without resorting to numerical methods.
+following are some examples of conjugate priors.
+
+if 
+  
+    
+      
+        x
+        
+          |
+        
+        θ
+      
+    
+    {\displaystyle x|\theta }
+   is normal, 
+  
+    
+      
+        x
+        
+          |
+        
+        θ
+        ∼
+        n
+        (
+        θ
+        ,
+        
+          σ
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle x|\theta \sim n(\theta ,\sigma ^{2})}
+  , and the prior is normal, 
+  
+    
+      
+        θ
+        ∼
+        n
+        (
+        μ
+        ,
+        
+          τ
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle \theta \sim n(\mu ,\tau ^{2})}
+  , then the posterior is also normal and the bayes estimator under mse is given by
+  
+    
+      
+        
+          
+            
+              θ
+              ^
+            
+          
+        
+        (
+        x
+        )
+        =
+        
+          
+            
+              σ
+              
+                2
+              
+            
+            
+              
+                σ
+                
+                  2
+                
+              
+              +
+              
+                τ
+                
+                  2
+                
+              
+            
+          
+        
+        μ
+        +
+        
+          
+            
+              τ
+              
+                2
+              
+            
+            
+              
+                σ
+                
+                  2
+                
+              
+              +
+              
+                τ
+                
+                  2
+                
+              
+            
+          
+        
+        x
+        .
+      
+    
+    {\displaystyle {\widehat {\theta }}(x)={\frac {\sigma ^{2}}{\sigma ^{2}+\tau ^{2}}}\mu +{\frac {\tau ^{2}}{\sigma ^{2}+\tau ^{2}}}x.}
+  if 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x_{1},...,x_{n}}
+   are iid poisson random variables 
+  
+    
+      
+        
+          x
+          
+            i
+          
+        
+        
+          |
+        
+        θ
+        ∼
+        p
+        (
+        θ
+        )
+      
+    
+    {\displaystyle x_{i}|\theta \sim p(\theta )}
+  , and if the prior is gamma distributed 
+  
+    
+      
+        θ
+        ∼
+        g
+        (
+        a
+        ,
+        b
+        )
+      
+    
+    {\displaystyle \theta \sim g(a,b)}
+  , then the posterior is also gamma distributed, and the bayes estimator under mse is given by
+  
+    
+      
+        
+          
+            
+              θ
+              ^
+            
+          
+        
+        (
+        x
+        )
+        =
+        
+          
+            
+              n
+              
+                
+                  x
+                  ¯
+                
+              
+              +
+              a
+            
+            
+              n
+              +
+              b
+            
+          
+        
+        .
+      
+    
+    {\displaystyle {\widehat {\theta }}(x)={\frac {n{\overline {x}}+a}{n+b}}.}
+  if 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x_{1},...,x_{n}}
+   are iid uniformly distributed 
+  
+    
+      
+        
+          x
+          
+            i
+          
+        
+        
+          |
+        
+        θ
+        ∼
+        u
+        (
+        0
+        ,
+        θ
+        )
+      
+    
+    {\displaystyle x_{i}|\theta \sim u(0,\theta )}
+  , and if the prior is pareto distributed 
+  
+    
+      
+        θ
+        ∼
+        p
+        a
+        (
+        
+          θ
+          
+            0
+          
+        
+        ,
+        a
+        )
+      
+    
+    {\displaystyle \theta \sim pa(\theta _{0},a)}
+  , then the posterior is also pareto distributed, and the bayes estimator under mse is given by
+  
+    
+      
+        
+          
+            
+              θ
+              ^
+            
+          
+        
+        (
+        x
+        )
+        =
+        
+          
+            
+              (
+              a
+              +
+              n
+              )
+              max
+              
+                (
+                
+                  θ
+                  
+                    0
+                  
+                
+                ,
+                
+                  x
+                  
+                    1
+                  
+                
+                ,
+                .
+                .
+                .
+                ,
+                
+                  x
+                  
+                    n
+                  
+                
+                )
+              
+            
+            
+              a
+              +
+              n
+              −
+              1
+            
+          
+        
+        .
+      
+    
+    {\displaystyle {\widehat {\theta }}(x)={\frac {(a+n)\max {(\theta _{0},x_{1},...,x_{n})}}{a+n-1}}.}
+  
+
+
+=== alternative risk functions ===
+risk functions are chosen depending on how one measures the distance between the estimate and the unknown parameter. the mse is the most common risk function in use, primarily due to its simplicity. however, alternative risk functions are also occasionally used. the following are several examples of such alternatives. we denote the posterior generalized distribution function by 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+  .
+
+
+==== posterior median and other quantiles ====
+
+a "linear" loss function, with 
+  
+    
+      
+        a
+        >
+        0
+      
+    
+    {\displaystyle a>0}
+  , which yields the posterior median as the bayes' estimate:
+  
+    
+      
+        l
+        (
+        θ
+        ,
+        
+          
+            
+              θ
+              ^
+            
+          
+        
+        )
+        =
+        a
+        
+          |
+        
+        θ
+        −
+        
+          
+            
+              θ
+              ^
+            
+          
+        
+        
+          |
+        
+      
+    
+    {\displaystyle l(\theta ,{\widehat {\theta }})=a|\theta -{\widehat {\theta }}|}
+  
+
+  
+    
+      
+        f
+        (
+        
+          
+            
+              θ
+              ^
+            
+          
+        
+        (
+        x
+        )
+        
+          |
+        
+        x
+        )
+        =
+        
+          
+            
+              1
+              2
+            
+          
+        
+        .
+      
+    
+    {\displaystyle f({\widehat {\theta }}(x)|x)={\tfrac {1}{2}}.}
+  another "linear" loss function, which assigns different "weights" 
+  
+    
+      
+        a
+        ,
+        b
+        >
+        0
+      
+    
+    {\displaystyle a,b>0}
+   to over or sub estimation. it yields a quantile from the posterior distribution, and is a generalization of the previous loss function:
+  
+    
+      
+        l
+        (
+        θ
+        ,
+        
+          
+            
+              θ
+              ^
+            
+          
+        
+        )
+        =
+        
+          
+            {
+            
+              
+                
+                  a
+                  
+                    |
+                  
+                  θ
+                  −
+                  
+                    
+                      
+                        θ
+                        ^
+                      
+                    
+                  
+                  
+                    |
+                  
+                  ,
+                
+                
+                  
+                    
+                      for 
+                    
+                  
+                  θ
+                  −
+                  
+                    
+                      
+                        θ
+                        ^
+                      
+                    
+                  
+                  ≥
+                  0
+                
+              
+              
+                
+                  b
+                  
+                    |
+                  
+                  θ
+                  −
+                  
+                    
+                      
+                        θ
+                        ^
+                      
+                    
+                  
+                  
+                    |
+                  
+                  ,
+                
+                
+                  
+                    
+                      for 
+                    
+                  
+                  θ
+                  −
+                  
+                    
+                      
+                        θ
+                        ^
+                      
+                    
+                  
+                  <
+                  0
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle l(\theta ,{\widehat {\theta }})={\begin{cases}a|\theta -{\widehat {\theta }}|,&{\mbox{for }}\theta -{\widehat {\theta }}\geq 0\\b|\theta -{\widehat {\theta }}|,&{\mbox{for }}\theta -{\widehat {\theta }}<0\end{cases}}}
+  
+
+  
+    
+      
+        f
+        (
+        
+          
+            
+              θ
+              ^
+            
+          
+        
+        (
+        x
+        )
+        
+          |
+        
+        x
+        )
+        =
+        
+          
+            a
+            
+              a
+              +
+              b
+            
+          
+        
+        .
+      
+    
+    {\displaystyle f({\widehat {\theta }}(x)|x)={\frac {a}{a+b}}.}
+  
+
+
+==== posterior mode ====
+the following loss function is trickier: it yields either the posterior mode, or a point close to it depending on the curvature and properties of the posterior distribution. small values of the parameter 
+  
+    
+      
+        k
+        >
+        0
+      
+    
+    {\displaystyle k>0}
+   are recommended, in order to use the mode as an approximation (
+  
+    
+      
+        l
+        >
+        0
+      
+    
+    {\displaystyle l>0}
+  ):
+  
+    
+      
+        l
+        (
+        θ
+        ,
+        
+          
+            
+              θ
+              ^
+            
+          
+        
+        )
+        =
+        
+          
+            {
+            
+              
+                
+                  0
+                  ,
+                
+                
+                  
+                    
+                      for 
+                    
+                  
+                  
+                    |
+                  
+                  θ
+                  −
+                  
+                    
+                      
+                        θ
+                        ^
+                      
+                    
+                  
+                  
+                    |
+                  
+                  <
+                  k
+                
+              
+              
+                
+                  l
+                  ,
+                
+                
+                  
+                    
+                      for 
+                    
+                  
+                  
+                    |
+                  
+                  θ
+                  −
+                  
+                    
+                      
+                        θ
+                        ^
+                      
+                    
+                  
+                  
+                    |
+                  
+                  ≥
+                  k
+                  .
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle l(\theta ,{\widehat {\theta }})={\begin{cases}0,&{\mbox{for }}|\theta -{\widehat {\theta }}|<k\\l,&{\mbox{for }}|\theta -{\widehat {\theta }}|\geq k.\end{cases}}}
+  other loss functions can be conceived, although the mean squared error is the most widely used and validated. other loss functions are used in statistics, particularly in robust statistics.
+
+
+== generalized bayes estimators ==
+
+the prior distribution 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   has thus far been assumed to be a true probability distribution, in that
+
+  
+    
+      
+        ∫
+        p
+        (
+        θ
+        )
+        d
+        θ
+        =
+        1.
+      
+    
+    {\displaystyle \int p(\theta )d\theta =1.}
+  however, occasionally this can be a restrictive requirement. for example, there is no distribution (covering the set, r, of all real numbers) for which every real number is equally likely. yet, in some sense, such a "distribution" seems like a natural choice for a non-informative prior, i.e., a prior distribution which does not imply a preference for any particular value of the unknown parameter. one can still define a function 
+  
+    
+      
+        p
+        (
+        θ
+        )
+        =
+        1
+      
+    
+    {\displaystyle p(\theta )=1}
+  , but this would not be a proper probability distribution since it has infinite mass,
+
+  
+    
+      
+        ∫
+        
+          p
+          (
+          θ
+          )
+          d
+          θ
+        
+        =
+        ∞
+        .
+      
+    
+    {\displaystyle \int {p(\theta )d\theta }=\infty .}
+  such measures 
+  
+    
+      
+        p
+        (
+        θ
+        )
+      
+    
+    {\displaystyle p(\theta )}
+  , which are not probability distributions, are referred to as improper priors.
+the use of an improper prior means that the bayes risk is undefined (since the prior is not a probability distribution and we cannot take an expectation under it). as a consequence, it is no longer meaningful to speak of a bayes estimator that minimizes the bayes risk. nevertheless, in many cases, one can define the posterior distribution
+
+  
+    
+      
+        p
+        (
+        θ
+        
+          |
+        
+        x
+        )
+        =
+        
+          
+            
+              p
+              (
+              x
+              
+                |
+              
+              θ
+              )
+              p
+              (
+              θ
+              )
+            
+            
+              ∫
+              p
+              (
+              x
+              
+                |
+              
+              θ
+              )
+              p
+              (
+              θ
+              )
+              d
+              θ
+            
+          
+        
+        .
+      
+    
+    {\displaystyle p(\theta |x)={\frac {p(x|\theta )p(\theta )}{\int p(x|\theta )p(\theta )d\theta }}.}
+  this is a definition, and not an application of bayes' theorem, since bayes' theorem can only be applied when all distributions are proper. however, it is not uncommon for the resulting "posterior" to be a valid probability distribution. in this case, the posterior expected loss
+
+  
+    
+      
+        ∫
+        
+          l
+          (
+          θ
+          ,
+          a
+          )
+          p
+          (
+          θ
+          
+            |
+          
+          x
+          )
+          d
+          θ
+        
+      
+    
+    {\displaystyle \int {l(\theta ,a)p(\theta |x)d\theta }}
+  is typically well-defined and finite. recall that, for a proper prior, the bayes estimator minimizes the posterior expected loss. when the prior is improper, an estimator which minimizes the posterior expected loss is referred to as a generalized bayes estimator.
+
+
+=== example ===
+a typical example is estimation of a location parameter with a loss function of the type 
+  
+    
+      
+        l
+        (
+        a
+        −
+        θ
+        )
+      
+    
+    {\displaystyle l(a-\theta )}
+  . here 
+  
+    
+      
+        θ
+      
+    
+    {\displaystyle \theta }
+   is a location parameter, i.e., 
+  
+    
+      
+        p
+        (
+        x
+        
+          |
+        
+        θ
+        )
+        =
+        f
+        (
+        x
+        −
+        θ
+        )
+      
+    
+    {\displaystyle p(x|\theta )=f(x-\theta )}
+  .
+it is common to use the improper prior 
+  
+    
+      
+        p
+        (
+        θ
+        )
+        =
+        1
+      
+    
+    {\displaystyle p(\theta )=1}
+   in this case, especially when no other more subjective information is available. this yields
+
+  
+    
+      
+        p
+        (
+        θ
+        
+          |
+        
+        x
+        )
+        =
+        
+          
+            
+              p
+              (
+              x
+              
+                |
+              
+              θ
+              )
+              p
+              (
+              θ
+              )
+            
+            
+              p
+              (
+              x
+              )
+            
+          
+        
+        =
+        
+          
+            
+              f
+              (
+              x
+              −
+              θ
+              )
+            
+            
+              p
+              (
+              x
+              )
+            
+          
+        
+      
+    
+    {\displaystyle p(\theta |x)={\frac {p(x|\theta )p(\theta )}{p(x)}}={\frac {f(x-\theta )}{p(x)}}}
+  so the posterior expected loss 
+
+  
+    
+      
+        e
+        [
+        l
+        (
+        a
+        −
+        θ
+        )
+        
+          |
+        
+        x
+        ]
+        =
+        ∫
+        
+          l
+          (
+          a
+          −
+          θ
+          )
+          p
+          (
+          θ
+          
+            |
+          
+          x
+          )
+          d
+          θ
+        
+        =
+        
+          
+            1
+            
+              p
+              (
+              x
+              )
+            
+          
+        
+        ∫
+        l
+        (
+        a
+        −
+        θ
+        )
+        f
+        (
+        x
+        −
+        θ
+        )
+        d
+        θ
+        .
+      
+    
+    {\displaystyle e[l(a-\theta )|x]=\int {l(a-\theta )p(\theta |x)d\theta }={\frac {1}{p(x)}}\int l(a-\theta )f(x-\theta )d\theta .}
+  the generalized bayes estimator is the value 
+  
+    
+      
+        a
+        (
+        x
+        )
+      
+    
+    {\displaystyle a(x)}
+   that minimizes this expression for a given 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  . this is equivalent to minimizing
+
+  
+    
+      
+        ∫
+        l
+        (
+        a
+        −
+        θ
+        )
+        f
+        (
+        x
+        −
+        θ
+        )
+        d
+        θ
+      
+    
+    {\displaystyle \int l(a-\theta )f(x-\theta )d\theta }
+   for a given 
+  
+    
+      
+        x
+        .
+      
+    
+    {\displaystyle x.}
+          (1)in this case it can be shown that the generalized bayes estimator has the form 
+  
+    
+      
+        x
+        +
+        
+          a
+          
+            0
+          
+        
+      
+    
+    {\displaystyle x+a_{0}}
+  , for some constant 
+  
+    
+      
+        
+          a
+          
+            0
+          
+        
+      
+    
+    {\displaystyle a_{0}}
+  . to see this, let 
+  
+    
+      
+        
+          a
+          
+            0
+          
+        
+      
+    
+    {\displaystyle a_{0}}
+   be the value minimizing (1) when 
+  
+    
+      
+        x
+        =
+        0
+      
+    
+    {\displaystyle x=0}
+  . then, given a different value 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+      
+    
+    {\displaystyle x_{1}}
+  , we must minimize
+
+  
+    
+      
+        ∫
+        l
+        (
+        a
+        −
+        θ
+        )
+        f
+        (
+        
+          x
+          
+            1
+          
+        
+        −
+        θ
+        )
+        d
+        θ
+        =
+        ∫
+        l
+        (
+        a
+        −
+        
+          x
+          
+            1
+          
+        
+        −
+        
+          θ
+          ′
+        
+        )
+        f
+        (
+        −
+        
+          θ
+          ′
+        
+        )
+        d
+        
+          θ
+          ′
+        
+        .
+      
+    
+    {\displaystyle \int l(a-\theta )f(x_{1}-\theta )d\theta =\int l(a-x_{1}-\theta ')f(-\theta ')d\theta '.}
+          (2)this is identical to (1), except that 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   has been replaced by 
+  
+    
+      
+        a
+        −
+        
+          x
+          
+            1
+          
+        
+      
+    
+    {\displaystyle a-x_{1}}
+  . thus, the expression minimizing is given by 
+  
+    
+      
+        a
+        −
+        
+          x
+          
+            1
+          
+        
+        =
+        
+          a
+          
+            0
+          
+        
+      
+    
+    {\displaystyle a-x_{1}=a_{0}}
+  , so that the optimal estimator has the form
+
+  
+    
+      
+        a
+        (
+        x
+        )
+        =
+        
+          a
+          
+            0
+          
+        
+        +
+        x
+        .
+        
+        
+      
+    
+    {\displaystyle a(x)=a_{0}+x.\,\!}
+  
+
+
+== empirical bayes estimators ==
+
+a bayes estimator derived through the empirical bayes method is called an empirical bayes estimator. empirical bayes methods enable the use of auxiliary empirical data, from observations of related parameters, in the development of a bayes estimator. this is done under the assumption that the estimated parameters are obtained from a common prior. for example, if independent observations of different parameters are performed, then the estimation performance of a particular parameter can sometimes be improved by using data from other observations.
+there are parametric and non-parametric approaches to empirical bayes estimation. parametric empirical bayes is usually preferable since it is more applicable and more accurate on small amounts of data.
+
+
+=== example ===
+the following is a simple example of parametric empirical bayes estimation. given past observations 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x_{1},\ldots ,x_{n}}
+   having conditional distribution 
+  
+    
+      
+        f
+        (
+        
+          x
+          
+            i
+          
+        
+        
+          |
+        
+        
+          θ
+          
+            i
+          
+        
+        )
+      
+    
+    {\displaystyle f(x_{i}|\theta _{i})}
+  , one is interested in estimating 
+  
+    
+      
+        
+          θ
+          
+            n
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle \theta _{n+1}}
+   based on 
+  
+    
+      
+        
+          x
+          
+            n
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle x_{n+1}}
+  . assume that the 
+  
+    
+      
+        
+          θ
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \theta _{i}}
+  's have a common prior 
+  
+    
+      
+        π
+      
+    
+    {\displaystyle \pi }
+   which depends on unknown parameters. for example, suppose that 
+  
+    
+      
+        π
+      
+    
+    {\displaystyle \pi }
+   is normal with unknown mean 
+  
+    
+      
+        
+          μ
+          
+            π
+          
+        
+        
+        
+      
+    
+    {\displaystyle \mu _{\pi }\,\!}
+   and variance 
+  
+    
+      
+        
+          σ
+          
+            π
+          
+        
+        
+        
+        .
+      
+    
+    {\displaystyle \sigma _{\pi }\,\!.}
+   we can then use the past observations to determine the mean and variance of 
+  
+    
+      
+        π
+      
+    
+    {\displaystyle \pi }
+   in the following way.
+first, we estimate the mean 
+  
+    
+      
+        
+          μ
+          
+            m
+          
+        
+        
+        
+      
+    
+    {\displaystyle \mu _{m}\,\!}
+   and variance 
+  
+    
+      
+        
+          σ
+          
+            m
+          
+        
+        
+        
+      
+    
+    {\displaystyle \sigma _{m}\,\!}
+   of the marginal distribution of 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x_{1},\ldots ,x_{n}}
+   using the maximum likelihood approach:
+
+  
+    
+      
+        
+          
+            
+              
+                μ
+                ^
+              
+            
+          
+          
+            m
+          
+        
+        =
+        
+          
+            1
+            n
+          
+        
+        ∑
+        
+          
+            x
+            
+              i
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle {\widehat {\mu }}_{m}={\frac {1}{n}}\sum {x_{i}},}
+  
+
+  
+    
+      
+        
+          
+            
+              
+                σ
+                ^
+              
+            
+          
+          
+            m
+          
+          
+            2
+          
+        
+        =
+        
+          
+            1
+            n
+          
+        
+        ∑
+        
+          (
+          
+            x
+            
+              i
+            
+          
+          −
+          
+            
+              
+                
+                  μ
+                  ^
+                
+              
+            
+            
+              m
+            
+          
+          
+            )
+            
+              2
+            
+          
+        
+        .
+      
+    
+    {\displaystyle {\widehat {\sigma }}_{m}^{2}={\frac {1}{n}}\sum {(x_{i}-{\widehat {\mu }}_{m})^{2}}.}
+  next, we use the law of total expectation to compute 
+  
+    
+      
+        
+          μ
+          
+            m
+          
+        
+      
+    
+    {\displaystyle \mu _{m}}
+   and the law of total variance to compute 
+  
+    
+      
+        
+          σ
+          
+            m
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \sigma _{m}^{2}}
+   such that
+
+  
+    
+      
+        
+          μ
+          
+            m
+          
+        
+        =
+        
+          e
+          
+            π
+          
+        
+        [
+        
+          μ
+          
+            f
+          
+        
+        (
+        θ
+        )
+        ]
+        
+        
+        ,
+      
+    
+    {\displaystyle \mu _{m}=e_{\pi }[\mu _{f}(\theta )]\,\!,}
+  
+
+  
+    
+      
+        
+          σ
+          
+            m
+          
+          
+            2
+          
+        
+        =
+        
+          e
+          
+            π
+          
+        
+        [
+        
+          σ
+          
+            f
+          
+          
+            2
+          
+        
+        (
+        θ
+        )
+        ]
+        +
+        
+          e
+          
+            π
+          
+        
+        [
+        (
+        
+          μ
+          
+            f
+          
+        
+        (
+        θ
+        )
+        −
+        
+          μ
+          
+            m
+          
+        
+        
+          )
+          
+            2
+          
+        
+        ]
+        ,
+      
+    
+    {\displaystyle \sigma _{m}^{2}=e_{\pi }[\sigma _{f}^{2}(\theta )]+e_{\pi }[(\mu _{f}(\theta )-\mu _{m})^{2}],}
+  where 
+  
+    
+      
+        
+          μ
+          
+            f
+          
+        
+        (
+        θ
+        )
+      
+    
+    {\displaystyle \mu _{f}(\theta )}
+   and 
+  
+    
+      
+        
+          σ
+          
+            f
+          
+        
+        (
+        θ
+        )
+      
+    
+    {\displaystyle \sigma _{f}(\theta )}
+   are the moments of the conditional distribution 
+  
+    
+      
+        f
+        (
+        
+          x
+          
+            i
+          
+        
+        
+          |
+        
+        
+          θ
+          
+            i
+          
+        
+        )
+      
+    
+    {\displaystyle f(x_{i}|\theta _{i})}
+  , which are assumed to be known. in particular, suppose that 
+  
+    
+      
+        
+          μ
+          
+            f
+          
+        
+        (
+        θ
+        )
+        =
+        θ
+      
+    
+    {\displaystyle \mu _{f}(\theta )=\theta }
+   and that 
+  
+    
+      
+        
+          σ
+          
+            f
+          
+          
+            2
+          
+        
+        (
+        θ
+        )
+        =
+        k
+      
+    
+    {\displaystyle \sigma _{f}^{2}(\theta )=k}
+  ; we then have
+
+  
+    
+      
+        
+          μ
+          
+            π
+          
+        
+        =
+        
+          μ
+          
+            m
+          
+        
+        
+        
+        ,
+      
+    
+    {\displaystyle \mu _{\pi }=\mu _{m}\,\!,}
+  
+
+  
+    
+      
+        
+          σ
+          
+            π
+          
+          
+            2
+          
+        
+        =
+        
+          σ
+          
+            m
+          
+          
+            2
+          
+        
+        −
+        
+          σ
+          
+            f
+          
+          
+            2
+          
+        
+        =
+        
+          σ
+          
+            m
+          
+          
+            2
+          
+        
+        −
+        k
+        .
+      
+    
+    {\displaystyle \sigma _{\pi }^{2}=\sigma _{m}^{2}-\sigma _{f}^{2}=\sigma _{m}^{2}-k.}
+  finally, we obtain the estimated moments of the prior,
+
+  
+    
+      
+        
+          
+            
+              
+                μ
+                ^
+              
+            
+          
+          
+            π
+          
+        
+        =
+        
+          
+            
+              
+                μ
+                ^
+              
+            
+          
+          
+            m
+          
+        
+        ,
+      
+    
+    {\displaystyle {\widehat {\mu }}_{\pi }={\widehat {\mu }}_{m},}
+  
+
+  
+    
+      
+        
+          
+            
+              
+                σ
+                ^
+              
+            
+          
+          
+            π
+          
+          
+            2
+          
+        
+        =
+        
+          
+            
+              
+                σ
+                ^
+              
+            
+          
+          
+            m
+          
+          
+            2
+          
+        
+        −
+        k
+        .
+      
+    
+    {\displaystyle {\widehat {\sigma }}_{\pi }^{2}={\widehat {\sigma }}_{m}^{2}-k.}
+  for example, if 
+  
+    
+      
+        
+          x
+          
+            i
+          
+        
+        
+          |
+        
+        
+          θ
+          
+            i
+          
+        
+        ∼
+        n
+        (
+        
+          θ
+          
+            i
+          
+        
+        ,
+        1
+        )
+      
+    
+    {\displaystyle x_{i}|\theta _{i}\sim n(\theta _{i},1)}
+  , and if we assume a normal prior (which is a conjugate prior in this case), we conclude that 
+  
+    
+      
+        
+          θ
+          
+            n
+            +
+            1
+          
+        
+        ∼
+        n
+        (
+        
+          
+            
+              
+                μ
+                ^
+              
+            
+          
+          
+            π
+          
+        
+        ,
+        
+          
+            
+              
+                σ
+                ^
+              
+            
+          
+          
+            π
+          
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle \theta _{n+1}\sim n({\widehat {\mu }}_{\pi },{\widehat {\sigma }}_{\pi }^{2})}
+  , from which the bayes estimator of 
+  
+    
+      
+        
+          θ
+          
+            n
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle \theta _{n+1}}
+   based on 
+  
+    
+      
+        
+          x
+          
+            n
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle x_{n+1}}
+   can be calculated.
+
+
+== properties ==
+
+
+=== admissibility ===
+
+bayes rules having finite bayes risk are typically admissible. the following are some specific examples of admissibility theorems.
+
+if a bayes rule is unique then it is admissible. for example, as stated above, under mean squared error (mse) the bayes rule is unique and therefore admissible.
+if θ belongs to a discrete set, then all bayes rules are admissible.
+if θ belongs to a continuous (non-discrete) set, and if the risk function r(θ,δ) is continuous in θ for every δ, then all bayes rules are admissible.by contrast, generalized bayes rules often have undefined bayes risk in the case of improper priors. these rules are often inadmissible and the verification of their admissibility can be difficult. for example, the generalized bayes estimator of a location parameter θ based on gaussian samples (described in the "generalized bayes estimator" section above) is inadmissible for 
+  
+    
+      
+        p
+        >
+        2
+      
+    
+    {\displaystyle p>2}
+  ; this is known as stein's phenomenon.
+
+
+=== asymptotic efficiency ===
+let θ be an unknown random variable, and suppose that 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        ,
+        …
+      
+    
+    {\displaystyle x_{1},x_{2},\ldots }
+   are iid samples with density 
+  
+    
+      
+        f
+        (
+        
+          x
+          
+            i
+          
+        
+        
+          |
+        
+        θ
+        )
+      
+    
+    {\displaystyle f(x_{i}|\theta )}
+  . let 
+  
+    
+      
+        
+          δ
+          
+            n
+          
+        
+        =
+        
+          δ
+          
+            n
+          
+        
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle \delta _{n}=\delta _{n}(x_{1},\ldots ,x_{n})}
+   be a sequence of bayes estimators of θ based on an increasing number of measurements. we are interested in analyzing the asymptotic performance of this sequence of estimators, i.e., the performance of 
+  
+    
+      
+        
+          δ
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \delta _{n}}
+   for large n.
+to this end, it is customary to regard θ as a deterministic parameter whose true value is 
+  
+    
+      
+        
+          θ
+          
+            0
+          
+        
+      
+    
+    {\displaystyle \theta _{0}}
+  . under specific conditions, for large samples (large values of n), the posterior density of θ is approximately normal. in other words, for large n, the effect of the prior probability on the posterior is negligible. moreover, if δ is the bayes estimator under mse risk, then it is asymptotically unbiased and it converges in distribution to the normal distribution:
+
+  
+    
+      
+        
+          
+            n
+          
+        
+        (
+        
+          δ
+          
+            n
+          
+        
+        −
+        
+          θ
+          
+            0
+          
+        
+        )
+        →
+        n
+        
+          (
+          
+            0
+            ,
+            
+              
+                1
+                
+                  i
+                  (
+                  
+                    θ
+                    
+                      0
+                    
+                  
+                  )
+                
+              
+            
+          
+          )
+        
+        ,
+      
+    
+    {\displaystyle {\sqrt {n}}(\delta _{n}-\theta _{0})\to n\left(0,{\frac {1}{i(\theta _{0})}}\right),}
+  where i(θ0) is the fisher information of θ0.
+it follows that the bayes estimator δn under mse is asymptotically efficient.
+another estimator which is asymptotically normal and efficient is the maximum likelihood estimator (mle). the relations between the maximum likelihood and bayes estimators can be shown in the following simple example.
+
+
+==== example: estimating p in a binomial distribution ====
+consider the estimator of θ based on binomial sample x~b(θ,n) where θ denotes the probability for success. assuming θ is distributed according to the conjugate prior, which in this case is the beta distribution b(a,b), the posterior distribution is known to be b(a+x,b+n-x). thus, the bayes estimator under mse is
+
+  
+    
+      
+        
+          δ
+          
+            n
+          
+        
+        (
+        x
+        )
+        =
+        e
+        [
+        θ
+        
+          |
+        
+        x
+        ]
+        =
+        
+          
+            
+              a
+              +
+              x
+            
+            
+              a
+              +
+              b
+              +
+              n
+            
+          
+        
+        .
+      
+    
+    {\displaystyle \delta _{n}(x)=e[\theta |x]={\frac {a+x}{a+b+n}}.}
+  the mle in this case is x/n and so we get,
+
+  
+    
+      
+        
+          δ
+          
+            n
+          
+        
+        (
+        x
+        )
+        =
+        
+          
+            
+              a
+              +
+              b
+            
+            
+              a
+              +
+              b
+              +
+              n
+            
+          
+        
+        e
+        [
+        θ
+        ]
+        +
+        
+          
+            n
+            
+              a
+              +
+              b
+              +
+              n
+            
+          
+        
+        
+          δ
+          
+            m
+            l
+            e
+          
+        
+        .
+      
+    
+    {\displaystyle \delta _{n}(x)={\frac {a+b}{a+b+n}}e[\theta ]+{\frac {n}{a+b+n}}\delta _{mle}.}
+  the last equation implies that, for n → ∞, the bayes estimator (in the described problem) is close to the mle.
+on the other hand, when n is small, the prior information is still relevant to the decision problem and affects the estimate. to see the relative weight of the prior information, assume that a=b; in this case each measurement brings in 1 new bit of information; the formula above shows that the prior information has the same weight as a+b bits of the new information. in applications, one often knows very little about fine details of the prior distribution; in particular, there is no reason to assume that it coincides with b(a,b) exactly. in such a case, one possible interpretation of this calculation is: "there is a non-pathological prior distribution with the mean value 0.5 and the standard deviation d which gives the weight of prior information equal to 1/(4d2)-1 bits of new information."
+another example of the same phenomena is the case when the prior estimate and a measurement are normally distributed.  if the prior is centered at b with deviation σ, and the measurement is centered at b with deviation σ, then the posterior is centered at 
+  
+    
+      
+        
+          
+            α
+            
+              α
+              +
+              β
+            
+          
+        
+        b
+        +
+        
+          
+            β
+            
+              α
+              +
+              β
+            
+          
+        
+        b
+      
+    
+    {\displaystyle {\frac {\alpha }{\alpha +\beta }}b+{\frac {\beta }{\alpha +\beta }}b}
+  , with weights in this weighted average being α=σ², β=σ². moreover, the squared posterior deviation is σ²+σ².  in other words, the prior is combined with the measurement in exactly the same way as if it were an extra measurement to take into account.
+for example, if σ=σ/2, then the deviation of 4 measurements combined matches the deviation of the prior (assuming that errors of measurements are independent).  and the weights α,β in the formula for posterior match this: the weight of the prior is 4 times the weight of the measurement.  combining this prior with n measurements with average v results in the posterior centered at 
+  
+    
+      
+        
+          
+            4
+            
+              4
+              +
+              n
+            
+          
+        
+        v
+        +
+        
+          
+            n
+            
+              4
+              +
+              n
+            
+          
+        
+        v
+      
+    
+    {\displaystyle {\frac {4}{4+n}}v+{\frac {n}{4+n}}v}
+  ; in particular, the prior plays the same role as 4 measurements made in advance.  in general, the prior has the weight of (σ/σ)² measurements.
+compare to the example of binomial distribution: there the prior has the weight of (σ/σ)²−1 measurements.  one can see that the exact weight does depend on the details of the distribution, but when σ≫σ, the difference becomes small.
+
+
+== practical example of bayes estimators ==
+the internet movie database uses a formula for calculating and comparing the ratings of films by its users, including their top rated 250 titles which is claimed to give "a true bayesian estimate". the following bayesian formula was initially used to calculate a weighted average score for the top 250, though the formula has since changed:
+
+  
+    
+      
+        w
+        =
+        
+          
+            
+              r
+              v
+              +
+              c
+              m
+            
+            
+              v
+              +
+              m
+            
+          
+        
+         
+      
+    
+    {\displaystyle w={rv+cm \over v+m}\ }
+  where:
+
+  
+    
+      
+        w
+         
+      
+    
+    {\displaystyle w\ }
+   = weighted rating
+
+  
+    
+      
+        r
+         
+      
+    
+    {\displaystyle r\ }
+   = average rating for the movie as a number from 1 to 10 (mean) = (rating)
+
+  
+    
+      
+        v
+         
+      
+    
+    {\displaystyle v\ }
+   = number of votes/ratings for the movie = (votes)
+
+  
+    
+      
+        m
+         
+      
+    
+    {\displaystyle m\ }
+   = weight given to the prior estimate (in this case, the number of votes imdb deemed necessary for average rating to approach statistical validity)
+
+  
+    
+      
+        c
+         
+      
+    
+    {\displaystyle c\ }
+   = the mean vote across the whole pool (currently 7.0)note that w is just the weighted arithmetic mean of r and c with weight vector (v, m).  as the number of ratings surpasses m, the confidence of the average rating surpasses the confidence of the mean vote for all films (c), and the weighted bayesian rating (w) approaches a straight average (r). the closer v (the number of ratings for the film) is to zero, the closer w is to c, where w is the weighted rating and c is the average rating of all films. so, in simpler terms, the fewer ratings/votes cast for a film, the more that film's weighted rating will skew towards the average across all films, while films with many ratings/votes will have a rating approaching its pure arithmetic average rating.
+imdb's approach ensures that a film with only a few ratings, all at 10, would not rank above "the godfather", for example, with a 9.2 average from over 500,000 ratings.
+
+
+== see also ==
+recursive bayesian estimation
+generalized expected utility
+
+
+== notes ==
+
+
+== references ==
+lehmann, e. l.; casella, g. (1998). theory of point estimation (2nd ed.). springer. isbn 0-387-98502-6.
+berger, james o. (1985). statistical decision theory and bayesian analysis (2nd ed.). new york: springer-verlag. isbn 0-387-96098-8. mr 0804611.
+
+
+== external links ==
+bayesian estimation on cnx.org
+"bayesian estimator", encyclopedia of mathematics, ems press, 2001 [1994]

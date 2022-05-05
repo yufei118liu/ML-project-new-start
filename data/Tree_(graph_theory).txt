@@ -1,0 +1,253 @@
+in graph theory, a tree is an undirected graph in which any two vertices are connected by exactly one path, or equivalently a connected acyclic undirected graph. a forest is an undirected graph in which any two vertices are connected by at most one path, or equivalently an acyclic undirected graph, or equivalently a disjoint union of trees.a polytree (or directed tree or oriented tree or singly connected network) is a directed acyclic graph (dag) whose underlying undirected graph is a tree. a polyforest (or directed forest or oriented forest) is a directed acyclic graph whose underlying undirected graph is a forest.
+the various kinds of data structures referred to as trees in computer science have underlying graphs that are trees in graph theory, although such data structures are generally rooted trees. a rooted tree may be directed, called a directed rooted tree, either making all its edges point away from the root—in which case it is called an arborescence or out-tree—or making all its edges point towards the root—in which case it is called an anti-arborescence or in-tree. a rooted tree itself has been defined by some authors as a directed graph. a rooted forest is a disjoint union of rooted trees. a rooted forest may be directed, called a directed rooted forest, either making all its edges point away from the root in each rooted tree—in which case it is called a branching or out-forest—or making all its edges point towards the root in each rooted tree—in which case it is called an anti-branching or in-forest.
+the term "tree" was coined in 1857 by the british mathematician arthur cayley.
+
+
+== definitions ==
+
+
+=== tree ===
+a tree is an undirected graph g that satisfies any of the following equivalent conditions:
+
+g is connected and acyclic (contains no cycles).
+g is acyclic, and a simple cycle is formed if any edge is added to g.
+g is connected, but would become disconnected if any single edge is removed from g.
+g is connected and the 3-vertex complete graph k3 is not a minor of g.
+any two vertices in g can be connected by a unique simple path.if g has finitely many vertices, say n of them, then the above statements are also equivalent to any of the following conditions:
+
+g is connected and has n − 1 edges.
+g is connected, and every subgraph of g includes at least one vertex with zero or one incident edges. (that is, g is connected and 1-degenerate.)
+g has no simple cycles and has n − 1 edges.as elsewhere in graph theory, the order-zero graph (graph with no vertices) is generally not considered to be a tree: while it is vacuously connected as a graph (any two vertices can be connected by a path), it is not 0-connected (or even (−1)-connected) in algebraic topology, unlike non-empty trees, and violates the "one more vertex than edges" relation. it may, however, be considered as a forest consisting of zero trees.
+an internal vertex (or inner vertex or branch vertex) is a vertex of degree at least 2. similarly, an external vertex (or outer vertex, terminal vertex or leaf) is a vertex of degree 1.
+an irreducible tree (or series-reduced tree) is a tree in which there is no vertex of degree 2 (enumerated at sequence a000014 in the oeis).
+
+
+=== forest ===
+a forest is an undirected graph in which any two vertices are connected by at most one path. equivalently, a forest is an undirected acyclic graph, all of whose connected components are trees; in other words, the graph consists of a disjoint union of trees. as special cases, the order-zero graph (a forest consisting of zero trees), a single tree, and an edgeless graph, are examples of forests.
+since for every tree v − e = 1, we can easily count the number of trees that are within a forest by subtracting the difference between total vertices and total edges. tv − te = number of trees in a forest.
+
+
+=== polytree ===
+
+a polytree (or directed tree or oriented tree or singly connected network) is a directed acyclic graph (dag) whose underlying undirected graph is a tree. in other words, if we replace its directed edges with undirected edges, we obtain an undirected graph that is both connected and acyclic.
+some authors restrict the phrase "directed tree" to the case where the edges are all directed towards a particular vertex, or all directed away from a particular vertex (see arborescence).
+
+
+=== polyforest ===
+a polyforest (or directed forest or oriented forest) is a directed acyclic graph whose underlying undirected graph is a forest. in other words, if we replace its directed edges with undirected edges, we obtain an undirected graph that is acyclic.
+some authors restrict the phrase "directed forest" to the case where the edges of each connected component are all directed towards a particular vertex, or all directed away from a particular vertex (see branching).
+
+
+=== rooted tree ===
+a rooted tree is a tree in which one vertex has been designated the root. the edges of a rooted tree can be assigned a natural orientation, either away from or towards the root, in which case the structure becomes a directed rooted tree. when a directed rooted tree has an orientation away from the root, it is called an arborescence or out-tree; when it has an orientation towards the root, it is called an anti-arborescence or in-tree. the tree-order is the partial ordering on the vertices of a tree with u < v if and only if the unique path from the root to v passes through u. a rooted tree t which is a subgraph of some graph g is a normal tree if the ends of every t-path in g are comparable in this tree-order (diestel 2005, p. 15). rooted trees, often with additional structure such as ordering of the neighbors at each vertex, are a key data structure in computer science; see tree data structure.
+in a context where trees typically have a root, a tree without any designated root is called a free tree.
+a labeled tree is a tree in which each vertex is given a unique label. the vertices of a labeled tree on n vertices are typically given the labels 1, 2, ..., n. a recursive tree is a labeled rooted tree where the vertex labels respect the tree order (i.e., if u < v for two vertices u and v, then the label of u is smaller than the label of v).
+in a rooted tree, the parent of a vertex v is the vertex connected to v on the path to the root; every vertex has a unique parent except the root which has no parent. a child of a vertex v is a vertex of which v is the parent. an ascendant of a vertex v is any vertex which is either the parent of v or is (recursively) the ascendant of the parent of v. a descendant of a vertex v is any vertex which is either the child of v or is (recursively) the descendant of any of the children of v. a sibling to a vertex v is any other vertex on the tree which has the same parent as v. a leaf is a vertex with no children. an internal vertex is a vertex that is not a leaf.the height of a vertex in a rooted tree is the length of the longest downward path to a leaf from that vertex. the height of the tree is the height of the root. the depth of a vertex is the length of the path to its root (root path). this is commonly needed in the manipulation of the various self-balancing trees, avl trees in particular. the root has depth zero, leaves have height zero, and a tree with only a single vertex (hence both a root and leaf) has depth and height zero. conventionally, an empty tree (a tree with no vertices, if such are allowed) has depth and height −1.
+a k-ary tree is a rooted tree in which each vertex has at most k children. 2-ary trees are often called binary trees, while 3-ary trees are sometimes called ternary trees.
+
+
+=== ordered tree ===
+an ordered tree (or plane tree) is a rooted tree in which an ordering is specified for the children of each vertex. this is called a "plane tree" because an ordering of the children is equivalent to an embedding of the tree in the plane, with the root at the top and the children of each vertex lower than that vertex. given an embedding of a rooted tree in the plane, if one fixes a direction of children, say left to right, then an embedding gives an ordering of the children. conversely, given an ordered tree, and conventionally drawing the root at the top, then the child vertices in an ordered tree can be drawn left-to-right, yielding an essentially unique planar embedding.
+
+
+== properties ==
+every tree is a bipartite graph. a graph is bipartite if and only if it contains no cycles of odd length. since a tree contains no cycles at all, it is bipartite.
+every tree is a median graph.
+every tree with only countably many vertices is a planar graph.
+every connected graph g admits a spanning tree, which is a tree that contains every vertex of g and whose edges are edges of g.
+every connected graph with only countably many vertices admits a normal spanning tree (diestel 2005, prop. 8.2.4).
+there exist connected graphs with uncountably many vertices which do not admit a normal spanning tree (diestel 2005, prop. 8.5.2).
+every finite tree with n vertices, with n > 1, has at least two terminal vertices (leaves). this minimal number of leaves is characteristic of path graphs; the maximal number, n − 1, is attained only by star graphs. the number of leaves is at least the maximum vertex degree.
+for any three vertices in a tree, the three paths between them have exactly one vertex in common (this vertex is called the median of these three vertices).
+every tree has a center consisting of one vertex or two adjacent vertices. the center is the middle vertex or middle two vertices in every longest path. similarly, every n-vertex tree has a centroid consisting of one vertex or two adjacent vertices. in the first case removal of the vertex splits the tree into subtrees of fewer than n/2 vertices. in the second case, removal of the edge between the two centroidal vertices splits the tree into two subtrees of exactly n/2 vertices.
+
+
+== enumeration ==
+
+
+=== labeled trees ===
+cayley's formula states that there are nn−2 trees on n labeled vertices. a classic proof uses prüfer sequences, which naturally show a stronger result: the number of trees with vertices 1, 2, ..., n of degrees d1, d2, ..., dn respectively, is the multinomial coefficient
+
+  
+    
+      
+        
+          
+            
+              (
+            
+            
+              
+                n
+                −
+                2
+              
+              
+                
+                  d
+                  
+                    1
+                  
+                
+                −
+                1
+                ,
+                
+                  d
+                  
+                    2
+                  
+                
+                −
+                1
+                ,
+                …
+                ,
+                
+                  d
+                  
+                    n
+                  
+                
+                −
+                1
+              
+            
+            
+              )
+            
+          
+        
+        .
+      
+    
+    {\displaystyle {n-2 \choose d_{1}-1,d_{2}-1,\ldots ,d_{n}-1}.}
+  a more general problem is to count spanning trees in an undirected graph, which is addressed by the matrix tree theorem. (cayley's formula is the special case of spanning trees in a complete graph.) the similar problem of counting all the subtrees regardless of size is #p-complete in the general case (jerrum (1994)).
+
+
+=== unlabeled trees ===
+counting the number of unlabeled free trees is a harder problem. no closed formula for the number t(n) of trees with n vertices up to graph isomorphism is known. the first few values of t(n) are
+
+1, 1, 1, 1, 2, 3, 6, 11, 23, 47, 106, 235, 551, 1301, 3159, … (sequence a000055 in the oeis).otter (1948) proved the asymptotic estimate
+
+  
+    
+      
+        t
+        (
+        n
+        )
+        ∼
+        c
+        
+          α
+          
+            n
+          
+        
+        
+          n
+          
+            −
+            5
+            
+              /
+            
+            2
+          
+        
+        
+        
+          as 
+        
+        n
+        →
+        ∞
+        ,
+      
+    
+    {\displaystyle t(n)\sim c\alpha ^{n}n^{-5/2}\quad {\text{as }}n\to \infty ,}
+  with the values c and α known to be approximately 0.534949606... and 2.95576528565... (sequence a051491 in the oeis), respectively. (here, f ~ g means that limn→∞ f /g = 1.) this is a consequence of his asymptotic estimate for the number r(n) of unlabeled rooted trees with n vertices:
+
+  
+    
+      
+        r
+        (
+        n
+        )
+        ∼
+        d
+        
+          α
+          
+            n
+          
+        
+        
+          n
+          
+            −
+            3
+            
+              /
+            
+            2
+          
+        
+        
+        
+          as 
+        
+        n
+        →
+        ∞
+        ,
+      
+    
+    {\displaystyle r(n)\sim d\alpha ^{n}n^{-3/2}\quad {\text{as }}n\to \infty ,}
+  with d around 0.43992401257... and the same α as above (cf. knuth (1997), chap. 2.3.4.4 and flajolet & sedgewick (2009), chap. vii.5, p. 475).
+the first few values of r(n) are
+1, 1, 2, 4, 9, 20, 48, 115, 286, 719, 1842, 4766, 12486, 32973, … (sequence a000081 in the oeis)
+
+
+== types of trees ==
+a path graph (or linear graph) consists of n vertices arranged in a line, so that vertices i and i+1 are connected by an edge for i=1,...,n−1.
+a starlike tree consists of a central vertex called root and several path graphs attached to it. more formally, a tree is starlike if it has exactly one vertex of degree greater than 2.
+a star tree is a tree which consists of a single internal vertex (and n−1 leaves). in other words, a star tree of order n is a tree of order n with as many leaves as possible.
+a caterpillar tree is a tree in which all vertices are within distance 1 of a central path subgraph.
+a lobster tree is a tree in which all vertices are within distance 2 of a central path subgraph.
+a regular tree of degree d is the infinite tree with d edges at each vertex. these arise as the cayley graphs of free groups, and in the theory of tits buildings.
+
+
+== see also ==
+decision tree
+hypertree
+multitree
+pseudoforest
+tree structure (general)
+tree (data structure)
+unrooted binary tree
+
+
+== notes ==
+
+
+== references ==
+bender, edward a.; williamson, s. gill (2010), lists, decisions and graphs. with an introduction to probability
+dasgupta, sanjoy (1999), "learning polytrees", in proc. 15th conference on uncertainty in artificial intelligence (uai 1999), stockholm, sweden, july–august 1999 (pdf), pp. 134–141.
+deo, narsingh (1974), graph theory with applications to engineering and computer science (pdf), englewood, new jersey: prentice-hall, isbn 0-13-363473-6
+harary, frank; prins, geert (1959), "the number of homeomorphically irreducible trees, and other species", acta mathematica, 101 (1–2): 141–162, doi:10.1007/bf02559543, issn 0001-5962
+harary, frank; sumner, david (1980), "the dichromatic number of an oriented tree", journal of combinatorics, information & system sciences, 5 (3): 184–187, mr 0603363.
+kim, jin h.; pearl, judea (1983), "a computational model for causal and diagnostic reasoning in inference engines", in proc. 8th international joint conference on artificial intelligence (ijcai 1983), karlsruhe, germany, august 1983 (pdf), pp. 190–193.
+li, gang (1996), "generation of rooted trees and free trees", m.s. thesis, dept. of computer science, university of victoria, bc, canada (pdf), p. 9.
+simion, rodica (1991), "trees with 1-factors and oriented trees", discrete mathematics, 88 (1): 93–104, doi:10.1016/0012-365x(91)90061-6, mr 1099270.
+
+
+== further reading ==
+diestel, reinhard (2005), graph theory (3rd ed.), berlin, new york: springer-verlag, isbn 978-3-540-26183-4.
+flajolet, philippe; sedgewick, robert (2009), analytic combinatorics, cambridge university press, isbn 978-0-521-89806-5
+"tree", encyclopedia of mathematics, ems press, 2001 [1994]
+knuth, donald e. (november 14, 1997), the art of computer programming volume 1: fundamental algorithms (3rd ed.), addison-wesley professional
+jerrum, mark (1994), "counting trees in a graph is #p-complete", information processing letters, 51 (3): 111–116, doi:10.1016/0020-0190(94)00085-9, issn 0020-0190.
+otter, richard (1948), "the number of trees", annals of mathematics, second series, 49 (3): 583–599, doi:10.2307/1969046, jstor 1969046.

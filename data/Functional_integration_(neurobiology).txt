@@ -1,0 +1,83 @@
+functional integration is the study of how brain regions work together to process information and effect responses. though functional integration frequently relies on anatomic knowledge of the connections between brain areas, the emphasis is on how large clusters of neurons – numbering in the thousands or millions – fire together under various stimuli. the large datasets required for such a whole-scale picture of brain function have motivated the development of several novel and general methods for the statistical analysis of interdependence, such as dynamic causal modelling and statistical linear parametric mapping. these datasets are typically gathered in human subjects by non-invasive methods such as eeg/meg, fmri, or pet. the results can be of clinical value by helping to identify the regions responsible for psychiatric disorders, as well as to assess how different activities or lifestyles affect the functioning of the brain.
+
+
+== imaging techniques ==
+
+a study's choice of imaging modality depends on the desired spatial and temporal resolution. fmri and pet offer relatively high spatial resolution, with voxel dimensions on the order of a few millimeters, but their relatively low sampling rate hinders the observation of rapid and transient interactions between distant regions of the brain. these temporal limitations are overcome by meg, but at the cost of only detecting signals from much larger clusters of neurons.
+
+
+=== fmri ===
+
+functional magnetic resonance imaging (fmri) is a form of mri that is most frequently used to take advantage of a difference in magnetism between oxy- and deoxyhemoglobin to assess blood flow to different parts of the brain. typical sampling rates for fmri images are in the tenths of seconds.
+
+
+=== meg ===
+
+magnetoencephalography (meg) is an imaging modality that uses very sensitive magnetometers to measure the magnetic fields resulting from ionic currents flowing through neurons in the brain. high-quality meg machines allow for sub-millisecond sampling rates.
+
+
+=== pet ===
+
+pet works by introducing a radiolabeled biologically active molecule. the choice of molecule dictates what is visualized: by using a radiolabeled analog of glucose, for example, one can obtain an image whose intensity distribution indicates metabolic activity. pet scanners offer sampling rates in the tenths of seconds.
+
+
+=== multimodal imaging ===
+
+multimodal imaging frequently consists of the coupling of an electrophysiologic measurement technique, such as eeg or meg, with a hemodynamic one such as fmri or pet. while the intention is to use the strengths and limitations of each to complement the other, current approaches suffer from experimental limitations. some previous work has focused on attempting to use the high spatial resolution of fmri to determine the (spatial) origin of eeg/meg signals, so that in future work this spatial information could be extracted from a unimodal eeg/meg signal. while some studies have seen success in correlating signal origins between modalities to within a few millimeters, the results have not been uniformly positive. another current limitation is the actual experimental setup: taking measurements using both modalities at once yields inferior signals, but the alternative of measuring each modality separately is confounded by trial-to-trial variability.
+
+
+== modes of analysis ==
+in functional integration, there is a distinction drawn between functional connectivity, and effective connectivity. two brain regions are said to be functionally connected if there is a high correlation between the times that the two are firing, though this does not imply causality. effective connectivity, on the other hand, is a description of the causal relationship between various brain regions.while statistical assessment of the functional connectivity of multiple brain regions is non-trivial, determining the causality of which brain regions influence which to fire is much thornier, and requires solutions to ill-posed optimization problems.
+
+
+=== dynamic causal modelling ===
+
+dynamic causal modeling (dcm) is a bayesian method for deducing the structure of a neural system based on the observed hemodynamic (fmri) or electrophysiologic (eeg/meg) signal. the first step is to make a prediction as to the relationships between the brain regions of interest, and formulate a system of ordinary differential equations describing the causal relationship between them, although many parameters (and relationships) will be initially unknown. using previous results on how neural activity is known to translate into fmri or eeg signals, one can take the measured signal and determine the likelihood that model parameters have particular values. the elucidated model can then be used to predict relationships between the considered brain regions under different conditions. a key factor to consider during the design of neuroimaging experiments involving dcm is the relationship between the timing of tasks or stimuli presented to the subject and the ability of dcm to determine the underlying relationships between brain regions, which is partially determined by the temporal resolution of the imaging modality in use.
+
+
+=== statistical parametric mapping ===
+
+statistical parametric mapping (spm) is a method for determining whether the activation of a particular brain region changes between experimental conditions, stimuli, or over time. the essential idea is simple, and consists of two major steps: first, one performs a univariate statistical test on each individual voxel between each experimental condition. second, one analyzes the clustering of the voxels that show statistically significant differences, and determines which brain regions exhibit different levels of activation under different experimental conditions.
+there is great flexibility in the choice of statistical test (and thus the questions that an experiment can be designed to answer), and common choices include the student's t test or linear regression. an important consideration with spm, however, is that the large number of comparisons requires one to control the false positive rate with a more stringent significance threshold. this can be done either by modifying the initial statistical test to decrease the α value so as to make it harder for a particular voxel to exhibit a significant difference (e.g., bonferroni correction), or by modifying the clustering analysis in the second step by only considering a brain region's activation to be significant if it contains a certain number of voxels that exhibit a statistical difference (see random field theory).
+
+
+=== voxel-based morphometry ===
+
+voxel-based morphometry (vbm) is a method that allows one to measure brain tissue composition differences between subjects. to do so, one must first register all images to a standard coordinate system, by mapping them to a reference image. this is done by use of an affine transformation that minimizes the sum-of-squares intensity difference between the experimental image and the reference. once this is done, the proportion of grey or white matter in a voxel can be determined by intensity. this allows one to compare the tissue composition of corresponding brain regions between different subjects.
+
+
+== applications ==
+the ability to visualize whole-brain activity is frequently used in comparing brain function during various sorts of tasks or tests of skill, as well as in comparing brain structure and function between different groups of people.
+
+
+=== changes in resting-state brain activation ===
+many previous fmri studies have seen that spontaneous activation of functionally connected brain regions occurs during the resting state, even in the absence of any sort of stimulation or activity. human subjects presented with a visual learning task exhibit changes in functional connectivity in the resting state for up to 24 hours and dynamic functional connectivity studies have even shown changes in functional connectivity during a single scan. by taking fmri scans of subjects before and after the learning task, as well as on the following day, it was shown that the activity had caused a resting-state change in hippocampal activity.  dynamic causal modeling revealed that the hippocampus also exhibited a new level of effective connectivity with the striatum, though there was no learning-related change in any visual area. combining fmri with dcm on subjects performing a learning task allows one to delineate which brain systems are involved in various sorts of learning, whether implicit or explicit, and document for long these tasks lead to changes in resting-state brain activation.
+
+
+=== iq estimation ===
+voxel-based morphometric measurements of grey matter localization in the brain can be used to predict components of iq. a set of 35 teenagers were tested for iq and were fmri scanned over the course of 3.5 years, and had their iq predicted by the level of grey matter localization. this study was well-conducted, but studies of this sort frequently suffer from "double-dipping," where a single dataset is used both to identify the brain regions of interest and to develop a predictive model, which leads to overtraining of the model and an absence of real predictive power.the study authors avoided double-dipping by using a "leave-one-out" methodology, that involves building a predictive model for each of the n members of a sample based on data from the other n-1 members. this ensures that the model is independent of the subject whose iq is being predicted, and resulted in a model capable of explaining 53% of the change in verbal iq as a function of grey matter density in the left motor cortex. the study also observed the previously-reported phenomenon that a ranking of young subjects by iq does not stay constant as the subjects age, which confounds any measurement of the efficacy of educational programs.these studies can be cross-validated by attempting to locate and assess patients with lesions or other damage in the identified brain region, and examining whether they exhibit functional deficits relative to the population. this methodology would be hindered by the lack of a "before" baseline measurement, however.
+
+
+=== phonological loop ===
+the phonological loop is a component of working memory that stores a small set of words that can be maintained indefinitely if not distracted. the concept was proposed by the psychologists alan baddeley and graham hitch to explain how phrases or sentences can be internalized and used to direct action.
+by using statistical parametric mapping to assess differences in cerebral blood flow between participants performing two different tasks, paulescu et al. were able to identify the storage of the phonological loop as in the supramarginal gyrii. human subjects were first split into a control and experimental group. the control group was presented with letters in a language they did not understand, and non-linguistic visual diagrams. the experimental group was tasked with two activities: the first activity was to remember a string of letters, and was intended activate all elements of the phonological loop. the second activity asked participants to assess whether given phrases rhymed, and was intended to only activate certain sub-systems involved in vocalization, but specifically not the phonological storage.
+by comparing the first experimental task to the second, as well as to the control group, the study authors observed that the brain region most significantly activated by the task requiring phonological storage was the supramarginal gyrii. this result was backed up by previous literature observations of functional deficits in patients with damage in this area.
+though this study was able to precisely localize a specific function anatomically and the methods of functional integration and imaging are of great value in determining the brain regions involved in certain information processing tasks,  the low-level neural circuitry that gives rise to these phenomena remains mysterious.
+
+
+=== psychiatric disorders ===
+although fmri studies of schizophrenic and bipolar patients have yielded some insight into the changes in effective connectivity caused by these diseases, a comprehensive understanding of the functional remodelling that occurs has not yet been achieved.
+montague et al. note that the almost "unreasonable effectiveness of psychotropic medication" has somewhat stymied progress in this field, and advocate for a large-scale "computational phenotyping" of psychiatric patients. neuroimaging studies of large numbers of these patients could yield brain activation markers for specific psychiatric illnesses, and also aid in the development of therapeutics and animal models. while a true baseline of brain function in psychiatric patients is near-impossible to obtain, reference values can still be measured by comparing images gathered from patients before and after treatment.
+
+
+== references ==
+
+
+== further reading ==
+büchel, c. (2003).  virginia ng; gareth j. barker; talma hendler (eds.). the importance of connectivity for brain function. psychiatric neuroimaging. proceedings of the nato advanced research workshop on psychiatric neuroimaging, 29 september-1 october 2002, chiavari, italy --t.p. verso. amsterdam; washington, dc: ios press. pp. 55–59. isbn 9781586033446. oclc 52820961.
+friston, karl j. (2004).  kenneth hugdahl; richard j davidson (eds.). characterizing functional asymmetries with brain mapping. the asymmetrical brain. bradford books series. cambridge, mass: mit press. pp. 161–186. isbn 9780262083096. oclc 645171270.
+friston, k. j. (karl j.) (2007). statistical parametric mapping : the analysis of functional brain image. amsterdam; boston: elsevier/academic press. isbn 978-0-12-372560-8. oclc 254457654.
+
+
+== external links ==
+scholarpedia article on functional imaging

@@ -1,0 +1,878 @@
+in mathematical logic and computer science, homotopy type theory (hott ) refers to various lines of development of intuitionistic type theory, based on the interpretation of types as objects to which the intuition of (abstract) homotopy theory applies.
+this includes, among other lines of work, the construction of homotopical and higher-categorical models for such type theories; the use of type theory as a logic (or internal language) for abstract homotopy theory and higher category theory; the development of mathematics within a type-theoretic foundation (including both previously existing mathematics and new mathematics that homotopical types make possible); and the formalization of each of these in computer proof assistants.
+there is a large overlap between the work referred to as homotopy type theory, and as the univalent foundations project.  although neither is precisely delineated, and the terms are sometimes used interchangeably, the choice of usage also sometimes corresponds to differences in viewpoint and emphasis.  as such, this article may not represent the views of all researchers in the fields equally. this kind of variability is unavoidable when a field is in rapid flux.
+
+
+== history ==
+
+
+=== prehistory: the groupoid model ===
+at one time the idea that types in intensional type theory with their identity types could be regarded as groupoids was mathematical folklore. it was first made precise semantically in the 1998 paper of martin hofmann and thomas streicher called "the groupoid interpretation of type theory", in which they showed that intensional type theory had a model in the category of groupoids.  this was the first truly "homotopical" model of type theory, albeit only "1-dimensional" (the traditional models in the category of sets being homotopically 0-dimensional).
+their paper also foreshadowed several later developments in homotopy type theory. for instance, they noted that the groupoid model satisfies a rule they called "universe extensionality", which is none other than the restriction to 1-types of the univalence axiom that vladimir voevodsky proposed ten years later. (the axiom for 1-types is notably simpler to formulate, however, since a coherent notion of "equivalence" is not required.)  they also defined "categories with isomorphism as equality" and conjectured that in a model using higher-dimensional groupoids, for such categories one would have "equivalence is equality"; this was later proven by benedikt ahrens, krzysztof kapulkin, and michael shulman.
+
+
+=== early history: model categories and higher groupoids ===
+the first higher-dimensional models of intensional type theory were constructed by steve awodey and his student michael warren in 2005 using quillen model categories. these results were first presented in public at the conference fmcs 2006 at which warren gave a talk titled "homotopy models of intensional type theory", which also served as his thesis prospectus (the dissertation committee present were awodey, nicola gambino and alex simpson). a summary is contained in warren's thesis prospectus abstract.at a subsequent workshop about identity types at uppsala university in 2006  there were two talks about the relation between intensional type theory and factorization systems: one by richard garner, "factorisation systems for type theory", and one by michael warren, "model categories and intensional identity types". related ideas were discussed in the talks by steve awodey, "type theory of higher-dimensional categories", and thomas streicher, "identity types vs. weak omega-groupoids: some ideas, some problems". at the same conference benno van den berg gave a talk titled "types as weak omega-categories" where he outlined the ideas that later became the subject of a joint paper with richard garner.
+all early constructions of higher dimensional models had to deal with the problem of coherence typical of models of dependent type theory, and various solutions were developed. one such was given in 2009 by voevodsky, another in 2010 by van den berg and garner. a general solution, building on voevodsky's construction, was eventually given by lumsdaine and warren in 2014.at the pssl86 in 2007  awodey gave a talk titled "homotopy type theory" (this was the first public usage of that term, which was coined by awodey). awodey and warren summarized their results in the paper "homotopy theoretic models of identity types", which was posted on the arxiv preprint server in 2007 and published in 2009; a more detailed version appeared in warren's thesis "homotopy theoretic aspects of constructive type theory" in 2008.
+at about the same time, vladimir voevodsky was independently investigating type theory in the context of the search of a language for practical formalization of mathematics. in september 2006 he posted to the types mailing list  "a very short note on homotopy lambda calculus", which sketched the outlines of a type theory with dependent products, sums and universes and of a model of this type theory in kan simplicial sets. it began by saying "the homotopy λ-calculus is a hypothetical (at the moment) type system" and ended with "at the moment much of what i said above is at the level of conjectures. even the definition of the model of ts in the homotopy category is non-trivial" referring to the complex coherence issues that were not resolved until 2009. this note included a syntactic definition of "equality types" that were claimed to be interpreted in the model by path-spaces, but did not consider per martin-löf's rules for identity types. it also stratified the universes by homotopy dimension in addition to size, an idea that later was mostly discarded.
+on the syntactic side, benno van den berg conjectured in 2006 that the tower of identity types of a type in intensional type theory should have the structure of an ω-category, and indeed a ω-groupoid, in the "globular, algebraic" sense of michael batanin. this was later proven independently by van den berg and garner in the paper "types are weak omega-groupoids" (published 2008), and by peter lumsdaine in the paper "weak ω-categories from intensional type theory" (published 2009) and as part of his 2010 ph.d. thesis "higher categories from type theories".
+
+
+=== the univalence axiom, synthetic homotopy theory, and higher inductive types ===
+the concept of a univalent fibration was introduced by voevodsky in early 2006.
+however, because of the insistence of all presentations of the martin-löf type theory on the property that the identity types, in the empty context, may contain only reflexivity, voevodsky did not recognize until 2009 that these identity types can be used in combination with the univalent universes. in particular, the idea that univalence can be introduced simply by adding an axiom to the existing martin-löf type theory appeared only in 2009.also in 2009, voevodsky worked out more of the details of a model of type theory in kan complexes, and observed that the existence of a universal kan fibration could be used to resolve the coherence problems for categorical models of type theory. he also proved, using an idea of a. k. bousfield,  that this universal fibration was univalent: the associated fibration of pairwise homotopy equivalences between the fibers is equivalent to the paths-space fibration of the base.
+to formulate univalence as an axiom voevodsky found a way  to define "equivalences" syntactically that had the important property that the type representing the statement "f is an equivalence" was (under the assumption of function extensionality) (-1)-truncated (i.e. contractible if inhabited). this enabled him to give a syntactic statement of univalence, generalizing hofmann and streicher's "universe extensionality" to higher dimensions. he was also able to use these definitions of equivalences and contractibility to start developing significant amounts of "synthetic homotopy theory" in the proof assistant coq; this formed the basis of the library later called "foundations" and eventually "unimath".unification of the various threads began in february 2010 with an informal meeting at carnegie mellon university, where voevodsky presented his model in kan complexes and his coq code to a group including awodey, warren, lumsdaine, robert harper, dan licata, michael shulman, and others. this meeting produced the outlines of a proof (by warren, lumsdaine, licata, and shulman) that every homotopy equivalence is an equivalence (in voevodsky's good coherent sense), based on the idea from category theory of improving equivalences to adjoint equivalences. soon afterwards, voevodsky proved that the univalence axiom implies function extensionality.
+the next pivotal event was a mini-workshop at the mathematical research institute of oberwolfach in march 2011 organized by steve awodey, richard garner, per martin-löf, and vladimir voevodsky, titled "the homotopy interpretation of constructive type theory". as part of a coq tutorial for this workshop, andrej bauer wrote a small coq library based on voevodsky's ideas (but not actually using any of his code); this eventually became the kernel of the first version of the "hott" coq library (the first commit of the latter by michael shulman notes "development based on andrej bauer's files, with many ideas taken from vladimir voevodsky's files"). one of the most important things to come out of the oberwolfach meeting was the basic idea of higher inductive types, due to lumsdaine, shulman, bauer, and warren. the participants also formulated a list of important open questions, such as whether the univalence axiom satisfies canonicity (still open, although some special cases have been resolved positively), whether the univalence axiom has nonstandard models (since answered positively by shulman), and how to define (semi)simplicial types (still open in mltt, although it can be done in voevodsky's homotopy type system (hts), a type theory with two equality types).
+soon after the oberwolfach workshop, the homotopy type theory website and blog was established, and the subject began to be popularized under that name. an idea of some of the important progress during this period can be obtained from the blog history.
+
+
+== univalent foundations ==
+the phrase "univalent foundations" is agreed by all to be closely related to homotopy type theory, but not everyone uses it in the same way.  it was originally used by vladimir voevodsky to refer to his vision of a foundational system for mathematics in which the basic objects are homotopy types, based on a type theory satisfying § the univalence axiom, and formalized in a computer proof assistant.as voevodsky's work became integrated with the community of other researchers working on homotopy type theory, "univalent foundations" was sometimes used interchangeably with "homotopy type theory",  and other times to refer only to its use as a foundational system (excluding, for example, the study of model-categorical semantics or computational metatheory). for instance, the subject of the ias special year was officially given as "univalent foundations", although a lot of the work done there focused on semantics and metatheory in addition to foundations.  the book produced by participants in the ias program was titled "homotopy type theory: univalent foundations of mathematics"; although this could refer to either usage, since the book only discusses hott as a mathematical foundation.
+
+
+== special year on univalent foundations of mathematics ==
+
+in 2012–13 researchers at the institute for advanced study held "a special year on univalent foundations of mathematics".  the special year brought together researchers in topology, computer science, category theory, and mathematical logic. the program was organized by steve awodey,  thierry coquand and vladimir voevodsky.
+during the program  peter aczel, who was one of the participants, initiated a working group which investigated how to do type theory informally but rigorously, in a style that is analogous to ordinary mathematicians doing set theory. after initial experiments it became clear that this was not only possible but highly beneficial, and that a book (the so-called hott book) could and should be written. many other participants of the project then joined the effort with technical support, writing, proof reading, and offering ideas. unusually for a mathematics text, it was developed collaboratively and in the open on github, is released under a creative commons license that allows people to fork their own version of the book, and is both purchasable in print and downloadable free of charge.
+
+more generally, the special year was a catalyst for the development of the entire subject; the hott book was only one, albeit the most visible, result.
+official participants in the special year
+
+acm computing reviews listed the book as a notable 2013 publication in the category "mathematics of computing".
+
+
+== key concepts ==
+
+
+=== "propositions as types" ===
+hott uses a modified version of the "propositions as types" interpretation of type theory, according to which types can also represent propositions and terms can then represent proofs.  in hott, however, unlike in standard "propositions as types", a special role is played by 'mere propositions' which, roughly speaking, are those types having at most one term, up to propositional equality.  these are more like conventional logical propositions than are general types, in that they are proof-irrelevant.
+
+
+=== equality ===
+the fundamental concept of homotopy type theory is the path. in hott, the type 
+  
+    
+      
+        a
+        =
+        b
+      
+    
+    {\displaystyle a=b}
+   is the type of all paths from the point 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   to the point 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+  . (therefore, a proof that a point 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   equals a point 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   is the same thing as a path from the point 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   to the point 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+  .) for any point 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  , there exists a path of type 
+  
+    
+      
+        a
+        =
+        a
+      
+    
+    {\displaystyle a=a}
+  , corresponding to the reflexive property of equality. a path of type 
+  
+    
+      
+        a
+        =
+        b
+      
+    
+    {\displaystyle a=b}
+   can be inverted, forming a path of type 
+  
+    
+      
+        b
+        =
+        a
+      
+    
+    {\displaystyle b=a}
+  , corresponding to the symmetric property of equality. two paths of type 
+  
+    
+      
+        a
+        =
+        b
+      
+    
+    {\displaystyle a=b}
+   resp. 
+  
+    
+      
+        b
+        =
+        c
+      
+    
+    {\displaystyle b=c}
+   can be concatenated, forming a path of type 
+  
+    
+      
+        a
+        =
+        c
+      
+    
+    {\displaystyle a=c}
+  ; this corresponds to the transitive property of equality.
+most importantly, given a path 
+  
+    
+      
+        p
+        :
+        a
+        =
+        b
+      
+    
+    {\displaystyle p:a=b}
+  , and a proof of some property 
+  
+    
+      
+        p
+        (
+        a
+        )
+      
+    
+    {\displaystyle p(a)}
+  , the proof can be "transported" along the path 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   to yield a proof of the property 
+  
+    
+      
+        p
+        (
+        b
+        )
+      
+    
+    {\displaystyle p(b)}
+  . (equivalently stated, an object of type 
+  
+    
+      
+        p
+        (
+        a
+        )
+      
+    
+    {\displaystyle p(a)}
+   can be turned into an object of type 
+  
+    
+      
+        p
+        (
+        b
+        )
+      
+    
+    {\displaystyle p(b)}
+  .) this corresponds to the substitution property of equality. here, an important difference between hott and classical mathematics comes in. in classical mathematics, once the equality of two values 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   and 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   has been established, 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   and 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   may be used interchangeably thereafter, with no regard to any distinction between them. in homotopy type theory, however, there may be multiple different paths 
+  
+    
+      
+        a
+        =
+        b
+      
+    
+    {\displaystyle a=b}
+  , and transporting an object along two different paths will yield two different results. therefore, in homotopy type theory, when applying the substitution property, it is necessary to state which path is being used.
+in general, a "proposition" can have multiple different proofs. (for example, the type of all natural numbers, when considered as a proposition, has every natural number as a proof.) even if a proposition has only one proof 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  , the space of paths 
+  
+    
+      
+        a
+        =
+        a
+      
+    
+    {\displaystyle a=a}
+   may be non-trivial in some way. a "mere proposition" is any type which either is empty, or contains only one point with a trivial path space.
+note that people write 
+  
+    
+      
+        a
+        =
+        b
+      
+    
+    {\displaystyle a=b}
+   for 
+  
+    
+      
+        i
+        
+          d
+          
+            a
+          
+        
+        (
+        a
+        ,
+        b
+        )
+      
+    
+    {\displaystyle id_{a}(a,b)}
+  , 
+thereby leaving the type 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   of 
+  
+    
+      
+        a
+        ,
+        b
+      
+    
+    {\displaystyle a,b}
+   implicit. 
+do not confuse it with 
+  
+    
+      
+        i
+        
+          d
+          
+            a
+          
+        
+        :
+        a
+        →
+        a
+      
+    
+    {\displaystyle id_{a}:a\to a}
+  , denoting the identity function on 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  .
+
+
+=== type equivalence ===
+two types 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   and 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   belonging to some universe 
+  
+    
+      
+        u
+      
+    
+    {\displaystyle u}
+   are defined as being equivalent if there exists an equivalence between them. an equivalence is a function 
+
+  
+    
+      
+        f
+        :
+        a
+        →
+        b
+      
+    
+    {\displaystyle f:a\to b}
+  which has both a left inverse and a right inverse, in the sense that for suitably chosen 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+   and 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+  , the following types are both inhabited:
+
+  
+    
+      
+        i
+        
+          d
+          
+            b
+            →
+            b
+          
+        
+        (
+        f
+        ∘
+        g
+        ,
+        i
+        
+          d
+          
+            b
+          
+        
+        )
+        ,
+      
+    
+    {\displaystyle id_{b\rightarrow b}(f\circ g,id_{b}),}
+  
+
+  
+    
+      
+        i
+        
+          d
+          
+            a
+            →
+            a
+          
+        
+        (
+        h
+        ∘
+        f
+        ,
+        i
+        
+          d
+          
+            a
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle id_{a\rightarrow a}(h\circ f,id_{a}).}
+  i.e.
+
+  
+    
+      
+        f
+        ∘
+        g
+        
+          =
+          
+            b
+            →
+            b
+          
+        
+        i
+        
+          d
+          
+            b
+          
+        
+        ,
+      
+    
+    {\displaystyle f\circ g=_{b\rightarrow b}id_{b},}
+  
+
+  
+    
+      
+        h
+        ∘
+        f
+        
+          =
+          
+            a
+            →
+            a
+          
+        
+        i
+        
+          d
+          
+            a
+          
+        
+        .
+      
+    
+    {\displaystyle h\circ f=_{a\rightarrow a}id_{a}.}
+  this expresses a general notion of "
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   has both a left inverse and right inverse", using equality types. note that the invertibility conditions above are equality types in the function types 
+  
+    
+      
+        a
+        →
+        a
+      
+    
+    {\displaystyle a\rightarrow a}
+   and 
+  
+    
+      
+        b
+        →
+        b
+      
+    
+    {\displaystyle b\rightarrow b}
+  .  one generally assumes the function extensionality axiom, which ensures that these are equivalent to the following types that express invertibility using the equality on the domain and codomain 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   and 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+  :
+
+  
+    
+      
+        
+          π
+          
+            y
+            :
+            b
+          
+        
+        .
+         
+        i
+        
+          d
+          
+            b
+          
+        
+        (
+        (
+        f
+        ∘
+        g
+        )
+        (
+        y
+        )
+        ,
+        i
+        
+          d
+          
+            b
+          
+        
+        (
+        y
+        )
+        )
+        ,
+      
+    
+    {\displaystyle \pi _{y:b}.\ id_{b}((f\circ g)(y),id_{b}(y)),}
+  
+
+  
+    
+      
+        
+          π
+          
+            x
+            :
+            a
+          
+        
+        .
+         
+        i
+        
+          d
+          
+            a
+          
+        
+        (
+        (
+        h
+        ∘
+        f
+        )
+        (
+        x
+        )
+        ,
+        i
+        
+          d
+          
+            a
+          
+        
+        (
+        x
+        )
+        )
+        .
+      
+    
+    {\displaystyle \pi _{x:a}.\ id_{a}((h\circ f)(x),id_{a}(x)).}
+  i.e. for all 
+  
+    
+      
+        x
+        :
+        a
+      
+    
+    {\displaystyle x:a}
+   and 
+  
+    
+      
+        y
+        :
+        b
+      
+    
+    {\displaystyle y:b}
+  ,
+
+  
+    
+      
+        f
+        (
+        g
+        (
+        y
+        )
+        )
+        
+          =
+          
+            b
+          
+        
+        y
+        ,
+      
+    
+    {\displaystyle f(g(y))=_{b}y,}
+  
+
+  
+    
+      
+        h
+        (
+        f
+        (
+        x
+        )
+        )
+        
+          =
+          
+            a
+          
+        
+        x
+        .
+      
+    
+    {\displaystyle h(f(x))=_{a}x.}
+  the functions of type
+
+  
+    
+      
+        a
+        →
+        b
+      
+    
+    {\displaystyle a\to b}
+  together with a proof that they are equivalences are denoted by
+
+  
+    
+      
+        a
+        ≃
+        b
+      
+    
+    {\displaystyle a\simeq b}
+  .
+
+
+=== the univalence axiom ===
+having defined functions that are equivalences as above, one can show that there is a canonical way to turn paths to equivalences.
+in other words, there is a function of the type
+
+  
+    
+      
+        (
+        a
+        =
+        b
+        )
+        →
+        (
+        a
+        ≃
+        b
+        )
+        ,
+      
+    
+    {\displaystyle (a=b)\to (a\simeq b),}
+  which expresses that types 
+  
+    
+      
+        a
+        ,
+        b
+      
+    
+    {\displaystyle a,b}
+   that are equal are, in particular, also equivalent.
+the univalence axiom states that this function is itself an equivalence.: 115 : 4–6   therefore, we have
+
+  
+    
+      
+        (
+        a
+        =
+        b
+        )
+        ≃
+        (
+        a
+        ≃
+        b
+        )
+      
+    
+    {\displaystyle (a=b)\simeq (a\simeq b)}
+  "in other words, identity is equivalent to equivalence. in particular, one may say that 'equivalent types are identical'.": 4 
+
+
+== applications ==
+
+
+=== theorem proving ===
+hott allows mathematical proofs to be translated into a computer programming language for computer proof assistants much more easily than before. this approach offers the potential for computers to check difficult proofs.one goal of mathematics is to formulate axioms from which virtually all mathematical theorems can be derived and proven unambiguously. correct proofs in mathematics must follow the rules of logic. they must be derivable without error from axioms and already-proven statements.hott adds the univalence axiom, which relates the equality of logical-mathematical propositions to homotopy theory. an equation such as "a=b" is a mathematical proposition in which two different symbols have the same value. in homotopy type theory, this is taken to mean that the two shapes which represent the values of the symbols are topologically equivalent.these topological equivalence relationships, eth zürich institute for theoretical studies director giovanni felder argues, can be better formulated in homotopy theory because it is more comprehensive: homotopy theory explains not only why "a equals b" but also how to derive this. in set theory, this information would have to be defined additionally, which makes the translation of mathematical propositions into programming languages more difficult.
+
+
+=== computer programming ===
+as of 2015, intense research work was underway to model and formally analyse the computational behavior of the univalence axiom in homotopy type theory.cubical type theory is one attempt to give computational content to homotopy type theory.however, it is believed that certain objects, such as semi-simplicial types, cannot be constructed without reference to some notion of exact equality. therefore, various two-level type theories have been developed which partition their types into fibrant types, which respect paths, and non-fibrant types, which do not. cartesian cubical computational type theory is the first two-level type theory which gives a full computational interpretation to homotopy type theory.
+
+
+== see also ==
+calculus of constructions
+curry–howard correspondence
+intuitionistic type theory
+homotopy hypothesis
+univalent foundations
+
+
+== notes ==
+
+
+== references ==
+
+
+== bibliography ==
+
+
+== further reading ==
+david corfield (2020), modal homotopy type theory: the prospect of a new logic for philosophy, oxford university press.
+
+
+== external links ==
+homotopy type theory
+homotopy type theory in nlab
+homotopy type theory wiki
+vladimir voevodsky's webpage on the univalent foundations
+homotopy type theory and the univalent foundations of mathematics by steve awodey
+"constructive type theory and homotopy" – video lecture by steve awodey at the institute for advanced study
+
+
+=== libraries of formalized mathematics ===

@@ -1,0 +1,1487 @@
+in mathematical logic, predicate functor logic (pfl) is one of several ways to express first-order logic (also known as predicate logic) by purely algebraic means, i.e., without quantified variables. pfl employs a small number of algebraic devices called predicate functors (or predicate modifiers) that operate on terms to yield terms. pfl is mostly the invention of the logician and philosopher willard quine.
+
+
+== motivation ==
+the source for this section, as well as for much of this entry, is quine (1976). quine proposed pfl as a way of algebraizing first-order logic in a manner analogous to how boolean algebra algebraizes propositional logic. he designed pfl to have exactly the expressive power of first-order logic with identity. hence the metamathematics of pfl are exactly those of first-order logic with no interpreted predicate letters: both logics are sound, complete, and undecidable. most work quine published on logic and mathematics in the last 30 years of his life touched on pfl in some way.quine took "functor" from the writings of his friend rudolf carnap, the first to employ it in philosophy and mathematical logic, and defined it as follows:
+
+"the word functor, grammatical in import but logical in habitat... is a sign that attaches to one or more expressions of given grammatical kind(s) to produce an expression of a given grammatical kind." (quine 1982: 129)
+
+ways other than pfl to algebraize first-order logic include:
+
+cylindric algebra by alfred tarski and his american students. the simplified cylindric algebra proposed in bernays (1959) led quine to write the paper containing the first use of the phrase "predicate functor";
+the polyadic algebra of paul halmos. by virtue of its economical primitives and axioms, this algebra most resembles pfl;
+relation algebra algebraizes the fragment of first-order logic consisting of formulas having no atomic formula lying in the scope of more than three quantifiers. that fragment suffices, however, for peano arithmetic and the axiomatic set theory zfc; hence relation algebra, unlike pfl, is incompletable. most work on relation algebra since about 1920 has been by tarski and his american students. the power of relation algebra did not become manifest until the monograph tarski and givant (1987), published after the three important papers bearing on pfl, namely bacon (1985), kuhn (1983), and quine (1976);
+combinatory logic builds on combinators, higher order functions whose domain is another combinator or function, and whose range is yet another combinator. hence combinatory logic goes beyond first-order logic by having the expressive power of set theory, which makes combinatory logic vulnerable to paradoxes. a predicate functor, on the other hand, simply maps predicates (also called terms) into predicates.pfl is arguably the simplest of these formalisms, yet also the one about which the least has been written.
+quine had a lifelong fascination with combinatory logic, attested to by his introduction to the translation in van heijenoort (1967) of the paper by the russian logician moses schönfinkel founding combinatory logic. when quine began working on pfl in earnest, in 1959, combinatory logic was commonly deemed a failure for the following reasons:
+
+until dana scott began writing on the model theory of combinatory logic in the late 1960s, almost only haskell curry, his students, and robert feys in belgium worked on that logic;
+satisfactory axiomatic formulations of combinatory logic were slow in coming. in the 1930s, some formulations of combinatory logic were found to be inconsistent. curry also discovered the curry paradox, peculiar to combinatory logic;
+the lambda calculus, with the same expressive power as combinatory logic, was seen as a superior formalism.
+
+
+== kuhn's formalization ==
+the pfl syntax, primitives, and axioms described in this section are largely steven kuhn's (1983). the semantics of the functors are quine's (1982). the rest of this entry incorporates some terminology from bacon (1985).
+
+
+=== syntax ===
+an atomic term is an upper case latin letter, i and s excepted, followed by a numerical superscript called its degree, or by concatenated lower case variables, collectively known as an argument list. the degree of a term conveys the same information as the number of variables following a predicate letter. an atomic term of degree 0 denotes a boolean variable or a truth value. the degree of i is invariably 2 and so is not indicated.
+the "combinatory" (the word is quine's) predicate functors, all monadic and peculiar to pfl, are inv, inv, ∃, +, and p. a term is either an atomic term, or constructed by the following recursive rule. if τ is a term, then invτ, invτ, ∃τ, +τ, and pτ are terms. a functor with a superscript n, n a natural number > 1, denotes n consecutive applications (iterations) of that functor.
+a formula is either a term or defined by the recursive rule: if α and β are formulas, then αβ and ~(α) are likewise formulas. hence "~" is another monadic functor, and concatenation is the sole dyadic predicate functor. quine called these functors "alethic." the natural interpretation of "~" is negation; that of concatenation is any connective that, when combined with negation, forms a functionally complete set of connectives. quine's preferred functionally complete set was conjunction and negation. thus concatenated terms are taken as conjoined. the notation + is bacon's (1985); all other notation is quine's (1976; 1982). the alethic part of pfl is identical to the boolean term schemata of quine (1982).
+as is well known, the two alethic functors could be replaced by a single dyadic functor with the following syntax and semantics: if α and β are formulas, then (αβ) is a formula whose semantics are "not (α and/or β)" (see nand and nor).
+
+
+=== axioms and semantics ===
+quine set out neither axiomatization nor proof procedure for pfl. the following axiomatization of pfl, one of two proposed in kuhn (1983), is concise and easy to describe, but makes extensive use of free variables and so does not do full justice to the spirit of pfl. kuhn gives another axiomatization dispensing with free variables, but that is harder to describe and that makes extensive use of defined functors. kuhn proved both of his pfl axiomatizations sound and complete.
+this section is built around the primitive predicate functors and a few defined ones. the alethic functors can be axiomatized by any set of axioms for sentential logic whose primitives are negation and one of ∧ or ∨. equivalently, all tautologies of sentential logic can be taken as axioms.
+quine's (1982) semantics for each predicate functor are stated below in terms of abstraction (set builder notation), followed by either the relevant axiom from kuhn (1983), or a definition from quine (1976). the notation 
+  
+    
+      
+        {
+        
+          x
+          
+            1
+          
+        
+        ⋯
+        
+          x
+          
+            n
+          
+        
+        :
+        f
+        
+          x
+          
+            1
+          
+        
+        ⋯
+        
+          x
+          
+            n
+          
+        
+        }
+      
+    
+    {\displaystyle \{x_{1}\cdots x_{n}:fx_{1}\cdots x_{n}\}}
+   denotes the set of n-tuples satisfying the atomic formula 
+  
+    
+      
+        f
+        
+          x
+          
+            1
+          
+        
+        ⋯
+        
+          x
+          
+            n
+          
+        
+        .
+      
+    
+    {\displaystyle fx_{1}\cdots x_{n}.}
+  
+
+identity, i, is defined as:
+  
+    
+      
+        i
+        f
+        
+          x
+          
+            1
+          
+        
+        
+          x
+          
+            2
+          
+        
+        ⋯
+        
+          x
+          
+            n
+          
+        
+        ↔
+        f
+        
+          x
+          
+            1
+          
+        
+        
+          x
+          
+            1
+          
+        
+        ⋯
+        
+          x
+          
+            n
+          
+        
+        ↔
+        f
+        
+          x
+          
+            2
+          
+        
+        
+          x
+          
+            2
+          
+        
+        ⋯
+        
+          x
+          
+            n
+          
+        
+        .
+      
+    
+    {\displaystyle ifx_{1}x_{2}\cdots x_{n}\leftrightarrow fx_{1}x_{1}\cdots x_{n}\leftrightarrow fx_{2}x_{2}\cdots x_{n}.}
+  identity is reflexive (ixx), symmetric (ixy→iyx), transitive ((ixy∧iyz) → ixz), and obeys the substitution property:
+
+  
+    
+      
+        (
+        f
+        
+          x
+          
+            1
+          
+        
+        ⋯
+        
+          x
+          
+            n
+          
+        
+        ∧
+        i
+        
+          x
+          
+            1
+          
+        
+        y
+        )
+        →
+        f
+        y
+        
+          x
+          
+            2
+          
+        
+        ⋯
+        
+          x
+          
+            n
+          
+        
+        .
+      
+    
+    {\displaystyle (fx_{1}\cdots x_{n}\land ix_{1}y)\rightarrow fyx_{2}\cdots x_{n}.}
+  padding, +, adds a variable to the left of any argument list.
+  
+    
+      
+         
+        +
+        
+          f
+          
+            n
+          
+        
+         
+        
+          
+            =
+            
+              
+              
+                d
+                e
+                f
+              
+            
+          
+        
+         
+        {
+        
+          x
+          
+            0
+          
+        
+        
+          x
+          
+            1
+          
+        
+        ⋯
+        
+          x
+          
+            n
+          
+        
+        :
+        
+          f
+          
+            n
+          
+        
+        
+          x
+          
+            1
+          
+        
+        ⋯
+        
+          x
+          
+            n
+          
+        
+        }
+        .
+      
+    
+    {\displaystyle \ +f^{n}\ {\overset {\underset {\mathrm {def} }{}}{=}}\ \{x_{0}x_{1}\cdots x_{n}:f^{n}x_{1}\cdots x_{n}\}.}
+  
+
+  
+    
+      
+        +
+        f
+        
+          x
+          
+            1
+          
+        
+        ⋯
+        
+          x
+          
+            n
+          
+        
+        ↔
+        f
+        
+          x
+          
+            2
+          
+        
+        ⋯
+        
+          x
+          
+            n
+          
+        
+        .
+      
+    
+    {\displaystyle +fx_{1}\cdots x_{n}\leftrightarrow fx_{2}\cdots x_{n}.}
+  cropping, ∃, erases the leftmost variable in any argument list.
+  
+    
+      
+        ∃
+        
+          f
+          
+            n
+          
+        
+         
+        
+          
+            =
+            
+              
+              
+                d
+                e
+                f
+              
+            
+          
+        
+         
+        {
+        
+          x
+          
+            2
+          
+        
+        ⋯
+        
+          x
+          
+            n
+          
+        
+        :
+        ∃
+        
+          x
+          
+            1
+          
+        
+        
+          f
+          
+            n
+          
+        
+        
+          x
+          
+            1
+          
+        
+        ⋯
+        
+          x
+          
+            n
+          
+        
+        }
+        .
+      
+    
+    {\displaystyle \exists f^{n}\ {\overset {\underset {\mathrm {def} }{}}{=}}\ \{x_{2}\cdots x_{n}:\exists x_{1}f^{n}x_{1}\cdots x_{n}\}.}
+  
+
+  
+    
+      
+        f
+        
+          x
+          
+            1
+          
+        
+        ⋯
+        
+          x
+          
+            n
+          
+        
+        →
+        ∃
+        f
+        
+          x
+          
+            2
+          
+        
+        ⋯
+        
+          x
+          
+            n
+          
+        
+        .
+      
+    
+    {\displaystyle fx_{1}\cdots x_{n}\rightarrow \exists fx_{2}\cdots x_{n}.}
+  cropping enables two useful defined functors:
+
+reflection, s:
+  
+    
+      
+        s
+        
+          f
+          
+            n
+          
+        
+         
+        
+          
+            =
+            
+              
+              
+                d
+                e
+                f
+              
+            
+          
+        
+         
+        {
+        
+          x
+          
+            2
+          
+        
+        ⋯
+        
+          x
+          
+            n
+          
+        
+        :
+        
+          f
+          
+            n
+          
+        
+        
+          x
+          
+            2
+          
+        
+        
+          x
+          
+            2
+          
+        
+        ⋯
+        
+          x
+          
+            n
+          
+        
+        }
+        .
+      
+    
+    {\displaystyle sf^{n}\ {\overset {\underset {\mathrm {def} }{}}{=}}\ \{x_{2}\cdots x_{n}:f^{n}x_{2}x_{2}\cdots x_{n}\}.}
+  
+
+  
+    
+      
+        s
+        
+          f
+          
+            n
+          
+        
+        ↔
+        ∃
+        i
+        
+          f
+          
+            n
+          
+        
+        .
+      
+    
+    {\displaystyle sf^{n}\leftrightarrow \exists if^{n}.}
+  s generalizes the notion of reflexivity to all terms of any finite degree greater than 2. n.b: s should not be confused with the primitive combinator s of combinatory logic.
+
+cartesian product, 
+  
+    
+      
+        ×
+      
+    
+    {\displaystyle \times }
+  ;
+  
+    
+      
+        
+          f
+          
+            m
+          
+        
+        ×
+        
+          g
+          
+            n
+          
+        
+        ↔
+        
+          f
+          
+            m
+          
+        
+        
+          ∃
+          
+            m
+          
+        
+        
+          g
+          
+            n
+          
+        
+        .
+      
+    
+    {\displaystyle f^{m}\times g^{n}\leftrightarrow f^{m}\exists ^{m}g^{n}.}
+  here only, quine adopted an infix notation, because this infix notation for cartesian product is very well established in mathematics. cartesian product allows restating conjunction as follows:
+
+  
+    
+      
+        
+          f
+          
+            m
+          
+        
+        
+          x
+          
+            1
+          
+        
+        ⋯
+        
+          x
+          
+            m
+          
+        
+        
+          g
+          
+            n
+          
+        
+        
+          x
+          
+            1
+          
+        
+        ⋯
+        
+          x
+          
+            n
+          
+        
+        ↔
+        (
+        
+          f
+          
+            m
+          
+        
+        ×
+        
+          g
+          
+            n
+          
+        
+        )
+        
+          x
+          
+            1
+          
+        
+        ⋯
+        
+          x
+          
+            m
+          
+        
+        
+          x
+          
+            1
+          
+        
+        ⋯
+        
+          x
+          
+            n
+          
+        
+        .
+      
+    
+    {\displaystyle f^{m}x_{1}\cdots x_{m}g^{n}x_{1}\cdots x_{n}\leftrightarrow (f^{m}\times g^{n})x_{1}\cdots x_{m}x_{1}\cdots x_{n}.}
+  reorder the concatenated argument list so as to shift a pair of duplicate variables to the far left, then invoke s to eliminate the duplication. repeating this as many times as required results in an argument list of length max(m,n).
+the next three functors enable reordering argument lists at will.  
+
+major inversion, inv, rotates the variables in an argument list to the right, so that the last variable becomes the first.
+  
+    
+      
+        inv
+        ⁡
+        
+          f
+          
+            n
+          
+        
+         
+        
+          
+            =
+            
+              
+              
+                d
+                e
+                f
+              
+            
+          
+        
+         
+        {
+        
+          x
+          
+            1
+          
+        
+        ⋯
+        
+          x
+          
+            n
+          
+        
+        :
+        
+          f
+          
+            n
+          
+        
+        
+          x
+          
+            n
+          
+        
+        
+          x
+          
+            1
+          
+        
+        ⋯
+        
+          x
+          
+            n
+            −
+            1
+          
+        
+        }
+        .
+      
+    
+    {\displaystyle \operatorname {inv} f^{n}\ {\overset {\underset {\mathrm {def} }{}}{=}}\ \{x_{1}\cdots x_{n}:f^{n}x_{n}x_{1}\cdots x_{n-1}\}.}
+  
+
+  
+    
+      
+        inv
+        ⁡
+        f
+        
+          x
+          
+            1
+          
+        
+        ⋯
+        
+          x
+          
+            n
+          
+        
+        ↔
+        f
+        
+          x
+          
+            n
+          
+        
+        
+          x
+          
+            1
+          
+        
+        ⋯
+        
+          x
+          
+            n
+            −
+            1
+          
+        
+        .
+      
+    
+    {\displaystyle \operatorname {inv} fx_{1}\cdots x_{n}\leftrightarrow fx_{n}x_{1}\cdots x_{n-1}.}
+  minor inversion, inv, swaps the first two variables in an argument list.
+  
+    
+      
+        inv
+        ⁡
+        
+          f
+          
+            n
+          
+        
+         
+        
+          
+            =
+            
+              
+              
+                d
+                e
+                f
+              
+            
+          
+        
+         
+        {
+        
+          x
+          
+            1
+          
+        
+        ⋯
+        
+          x
+          
+            n
+          
+        
+        :
+        
+          f
+          
+            n
+          
+        
+        
+          x
+          
+            2
+          
+        
+        
+          x
+          
+            1
+          
+        
+        ⋯
+        
+          x
+          
+            n
+          
+        
+        }
+        .
+      
+    
+    {\displaystyle \operatorname {inv} f^{n}\ {\overset {\underset {\mathrm {def} }{}}{=}}\ \{x_{1}\cdots x_{n}:f^{n}x_{2}x_{1}\cdots x_{n}\}.}
+  
+
+  
+    
+      
+        inv
+        ⁡
+        f
+        
+          x
+          
+            1
+          
+        
+        ⋯
+        
+          x
+          
+            n
+          
+        
+        ↔
+        f
+        
+          x
+          
+            2
+          
+        
+        
+          x
+          
+            1
+          
+        
+        ⋯
+        
+          x
+          
+            n
+          
+        
+        .
+      
+    
+    {\displaystyle \operatorname {inv} fx_{1}\cdots x_{n}\leftrightarrow fx_{2}x_{1}\cdots x_{n}.}
+  permutation, p, rotates the second through last variables in an argument list to the left, so that the second variable becomes the last.
+  
+    
+      
+         
+        p
+        
+          f
+          
+            n
+          
+        
+         
+        
+          
+            =
+            
+              
+              
+                d
+                e
+                f
+              
+            
+          
+        
+         
+        {
+        
+          x
+          
+            1
+          
+        
+        ⋯
+        
+          x
+          
+            n
+          
+        
+        :
+        
+          f
+          
+            n
+          
+        
+        
+          x
+          
+            1
+          
+        
+        
+          x
+          
+            3
+          
+        
+        ⋯
+        
+          x
+          
+            n
+          
+        
+        
+          x
+          
+            2
+          
+        
+        }
+        .
+      
+    
+    {\displaystyle \ pf^{n}\ {\overset {\underset {\mathrm {def} }{}}{=}}\ \{x_{1}\cdots x_{n}:f^{n}x_{1}x_{3}\cdots x_{n}x_{2}\}.}
+  
+
+  
+    
+      
+        p
+        f
+        
+          x
+          
+            1
+          
+        
+        ⋯
+        
+          x
+          
+            n
+          
+        
+        ↔
+        inv
+        ⁡
+        inv
+        ⁡
+        f
+        
+          x
+          
+            1
+          
+        
+        
+          x
+          
+            3
+          
+        
+        ⋯
+        
+          x
+          
+            n
+          
+        
+        
+          x
+          
+            2
+          
+        
+        .
+      
+    
+    {\displaystyle pfx_{1}\cdots x_{n}\leftrightarrow \operatorname {inv} \operatorname {inv} fx_{1}x_{3}\cdots x_{n}x_{2}.}
+  given an argument list consisting of n variables, p implicitly treats the last n−1 variables like a bicycle chain, with each variable constituting a link in the chain. one application of p advances the chain by one link. k consecutive applications of p to fn moves the k+1 variable to the second argument position in f.
+when n=2, inv and inv merely interchange x1 and x2. when n=1, they have no effect. hence p has no effect when n < 3.
+kuhn (1983) takes major inversion and minor inversion as primitive. the notation p in kuhn corresponds to inv; he has no analog to permutation and hence has no axioms for it. if, following quine (1976), p is taken as primitive, inv and inv can be defined as nontrivial combinations of +, ∃, and iterated p.
+the following table summarizes how the functors affect the degrees of their arguments.
+
+
+=== rules ===
+all instances of a predicate letter may be replaced by another predicate letter of the same degree, without affecting validity. the rules are:
+
+modus ponens;
+let α and β be pfl formulas in which 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+      
+    
+    {\displaystyle x_{1}}
+   does not appear. then if 
+  
+    
+      
+        (
+        α
+        ∧
+        f
+        
+          x
+          
+            1
+          
+        
+        .
+        .
+        .
+        
+          x
+          
+            n
+          
+        
+        )
+        →
+        β
+      
+    
+    {\displaystyle (\alpha \land fx_{1}...x_{n})\rightarrow \beta }
+   is a pfl theorem, then 
+  
+    
+      
+        (
+        α
+        ∧
+        ∃
+        f
+        
+          x
+          
+            2
+          
+        
+        .
+        .
+        .
+        
+          x
+          
+            n
+          
+        
+        )
+        →
+        β
+      
+    
+    {\displaystyle (\alpha \land \exists fx_{2}...x_{n})\rightarrow \beta }
+   is likewise a pfl theorem.
+
+
+=== some useful results ===
+instead of axiomatizing pfl, quine (1976) proposed the following conjectures as candidate axioms.
+
+  
+    
+      
+        ∃
+        i
+      
+    
+    {\displaystyle \exists i}
+  n−1 consecutive iterations of p restores the status quo ante:
+
+  
+    
+      
+        
+          f
+          
+            n
+          
+        
+        ↔
+        
+          p
+          
+            n
+            −
+            1
+          
+        
+        
+          f
+          
+            n
+          
+        
+      
+    
+    {\displaystyle f^{n}\leftrightarrow p^{n-1}f^{n}}
+  + and ∃ annihilate each other:
+
+  
+    
+      
+        
+          
+            {
+            
+              
+                
+                  
+                    f
+                    
+                      n
+                    
+                  
+                  →
+                  +
+                  ∃
+                  
+                    f
+                    
+                      n
+                    
+                  
+                
+              
+              
+                
+                  
+                    f
+                    
+                      n
+                    
+                  
+                  ↔
+                  ∃
+                  +
+                  
+                    f
+                    
+                      n
+                    
+                  
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{cases}f^{n}\rightarrow +\exists f^{n}\\f^{n}\leftrightarrow \exists +f^{n}\end{cases}}}
+  negation distributes over +, ∃, and p:
+
+  
+    
+      
+        
+          
+            {
+            
+              
+                
+                  +
+                  ¬
+                  
+                    f
+                    
+                      n
+                    
+                  
+                  ↔
+                  ¬
+                  +
+                  
+                    f
+                    
+                      n
+                    
+                  
+                
+              
+              
+                
+                  ¬
+                  ∃
+                  
+                    f
+                    
+                      n
+                    
+                  
+                  →
+                  ∃
+                  ¬
+                  
+                    f
+                    
+                      n
+                    
+                  
+                
+              
+              
+                
+                  p
+                  ¬
+                  
+                    f
+                    
+                      n
+                    
+                  
+                  ↔
+                  ¬
+                  p
+                  
+                    f
+                    
+                      n
+                    
+                  
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{cases}+\lnot f^{n}\leftrightarrow \lnot +f^{n}\\\lnot \exists f^{n}\rightarrow \exists \lnot f^{n}\\p\lnot f^{n}\leftrightarrow \lnot pf^{n}\end{cases}}}
+  + and p distributes over conjunction:
+
+  
+    
+      
+        
+          
+            {
+            
+              
+                
+                  +
+                  (
+                  
+                    f
+                    
+                      n
+                    
+                  
+                  
+                    g
+                    
+                      m
+                    
+                  
+                  )
+                  ↔
+                  (
+                  +
+                  
+                    f
+                    
+                      n
+                    
+                  
+                  +
+                  
+                    g
+                    
+                      m
+                    
+                  
+                  )
+                
+              
+              
+                
+                  p
+                  (
+                  
+                    f
+                    
+                      n
+                    
+                  
+                  
+                    g
+                    
+                      m
+                    
+                  
+                  )
+                  ↔
+                  (
+                  p
+                  
+                    f
+                    
+                      n
+                    
+                  
+                  p
+                  
+                    g
+                    
+                      m
+                    
+                  
+                  )
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{cases}+(f^{n}g^{m})\leftrightarrow (+f^{n}+g^{m})\\p(f^{n}g^{m})\leftrightarrow (pf^{n}pg^{m})\end{cases}}}
+  identity has the interesting implication:
+
+  
+    
+      
+        i
+        
+          f
+          
+            n
+          
+        
+        →
+        
+          p
+          
+            n
+            −
+            2
+          
+        
+        ∃
+        p
+        +
+        
+          f
+          
+            n
+          
+        
+      
+    
+    {\displaystyle if^{n}\rightarrow p^{n-2}\exists p+f^{n}}
+  quine also conjectured the rule: if α is a pfl theorem, then so are pα, +α, and 
+  
+    
+      
+        ¬
+        ∃
+        ¬
+        α
+      
+    
+    {\displaystyle \lnot \exists \lnot \alpha }
+  .
+
+
+== bacon's work ==
+bacon (1985) takes the conditional, negation, identity, padding, and major and minor inversion as primitive, and cropping as defined. employing terminology and notation differing somewhat from the above, bacon (1985) sets out two formulations of pfl:
+
+a natural deduction formulation in the style of frederick fitch. bacon proves this formulation sound and complete in full detail.
+an axiomatic formulation, which bacon asserts, but does not prove, equivalent to the preceding one. some of these axioms are simply quine conjectures restated in bacon's notation.bacon also:
+
+discusses the relation of pfl to the term logic of sommers (1982), and argues that recasting pfl using a syntax proposed in lockwood's appendix to sommers, should make pfl easier to "read, use, and teach";
+touches on the group theoretic structure of inv and inv;
+mentions that sentential logic, monadic predicate logic, the modal logic s5, and the boolean logic of (un)permuted relations, are all fragments of pfl.
+
+
+== from first-order logic to pfl ==
+the following algorithm is adapted from quine (1976: 300-2). given a closed formula of first-order logic, first do the following:
+
+attach a numerical subscript to every predicate letter, stating its degree;
+translate all universal quantifiers into existential quantifiers and negation;
+restate all atomic formulas of the form x=y as ixy.now apply the following algorithm to the preceding result:
+
+the reverse translation, from pfl to first-order logic, is discussed in quine (1976: 302-4).
+the canonical foundation of mathematics is axiomatic set theory, with a background logic consisting of first-order logic with identity, with a universe of discourse consisting entirely of sets. there is a single predicate letter of degree 2, interpreted as set membership. the pfl translation of the canonical axiomatic set theory zfc is not difficult, as no zfc axiom requires more than 6 quantified variables.
+
+
+== see also ==
+algebraic logic
+
+
+== footnotes ==
+
+
+== references ==
+bacon, john, 1985, "the completeness of a predicate-functor logic," journal of symbolic logic 50: 903–26.
+paul bernays, 1959, "uber eine naturliche erweiterung des relationenkalkuls" in heyting, a., ed., constructivity in mathematics. north holland: 1–14.
+kuhn, steven t., 1983, "an axiomatization of predicate functor logic," notre dame journal of formal logic 24: 233–41.
+willard quine, 1976, "algebraic logic and predicate functors" in ways of paradox and other essays, enlarged ed. harvard univ. press: 283–307.
+willard quine, 1982. methods of logic, 4th ed. harvard univ. press. chpt. 45.
+sommers, fred, 1982. the logic of natural language. oxford univ. press.
+alfred tarski and givant, steven, 1987. a formalization of set theory without variables. ams.
+jean van heijenoort, 1967. from frege to gödel: a source book on mathematical logic. harvard univ. press.
+
+
+== external links ==
+an introduction to predicate-functor logic (one-click download, ps file) by mats dahllöf (department of linguistics, uppsala university)

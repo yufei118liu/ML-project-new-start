@@ -1,0 +1,1771 @@
+a bayesian network (also known as a bayes network, bayes net, belief network, or decision network) is a probabilistic graphical model that represents a set of variables and their conditional dependencies via a directed acyclic graph (dag). bayesian networks are ideal for taking an event that occurred and predicting the likelihood that any one of several possible known causes was the contributing factor.  for example, a bayesian network could represent the probabilistic relationships between diseases and symptoms. given symptoms, the network can be used to compute the probabilities of the presence of various diseases.
+efficient algorithms can perform inference and learning in bayesian networks. bayesian networks that model sequences of variables (e.g. speech signals or protein sequences) are called dynamic bayesian networks. generalizations of bayesian networks that can represent and solve decision problems under uncertainty are called influence diagrams.
+
+
+== graphical model ==
+formally, bayesian networks are directed acyclic graphs (dags) whose nodes represent variables in the bayesian sense: they may be observable quantities, latent variables, unknown parameters or hypotheses. edges represent conditional dependencies; nodes that are not connected (no path connects one node to another) represent variables that are conditionally independent of each other. each node is associated with a probability function that takes, as input, a particular set of values for the node's parent variables, and gives (as output) the probability (or probability distribution, if applicable) of the variable represented by the node. for example, if 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   parent nodes represent 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   boolean variables, then the probability function could be represented by a table of 
+  
+    
+      
+        
+          2
+          
+            m
+          
+        
+      
+    
+    {\displaystyle 2^{m}}
+   entries, one entry for each of the 
+  
+    
+      
+        
+          2
+          
+            m
+          
+        
+      
+    
+    {\displaystyle 2^{m}}
+   possible parent combinations. similar ideas may be applied to undirected, and possibly cyclic, graphs such as markov networks.
+
+
+== example ==
+
+two events can cause grass to be wet: an active sprinkler or rain. rain has a direct effect on the use of the sprinkler (namely that when it rains, the sprinkler usually is not active). this situation can be modeled with a bayesian network (shown to the right). each variable has two possible values, t (for true) and f (for false).
+the joint probability function is, by the chain rule of probability,
+
+  
+    
+      
+        pr
+        (
+        g
+        ,
+        s
+        ,
+        r
+        )
+        =
+        pr
+        (
+        g
+        ∣
+        s
+        ,
+        r
+        )
+        pr
+        (
+        s
+        ∣
+        r
+        )
+        pr
+        (
+        r
+        )
+      
+    
+    {\displaystyle \pr(g,s,r)=\pr(g\mid s,r)\pr(s\mid r)\pr(r)}
+  where g = "grass wet (true/false)", s = "sprinkler turned on (true/false)", and r = "raining (true/false)".
+the model can answer questions about the presence of a cause given the presence of an effect (so-called inverse probability) like "what is the probability that it is raining, given the grass is wet?" by using the conditional probability formula and summing over all nuisance variables:
+
+  
+    
+      
+        pr
+        (
+        r
+        =
+        t
+        ∣
+        g
+        =
+        t
+        )
+        =
+        
+          
+            
+              pr
+              (
+              g
+              =
+              t
+              ,
+              r
+              =
+              t
+              )
+            
+            
+              pr
+              (
+              g
+              =
+              t
+              )
+            
+          
+        
+        =
+        
+          
+            
+              
+                ∑
+                
+                  x
+                  ∈
+                  {
+                  t
+                  ,
+                  f
+                  }
+                
+              
+              pr
+              (
+              g
+              =
+              t
+              ,
+              s
+              =
+              x
+              ,
+              r
+              =
+              t
+              )
+            
+            
+              
+                ∑
+                
+                  x
+                  ,
+                  y
+                  ∈
+                  {
+                  t
+                  ,
+                  f
+                  }
+                
+              
+              pr
+              (
+              g
+              =
+              t
+              ,
+              s
+              =
+              x
+              ,
+              r
+              =
+              y
+              )
+            
+          
+        
+      
+    
+    {\displaystyle \pr(r=t\mid g=t)={\frac {\pr(g=t,r=t)}{\pr(g=t)}}={\frac {\sum _{x\in \{t,f\}}\pr(g=t,s=x,r=t)}{\sum _{x,y\in \{t,f\}}\pr(g=t,s=x,r=y)}}}
+  using the expansion for the joint probability function 
+  
+    
+      
+        pr
+        (
+        g
+        ,
+        s
+        ,
+        r
+        )
+      
+    
+    {\displaystyle \pr(g,s,r)}
+   and the conditional probabilities from the conditional probability tables (cpts) stated in the diagram, one can evaluate each term in the sums in the numerator and denominator. for example,
+
+  
+    
+      
+        
+          
+            
+              
+                pr
+                (
+                g
+                =
+                t
+                ,
+                s
+                =
+                t
+                ,
+                r
+                =
+                t
+                )
+              
+              
+                
+                =
+                pr
+                (
+                g
+                =
+                t
+                ∣
+                s
+                =
+                t
+                ,
+                r
+                =
+                t
+                )
+                pr
+                (
+                s
+                =
+                t
+                ∣
+                r
+                =
+                t
+                )
+                pr
+                (
+                r
+                =
+                t
+                )
+              
+            
+            
+              
+              
+                
+                =
+                0.99
+                ×
+                0.01
+                ×
+                0.2
+              
+            
+            
+              
+              
+                
+                =
+                0.00198.
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}\pr(g=t,s=t,r=t)&=\pr(g=t\mid s=t,r=t)\pr(s=t\mid r=t)\pr(r=t)\\&=0.99\times 0.01\times 0.2\\&=0.00198.\end{aligned}}}
+  then the numerical results (subscripted by the associated variable values) are
+
+  
+    
+      
+        pr
+        (
+        r
+        =
+        t
+        ∣
+        g
+        =
+        t
+        )
+        =
+        
+          
+            
+              
+                0.00198
+                
+                  t
+                  t
+                  t
+                
+              
+              +
+              
+                0.1584
+                
+                  t
+                  f
+                  t
+                
+              
+            
+            
+              
+                0.00198
+                
+                  t
+                  t
+                  t
+                
+              
+              +
+              
+                0.288
+                
+                  t
+                  t
+                  f
+                
+              
+              +
+              
+                0.1584
+                
+                  t
+                  f
+                  t
+                
+              
+              +
+              
+                0.0
+                
+                  t
+                  f
+                  f
+                
+              
+            
+          
+        
+        =
+        
+          
+            891
+            2491
+          
+        
+        ≈
+        35.77
+        %
+        .
+      
+    
+    {\displaystyle \pr(r=t\mid g=t)={\frac {0.00198_{ttt}+0.1584_{tft}}{0.00198_{ttt}+0.288_{ttf}+0.1584_{tft}+0.0_{tff}}}={\frac {891}{2491}}\approx 35.77\%.}
+  to answer an interventional question, such as "what is the probability that it would rain, given that we wet the grass?" the answer is governed by the post-intervention joint distribution function
+
+  
+    
+      
+        pr
+        (
+        s
+        ,
+        r
+        ∣
+        
+          do
+        
+        (
+        g
+        =
+        t
+        )
+        )
+        =
+        pr
+        (
+        s
+        ∣
+        r
+        )
+        pr
+        (
+        r
+        )
+      
+    
+    {\displaystyle \pr(s,r\mid {\text{do}}(g=t))=\pr(s\mid r)\pr(r)}
+  obtained by removing the factor 
+  
+    
+      
+        pr
+        (
+        g
+        ∣
+        s
+        ,
+        r
+        )
+      
+    
+    {\displaystyle \pr(g\mid s,r)}
+   from the pre-intervention distribution. the do operator forces the value of g to be true. the probability of rain is unaffected by the action:
+
+  
+    
+      
+        pr
+        (
+        r
+        ∣
+        
+          do
+        
+        (
+        g
+        =
+        t
+        )
+        )
+        =
+        pr
+        (
+        r
+        )
+        .
+      
+    
+    {\displaystyle \pr(r\mid {\text{do}}(g=t))=\pr(r).}
+  to predict the impact of turning the sprinkler on:
+
+  
+    
+      
+        pr
+        (
+        r
+        ,
+        g
+        ∣
+        
+          do
+        
+        (
+        s
+        =
+        t
+        )
+        )
+        =
+        pr
+        (
+        r
+        )
+        pr
+        (
+        g
+        ∣
+        r
+        ,
+        s
+        =
+        t
+        )
+      
+    
+    {\displaystyle \pr(r,g\mid {\text{do}}(s=t))=\pr(r)\pr(g\mid r,s=t)}
+  with the term 
+  
+    
+      
+        pr
+        (
+        s
+        =
+        t
+        ∣
+        r
+        )
+      
+    
+    {\displaystyle \pr(s=t\mid r)}
+   removed, showing that the action affects the grass but not the rain.
+these predictions may not be feasible given unobserved variables, as in most policy evaluation problems. the effect of the action 
+  
+    
+      
+        
+          do
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle {\text{do}}(x)}
+   can still be predicted, however, whenever the back-door criterion is satisfied. it states that, if a set z of nodes can be observed that d-separates (or blocks) all back-door paths from x to y then
+
+  
+    
+      
+        pr
+        (
+        y
+        ,
+        z
+        ∣
+        
+          do
+        
+        (
+        x
+        )
+        )
+        =
+        
+          
+            
+              pr
+              (
+              y
+              ,
+              z
+              ,
+              x
+              =
+              x
+              )
+            
+            
+              pr
+              (
+              x
+              =
+              x
+              ∣
+              z
+              )
+            
+          
+        
+        .
+      
+    
+    {\displaystyle \pr(y,z\mid {\text{do}}(x))={\frac {\pr(y,z,x=x)}{\pr(x=x\mid z)}}.}
+  a back-door path is one that ends with an arrow into x. sets that satisfy the back-door criterion are called "sufficient" or "admissible." for example, the set z = r is admissible for predicting the effect of s = t on g, because r d-separates the (only) back-door path s ← r → g. however, if s is not observed, no other set d-separates this path and the effect of turning the sprinkler on (s = t) on the grass (g) cannot be predicted from passive observations. in that case p(g | do(s = t)) is not "identified". this reflects the fact that, lacking interventional data, the observed dependence between s and g is due to a causal connection or is spurious
+(apparent dependence arising from a common cause, r). (see simpson's paradox)
+to determine whether a causal relation is identified from an arbitrary bayesian network with unobserved variables, one can use the three rules of "do-calculus" and test whether all do terms can be removed from the expression of that relation, thus confirming that the desired quantity is estimable from frequency data.using a bayesian network can save considerable amounts of memory over exhaustive probability tables, if the dependencies in the joint distribution are sparse. for example, a naive way of storing the conditional probabilities of 10 two-valued variables as a table requires storage space for 
+  
+    
+      
+        
+          2
+          
+            10
+          
+        
+        =
+        1024
+      
+    
+    {\displaystyle 2^{10}=1024}
+   values. if no variable's local distribution depends on more than three parent variables, the bayesian network representation stores at most 
+  
+    
+      
+        10
+        ⋅
+        
+          2
+          
+            3
+          
+        
+        =
+        80
+      
+    
+    {\displaystyle 10\cdot 2^{3}=80}
+   values.
+one advantage of bayesian networks is that it is intuitively easier for a human to understand (a sparse set of) direct dependencies and local distributions than complete joint distributions.
+
+
+== inference and learning ==
+bayesian networks perform three main inference tasks:
+
+
+=== inferring unobserved variables ===
+because a bayesian network is a complete model for its variables and their relationships, it can be used to answer probabilistic queries about them. for example, the network can be used to update knowledge of the state of a subset of variables when other variables (the evidence variables) are observed. this process of computing the posterior distribution of variables given evidence is called probabilistic inference. the posterior gives a universal sufficient statistic for detection applications, when choosing values for the variable subset that minimize some expected loss function, for instance the probability of decision error. a bayesian network can thus be considered a mechanism for automatically applying bayes' theorem to complex problems.
+the most common exact inference methods are: variable elimination, which eliminates (by integration or summation) the non-observed non-query variables one by one by distributing the sum over the product; clique tree propagation, which caches the computation so that many variables can be queried at one time and new evidence can be propagated quickly; and recursive conditioning and and/or search, which allow for a space–time tradeoff and match the efficiency of variable elimination when enough space is used. all of these methods have complexity that is exponential in the network's treewidth. the most common approximate inference algorithms are importance sampling, stochastic mcmc simulation, mini-bucket elimination, loopy belief propagation, generalized belief propagation and variational methods.
+
+
+=== parameter learning ===
+in order to fully specify the bayesian network and thus fully represent the joint probability distribution, it is necessary to specify for each node x the probability distribution for x conditional upon x's parents. the distribution of x conditional upon its parents may have any form. it is common to work with discrete or gaussian distributions since that simplifies calculations. sometimes only constraints on distribution are known; one can then use the principle of maximum entropy to determine a single distribution, the one with the greatest entropy given the constraints. (analogously, in the specific context of a dynamic bayesian network, the conditional distribution for the hidden state's temporal evolution is commonly specified to maximize the entropy rate of the implied stochastic process.)
+often these conditional distributions include parameters that are unknown and must be estimated from data, e.g., via the maximum likelihood approach. direct maximization of the likelihood (or of the posterior probability) is often complex given unobserved variables. a classical approach to this problem is the expectation-maximization algorithm, which alternates computing expected values of the unobserved variables conditional on observed data, with maximizing the complete likelihood (or posterior) assuming that previously computed expected values are correct. under mild regularity conditions, this process converges on maximum likelihood (or maximum posterior) values for parameters.
+a more fully bayesian approach to parameters is to treat them as additional unobserved variables and to compute a full posterior distribution over all nodes conditional upon observed data, then to integrate out the parameters. this approach can be expensive and lead to large dimension models, making classical parameter-setting approaches more tractable.
+
+
+=== structure learning ===
+in the simplest case, a bayesian network is specified by an expert and is then used to perform inference. in other applications, the task of defining the network is too complex for humans. in this case, the network structure and the parameters of the local distributions must be learned from data.
+automatically learning the graph structure of a bayesian network (bn) is a challenge pursued within machine learning. the basic idea goes back to a recovery algorithm developed by rebane and pearl and rests on the distinction between the three possible patterns allowed in a 3-node dag:
+
+the first 2 represent the same dependencies (
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   and 
+  
+    
+      
+        z
+      
+    
+    {\displaystyle z}
+   are independent given 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+  ) and are, therefore, indistinguishable. the collider, however, can be uniquely identified, since 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   and 
+  
+    
+      
+        z
+      
+    
+    {\displaystyle z}
+   are marginally independent and all other pairs are dependent. thus, while the skeletons (the graphs stripped of arrows) of these three triplets are identical, the directionality of the arrows is partially identifiable. the same distinction applies when 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   and 
+  
+    
+      
+        z
+      
+    
+    {\displaystyle z}
+   have common parents, except that one must first condition on those parents. algorithms have been developed to systematically determine the skeleton of the underlying graph and, then, orient all arrows whose directionality is dictated by the conditional independences observed.an alternative method of structural learning uses optimization-based search. it requires a scoring function and a search strategy. a common scoring function is posterior probability of the structure given the training data, like the bic or the bdeu. the time requirement of an exhaustive search returning a structure that maximizes the score is superexponential in the number of variables. a local search strategy makes incremental changes aimed at improving the score of the structure. a global search algorithm like markov chain monte carlo can avoid getting trapped in local minima. friedman et al. discuss using mutual information between variables and finding a structure that maximizes this. they do this by restricting the parent candidate set to k nodes and exhaustively searching therein.
+a particularly fast method for exact bn learning is to cast the problem as an optimization problem, and solve it using integer programming. acyclicity constraints are added to the integer program (ip) during solving in the form of cutting planes. such method can handle problems with up to 100 variables.
+in order to deal with problems with thousands of variables, a different approach is necessary. one is to first sample one ordering, and then find the optimal bn structure with respect to that ordering. this implies working on the search space of the possible orderings, which is convenient as it is smaller than the space of network structures. multiple orderings are then sampled and evaluated. this method has been proven to be the best available in literature when the number of variables is huge.another method consists of focusing on the sub-class of decomposable models, for which the mle have a closed form. it is then possible to discover a consistent structure for hundreds of variables.learning bayesian networks with bounded treewidth is necessary to allow exact, tractable inference, since the worst-case inference complexity is exponential in the treewidth k (under the exponential time hypothesis). yet, as a global property of the graph, it considerably increases the difficulty of the learning process. in this context it is possible to use k-tree for effective learning.
+
+
+== statistical introduction ==
+
+given data 
+  
+    
+      
+        x
+        
+        
+      
+    
+    {\displaystyle x\,\!}
+   and parameter 
+  
+    
+      
+        θ
+      
+    
+    {\displaystyle \theta }
+  , a simple bayesian analysis starts with a prior probability (prior) 
+  
+    
+      
+        p
+        (
+        θ
+        )
+      
+    
+    {\displaystyle p(\theta )}
+   and likelihood 
+  
+    
+      
+        p
+        (
+        x
+        ∣
+        θ
+        )
+      
+    
+    {\displaystyle p(x\mid \theta )}
+   to compute a posterior probability 
+  
+    
+      
+        p
+        (
+        θ
+        ∣
+        x
+        )
+        ∝
+        p
+        (
+        x
+        ∣
+        θ
+        )
+        p
+        (
+        θ
+        )
+      
+    
+    {\displaystyle p(\theta \mid x)\propto p(x\mid \theta )p(\theta )}
+  .
+often the prior on 
+  
+    
+      
+        θ
+      
+    
+    {\displaystyle \theta }
+   depends in turn on other parameters 
+  
+    
+      
+        φ
+      
+    
+    {\displaystyle \varphi }
+   that are not mentioned in the likelihood. so, the prior 
+  
+    
+      
+        p
+        (
+        θ
+        )
+      
+    
+    {\displaystyle p(\theta )}
+   must be replaced by a likelihood 
+  
+    
+      
+        p
+        (
+        θ
+        ∣
+        φ
+        )
+      
+    
+    {\displaystyle p(\theta \mid \varphi )}
+  , and a prior 
+  
+    
+      
+        p
+        (
+        φ
+        )
+      
+    
+    {\displaystyle p(\varphi )}
+   on the newly introduced parameters 
+  
+    
+      
+        φ
+      
+    
+    {\displaystyle \varphi }
+   is required, resulting in a posterior probability
+
+  
+    
+      
+        p
+        (
+        θ
+        ,
+        φ
+        ∣
+        x
+        )
+        ∝
+        p
+        (
+        x
+        ∣
+        θ
+        )
+        p
+        (
+        θ
+        ∣
+        φ
+        )
+        p
+        (
+        φ
+        )
+        .
+      
+    
+    {\displaystyle p(\theta ,\varphi \mid x)\propto p(x\mid \theta )p(\theta \mid \varphi )p(\varphi ).}
+  this is the simplest example of a hierarchical bayes model.
+the process may be repeated; for example, the parameters 
+  
+    
+      
+        φ
+      
+    
+    {\displaystyle \varphi }
+   may depend in turn on additional parameters 
+  
+    
+      
+        ψ
+        
+        
+      
+    
+    {\displaystyle \psi \,\!}
+  , which require their own prior. eventually the process must terminate, with priors that do not depend on unmentioned parameters.
+
+
+=== introductory examples ===
+given the measured quantities 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+        
+        
+      
+    
+    {\displaystyle x_{1},\dots ,x_{n}\,\!}
+  each with normally distributed errors of known standard deviation 
+  
+    
+      
+        σ
+        
+        
+      
+    
+    {\displaystyle \sigma \,\!}
+  ,
+
+  
+    
+      
+        
+          x
+          
+            i
+          
+        
+        ∼
+        n
+        (
+        
+          θ
+          
+            i
+          
+        
+        ,
+        
+          σ
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle x_{i}\sim n(\theta _{i},\sigma ^{2})}
+  suppose we are interested in estimating the 
+  
+    
+      
+        
+          θ
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \theta _{i}}
+  . an approach would be to estimate the 
+  
+    
+      
+        
+          θ
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \theta _{i}}
+   using a maximum likelihood approach; since the observations are independent, the likelihood factorizes and the maximum likelihood estimate is simply
+
+  
+    
+      
+        
+          θ
+          
+            i
+          
+        
+        =
+        
+          x
+          
+            i
+          
+        
+        .
+      
+    
+    {\displaystyle \theta _{i}=x_{i}.}
+  however, if the quantities are related, so that for example the individual 
+  
+    
+      
+        
+          θ
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \theta _{i}}
+  have themselves been drawn from an underlying distribution, then this relationship destroys the independence and suggests a more complex model, e.g.,
+
+  
+    
+      
+        
+          x
+          
+            i
+          
+        
+        ∼
+        n
+        (
+        
+          θ
+          
+            i
+          
+        
+        ,
+        
+          σ
+          
+            2
+          
+        
+        )
+        ,
+      
+    
+    {\displaystyle x_{i}\sim n(\theta _{i},\sigma ^{2}),}
+  
+
+  
+    
+      
+        
+          θ
+          
+            i
+          
+        
+        ∼
+        n
+        (
+        φ
+        ,
+        
+          τ
+          
+            2
+          
+        
+        )
+        ,
+      
+    
+    {\displaystyle \theta _{i}\sim n(\varphi ,\tau ^{2}),}
+  with improper priors 
+  
+    
+      
+        φ
+        ∼
+        
+          flat
+        
+      
+    
+    {\displaystyle \varphi \sim {\text{flat}}}
+  , 
+  
+    
+      
+        τ
+        ∼
+        
+          flat
+        
+        ∈
+        (
+        0
+        ,
+        ∞
+        )
+      
+    
+    {\displaystyle \tau \sim {\text{flat}}\in (0,\infty )}
+  . when 
+  
+    
+      
+        n
+        ≥
+        3
+      
+    
+    {\displaystyle n\geq 3}
+  , this is an identified model (i.e. there exists a unique solution for the model's parameters), and the posterior distributions of the individual 
+  
+    
+      
+        
+          θ
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \theta _{i}}
+   will tend to move, or shrink away from the maximum likelihood estimates towards their common mean. this shrinkage is a typical behavior in hierarchical bayes models.
+
+
+=== restrictions on priors ===
+some care is needed when choosing priors in a hierarchical model, particularly on scale variables at higher levels of the hierarchy such as the variable 
+  
+    
+      
+        τ
+        
+        
+      
+    
+    {\displaystyle \tau \,\!}
+   in the example. the usual priors such as the jeffreys prior often do not work, because the posterior distribution will not be normalizable and estimates made by minimizing the expected loss will be inadmissible.
+
+
+== definitions and concepts ==
+
+several equivalent definitions of a bayesian network have been offered. for the following, let g = (v,e) be a directed acyclic graph (dag) and let x = (xv), v ∈ v be a set of random variables indexed by v.
+
+
+=== factorization definition ===
+x is a bayesian network with respect to g if its joint probability density function (with respect to a product measure) can be written as a product of the individual density functions, conditional on their parent variables:
+
+  
+    
+      
+        p
+        (
+        x
+        )
+        =
+        
+          ∏
+          
+            v
+            ∈
+            v
+          
+        
+        p
+        
+          (
+          
+            
+              x
+              
+                v
+              
+            
+            
+            
+              
+                |
+              
+            
+            
+            
+              x
+              
+                pa
+                ⁡
+                (
+                v
+                )
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle p(x)=\prod _{v\in v}p\left(x_{v}\,{\big |}\,x_{\operatorname {pa} (v)}\right)}
+  where pa(v) is the set of parents of v (i.e. those vertices pointing directly to v via a single edge).
+for any set of random variables, the probability of any member of a joint distribution can be calculated from conditional probabilities using the chain rule (given a topological ordering of x) as follows:
+
+  
+    
+      
+        p
+        ⁡
+        (
+        
+          x
+          
+            1
+          
+        
+        =
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+        =
+        
+          x
+          
+            n
+          
+        
+        )
+        =
+        
+          ∏
+          
+            v
+            =
+            1
+          
+          
+            n
+          
+        
+        p
+        ⁡
+        
+          (
+          
+            
+              x
+              
+                v
+              
+            
+            =
+            
+              x
+              
+                v
+              
+            
+            ∣
+            
+              x
+              
+                v
+                +
+                1
+              
+            
+            =
+            
+              x
+              
+                v
+                +
+                1
+              
+            
+            ,
+            …
+            ,
+            
+              x
+              
+                n
+              
+            
+            =
+            
+              x
+              
+                n
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \operatorname {p} (x_{1}=x_{1},\ldots ,x_{n}=x_{n})=\prod _{v=1}^{n}\operatorname {p} \left(x_{v}=x_{v}\mid x_{v+1}=x_{v+1},\ldots ,x_{n}=x_{n}\right)}
+  using the definition above, this can be written as:
+
+  
+    
+      
+        p
+        ⁡
+        (
+        
+          x
+          
+            1
+          
+        
+        =
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+        =
+        
+          x
+          
+            n
+          
+        
+        )
+        =
+        
+          ∏
+          
+            v
+            =
+            1
+          
+          
+            n
+          
+        
+        p
+        ⁡
+        (
+        
+          x
+          
+            v
+          
+        
+        =
+        
+          x
+          
+            v
+          
+        
+        ∣
+        
+          x
+          
+            j
+          
+        
+        =
+        
+          x
+          
+            j
+          
+        
+        
+           for each 
+        
+        
+          x
+          
+            j
+          
+        
+        
+        
+           that is a parent of 
+        
+        
+          x
+          
+            v
+          
+        
+        
+        )
+      
+    
+    {\displaystyle \operatorname {p} (x_{1}=x_{1},\ldots ,x_{n}=x_{n})=\prod _{v=1}^{n}\operatorname {p} (x_{v}=x_{v}\mid x_{j}=x_{j}{\text{ for each }}x_{j}\,{\text{ that is a parent of }}x_{v}\,)}
+  the difference between the two expressions is the conditional independence of the variables from any of their non-descendants, given the values of their parent variables.
+
+
+=== local markov property ===
+x is a bayesian network with respect to g if it satisfies the local markov property: each variable is conditionally independent of its non-descendants given its parent variables:
+
+  
+    
+      
+        
+          x
+          
+            v
+          
+        
+        ⊥
+        
+        
+        
+        ⊥
+        
+          x
+          
+            v
+            
+            ∖
+            
+            de
+            ⁡
+            (
+            v
+            )
+          
+        
+        ∣
+        
+          x
+          
+            pa
+            ⁡
+            (
+            v
+            )
+          
+        
+        
+        
+          for all 
+        
+        v
+        ∈
+        v
+      
+    
+    {\displaystyle x_{v}\perp \!\!\!\perp x_{v\,\smallsetminus \,\operatorname {de} (v)}\mid x_{\operatorname {pa} (v)}\quad {\text{for all }}v\in v}
+  where de(v) is the set of descendants and v \ de(v) is the set of non-descendants of v.
+this can be expressed in terms similar to the first definition, as
+
+  
+    
+      
+        
+          
+            
+              
+              
+                p
+                ⁡
+                (
+                
+                  x
+                  
+                    v
+                  
+                
+                =
+                
+                  x
+                  
+                    v
+                  
+                
+                ∣
+                
+                  x
+                  
+                    i
+                  
+                
+                =
+                
+                  x
+                  
+                    i
+                  
+                
+                
+                   for each 
+                
+                
+                  x
+                  
+                    i
+                  
+                
+                
+                   that is not a descendant of 
+                
+                
+                  x
+                  
+                    v
+                  
+                
+                
+                )
+              
+            
+            
+              
+                =
+                
+
+                
+              
+              
+                p
+                (
+                
+                  x
+                  
+                    v
+                  
+                
+                =
+                
+                  x
+                  
+                    v
+                  
+                
+                ∣
+                
+                  x
+                  
+                    j
+                  
+                
+                =
+                
+                  x
+                  
+                    j
+                  
+                
+                
+                   for each 
+                
+                
+                  x
+                  
+                    j
+                  
+                
+                
+                   that is a parent of 
+                
+                
+                  x
+                  
+                    v
+                  
+                
+                
+                )
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}&\operatorname {p} (x_{v}=x_{v}\mid x_{i}=x_{i}{\text{ for each }}x_{i}{\text{ that is not a descendant of }}x_{v}\,)\\[6pt]={}&p(x_{v}=x_{v}\mid x_{j}=x_{j}{\text{ for each }}x_{j}{\text{ that is a parent of }}x_{v}\,)\end{aligned}}}
+  the set of parents is a subset of the set of non-descendants because the graph is acyclic.
+
+
+=== developing bayesian networks ===
+developing a bayesian network often begins with creating a dag g such that x satisfies the local markov property with respect to g. sometimes this is a causal dag. the conditional probability distributions of each variable given its parents in g are assessed. in many cases, in particular in the case where the variables are discrete, if the joint distribution of x is the product of these conditional distributions, then x is a bayesian network with respect to g.
+
+
+=== markov blanket ===
+the markov blanket of a node is the set of nodes consisting of its parents, its children, and any other parents of its children. the markov blanket renders the node independent of the rest of the network; the joint distribution of the variables in the markov blanket of a node is sufficient knowledge for calculating the distribution of the node. x is a bayesian network with respect to g if every node is conditionally independent of all other nodes in the network, given its markov blanket.
+
+
+==== d-separation ====
+this definition can be made more general by defining the "d"-separation of two nodes, where d stands for directional. we first define the "d"-separation of a trail and then we will define the "d"-separation of two nodes in terms of that.
+let p be a trail from node u to v. a trail is a loop-free, undirected (i.e. all edge directions are ignored) path between two nodes. then p is said to be d-separated by a set of nodes z if any of the following conditions holds:
+
+p contains (but does not need to be entirely) a directed chain, 
+  
+    
+      
+        u
+        ⋯
+        ←
+        m
+        ←
+        ⋯
+        v
+      
+    
+    {\displaystyle u\cdots \leftarrow m\leftarrow \cdots v}
+   or 
+  
+    
+      
+        u
+        ⋯
+        →
+        m
+        →
+        ⋯
+        v
+      
+    
+    {\displaystyle u\cdots \rightarrow m\rightarrow \cdots v}
+  , such that the middle node m is in z,
+p contains a fork, 
+  
+    
+      
+        u
+        ⋯
+        ←
+        m
+        →
+        ⋯
+        v
+      
+    
+    {\displaystyle u\cdots \leftarrow m\rightarrow \cdots v}
+  , such that the middle node m is in z, or
+p contains an inverted fork (or collider), 
+  
+    
+      
+        u
+        ⋯
+        →
+        m
+        ←
+        ⋯
+        v
+      
+    
+    {\displaystyle u\cdots \rightarrow m\leftarrow \cdots v}
+  , such that the middle node m is not in z and no descendant of m is in z.the nodes u and v are d-separated by z if all trails between them are d-separated. if u and v are not d-separated, they are d-connected.
+x is a bayesian network with respect to g if, for any two nodes u, v:
+
+  
+    
+      
+        
+          x
+          
+            u
+          
+        
+        ⊥
+        
+        
+        
+        ⊥
+        
+          x
+          
+            v
+          
+        
+        ∣
+        
+          x
+          
+            z
+          
+        
+      
+    
+    {\displaystyle x_{u}\perp \!\!\!\perp x_{v}\mid x_{z}}
+  where z is a set which d-separates u and v. (the markov blanket is the minimal set of nodes which d-separates node v from all other nodes.)
+
+
+=== causal networks ===
+although bayesian networks are often used to represent causal relationships, this need not be the case: a directed edge from u to v does not require that xv be causally dependent on xu. this is demonstrated by the fact that bayesian networks on the graphs:
+
+  
+    
+      
+        a
+        →
+        b
+        →
+        c
+        
+        
+          and
+        
+        
+        a
+        ←
+        b
+        ←
+        c
+      
+    
+    {\displaystyle a\rightarrow b\rightarrow c\qquad {\text{and}}\qquad a\leftarrow b\leftarrow c}
+  are equivalent: that is they impose exactly the same conditional independence requirements.
+a causal network is a bayesian network with the requirement that the relationships be causal. the additional semantics of causal networks specify that if a node x is actively caused to be in a given state x (an action written as do(x = x)), then the probability density function changes to that of the network obtained by cutting the links from the parents of x to x, and setting x to the caused value x. using these semantics, the impact of external interventions from data obtained prior to intervention can be predicted.
+
+
+== inference complexity and approximation algorithms ==
+in 1990, while working at stanford university on large bioinformatic applications, cooper proved that exact inference in bayesian networks is np-hard. this result prompted research on approximation algorithms with the aim of developing a tractable approximation to probabilistic inference. in 1993, paul dagum and michael luby proved two surprising results on the complexity of approximation of probabilistic inference in bayesian networks. first, they proved that no tractable deterministic algorithm can approximate probabilistic inference to within an absolute error ɛ < 1/2. second, they proved that no tractable randomized algorithm can approximate probabilistic inference to within an absolute error ɛ < 1/2 with confidence probability greater than 1/2.
+at about the same time, roth proved that exact inference in bayesian networks is in fact #p-complete (and thus as hard as counting the number of satisfying assignments of a conjunctive normal form formula (cnf)) and that approximate inference within a factor 2n1−ɛ for every ɛ > 0, even for bayesian networks with restricted architecture, is np-hard.in practical terms, these complexity results suggested that while bayesian networks were rich representations for ai and machine learning applications, their use in large real-world applications would need to be tempered by either topological structural constraints, such as naïve bayes networks, or by restrictions on the conditional probabilities. the bounded variance algorithm developed by dagum and luby was the first provable fast approximation algorithm to efficiently approximate probabilistic inference in bayesian networks with guarantees on the error approximation. this powerful algorithm required the minor restriction on the conditional probabilities of the bayesian network to be bounded away from zero and one by 1/p(n) where p(n) was any polynomial on the number of nodes in the network n.
+
+
+== software ==
+notable software for bayesian networks include:
+
+just another gibbs sampler (jags) – open-source alternative to winbugs. uses gibbs sampling.
+openbugs – open-source development of winbugs.
+spss modeler – commercial software that includes an implementation for bayesian networks.
+stan (software) – stan is an open-source package for obtaining bayesian inference using the no-u-turn sampler (nuts), a variant of hamiltonian monte carlo.
+pymc3 – a python library implementing an embedded domain specific language to represent bayesian networks, and a variety of samplers (including nuts)
+winbugs – one of the first computational implementations of mcmc samplers. no longer maintained.
+
+
+== history ==
+the term bayesian network was coined by judea pearl in 1985 to emphasize:
+the often subjective nature of the input information
+the reliance on bayes' conditioning as the basis for updating information
+the distinction between causal and evidential modes of reasoningin the late 1980s pearl's probabilistic reasoning in intelligent systems and neapolitan's probabilistic reasoning in expert systems summarized their properties and established them as a field of study.
+
+
+== see also ==
+
+
+== notes ==
+
+
+== references ==
+
+
+== further reading ==
+conrady s, jouffe l (2015-07-01). bayesian networks and bayesialab – a practical introduction for researchers. franklin, tennessee: bayesian usa. isbn 978-0-9965333-0-0.
+charniak e (winter 1991). "bayesian networks without tears" (pdf). ai magazine.
+kruse r, borgelt c, klawonn f, moewes c, steinbrecher m, held p (2013). computational intelligence a methodological introduction. london: springer-verlag. isbn 978-1-4471-5012-1.
+borgelt c, steinbrecher m, kruse r (2009). graphical models – representations for learning, reasoning and data mining (second ed.). chichester: wiley. isbn 978-0-470-74956-2.
+
+
+== external links ==
+an introduction to bayesian networks and their contemporary applications
+on-line tutorial on bayesian nets and probability
+web-app to create bayesian nets and run it with a monte carlo method
+continuous time bayesian networks
+bayesian networks: explanation and analogy
+a live tutorial on learning bayesian networks
+a hierarchical bayes model for handling sample heterogeneity in classification problems, provides a classification model taking into consideration the uncertainty associated with measuring replicate samples.
+hierarchical naive bayes model for handling sample uncertainty archived 2007-09-28 at the wayback machine, shows how to perform classification and learning with continuous and discrete variables with replicated measurements.

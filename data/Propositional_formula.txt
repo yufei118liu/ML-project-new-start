@@ -1,0 +1,845 @@
+in propositional logic, a propositional formula is a type of syntactic formula which is well formed and has a truth value. if the values of all variables in a propositional formula are given, it determines a unique truth value. a propositional formula may also be called a propositional expression, a sentence, or a sentential formula.
+a propositional formula is constructed from simple propositions, such as "five is greater than three" or propositional variables such as p and q, using connectives or logical operators such as not, and, or, or implies; for example:
+
+(p and not q) implies (p or q).in mathematics, a propositional formula is often more briefly referred to as a "proposition", but, more precisely, a propositional formula is not a proposition but a formal expression that denotes a proposition, a formal object under discussion, just like an expression such as "x + y" is not a value, but denotes a value. in some contexts, maintaining the distinction may be of importance.
+
+
+== propositions ==
+for the purposes of the propositional calculus, propositions (utterances, sentences, assertions) are considered to be either simple or compound. compound propositions are considered to be linked by sentential connectives, some of the most common of which are "and", "or", "if ... then ...", "neither ... nor ...", "... is equivalent to ..." . the linking semicolon ";", and connective "but" are considered to be expressions of "and". a sequence of discrete sentences are considered to be linked by "and"s, and formal analysis applies a recursive "parenthesis rule" with respect to sequences of simple propositions (see more below about well-formed formulas).
+
+for example: the assertion: "this cow is blue. that horse is orange but this horse here is purple." is actually a compound proposition linked by "and"s: ( ("this cow is blue" and "that horse is orange") and "this horse here is purple" ) .simple propositions are declarative in nature, that is, they make assertions about the condition or nature of a particular object of sensation e.g. "this cow is blue", "there's a coyote!" ("that coyote is there, behind the rocks."). thus the simple "primitive" assertions must be about specific objects or specific states of mind. each must have at least a subject (an immediate object of thought or observation), a verb (in the active voice and present tense preferred), and perhaps an adjective or adverb. "dog!" probably implies "i see a dog" but should be rejected as too ambiguous.
+
+example: "that purple dog is running", "this cow is blue", "switch m31 is closed", "this cap is off", "tomorrow is friday".for the purposes of the propositional calculus a compound proposition can usually be reworded into a series of simple sentences, although the result will probably sound stilted.
+
+
+=== relationship between propositional and predicate formulas ===
+the predicate calculus goes a step further than the propositional calculus to an "analysis of the inner structure of propositions" it breaks a simple sentence down into two parts (i) its subject (the object (singular or plural) of discourse) and (ii) a predicate (a verb or possibly verb-clause that asserts a quality or attribute of the object(s)). the predicate calculus then generalizes the "subject|predicate" form (where | symbolizes concatenation (stringing together) of symbols) into a form with the following blank-subject structure " ___|predicate", and the predicate in turn generalized to all things with that property.
+
+example: "this blue pig has wings" becomes two sentences in the propositional calculus: "this pig has wings" and "this pig is blue", whose internal structure is not considered. in contrast, in the predicate calculus, the first sentence breaks into "this pig" as the subject, and "has wings" as the predicate. thus it asserts that object "this pig" is a member of the class (set, collection) of "winged things". the second sentence asserts that object "this pig" has an attribute "blue" and thus is a member of the class of "blue things". one might choose to write the two sentences connected with and as:
+p|w and p|bthe generalization of "this pig" to a (potential) member of two classes "winged things" and "blue things" means that it has a truth-relationship with both of these classes. in other words, given a domain of discourse "winged things", p is either found to be a member of this domain or not. thus there is a relationship w (wingedness) between p (pig) and { t, f }, w(p) evaluates to { t, f } where { t, f } is the set of the boolean values "true" and "false". likewise for b (blueness) and p (pig) and { t, f }: b(p) evaluates to { t, f }. so one now can analyze the connected assertions "b(p) and w(p)" for its overall truth-value, i.e.:
+
+( b(p) and w(p) ) evaluates to { t, f }in particular, simple sentences that employ notions of "all", "some", "a few", "one of", etc. called logical quantifiers are treated by the predicate calculus. along with the new function symbolism "f(x)" two new symbols are introduced: ∀ (for all), and ∃ (there exists ..., at least one of ... exists, etc.). the predicate calculus, but not the propositional calculus, can establish the formal validity of the following statement:
+
+"all blue pigs have wings but some pigs have no wings, hence some pigs are not blue".
+
+
+=== identity ===
+tarski asserts that the notion of identity (as distinguished from logical equivalence) lies outside the propositional calculus; however, he notes that if a logic is to be of use for mathematics and the sciences it must contain a "theory" of identity. some authors refer to "predicate logic with identity" to emphasize this extension. see more about this below.
+
+
+== an algebra of propositions, the propositional calculus ==
+an algebra (and there are many different ones), loosely defined, is a method by which a collection of symbols called variables together with some other symbols such as parentheses (, ) and some sub-set of symbols such as *, +, ~, &, ∨, =, ≡, ∧, ￢ are manipulated within a system of rules. these symbols, and well-formed strings of them, are said to represent objects, but in a specific algebraic system these objects do not have meanings. thus work inside the algebra becomes an exercise in obeying certain laws (rules) of the algebra's syntax (symbol-formation) rather than in semantics (meaning) of the symbols. the meanings are to be found outside the algebra.
+for a well-formed sequence of symbols in the algebra —a formula— to have some usefulness outside the algebra the symbols are assigned meanings and eventually the variables are assigned values; then by a series of rules the formula is evaluated.
+when the values are restricted to just two and applied to the notion of simple sentences (e.g. spoken utterances or written assertions) linked by propositional connectives this whole algebraic system of symbols and rules and evaluation-methods is usually called the propositional calculus or the sentential calculus.
+while some of the familiar rules of arithmetic algebra continue to hold in the algebra of propositions (e.g. the commutative and associative laws for and and or), some do not (e.g. the distributive laws for and, or and not).
+
+
+=== usefulness of propositional formulas ===
+analysis: in deductive reasoning, philosophers, rhetoricians and mathematicians reduce arguments to formulas and then study them (usually with truth tables) for correctness (soundness). for example: is the following argument sound?
+
+"given that consciousness is sufficient for an artificial intelligence and only conscious entities can pass the turing test, before we can conclude that a robot is an artificial intelligence the robot must pass the turing test."engineers analyze the logic circuits they have designed using synthesis techniques and then apply various reduction and minimization techniques to simplify their designs.
+synthesis: engineers in particular synthesize propositional formulas (that eventually end up as circuits of symbols) from truth tables. for example, one might write down a truth table for how binary addition should behave given the addition of variables "b" and "a" and "carry_in" "ci", and the results "carry_out" "co" and "sum" σ:
+
+example: in row 5, ( (b+a) + ci ) = ( (1+0) + 1 ) = the number "2". written as a binary number this is 102, where "co"=1 and σ=0 as shown in the right-most columns.
+
+
+=== propositional variables ===
+the simplest type of propositional formula is a propositional variable. propositions that are simple (atomic), symbolic expressions are often denoted by variables named p, q, or p, q, etc. a propositional variable is intended to represent an atomic proposition (assertion), such as "it is saturday" = p (here the symbol = means " ... is assigned the variable named ...") or "i only go to the movies on monday" = q.
+
+
+=== truth-value assignments, formula evaluations ===
+evaluation of a propositional formula begins with assignment of a truth value to each variable. because each variable represents a simple sentence, the truth values are being applied to the "truth" or "falsity" of these simple sentences.
+truth values in rhetoric, philosophy and mathematics: the truth values are only two: { truth "t",  falsity "f" }. an empiricist puts all propositions into two broad classes: analytic—true no matter what (e.g. tautology), and synthetic—derived from experience and thereby susceptible to confirmation by third parties (the verification theory of meaning). empiricits hold that, in general, to arrive at the truth-value of a synthetic proposition, meanings (pattern-matching templates) must first be applied to the words, and then these meaning-templates must be matched against whatever it is that is being asserted. for example, my utterance "that cow is blue!" is this statement a truth? truly i said it. and maybe i am seeing a blue cow—unless i am lying my statement is a truth relative to the object of my (perhaps flawed) perception. but is the blue cow "really there"? what do you see when you look out the same window? in order to proceed with a verification, you will need a prior notion (a template) of both "cow" and "blue", and an ability to match the templates against the object of sensation (if indeed there is one).truth values in engineering: engineers try to avoid notions of truth and falsity that bedevil philosophers, but in the final analysis engineers must trust their measuring instruments. in their quest for robustness, engineers prefer to pull known objects from a small library—objects that have well-defined, predictable behaviors even in large combinations, (hence their name for the propositional calculus: "combinatorial logic"). the fewest behaviors of a single object are two (e.g. { off, on }, { open, shut }, { up, down } etc.), and these are put in correspondence with { 0, 1 }. such elements are called digital; those with a continuous range of behaviors are called analog. whenever decisions must be made in an analog system, quite often an engineer will convert an analog behavior (the door is 45.32146% up) to digital (e.g. down=0 ) by use of a comparator.thus an assignment of meaning of the variables and the two value-symbols { 0, 1 } comes from "outside" the formula that represents the behavior of the (usually) compound object. an example is a garage door with two "limit switches", one for up labelled sw_u and one for down labelled sw_d, and whatever else is in the door's circuitry. inspection of the circuit (either the diagram or the actual objects themselves—door, switches, wires, circuit board, etc.) might reveal that, on the circuit board "node 22" goes to +0 volts when the contacts of switch "sw_d" are mechanically in contact ("closed") and the door is in the "down" position (95% down), and "node 29" goes to +0 volts when the door is 95% up and the contacts of switch sw_u are in mechanical contact ("closed"). the engineer must define the meanings of these voltages and all possible combinations (all 4 of them), including the "bad" ones (e.g. both nodes 22 and 29 at 0 volts, meaning that the door is open and closed at the same time). the circuit mindlessly responds to whatever voltages it experiences without any awareness of truth or falsehood, right or wrong, safe or dangerous.
+
+
+== propositional connectives ==
+arbitrary propositional formulas are built from propositional variables and other propositional formulas using propositional connectives. examples of connectives include:
+
+the unary negation connective. if 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+   is a formula, then 
+  
+    
+      
+        ¬
+        α
+      
+    
+    {\displaystyle \lnot \alpha }
+   is a formula.
+the classical binary connectives 
+  
+    
+      
+        ∧
+        ,
+        ∨
+        ,
+        →
+        ,
+        ↔
+      
+    
+    {\displaystyle \land ,\lor ,\to ,\leftrightarrow }
+  . thus, for example, if 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+   and 
+  
+    
+      
+        β
+      
+    
+    {\displaystyle \beta }
+   are formulas, so is 
+  
+    
+      
+        (
+        α
+        →
+        β
+        )
+      
+    
+    {\displaystyle (\alpha \to \beta )}
+  .
+other binary connectives, such as nand, nor, and xor
+the ternary connective if ... then ... else ...
+constant 0-ary connectives ⊤ and ⊥ (alternately, constants { t, f }, { 1, 0 } etc. )
+the "theory-extension" connective equals (alternately, identity, or the sign " = " as distinguished from the "logical connective" 
+  
+    
+      
+        ↔
+      
+    
+    {\displaystyle \leftrightarrow }
+  )
+
+
+=== connectives of rhetoric, philosophy and mathematics ===
+the following are the connectives common to rhetoric, philosophy and mathematics together with their truth tables. the symbols used will vary from author to author and between fields of endeavor. in general the abbreviations "t" and "f" stand for the evaluations truth and falsity applied to the variables in the propositional formula (e.g. the assertion: "that cow is blue" will have the truth-value "t" for truth or "f" for falsity, as the case may be.).
+the connectives go by a number of different word-usages, e.g. "a implies b" is also said "if a then b". some of these are shown in the table.
+
+
+=== engineering connectives ===
+
+in general, the engineering connectives are just the same as the mathematics connectives excepting they tend to evaluate with "1" = "t" and "0" = "f". this is done for the purposes of analysis/minimization and synthesis of formulas by use of the notion of minterms and karnaugh maps (see below). engineers also use the words logical product from boole's notion (a*a = a) and logical sum from jevons' notion (a+a = a).
+
+
+=== case connective: if ... then ... else ... ===
+the if ... then ... else ... connective appears as the simplest form of case operator of recursion theory and computation theory and is the connective responsible for conditional goto's (jumps, branches). from this one connective all other connectives can be constructed (see more below). although " if c then b else a " sounds like an implication it is, in its most reduced form, a switch that makes a decision and offers as outcome only one of two alternatives "a" or "b" (hence the name switch statement in the c programming language).the following three propositions are equivalent (as indicated by the logical equivalence sign ≡ ):
+
+( if 'counter is zero' then 'go to instruction b ' else 'go to instruction a ') ≡
+( (c → b) & (~c → a) ) ≡  ( ( if 'counter is zero' then 'go to instruction b ' ) and ( if 'it is not the case that counter is zero' then 'go to instruction a ) "  ≡
+( (c & b) ∨ (~c & a) ) ≡  " ( 'counter is zero' and 'go to instruction b ) or ( 'it is not the case that 'counter is zero' and 'go to instruction a ) "thus if ... then ... else—unlike implication—does not evaluate to an ambiguous "truth" when the first proposition is false i.e. c = f in (c → b). for example, most people would reject the following compound proposition as a nonsensical non sequitur because the second sentence is not connected in meaning to the first.
+example: the proposition " if 'winston churchill was chinese' then 'the sun rises in the east' " evaluates as a truth given that 'winston churchill was chinese' is a falsehood and 'the sun rises in the east' evaluates as a truth.in recognition of this problem, the sign → of formal implication in the propositional calculus is called material implication to distinguish it from the everyday, intuitive implication.the use of the if ... then ... else construction avoids controversy because it offers a completely deterministic choice between two stated alternatives; it offers two "objects" (the two alternatives b and a), and it selects between them exhaustively and unambiguously. in the truth table below, d1 is the formula: ( (if c then b) and (if not-c then a) ). its fully reduced form d2 is the formula: ( (c and b) or (not-c and a). the two formulas are equivalent as shown by the columns "=d1" and "=d2". electrical engineers call the fully reduced formula the and-or-select operator. the case (or switch) operator is an extension of the same idea to n possible, but mutually exclusive outcomes. electrical engineers call the case operator a multiplexer.
+
+
+=== identity and evaluation ===
+the first table of this section stars *** the entry logical equivalence to note the fact that "logical equivalence" is not the same thing as "identity". for example, most would agree that the assertion "that cow is blue" is identical to the assertion "that cow is blue". on the other hand, logical equivalence sometimes appears in speech as in this example: " 'the sun is shining' means 'i'm biking' " translated into a propositional formula the words become: "if 'the sun is shining' then 'i'm biking', and if 'i'm biking' then 'the sun is shining'":
+"if 's' then 'b' and if 'b' then 's' " is written as ((s → b) & (b → s)) or in an abbreviated form as (s ↔ b). as the rightmost symbol string is a definition for a new symbol in terms of the symbols on the left, the use of the identity sign = is appropriate:
+((s → b) & (b → s)) = (s ↔ b)different authors use different signs for logical equivalence: ↔ (e.g. suppes, goodstein, hamilton), ≡ (e.g. robbin), ⇔ (e.g. bender and williamson). typically identity is written as the equals sign =. one exception to this rule is found in principia mathematica. for more about the philosophy of the notion of identity see leibniz's law.
+as noted above, tarski considers identity to lie outside the propositional calculus, but he asserts that without the notion, "logic" is insufficient for mathematics and the deductive sciences. in fact the sign comes into the propositional calculus when a formula is to be evaluated.in some systems there are no truth tables, but rather just formal axioms (e.g. strings of symbols from a set { ~, →, (, ), variables p1, p2, p3, ... } and formula-formation rules (rules about how to make more symbol strings from previous strings by use of e.g. substitution and modus ponens). the result of such a calculus will be another formula (i.e. a well-formed symbol string). eventually, however, if one wants to use the calculus to study notions of validity and truth, one must add axioms that define the behavior of the symbols called "the truth values" {t, f} ( or {1, 0}, etc.) relative to the other symbols.
+for example, hamilton uses two symbols = and ≠ when he defines the notion of a valuation v of any well-formed formulas (wffs) a and b in his "formal statement calculus" l. a valuation v is a function from the wffs of his system l to the range (output) { t, f }, given that each variable  p1, p2, p3 in a wff is assigned an arbitrary truth value { t, f }.
+
+the two definitions (i) and (ii) define the equivalent of the truth tables for the ~ (not) and → (implication) connectives of his system. the first one derives f ≠ t and t ≠ f, in other words " v(a) does not mean v(~a)". definition (ii) specifies the third row in the truth table, and the other three rows then come from an application of definition (i). in particular (ii) assigns the value f (or a meaning of "f") to the entire expression. the definitions also serve as formation rules that allow substitution of a value previously derived into a formula:
+
+some formal systems specify these valuation axioms at the outset in the form of certain formulas such as the law of contradiction or laws of identity and nullity. the choice of which ones to use, together with laws such as commutation and distribution, is up to the system's designer as long as the set of axioms is complete (i.e. sufficient to form and to evaluate any well-formed formula created in the system).
+
+
+== more complex formulas ==
+as shown above, the case (if c then b else a ) connective is constructed either from the 2-argument connectives if ... then ... and and or from or and and and the 1-argument not. connectives such as the n-argument and (a & b & c & ... & n), or (a ∨ b ∨ c ∨ ... ∨ n) are constructed from strings of two-argument and and or and written in abbreviated form without the parentheses. these, and other connectives as well, can then used as building blocks for yet further connectives. rhetoricians, philosophers, and mathematicians use truth tables and the various theorems to analyze and simplify their formulas.
+electrical engineering uses drawn symbols and connect them with lines that stand for the mathematicals act of substitution and replacement. they then verify their drawings with truth tables and simplify the expressions as shown below by use of karnaugh maps or the theorems. in this way engineers have created a host of "combinatorial logic" (i.e. connectives without feedback) such as "decoders", "encoders", "mutifunction gates", "majority logic", "binary adders", "arithmetic logic units", etc.
+
+
+=== definitions ===
+a definition creates a new symbol and its behavior, often for the purposes of abbreviation. once the definition is presented, either form of the equivalent symbol or formula can be used. the following symbolism =df is following the convention of reichenbach. some examples of convenient definitions drawn from the symbol set { ~, &, (, ) } and variables. each definition is producing a logically equivalent formula that can be used for substitution or replacement.
+
+definition of a new variable: (c & d) =df s
+or: ~(~a & ~b) =df (a ∨ b)
+implication: (~a ∨ b) =df (a → b)
+xor: (~a & b) ∨ (a & ~b) =df (a ⊕ b)
+logical equivalence: ( (a → b) & (b → a) ) =df ( a ≡ b )
+
+
+=== axiom and definition schemas ===
+the definitions above for or, implication, xor, and logical equivalence are actually schemas (or "schemata"), that is, they are models (demonstrations, examples) for a general formula format but shown (for illustrative purposes) with specific letters a, b, c for the variables, whereas any variable letters can go in their places as long as the letter substitutions follow the rule of substitution below.
+
+example: in the definition (~a ∨ b) =df (a → b), other variable-symbols such as "sw2" and "con1" might be used, i.e. formally:
+a =df sw2, b =df con1, so we would have as an instance of the definition schema (~sw2 ∨ con1) =df (sw2 → con1)
+
+
+=== substitution versus replacement ===
+substitution: the variable or sub-formula to be substituted with another variable, constant, or sub-formula must be replaced in all instances throughout the overall formula.
+
+example: (c & d) ∨ (p & ~(c & ~d)), but  (q1 & ~q2) ≡ d. now wherever variable "d" occurs, substitute (q1 & ~q2):
+(c & (q1 & ~q2)) ∨ (p & ~(c & ~(q1 & ~q2)))replacement: (i) the formula to be replaced must be within a tautology, i.e. logically equivalent ( connected by ≡ or ↔) to the formula that replaces it, and (ii) unlike substitution its permissible for the replacement to occur only in one place (i.e. for one formula).
+
+example: use this set of formula schemas/equivalences:
+( (a ∨ 0) ≡ a ).
+( (a & ~a) ≡ 0 ).
+( (~a ∨ b) =df (a → b) ).
+ ( ~(~a) ≡ a )
+
+
+== inductive definition ==
+the classical presentation of propositional logic (see enderton 2002) uses the connectives 
+  
+    
+      
+        ¬
+        ,
+        ∧
+        ,
+        ∨
+        ,
+        →
+        ,
+        ↔
+      
+    
+    {\displaystyle \lnot ,\land ,\lor ,\to ,\leftrightarrow }
+  . the set of formulas over a given set of propositional variables is inductively defined to be the smallest set of expressions such that:
+
+each propositional variable in the set is a formula,
+
+  
+    
+      
+        (
+        ¬
+        α
+        )
+      
+    
+    {\displaystyle (\lnot \alpha )}
+   is a formula whenever 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+   is, and
+
+  
+    
+      
+        (
+        α
+        
+        ◻
+        
+        β
+        )
+      
+    
+    {\displaystyle (\alpha \,\box \,\beta )}
+   is a formula whenever 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+   and 
+  
+    
+      
+        β
+      
+    
+    {\displaystyle \beta }
+   are formulas and 
+  
+    
+      
+        ◻
+      
+    
+    {\displaystyle \box }
+   is one of the binary connectives 
+  
+    
+      
+        ∧
+        ,
+        ∨
+        ,
+        →
+        ,
+        ↔
+      
+    
+    {\displaystyle \land ,\lor ,\to ,\leftrightarrow }
+  .this inductive definition can be easily extended to cover additional connectives.
+the inductive definition can also be rephrased in terms of a closure operation (enderton 2002). let v denote a set of propositional variables and let xv denote the set of all strings from an alphabet including symbols in v, left and right parentheses, and all the logical connectives under consideration. each logical connective corresponds to a formula building operation, a function from xxv to xxv:
+
+given a string z, the operation 
+  
+    
+      
+        
+          
+            
+              e
+            
+          
+          
+            ¬
+          
+        
+        (
+        z
+        )
+      
+    
+    {\displaystyle {\mathcal {e}}_{\lnot }(z)}
+   returns 
+  
+    
+      
+        (
+        ¬
+        z
+        )
+      
+    
+    {\displaystyle (\lnot z)}
+  .
+given strings y and z, the operation 
+  
+    
+      
+        
+          
+            
+              e
+            
+          
+          
+            ∧
+          
+        
+        (
+        y
+        ,
+        z
+        )
+      
+    
+    {\displaystyle {\mathcal {e}}_{\land }(y,z)}
+   returns 
+  
+    
+      
+        (
+        y
+        ∧
+        z
+        )
+      
+    
+    {\displaystyle (y\land z)}
+  . there are similar operations 
+  
+    
+      
+        
+          
+            
+              e
+            
+          
+          
+            ∨
+          
+        
+      
+    
+    {\displaystyle {\mathcal {e}}_{\lor }}
+  , 
+  
+    
+      
+        
+          
+            
+              e
+            
+          
+          
+            →
+          
+        
+      
+    
+    {\displaystyle {\mathcal {e}}_{\to }}
+  , and 
+  
+    
+      
+        
+          
+            
+              e
+            
+          
+          
+            ↔
+          
+        
+      
+    
+    {\displaystyle {\mathcal {e}}_{\leftrightarrow }}
+   corresponding to the other binary connectives.the set of formulas over v is defined to be the smallest subset of xxv containing v and closed under all the formula building operations.
+
+
+== parsing formulas ==
+the following "laws" of the propositional calculus are used to "reduce" complex formulas. the "laws" can be verified easily with truth tables. for each law, the principal (outermost) connective is associated with logical equivalence ≡ or identity =. a complete analysis of all 2n combinations of truth-values for its n distinct variables will result in a column of 1's (t's) underneath this connective. this finding makes each law, by definition, a tautology. and, for a given law, because its formula on the left and right are equivalent (or identical) they can be substituted for one another.
+
+example: the following truth table is de morgan's law for the behavior of not over or: ~(a ∨ b) ≡ (~a & ~b). to the left of the principal connective ≡ (yellow column labelled "taut") the formula ~(b ∨ a) evaluates to (1, 0, 0, 0) under the label "p". on the right of "taut" the formula (~(b) ∨ ~(a)) also evaluates to (1, 0, 0, 0) under the label "q". as the two columns have equivalent evaluations, the logical equivalence ≡ under "taut" evaluates to (1, 1, 1, 1), i.e. p ≡ q. thus either formula can be substituted for the other if it appears in a larger formula.enterprising readers might challenge themselves to invent an "axiomatic system" that uses the symbols { ∨, &, ~, (, ), variables a, b, c }, the formation rules specified above, and as few as possible of the laws listed below, and then derive as theorems the others as well as the truth-table valuations for ∨, &, and ~. one set attributed to huntington (1904) (suppes:204) uses eight of the laws defined below.
+if used in an axiomatic system, the symbols 1 and 0 (or t and f) are considered to be well-formed formulas and thus obey all the same rules as the variables. thus the laws listed below are actually axiom schemas, that is, they stand in place of an infinite number of instances. thus ( x ∨ y ) ≡ ( y ∨ x ) might be used in one instance, ( p ∨ 0 ) ≡ ( 0 ∨ p ) and in another instance ( 1 ∨ q ) ≡ ( q ∨ 1 ), etc.
+
+
+=== connective seniority (symbol rank) ===
+in general, to avoid confusion during analysis and evaluation of propositional formulas make liberal use parentheses. however, quite often authors leave them out. to parse a complicated formula one first needs to know the seniority, or rank, that each of the connectives (excepting *) has over the other connectives. to "well-form" a formula, start with the connective with the highest rank and add parentheses around its components, then move down in rank (paying close attention to the connective's scope over which the it is working). from most- to least-senior, with the predicate signs ∀x and ∃x, the identity = and arithmetic signs added for completeness:
+≡
+(logical equivalence)
+→
+(implication)
+&
+(and)
+∨
+(or)
+~
+(not)
+∀x
+(for all x)
+∃x
+(there exists an x)
+=
+(identity)
++
+(arithmetic sum)
+*
+(arithmetic multiply)
+'
+(s, arithmetic successor).thus the formula can be parsed—but because not does not obey the distributive law, the parentheses around the inner formula (~c & ~d) is mandatory:
+
+example: " d & c ∨ w " rewritten is ( (d & c) ∨ w )
+example: " a & a → b ≡ a & ~a ∨ b " rewritten (rigorously) is
+≡ has seniority: ( ( a & a → b ) ≡ ( a & ~a ∨ b ) )
+→ has seniority: ( ( a & (a → b) ) ≡ ( a & ~a ∨ b ) )
+& has seniority both sides: ( ( ( (a) & (a → b) ) ) ≡ ( ( (a) & (~a ∨ b) ) )
+~ has seniority: ( ( ( (a) & (a → b) ) ) ≡ ( ( (a) & (~(a) ∨ b) ) )
+check 9 ( -parenthesis and 9 ) -parenthesis: ( ( ( (a) & (a → b) ) ) ≡ ( ( (a) & (~(a) ∨ b) ) )
+example:
+d & c ∨ p & ~(c & ~d) ≡ c & d ∨ p & c ∨ p & ~d rewritten is ( ( (d & c) ∨ ( p & ~((c & ~(d)) ) ) ) ≡ ( (c & d) ∨ (p & c) ∨ (p & ~(d)) ) )
+
+
+=== commutative and associative laws ===
+both and and or obey the commutative law and associative law:
+
+commutative law for or: ( a ∨ b ) ≡ ( b ∨ a )
+commutative law for and: ( a & b ) ≡ ( b & a )
+associative law for or: (( a ∨ b ) ∨ c ) ≡ ( a ∨ (b ∨ c) )
+associative law for and: (( a & b ) & c ) ≡ ( a & (b & c) )omitting parentheses in strings of and and or: the connectives are considered to be unary (one-variable, e.g. not) and binary (i.e. two-variable and, or, implies). for example:
+
+( (c & d) ∨ (p & c) ∨ (p & ~d) ) above should be written ( ((c & d) ∨ (p & c)) ∨ (p & ~(d) ) ) or possibly ( (c & d) ∨ ( (p & c) ∨ (p & ~(d)) ) )however, a truth-table demonstration shows that the form without the extra parentheses is perfectly adequate.
+omitting parentheses with regards to a single-variable not: while ~(a) where a is a single variable is perfectly clear, ~a is adequate and is the usual way this literal would appear. when the not is over a formula with more than one symbol, then the parentheses are mandatory, e.g. ~(a ∨ b).
+
+
+=== distributive laws ===
+or distributes over and and and distributes over or. not does not distribute over and or or. see below about de morgan's law:
+
+distributive law for or: ( c ∨ ( a & b) ) ≡ ( (c ∨ a) & (c ∨ b) )
+distributive law for and: ( c & ( a ∨ b) ) ≡ ( (c & a) ∨ (c & b) )
+
+
+=== de morgan's laws ===
+not, when distributed over or or and, does something peculiar (again, these can be verified with a truth-table):
+
+de morgan's law for or: ¬(a ∨ b) ≡ (¬a ^ ¬b)
+de morgan's law for and: ¬(a ^ b) ≡ (¬a ∨ ¬b)
+
+
+=== laws of absorption ===
+absorption, in particular the first one, causes the "laws" of logic to differ from the "laws" of arithmetic:
+
+absorption (idempotency) for or: (a ∨ a) ≡ a
+absorption (idempotency) for and: (a & a) ≡ a
+
+
+=== laws of evaluation: identity, nullity, and complement ===
+the sign " = " (as distinguished from logical equivalence ≡, alternately ↔ or ⇔) symbolizes the assignment of value or meaning. thus the string (a & ~(a)) symbolizes "0", i.e. it means the same thing as symbol "0" ". in some "systems" this will be an axiom (definition) perhaps shown as ( (a & ~(a)) =df 0 ); in other systems, it may be derived in the truth table below:
+
+commutation of equality: (a = b) ≡ (b = a)
+identity for or: (a ∨ 0) = a or (a ∨ f) = a
+identity for and: (a & 1) = a or (a & t) = a
+nullity for or: (a ∨ 1) = 1  or (a ∨ t) = t
+nullity for and: (a & 0) = 0  or (a & f) = f
+complement for or: (a ∨ ~a) = 1 or (a ∨ ~a) = t, law of excluded middle
+complement for and: (a & ~a) = 0 or (a & ~a) = f, law of contradiction
+
+
+=== double negative (involution) ===
+¬(¬a) ≡ a
+
+
+== well-formed formulas (wffs) ==
+a key property of formulas is that they can be uniquely parsed to determine the structure of the formula in terms of its propositional variables and logical connectives. when formulas are written in infix notation, as above, unique readability is ensured through an appropriate use of parentheses in the definition of formulas. alternatively, formulas can be written in polish notation or reverse polish notation, eliminating the need for parentheses altogether.
+the inductive definition of infix formulas in the previous section can be converted to a formal grammar in backus-naur form:
+
+it can be shown that any expression matched by the grammar has a balanced number of left and right parentheses, and any nonempty initial segment of a formula has more left than right parentheses. this fact can be used to give an algorithm for parsing formulas. for example, suppose that an expression x begins with 
+  
+    
+      
+        (
+        ¬
+      
+    
+    {\displaystyle (\lnot }
+  . starting after the second symbol, match the shortest subexpression y of x that has balanced parentheses. if x is a formula, there is exactly one symbol left after this expression, this symbol is a closing parenthesis, and y itself is a formula. this idea can be used to generate a recursive descent parser for formulas.
+example of parenthesis counting:
+this method locates as "1" the principal connective — the connective under which the overall evaluation of the formula occurs for the outer-most parentheses (which are often omitted). it also locates the inner-most connective where one would begin evaluatation of the formula without the use of a truth table, e.g. at "level 6".
+
+
+=== well-formed formulas versus valid formulas in inferences ===
+the notion of valid argument is usually applied to inferences in arguments, but arguments reduce to propositional formulas and can be evaluated the same as any other propositional formula. here a valid inference means: "the formula that represents the inference evaluates to "truth" beneath its principal connective, no matter what truth-values are assigned to its variables", i.e. the formula is a tautology.
+quite possibly a formula will be well-formed but not valid. another way of saying this is: "being well-formed is necessary for a formula to be valid but it is not sufficient." the only way to find out if it is both well-formed and valid is to submit it to verification with a truth table or by use of the "laws":
+
+example 1: what does one make of the following difficult-to-follow assertion? is it valid? "if it's sunny, but if the frog is croaking then it's not sunny, then it's the same as saying that the frog isn't croaking." convert this to a propositional formula as follows:
+" if (a and (if b then not-a) then not-a" where " a " represents "its sunny" and " b " represents "the frog is croaking":
+( ( (a) & ( (b) → ~(a) ) ≡ ~(b) )
+this is well-formed, but is it valid? in other words, when evaluated will this yield a tautology (all t) beneath the logical-equivalence symbol ≡ ? the answer is no, it is not valid. however, if reconstructed as an implication then the argument is valid.
+"saying it's sunny, but if the frog is croaking then it's not sunny, implies that the frog isn't croaking."
+other circumstances may be preventing the frog from croaking: perhaps a crane ate it.
+example 2 (from reichenbach via bertrand russell):
+"if pigs have wings, some winged animals are good to eat. some winged animals are good to eat, so pigs have wings."
+( ((a) → (b)) & (b) → (a) ) is well formed, but an invalid argument as shown by the red evaluation under the principal implication:
+
+
+== reduced sets of connectives ==
+
+a set of logical connectives is called complete if every propositional formula is tautologically equivalent to a formula with just the connectives in that set. there are many complete sets of connectives, including 
+  
+    
+      
+        {
+        ∧
+        ,
+        ¬
+        }
+      
+    
+    {\displaystyle \{\land ,\lnot \}}
+  , 
+  
+    
+      
+        {
+        ∨
+        ,
+        ¬
+        }
+      
+    
+    {\displaystyle \{\lor ,\lnot \}}
+  , and 
+  
+    
+      
+        {
+        →
+        ,
+        ¬
+        }
+      
+    
+    {\displaystyle \{\to ,\lnot \}}
+  . there are two binary connectives that are complete on their own, corresponding to nand and nor, respectively. some pairs are not complete, for example 
+  
+    
+      
+        {
+        ∧
+        ,
+        ∨
+        }
+      
+    
+    {\displaystyle \{\land ,\lor \}}
+  .
+
+
+=== the stroke (nand) ===
+the binary connective corresponding to nand is called the sheffer stroke, and written with a vertical bar | or vertical arrow ↑. the completeness of this connective was noted in principia mathematica (1927:xvii). since it is complete on its own, all other connectives can be expressed using only the stroke. for example, where the symbol " ≡ " represents logical equivalence:
+
+~p ≡ p|p
+p → q ≡ p|~q
+p ∨ q ≡ ~p|~q
+p & q ≡ ~(p|q)in particular, the zero-ary connectives 
+  
+    
+      
+        ⊤
+      
+    
+    {\displaystyle \top }
+   (representing truth) and 
+  
+    
+      
+        ⊥
+      
+    
+    {\displaystyle \bot }
+   (representing falsity) can be expressed using the stroke:
+
+  
+    
+      
+        ⊤
+        ≡
+        (
+        a
+        
+          |
+        
+        (
+        a
+        
+          |
+        
+        a
+        )
+        )
+      
+    
+    {\displaystyle \top \equiv (a|(a|a))}
+  
+
+  
+    
+      
+        ⊥
+        ≡
+        (
+        ⊤
+        
+          |
+        
+        ⊤
+        )
+      
+    
+    {\displaystyle \bot \equiv (\top |\top )}
+  
+
+
+=== if ... then ... else ===
+this connective together with { 0, 1 }, ( or { f, t } or { 
+  
+    
+      
+        ⊥
+      
+    
+    {\displaystyle \bot }
+  , 
+  
+    
+      
+        ⊤
+      
+    
+    {\displaystyle \top }
+   } ) forms a complete set. in the following the if...then...else relation (c, b, a) = d represents ( (c → b) ∨ (~c → a) ) ≡ ( (c & b) ∨ (~c & a) ) = d
+
+(c, b, a):
+(c, 0, 1) ≡ ~c
+(c, b, 1) ≡ (c → b)
+(c, c, a) ≡ (c ∨ a)
+(c, b, c) ≡ (c & b)example: the following shows how a theorem-based proof of "(c, b, 1) ≡ (c → b)" would proceed, below the proof is its truth-table verification. ( note: (c → b) is defined to be (~c ∨ b) ):
+
+begin with the reduced form: ( (c & b) ∨ (~c & a) )
+substitute "1" for a: ( (c & b) ∨ (~c & 1) )
+identity (~c & 1) = ~c: ( (c & b) ∨ (~c) )
+law of commutation for v:  ( (~c) ∨ (c & b)  )
+distribute "~c v" over (c & b): ( ((~c) ∨ c ) & ((~c) ∨ b )
+law of excluded middle (((~c) ∨ c ) = 1 ): ( (1) & ((~c) ∨ b ) )
+distribute "(1) &" over ((~c) ∨ b): ( ((1) & (~c)) ∨ ((1) & b )) )
+commutivity and identity (( 1 & ~c) = (~c & 1) = ~c, and (( 1 & b) ≡ (b & 1) ≡ b: ( ~c ∨ b )
+( ~c ∨ b ) is defined as c → b q. e. d.in the following truth table the column labelled "taut" for tautology evaluates logical equivalence (symbolized here by ≡) between the two columns labelled d. because all four rows under "taut" are 1's, the equivalence indeed represents a tautology.
+
+
+== normal forms ==
+an arbitrary propositional formula may have a very complicated structure. it is often convenient to work with formulas that have simpler forms, known as normal forms. some common normal forms include conjunctive normal form and disjunctive normal form. any propositional formula can be reduced to its conjunctive or disjunctive normal form.
+
+
+=== reduction to normal form ===
+
+reduction to normal form is relatively simple once a truth table for the formula is prepared. but further attempts to minimize the number of literals (see below) requires some tools: reduction by de morgan's laws and truth tables can be unwieldy, but karnaugh maps are very suitable a small number of variables (5 or less). some sophisticated tabular methods exist for more complex circuits with multiple outputs but these are beyond the scope of this article; for more see quine–mccluskey algorithm.
+
+
+==== literal, term and alterm ====
+in electrical engineering a variable x or its negation ~(x) is lumped together into a single notion called a literal. a string of literals connected by ands is called a term. a string of literals connected by or is called an alterm. typically the literal ~(x) is abbreviated ~x. sometimes the &-symbol is omitted altogether in the manner of algebraic multiplication.
+
+examples
+a, b, c, d are variables. ((( a & ~(b) ) & ~(c)) & d) is a term. this can be abbreviated as (a & ~b & ~c & d), or a~b~cd.
+p, q, r, s are variables. (((p & ~(q) ) & r) & ~(s) ) is an alterm. this can be abbreviated as (p ∨ ~q ∨ r ∨ ~s).
+
+
+==== minterms ====
+in the same way that a 2n-row truth table displays the evaluation of a propositional formula for all 2n possible values of its variables, n variables produces a 2n-square karnaugh map (even though we cannot draw it in its full-dimensional realization). for example, 3 variables produces 23 = 8 rows and 8 karnaugh squares; 4 variables produces 16 truth-table rows and 16 squares and therefore 16 minterms. each karnaugh-map square and its corresponding truth-table evaluation represents one minterm.
+any propositional formula can be reduced to the "logical sum" (or) of the active (i.e. "1"- or "t"-valued) minterms. when in this form the formula is said to be in disjunctive normal form. but even though it is in this form, it is not necessarily minimized with respect to either the number of terms or the number of literals.
+in the following table, observe the peculiar numbering of the rows: (0, 1, 3, 2, 6, 7, 5, 4, 0). the first column is the decimal equivalent of the binary equivalent of the digits "cba", in other words:
+
+example
+cba2 = c*22 + b*21 + a*20:
+cba = (c=1, b=0, a=0) = 1012 = 1*22 + 0*21 + 1*20 = 510this numbering comes about because as one moves down the table from row to row only one variable at a time changes its value. gray code is derived from this notion. this notion can be extended to three and four-dimensional hypercubes called hasse diagrams where each corner's variables change only one at a time as one moves around the edges of the cube. hasse diagrams (hypercubes) flattened into two dimensions are either veitch diagrams or karnaugh maps (these are virtually the same thing).
+when working with karnaugh maps one must always keep in mind that the top edge "wrap arounds" to the bottom edge, and the left edge wraps around to the right edge—the karnaugh diagram is really a three- or four- or n-dimensional flattened object.
+
+
+=== reduction by use of the map method (veitch, karnaugh) ===
+veitch improved the notion of venn diagrams by converting the circles to abutting squares, and karnaugh simplified the veitch diagram by converting the minterms, written in their literal-form (e.g. ~abc~d) into numbers. the method proceeds as follows:
+
+
+==== produce the formula's truth table ====
+produce the formula's truth table. number its rows using the binary-equivalents of the variables (usually just sequentially 0 through n-1) for n variables.
+
+technically, the propositional function has been reduced to its (unminimized) conjunctive normal form: each row has its minterm expression and these can be or'd to produce the formula in its (unminimized) conjunctive normal form.example: ((c & d) ∨ (p & ~(c & (~d)))) = q in conjunctive normal form is:
+
+( (~p & d & c ) ∨ (p & d & c) ∨ (p & d & ~c) ∨ (p & ~d & ~c) ) = qhowever, this formula be reduced both in the number of terms (from 4 to 3) and in the total count of its literals (12 to 6).
+
+
+==== create the formula's karnaugh map ====
+
+use the values of the formula (e.g. "p") found by the truth-table method and place them in their into their respective (associated) karnaugh squares (these are numbered per the gray code convention). if values of "d" for "don't care" appear in the table, this adds flexibility during the reduction phase.
+
+
+==== reduce minterms ====
+minterms of adjacent (abutting) 1-squares (t-squares) can be reduced with respect to the number of their literals, and the number terms also will be reduced in the process. two abutting squares (2 x 1 horizontal or 1 x 2 vertical, even the edges represent abutting squares) lose one literal, four squares in a 4 x 1 rectangle (horizontal or vertical) or 2 x 2 square (even the four corners represent abutting squares) lose two literals, eight squares in a rectangle lose 3 literals, etc. (one seeks out the largest square or rectangles and ignores the smaller squares or rectangles contained totally within it. ) this process continues until all abutting squares are accounted for, at which point the propositional formula is minimized.
+for example, squares #3 and #7 abut. these two abutting squares can lose one literal (e.g. "p" from squares #3 and #7), four squares in a rectangle or square lose two literals, eight squares in a rectangle lose 3 literals, etc. (one seeks out the largest square or rectangles.) this process continues until all abutting squares are accounted for, at which point the propositional formula is said to be minimized.
+example:  the map method usually is done by inspection. the following example expands the algebraic method to show the "trick" behind the combining of terms on a karnaugh map:
+
+minterms #3 and #7 abut, #7 and #6 abut, and #4 and #6 abut (because the table's edges wrap around). so each of these pairs can be reduced.observe that by the idempotency law (a ∨ a) = a, we can create more terms. then by association and distributive laws the variables to disappear can be paired, and then "disappeared" with the law of contradiction (x & ~x)=0. the following uses brackets [ and ] only to keep track of the terms; they have no special significance:
+
+put the formula in conjunctive normal form with the formula to be reduced:q = ( (~p & d & c ) ∨ (p & d & c) ∨ (p & d & ~c) ∨ (p & ~d & ~c) ) = ( #3 ∨ #7 ∨ #6 ∨ #4 )idempotency (absorption) [ a ∨ a) = a:( #3 ∨ [ #7 ∨ #7 ] ∨ [ #6 ∨ #6 ] ∨ #4 )associative law (x ∨ (y ∨ z)) = ( (x ∨ y) ∨ z )( [ #3 ∨ #7 ] ∨ [ #7 ∨ #6 ] ∨ [ #6 ∨ #4]  )
+[ (~p & d & c ) ∨ (p & d & c) ] ∨ [ (p & d & c) ∨ (p & d & ~c) ] ∨ [ (p & d & ~c) ∨ (p & ~d & ~c) ].distributive law ( x & (y ∨ z) ) = ( (x & y) ∨ (x & z) ) :( [ (d & c) ∨ (~p & p) ]  ∨ [ (p & d) ∨ (~c & c) ] ∨ [ (p & ~c) ∨ (c & ~c) ] )commutative law and law of contradiction (x & ~x) = (~x & x) = 0:( [ (d & c) ∨ (0) ] ∨ [ (p & d) ∨ (0) ] ∨ [ (p & ~c) ∨ (0) ] )law of identity ( x ∨ 0 ) = x leading to the reduced form of the formula:q = ( (d & c) ∨ (p & d)  ∨ (p & ~c) )
+
+
+==== verify reduction with a truth table ====
+
+
+== impredicative propositions ==
+given the following examples-as-definitions, what does one make of the subsequent reasoning:
+
+(1) "this sentence is simple." (2) "this sentence is complex, and it is conjoined by and."then assign the variable "s" to the left-most sentence "this sentence is simple". define "compound" c = "not simple" ~s, and assign c = ~s to "this sentence is compound"; assign "j" to "it [this sentence] is conjoined by and". the second sentence can be expressed as:
+
+( not(s) and j )if truth values are to be placed on the sentences c = ~s and j, then all are clearly falsehoods: e.g. "this sentence is complex" is a falsehood (it is simple, by definition). so their conjunction (and) is a falsehood. but when taken in its assembled form, the sentence a truth.
+this is an example of the paradoxes that result from an impredicative definition—that is, when an object m has a property p, but the object m is defined in terms of property p. the best advice for a rhetorician or one involved in deductive analysis is avoid impredicative definitions but at the same time be on the lookout for them because they can indeed create paradoxes. engineers, on the other hand, put them to work in the form of propositional formulas with feedback.
+
+
+== propositional formula with "feedback" ==
+the notion of a propositional formula appearing as one of its own variables requires a formation rule that allows the assignment of the formula to a variable. in general there is no stipulation (either axiomatic or truth-table systems of objects and relations) that forbids this from happening.the simplest case occurs when an or formula becomes one its own inputs e.g. p = q. begin with (p ∨ s) = q, then let p = q. observe that q's "definition" depends on itself "q" as well as on "s" and the or connective; this definition of q is thus impredicative.
+either of two conditions can result: oscillation or memory.
+it helps to think of the formula as a black box. without knowledge of what is going on "inside" the formula-"box" from the outside it would appear that the output is no longer a function of the inputs alone. that is, sometimes one looks at q and sees 0 and other times 1. to avoid this problem one has to know the state (condition) of the "hidden" variable p inside the box (i.e. the value of q fed back and assigned to p). when this is known the apparent inconsistency goes away.
+to understand [predict] the behavior of formulas with feedback requires the more sophisticated analysis of sequential circuits. propositional formulas with feedback lead, in their simplest form, to state machines; they also lead to memories in the form of turing tapes and counter-machine counters. from combinations of these elements one can build any sort of bounded computational model (e.g. turing machines, counter machines, register machines, macintosh computers, etc.).
+
+
+=== oscillation ===
+in the abstract (ideal) case the simplest oscillating formula is a not fed back to itself: ~(~(p=q)) = q. analysis of an abstract (ideal) propositional formula in a truth-table reveals an inconsistency for both p=1 and p=0 cases: when p=1, q=0, this cannot be because p=q; ditto for when p=0 and q=1.
+
+oscillation with delay: if an delay (ideal or non-ideal) is inserted in the abstract formula between p and q then p will oscillate between 1 and 0: 101010...101... ad infinitum. if either of the delay and not are not abstract (i.e. not ideal), the type of analysis to be used will be dependent upon the exact nature of the objects that make up the oscillator; such things fall outside mathematics and into engineering.
+analysis requires a delay to be inserted and then the loop cut between the delay and the input "p". the delay must be viewed as a kind of proposition that has "qd" (q-delayed) as output for "q" as input. this new proposition adds another column to the truth table. the inconsistency is now between "qd" and "p" as shown in red; two stable states resulting:
+
+
+=== memory ===
+
+without delay, inconsistencies must be eliminated from a truth table analysis. with the notion of "delay", this condition presents itself as a momentary inconsistency between the fed-back output variable q and p = qdelayed.
+a truth table reveals the rows where inconsistencies occur between p = qdelayed at the input and q at the output. after "breaking" the feed-back, the truth table construction proceeds in the conventional manner. but afterwards, in every row the output q is compared to the now-independent input p and any inconsistencies between p and q are noted (i.e. p=0 together with q=1, or p=1 and q=0); when the "line" is "remade" both are rendered impossible by the law of contradiction ~(p & ~p)). rows revealing inconsistencies are either considered transient states or just eliminated as inconsistent and hence "impossible".
+
+
+==== once-flip memory ====
+about the simplest memory results when the output of an or feeds back to one of its inputs, in this case output "q" feeds back into "p". given that the formula is first evaluated (initialized) with p=0 & q=0, it will "flip" once when "set" by s=1. thereafter, output "q" will sustain "q" in the "flipped" condition (state q=1). this behavior, now time-dependent, is shown by the state diagram to the right of the once-flip.
+
+
+==== flip-flop memory ====
+the next simplest case is the "set-reset" flip-flop shown below the once-flip. given that r=0 & s=0 and q=0 at the outset, it is "set" (s=1) in a manner similar to the once-flip. it however has a provision to "reset" q=0 when "r"=1. and additional complication occurs if both set=1 and reset=1. in this formula, the set=1 forces the output q=1 so when and if (s=0 & r=1) the flip-flop will be reset. or, if (s=1 & r=0) the flip-flop will be set. in the abstract (ideal) instance in which s=1 ⇒ s=0 & r=1 ⇒ r=0 simultaneously, the formula q will be indeterminate (undecidable). due to delays in "real" or, and and not the result will be unknown at the outset but thereafter predicable.
+
+
+==== clocked flip-flop memory ====
+the formula known as "clocked flip-flop" memory ("c" is the "clock" and "d" is the "data") is given below. it works as follows: when c = 0 the data d (either 0 or 1) cannot "get through" to affect output q. when c = 1 the data d "gets through" and output q "follows" d's value. when c goes from 1 to 0 the last value of the data remains "trapped" at output "q". as long as c=0, d can change value without causing q to change.
+
+examples
+( ( c & d ) ∨ ( p & ( ~( c & ~( d ) ) ) ) = q, but now let p = q:
+( ( c & d ) ∨ ( q & ( ~( c & ~( d ) ) ) ) = qthe state diagram is similar in shape to the flip-flop's state diagram, but with different labelling on the transitions.
+
+
+== historical development ==
+bertrand russell (1912:74) lists three laws of thought that derive from aristotle: (1) the law of identity: "whatever is, is.", (2) the law of noncontradiction: "nothing can both be and not be", and (3) the law of excluded middle: "everything must be or not be."
+
+example: here o is an expression about an object's being or quality:
+law of identity: o = o
+law of contradiction: ~(o & ~(o))
+law of excluded middle: (o ∨ ~(o))the use of the word "everything" in the law of excluded middle renders russell's expression of this law open to debate. if restricted to an expression about being or quality with reference to a finite collection of objects (a finite "universe of discourse") -- the members of which can be investigated one after another for the presence or absence of the assertion—then the law is considered intuitionistically appropriate. thus an assertion such as: "this object must either be or not be (in the collection)", or "this object must either have this quality or not have this quality (relative to the objects in the collection)" is acceptable. see more at venn diagram.
+although a propositional calculus originated with aristotle, the notion of an algebra applied to propositions had to wait until the early 19th century. in an (adverse) reaction to the 2000 year tradition of aristotle's syllogisms, john locke's essay concerning human understanding (1690) used the word semiotics (theory of the use of symbols). by 1826 richard whately had critically analyzed the syllogistic logic with a sympathy toward locke's semiotics. george bentham's work (1827) resulted in the notion of "quantification of the predicate" (1827) (nowadays symbolized as ∀ ≡ "for all"). a "row" instigated by william hamilton over a priority dispute with augustus de morgan "inspired george boole to write up his ideas on logic, and to publish them as mal [mathematical analysis of logic] in 1847" (grattin-guinness and bornet 1997:xxviii).
+about his contribution grattin-guinness and bornet comment:
+
+"boole's principal single innovation was [the] law [ xn = x ] for logic: it stated that the mental acts of choosing the property x and choosing x again and again is the same as choosing x once... as consequence of it he formed the equations x•(1-x)=0 and x+(1-x)=1 which for him expressed respectively the law of contradiction and the law of excluded middle" (p. xxviiff). for boole "1" was the universe of discourse and "0" was nothing.gottlob frege's massive undertaking (1879) resulted in a formal calculus of propositions, but his symbolism is so daunting that it had little influence excepting on one person: bertrand russell. first as the student of alfred north whitehead he studied frege's work and suggested a (famous and notorious) emendation with respect to it (1904) around the problem of an antinomy that he discovered in frege's treatment ( cf russell's paradox ). russell's work led to a collatoration with whitehead that, in the year 1912, produced the first volume of principia mathematica (pm). it is here that what we consider "modern" propositional logic first appeared. in particular, pm introduces not and or and the assertion symbol ⊦ as primitives. in terms of these notions they define implication → ( def. *1.01: ~p ∨ q ), then and (def. *3.01: ~(~p ∨ ~q) ), then equivalence p ←→ q (*4.01: (p → q) & ( q → p ) ).
+
+henry m. sheffer (1921) and jean nicod demonstrate that only one connective, the "stroke" | is sufficient to express all propositional formulas.
+emil post (1921) develops the truth-table method of analysis in his "introduction to a general theory of elementary propositions". he notes nicod's stroke | .
+whitehead and russell add an introduction to their 1927 re-publication of pm adding, in part, a favorable treatment of the "stroke".computation and switching logic:
+
+william eccles and f. w. jordan (1919) describe a "trigger relay" made from a vacuum tube.
+george stibitz (1937) invents the binary adder using mechanical relays. he builds this on his kitchen table.example: given binary bits ai and bi and carry-in ( c_ini), their summation σi and carry-out (c_outi) are:
+( ( ai xor bi ) xor c_ini )= σi
+( ai & bi ) ∨ c_ini ) = c_outi;alan turing builds a multiplier using relays (1937–1938). he has to hand-wind his own relay coils to do this.
+textbooks about "switching circuits" appear in early 1950s.
+willard quine 1952 and 1955, e. w. veitch 1952, and m. karnaugh (1953) develop map-methods for simplifying propositional functions.
+george h. mealy (1955) and edward f. moore (1956) address the theory of sequential (i.e. switching-circuit) "machines".
+e. j. mccluskey and h. shorr develop a method for simplifying propositional (switching) circuits (1962).
+
+
+== footnotes ==
+
+
+== references ==
+bender, edward a. and williamson, s. gill, 2005, a short course in discrete mathematics, dover publications, mineola ny, isbn 0-486-43946-1. this text is used in a "lower division two-quarter [computer science] course" at uc san diego.
+enderton, h. b.,  2002, a mathematical introduction to logic. harcourt/academic press. isbn 0-12-238452-0
+goodstein, r. l., (pergamon press 1963), 1966, (dover edition 2007), boolean algebra, dover publications, inc. minola, new york, isbn 0-486-45894-6. emphasis on the notion of "algebra of classes" with set-theoretic symbols such as ∩, ∪, ' (not), ⊂ (implies). later goldstein replaces these with &, ∨, ￢, → (respectively) in his treatment of "sentence logic" pp. 76–93.
+ivor grattan-guinness and gérard bornet 1997, george boole: selected manuscripts on logic and its philosophy, birkhäuser verlag, basil, isbn 978-0-8176-5456-6 (boston).
+a. g. hamilton 1978, logic for mathematicians, cambridge university press, cambridge uk, isbn 0-521-21838-1.
+e. j. mccluskey 1965, introduction to the theory of switching circuits, mcgraw-hill book company, new york. no isbn. library of congress catalog card number 65-17394. mccluskey was a student of willard quine and developed some notable theorems with quine and on his own. for those interested in the history, the book contains a wealth of references.
+marvin l. minsky 1967, computation: finite and infinite machines, prentice-hall, inc, englewood cliffs, n.j.. no isbn. library of congress catalog card number 67-12342. useful especially for computability, plus good sources.
+paul c. rosenbloom 1950, dover edition 2005, the elements of mathematical logic, dover publications, inc., mineola, new york, isbn 0-486-44617-4.
+joel w. robbin 1969, 1997, mathematical logic: a first course, dover publications, inc., mineola, new york, isbn 0-486-45018-x (pbk.).
+patrick suppes 1957 (1999 dover edition), introduction to logic, dover publications, inc., mineola, new york. isbn 0-486-40687-3 (pbk.). this book is in print and readily available.
+on his page 204 in a footnote he references his set of axioms to e. v. huntington, "sets of independent postulates for the algebra of logic", transactions of the american mathematical society, vol. 5 91904) pp. 288-309.
+alfred tarski 1941 (1995 dover edition), introduction to logic and to the methodology of deductive sciences, dover publications, inc., mineola, new york. isbn 0-486-28462-x (pbk.). this book is in print and readily available.
+jean van heijenoort 1967, 3rd printing with emendations 1976, from frege to gödel: a source book in mathematical logic, 1879-1931, harvard university press, cambridge, massachusetts. isbn 0-674-32449-8 (pbk.) translation/reprints of frege (1879), russell's letter to frege (1902) and frege's letter to russell (1902), richard's paradox (1905), post (1921) can be found here.
+alfred north whitehead and bertrand russell 1927 2nd edition, paperback edition to *53 1962, principia mathematica, cambridge university press, no isbn. in the years between the first edition of 1912 and the 2nd edition of 1927, h. m. sheffer 1921 and m. jean nicod (no year cited) brought to russell's and whitehead's attention that what they considered their primitive propositions (connectives) could be reduced to a single |, nowadays known as the "stroke" or nand (not-and, neither ... nor...). russell-whitehead discuss this in their "introduction to the second edition" and makes the definitions as discussed above.
+william e. wickes 1968, logic design with integrated circuits, john wiley & sons, inc., new york. no isbn. library of congress catalog card number: 68-21185. tight presentation of engineering's analysis and synthesis methods, references mccluskey 1965. unlike suppes, wickes' presentation of "boolean algebra" starts with a set of postulates of a truth-table nature and then derives the customary theorems of them (p. 18ff).
+
+
+== external links ==
+ media related to propositional formula at wikimedia commons

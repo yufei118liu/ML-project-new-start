@@ -1,0 +1,3425 @@
+in mathematics, holomorphic functional calculus is functional calculus with holomorphic functions. that is to say, given a holomorphic function f of a complex argument z and an operator t, the aim is to construct an operator, f(t), which naturally extends the function f from complex argument to operator argument. more precisely, the functional calculus defines a continuous algebra homomorphism from the holomorphic functions on a neighbourhood of the spectrum of t to the bounded operators. 
+this article will discuss the case where t is a bounded linear operator on some banach space. in particular, t can be a square matrix with complex entries, a case which will be used to illustrate functional calculus and provide some heuristic insights for the assumptions involved in the general construction.
+
+
+== motivation ==
+
+
+=== need for a general functional calculus ===
+in this section t will be assumed to be a n × n matrix with complex entries.
+if a given function f is of certain special type, there are natural ways of defining f(t). for instance, if
+
+  
+    
+      
+        p
+        (
+        z
+        )
+        =
+        
+          ∑
+          
+            i
+            =
+            0
+          
+          
+            m
+          
+        
+        
+          a
+          
+            i
+          
+        
+        
+          z
+          
+            i
+          
+        
+      
+    
+    {\displaystyle p(z)=\sum _{i=0}^{m}a_{i}z^{i}}
+  is a complex polynomial, one can simply substitute t for z and define
+
+  
+    
+      
+        p
+        (
+        t
+        )
+        =
+        
+          ∑
+          
+            i
+            =
+            0
+          
+          
+            m
+          
+        
+        
+          a
+          
+            i
+          
+        
+        
+          t
+          
+            i
+          
+        
+      
+    
+    {\displaystyle p(t)=\sum _{i=0}^{m}a_{i}t^{i}}
+  where t0 = i, the identity matrix. this is the polynomial functional calculus. it is a homomorphism from the ring of polynomials to the ring of n × n matrices.
+extending slightly from the polynomials, if f : c → c is holomorphic everywhere, i.e. an entire function, with maclaurin series
+
+  
+    
+      
+        f
+        (
+        z
+        )
+        =
+        
+          ∑
+          
+            i
+            =
+            0
+          
+          
+            ∞
+          
+        
+        
+          a
+          
+            i
+          
+        
+        
+          z
+          
+            i
+          
+        
+        ,
+      
+    
+    {\displaystyle f(z)=\sum _{i=0}^{\infty }a_{i}z^{i},}
+  mimicking the polynomial case suggests we define
+
+  
+    
+      
+        f
+        (
+        t
+        )
+        =
+        
+          ∑
+          
+            i
+            =
+            0
+          
+          
+            ∞
+          
+        
+        
+          a
+          
+            i
+          
+        
+        
+          t
+          
+            i
+          
+        
+        .
+      
+    
+    {\displaystyle f(t)=\sum _{i=0}^{\infty }a_{i}t^{i}.}
+  since the maclaurin series converges everywhere, the above series will converge, in a chosen operator norm.  an example of this is the exponential of a matrix. replacing z by t in the maclaurin series of f(z) = ez gives
+
+  
+    
+      
+        f
+        (
+        t
+        )
+        =
+        
+          e
+          
+            t
+          
+        
+        =
+        i
+        +
+        t
+        +
+        
+          
+            
+              t
+              
+                2
+              
+            
+            
+              2
+              !
+            
+          
+        
+        +
+        
+          
+            
+              t
+              
+                3
+              
+            
+            
+              3
+              !
+            
+          
+        
+        +
+        ⋯
+        .
+      
+    
+    {\displaystyle f(t)=e^{t}=i+t+{\frac {t^{2}}{2!}}+{\frac {t^{3}}{3!}}+\cdots .}
+  the requirement that the maclaurin series of f converges everywhere can be relaxed somewhat. from above it is evident that all that is really needed is the radius of convergence of the maclaurin series be greater than ǁtǁ, the operator norm of t. this enlarges somewhat the family of f for which f(t) can be defined using the above approach. however it is not quite satisfactory. for instance, it is a fact from matrix theory that every non-singular t has a logarithm s in the sense that es = t. it is desirable to have a functional calculus that allows one to define, for a non-singular t, ln(t) such that it coincides with s. this can not be done via power series, for example the logarithmic series
+
+  
+    
+      
+        ln
+        ⁡
+        (
+        z
+        +
+        1
+        )
+        =
+        z
+        −
+        
+          
+            
+              z
+              
+                2
+              
+            
+            2
+          
+        
+        +
+        
+          
+            
+              z
+              
+                3
+              
+            
+            3
+          
+        
+        −
+        ⋯
+        ,
+      
+    
+    {\displaystyle \ln(z+1)=z-{\frac {z^{2}}{2}}+{\frac {z^{3}}{3}}-\cdots ,}
+  converges only on the open unit disk. substituting t for z in the series fails to give a well-defined expression for ln(t + i) for invertible t + i with ǁtǁ ≥ 1. thus a more general functional calculus is needed.
+
+
+=== functional calculus and the spectrum ===
+it is expected that a necessary condition for f(t) to make sense is f be defined on the spectrum of t. for example, the spectral theorem for normal matrices states every normal matrix is unitarily diagonalizable. this leads to a definition of f(t) when t is normal. one encounters difficulties if f(λ) is not defined for some eigenvalue λ of t.
+other indications also reinforce the idea that f(t) can be defined only if f is defined on the spectrum of t. if t is not invertible, then (recalling that t is an n x n matrix) 0 is an eigenvalue. since the natural logarithm is undefined at 0, one would expect that ln(t) can not be defined naturally. this is indeed the case. as another example, for
+
+  
+    
+      
+        f
+        (
+        z
+        )
+        =
+        
+          
+            1
+            
+              (
+              z
+              −
+              2
+              )
+              (
+              z
+              −
+              5
+              )
+            
+          
+        
+      
+    
+    {\displaystyle f(z)={\frac {1}{(z-2)(z-5)}}}
+  the reasonable way of calculating f(t) would seem to be
+
+  
+    
+      
+        f
+        (
+        t
+        )
+        =
+        (
+        t
+        −
+        2
+        i
+        
+          )
+          
+            −
+            1
+          
+        
+        (
+        t
+        −
+        5
+        i
+        
+          )
+          
+            −
+            1
+          
+        
+        .
+        
+      
+    
+    {\displaystyle f(t)=(t-2i)^{-1}(t-5i)^{-1}.\,}
+  however, this expression is not defined if the inverses on the right-hand side do not exist, that is, if either 2 or 5 are eigenvalues of t.
+for a given matrix t, the eigenvalues of t dictate to what extent f(t) can be defined; i.e., f(λ) must be defined for all eigenvalues λ of t. for a general bounded operator this condition translates to "f must be defined on the spectrum of t". this assumption turns out to be an enabling condition such that the functional calculus map, f → f(t), has certain desirable properties.
+
+
+== functional calculus for a bounded operator ==
+
+let x be a complex banach space, and l(x) denote the family of bounded operators on x.
+recall the cauchy integral formula from classical function theory. let f : c → c be holomorphic on some open set d ⊂ c, and γ be a rectifiable jordan curve in d, that is, a closed curve of finite length without self-intersections. assume that the set u of points lying in the inside of γ, i.e. such that the winding number of γ about z is 1, is contained in d. the cauchy integral formula states
+
+  
+    
+      
+        f
+        (
+        z
+        )
+        =
+        
+          
+            1
+            
+              2
+              π
+              i
+            
+          
+        
+        
+          ∫
+          
+            γ
+          
+        
+        
+          
+            
+              f
+              (
+              ζ
+              )
+            
+            
+              ζ
+              −
+              z
+            
+          
+        
+        
+        d
+        ζ
+      
+    
+    {\displaystyle f(z)={\frac {1}{2\pi i}}\int \nolimits _{\gamma }{\frac {f(\zeta )}{\zeta -z}}\,d\zeta }
+  for any z in u.
+the idea is to extend this formula to functions taking values in the banach space l(x). cauchy's integral formula suggests the following definition (purely formal, for now):
+
+  
+    
+      
+        f
+        (
+        t
+        )
+        =
+        
+          
+            1
+            
+              2
+              π
+              i
+            
+          
+        
+        
+          ∫
+          
+            γ
+          
+        
+        
+          
+            
+              f
+              (
+              ζ
+              )
+            
+            
+              ζ
+              −
+              t
+            
+          
+        
+        
+        d
+        ζ
+        ,
+      
+    
+    {\displaystyle f(t)={\frac {1}{2\pi i}}\int _{\gamma }{\frac {f(\zeta )}{\zeta -t}}\,d\zeta ,}
+  where (ζ−t)−1 is the resolvent of t at ζ.
+assuming this banach space-valued integral is appropriately defined, this proposed functional calculus implies the following necessary conditions:
+
+as the scalar version of cauchy's integral formula applies to holomorphic f, we anticipate that is also the case for the banach space case, where there should be a suitable notion of holomorphy for functions taking values in the banach space l(x).
+as the resolvent mapping ζ → (ζ−t)−1 is undefined on the spectrum of t, σ(t), the jordan curve γ should not intersect σ(t). now, the resolvent mapping will be holomorphic on the complement of σ(t). so to obtain a non-trivial functional calculus, γ must enclose (at least part of) σ(t).
+the functional calculus should be well-defined in the sense that f(t) has to be independent of γ.the full definition of the functional calculus is as follows: for t ∈ l(x), define
+
+  
+    
+      
+        f
+        (
+        t
+        )
+        =
+        
+          
+            1
+            
+              2
+              π
+              i
+            
+          
+        
+        
+          ∫
+          
+            γ
+          
+        
+        
+          
+            
+              f
+              (
+              ζ
+              )
+            
+            
+              ζ
+              −
+              t
+            
+          
+        
+        
+        d
+        ζ
+        ,
+      
+    
+    {\displaystyle f(t)={\frac {1}{2\pi i}}\int \nolimits _{\gamma }{\frac {f(\zeta )}{\zeta -t}}\,d\zeta ,}
+  where f is a holomorphic function defined on an open set d ⊂ c which contains σ(t), and γ = {γ1, ..., γm} is a collection of disjoint jordan curves in d bounding an "inside" set u, such that σ(t) lies in u, and each γi is oriented in the boundary sense.
+the open set d may vary with f and need not be connected or simply connected, as shown by the figures on the right.
+the following subsections make precise the notions invoked in the definition and show f(t) is indeed well defined under given assumptions.
+
+
+=== banach space-valued integral ===
+cf. bochner integralfor a continuous function g defined in an open neighborhood of γ and taking values in l(x), the contour integral ∫γg is defined in the same way as for the scalar case. one can parametrize each γi ∈ γ by a real interval [a, b], and the integral is the limit of the riemann sums obtained from ever-finer partitions of [a, b]. the riemann sums converge in the uniform operator topology.  we define
+
+  
+    
+      
+        
+          ∫
+          
+            γ
+          
+        
+        g
+        =
+        
+          ∑
+          
+            i
+          
+        
+        
+          ∫
+          
+            
+              γ
+              
+                i
+              
+            
+          
+        
+        g
+        .
+      
+    
+    {\displaystyle \int _{\gamma }g=\sum \nolimits _{i}\int _{\gamma _{i}}g.}
+  in the definition of the functional calculus, f is assumed to be holomorphic in an open neighborhood of γ. it will be shown below that the resolvent mapping is holomorphic on the resolvent set. therefore, the integral
+
+  
+    
+      
+        
+          
+            1
+            
+              2
+              π
+              i
+            
+          
+        
+        
+          ∫
+          
+            γ
+          
+        
+        
+          
+            
+              f
+              (
+              ζ
+              )
+            
+            
+              ζ
+              −
+              t
+            
+          
+        
+        
+        d
+        ζ
+      
+    
+    {\displaystyle {\frac {1}{2\pi i}}\int _{\gamma }{\frac {f(\zeta )}{\zeta -t}}\,d\zeta }
+  makes sense.
+
+
+=== the resolvent mapping ===
+the mapping ζ → (ζ−t)−1 is called the resolvent mapping of t. it is defined on the complement of σ(t), called the resolvent set of t and will be denoted by ρ(t).
+much of classical function theory depends on the properties of the integral
+
+  
+    
+      
+        
+          
+            1
+            
+              2
+              π
+              i
+            
+          
+        
+        
+          ∫
+          
+            γ
+          
+        
+        
+          
+            
+              d
+              ζ
+            
+            
+              ζ
+              −
+              z
+            
+          
+        
+        .
+      
+    
+    {\displaystyle {\frac {1}{2\pi i}}\int _{\gamma }{\frac {d\zeta }{\zeta -z}}.}
+  the holomorphic functional calculus is similar in that the resolvent mapping plays a crucial role in obtaining properties one requires from a nice functional calculus. this subsection outlines properties of the resolvent map that are essential in this context.
+
+
+==== the 1st resolvent formula ====
+direct calculation shows, for z1, z2 ∈ ρ(t),
+
+  
+    
+      
+        (
+        
+          z
+          
+            1
+          
+        
+        −
+        t
+        
+          )
+          
+            −
+            1
+          
+        
+        −
+        (
+        
+          z
+          
+            2
+          
+        
+        −
+        t
+        
+          )
+          
+            −
+            1
+          
+        
+        =
+        (
+        
+          z
+          
+            1
+          
+        
+        −
+        t
+        
+          )
+          
+            −
+            1
+          
+        
+        (
+        
+          z
+          
+            2
+          
+        
+        −
+        
+          z
+          
+            1
+          
+        
+        )
+        (
+        
+          z
+          
+            2
+          
+        
+        −
+        t
+        
+          )
+          
+            −
+            1
+          
+        
+        .
+        
+      
+    
+    {\displaystyle (z_{1}-t)^{-1}-(z_{2}-t)^{-1}=(z_{1}-t)^{-1}(z_{2}-z_{1})(z_{2}-t)^{-1}.\,}
+  therefore,
+
+  
+    
+      
+        (
+        
+          z
+          
+            1
+          
+        
+        −
+        t
+        
+          )
+          
+            −
+            1
+          
+        
+        (
+        
+          z
+          
+            2
+          
+        
+        −
+        t
+        
+          )
+          
+            −
+            1
+          
+        
+        =
+        
+          
+            
+              (
+              
+                z
+                
+                  1
+                
+              
+              −
+              t
+              
+                )
+                
+                  −
+                  1
+                
+              
+              −
+              (
+              
+                z
+                
+                  2
+                
+              
+              −
+              t
+              
+                )
+                
+                  −
+                  1
+                
+              
+            
+            
+              (
+              
+                z
+                
+                  2
+                
+              
+              −
+              
+                z
+                
+                  1
+                
+              
+              )
+            
+          
+        
+        .
+      
+    
+    {\displaystyle (z_{1}-t)^{-1}(z_{2}-t)^{-1}={\frac {(z_{1}-t)^{-1}-(z_{2}-t)^{-1}}{(z_{2}-z_{1})}}.}
+  this equation is called the first resolvent formula. the formula shows (z1−t)−1 and (z2−t)−1 commute, which hints at the fact that the image of the functional calculus will be a commutative algebra. letting z2 → z1 shows the resolvent map is (complex-) differentiable at each z1 ∈ ρ(t); so the integral in the expression of functional calculus converges in l(x).
+
+
+==== analyticity ====
+stronger statement than differentiability can be made regarding the resolvent map. the resolvent set ρ(t) is actually an open set on which the resolvent map is analytic. this property will be used in subsequent arguments for the functional calculus. to verify this claim, let z1 ∈ ρ(t) and notice the formal expression
+
+  
+    
+      
+        
+          
+            1
+            
+              
+                z
+                
+                  2
+                
+              
+              −
+              t
+            
+          
+        
+        =
+        
+          
+            1
+            
+              
+                z
+                
+                  1
+                
+              
+              −
+              t
+            
+          
+        
+        ⋅
+        
+          
+            1
+            
+              1
+              −
+              
+                
+                  
+                    
+                      z
+                      
+                        1
+                      
+                    
+                    −
+                    
+                      z
+                      
+                        2
+                      
+                    
+                  
+                  
+                    
+                      z
+                      
+                        1
+                      
+                    
+                    −
+                    t
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {1}{z_{2}-t}}={\frac {1}{z_{1}-t}}\cdot {\frac {1}{1-{\frac {z_{1}-z_{2}}{z_{1}-t}}}}}
+  suggests we consider
+
+  
+    
+      
+        (
+        
+          z
+          
+            1
+          
+        
+        −
+        t
+        
+          )
+          
+            −
+            1
+          
+        
+        
+          ∑
+          
+            n
+            ≥
+            0
+          
+        
+        
+          
+            (
+            
+              (
+              
+                z
+                
+                  1
+                
+              
+              −
+              
+                z
+                
+                  2
+                
+              
+              )
+              (
+              
+                z
+                
+                  1
+                
+              
+              −
+              t
+              
+                )
+                
+                  −
+                  1
+                
+              
+            
+            )
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle (z_{1}-t)^{-1}\sum _{n\geq 0}\left((z_{1}-z_{2})(z_{1}-t)^{-1}\right)^{n}}
+  for (z2−t)−1. the above series converges in l(x), which implies the existence of (z2−t)−1, if
+
+  
+    
+      
+        
+          |
+        
+        
+          z
+          
+            1
+          
+        
+        −
+        
+          z
+          
+            2
+          
+        
+        
+          |
+        
+        <
+        
+          
+            1
+            
+              ‖
+              
+                (
+                
+                  z
+                  
+                    1
+                  
+                
+                −
+                t
+                
+                  )
+                  
+                    −
+                    1
+                  
+                
+              
+              ‖
+            
+          
+        
+        .
+      
+    
+    {\displaystyle |z_{1}-z_{2}|<{\frac {1}{\left\|(z_{1}-t)^{-1}\right\|}}.}
+  therefore, the resolvent set ρ(t) is open and the power series expression on an open disk centered at z1 ∈ ρ(t) shows the resolvent map is analytic on ρ(t).
+
+
+==== neumann series ====
+another expression for (z−t)−1 will also be useful. the formal expression
+
+  
+    
+      
+        
+          
+            1
+            
+              z
+              −
+              t
+            
+          
+        
+        =
+        
+          
+            1
+            z
+          
+        
+        ⋅
+        
+          
+            1
+            
+              1
+              −
+              
+                
+                  t
+                  z
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {1}{z-t}}={\frac {1}{z}}\cdot {\frac {1}{1-{\frac {t}{z}}}}}
+  leads one to consider
+
+  
+    
+      
+        
+          
+            1
+            z
+          
+        
+        
+          ∑
+          
+            n
+            ≥
+            0
+          
+        
+        
+          
+            (
+            
+              
+                t
+                z
+              
+            
+            )
+          
+          
+            n
+          
+        
+        .
+      
+    
+    {\displaystyle {\frac {1}{z}}\sum _{n\geq 0}\left({\frac {t}{z}}\right)^{n}.}
+  this series, the neumann series, converges to (z−t)−1 if
+
+  
+    
+      
+        
+          ‖
+          
+            
+              t
+              z
+            
+          
+          ‖
+        
+        <
+        1
+        ,
+        
+        
+          i.e.
+        
+        
+        
+          |
+        
+        z
+        
+          |
+        
+        >
+        ‖
+        t
+        ‖
+        .
+      
+    
+    {\displaystyle \left\|{\frac {t}{z}}\right\|<1,\;{\text{i.e.}}\;|z|>\|t\|.}
+  
+
+
+==== compactness of σ(t) ====
+from the last two properties of the resolvent we can deduce that the spectrum σ(t) of a bounded operator t is a compact subset of c. therefore, for any open set d such that σ(t) ⊂ d, there exists a positively oriented and smooth system of jordan curves γ = {γ1, ..., γm} such that σ(t) is in the inside of γ and the complement of d is contained in the outside of γ. hence, for the definition of the functional calculus, indeed a suitable family of jordan curves can be found for each f that is holomorphic on some d.
+
+
+=== well-definedness ===
+the previous discussion has shown that the integral makes sense, i.e. a suitable collection γ of jordan curves does exist for each f and the integral does converge in the appropriate sense. what has not been shown is that the definition of the functional calculus is unambiguous, i.e. does not depend on the choice of γ. this issue we now try to resolve.
+
+
+==== a preliminary fact ====
+for a collection of jordan curves γ = {γ1, ..., γm} and a point a ∈ c, the winding number of γ with respect to a is the sum of the winding numbers of its elements. if we define:
+
+  
+    
+      
+        n
+        (
+        γ
+        ,
+        a
+        )
+        =
+        
+          ∑
+          
+            i
+          
+        
+        n
+        (
+        
+          γ
+          
+            i
+          
+        
+        ,
+        a
+        )
+        ,
+      
+    
+    {\displaystyle n(\gamma ,a)=\sum \nolimits _{i}n(\gamma _{i},a),}
+  the following theorem is by cauchy:
+
+theorem. let g ⊂ c be an open set and γ ⊂ g. if g : g → c is holomorphic, and for all a in the complement of g, n(γ, a) = 0, then the contour integral of g on γ is zero.
+we will need the vector-valued analog of this result when g takes values in l(x). to this end, let g : g → l(x) be holomorphic, with the same assumptions on γ. the idea is use the dual space l(x)* of l(x), and pass to cauchy's theorem for the scalar case.
+consider the integral
+
+  
+    
+      
+        
+          ∫
+          
+            γ
+          
+        
+        g
+        ∈
+        l
+        (
+        x
+        )
+        ,
+      
+    
+    {\displaystyle \int _{\gamma }g\in l(x),}
+  if we can show that all φ ∈ l(x)* vanish on this integral then the integral itself has to be zero. since φ is bounded and the integral converges in norm, we have:
+
+  
+    
+      
+        ϕ
+        
+          (
+          
+            
+              ∫
+              
+                γ
+              
+            
+            g
+          
+          )
+        
+        =
+        
+          ∫
+          
+            γ
+          
+        
+        ϕ
+        (
+        g
+        )
+        .
+      
+    
+    {\displaystyle \phi \left(\int _{\gamma }g\right)=\int _{\gamma }\phi (g).}
+  but g is holomorphic, hence the composition φ(g): g ⊂ c → c is holomorphic and therefore by cauchy's theorem
+
+  
+    
+      
+        
+          ∫
+          
+            γ
+          
+        
+        ϕ
+        (
+        g
+        )
+        =
+        0.
+      
+    
+    {\displaystyle \int _{\gamma }\phi (g)=0.}
+  
+
+
+==== main argument ====
+the well-definedness of functional calculus now follows as an easy consequence. let d be an open set containing σ(t). suppose γ = {γi} and ω = {ωj} are two (finite) collections of jordan curves satisfying the assumption given for the functional calculus. we wish to show
+
+  
+    
+      
+        
+          ∫
+          
+            γ
+          
+        
+        
+          
+            
+              f
+              (
+              ζ
+              )
+            
+            
+              ζ
+              −
+              t
+            
+          
+        
+        
+        d
+        ζ
+        =
+        
+          ∫
+          
+            ω
+          
+        
+        
+          
+            
+              f
+              (
+              ζ
+              )
+            
+            
+              ζ
+              −
+              t
+            
+          
+        
+        
+        d
+        ζ
+        .
+      
+    
+    {\displaystyle \int _{\gamma }{\frac {f(\zeta )}{\zeta -t}}\,d\zeta =\int _{\omega }{\frac {f(\zeta )}{\zeta -t}}\,d\zeta .}
+  let ω′ be obtained from ω by reversing the orientation of each ωj, then
+
+  
+    
+      
+        
+          ∫
+          
+            ω
+          
+        
+        
+          
+            
+              f
+              (
+              ζ
+              )
+            
+            
+              ζ
+              −
+              t
+            
+          
+        
+        
+        d
+        ζ
+        =
+        −
+        
+          ∫
+          
+            
+              ω
+              ′
+            
+          
+        
+        
+          
+            
+              f
+              (
+              ζ
+              )
+            
+            
+              ζ
+              −
+              t
+            
+          
+        
+        
+        d
+        ζ
+        .
+      
+    
+    {\displaystyle \int _{\omega }{\frac {f(\zeta )}{\zeta -t}}\,d\zeta =-\int _{\omega '}{\frac {f(\zeta )}{\zeta -t}}\,d\zeta .}
+  consider the union of the two collections γ ∪ ω′. both γ ∪ ω′ and σ(t) are compact. so there is some open set u containing γ ∪ ω′ such that σ(t) lies in the complement of u. any a in the complement of u has winding number n(γ ∪ ω′, a) = 0 and the function
+
+  
+    
+      
+        ζ
+        →
+        
+          
+            
+              f
+              (
+              ζ
+              )
+            
+            
+              ζ
+              −
+              t
+            
+          
+        
+      
+    
+    {\displaystyle \zeta \rightarrow {\frac {f(\zeta )}{\zeta -t}}}
+  is holomorphic on u. so the vector-valued version of cauchy's theorem gives
+
+  
+    
+      
+        
+          ∫
+          
+            γ
+            ∪
+            
+              ω
+              ′
+            
+          
+        
+        
+          
+            
+              f
+              (
+              ζ
+              )
+            
+            
+              ζ
+              −
+              t
+            
+          
+        
+        
+        d
+        ζ
+        =
+        0
+      
+    
+    {\displaystyle \int _{\gamma \cup \omega '}{\frac {f(\zeta )}{\zeta -t}}\,d\zeta =0}
+  i.e.
+
+  
+    
+      
+        
+          ∫
+          
+            γ
+          
+        
+        
+          
+            
+              f
+              (
+              ζ
+              )
+            
+            
+              ζ
+              −
+              t
+            
+          
+        
+        
+        d
+        ζ
+        +
+        
+          ∫
+          
+            
+              ω
+              ′
+            
+          
+        
+        
+          
+            
+              f
+              (
+              ζ
+              )
+            
+            
+              ζ
+              −
+              t
+            
+          
+        
+        
+        d
+        ζ
+        =
+        
+          ∫
+          
+            γ
+          
+        
+        
+          
+            
+              f
+              (
+              ζ
+              )
+            
+            
+              ζ
+              −
+              t
+            
+          
+        
+        
+        d
+        ζ
+        −
+        
+          ∫
+          
+            ω
+          
+        
+        
+          
+            
+              f
+              (
+              ζ
+              )
+            
+            
+              ζ
+              −
+              t
+            
+          
+        
+        
+        d
+        ζ
+        =
+        0.
+      
+    
+    {\displaystyle \int _{\gamma }{\frac {f(\zeta )}{\zeta -t}}\,d\zeta +\int _{\omega '}{\frac {f(\zeta )}{\zeta -t}}\,d\zeta =\int _{\gamma }{\frac {f(\zeta )}{\zeta -t}}\,d\zeta -\int _{\omega }{\frac {f(\zeta )}{\zeta -t}}\,d\zeta =0.}
+  hence the functional calculus is well-defined.
+consequently, if f1 and f2 are two holomorphic functions defined on neighborhoods d1 and d2 of σ(t) and they are equal on an open set containing σ(t), then f1(t) = f2(t). moreover, even though the d1 may not be d2, the operator (f1 + f2) (t) is well-defined. same holds for the definition of (f1·f2)(t).
+
+
+=== on the assumption that f be holomorphic over an open neighborhood of σ(t) ===
+so far the full strength of this assumption has not been used. for convergence of the integral, only continuity was used. for well-definedness, we only needed f to be holomorphic on an open set u containing the contours γ ∪ ω′ but not necessarily σ(t). the assumption will be applied in its entirety in showing the homomorphism property of the functional calculus.
+
+
+== properties ==
+
+
+=== polynomial case ===
+the linearity of the map f ↦ f(t) follows from the convergence of the integral and that linear operations on a banach space are continuous.
+we recover the polynomial functional calculus when f(z) = σ0 ≤ i ≤ m  ai zi is a polynomial. to prove this, it is sufficient to show, for k ≥ 0 and f(z) = zk, it is true that f(t) = tk, i.e.
+
+  
+    
+      
+        
+          
+            1
+            
+              2
+              π
+              i
+            
+          
+        
+        
+          ∫
+          
+            γ
+          
+        
+        
+          
+            
+              ζ
+              
+                k
+              
+            
+            
+              ζ
+              −
+              t
+            
+          
+        
+        
+        d
+        ζ
+        =
+        
+          t
+          
+            k
+          
+        
+      
+    
+    {\displaystyle {\frac {1}{2\pi i}}\int _{\gamma }{\frac {\zeta ^{k}}{\zeta -t}}\,d\zeta =t^{k}}
+  for any suitable γ enclosing σ(t). choose γ to be a circle of radius greater than the operator norm of t. as stated above, on such γ, the resolvent map admits a power series representation
+
+  
+    
+      
+        (
+        z
+        −
+        t
+        
+          )
+          
+            −
+            1
+          
+        
+        =
+        
+          
+            1
+            z
+          
+        
+        
+          ∑
+          
+            n
+            ≥
+            0
+          
+        
+        
+          
+            (
+            
+              
+                t
+                z
+              
+            
+            )
+          
+          
+            n
+          
+        
+        .
+      
+    
+    {\displaystyle (z-t)^{-1}={\frac {1}{z}}\sum _{n\geq 0}\left({\frac {t}{z}}\right)^{n}.}
+  substituting gives
+
+  
+    
+      
+        f
+        (
+        t
+        )
+        =
+        
+          
+            1
+            
+              2
+              π
+              i
+            
+          
+        
+        
+          ∫
+          
+            γ
+          
+        
+        
+          (
+          
+            
+              ∑
+              
+                n
+                ≥
+                0
+              
+            
+            
+              
+                
+                  t
+                  
+                    n
+                  
+                
+                
+                  ζ
+                  
+                    n
+                    +
+                    1
+                    −
+                    k
+                  
+                
+              
+            
+          
+          )
+        
+        
+        d
+        ζ
+      
+    
+    {\displaystyle f(t)={\frac {1}{2\pi i}}\int _{\gamma }\left(\sum _{n\geq 0}{\frac {t^{n}}{\zeta ^{n+1-k}}}\right)\,d\zeta }
+  which is 
+
+  
+    
+      
+        
+          ∑
+          
+            n
+            ≥
+            0
+          
+        
+        
+          t
+          
+            n
+          
+        
+        ⋅
+        
+          
+            1
+            
+              2
+              π
+              i
+            
+          
+        
+        
+          (
+          
+            
+              ∫
+              
+                γ
+              
+            
+            
+              
+                
+                  d
+                  ζ
+                
+                
+                  ζ
+                  
+                    n
+                    +
+                    1
+                    −
+                    k
+                  
+                
+              
+            
+          
+          )
+        
+        =
+        
+          ∑
+          
+            n
+            ≥
+            0
+          
+        
+        
+          t
+          
+            n
+          
+        
+        ⋅
+        
+          δ
+          
+            n
+            k
+          
+        
+        =
+        
+          t
+          
+            k
+          
+        
+        .
+      
+    
+    {\displaystyle \sum _{n\geq 0}t^{n}\cdot {\frac {1}{2\pi i}}\left(\int _{\gamma }{\frac {d\zeta }{\zeta ^{n+1-k}}}\right)=\sum _{n\geq 0}t^{n}\cdot \delta _{nk}=t^{k}.}
+  the δ is the kronecker delta symbol.
+
+
+=== the homomorphism property ===
+for any f1 and f2 satisfying the appropriate assumptions, the homomorphism property states
+
+  
+    
+      
+        
+          f
+          
+            1
+          
+        
+        (
+        t
+        )
+        
+          f
+          
+            2
+          
+        
+        (
+        t
+        )
+        =
+        (
+        
+          f
+          
+            1
+          
+        
+        ⋅
+        
+          f
+          
+            2
+          
+        
+        )
+        (
+        t
+        )
+        .
+        
+      
+    
+    {\displaystyle f_{1}(t)f_{2}(t)=(f_{1}\cdot f_{2})(t).\,}
+  we sketch an argument which invokes the first resolvent formula and the assumptions placed on f. first we choose the jordan curves such that γ1 lies in the inside of γ2. the reason for this will become clear below. start by calculating directly
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  f
+                  
+                    1
+                  
+                
+                (
+                t
+                )
+                
+                  f
+                  
+                    2
+                  
+                
+                (
+                t
+                )
+              
+              
+                
+                =
+                
+                  (
+                  
+                    
+                      
+                        1
+                        
+                          2
+                          π
+                          i
+                        
+                      
+                    
+                    
+                      ∫
+                      
+                        
+                          γ
+                          
+                            1
+                          
+                        
+                      
+                    
+                    
+                      
+                        
+                          
+                            f
+                            
+                              1
+                            
+                          
+                          (
+                          ζ
+                          )
+                        
+                        
+                          ζ
+                          −
+                          t
+                        
+                      
+                    
+                    d
+                    ζ
+                  
+                  )
+                
+                
+                  (
+                  
+                    
+                      
+                        1
+                        
+                          2
+                          π
+                          i
+                        
+                      
+                    
+                    
+                      ∫
+                      
+                        
+                          γ
+                          
+                            2
+                          
+                        
+                      
+                    
+                    
+                      
+                        
+                          
+                            f
+                            
+                              2
+                            
+                          
+                          (
+                          ω
+                          )
+                        
+                        
+                          ω
+                          −
+                          t
+                        
+                      
+                    
+                    
+                    d
+                    ω
+                  
+                  )
+                
+              
+            
+            
+              
+              
+                
+                =
+                
+                  
+                    1
+                    
+                      (
+                      2
+                      π
+                      i
+                      
+                        )
+                        
+                          2
+                        
+                      
+                    
+                  
+                
+                
+                  ∫
+                  
+                    
+                      γ
+                      
+                        1
+                      
+                    
+                  
+                
+                
+                  ∫
+                  
+                    
+                      γ
+                      
+                        2
+                      
+                    
+                  
+                
+                
+                  
+                    
+                      
+                        f
+                        
+                          1
+                        
+                      
+                      (
+                      ζ
+                      )
+                      
+                        f
+                        
+                          2
+                        
+                      
+                      (
+                      ω
+                      )
+                    
+                    
+                      (
+                      ζ
+                      −
+                      t
+                      )
+                      (
+                      ω
+                      −
+                      t
+                      )
+                    
+                  
+                
+                
+                d
+                ω
+                
+                d
+                ζ
+              
+            
+            
+              
+              
+                
+                =
+                
+                  
+                    1
+                    
+                      (
+                      2
+                      π
+                      i
+                      
+                        )
+                        
+                          2
+                        
+                      
+                    
+                  
+                
+                
+                  ∫
+                  
+                    
+                      γ
+                      
+                        1
+                      
+                    
+                  
+                
+                
+                  ∫
+                  
+                    
+                      γ
+                      
+                        2
+                      
+                    
+                  
+                
+                
+                  f
+                  
+                    1
+                  
+                
+                (
+                ζ
+                )
+                
+                  f
+                  
+                    2
+                  
+                
+                (
+                ω
+                )
+                
+                  (
+                  
+                    
+                      
+                        (
+                        ζ
+                        −
+                        t
+                        
+                          )
+                          
+                            −
+                            1
+                          
+                        
+                        −
+                        (
+                        ω
+                        −
+                        t
+                        
+                          )
+                          
+                            −
+                            1
+                          
+                        
+                      
+                      
+                        ω
+                        −
+                        ζ
+                      
+                    
+                  
+                  )
+                
+                d
+                ω
+                
+                d
+                ζ
+              
+              
+              
+                
+                  first resolvent formula
+                
+              
+            
+            
+              
+              
+                
+                =
+                
+                  
+                    1
+                    
+                      (
+                      2
+                      π
+                      i
+                      
+                        )
+                        
+                          2
+                        
+                      
+                    
+                  
+                
+                
+                  {
+                  
+                    
+                      (
+                      
+                        
+                          ∫
+                          
+                            
+                              γ
+                              
+                                1
+                              
+                            
+                          
+                        
+                        
+                          
+                            
+                              
+                                f
+                                
+                                  1
+                                
+                              
+                              (
+                              ζ
+                              )
+                            
+                            
+                              ζ
+                              −
+                              t
+                            
+                          
+                        
+                        
+                          [
+                          
+                            
+                              ∫
+                              
+                                
+                                  γ
+                                  
+                                    2
+                                  
+                                
+                              
+                            
+                            
+                              
+                                
+                                  
+                                    f
+                                    
+                                      2
+                                    
+                                  
+                                  (
+                                  ω
+                                  )
+                                
+                                
+                                  ω
+                                  −
+                                  ζ
+                                
+                              
+                            
+                            d
+                            ω
+                          
+                          ]
+                        
+                        d
+                        ζ
+                      
+                      )
+                    
+                    −
+                    
+                      (
+                      
+                        
+                          ∫
+                          
+                            
+                              γ
+                              
+                                2
+                              
+                            
+                          
+                        
+                        
+                          
+                            
+                              
+                                f
+                                
+                                  2
+                                
+                              
+                              (
+                              ω
+                              )
+                            
+                            
+                              ω
+                              −
+                              t
+                            
+                          
+                        
+                        
+                          [
+                          
+                            
+                              ∫
+                              
+                                
+                                  γ
+                                  
+                                    1
+                                  
+                                
+                              
+                            
+                            
+                              
+                                
+                                  
+                                    f
+                                    
+                                      1
+                                    
+                                  
+                                  (
+                                  ζ
+                                  )
+                                
+                                
+                                  ω
+                                  −
+                                  ζ
+                                
+                              
+                            
+                            d
+                            ζ
+                          
+                          ]
+                        
+                        d
+                        ω
+                      
+                      )
+                    
+                  
+                  }
+                
+              
+            
+            
+              
+              
+                
+                =
+                
+                  
+                    1
+                    
+                      (
+                      2
+                      π
+                      i
+                      
+                        )
+                        
+                          2
+                        
+                      
+                    
+                  
+                
+                
+                  ∫
+                  
+                    
+                      γ
+                      
+                        1
+                      
+                    
+                  
+                
+                
+                  
+                    
+                      
+                        f
+                        
+                          1
+                        
+                      
+                      (
+                      ζ
+                      )
+                    
+                    
+                      ζ
+                      −
+                      t
+                    
+                  
+                
+                
+                  [
+                  
+                    
+                      ∫
+                      
+                        
+                          γ
+                          
+                            2
+                          
+                        
+                      
+                    
+                    
+                      
+                        
+                          
+                            f
+                            
+                              2
+                            
+                          
+                          (
+                          ω
+                          )
+                        
+                        
+                          ω
+                          −
+                          ζ
+                        
+                      
+                    
+                    d
+                    ω
+                  
+                  ]
+                
+                d
+                ζ
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}f_{1}(t)f_{2}(t)&=\left({\frac {1}{2\pi i}}\int _{\gamma _{1}}{\frac {f_{1}(\zeta )}{\zeta -t}}d\zeta \right)\left({\frac {1}{2\pi i}}\int _{\gamma _{2}}{\frac {f_{2}(\omega )}{\omega -t}}\,d\omega \right)\\&={\frac {1}{(2\pi i)^{2}}}\int _{\gamma _{1}}\int _{\gamma _{2}}{\frac {f_{1}(\zeta )f_{2}(\omega )}{(\zeta -t)(\omega -t)}}\;d\omega \,d\zeta \\&={\frac {1}{(2\pi i)^{2}}}\int _{\gamma _{1}}\int _{\gamma _{2}}f_{1}(\zeta )f_{2}(\omega )\left({\frac {(\zeta -t)^{-1}-(\omega -t)^{-1}}{\omega -\zeta }}\right)d\omega \,d\zeta &&{\text{first resolvent formula}}\\&={\frac {1}{(2\pi i)^{2}}}\left\{\left(\int _{\gamma _{1}}{\frac {f_{1}(\zeta )}{\zeta -t}}\left[\int _{\gamma _{2}}{\frac {f_{2}(\omega )}{\omega -\zeta }}d\omega \right]d\zeta \right)-\left(\int _{\gamma _{2}}{\frac {f_{2}(\omega )}{\omega -t}}\left[\int _{\gamma _{1}}{\frac {f_{1}(\zeta )}{\omega -\zeta }}d\zeta \right]d\omega \right)\right\}\\&={\frac {1}{(2\pi i)^{2}}}\int _{\gamma _{1}}{\frac {f_{1}(\zeta )}{\zeta -t}}\left[\int _{\gamma _{2}}{\frac {f_{2}(\omega )}{\omega -\zeta }}d\omega \right]d\zeta \end{aligned}}}
+  the last line follows from the fact that ω ∈ γ2 lies outside of γ1 and f1 is holomorphic on some open neighborhood of σ(t) and therefore the second term vanishes. therefore, we have:
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  f
+                  
+                    1
+                  
+                
+                (
+                t
+                )
+                
+                  f
+                  
+                    2
+                  
+                
+                (
+                t
+                )
+              
+              
+                
+                =
+                
+                  
+                    1
+                    
+                      2
+                      π
+                      i
+                    
+                  
+                
+                
+                  ∫
+                  
+                    
+                      γ
+                      
+                        1
+                      
+                    
+                  
+                
+                
+                  
+                    
+                      
+                        f
+                        
+                          1
+                        
+                      
+                      (
+                      ζ
+                      )
+                    
+                    
+                      ζ
+                      −
+                      t
+                    
+                  
+                
+                
+                  [
+                  
+                    
+                      
+                        1
+                        
+                          2
+                          π
+                          i
+                        
+                      
+                    
+                    
+                      ∫
+                      
+                        
+                          γ
+                          
+                            2
+                          
+                        
+                      
+                    
+                    
+                      
+                        
+                          
+                            f
+                            
+                              2
+                            
+                          
+                          (
+                          ω
+                          )
+                        
+                        
+                          ω
+                          −
+                          ζ
+                        
+                      
+                    
+                    d
+                    ω
+                  
+                  ]
+                
+                d
+                ζ
+              
+            
+            
+              
+              
+                
+                =
+                
+                  
+                    1
+                    
+                      2
+                      π
+                      i
+                    
+                  
+                
+                
+                  ∫
+                  
+                    
+                      γ
+                      
+                        1
+                      
+                    
+                  
+                
+                
+                  
+                    
+                      
+                        f
+                        
+                          1
+                        
+                      
+                      (
+                      ζ
+                      )
+                    
+                    
+                      ζ
+                      −
+                      t
+                    
+                  
+                
+                
+                  [
+                  
+                    
+                      f
+                      
+                        2
+                      
+                    
+                    (
+                    ζ
+                    )
+                  
+                  ]
+                
+                d
+                ζ
+              
+              
+              
+                
+                  cauchy's integral formula
+                
+              
+            
+            
+              
+              
+                
+                =
+                
+                  
+                    1
+                    
+                      2
+                      π
+                      i
+                    
+                  
+                
+                
+                  ∫
+                  
+                    
+                      γ
+                      
+                        1
+                      
+                    
+                  
+                
+                
+                  
+                    
+                      
+                        f
+                        
+                          1
+                        
+                      
+                      (
+                      ζ
+                      )
+                      
+                        f
+                        
+                          2
+                        
+                      
+                      (
+                      ζ
+                      )
+                    
+                    
+                      ζ
+                      −
+                      t
+                    
+                  
+                
+                d
+                ζ
+              
+            
+            
+              
+              
+                
+                =
+                (
+                
+                  f
+                  
+                    1
+                  
+                
+                ⋅
+                
+                  f
+                  
+                    2
+                  
+                
+                )
+                (
+                t
+                )
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}f_{1}(t)f_{2}(t)&={\frac {1}{2\pi i}}\int _{\gamma _{1}}{\frac {f_{1}(\zeta )}{\zeta -t}}\left[{\frac {1}{2\pi i}}\int _{\gamma _{2}}{\frac {f_{2}(\omega )}{\omega -\zeta }}d\omega \right]d\zeta \\&={\frac {1}{2\pi i}}\int _{\gamma _{1}}{\frac {f_{1}(\zeta )}{\zeta -t}}\left[f_{2}(\zeta )\right]d\zeta &&{\text{cauchy's integral formula}}\\&={\frac {1}{2\pi i}}\int _{\gamma _{1}}{\frac {f_{1}(\zeta )f_{2}(\zeta )}{\zeta -t}}d\zeta \\&=(f_{1}\cdot f_{2})(t)\end{aligned}}}
+  
+
+
+=== continuity with respect to compact convergence ===
+let g ⊂ c be open with σ(t) ⊂ g. suppose a sequence {fk} of holomorphic functions on g converges uniformly on compact subsets of g (this is sometimes called compact convergence). then {fk(t)} is convergent in l(x):
+assume for simplicity that γ consists of only one jordan curve. we estimate
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  ‖
+                  
+                    
+                      f
+                      
+                        k
+                      
+                    
+                    (
+                    t
+                    )
+                    −
+                    
+                      f
+                      
+                        l
+                      
+                    
+                    (
+                    t
+                    )
+                  
+                  ‖
+                
+              
+              
+                
+                =
+                
+                  
+                    1
+                    
+                      2
+                      π
+                    
+                  
+                
+                
+                  ‖
+                  
+                    
+                      ∫
+                      
+                        γ
+                      
+                    
+                    
+                      
+                        
+                          (
+                          
+                            f
+                            
+                              k
+                            
+                          
+                          −
+                          
+                            f
+                            
+                              l
+                            
+                          
+                          )
+                          (
+                          ζ
+                          )
+                        
+                        
+                          ζ
+                          −
+                          t
+                        
+                      
+                    
+                    d
+                    ζ
+                  
+                  ‖
+                
+              
+            
+            
+              
+              
+                
+                ≤
+                
+                  
+                    1
+                    
+                      2
+                      π
+                    
+                  
+                
+                
+                  ∫
+                  
+                    γ
+                  
+                
+                
+                  |
+                  
+                    (
+                    
+                      f
+                      
+                        k
+                      
+                    
+                    −
+                    
+                      f
+                      
+                        l
+                      
+                    
+                    )
+                    (
+                    ζ
+                    )
+                  
+                  |
+                
+                ⋅
+                
+                  ‖
+                  
+                    (
+                    ζ
+                    −
+                    t
+                    
+                      )
+                      
+                        −
+                        1
+                      
+                    
+                  
+                  ‖
+                
+                d
+                ζ
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}\left\|f_{k}(t)-f_{l}(t)\right\|&={\frac {1}{2\pi }}\left\|\int _{\gamma }{\frac {(f_{k}-f_{l})(\zeta )}{\zeta -t}}d\zeta \right\|\\&\leq {\frac {1}{2\pi }}\int _{\gamma }\left|(f_{k}-f_{l})(\zeta )\right|\cdot \left\|(\zeta -t)^{-1}\right\|d\zeta \end{aligned}}}
+  by combining the uniform convergence assumption and various continuity considerations, we see that the above tends to 0 as k, l → ∞. so  {fk(t)} is cauchy, therefore convergent.
+
+
+=== uniqueness ===
+to summarize, we have shown the holomorphic functional calculus, f → f(t), has the following properties:
+
+it extends the polynomial functional calculus.
+it is an algebra homomorphism from the algebra of holomorphic functions defined on a neighborhood of σ(t) to l(x)
+it preserves uniform convergence on compact sets.it can be proved that a calculus satisfying the above properties is unique.
+we note that, everything discussed so far holds verbatim if the family of bounded operators l(x) is replaced by a banach algebra a.  the functional calculus can be defined in exactly the same way for an element in a.
+
+
+== spectral considerations ==
+
+
+=== spectral mapping theorem ===
+it is known that the spectral mapping theorem holds for the polynomial functional calculus: for any polynomial p, σ(p(t)) = p(σ(t)). this can be extended to the holomorphic calculus. to show f(σ(t)) ⊂ σ(f(t)), let μ be any complex number. by a result from complex analysis, there exists a function g holomorphic on a neighborhood of σ(t) such that
+
+  
+    
+      
+        f
+        (
+        z
+        )
+        −
+        f
+        (
+        μ
+        )
+        =
+        (
+        z
+        −
+        μ
+        )
+        g
+        (
+        z
+        )
+        .
+        
+      
+    
+    {\displaystyle f(z)-f(\mu )=(z-\mu )g(z).\,}
+  according to the homomorphism property, f(t) − f(μ) = (t − μ)g(t). therefore, μ ∈ σ(t) implies f(μ) ∈ σ(f(t)).
+for the other inclusion, if μ is not in f(σ(t)), then the functional calculus is applicable to
+
+  
+    
+      
+        g
+        (
+        z
+        )
+        =
+        
+          
+            1
+            
+              f
+              (
+              z
+              )
+              −
+              μ
+            
+          
+        
+        .
+      
+    
+    {\displaystyle g(z)={\frac {1}{f(z)-\mu }}.}
+  so g(t)(f(t) − μ) = i. therefore, μ does not lie in σ(f(t)).
+
+
+=== spectral projections ===
+the underlying idea is as follows. suppose that k is a subset of σ(t) and u,v are disjoint neighbourhoods of k and σ(t) \ k respectively. define e(z) = 1 if z ∈ u and e(z) = 0 if z ∈ v. then e is a holomorphic function with  [e(z)]2 = e(z) and so, for a suitable contour γ which lies in u ∪ v and which encloses σ(t), the linear operator
+
+  
+    
+      
+        e
+        (
+        t
+        )
+        =
+        
+          
+            1
+            
+              2
+              π
+              i
+            
+          
+        
+        
+          ∫
+          
+            γ
+          
+        
+        
+          
+            
+              e
+              (
+              z
+              )
+            
+            
+              z
+              −
+              t
+            
+          
+        
+        
+        d
+        z
+      
+    
+    {\displaystyle e(t)={\frac {1}{2\pi i}}\int _{\gamma }{\frac {e(z)}{z-t}}\,dz}
+  will be a bounded projection that commutes with t and provides a great deal of useful information.
+it transpires that this scenario is possible if and only if k is both open and closed in the subspace topology on σ(t). moreover, the set v can be safely ignored since e is zero on it and therefore makes no contribution to the integral. the projection e(t) is called the spectral projection of t at k and is denoted by p(k;t). thus every subset k of σ(t) that is both open and closed in the subspace topology has an associated spectral projection given by
+
+  
+    
+      
+        p
+        (
+        k
+        ;
+        t
+        )
+        =
+        
+          
+            1
+            
+              2
+              π
+              i
+            
+          
+        
+        
+          ∫
+          
+            γ
+          
+        
+        
+          
+            
+              d
+              z
+            
+            
+              z
+              −
+              t
+            
+          
+        
+      
+    
+    {\displaystyle p(k;t)={\frac {1}{2\pi i}}\int \nolimits _{\gamma }{\frac {dz}{z-t}}}
+  where γ is a contour that encloses k but no other points of σ(t).
+since p = p(k;t) is bounded and commutes with t it enables t to be expressed in the form u ⊕ v where u = t|px and v = t|(1−p)x. both px and (1 − p)x are invariant subspaces of t moreover σ(u) = k and σ(v) = σ(t) \ k. a key property is mutual orthogonality. if l is another open and closed set in the subspace topology on σ(t) then p(k;t)p(l;t) = p(l;t)p(k;t) = p(k ∩ l;t) which is zero whenever k and l are disjoint.
+spectral projections have numerous applications. any isolated point of σ(t) is both open and closed in the subspace topology and therefore has an associated spectral projection. when x has finite dimension σ(t) consists of isolated points and the resultant spectral projections lead to a variant of jordan normal form wherein all the jordan blocks corresponding to the same eigenvalue are consolidated. in other words there is precisely one block per distinct eigenvalue. the next section considers this decomposition in more detail.
+sometimes spectral projections inherit properties from their parent operators. for example if t is a positive matrix with spectral radius r then the perron–frobenius theorem asserts that r ∈ σ(t). the associated spectral projection p = p(r;t) is also positive and by mutual orthogonality no other spectral projection can have a positive row or column. in fact tp = rp and (t/r)n → p as n → ∞ so this projection p (which is called the perron projection) approximates (t/r)n as n increases, and each of its columns is an eigenvector of t.
+more generally if t is a compact operator then all non-zero points in σ(t) are isolated and so any finite subset of them can be used to decompose t. the associated spectral projection always has finite rank. those operators in l(x) with similar spectral characteristics are known as riesz operators. many classes of riesz operators (including the compact operators) are ideals in l(x) and provide a rich field for research. however if x is a hilbert space there is exactly one closed ideal sandwiched between the riesz operators and those of finite rank.
+much of the foregoing discussion can be set in the more general context of a complex banach algebra. here spectral projections are referred to as spectral idempotents since there may no longer be a space for them to project onto.
+
+
+=== invariant subspace decomposition ===
+if the spectrum σ(t) is not connected, x can be decomposed into invariant subspaces of t using the functional calculus. let σ(t) be a disjoint union
+
+  
+    
+      
+        σ
+        (
+        t
+        )
+        =
+        
+          ⋃
+          
+            i
+            =
+            1
+          
+          
+            m
+          
+        
+        
+          f
+          
+            i
+          
+        
+        .
+      
+    
+    {\displaystyle \sigma (t)=\bigcup _{i=1}^{m}f_{i}.}
+  define ei to be 1 on some neighborhood that contains only the component fi and 0 elsewhere. by the homomorphism property, ei(t) is a projection for all i. in fact it is just the spectral projection p(fi;t) described above. the relation ei(t) t = t ei(t) means the range of each ei(t), denoted by xi, is an invariant subspace of t. since
+
+  
+    
+      
+        
+          ∑
+          
+            i
+          
+        
+        
+          e
+          
+            i
+          
+        
+        (
+        t
+        )
+        =
+        i
+        ,
+        
+      
+    
+    {\displaystyle \sum _{i}e_{i}(t)=i,\,}
+  x can be expressed in terms of these complementary subspaces:
+
+  
+    
+      
+        x
+        =
+        
+          ∑
+          
+            i
+          
+        
+        
+          x
+          
+            i
+          
+        
+        .
+        
+      
+    
+    {\displaystyle x=\sum _{i}x_{i}.\,}
+  similarly, if ti is t restricted to xi, then
+
+  
+    
+      
+        t
+        =
+        
+          ∑
+          
+            i
+          
+        
+        
+          t
+          
+            i
+          
+        
+        .
+        
+      
+    
+    {\displaystyle t=\sum _{i}t_{i}.\,}
+  consider the direct sum
+
+  
+    
+      
+        
+          x
+          ′
+        
+        =
+        
+          ⨁
+          
+            i
+          
+        
+        
+          x
+          
+            i
+          
+        
+        .
+      
+    
+    {\displaystyle x'=\bigoplus _{i}x_{i}.}
+  with the norm
+
+  
+    
+      
+        
+          ‖
+          
+            
+              ⨁
+              
+                i
+              
+            
+            
+              x
+              
+                i
+              
+            
+          
+          ‖
+        
+        =
+        
+          ∑
+          
+            i
+          
+        
+        ‖
+        
+          x
+          
+            i
+          
+        
+        ‖
+        ,
+      
+    
+    {\displaystyle \left\|\bigoplus _{i}x_{i}\right\|=\sum _{i}\|x_{i}\|,}
+  x'  is a banach space. the mapping r: x'  → x defined by
+
+  
+    
+      
+        r
+        
+          (
+          
+            
+              ⨁
+              
+                i
+              
+            
+            
+              x
+              
+                i
+              
+            
+          
+          )
+        
+        =
+        
+          ∑
+          
+            i
+          
+        
+        
+          x
+          
+            i
+          
+        
+      
+    
+    {\displaystyle r\left(\bigoplus _{i}x_{i}\right)=\sum _{i}x_{i}}
+  is a banach space isomorphism, and we see that
+
+  
+    
+      
+        r
+        t
+        
+          r
+          
+            −
+            1
+          
+        
+        =
+        
+          ⨁
+          
+            i
+          
+        
+        
+          t
+          
+            i
+          
+        
+        .
+      
+    
+    {\displaystyle rtr^{-1}=\bigoplus _{i}t_{i}.}
+  this can be viewed as a block diagonalization of t.
+when x is finite-dimensional, σ(t) = {λi} is a finite set of points in the complex plane. choose ei to be 1 on an open disc containing only λi from the spectrum. the corresponding block-diagonal matrix
+
+  
+    
+      
+        
+          ⨁
+          
+            i
+          
+        
+        
+          t
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \bigoplus _{i}t_{i}}
+  is the jordan canonical form of t.
+
+
+== related results ==
+with stronger assumptions, when t is a normal operator acting on a hilbert space, the domain of the functional calculus can be broadened. when comparing the two results, a rough analogy can be made with the relationship between the spectral theorem for normal matrices and the jordan canonical form. when t is a normal operator, a continuous functional calculus can be obtained, that is, one can evaluate f(t) with f being a continuous function defined on σ(t). using the machinery of measure theory, this can be extended to functions which are only measurable (see borel functional calculus). in that context, if e ⊂ σ(t) is a borel set and e(x) is the characteristic function of e, the projection operator e(t) is a refinement of ei(t) discussed above.
+the borel functional calculus extends to unbounded self-adjoint operators on a hilbert space.
+in slightly more abstract language, the holomorphic functional calculus can be extended to any element of a banach algebra, using essentially the same arguments as above. similarly, the continuous functional calculus holds for normal elements in any c*-algebra and the measurable functional calculus for normal elements in any von neumann algebra.
+
+
+=== unbounded operators ===
+a holomorphic functional calculus can be defined in a similar fashion for unbounded closed operators with non-empty resolvent set.
+
+
+== see also ==
+resolvent formalism
+jordan canonical form, where the finite-dimensional case is discussed in some detail.
+
+
+== references ==
+n. dunford and j.t. schwartz, linear operators, part i: general theory, interscience, 1958.
+steven g krantz. dictionary of algebra, arithmetic, and trigonometry. crc press, 2000. isbn 1-58488-052-x.
+israel gohberg, seymour goldberg and marinus a. kaashoek, classes of linear operators: volume 1. birkhauser, 1991. isbn 978-0817625313.

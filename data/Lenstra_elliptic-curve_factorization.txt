@@ -1,0 +1,2827 @@
+the lenstra elliptic-curve factorization or the elliptic-curve factorization method (ecm) is a fast, sub-exponential running time, algorithm for integer factorization, which employs elliptic curves.  for general-purpose factoring, ecm is the third-fastest known factoring method.  the second-fastest is the multiple polynomial quadratic sieve, and the fastest is the general number field sieve. the lenstra elliptic-curve factorization is named after hendrik lenstra.
+practically speaking, ecm is considered a special-purpose factoring algorithm, as it is most suitable for finding small factors. currently, it is still the best algorithm for divisors not exceeding 50 to 60 digits, as its running time is dominated by the size of the smallest factor p rather than by the size of the number n to be factored. frequently, ecm is used to remove small factors from a very large integer with many factors; if the remaining integer is still composite, then it has only large factors and is factored using general-purpose techniques. the largest factor found using ecm so far has 83 decimal digits and was discovered on 7 september 2013 by r. propper. increasing the number of curves tested improves the chances of finding a factor, but they are not linear with the increase in the number of digits.
+
+
+== algorithm ==
+the lenstra elliptic-curve factorization method to find a factor of a given natural number 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   works as follows:
+
+pick a random elliptic curve over 
+  
+    
+      
+        
+          z
+        
+        
+          /
+        
+        n
+        
+          z
+        
+      
+    
+    {\displaystyle \mathbb {z} /n\mathbb {z} }
+  , with equation of the form 
+  
+    
+      
+        
+          y
+          
+            2
+          
+        
+        =
+        
+          x
+          
+            3
+          
+        
+        +
+        a
+        x
+        +
+        b
+        
+          
+          (
+          mod
+          
+          n
+          )
+        
+      
+    
+    {\displaystyle y^{2}=x^{3}+ax+b{\pmod {n}}}
+   together with a non-trivial point 
+  
+    
+      
+        p
+        (
+        
+          x
+          
+            0
+          
+        
+        ,
+        
+          y
+          
+            0
+          
+        
+        )
+      
+    
+    {\displaystyle p(x_{0},y_{0})}
+   on it.
+this can be done by first picking random 
+  
+    
+      
+        
+          x
+          
+            0
+          
+        
+        ,
+        
+          y
+          
+            0
+          
+        
+        ,
+        a
+        ∈
+        
+          z
+        
+        
+          /
+        
+        n
+        
+          z
+        
+      
+    
+    {\displaystyle x_{0},y_{0},a\in \mathbb {z} /n\mathbb {z} }
+  , and then setting 
+  
+    
+      
+        b
+        =
+        
+          y
+          
+            0
+          
+          
+            2
+          
+        
+        −
+        
+          x
+          
+            0
+          
+          
+            3
+          
+        
+        −
+        a
+        
+          x
+          
+            0
+          
+        
+        
+          
+          (
+          mod
+          
+          n
+          )
+        
+      
+    
+    {\displaystyle b=y_{0}^{2}-x_{0}^{3}-ax_{0}{\pmod {n}}}
+   to assure the point is on the curve.
+one can define addition of two points on the curve, to define a group. the addition laws are given in the article on elliptic curves.
+we can form repeated multiples of a point 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+  : 
+  
+    
+      
+        [
+        k
+        ]
+        p
+        =
+        p
+        +
+        …
+        +
+        p
+        
+           (k times)
+        
+      
+    
+    {\displaystyle [k]p=p+\ldots +p{\text{ (k times)}}}
+  . the addition formulae involve taking the modular slope of a chord joining 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   and 
+  
+    
+      
+        q
+      
+    
+    {\displaystyle q}
+  , and thus division between residue classes modulo 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  , performed using the extended euclidean algorithm. in particular, division by some 
+  
+    
+      
+        v
+        
+          mod
+          
+            n
+          
+        
+      
+    
+    {\displaystyle v{\bmod {n}}}
+   includes calculation of the 
+  
+    
+      
+        gcd
+        (
+        v
+        ,
+        n
+        )
+      
+    
+    {\displaystyle \gcd(v,n)}
+  .
+assuming we calculate a slope of the form 
+  
+    
+      
+        u
+        
+          /
+        
+        v
+      
+    
+    {\displaystyle u/v}
+   with 
+  
+    
+      
+        gcd
+        (
+        u
+        ,
+        v
+        )
+        =
+        1
+      
+    
+    {\displaystyle \gcd(u,v)=1}
+  , then if 
+  
+    
+      
+        v
+        =
+        0
+        
+          mod
+          
+            n
+          
+        
+      
+    
+    {\displaystyle v=0{\bmod {n}}}
+  , the result of the point addition will be 
+  
+    
+      
+        ∞
+      
+    
+    {\displaystyle \infty }
+  , the point "at infinity" corresponding to the intersection of the "vertical" line joining 
+  
+    
+      
+        p
+        (
+        x
+        ,
+        y
+        )
+        ,
+        
+          p
+          ′
+        
+        (
+        x
+        ,
+        −
+        y
+        )
+      
+    
+    {\displaystyle p(x,y),p'(x,-y)}
+   and the curve. however, if 
+  
+    
+      
+        gcd
+        (
+        v
+        ,
+        n
+        )
+        ≠
+        1
+        ,
+        n
+      
+    
+    {\displaystyle \gcd(v,n)\neq 1,n}
+  , then the point addition will not produce a meaningful point on the curve; but, more importantly, 
+  
+    
+      
+        gcd
+        (
+        v
+        ,
+        n
+        )
+      
+    
+    {\displaystyle \gcd(v,n)}
+   is a non-trivial factor of 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  .
+compute 
+  
+    
+      
+        [
+        k
+        ]
+        p
+      
+    
+    {\displaystyle [k]p}
+   on the elliptic curve (
+  
+    
+      
+        
+          mod
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\bmod {n}}}
+  ), where 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   is a product of many small numbers: say, a product of small primes raised to small powers, as in the p-1 algorithm, or the factorial 
+  
+    
+      
+        b
+        !
+      
+    
+    {\displaystyle b!}
+   for some not too large 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+  . this can be done efficiently, one small factor at a time. say, to get 
+  
+    
+      
+        [
+        b
+        !
+        ]
+        p
+      
+    
+    {\displaystyle [b!]p}
+  , first compute 
+  
+    
+      
+        [
+        2
+        ]
+        p
+      
+    
+    {\displaystyle [2]p}
+  , then 
+  
+    
+      
+        [
+        3
+        ]
+        (
+        [
+        2
+        ]
+        p
+        )
+      
+    
+    {\displaystyle [3]([2]p)}
+  , then 
+  
+    
+      
+        [
+        4
+        ]
+        (
+        [
+        3
+        !
+        ]
+        p
+        )
+      
+    
+    {\displaystyle [4]([3!]p)}
+  , and so on. 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   is picked to be small enough so that 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+  -wise point addition can be performed in reasonable time.
+if we finish all the calculations above without encountering non-invertible elements (
+  
+    
+      
+        
+          mod
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\bmod {n}}}
+  ), it means that the elliptic curves' (modulo primes) order is not smooth enough, so we need to try again with a different curve and starting point.
+if we encounter a 
+  
+    
+      
+        gcd
+        (
+        v
+        ,
+        n
+        )
+        ≠
+        1
+        ,
+        m
+      
+    
+    {\displaystyle \gcd(v,n)\neq 1,m}
+   we are done: it is a non-trivial factor of 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  .the time complexity depends on the size of the number's smallest prime factor and can be represented by exp[(√2 + o(1)) √ln p ln ln p], where p is the smallest factor of n, or 
+  
+    
+      
+        
+          l
+          
+            p
+          
+        
+        
+          [
+          
+            
+              
+                1
+                2
+              
+            
+            ,
+            
+              
+                2
+              
+            
+          
+          ]
+        
+      
+    
+    {\displaystyle l_{p}\left[{\frac {1}{2}},{\sqrt {2}}\right]}
+  , in l-notation.
+
+
+== why does the algorithm work? ==
+if p and q are two prime divisors of n, then y2 = x3 + ax + b (mod n) implies the same equation also modulo p and modulo q. these two smaller elliptic curves with the 
+  
+    
+      
+        ⊞
+      
+    
+    {\displaystyle \boxplus }
+  -addition are now genuine groups. if these groups have np and nq elements, respectively, then for any point p on the original curve, by lagrange's theorem, k > 0 is minimal such that 
+  
+    
+      
+        k
+        p
+        =
+        ∞
+      
+    
+    {\displaystyle kp=\infty }
+   on the curve modulo p implies that k divides np; moreover, 
+  
+    
+      
+        
+          n
+          
+            p
+          
+        
+        p
+        =
+        ∞
+      
+    
+    {\displaystyle n_{p}p=\infty }
+  . the analogous statement holds for the curve modulo q. when the elliptic curve is chosen randomly, then np and nq are random numbers close to p + 1 and q + 1, respectively (see below). hence it is unlikely that most of the prime factors of np and nq are the same, and it is quite likely that while computing ep, we will encounter some kp that is ∞ modulo p but not modulo q, or vice versa. when this is the case, kp does not exist on the original curve, and in the computations we found some v with either gcd(v,p) = p or gcd(v, q) = q, but not both. that is, gcd(v, n) gave a non-trivial factor of n.
+ecm is at its core an improvement of the older p − 1 algorithm. the p − 1 algorithm finds prime factors p such that p − 1 is b-powersmooth for small values of b. for any e, a multiple of p − 1, and any a relatively prime to p, by fermat's little theorem we have ae ≡ 1 (mod p). then gcd(ae − 1, n) is likely to produce a factor of n. however, the algorithm fails when p - 1 has large prime factors, as is the case for numbers containing strong primes, for example.
+ecm gets around this obstacle by considering the group of a random elliptic curve over the finite field zp, rather than considering the multiplicative group of zp which always has order p − 1.
+the order of the group of an elliptic curve over zp varies (quite randomly) between p + 1 − 2√p and p + 1 + 2√p by hasse's theorem, and is likely to be smooth for some elliptic curves.  although there is no proof that a smooth group order will be found in the hasse-interval, by using heuristic probabilistic methods, the canfield–erdős–pomerance theorem with suitably optimized parameter choices, and the l-notation, we can expect to try l[√2/2, √2] curves before getting a smooth group order. this heuristic estimate is very reliable in practice.
+
+
+== an example ==
+the following example is from trappe & washington (2006), with some details added.
+we want to factor n = 455839. let's choose the elliptic curve y2 = x3 + 5x – 5, with the point p = (1, 1) on it, and let's try to compute (10!)p.
+the slope of the tangent line at some point a=(x, y) is s = (3x2 + 5)/(2y) (mod n). using s we can compute 2a. if the value of s is of the form a/b where b > 1 and gcd(a,b) = 1, we have to find the modular inverse of b. if it does not exist, gcd(n,b) is a non-trivial factor of n.
+first we compute 2p. we have s(p) = s(1,1) = 4, so the coordinates of 2p = (x′, y′) are x′ = s2 – 2x = 14 and y′ = s(x – x′) – y = 4(1 – 14) – 1 = –53, all numbers understood (mod n). just to check that this 2p is indeed on the curve: (–53)2 = 2809 = 143 + 5·14 – 5.
+then we compute 3(2p). we have s(2p) = s(14,-53) = –593/106 (mod n). using the euclidean algorithm: 455839 = 4300·106 + 39, then 106 = 2·39 + 28, then 39 = 28 + 11, then 28 = 2·11 + 6, then 11 = 6 + 5, then 6 = 5 + 1. hence gcd(455839, 106) = 1, and working backwards (a version of the extended euclidean algorithm): 1 = 6 – 5 = 2·6 – 11 = 2·28 – 5·11 = 7·28 – 5·39 = 7·106 – 19·39 = 81707·106 – 19·455839. hence 106−1 = 81707 (mod 455839), and –593/106 = –133317 (mod 455839). given this s, we can compute the coordinates of 2(2p), just as we did above: 4p = (259851, 116255). just to check that this is indeed a point on the curve: y2 = 54514 = x3 + 5x – 5 (mod 455839). after this, we can compute 
+  
+    
+      
+        3
+        (
+        2
+        p
+        )
+        =
+        4
+        p
+        ⊞
+        2
+        p
+      
+    
+    {\displaystyle 3(2p)=4p\boxplus 2p}
+  .
+we can similarly compute 4!p, and so on, but 8!p requires inverting 599 (mod 455839). the euclidean algorithm gives that 455839 is divisible by 599, and we have found a factorization 455839 = 599·761.
+the reason that this worked is that the curve (mod 599) has 640 = 27·5 points, while (mod 761) it has 777 = 3·7·37 points. moreover, 640 and 777 are the smallest positive integers k such that kp = ∞ on the curve (mod 599) and (mod 761), respectively. since 8! is a multiple of 640 but not a multiple of 777, we have 8!p = ∞ on the curve (mod 599), but not on the curve (mod 761), hence the repeated addition broke down here, yielding the factorization.
+
+
+== the algorithm with projective coordinates ==
+before considering the projective plane over 
+  
+    
+      
+        (
+        
+          z
+        
+        
+          /
+        
+        n
+        
+          z
+        
+        )
+        
+          /
+        
+        ∼
+        ,
+      
+    
+    {\displaystyle (\mathbb {z} /n\mathbb {z} )/\sim ,}
+   first consider a 'normal' projective space over ℝ: instead of points, lines through the origin are studied. a line may be represented as a non-zero point 
+  
+    
+      
+        (
+        x
+        ,
+        y
+        ,
+        z
+        )
+      
+    
+    {\displaystyle (x,y,z)}
+  , under an equivalence relation ~ given by: 
+  
+    
+      
+        (
+        x
+        ,
+        y
+        ,
+        z
+        )
+        ∼
+        (
+        
+          x
+          ′
+        
+        ,
+        
+          y
+          ′
+        
+        ,
+        
+          z
+          ′
+        
+        )
+      
+    
+    {\displaystyle (x,y,z)\sim (x',y',z')}
+   ⇔ ∃ c ≠ 0 such that x' = cx, y' = cy and z' = cz. under this equivalence relation, the space is called the projective plane 
+  
+    
+      
+        
+          
+            p
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \mathbb {p} ^{2}}
+  ; points, denoted by 
+  
+    
+      
+        (
+        x
+        :
+        y
+        :
+        z
+        )
+      
+    
+    {\displaystyle (x:y:z)}
+  , correspond to lines in a three-dimensional space that pass through the origin. note that the point 
+  
+    
+      
+        (
+        0
+        :
+        0
+        :
+        0
+        )
+      
+    
+    {\displaystyle (0:0:0)}
+   does not exist in this space since to draw a line in any possible direction requires at least one of x',y' or z' ≠ 0. now observe that almost all lines go through any given reference plane - such as the (x,y,1)-plane, whilst the lines precisely parallel to this plane, having coordinates (x,y,0), specify directions uniquely, as 'points at infinity' that are used in the affine (x,y)-plane it lies above.
+in the algorithm, only the group structure of an elliptic curve over the field ℝ is used. since we do not necessarily need the field ℝ, a finite field will also provide a group structure on an elliptic curve. however, considering the same curve and operation over 
+  
+    
+      
+        (
+        
+          z
+        
+        
+          /
+        
+        n
+        
+          z
+        
+        )
+        
+          /
+        
+        ∼
+      
+    
+    {\displaystyle (\mathbb {z} /n\mathbb {z} )/\sim }
+   with n not a prime does not give a group. the elliptic curve method makes use of the failure cases of the addition law.
+we now state the algorithm in projective coordinates. the neutral element is then given by the point at infinity 
+  
+    
+      
+        (
+        0
+        :
+        1
+        :
+        0
+        )
+      
+    
+    {\displaystyle (0:1:0)}
+  . let n be a (positive) integer and consider the elliptic curve (a set of points with some structure on it) 
+  
+    
+      
+        e
+        (
+        
+          z
+        
+        
+          /
+        
+        n
+        
+          z
+        
+        )
+        =
+        {
+        (
+        x
+        :
+        y
+        :
+        z
+        )
+        ∈
+        
+          
+            p
+          
+          
+            2
+          
+        
+         
+        
+          |
+        
+         
+        
+          y
+          
+            2
+          
+        
+        z
+        =
+        
+          x
+          
+            3
+          
+        
+        +
+        a
+        x
+        
+          z
+          
+            2
+          
+        
+        +
+        b
+        
+          z
+          
+            3
+          
+        
+        }
+      
+    
+    {\displaystyle e(\mathbb {z} /n\mathbb {z} )=\{(x:y:z)\in \mathbb {p} ^{2}\ |\ y^{2}z=x^{3}+axz^{2}+bz^{3}\}}
+  .
+
+pick 
+  
+    
+      
+        
+          x
+          
+            p
+          
+        
+        ,
+        
+          y
+          
+            p
+          
+        
+        ,
+        a
+        ∈
+        
+          z
+        
+        
+          /
+        
+        n
+        
+          z
+        
+      
+    
+    {\displaystyle x_{p},y_{p},a\in \mathbb {z} /n\mathbb {z} }
+   with a ≠ 0.
+calculate 
+  
+    
+      
+        b
+        =
+        
+          y
+          
+            p
+          
+          
+            2
+          
+        
+        −
+        
+          x
+          
+            p
+          
+          
+            3
+          
+        
+        −
+        a
+        
+          x
+          
+            p
+          
+        
+      
+    
+    {\displaystyle b=y_{p}^{2}-x_{p}^{3}-ax_{p}}
+  . the elliptic curve e is then in weierstrass form given by 
+  
+    
+      
+        
+          y
+          
+            2
+          
+        
+        =
+        
+          x
+          
+            3
+          
+        
+        +
+        a
+        x
+        +
+        b
+      
+    
+    {\displaystyle y^{2}=x^{3}+ax+b}
+   and by using projective coordinates the elliptic curve is given by the homogeneous equation 
+  
+    
+      
+        z
+        
+          y
+          
+            2
+          
+        
+        =
+        
+          x
+          
+            3
+          
+        
+        +
+        a
+        
+          z
+          
+            2
+          
+        
+        x
+        +
+        b
+        
+          z
+          
+            3
+          
+        
+      
+    
+    {\displaystyle zy^{2}=x^{3}+az^{2}x+bz^{3}}
+  . it has the point 
+  
+    
+      
+        p
+        =
+        (
+        
+          x
+          
+            p
+          
+        
+        :
+        
+          y
+          
+            p
+          
+        
+        :
+        1
+        )
+      
+    
+    {\displaystyle p=(x_{p}:y_{p}:1)}
+  .
+choose an upperbound 
+  
+    
+      
+        b
+        ∈
+        
+          z
+        
+      
+    
+    {\displaystyle b\in \mathbb {z} }
+   for this elliptic curve. remark: you will only find factors p if the group order of the elliptic curve e over 
+  
+    
+      
+        
+          z
+        
+        
+          /
+        
+        p
+        
+          z
+        
+      
+    
+    {\displaystyle \mathbb {z} /p\mathbb {z} }
+   (denoted by 
+  
+    
+      
+        #
+        e
+        (
+        
+          z
+        
+        
+          /
+        
+        p
+        
+          z
+        
+        )
+      
+    
+    {\displaystyle \#e(\mathbb {z} /p\mathbb {z} )}
+  ) is b-smooth, which means that all prime factors of 
+  
+    
+      
+        #
+        e
+        (
+        
+          z
+        
+        
+          /
+        
+        p
+        
+          z
+        
+        )
+      
+    
+    {\displaystyle \#e(\mathbb {z} /p\mathbb {z} )}
+   have to be less or equal to b.
+calculate 
+  
+    
+      
+        k
+        =
+        
+          
+            l
+            c
+            m
+          
+        
+        (
+        1
+        ,
+        …
+        ,
+        b
+        )
+      
+    
+    {\displaystyle k={\rm {lcm}}(1,\dots ,b)}
+  .
+calculate 
+  
+    
+      
+        k
+        p
+        :=
+        p
+        +
+        p
+        +
+        ⋯
+        +
+        p
+      
+    
+    {\displaystyle kp:=p+p+\cdots +p}
+   (k times) in the ring 
+  
+    
+      
+        e
+        (
+        
+          z
+        
+        
+          /
+        
+        n
+        
+          z
+        
+        )
+      
+    
+    {\displaystyle e(\mathbb {z} /n\mathbb {z} )}
+  . note that if 
+  
+    
+      
+        #
+        e
+        (
+        
+          z
+        
+        
+          /
+        
+        n
+        
+          z
+        
+        )
+      
+    
+    {\displaystyle \#e(\mathbb {z} /n\mathbb {z} )}
+   is b-smooth and n is prime (and therefore 
+  
+    
+      
+        
+          z
+        
+        
+          /
+        
+        n
+        
+          z
+        
+      
+    
+    {\displaystyle \mathbb {z} /n\mathbb {z} }
+   is a field) that 
+  
+    
+      
+        k
+        p
+        =
+        (
+        0
+        :
+        1
+        :
+        0
+        )
+      
+    
+    {\displaystyle kp=(0:1:0)}
+  . however, if only 
+  
+    
+      
+        #
+        e
+        (
+        
+          z
+        
+        
+          /
+        
+        p
+        
+          z
+        
+        )
+      
+    
+    {\displaystyle \#e(\mathbb {z} /p\mathbb {z} )}
+   is b-smooth for some divisor p of n, the product might not be (0:1:0) because addition and multiplication are not well-defined if n is not prime. in this case, a non-trivial divisor can be found.
+if not, then go back to step 2. if this does occur, then you will notice this when simplifying the product 
+  
+    
+      
+        k
+        p
+        .
+      
+    
+    {\displaystyle kp.}
+  in point 5 it is said that under the right circumstances a non-trivial divisor can be found. as pointed out in lenstra's article (factoring integers with elliptic curves) the addition needs the assumption 
+  
+    
+      
+        gcd
+        (
+        
+          x
+          
+            1
+          
+        
+        −
+        
+          x
+          
+            2
+          
+        
+        ,
+        n
+        )
+        =
+        1
+      
+    
+    {\displaystyle \gcd(x_{1}-x_{2},n)=1}
+  . if 
+  
+    
+      
+        p
+        ,
+        q
+      
+    
+    {\displaystyle p,q}
+   are not 
+  
+    
+      
+        (
+        0
+        :
+        1
+        :
+        0
+        )
+      
+    
+    {\displaystyle (0:1:0)}
+   and distinct (otherwise addition works similarly, but is a little different), then addition works as follows:
+
+to calculate: 
+  
+    
+      
+        r
+        =
+        p
+        +
+        q
+        ;
+      
+    
+    {\displaystyle r=p+q;}
+   
+  
+    
+      
+        p
+        =
+        (
+        
+          x
+          
+            1
+          
+        
+        :
+        
+          y
+          
+            1
+          
+        
+        :
+        1
+        )
+        ,
+        q
+        =
+        (
+        
+          x
+          
+            2
+          
+        
+        :
+        
+          y
+          
+            2
+          
+        
+        :
+        1
+        )
+      
+    
+    {\displaystyle p=(x_{1}:y_{1}:1),q=(x_{2}:y_{2}:1)}
+  ,
+
+  
+    
+      
+        λ
+        =
+        (
+        
+          y
+          
+            1
+          
+        
+        −
+        
+          y
+          
+            2
+          
+        
+        )
+        (
+        
+          x
+          
+            1
+          
+        
+        −
+        
+          x
+          
+            2
+          
+        
+        
+          )
+          
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle \lambda =(y_{1}-y_{2})(x_{1}-x_{2})^{-1}}
+  ,
+
+  
+    
+      
+        
+          x
+          
+            3
+          
+        
+        =
+        
+          λ
+          
+            2
+          
+        
+        −
+        
+          x
+          
+            1
+          
+        
+        −
+        
+          x
+          
+            2
+          
+        
+      
+    
+    {\displaystyle x_{3}=\lambda ^{2}-x_{1}-x_{2}}
+  ,
+
+  
+    
+      
+        
+          y
+          
+            3
+          
+        
+        =
+        λ
+        (
+        
+          x
+          
+            1
+          
+        
+        −
+        
+          x
+          
+            3
+          
+        
+        )
+        −
+        
+          y
+          
+            1
+          
+        
+      
+    
+    {\displaystyle y_{3}=\lambda (x_{1}-x_{3})-y_{1}}
+  ,
+
+  
+    
+      
+        r
+        =
+        p
+        +
+        q
+        =
+        (
+        
+          x
+          
+            3
+          
+        
+        :
+        
+          y
+          
+            3
+          
+        
+        :
+        1
+        )
+      
+    
+    {\displaystyle r=p+q=(x_{3}:y_{3}:1)}
+  .if addition fails, this will be due to a failure calculating 
+  
+    
+      
+        λ
+        .
+      
+    
+    {\displaystyle \lambda .}
+   in particular, because 
+  
+    
+      
+        (
+        
+          x
+          
+            1
+          
+        
+        −
+        
+          x
+          
+            2
+          
+        
+        
+          )
+          
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle (x_{1}-x_{2})^{-1}}
+   can not always be calculated if n is not prime (and therefore 
+  
+    
+      
+        
+          z
+        
+        
+          /
+        
+        n
+        
+          z
+        
+      
+    
+    {\displaystyle \mathbb {z} /n\mathbb {z} }
+   is not a field). without making use of 
+  
+    
+      
+        
+          z
+        
+        
+          /
+        
+        n
+        
+          z
+        
+      
+    
+    {\displaystyle \mathbb {z} /n\mathbb {z} }
+   being a field, one could calculate:
+
+  
+    
+      
+        
+          λ
+          ′
+        
+        =
+        
+          y
+          
+            1
+          
+        
+        −
+        
+          y
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \lambda '=y_{1}-y_{2}}
+  ,
+
+  
+    
+      
+        
+          x
+          
+            3
+          
+          ′
+        
+        =
+        
+          
+            
+              λ
+              ′
+            
+          
+          
+            2
+          
+        
+        −
+        
+          x
+          
+            1
+          
+        
+        (
+        
+          x
+          
+            1
+          
+        
+        −
+        
+          x
+          
+            2
+          
+        
+        
+          )
+          
+            2
+          
+        
+        −
+        
+          x
+          
+            2
+          
+        
+        (
+        
+          x
+          
+            1
+          
+        
+        −
+        
+          x
+          
+            2
+          
+        
+        
+          )
+          
+            2
+          
+        
+      
+    
+    {\displaystyle x_{3}'={\lambda '}^{2}-x_{1}(x_{1}-x_{2})^{2}-x_{2}(x_{1}-x_{2})^{2}}
+  ,
+
+  
+    
+      
+        
+          y
+          
+            3
+          
+          ′
+        
+        =
+        
+          λ
+          ′
+        
+        (
+        
+          x
+          
+            1
+          
+        
+        (
+        
+          x
+          
+            1
+          
+        
+        −
+        
+          x
+          
+            2
+          
+        
+        
+          )
+          
+            2
+          
+        
+        −
+        
+          x
+          
+            3
+          
+          ′
+        
+        )
+        −
+        
+          y
+          
+            1
+          
+        
+        (
+        
+          x
+          
+            1
+          
+        
+        −
+        
+          x
+          
+            2
+          
+        
+        
+          )
+          
+            3
+          
+        
+      
+    
+    {\displaystyle y_{3}'=\lambda '(x_{1}(x_{1}-x_{2})^{2}-x_{3}')-y_{1}(x_{1}-x_{2})^{3}}
+  ,
+
+  
+    
+      
+        r
+        =
+        p
+        +
+        q
+        =
+        (
+        
+          x
+          
+            3
+          
+          ′
+        
+        (
+        
+          x
+          
+            1
+          
+        
+        −
+        
+          x
+          
+            2
+          
+        
+        )
+        :
+        
+          y
+          
+            3
+          
+          ′
+        
+        :
+        (
+        
+          x
+          
+            1
+          
+        
+        −
+        
+          x
+          
+            2
+          
+        
+        
+          )
+          
+            3
+          
+        
+        )
+      
+    
+    {\displaystyle r=p+q=(x_{3}'(x_{1}-x_{2}):y_{3}':(x_{1}-x_{2})^{3})}
+  , and simplify if possible.this calculation is always legal and if the gcd of the z-coordinate with n ≠ (1 or n), so when simplifying fails, a non-trivial divisor of n is found.
+
+
+== twisted edwards curves ==
+
+the use of edwards curves needs fewer modular multiplications and less time than the use of montgomery curves or weierstrass curves (other used methods). using edwards curves you can also find more primes.
+definition. let 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   be a field in which 
+  
+    
+      
+        2
+        ≠
+        0
+      
+    
+    {\displaystyle 2\neq 0}
+  , and let 
+  
+    
+      
+        a
+        ,
+        d
+        ∈
+        k
+        ∖
+        {
+        0
+        }
+      
+    
+    {\displaystyle a,d\in k\setminus \{0\}}
+   with 
+  
+    
+      
+        a
+        ≠
+        d
+      
+    
+    {\displaystyle a\neq d}
+  . then the twisted edwards curve 
+  
+    
+      
+        
+          e
+          
+            e
+            ,
+            a
+            ,
+            d
+          
+        
+      
+    
+    {\displaystyle e_{e,a,d}}
+   is given by 
+  
+    
+      
+        a
+        
+          x
+          
+            2
+          
+        
+        +
+        
+          y
+          
+            2
+          
+        
+        =
+        1
+        +
+        d
+        
+          x
+          
+            2
+          
+        
+        
+          y
+          
+            2
+          
+        
+        .
+      
+    
+    {\displaystyle ax^{2}+y^{2}=1+dx^{2}y^{2}.}
+   an edwards curve is a twisted edwards curve in which 
+  
+    
+      
+        a
+        =
+        1
+      
+    
+    {\displaystyle a=1}
+  .
+there are five known ways to build a set of points on an edwards curve: the set of affine points, the set of projective points, the set of inverted points, the set of extended points and the set of completed points.
+the set of affine points is given by:
+
+  
+    
+      
+        {
+        (
+        x
+        ,
+        y
+        )
+        ∈
+        
+          
+            a
+          
+          
+            2
+          
+        
+        :
+        a
+        
+          x
+          
+            2
+          
+        
+        +
+        
+          y
+          
+            2
+          
+        
+        =
+        1
+        +
+        d
+        
+          x
+          
+            2
+          
+        
+        
+          y
+          
+            2
+          
+        
+        }
+      
+    
+    {\displaystyle \{(x,y)\in \mathbb {a} ^{2}:ax^{2}+y^{2}=1+dx^{2}y^{2}\}}
+  .the addition law is given by
+
+  
+    
+      
+        (
+        e
+        ,
+        f
+        )
+        ,
+        (
+        g
+        ,
+        h
+        )
+        ↦
+        
+          (
+          
+            
+              
+                
+                  e
+                  h
+                  +
+                  f
+                  g
+                
+                
+                  1
+                  +
+                  d
+                  e
+                  g
+                  f
+                  h
+                
+              
+            
+            ,
+            
+              
+                
+                  f
+                  h
+                  −
+                  a
+                  e
+                  g
+                
+                
+                  1
+                  −
+                  d
+                  e
+                  g
+                  f
+                  h
+                
+              
+            
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle (e,f),(g,h)\mapsto \left({\frac {eh+fg}{1+degfh}},{\frac {fh-aeg}{1-degfh}}\right).}
+  the point (0,1) is its neutral element and the inverse of 
+  
+    
+      
+        (
+        e
+        ,
+        f
+        )
+      
+    
+    {\displaystyle (e,f)}
+   is 
+  
+    
+      
+        (
+        −
+        e
+        ,
+        f
+        )
+      
+    
+    {\displaystyle (-e,f)}
+  .
+the other representations are defined similar to how the projective weierstrass curve follows from the affine.
+any elliptic curve in edwards form has a point of order 4. so the torsion group of an edwards curve over 
+  
+    
+      
+        
+          q
+        
+      
+    
+    {\displaystyle \mathbb {q} }
+   is isomorphic to either 
+  
+    
+      
+        
+          z
+        
+        
+          /
+        
+        4
+        
+          z
+        
+        ,
+        
+          z
+        
+        
+          /
+        
+        8
+        
+          z
+        
+        ,
+        
+          z
+        
+        
+          /
+        
+        12
+        
+          z
+        
+        ,
+        
+          z
+        
+        
+          /
+        
+        2
+        
+          z
+        
+        ×
+        
+          z
+        
+        
+          /
+        
+        4
+        
+          z
+        
+      
+    
+    {\displaystyle \mathbb {z} /4\mathbb {z} ,\mathbb {z} /8\mathbb {z} ,\mathbb {z} /12\mathbb {z} ,\mathbb {z} /2\mathbb {z} \times \mathbb {z} /4\mathbb {z} }
+   or 
+  
+    
+      
+        
+          z
+        
+        
+          /
+        
+        2
+        
+          z
+        
+        ×
+        
+          z
+        
+        
+          /
+        
+        8
+        
+          z
+        
+      
+    
+    {\displaystyle \mathbb {z} /2\mathbb {z} \times \mathbb {z} /8\mathbb {z} }
+  .
+the most interesting cases for ecm are 
+  
+    
+      
+        
+          z
+        
+        
+          /
+        
+        12
+        
+          z
+        
+      
+    
+    {\displaystyle \mathbb {z} /12\mathbb {z} }
+   and 
+  
+    
+      
+        
+          z
+        
+        
+          /
+        
+        2
+        
+          z
+        
+        ×
+        
+          z
+        
+        
+          /
+        
+        8
+        
+          z
+        
+      
+    
+    {\displaystyle \mathbb {z} /2\mathbb {z} \times \mathbb {z} /8\mathbb {z} }
+  , since they force the group orders of the curve modulo primes to be divisible by 12 and 16 respectively. the following curves have a torsion group isomorphic to 
+  
+    
+      
+        
+          z
+        
+        
+          /
+        
+        12
+        
+          z
+        
+      
+    
+    {\displaystyle \mathbb {z} /12\mathbb {z} }
+  :
+
+  
+    
+      
+        
+          x
+          
+            2
+          
+        
+        +
+        
+          y
+          
+            2
+          
+        
+        =
+        1
+        +
+        d
+        
+          x
+          
+            2
+          
+        
+        
+          y
+          
+            2
+          
+        
+      
+    
+    {\displaystyle x^{2}+y^{2}=1+dx^{2}y^{2}}
+   with point 
+  
+    
+      
+        (
+        a
+        ,
+        b
+        )
+      
+    
+    {\displaystyle (a,b)}
+   where 
+  
+    
+      
+        b
+        ∉
+        {
+        −
+        2
+        ,
+        −
+        1
+        
+          /
+        
+        2
+        ,
+        0
+        ,
+        ±
+        1
+        }
+        ,
+        
+          a
+          
+            2
+          
+        
+        =
+        −
+        (
+        
+          b
+          
+            2
+          
+        
+        +
+        2
+        b
+        )
+      
+    
+    {\displaystyle b\notin \{-2,-1/2,0,\pm 1\},a^{2}=-(b^{2}+2b)}
+   and 
+  
+    
+      
+        d
+        =
+        −
+        (
+        2
+        b
+        +
+        1
+        )
+        
+          /
+        
+        (
+        
+          a
+          
+            2
+          
+        
+        
+          b
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle d=-(2b+1)/(a^{2}b^{2})}
+  
+
+  
+    
+      
+        
+          x
+          
+            2
+          
+        
+        +
+        
+          y
+          
+            2
+          
+        
+        =
+        1
+        +
+        d
+        
+          x
+          
+            2
+          
+        
+        
+          y
+          
+            2
+          
+        
+      
+    
+    {\displaystyle x^{2}+y^{2}=1+dx^{2}y^{2}}
+   with point 
+  
+    
+      
+        (
+        a
+        ,
+        b
+        )
+      
+    
+    {\displaystyle (a,b)}
+   where 
+  
+    
+      
+        a
+        =
+        
+          
+            
+              
+                u
+                
+                  2
+                
+              
+              −
+              1
+            
+            
+              
+                u
+                
+                  2
+                
+              
+              +
+              1
+            
+          
+        
+        ,
+        b
+        =
+        −
+        
+          
+            
+              (
+              u
+              −
+              1
+              
+                )
+                
+                  2
+                
+              
+            
+            
+              
+                u
+                
+                  2
+                
+              
+              +
+              1
+            
+          
+        
+      
+    
+    {\displaystyle a={\frac {u^{2}-1}{u^{2}+1}},b=-{\frac {(u-1)^{2}}{u^{2}+1}}}
+   and 
+  
+    
+      
+        d
+        =
+        
+          
+            
+              (
+              
+                u
+                
+                  2
+                
+              
+              +
+              1
+              
+                )
+                
+                  3
+                
+              
+              (
+              
+                u
+                
+                  2
+                
+              
+              −
+              4
+              u
+              +
+              1
+              )
+            
+            
+              (
+              u
+              −
+              1
+              
+                )
+                
+                  6
+                
+              
+              (
+              u
+              +
+              1
+              
+                )
+                
+                  2
+                
+              
+            
+          
+        
+        ,
+        u
+        ∉
+        {
+        0
+        ,
+        ±
+        1
+        }
+        .
+      
+    
+    {\displaystyle d={\frac {(u^{2}+1)^{3}(u^{2}-4u+1)}{(u-1)^{6}(u+1)^{2}}},u\notin \{0,\pm 1\}.}
+  every edwards curve with a point of order 3 can be written in the ways shown above. curves with torsion group isomorphic to 
+  
+    
+      
+        
+          z
+        
+        
+          /
+        
+        2
+        
+          z
+        
+        ×
+        
+          z
+        
+        
+          /
+        
+        8
+        
+          z
+        
+      
+    
+    {\displaystyle \mathbb {z} /2\mathbb {z} \times \mathbb {z} /8\mathbb {z} }
+   and 
+  
+    
+      
+        
+          z
+        
+        
+          /
+        
+        2
+        
+          z
+        
+        ×
+        
+          z
+        
+        
+          /
+        
+        4
+        
+          z
+        
+      
+    
+    {\displaystyle \mathbb {z} /2\mathbb {z} \times \mathbb {z} /4\mathbb {z} }
+   may be more efficient at finding primes.
+
+
+== stage 2 ==
+the above text is about the first stage of elliptic curve factorisation. there one hopes to find a prime divisor p such that 
+  
+    
+      
+        s
+        p
+      
+    
+    {\displaystyle sp}
+   is the neutral element of 
+  
+    
+      
+        e
+        (
+        
+          z
+        
+        
+          /
+        
+        p
+        
+          z
+        
+        )
+      
+    
+    {\displaystyle e(\mathbb {z} /p\mathbb {z} )}
+  .
+in the second stage one hopes to have found a prime divisor q such that 
+  
+    
+      
+        s
+        p
+      
+    
+    {\displaystyle sp}
+   has small prime order in 
+  
+    
+      
+        e
+        (
+        
+          z
+        
+        
+          /
+        
+        q
+        
+          z
+        
+        )
+      
+    
+    {\displaystyle e(\mathbb {z} /q\mathbb {z} )}
+  .
+we hope the order to be between 
+  
+    
+      
+        
+          b
+          
+            1
+          
+        
+      
+    
+    {\displaystyle b_{1}}
+   and 
+  
+    
+      
+        
+          b
+          
+            2
+          
+        
+      
+    
+    {\displaystyle b_{2}}
+  , where 
+  
+    
+      
+        
+          b
+          
+            1
+          
+        
+      
+    
+    {\displaystyle b_{1}}
+   is determined in stage 1 and 
+  
+    
+      
+        
+          b
+          
+            2
+          
+        
+      
+    
+    {\displaystyle b_{2}}
+   is new stage 2 parameter.
+checking for a small order of 
+  
+    
+      
+        s
+        p
+      
+    
+    {\displaystyle sp}
+  , can be done by computing 
+  
+    
+      
+        (
+        l
+        s
+        )
+        p
+      
+    
+    {\displaystyle (ls)p}
+   modulo n for each prime l.
+
+
+== gmp-ecm and eecm-mpfq ==
+the use of twisted edwards elliptic curves, as well as other techniques were used by bernstein et al to provide an optimized implementation of ecm. its only drawback is that it works on smaller composite numbers than the more general purpose implementation, gmp-ecm of zimmerman.
+
+
+== hyperelliptic-curve method (hecm) ==
+there are recent developments in using hyperelliptic curves to factor integers. cosset shows in his article (of 2010) that one can build a hyperelliptic curve with genus two (so a curve 
+  
+    
+      
+        
+          y
+          
+            2
+          
+        
+        =
+        f
+        (
+        x
+        )
+      
+    
+    {\displaystyle y^{2}=f(x)}
+   with f of degree 5), which gives the same result as using two "normal" elliptic curves at the same time. by making use of the kummer surface, calculation is more efficient. the disadvantages of the hyperelliptic curve (versus an elliptic curve) are compensated by this alternative way of calculating. therefore, cosset roughly claims that using hyperelliptic curves for factorization is no worse than using elliptic curves.
+
+
+== quantum version (geecm) ==
+bernstein, heninger, lou, & valenta suggest geecm, a quantum version of ecm with edwards curves. it uses grover's algorithm to roughly double the length of the primes found compared to standard eecm, assuming a quantum computer with sufficiently many qubits and of comparable speed to the classical computer running eecm.
+
+
+== see also ==
+ubasic for practical program (ecmx).
+
+
+== references ==
+
+bernstein, daniel j.; birkner, peter; lange, tanja; peters, christiane (2013). "ecm using edwards curves". mathematics of computation. 82 (282): 1139–1179. doi:10.1090/s0025-5718-2012-02633-0. mr 3008853.
+bosma, w.; hulst, m. p. m. van der (1990). primality proving with cyclotomy. ph.d. thesis, universiteit van amsterdam. oclc 256778332.
+brent, richard p. (1999). "factorization of the tenth fermat number". mathematics of computation. 68 (225): 429–451. bibcode:1999macom..68..429b. doi:10.1090/s0025-5718-99-00992-8. mr 1489968.
+cohen, henri (1993). a course in computational algebraic number theory. graduate texts in mathematics. vol. 138. berlin: springer-verlag. doi:10.1007/978-3-662-02945-9. isbn 978-0-387-55640-6. mr 1228206.
+cosset, r. (2010). "factorization with genus 2 curves". mathematics of computation. 79 (270): 1191–1208. arxiv:0905.2325. bibcode:2010macom..79.1191c. doi:10.1090/s0025-5718-09-02295-9. mr 2600562. s2cid 914296.
+lenstra, a. k.; lenstra jr., h. w., eds. (1993). the development of the number field sieve. lecture notes in mathematics. vol. 1554. berlin: springer-verlag. doi:10.1007/bfb0091534. isbn 978-3-540-57013-4. mr 1321216.
+lenstra jr., h. w. (1987). "factoring integers with elliptic curves" (pdf). annals of mathematics. 126 (3): 649–673. doi:10.2307/1971363. hdl:1887/2140. jstor 1971363. mr 0916721.
+pomerance, carl; crandall, richard (2005). prime numbers: a computational perspective (second ed.). new york: springer. isbn 978-0-387-25282-7. mr 2156291.
+pomerance, carl (1985). "the quadratic sieve factoring algorithm". advances in cryptology, proc. eurocrypt '84. lecture notes in computer science. vol. 209. berlin: springer-verlag. pp. 169–182. doi:10.1007/3-540-39757-4_17. isbn 978-3-540-16076-2. mr 0825590.
+pomerance, carl (1996). "a tale of two sieves" (pdf). notices of the american mathematical society. 43 (12): 1473–1485. mr 1416721.
+silverman, robert d. (1987). "the multiple polynomial quadratic sieve". mathematics of computation. 48 (177): 329–339. doi:10.1090/s0025-5718-1987-0866119-8. mr 0866119.
+trappe, w.; washington, l. c. (2006). introduction to cryptography with coding theory (second ed.). saddle river, nj: pearson prentice hall. isbn 978-0-13-186239-5. mr 2372272.
+samuel s. wagstaff, jr. (2013). the joy of factoring. providence, ri: american mathematical society. pp. 173–190. isbn 978-1-4704-1048-3.
+watras, marcin (2008). cryptography, number analysis, and very large numbers. bydgoszcz: wojciechowski-steinhagen. pl:5324564.
+
+
+== external links ==
+factorization using the elliptic curve method, a java applet which uses ecm and switches to the self-initializing quadratic sieve when it is faster.
+gmp-ecm, an efficient implementation of ecm.
+ecmnet, an easy client-server implementation that works with several factorization projects.
+pyecm, a python implementation of ecm.  much faster with psyco and/or gmpy.
+distributed computing project yoyo@home subproject ecm is a program for elliptic curve factorization which is used by a couple of projects to find factors for different kind of numbers.
+lenstra elliptic curve factorization algorithm source code simple c and gmp elliptic curve factorization algorithm source code.
+eecm-mpfq an implementation of ecm using edwards curves written with the mpfq finite field library.

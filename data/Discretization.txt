@@ -1,0 +1,2624 @@
+in applied mathematics, discretization is the process of transferring continuous functions, models, variables, and equations into discrete counterparts.  this process is usually carried out as a first step toward making them suitable for numerical evaluation and implementation on digital computers. dichotomization is the special case of discretization in which the number of discrete classes is 2, which can approximate a continuous variable as a binary variable (creating a dichotomy for modeling purposes, as in binary classification).
+discretization is also related to discrete mathematics, and is an important component of granular computing.  in this context, discretization may also refer to modification of variable or category granularity, as when multiple discrete variables are aggregated or multiple discrete categories fused.
+whenever continuous data is discretized, there is always some amount of discretization error. the goal is to reduce the amount to a level considered negligible for the modeling purposes at hand.
+ the terms discretization  and quantization often have the same denotation but not always identical connotations. (specifically, the two terms share a semantic field.) the same is true of discretization error and quantization error.
+mathematical methods relating to discretization include the euler–maruyama method and the zero-order hold.
+
+
+== discretization of linear state space models ==
+discretization is also concerned with the transformation of continuous differential equations into discrete difference equations, suitable for numerical computing.
+the following continuous-time state space model
+
+  
+    
+      
+        
+          
+            
+              
+                x
+              
+              ˙
+            
+          
+        
+        (
+        t
+        )
+        =
+        
+          a
+        
+        
+          x
+        
+        (
+        t
+        )
+        +
+        
+          b
+        
+        
+          u
+        
+        (
+        t
+        )
+        +
+        
+          w
+        
+        (
+        t
+        )
+      
+    
+    {\displaystyle {\dot {\mathbf {x} }}(t)=\mathbf {a} \mathbf {x} (t)+\mathbf {b} \mathbf {u} (t)+\mathbf {w} (t)}
+  
+
+  
+    
+      
+        
+          y
+        
+        (
+        t
+        )
+        =
+        
+          c
+        
+        
+          x
+        
+        (
+        t
+        )
+        +
+        
+          d
+        
+        
+          u
+        
+        (
+        t
+        )
+        +
+        
+          v
+        
+        (
+        t
+        )
+      
+    
+    {\displaystyle \mathbf {y} (t)=\mathbf {c} \mathbf {x} (t)+\mathbf {d} \mathbf {u} (t)+\mathbf {v} (t)}
+  where v and w are continuous zero-mean white noise sources with power spectral densities
+
+  
+    
+      
+        
+          w
+        
+        (
+        t
+        )
+        ∼
+        n
+        (
+        0
+        ,
+        
+          q
+        
+        )
+      
+    
+    {\displaystyle \mathbf {w} (t)\sim n(0,\mathbf {q} )}
+  
+
+  
+    
+      
+        
+          v
+        
+        (
+        t
+        )
+        ∼
+        n
+        (
+        0
+        ,
+        
+          r
+        
+        )
+      
+    
+    {\displaystyle \mathbf {v} (t)\sim n(0,\mathbf {r} )}
+  can be discretized, assuming zero-order hold for the input u and continuous integration for the noise v, to
+
+  
+    
+      
+        
+          x
+        
+        [
+        k
+        +
+        1
+        ]
+        =
+        
+          
+            a
+          
+          
+            d
+          
+        
+        
+          x
+        
+        [
+        k
+        ]
+        +
+        
+          
+            b
+          
+          
+            d
+          
+        
+        
+          u
+        
+        [
+        k
+        ]
+        +
+        
+          w
+        
+        [
+        k
+        ]
+      
+    
+    {\displaystyle \mathbf {x} [k+1]=\mathbf {a} _{d}\mathbf {x} [k]+\mathbf {b} _{d}\mathbf {u} [k]+\mathbf {w} [k]}
+  
+
+  
+    
+      
+        
+          y
+        
+        [
+        k
+        ]
+        =
+        
+          
+            c
+          
+          
+            d
+          
+        
+        
+          x
+        
+        [
+        k
+        ]
+        +
+        
+          
+            d
+          
+          
+            d
+          
+        
+        
+          u
+        
+        [
+        k
+        ]
+        +
+        
+          v
+        
+        [
+        k
+        ]
+      
+    
+    {\displaystyle \mathbf {y} [k]=\mathbf {c} _{d}\mathbf {x} [k]+\mathbf {d} _{d}\mathbf {u} [k]+\mathbf {v} [k]}
+  with covariances
+
+  
+    
+      
+        
+          w
+        
+        [
+        k
+        ]
+        ∼
+        n
+        (
+        0
+        ,
+        
+          
+            q
+          
+          
+            d
+          
+        
+        )
+      
+    
+    {\displaystyle \mathbf {w} [k]\sim n(0,\mathbf {q} _{d})}
+  
+
+  
+    
+      
+        
+          v
+        
+        [
+        k
+        ]
+        ∼
+        n
+        (
+        0
+        ,
+        
+          
+            r
+          
+          
+            d
+          
+        
+        )
+      
+    
+    {\displaystyle \mathbf {v} [k]\sim n(0,\mathbf {r} _{d})}
+  where
+
+  
+    
+      
+        
+          
+            a
+          
+          
+            d
+          
+        
+        =
+        
+          e
+          
+            
+              a
+            
+            t
+          
+        
+        =
+        
+          
+            
+              l
+            
+          
+          
+            −
+            1
+          
+        
+        {
+        (
+        s
+        
+          i
+        
+        −
+        
+          a
+        
+        
+          )
+          
+            −
+            1
+          
+        
+        
+          }
+          
+            t
+            =
+            t
+          
+        
+      
+    
+    {\displaystyle \mathbf {a} _{d}=e^{\mathbf {a} t}={\mathcal {l}}^{-1}\{(s\mathbf {i} -\mathbf {a} )^{-1}\}_{t=t}}
+  
+
+  
+    
+      
+        
+          
+            b
+          
+          
+            d
+          
+        
+        =
+        
+          (
+          
+            
+              ∫
+              
+                τ
+                =
+                0
+              
+              
+                t
+              
+            
+            
+              e
+              
+                
+                  a
+                
+                τ
+              
+            
+            d
+            τ
+          
+          )
+        
+        
+          b
+        
+        =
+        
+          
+            a
+          
+          
+            −
+            1
+          
+        
+        (
+        
+          
+            a
+          
+          
+            d
+          
+        
+        −
+        i
+        )
+        
+          b
+        
+      
+    
+    {\displaystyle \mathbf {b} _{d}=\left(\int _{\tau =0}^{t}e^{\mathbf {a} \tau }d\tau \right)\mathbf {b} =\mathbf {a} ^{-1}(\mathbf {a} _{d}-i)\mathbf {b} }
+  , if 
+  
+    
+      
+        
+          a
+        
+      
+    
+    {\displaystyle \mathbf {a} }
+   is nonsingular
+
+  
+    
+      
+        
+          
+            c
+          
+          
+            d
+          
+        
+        =
+        
+          c
+        
+      
+    
+    {\displaystyle \mathbf {c} _{d}=\mathbf {c} }
+  
+
+  
+    
+      
+        
+          
+            d
+          
+          
+            d
+          
+        
+        =
+        
+          d
+        
+      
+    
+    {\displaystyle \mathbf {d} _{d}=\mathbf {d} }
+  
+
+  
+    
+      
+        
+          
+            q
+          
+          
+            d
+          
+        
+        =
+        
+          ∫
+          
+            τ
+            =
+            0
+          
+          
+            t
+          
+        
+        
+          e
+          
+            
+              a
+            
+            τ
+          
+        
+        
+          q
+        
+        
+          e
+          
+            
+              
+                a
+              
+              
+                ⊤
+              
+            
+            τ
+          
+        
+        d
+        τ
+      
+    
+    {\displaystyle \mathbf {q} _{d}=\int _{\tau =0}^{t}e^{\mathbf {a} \tau }\mathbf {q} e^{\mathbf {a} ^{\top }\tau }d\tau }
+  
+
+  
+    
+      
+        
+          
+            r
+          
+          
+            d
+          
+        
+        =
+        
+          r
+        
+        
+          
+            1
+            t
+          
+        
+      
+    
+    {\displaystyle \mathbf {r} _{d}=\mathbf {r} {\frac {1}{t}}}
+  and 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   is the sample time, although 
+  
+    
+      
+        
+          
+            a
+          
+          
+            ⊤
+          
+        
+      
+    
+    {\displaystyle \mathbf {a} ^{\top }}
+   is the transposed matrix of 
+  
+    
+      
+        
+          a
+        
+      
+    
+    {\displaystyle \mathbf {a} }
+  . the equation for the discretized measurement noise is a consequence of the continuous measurement noise being defined with a power spectral density.a clever trick to compute ad and bd in one step is by utilizing the following property:: p. 215 
+
+  
+    
+      
+        
+          e
+          
+            
+              
+                [
+                
+                  
+                    
+                      
+                        a
+                      
+                    
+                    
+                      
+                        b
+                      
+                    
+                  
+                  
+                    
+                      
+                        0
+                      
+                    
+                    
+                      
+                        0
+                      
+                    
+                  
+                
+                ]
+              
+            
+            t
+          
+        
+        =
+        
+          
+            [
+            
+              
+                
+                  
+                    
+                      a
+                      
+                        d
+                      
+                    
+                  
+                
+                
+                  
+                    
+                      b
+                      
+                        d
+                      
+                    
+                  
+                
+              
+              
+                
+                  
+                    0
+                  
+                
+                
+                  
+                    i
+                  
+                
+              
+            
+            ]
+          
+        
+      
+    
+    {\displaystyle e^{{\begin{bmatrix}\mathbf {a} &\mathbf {b} \\\mathbf {0} &\mathbf {0} \end{bmatrix}}t}={\begin{bmatrix}\mathbf {a_{d}} &\mathbf {b_{d}} \\\mathbf {0} &\mathbf {i} \end{bmatrix}}}
+  where 
+  
+    
+      
+        
+          
+            a
+          
+          
+            d
+          
+        
+      
+    
+    {\displaystyle \mathbf {a} _{d}}
+  and 
+  
+    
+      
+        
+          
+            b
+          
+          
+            d
+          
+        
+      
+    
+    {\displaystyle \mathbf {b} _{d}}
+  are the discretized state-space matrices.
+
+
+=== discretization of process noise ===
+numerical evaluation of 
+  
+    
+      
+        
+          
+            q
+          
+          
+            d
+          
+        
+      
+    
+    {\displaystyle \mathbf {q} _{d}}
+   is a bit trickier due to the matrix exponential integral. it can, however, be computed by first constructing a matrix, and computing the exponential of it
+
+  
+    
+      
+        
+          f
+        
+        =
+        
+          
+            [
+            
+              
+                
+                  −
+                  
+                    a
+                  
+                
+                
+                  
+                    q
+                  
+                
+              
+              
+                
+                  
+                    0
+                  
+                
+                
+                  
+                    
+                      a
+                    
+                    
+                      ⊤
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        t
+      
+    
+    {\displaystyle \mathbf {f} ={\begin{bmatrix}-\mathbf {a} &\mathbf {q} \\\mathbf {0} &\mathbf {a} ^{\top }\end{bmatrix}}t}
+  
+
+  
+    
+      
+        
+          g
+        
+        =
+        
+          e
+          
+            
+              f
+            
+          
+        
+        =
+        
+          
+            [
+            
+              
+                
+                  …
+                
+                
+                  
+                    
+                      a
+                    
+                    
+                      d
+                    
+                    
+                      −
+                      1
+                    
+                  
+                  
+                    
+                      q
+                    
+                    
+                      d
+                    
+                  
+                
+              
+              
+                
+                  
+                    0
+                  
+                
+                
+                  
+                    
+                      a
+                    
+                    
+                      d
+                    
+                    
+                      ⊤
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        .
+      
+    
+    {\displaystyle \mathbf {g} =e^{\mathbf {f} }={\begin{bmatrix}\dots &\mathbf {a} _{d}^{-1}\mathbf {q} _{d}\\\mathbf {0} &\mathbf {a} _{d}^{\top }\end{bmatrix}}.}
+  the discretized process noise is then evaluated by multiplying the transpose of the lower-right partition of g with the upper-right partition of g:
+
+  
+    
+      
+        
+          
+            q
+          
+          
+            d
+          
+        
+        =
+        (
+        
+          
+            a
+          
+          
+            d
+          
+          
+            ⊤
+          
+        
+        
+          )
+          
+            ⊤
+          
+        
+        (
+        
+          
+            a
+          
+          
+            d
+          
+          
+            −
+            1
+          
+        
+        
+          
+            q
+          
+          
+            d
+          
+        
+        )
+        =
+        
+          
+            a
+          
+          
+            d
+          
+        
+        (
+        
+          
+            a
+          
+          
+            d
+          
+          
+            −
+            1
+          
+        
+        
+          
+            q
+          
+          
+            d
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle \mathbf {q} _{d}=(\mathbf {a} _{d}^{\top })^{\top }(\mathbf {a} _{d}^{-1}\mathbf {q} _{d})=\mathbf {a} _{d}(\mathbf {a} _{d}^{-1}\mathbf {q} _{d}).}
+  
+
+
+=== derivation ===
+starting with the continuous model
+
+  
+    
+      
+        
+          
+            
+              x
+              ˙
+            
+          
+        
+        (
+        t
+        )
+        =
+        
+          a
+        
+        
+          x
+        
+        (
+        t
+        )
+        +
+        
+          b
+        
+        
+          u
+        
+        (
+        t
+        )
+      
+    
+    {\displaystyle \mathbf {\dot {x}} (t)=\mathbf {a} \mathbf {x} (t)+\mathbf {b} \mathbf {u} (t)}
+  we know that the matrix exponential is
+
+  
+    
+      
+        
+          
+            d
+            
+              d
+              t
+            
+          
+        
+        
+          e
+          
+            
+              a
+            
+            t
+          
+        
+        =
+        
+          a
+        
+        
+          e
+          
+            
+              a
+            
+            t
+          
+        
+        =
+        
+          e
+          
+            
+              a
+            
+            t
+          
+        
+        
+          a
+        
+      
+    
+    {\displaystyle {\frac {d}{dt}}e^{\mathbf {a} t}=\mathbf {a} e^{\mathbf {a} t}=e^{\mathbf {a} t}\mathbf {a} }
+  and by premultiplying the model we get
+
+  
+    
+      
+        
+          e
+          
+            −
+            
+              a
+            
+            t
+          
+        
+        
+          
+            
+              x
+              ˙
+            
+          
+        
+        (
+        t
+        )
+        =
+        
+          e
+          
+            −
+            
+              a
+            
+            t
+          
+        
+        
+          a
+        
+        
+          x
+        
+        (
+        t
+        )
+        +
+        
+          e
+          
+            −
+            
+              a
+            
+            t
+          
+        
+        
+          b
+        
+        
+          u
+        
+        (
+        t
+        )
+      
+    
+    {\displaystyle e^{-\mathbf {a} t}\mathbf {\dot {x}} (t)=e^{-\mathbf {a} t}\mathbf {a} \mathbf {x} (t)+e^{-\mathbf {a} t}\mathbf {b} \mathbf {u} (t)}
+  which we recognize as
+
+  
+    
+      
+        
+          
+            d
+            
+              d
+              t
+            
+          
+        
+        (
+        
+          e
+          
+            −
+            
+              a
+            
+            t
+          
+        
+        
+          x
+        
+        (
+        t
+        )
+        )
+        =
+        
+          e
+          
+            −
+            
+              a
+            
+            t
+          
+        
+        
+          b
+        
+        
+          u
+        
+        (
+        t
+        )
+      
+    
+    {\displaystyle {\frac {d}{dt}}(e^{-\mathbf {a} t}\mathbf {x} (t))=e^{-\mathbf {a} t}\mathbf {b} \mathbf {u} (t)}
+  and by integrating..
+
+  
+    
+      
+        
+          e
+          
+            −
+            
+              a
+            
+            t
+          
+        
+        
+          x
+        
+        (
+        t
+        )
+        −
+        
+          e
+          
+            0
+          
+        
+        
+          x
+        
+        (
+        0
+        )
+        =
+        
+          ∫
+          
+            0
+          
+          
+            t
+          
+        
+        
+          e
+          
+            −
+            
+              a
+            
+            τ
+          
+        
+        
+          b
+        
+        
+          u
+        
+        (
+        τ
+        )
+        d
+        τ
+      
+    
+    {\displaystyle e^{-\mathbf {a} t}\mathbf {x} (t)-e^{0}\mathbf {x} (0)=\int _{0}^{t}e^{-\mathbf {a} \tau }\mathbf {b} \mathbf {u} (\tau )d\tau }
+  
+
+  
+    
+      
+        
+          x
+        
+        (
+        t
+        )
+        =
+        
+          e
+          
+            
+              a
+            
+            t
+          
+        
+        
+          x
+        
+        (
+        0
+        )
+        +
+        
+          ∫
+          
+            0
+          
+          
+            t
+          
+        
+        
+          e
+          
+            
+              a
+            
+            (
+            t
+            −
+            τ
+            )
+          
+        
+        
+          b
+        
+        
+          u
+        
+        (
+        τ
+        )
+        d
+        τ
+      
+    
+    {\displaystyle \mathbf {x} (t)=e^{\mathbf {a} t}\mathbf {x} (0)+\int _{0}^{t}e^{\mathbf {a} (t-\tau )}\mathbf {b} \mathbf {u} (\tau )d\tau }
+  which is an analytical solution to the continuous model.
+now we want to discretise the above expression. we assume that u is constant during each timestep.
+
+  
+    
+      
+        
+          x
+        
+        [
+        k
+        ]
+         
+        
+          
+            
+              
+                =
+              
+              
+                
+                  d
+                  e
+                  f
+                
+              
+            
+          
+        
+         
+        
+          x
+        
+        (
+        k
+        t
+        )
+      
+    
+    {\displaystyle \mathbf {x} [k]\ {\stackrel {\mathrm {def} }{=}}\ \mathbf {x} (kt)}
+  
+
+  
+    
+      
+        
+          x
+        
+        [
+        k
+        ]
+        =
+        
+          e
+          
+            
+              a
+            
+            k
+            t
+          
+        
+        
+          x
+        
+        (
+        0
+        )
+        +
+        
+          ∫
+          
+            0
+          
+          
+            k
+            t
+          
+        
+        
+          e
+          
+            
+              a
+            
+            (
+            k
+            t
+            −
+            τ
+            )
+          
+        
+        
+          b
+        
+        
+          u
+        
+        (
+        τ
+        )
+        d
+        τ
+      
+    
+    {\displaystyle \mathbf {x} [k]=e^{\mathbf {a} kt}\mathbf {x} (0)+\int _{0}^{kt}e^{\mathbf {a} (kt-\tau )}\mathbf {b} \mathbf {u} (\tau )d\tau }
+  
+
+  
+    
+      
+        
+          x
+        
+        [
+        k
+        +
+        1
+        ]
+        =
+        
+          e
+          
+            
+              a
+            
+            (
+            k
+            +
+            1
+            )
+            t
+          
+        
+        
+          x
+        
+        (
+        0
+        )
+        +
+        
+          ∫
+          
+            0
+          
+          
+            (
+            k
+            +
+            1
+            )
+            t
+          
+        
+        
+          e
+          
+            
+              a
+            
+            (
+            (
+            k
+            +
+            1
+            )
+            t
+            −
+            τ
+            )
+          
+        
+        
+          b
+        
+        
+          u
+        
+        (
+        τ
+        )
+        d
+        τ
+      
+    
+    {\displaystyle \mathbf {x} [k+1]=e^{\mathbf {a} (k+1)t}\mathbf {x} (0)+\int _{0}^{(k+1)t}e^{\mathbf {a} ((k+1)t-\tau )}\mathbf {b} \mathbf {u} (\tau )d\tau }
+  
+
+  
+    
+      
+        
+          x
+        
+        [
+        k
+        +
+        1
+        ]
+        =
+        
+          e
+          
+            
+              a
+            
+            t
+          
+        
+        
+          [
+          
+            
+              e
+              
+                
+                  a
+                
+                k
+                t
+              
+            
+            
+              x
+            
+            (
+            0
+            )
+            +
+            
+              ∫
+              
+                0
+              
+              
+                k
+                t
+              
+            
+            
+              e
+              
+                
+                  a
+                
+                (
+                k
+                t
+                −
+                τ
+                )
+              
+            
+            
+              b
+            
+            
+              u
+            
+            (
+            τ
+            )
+            d
+            τ
+          
+          ]
+        
+        +
+        
+          ∫
+          
+            k
+            t
+          
+          
+            (
+            k
+            +
+            1
+            )
+            t
+          
+        
+        
+          e
+          
+            
+              a
+            
+            (
+            k
+            t
+            +
+            t
+            −
+            τ
+            )
+          
+        
+        
+          b
+        
+        
+          u
+        
+        (
+        τ
+        )
+        d
+        τ
+      
+    
+    {\displaystyle \mathbf {x} [k+1]=e^{\mathbf {a} t}\left[e^{\mathbf {a} kt}\mathbf {x} (0)+\int _{0}^{kt}e^{\mathbf {a} (kt-\tau )}\mathbf {b} \mathbf {u} (\tau )d\tau \right]+\int _{kt}^{(k+1)t}e^{\mathbf {a} (kt+t-\tau )}\mathbf {b} \mathbf {u} (\tau )d\tau }
+  we recognize the bracketed expression as 
+  
+    
+      
+        
+          x
+        
+        [
+        k
+        ]
+      
+    
+    {\displaystyle \mathbf {x} [k]}
+  , and the second term can be simplified by substituting with the function 
+  
+    
+      
+        v
+        (
+        τ
+        )
+        =
+        k
+        t
+        +
+        t
+        −
+        τ
+      
+    
+    {\displaystyle v(\tau )=kt+t-\tau }
+  . note that 
+  
+    
+      
+        d
+        τ
+        =
+        −
+        d
+        v
+      
+    
+    {\displaystyle d\tau =-dv}
+  . we also assume that 
+  
+    
+      
+        
+          u
+        
+      
+    
+    {\displaystyle \mathbf {u} }
+   is constant during the integral, which in turn yields
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  x
+                
+                [
+                k
+                +
+                1
+                ]
+              
+              
+                =
+              
+              
+                
+                  e
+                  
+                    
+                      a
+                    
+                    t
+                  
+                
+                
+                  x
+                
+                [
+                k
+                ]
+                −
+                
+                  (
+                  
+                    
+                      ∫
+                      
+                        v
+                        (
+                        k
+                        t
+                        )
+                      
+                      
+                        v
+                        (
+                        (
+                        k
+                        +
+                        1
+                        )
+                        t
+                        )
+                      
+                    
+                    
+                      e
+                      
+                        
+                          a
+                        
+                        v
+                      
+                    
+                    d
+                    v
+                  
+                  )
+                
+                
+                  b
+                
+                
+                  u
+                
+                [
+                k
+                ]
+              
+            
+            
+              
+              
+                =
+              
+              
+                
+                  e
+                  
+                    
+                      a
+                    
+                    t
+                  
+                
+                
+                  x
+                
+                [
+                k
+                ]
+                −
+                
+                  (
+                  
+                    
+                      ∫
+                      
+                        t
+                      
+                      
+                        0
+                      
+                    
+                    
+                      e
+                      
+                        
+                          a
+                        
+                        v
+                      
+                    
+                    d
+                    v
+                  
+                  )
+                
+                
+                  b
+                
+                
+                  u
+                
+                [
+                k
+                ]
+              
+            
+            
+              
+              
+                =
+              
+              
+                
+                  e
+                  
+                    
+                      a
+                    
+                    t
+                  
+                
+                
+                  x
+                
+                [
+                k
+                ]
+                +
+                
+                  (
+                  
+                    
+                      ∫
+                      
+                        0
+                      
+                      
+                        t
+                      
+                    
+                    
+                      e
+                      
+                        
+                          a
+                        
+                        v
+                      
+                    
+                    d
+                    v
+                  
+                  )
+                
+                
+                  b
+                
+                
+                  u
+                
+                [
+                k
+                ]
+              
+            
+            
+              
+              
+                =
+              
+              
+                
+                  e
+                  
+                    
+                      a
+                    
+                    t
+                  
+                
+                
+                  x
+                
+                [
+                k
+                ]
+                +
+                
+                  
+                    a
+                  
+                  
+                    −
+                    1
+                  
+                
+                
+                  (
+                  
+                    
+                      e
+                      
+                        
+                          a
+                        
+                        t
+                      
+                    
+                    −
+                    
+                      i
+                    
+                  
+                  )
+                
+                
+                  b
+                
+                
+                  u
+                
+                [
+                k
+                ]
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{matrix}\mathbf {x} [k+1]&=&e^{\mathbf {a} t}\mathbf {x} [k]-\left(\int _{v(kt)}^{v((k+1)t)}e^{\mathbf {a} v}dv\right)\mathbf {b} \mathbf {u} [k]\\&=&e^{\mathbf {a} t}\mathbf {x} [k]-\left(\int _{t}^{0}e^{\mathbf {a} v}dv\right)\mathbf {b} \mathbf {u} [k]\\&=&e^{\mathbf {a} t}\mathbf {x} [k]+\left(\int _{0}^{t}e^{\mathbf {a} v}dv\right)\mathbf {b} \mathbf {u} [k]\\&=&e^{\mathbf {a} t}\mathbf {x} [k]+\mathbf {a} ^{-1}\left(e^{\mathbf {a} t}-\mathbf {i} \right)\mathbf {b} \mathbf {u} [k]\end{matrix}}}
+  which is an exact solution to the discretization problem.
+when 
+  
+    
+      
+        
+          a
+        
+      
+    
+    {\displaystyle \mathbf {a} }
+   is singular, the latter expression can still be used by replacing 
+  
+    
+      
+        
+          e
+          
+            
+              a
+            
+            t
+          
+        
+      
+    
+    {\displaystyle e^{\mathbf {a} t}}
+   by its taylor expansion,
+
+  
+    
+      
+        
+          e
+          
+            
+              
+                a
+              
+            
+            t
+          
+        
+        =
+        
+          ∑
+          
+            k
+            =
+            0
+          
+          
+            ∞
+          
+        
+        
+          
+            1
+            
+              k
+              !
+            
+          
+        
+        (
+        
+          
+            a
+          
+        
+        t
+        
+          )
+          
+            k
+          
+        
+        .
+      
+    
+    {\displaystyle e^{{\mathbf {a} }t}=\sum _{k=0}^{\infty }{\frac {1}{k!}}({\mathbf {a} }t)^{k}.}
+  this yields
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  x
+                
+                [
+                k
+                +
+                1
+                ]
+              
+              
+                =
+              
+              
+                
+                  e
+                  
+                    
+                      
+                        a
+                      
+                    
+                    t
+                  
+                
+                
+                  x
+                
+                [
+                k
+                ]
+                +
+                
+                  (
+                  
+                    
+                      ∫
+                      
+                        0
+                      
+                      
+                        t
+                      
+                    
+                    
+                      e
+                      
+                        
+                          
+                            a
+                          
+                        
+                        v
+                      
+                    
+                    d
+                    v
+                  
+                  )
+                
+                
+                  b
+                
+                
+                  u
+                
+                [
+                k
+                ]
+              
+            
+            
+              
+              
+                =
+              
+              
+                
+                  (
+                  
+                    
+                      ∑
+                      
+                        k
+                        =
+                        0
+                      
+                      
+                        ∞
+                      
+                    
+                    
+                      
+                        1
+                        
+                          k
+                          !
+                        
+                      
+                    
+                    (
+                    
+                      
+                        a
+                      
+                    
+                    t
+                    
+                      )
+                      
+                        k
+                      
+                    
+                  
+                  )
+                
+                
+                  x
+                
+                [
+                k
+                ]
+                +
+                
+                  (
+                  
+                    
+                      ∑
+                      
+                        k
+                        =
+                        1
+                      
+                      
+                        ∞
+                      
+                    
+                    
+                      
+                        1
+                        
+                          k
+                          !
+                        
+                      
+                    
+                    
+                      
+                        
+                          a
+                        
+                      
+                      
+                        k
+                        −
+                        1
+                      
+                    
+                    
+                      t
+                      
+                        k
+                      
+                    
+                  
+                  )
+                
+                
+                  b
+                
+                
+                  u
+                
+                [
+                k
+                ]
+                ,
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{matrix}\mathbf {x} [k+1]&=&e^{{\mathbf {a} }t}\mathbf {x} [k]+\left(\int _{0}^{t}e^{{\mathbf {a} }v}dv\right)\mathbf {b} \mathbf {u} [k]\\&=&\left(\sum _{k=0}^{\infty }{\frac {1}{k!}}({\mathbf {a} }t)^{k}\right)\mathbf {x} [k]+\left(\sum _{k=1}^{\infty }{\frac {1}{k!}}{\mathbf {a} }^{k-1}t^{k}\right)\mathbf {b} \mathbf {u} [k],\end{matrix}}}
+  which is the form used in practice.
+
+
+=== approximations ===
+exact discretization may sometimes be intractable due to the heavy matrix exponential and integral operations involved. it is much easier to calculate an approximate discrete model, based on that for small timesteps 
+  
+    
+      
+        
+          e
+          
+            
+              a
+            
+            t
+          
+        
+        ≈
+        
+          i
+        
+        +
+        
+          a
+        
+        t
+      
+    
+    {\displaystyle e^{\mathbf {a} t}\approx \mathbf {i} +\mathbf {a} t}
+  . the approximate solution then becomes:
+
+  
+    
+      
+        
+          x
+        
+        [
+        k
+        +
+        1
+        ]
+        ≈
+        (
+        
+          i
+        
+        +
+        
+          a
+        
+        t
+        )
+        
+          x
+        
+        [
+        k
+        ]
+        +
+        t
+        
+          b
+        
+        
+          u
+        
+        [
+        k
+        ]
+      
+    
+    {\displaystyle \mathbf {x} [k+1]\approx (\mathbf {i} +\mathbf {a} t)\mathbf {x} [k]+t\mathbf {b} \mathbf {u} [k]}
+  this is also known as the euler method, which is also known as the forward euler method. other possible approximations are 
+  
+    
+      
+        
+          e
+          
+            
+              a
+            
+            t
+          
+        
+        ≈
+        
+          
+            (
+            
+              
+                i
+              
+              −
+              
+                a
+              
+              t
+            
+            )
+          
+          
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle e^{\mathbf {a} t}\approx \left(\mathbf {i} -\mathbf {a} t\right)^{-1}}
+  , otherwise known as the backward euler method and 
+  
+    
+      
+        
+          e
+          
+            
+              a
+            
+            t
+          
+        
+        ≈
+        
+          (
+          
+            
+              i
+            
+            +
+            
+              
+                1
+                2
+              
+            
+            
+              a
+            
+            t
+          
+          )
+        
+        
+          
+            (
+            
+              
+                i
+              
+              −
+              
+                
+                  1
+                  2
+                
+              
+              
+                a
+              
+              t
+            
+            )
+          
+          
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle e^{\mathbf {a} t}\approx \left(\mathbf {i} +{\frac {1}{2}}\mathbf {a} t\right)\left(\mathbf {i} -{\frac {1}{2}}\mathbf {a} t\right)^{-1}}
+  , which is known as the bilinear transform, or tustin transform. each of these approximations has different stability properties. the bilinear transform preserves the instability of the continuous-time system.
+
+
+== discretization of continuous features ==
+
+in statistics and machine learning, discretization refers to the process of converting continuous features or variables to discretized or nominal features. this can be useful when creating probability mass functions.
+
+
+== discretization of smooth functions ==
+
+in generalized functions theory, discretization 
+arises as a particular case of the convolution theorem 
+on tempered distributions
+
+  
+    
+      
+        
+          
+            f
+          
+        
+        {
+        f
+        ∗
+        iii
+        }
+        =
+        
+          
+            f
+          
+        
+        {
+        f
+        }
+        ⋅
+        iii
+      
+    
+    {\displaystyle {\mathcal {f}}\{f*\operatorname {iii} \}={\mathcal {f}}\{f\}\cdot \operatorname {iii} }
+  
+
+  
+    
+      
+        
+          
+            f
+          
+        
+        {
+        α
+        ⋅
+        iii
+        }
+        =
+        
+          
+            f
+          
+        
+        {
+        α
+        }
+        ∗
+        iii
+      
+    
+    {\displaystyle {\mathcal {f}}\{\alpha \cdot \operatorname {iii} \}={\mathcal {f}}\{\alpha \}*\operatorname {iii} }
+  where 
+  
+    
+      
+        iii
+      
+    
+    {\displaystyle \operatorname {iii} }
+   is the dirac comb,
+
+  
+    
+      
+        ⋅
+        iii
+      
+    
+    {\displaystyle \cdot \operatorname {iii} }
+   is discretization, 
+  
+    
+      
+        ∗
+        iii
+      
+    
+    {\displaystyle *\operatorname {iii} }
+   is 
+periodization, 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   is a rapidly decreasing tempered distribution 
+(e.g. a dirac delta function 
+  
+    
+      
+        δ
+      
+    
+    {\displaystyle \delta }
+   or any other 
+compactly supported function), 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+   is a smooth, 
+slowly growing
+ordinary function (e.g. the function that is constantly 
+  
+    
+      
+        1
+      
+    
+    {\displaystyle 1}
+  
+or any other band-limited function)
+and 
+  
+    
+      
+        
+          
+            f
+          
+        
+      
+    
+    {\displaystyle {\mathcal {f}}}
+   is the (unitary, ordinary frequency) fourier transform.
+functions 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+   which are not smooth can be made smooth using a mollifier prior to discretization.
+as an example, discretization of the function that is constantly 
+  
+    
+      
+        1
+      
+    
+    {\displaystyle 1}
+   yields the sequence 
+  
+    
+      
+        [
+        .
+        .
+        ,
+        1
+        ,
+        1
+        ,
+        1
+        ,
+        .
+        .
+        ]
+      
+    
+    {\displaystyle [..,1,1,1,..]}
+   which, interpreted as the coefficients of a linear combination of dirac delta functions, forms a dirac comb. if additionally truncation is applied, one obtains finite sequences, e.g. 
+  
+    
+      
+        [
+        1
+        ,
+        1
+        ,
+        1
+        ,
+        1
+        ]
+      
+    
+    {\displaystyle [1,1,1,1]}
+  . they are discrete in both, time and frequency.
+
+
+== see also ==
+discrete event simulation
+discrete space
+discrete time and continuous time
+finite difference method
+finite volume method for unsteady flow
+smoothing
+stochastic simulation
+time-scale calculus
+
+
+== references ==
+
+
+== further reading ==
+robert grover brown & patrick y. c. hwang (1997). introduction to random signals and applied kalman filtering (3rd ed.). isbn 978-0471128397.
+chi-tsong chen (1984). linear system theory and design. philadelphia, pa, usa: saunders college publishing. isbn 978-0030716911.
+c. van loan (jun 1978). "computing integrals involving the matrix exponential" (pdf). ieee transactions on automatic control. 23 (3): 395–404. doi:10.1109/tac.1978.1101743. hdl:1813/7095.
+r.h. middleton & g.c. goodwin (1990). digital control and estimation: a unified approach. p. 33f. isbn 978-0132116657.
+
+
+== external links ==

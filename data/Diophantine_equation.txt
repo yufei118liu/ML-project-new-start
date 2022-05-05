@@ -1,0 +1,2073 @@
+in mathematics, a diophantine equation is a polynomial equation, usually involving two or more unknowns, such that the only solutions of interest are the integer ones. a linear diophantine equation equates to a constant the sum of two or more monomials, each of degree one.  an exponential diophantine equation is one in which unknowns can appear in exponents.
+diophantine problems have fewer equations than unknowns and involve finding integers that solve simultaneously all equations. as such systems of equations define algebraic curves, algebraic surfaces, or, more generally, algebraic sets, their study is a part of algebraic geometry that is called diophantine geometry.
+the word diophantine refers to the hellenistic mathematician of the 3rd century, diophantus of alexandria, who made a study of such equations and was one of the first mathematicians to introduce symbolism into algebra. the mathematical study of diophantine problems that diophantus initiated is now called diophantine analysis.
+while individual equations present a kind of puzzle and have been considered throughout history, the formulation of general theories of diophantine equations (beyond the case of linear and quadratic equations) was an achievement of the twentieth century.
+
+
+== examples ==
+in the following diophantine equations, w, x, y, and z are the unknowns and the other letters are given constants:
+
+
+== linear diophantine equations ==
+
+
+=== one equation ===
+the simplest linear diophantine equation takes the form ax + by = c, where a, b and c are given integers. the solutions are described by the following theorem:
+
+this diophantine equation has a solution (where x and y are integers) if and only if c is a multiple of the greatest common divisor of a and b. moreover, if (x, y) is a solution, then the other solutions have the form (x + kv, y − ku), where k is an arbitrary integer, and u and v are the quotients of a and b (respectively) by the greatest common divisor of a and b.proof: if d is this greatest common divisor, bézout's identity asserts the existence of integers e and f such that ae + bf = d. if c is a multiple of d, then c = dh for some integer h, and (eh, fh) is a solution. on the other hand, for every pair of integers x and y, the greatest common divisor d of a and b divides ax + by. thus, if the equation has a solution, then c must be a multiple of d. if a = ud and b = vd, then for every solution (x, y), we have
+
+a(x + kv) + b(y − ku) = ax + by + k(av − bu) = ax + by + k(udv − vdu) = ax + by,showing that (x + kv, y − ku) is another solution. finally, given two solutions such that ax1 + by1 = ax2 + by2 = c, one deduces that u(x2 − x1) + v(y2 − y1) = 0. as u and v are coprime, euclid's lemma shows that v divides x2 − x1, and thus that there exists an integer k such that x2 − x1 = kv and y2 − y1 = −ku. therefore, x2 = x1 + kv and y2 = y1 − ku, which completes the proof.
+
+
+=== chinese remainder theorem ===
+the chinese remainder theorem describes an important class of linear diophantine systems of equations: let n1, …, nk be k pairwise coprime integers greater than one, a1, …, ak be k arbitrary integers, and n be the product n1 ⋯ nk. the chinese remainder theorem asserts that the following linear diophantine system has exactly one solution (x, x1, …, xk) such that 0 ≤ x < n, and that the other solutions are obtained by adding to x a multiple of n:
+
+  
+    
+      
+        
+          
+            
+              
+                x
+              
+              
+                
+                =
+                
+                  a
+                  
+                    1
+                  
+                
+                +
+                
+                  n
+                  
+                    1
+                  
+                
+                
+                
+                  x
+                  
+                    1
+                  
+                
+              
+            
+            
+              
+              
+                
+                
+                
+                ⋮
+              
+            
+            
+              
+                x
+              
+              
+                
+                =
+                
+                  a
+                  
+                    k
+                  
+                
+                +
+                
+                  n
+                  
+                    k
+                  
+                
+                
+                
+                  x
+                  
+                    k
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}x&=a_{1}+n_{1}\,x_{1}\\&\;\;\vdots \\x&=a_{k}+n_{k}\,x_{k}\end{aligned}}}
+  
+
+
+=== system of linear diophantine equations ===
+more generally, every system of linear diophantine equations may be solved by computing the smith normal form of its matrix, in a way that is similar to the use of the reduced row echelon form to solve a system of linear equations over a field. using matrix notation every system of linear diophantine equations may be written
+
+a x = c,where a is an m × n matrix of integers, x is an n × 1 column matrix of unknowns and c is an m × 1 column matrix of integers.
+the computation of the smith normal form of a provides two unimodular matrices (that is matrices that are invertible over the integers and have ±1 as determinant) u and v of respective dimensions m × m and n × n, such that the matrix
+
+b = [bi,j] = uavis such that bi,i is not zero for i not greater than some integer k, and all the other entries are zero. the system to be solved may thus be rewritten as
+
+b (v−1x) = uc.calling yi the entries of v−1x and di those of d = uc, this leads to the system
+
+bi,i yi = di for 1 ≤ i ≤ k,
+0 yi = di for k < i ≤ n.this system is equivalent to the given one in the following sense: a column matrix of integers x is a solution of the given system if and only if x = vy for some column matrix of integers y such that by = d.
+it follows that the system has a solution if and only if bi,i divides di for i ≤ k and di = 0 for i > k. if this condition is fulfilled, the solutions of the given system are
+
+  
+    
+      
+        v
+        
+        
+          
+            [
+            
+              
+                
+                  
+                    
+                      
+                        d
+                        
+                          1
+                        
+                      
+                      
+                        b
+                        
+                          1
+                          ,
+                          1
+                        
+                      
+                    
+                  
+                
+              
+              
+                
+                  ⋮
+                
+              
+              
+                
+                  
+                    
+                      
+                        d
+                        
+                          k
+                        
+                      
+                      
+                        b
+                        
+                          k
+                          ,
+                          k
+                        
+                      
+                    
+                  
+                
+              
+              
+                
+                  
+                    h
+                    
+                      k
+                      +
+                      1
+                    
+                  
+                
+              
+              
+                
+                  ⋮
+                
+              
+              
+                
+                  
+                    h
+                    
+                      n
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        
+        ,
+      
+    
+    {\displaystyle v\,{\begin{bmatrix}{\frac {d_{1}}{b_{1,1}}}\\\vdots \\{\frac {d_{k}}{b_{k,k}}}\\h_{k+1}\\\vdots \\h_{n}\end{bmatrix}}\,,}
+  where hk+1, …, hn are arbitrary integers.
+hermite normal form may also be used for solving systems of linear diophantine equations. however, hermite normal form does not directly provide the solutions; to get the solutions from the hermite normal form, one has to successively solve several linear equations. nevertheless, richard zippel wrote that the smith normal form "is somewhat more than is actually needed to solve linear diophantine equations. instead of reducing the equation to diagonal form, we only need to make it triangular, which is called the hermite normal form. the hermite normal form is substantially easier to compute than the smith normal form."integer linear programming amounts to finding some integer solutions (optimal in some sense) of linear systems that include also inequations.  thus systems of linear diophantine equations are basic in this context, and textbooks on integer programming usually have a treatment of systems of linear diophantine equations.
+
+
+== homogeneous equations ==
+a homogeneous diophantine equation is a diophantine equation that is defined by a homogeneous polynomial. a typical such equation is the equation of fermat's last theorem
+
+  
+    
+      
+        
+          x
+          
+            d
+          
+        
+        +
+        
+          y
+          
+            d
+          
+        
+        −
+        
+          z
+          
+            d
+          
+        
+        =
+        0.
+      
+    
+    {\displaystyle x^{d}+y^{d}-z^{d}=0.}
+  as a homogeneous polynomial in n indeterminates defines a hypersurface in the projective space of dimension n − 1, solving a homogeneous diophantine equation is the same as finding the rational points of a projective hypersurface.
+solving a homogeneous diophantine equation is generally a very difficult problem, even in the simplest non-trivial case of three indeterminates (in the case of two indeterminates the problem is equivalent with testing if a rational number is the dth power of another rational number). a witness of the difficulty of the problem is fermat's last theorem (for d > 2, there is no integer solution of the above equation), which needed more than three centuries of mathematicians' efforts before being solved.
+for degrees higher than three, most known results are theorems asserting that there are no solutions (for example fermat's last theorem) or that the number of solutions is finite (for example falting's theorem). 
+for the degree three, there are general solving methods, which work on almost all equations that are encountered in practice, but no algorithm is known that works for every cubic equation.
+
+
+=== degree two ===
+homogeneous diophantine equations of degree two are easier to solve. the standard solving method proceeds in two steps. one has first to find one solution, or to prove that there is no solution. when a solution has been found, all solutions are then deduced.
+for proving that there is no solution, one may reduce the equation modulo p. for example, the diophantine equation
+
+  
+    
+      
+        
+          x
+          
+            2
+          
+        
+        +
+        
+          y
+          
+            2
+          
+        
+        =
+        3
+        
+          z
+          
+            2
+          
+        
+        ,
+      
+    
+    {\displaystyle x^{2}+y^{2}=3z^{2},}
+  does not have any other solution than the trivial solution (0, 0, 0). in fact, by dividing x, y, and z by their greatest common divisor, one may suppose that they are coprime. the squares modulo 4 are congruent to 0 and 1. thus the left-hand side of the equation is congruent to 0, 1, or 2, and the right-hand side is congruent to 0 or 3. thus the equality may be obtained only if x, y, and z are all even, and are thus not coprime. thus the only solution is the trivial solution (0, 0, 0). this shows that there is no rational point on a circle of radius 
+  
+    
+      
+        
+          
+            3
+          
+        
+        ,
+      
+    
+    {\displaystyle {\sqrt {3}},}
+   centered at the origin.
+more generally, hasse principle allows deciding whether a homogeneous diophantine equation of degree two has an integer solution, and computing a solution if there exist. 
+if a non-trivial integer solution is known, one may produce all other solutions in the following way.
+
+
+==== geometric interpretation ====
+let 
+
+  
+    
+      
+        q
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+        )
+        =
+        0
+      
+    
+    {\displaystyle q(x_{1},\ldots ,x_{n})=0}
+  be a homogeneous diophantine equation, where 
+  
+    
+      
+        q
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle q(x_{1},\ldots ,x_{n})}
+   is a quadratic form (that is, a homogeneous polynomial of degree 2), with integer coefficients. the trivial solution is the solution where all 
+  
+    
+      
+        
+          x
+          
+            i
+          
+        
+      
+    
+    {\displaystyle x_{i}}
+   are zero. if 
+  
+    
+      
+        (
+        
+          a
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          a
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle (a_{1},\ldots ,a_{n})}
+   is a non-trivial integer solution of this equation, then 
+  
+    
+      
+        
+          (
+          
+            
+              a
+              
+                1
+              
+            
+            ,
+            …
+            ,
+            
+              a
+              
+                n
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \left(a_{1},\ldots ,a_{n}\right)}
+   are the homogeneous coordinates of a rational point of the hypersurface defined by q. conversely, if  
+  
+    
+      
+        
+          (
+          
+            
+              
+                
+                  p
+                  
+                    1
+                  
+                
+                q
+              
+            
+            ,
+            …
+            ,
+            
+              
+                
+                  p
+                  
+                    n
+                  
+                
+                q
+              
+            
+          
+          )
+        
+      
+    
+    {\textstyle \left({\frac {p_{1}}{q}},\ldots ,{\frac {p_{n}}{q}}\right)}
+   are homogeneous coordinates of a rational point of this hypersurface, where 
+  
+    
+      
+        q
+        ,
+        
+          p
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          p
+          
+            n
+          
+        
+      
+    
+    {\displaystyle q,p_{1},\ldots ,p_{n}}
+   are integers, then 
+  
+    
+      
+        
+          (
+          
+            
+              p
+              
+                1
+              
+            
+            ,
+            …
+            ,
+            
+              p
+              
+                n
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \left(p_{1},\ldots ,p_{n}\right)}
+   is an integer solution of the diophantine equation. moreover, the integer solutions that define a given rational point are all sequences of the form 
+
+  
+    
+      
+        
+          (
+          
+            k
+            
+              
+                
+                  p
+                  
+                    1
+                  
+                
+                d
+              
+            
+            ,
+            …
+            ,
+            k
+            
+              
+                
+                  p
+                  
+                    n
+                  
+                
+                d
+              
+            
+          
+          )
+        
+        ,
+      
+    
+    {\displaystyle \left(k{\frac {p_{1}}{d}},\ldots ,k{\frac {p_{n}}{d}}\right),}
+  where k is any integer, and d is the greatest common divisor of the 
+  
+    
+      
+        
+          p
+          
+            i
+          
+        
+        .
+      
+    
+    {\displaystyle p_{i}.}
+  
+it follows that solving the diophantine equation 
+  
+    
+      
+        q
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+        )
+        =
+        0
+      
+    
+    {\displaystyle q(x_{1},\ldots ,x_{n})=0}
+   is completely reduced to finding the rational points of the corresponding projective hypersurface.
+
+
+==== parameterization ====
+let now 
+  
+    
+      
+        a
+        =
+        
+          (
+          
+            
+              a
+              
+                1
+              
+            
+            ,
+            …
+            ,
+            
+              a
+              
+                n
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle a=\left(a_{1},\ldots ,a_{n}\right)}
+   be an integer solution of the equation 
+  
+    
+      
+        q
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+        )
+        =
+        0.
+      
+    
+    {\displaystyle q(x_{1},\ldots ,x_{n})=0.}
+   as q is a polynomial of degree two, a line passing through a crosses the hypersurface at a single other point, which is rational if and only if the line is rational (that is, if the line is defined by rational parameters). this allows parameterizing the hypersurface by the lines passing through a, and the rational points are the those that are obtained from rational lines, that is, those that correspond to rational values of the parameters.
+more precisely, one may proceed as follows. 
+by permuting the indices, one may suppose, without loss of generality that 
+  
+    
+      
+        
+          a
+          
+            n
+          
+        
+        ≠
+        0.
+      
+    
+    {\displaystyle a_{n}\neq 0.}
+   then one may pass to the affine case by considering the affine hypersurface defined by 
+
+  
+    
+      
+        q
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+            −
+            1
+          
+        
+        )
+        =
+        q
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+            −
+            1
+          
+        
+        ,
+        1
+        )
+        ,
+      
+    
+    {\displaystyle q(x_{1},\ldots ,x_{n-1})=q(x_{1},\ldots ,x_{n-1},1),}
+  which has the rational point
+
+  
+    
+      
+        r
+        =
+        (
+        
+          r
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          r
+          
+            n
+            −
+            1
+          
+        
+        )
+        =
+        
+          (
+          
+            
+              
+                
+                  a
+                  
+                    1
+                  
+                
+                
+                  a
+                  
+                    n
+                  
+                
+              
+            
+            ,
+            …
+            ,
+            
+              
+                
+                  a
+                  
+                    n
+                    −
+                    1
+                  
+                
+                
+                  a
+                  
+                    n
+                  
+                
+              
+            
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle r=(r_{1},\ldots ,r_{n-1})=\left({\frac {a_{1}}{a_{n}}},\ldots ,{\frac {a_{n-1}}{a_{n}}}\right).}
+  if this rational point is a singular point, that is if all partial derivatives are zero at r, all lines passing through r are contained in the hypersurface, and one has a cone. the change of variables 
+
+  
+    
+      
+        
+          y
+          
+            i
+          
+        
+        =
+        
+          x
+          
+            i
+          
+        
+        −
+        
+          r
+          
+            i
+          
+        
+      
+    
+    {\displaystyle y_{i}=x_{i}-r_{i}}
+  does not change the rational points, and transforms q into a homogeneous polynomial in n − 1 variables. in this case, the problem may thus be solved by applying the method to an equation with fewer variables.
+if the polynomial q is a product of linear polynomials (possibly with non-rational coefficients), then it defines two hyperplanes. the intersection of these hyperplanes is a rational flat, and contains rational singular points. this case is thus a special instance of the preceding case.
+in the general case, let consider the parametric equation of a line passing through r:
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  x
+                  
+                    2
+                  
+                
+              
+              
+                
+                =
+                
+                  r
+                  
+                    2
+                  
+                
+                +
+                
+                  t
+                  
+                    2
+                  
+                
+                (
+                
+                  x
+                  
+                    1
+                  
+                
+                −
+                
+                  r
+                  
+                    1
+                  
+                
+                )
+              
+            
+            
+              
+              
+                
+                
+                
+                ⋮
+              
+            
+            
+              
+                
+                  x
+                  
+                    n
+                    −
+                    1
+                  
+                
+              
+              
+                
+                =
+                
+                  r
+                  
+                    n
+                    −
+                    1
+                  
+                
+                +
+                
+                  t
+                  
+                    n
+                    −
+                    1
+                  
+                
+                (
+                
+                  x
+                  
+                    1
+                  
+                
+                −
+                
+                  r
+                  
+                    1
+                  
+                
+                )
+                .
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}x_{2}&=r_{2}+t_{2}(x_{1}-r_{1})\\&\;\;\vdots \\x_{n-1}&=r_{n-1}+t_{n-1}(x_{1}-r_{1}).\end{aligned}}}
+  substituting this in q, one gets a polynomial of degree two in 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+        ,
+      
+    
+    {\displaystyle x_{1},}
+   that is zero for 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+        =
+        
+          r
+          
+            1
+          
+        
+        .
+      
+    
+    {\displaystyle x_{1}=r_{1}.}
+   it is thus divisible by 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+        −
+        
+          r
+          
+            1
+          
+        
+        ,
+      
+    
+    {\displaystyle x_{1}-r_{1},}
+  . the quotient is linear in 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+        ,
+      
+    
+    {\displaystyle x_{1},}
+   and may be solved for expressing 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+      
+    
+    {\displaystyle x_{1}}
+   as a quotient of two polynomials of degree at most two in 
+  
+    
+      
+        
+          t
+          
+            2
+          
+        
+        ,
+        …
+        ,
+        
+          t
+          
+            n
+            −
+            1
+          
+        
+        ,
+      
+    
+    {\displaystyle t_{2},\ldots ,t_{n-1},}
+   with integer coefficients:
+
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+        =
+        
+          
+            
+              
+                f
+                
+                  1
+                
+              
+              (
+              
+                t
+                
+                  2
+                
+              
+              ,
+              …
+              ,
+              
+                t
+                
+                  n
+                  −
+                  1
+                
+              
+              )
+            
+            
+              
+                f
+                
+                  n
+                
+              
+              (
+              
+                t
+                
+                  2
+                
+              
+              ,
+              …
+              ,
+              
+                t
+                
+                  n
+                  −
+                  1
+                
+              
+              )
+            
+          
+        
+        .
+      
+    
+    {\displaystyle x_{1}={\frac {f_{1}(t_{2},\ldots ,t_{n-1})}{f_{n}(t_{2},\ldots ,t_{n-1})}}.}
+  substituting this in the expressions for 
+  
+    
+      
+        
+          x
+          
+            2
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+            −
+            1
+          
+        
+        ,
+      
+    
+    {\displaystyle x_{2},\ldots ,x_{n-1},}
+   one gets, for i = 1, …, n − 1,
+
+  
+    
+      
+        
+          x
+          
+            i
+          
+        
+        =
+        
+          
+            
+              
+                f
+                
+                  i
+                
+              
+              (
+              
+                t
+                
+                  2
+                
+              
+              ,
+              …
+              ,
+              
+                t
+                
+                  n
+                  −
+                  1
+                
+              
+              )
+            
+            
+              
+                f
+                
+                  n
+                
+              
+              (
+              
+                t
+                
+                  2
+                
+              
+              ,
+              …
+              ,
+              
+                t
+                
+                  n
+                  −
+                  1
+                
+              
+              )
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle x_{i}={\frac {f_{i}(t_{2},\ldots ,t_{n-1})}{f_{n}(t_{2},\ldots ,t_{n-1})}},}
+  where 
+  
+    
+      
+        
+          f
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          f
+          
+            n
+          
+        
+      
+    
+    {\displaystyle f_{1},\ldots ,f_{n}}
+   are polynomials of degree at most two with integer coefficients.
+then, one can return to the homogeneous case. let, for i = 1, …, n, 
+
+  
+    
+      
+        
+          f
+          
+            i
+          
+        
+        (
+        
+          t
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          t
+          
+            n
+            −
+            1
+          
+        
+        )
+        =
+        
+          t
+          
+            1
+          
+          
+            2
+          
+        
+        
+          f
+          
+            i
+          
+        
+        
+          (
+          
+            
+              
+                
+                  t
+                  
+                    2
+                  
+                
+                
+                  t
+                  
+                    1
+                  
+                
+              
+            
+            ,
+            …
+            ,
+            
+              
+                
+                  t
+                  
+                    n
+                    −
+                    1
+                  
+                
+                
+                  t
+                  
+                    1
+                  
+                
+              
+            
+          
+          )
+        
+        ,
+      
+    
+    {\displaystyle f_{i}(t_{1},\ldots ,t_{n-1})=t_{1}^{2}f_{i}\left({\frac {t_{2}}{t_{1}}},\ldots ,{\frac {t_{n-1}}{t_{1}}}\right),}
+  be the homogenization of 
+  
+    
+      
+        
+          f
+          
+            i
+          
+        
+        .
+      
+    
+    {\displaystyle f_{i}.}
+   these quadratic polynomials with integer coefficients form a parameterization of the projective hypersurface defined by q:
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  x
+                  
+                    1
+                  
+                
+              
+              
+                
+                =
+                
+                  f
+                  
+                    1
+                  
+                
+                (
+                
+                  t
+                  
+                    1
+                  
+                
+                ,
+                …
+                ,
+                
+                  t
+                  
+                    n
+                    −
+                    1
+                  
+                
+                )
+              
+            
+            
+              
+              
+                
+                
+                
+                ⋮
+              
+            
+            
+              
+                
+                  x
+                  
+                    n
+                  
+                
+              
+              
+                
+                =
+                
+                  f
+                  
+                    n
+                  
+                
+                (
+                
+                  t
+                  
+                    1
+                  
+                
+                ,
+                …
+                ,
+                
+                  t
+                  
+                    n
+                    −
+                    1
+                  
+                
+                )
+                .
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}x_{1}&=f_{1}(t_{1},\ldots ,t_{n-1})\\&\;\;\vdots \\x_{n}&=f_{n}(t_{1},\ldots ,t_{n-1}).\end{aligned}}}
+  a point of the projective hypersurface defined by q is rational if and only if it may be obtained from rational values of 
+  
+    
+      
+        
+          t
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          t
+          
+            n
+            −
+            1
+          
+        
+        .
+      
+    
+    {\displaystyle t_{1},\ldots ,t_{n-1}.}
+   as 
+  
+    
+      
+        
+          f
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          f
+          
+            n
+          
+        
+      
+    
+    {\displaystyle f_{1},\ldots ,f_{n}}
+   are homogeneous polynomials, the point is not changed if all 
+  
+    
+      
+        
+          t
+          
+            i
+          
+        
+      
+    
+    {\displaystyle t_{i}}
+   are multiplied by the same rational number. thus, one may suppose that 
+  
+    
+      
+        
+          t
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          t
+          
+            n
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle t_{1},\ldots ,t_{n-1}}
+   are coprime integers. it follows that the integer solutions of the diophantine equation are exactly the sequences 
+  
+    
+      
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle (x_{1},\ldots ,x_{n})}
+   where, for i = 1, ..., n,
+
+  
+    
+      
+        
+          x
+          
+            i
+          
+        
+        =
+        k
+        
+        
+          
+            
+              
+                f
+                
+                  i
+                
+              
+              (
+              
+                t
+                
+                  1
+                
+              
+              ,
+              …
+              ,
+              
+                t
+                
+                  n
+                  −
+                  1
+                
+              
+              )
+            
+            d
+          
+        
+        ,
+      
+    
+    {\displaystyle x_{i}=k\,{\frac {f_{i}(t_{1},\ldots ,t_{n-1})}{d}},}
+  where k is an integer, 
+  
+    
+      
+        
+          t
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          t
+          
+            n
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle t_{1},\ldots ,t_{n-1}}
+   are coprime integers, and d is the greatest common divisor of the n integers 
+  
+    
+      
+        
+          f
+          
+            i
+          
+        
+        (
+        
+          t
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          t
+          
+            n
+            −
+            1
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle f_{i}(t_{1},\ldots ,t_{n-1}).}
+  
+one could hope that the coprimality of the 
+  
+    
+      
+        
+          t
+          
+            i
+          
+        
+      
+    
+    {\displaystyle t_{i}}
+   could imply that d = 1. unfortunately this is not the case, as shown in the next section.
+
+
+==== example of pythagorean triples ====
+the equation 
+
+  
+    
+      
+        
+          x
+          
+            2
+          
+        
+        +
+        
+          y
+          
+            2
+          
+        
+        −
+        
+          z
+          
+            2
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle x^{2}+y^{2}-z^{2}=0}
+  is probably the first homogeneous diophantine equation of degree two that has been studied. its solutions are the pythagorean triples. this is also the homogeneous equation of the unit circle. in this section, we show how the above method allows retrieving euclid's formula for generating pythagorean triples.
+for retrieving exactly euclid's formula, we start from the solution (−1, 0, 1), corresponding to the point (−1, 0) of the unit circle. a line passing through this point may be parameterized by its slope:
+
+  
+    
+      
+        y
+        =
+        t
+        (
+        x
+        +
+        1
+        )
+        .
+      
+    
+    {\displaystyle y=t(x+1).}
+  putting this in the circle equation 
+
+  
+    
+      
+        
+          x
+          
+            2
+          
+        
+        +
+        
+          y
+          
+            2
+          
+        
+        −
+        1
+        =
+        0
+        ,
+      
+    
+    {\displaystyle x^{2}+y^{2}-1=0,}
+  one gets 
+
+  
+    
+      
+        
+          x
+          
+            2
+          
+        
+        −
+        1
+        +
+        
+          t
+          
+            2
+          
+        
+        (
+        x
+        +
+        1
+        
+          )
+          
+            2
+          
+        
+        =
+        0.
+      
+    
+    {\displaystyle x^{2}-1+t^{2}(x+1)^{2}=0.}
+  dividing by x + 1, results in
+
+  
+    
+      
+        x
+        −
+        1
+        +
+        
+          t
+          
+            2
+          
+        
+        (
+        x
+        +
+        1
+        )
+        =
+        0
+        ,
+      
+    
+    {\displaystyle x-1+t^{2}(x+1)=0,}
+  which is easy to solve in x:
+
+  
+    
+      
+        x
+        =
+        
+          
+            
+              1
+              −
+              
+                t
+                
+                  2
+                
+              
+            
+            
+              1
+              +
+              
+                t
+                
+                  2
+                
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle x={\frac {1-t^{2}}{1+t^{2}}}.}
+  it follows
+
+  
+    
+      
+        y
+        =
+        t
+        (
+        x
+        +
+        1
+        )
+        =
+        
+          
+            
+              2
+              t
+            
+            
+              1
+              +
+              
+                t
+                
+                  2
+                
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle y=t(x+1)={\frac {2t}{1+t^{2}}}.}
+  homogenizing as described above one gets all solutions as 
+
+  
+    
+      
+        
+          
+            
+              
+                x
+              
+              
+                
+                =
+                k
+                
+                
+                  
+                    
+                      
+                        s
+                        
+                          2
+                        
+                      
+                      −
+                      
+                        t
+                        
+                          2
+                        
+                      
+                    
+                    d
+                  
+                
+              
+            
+            
+              
+                y
+              
+              
+                
+                =
+                k
+                
+                
+                  
+                    
+                      2
+                      s
+                      t
+                    
+                    d
+                  
+                
+              
+            
+            
+              
+                z
+              
+              
+                
+                =
+                k
+                
+                
+                  
+                    
+                      
+                        s
+                        
+                          2
+                        
+                      
+                      +
+                      
+                        t
+                        
+                          2
+                        
+                      
+                    
+                    d
+                  
+                
+                ,
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}x&=k\,{\frac {s^{2}-t^{2}}{d}}\\y&=k\,{\frac {2st}{d}}\\z&=k\,{\frac {s^{2}+t^{2}}{d}},\end{aligned}}}
+  where k is any integer, s and t are coprime integers, and d is the greatest common divisor of the three numerators. in fact, d = 2 if s and t are both odd, and d = 1 if one is odd and the other is even.
+the primitive triples are the solutions where k = 1 and s > t > 0.
+this description of the solutions differs slightly from euclid's formula because euclid's formula considers only the solutions such that x, y and z are all positive, and does not distinguish between two triples that differ by the exchange of x and y,
+
+
+== diophantine analysis ==
+
+
+=== typical questions ===
+the questions asked in diophantine analysis include:
+
+are there any solutions?
+are there any solutions beyond some that are easily found by inspection?
+are there finitely or infinitely many solutions?
+can all solutions be found in theory?
+can one in practice compute a full list of solutions?these traditional problems often lay unsolved for centuries, and mathematicians gradually came to understand their depth (in some cases), rather than treat them as puzzles.
+
+
+=== typical problem ===
+the given information is that a father's age is 1 less than twice that of his son, and that the digits ab making up the father's age are reversed in the son's age (i.e. ba). this leads to the equation 10a + b = 2(10b + a) − 1, thus 19b − 8a = 1. inspection gives the result a = 7, b = 3, and thus ab equals 73 years and ba equals 37 years. one may easily show that there is not any other solution with a and b positive integers less than 10.
+many well known puzzles in the field of recreational mathematics lead to diophantine equations.  examples include the cannonball problem, archimedes's cattle problem and the monkey and the coconuts.
+
+
+=== 17th and 18th centuries ===
+in 1637, pierre de fermat scribbled on the margin of his copy of arithmetica: "it is impossible to separate a cube into two cubes, or a fourth power into two fourth powers, or in general, any power higher than the second into two like powers." stated in more modern language, "the equation an + bn = cn has no solutions for any n higher than 2." following this, he wrote: "i have discovered a truly marvelous proof of this proposition, which this margin is too narrow to contain." such a proof eluded mathematicians for centuries, however, and as such his statement became famous as fermat's last theorem. it wasn't until 1995 that it was proven by the british mathematician andrew wiles.
+in 1657, fermat attempted to solve the diophantine equation 61x2 + 1 = y2 (solved by brahmagupta over 1000 years earlier). the equation was eventually solved by euler in the early 18th century, who also solved a number of other diophantine equations. the smallest solution of this equation in positive integers is x = 226153980, y = 1766319049 (see chakravala method).
+
+
+=== hilbert's tenth problem ===
+
+in 1900, david hilbert proposed the solvability of all diophantine equations as the tenth of his fundamental problems. in 1970, yuri matiyasevich solved it negatively, building on work of julia robinson, martin davis, and hilary putnam to prove that a general algorithm for solving all diophantine equations cannot exist.
+
+
+=== diophantine geometry ===
+diophantine geometry, which is the application of techniques from algebraic geometry in this field, has continued to grow as a result; since treating arbitrary equations is a dead end, attention turns to equations that also have a geometric meaning. the central idea of diophantine geometry is that of a rational point, namely a solution to a polynomial equation or a system of polynomial equations, which is a vector in a prescribed field k, when k is not  algebraically closed.
+
+
+=== modern research ===
+one of the few general approaches is through the hasse principle. infinite descent is the traditional method, and has been pushed a long way.
+the depth of the study of general diophantine equations is shown by the characterisation of diophantine sets as equivalently described as recursively enumerable. in other words, the general problem of diophantine analysis is blessed or cursed with universality, and in any case is not something that will be solved except by re-expressing it in other terms.
+the field of diophantine approximation deals with the cases of diophantine inequalities. here variables are still supposed to be integral, but some coefficients may be irrational numbers, and the equality sign is replaced by upper and lower bounds.
+the single most celebrated question in the field, the conjecture known as fermat's last theorem, was solved by andrew wiles, using tools from algebraic geometry developed during the last century rather than within number theory where the conjecture was originally formulated. other major results, such as faltings's theorem, have disposed of old conjectures.
+
+
+=== infinite diophantine equations ===
+an example of an infinite diophantine equation is:
+
+n = a2 + 2b2 + 3c2 + 4d2 + 5e2 + ⋯, which can be expressed as "how many ways can a given integer n be written as the sum of a square plus twice a square plus thrice a square and so on?" the number of ways this can be done for each n forms an integer sequence. infinite diophantine equations are related to theta functions and infinite dimensional lattices. this equation always has a solution for any positive n. compare this to:
+n = a2 + 4b2 + 9c2 + 16d2 + 25e2 + ⋯,which does not always have a solution for positive n.
+
+
+== exponential diophantine equations ==
+if a diophantine equation has as an additional variable or variables occurring as exponents, it is an exponential diophantine equation. examples include the ramanujan–nagell equation, 2n − 7 = x2, and the equation of the fermat–catalan conjecture and beal's conjecture, am + bn = ck with inequality restrictions on the exponents. a general theory for such equations is not available; particular cases such as catalan's conjecture have been tackled. however, the majority are solved via ad hoc methods such as størmer's theorem or even trial and error.
+
+
+== see also ==
+kuṭṭaka, aryabhata's algorithm for solving linear diophantine equations in two unknowns
+
+
+== notes ==
+
+
+== references ==
+mordell, l. j. (1969). diophantine equations. pure and applied mathematics. vol. 30. academic press. isbn 0-12-506250-8. zbl 0188.34503.
+schmidt, wolfgang m. (1991). diophantine approximations and diophantine equations. lecture notes in mathematics. vol. 1467. berlin: springer-verlag. isbn 3-540-54058-x. zbl 0754.11020.
+shorey, t. n.; tijdeman, r. (1986). exponential diophantine equations. cambridge tracts in mathematics. vol. 87. cambridge university press. isbn 0-521-26826-5. zbl 0606.10011.
+smart, nigel p. (1998). the algorithmic resolution of diophantine equations. london mathematical society student texts. vol. 41. cambridge university press. isbn 0-521-64156-x. zbl 0907.11001.
+stillwell, john (2004). mathematics and its history (second ed.). springer science + business media inc. isbn 0-387-95336-1.
+
+
+== further reading ==
+bashmakova, izabella g. "diophante et fermat," revue d'histoire des sciences 19 (1966), pp. 289-306
+bashmakova, izabella g. diophantus and diophantine equations. moscow: nauka 1972 [in russian]. german translation: diophant und diophantische gleichungen. birkhauser, basel/ stuttgart, 1974. english translation: diophantus and diophantine equations. translated by abe shenitzer with the editorial assistance of hardy grant and updated by joseph silverman. the dolciani mathematical expositions, 20. mathematical association of america, washington, dc. 1997.
+bashmakova, izabella g. “arithmetic of algebraic curves from diophantus to poincaré” historia mathematica 8 (1981), 393–416.
+bashmakova, izabella g., slavutin, e.i. history of diophantine analysis from diophantus to fermat. moscow: nauka 1984 [in russian].
+bashmakova, izabella g. "diophantine equations and the evolution of algebra", american mathematical society translations 147 (2), 1990, pp. 85–100. translated by a. shenitzer and h. grant.
+dickson, leonard eugene (2005) [1920]. history of the theory of numbers. volume ii: diophantine analysis. mineola, ny: dover publications. isbn 978-0-486-44233-4. mr 0245500. zbl 1214.11002.
+rashed, roshdi, houzel, christian. les arithmétiques de diophante : lecture historique et mathématique, berlin, new york : walter de gruyter, 2013.
+rashed, roshdi, histoire de l’analyse diophantienne classique : d’abū kāmil à fermat, berlin, new york : walter de gruyter.
+
+
+== external links ==
+diophantine equation. from mathworld at wolfram research.
+"diophantine equations", encyclopedia of mathematics, ems press, 2001 [1994]
+dario alpern's online calculator. retrieved 18 march 2009

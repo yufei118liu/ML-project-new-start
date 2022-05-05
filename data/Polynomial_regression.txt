@@ -1,0 +1,973 @@
+in statistics, polynomial regression is a form of regression analysis in which the relationship between the independent variable x and the dependent variable y is modelled as an nth degree polynomial in x. polynomial regression fits a nonlinear relationship between the value of x and the corresponding conditional mean of y, denoted e(y |x). although polynomial regression fits a nonlinear model to the data, as a statistical estimation problem it is linear, in the sense that the regression function e(y | x) is linear in the unknown parameters that are estimated from the data.  for this reason, polynomial regression is considered to be a special case of multiple linear regression.
+the explanatory (independent) variables resulting from the polynomial expansion of the "baseline" variables are known as higher-degree terms. such variables are also used in classification settings.
+
+
+== history ==
+polynomial regression models are usually fit using the method of least squares. the least-squares method minimizes the variance of the unbiased estimators of the coefficients, under the conditions of the gauss–markov theorem. the least-squares method was published in 1805 by legendre and in 1809 by gauss. the first design of an experiment for polynomial regression appeared in an 1815 paper of gergonne.  in the twentieth century, polynomial regression played an important role in the development of regression analysis, with a greater emphasis on issues of design and inference.  more recently, the use of polynomial models has been complemented by other methods, with non-polynomial models having advantages for some classes of problems.
+
+
+== definition and example ==
+
+the goal of regression analysis is to model the expected value of a dependent variable y in terms of the value of an independent variable (or vector of independent variables) x.  in simple linear regression, the model
+
+  
+    
+      
+        y
+        =
+        
+          β
+          
+            0
+          
+        
+        +
+        
+          β
+          
+            1
+          
+        
+        x
+        +
+        ε
+        ,
+        
+      
+    
+    {\displaystyle y=\beta _{0}+\beta _{1}x+\varepsilon ,\,}
+  is used, where ε is an unobserved random error with mean zero conditioned on a scalar variable x.  in this model, for each unit increase in the value of x, the conditional expectation of y increases by β1 units.
+in many settings, such a linear relationship may not hold.  for example, if we are modeling the yield of a chemical synthesis in terms of the temperature at which the synthesis takes place, we may find that the yield improves by increasing amounts for each unit increase in temperature.  in this case, we might propose a quadratic model of the form
+
+  
+    
+      
+        y
+        =
+        
+          β
+          
+            0
+          
+        
+        +
+        
+          β
+          
+            1
+          
+        
+        x
+        +
+        
+          β
+          
+            2
+          
+        
+        
+          x
+          
+            2
+          
+        
+        +
+        ε
+        .
+        
+      
+    
+    {\displaystyle y=\beta _{0}+\beta _{1}x+\beta _{2}x^{2}+\varepsilon .\,}
+  in this model, when the temperature is increased from x to x + 1 units, the expected yield changes by 
+  
+    
+      
+        
+          β
+          
+            1
+          
+        
+        +
+        
+          β
+          
+            2
+          
+        
+        (
+        2
+        x
+        +
+        1
+        )
+        .
+      
+    
+    {\displaystyle \beta _{1}+\beta _{2}(2x+1).}
+   (this can be seen by replacing x in this equation with x+1 and subtracting the equation in x from the equation in x+1.) for infinitesimal changes in x, the effect on y is given by the total derivative with respect to x: 
+  
+    
+      
+        
+          β
+          
+            1
+          
+        
+        +
+        2
+        
+          β
+          
+            2
+          
+        
+        x
+        .
+      
+    
+    {\displaystyle \beta _{1}+2\beta _{2}x.}
+   the fact that the change in yield depends on x is what makes the relationship between x and y nonlinear even though the model is linear in the parameters to be estimated.
+in general, we can model the expected value of y as an nth degree polynomial, yielding the general polynomial regression model
+
+  
+    
+      
+        y
+        =
+        
+          β
+          
+            0
+          
+        
+        +
+        
+          β
+          
+            1
+          
+        
+        x
+        +
+        
+          β
+          
+            2
+          
+        
+        
+          x
+          
+            2
+          
+        
+        +
+        
+          β
+          
+            3
+          
+        
+        
+          x
+          
+            3
+          
+        
+        +
+        ⋯
+        +
+        
+          β
+          
+            n
+          
+        
+        
+          x
+          
+            n
+          
+        
+        +
+        ε
+        .
+        
+      
+    
+    {\displaystyle y=\beta _{0}+\beta _{1}x+\beta _{2}x^{2}+\beta _{3}x^{3}+\cdots +\beta _{n}x^{n}+\varepsilon .\,}
+  conveniently, these models are all linear from the point of view of estimation, since the regression function is linear in terms of the unknown parameters β0, β1, ....  therefore, for least squares analysis, the computational and inferential problems of polynomial regression can be completely addressed using the techniques of multiple regression.  this is done by treating x, x2, ... as being distinct independent variables in a multiple regression model.
+
+
+== matrix form and calculation of estimates ==
+the polynomial regression model
+
+  
+    
+      
+        
+          y
+          
+            i
+          
+        
+        
+        =
+        
+        
+          β
+          
+            0
+          
+        
+        +
+        
+          β
+          
+            1
+          
+        
+        
+          x
+          
+            i
+          
+        
+        +
+        
+          β
+          
+            2
+          
+        
+        
+          x
+          
+            i
+          
+          
+            2
+          
+        
+        +
+        ⋯
+        +
+        
+          β
+          
+            m
+          
+        
+        
+          x
+          
+            i
+          
+          
+            m
+          
+        
+        +
+        
+          ε
+          
+            i
+          
+        
+         
+        (
+        i
+        =
+        1
+        ,
+        2
+        ,
+        …
+        ,
+        n
+        )
+      
+    
+    {\displaystyle y_{i}\,=\,\beta _{0}+\beta _{1}x_{i}+\beta _{2}x_{i}^{2}+\cdots +\beta _{m}x_{i}^{m}+\varepsilon _{i}\ (i=1,2,\dots ,n)}
+  can be expressed in matrix form in terms of a design matrix 
+  
+    
+      
+        
+          x
+        
+      
+    
+    {\displaystyle \mathbf {x} }
+  , a response vector 
+  
+    
+      
+        
+          
+            
+              y
+              →
+            
+          
+        
+      
+    
+    {\displaystyle {\vec {y}}}
+  , a parameter vector 
+  
+    
+      
+        
+          
+            
+              β
+              →
+            
+          
+        
+      
+    
+    {\displaystyle {\vec {\beta }}}
+  , and a vector 
+  
+    
+      
+        
+          
+            
+              ε
+              →
+            
+          
+        
+      
+    
+    {\displaystyle {\vec {\varepsilon }}}
+   of random errors. the i-th row of 
+  
+    
+      
+        
+          x
+        
+      
+    
+    {\displaystyle \mathbf {x} }
+   and 
+  
+    
+      
+        
+          
+            
+              y
+              →
+            
+          
+        
+      
+    
+    {\displaystyle {\vec {y}}}
+   will contain the x and y value for the i-th data sample. then the model can be written as a system of linear equations:
+
+  
+    
+      
+        
+          
+            [
+            
+              
+                
+                  
+                    y
+                    
+                      1
+                    
+                  
+                
+              
+              
+                
+                  
+                    y
+                    
+                      2
+                    
+                  
+                
+              
+              
+                
+                  
+                    y
+                    
+                      3
+                    
+                  
+                
+              
+              
+                
+                  ⋮
+                
+              
+              
+                
+                  
+                    y
+                    
+                      n
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        =
+        
+          
+            [
+            
+              
+                
+                  1
+                
+                
+                  
+                    x
+                    
+                      1
+                    
+                  
+                
+                
+                  
+                    x
+                    
+                      1
+                    
+                    
+                      2
+                    
+                  
+                
+                
+                  …
+                
+                
+                  
+                    x
+                    
+                      1
+                    
+                    
+                      m
+                    
+                  
+                
+              
+              
+                
+                  1
+                
+                
+                  
+                    x
+                    
+                      2
+                    
+                  
+                
+                
+                  
+                    x
+                    
+                      2
+                    
+                    
+                      2
+                    
+                  
+                
+                
+                  …
+                
+                
+                  
+                    x
+                    
+                      2
+                    
+                    
+                      m
+                    
+                  
+                
+              
+              
+                
+                  1
+                
+                
+                  
+                    x
+                    
+                      3
+                    
+                  
+                
+                
+                  
+                    x
+                    
+                      3
+                    
+                    
+                      2
+                    
+                  
+                
+                
+                  …
+                
+                
+                  
+                    x
+                    
+                      3
+                    
+                    
+                      m
+                    
+                  
+                
+              
+              
+                
+                  ⋮
+                
+                
+                  ⋮
+                
+                
+                  ⋮
+                
+                
+                  ⋱
+                
+                
+                  ⋮
+                
+              
+              
+                
+                  1
+                
+                
+                  
+                    x
+                    
+                      n
+                    
+                  
+                
+                
+                  
+                    x
+                    
+                      n
+                    
+                    
+                      2
+                    
+                  
+                
+                
+                  …
+                
+                
+                  
+                    x
+                    
+                      n
+                    
+                    
+                      m
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        
+          
+            [
+            
+              
+                
+                  
+                    β
+                    
+                      0
+                    
+                  
+                
+              
+              
+                
+                  
+                    β
+                    
+                      1
+                    
+                  
+                
+              
+              
+                
+                  
+                    β
+                    
+                      2
+                    
+                  
+                
+              
+              
+                
+                  ⋮
+                
+              
+              
+                
+                  
+                    β
+                    
+                      m
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        +
+        
+          
+            [
+            
+              
+                
+                  
+                    ε
+                    
+                      1
+                    
+                  
+                
+              
+              
+                
+                  
+                    ε
+                    
+                      2
+                    
+                  
+                
+              
+              
+                
+                  
+                    ε
+                    
+                      3
+                    
+                  
+                
+              
+              
+                
+                  ⋮
+                
+              
+              
+                
+                  
+                    ε
+                    
+                      n
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        ,
+      
+    
+    {\displaystyle {\begin{bmatrix}y_{1}\\y_{2}\\y_{3}\\\vdots \\y_{n}\end{bmatrix}}={\begin{bmatrix}1&x_{1}&x_{1}^{2}&\dots &x_{1}^{m}\\1&x_{2}&x_{2}^{2}&\dots &x_{2}^{m}\\1&x_{3}&x_{3}^{2}&\dots &x_{3}^{m}\\\vdots &\vdots &\vdots &\ddots &\vdots \\1&x_{n}&x_{n}^{2}&\dots &x_{n}^{m}\end{bmatrix}}{\begin{bmatrix}\beta _{0}\\\beta _{1}\\\beta _{2}\\\vdots \\\beta _{m}\end{bmatrix}}+{\begin{bmatrix}\varepsilon _{1}\\\varepsilon _{2}\\\varepsilon _{3}\\\vdots \\\varepsilon _{n}\end{bmatrix}},}
+  which when using pure matrix notation is written as
+
+  
+    
+      
+        
+          
+            
+              y
+              →
+            
+          
+        
+        =
+        
+          x
+        
+        
+          
+            
+              β
+              →
+            
+          
+        
+        +
+        
+          
+            
+              ε
+              →
+            
+          
+        
+        .
+        
+      
+    
+    {\displaystyle {\vec {y}}=\mathbf {x} {\vec {\beta }}+{\vec {\varepsilon }}.\,}
+  the vector of estimated polynomial regression coefficients (using ordinary least squares estimation) is
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  β
+                  →
+                
+              
+              ^
+            
+          
+        
+        =
+        (
+        
+          
+            x
+          
+          
+            
+              t
+            
+          
+        
+        
+          x
+        
+        
+          )
+          
+            −
+            1
+          
+        
+        
+        
+          
+            x
+          
+          
+            
+              t
+            
+          
+        
+        
+          
+            
+              y
+              →
+            
+          
+        
+        ,
+        
+      
+    
+    {\displaystyle {\widehat {\vec {\beta }}}=(\mathbf {x} ^{\mathsf {t}}\mathbf {x} )^{-1}\;\mathbf {x} ^{\mathsf {t}}{\vec {y}},\,}
+  assuming m < n which is required for the matrix to be invertible; then since 
+  
+    
+      
+        
+          x
+        
+      
+    
+    {\displaystyle \mathbf {x} }
+   is a vandermonde matrix, the invertibility condition is guaranteed to hold if all the 
+  
+    
+      
+        
+          x
+          
+            i
+          
+        
+      
+    
+    {\displaystyle x_{i}}
+   values are distinct. this is the unique least-squares solution.
+
+
+== interpretation ==
+although polynomial regression is technically a special case of multiple linear regression, the interpretation of a fitted polynomial regression model requires a somewhat different perspective.  it is often difficult to interpret the individual coefficients in a polynomial regression fit, since the underlying monomials can be highly correlated.  for example, x and x2 have correlation around 0.97 when x is uniformly distributed on the interval (0, 1).  although the correlation can be reduced by using orthogonal polynomials, it is generally more informative to consider the fitted regression function as a whole.  point-wise or simultaneous confidence bands can then be used to provide a sense of the uncertainty in the estimate of the regression function.
+
+
+== alternative approaches ==
+polynomial regression is one example of regression analysis using basis functions to model a functional relationship between two quantities. more specifically, it replaces 
+  
+    
+      
+        x
+        ∈
+        
+          
+            r
+          
+          
+            
+              d
+              
+                x
+              
+            
+          
+        
+      
+    
+    {\displaystyle x\in \mathbb {r} ^{d_{x}}}
+   in linear regression with polynomial basis 
+  
+    
+      
+        φ
+        (
+        x
+        )
+        ∈
+        
+          
+            r
+          
+          
+            
+              d
+              
+                φ
+              
+            
+          
+        
+      
+    
+    {\displaystyle \varphi (x)\in \mathbb {r} ^{d_{\varphi }}}
+  , e.g. 
+  
+    
+      
+        [
+        1
+        ,
+        x
+        ]
+        
+          
+            
+              
+                
+                  →
+                
+                
+                  φ
+                
+              
+            
+          
+        
+        [
+        1
+        ,
+        x
+        ,
+        
+          x
+          
+            2
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            d
+          
+        
+        ]
+      
+    
+    {\displaystyle [1,x]{\mathbin {\stackrel {\varphi }{\rightarrow }}}[1,x,x^{2},\ldots ,x^{d}]}
+  . a drawback of polynomial bases is that the basis functions are "non-local", meaning that the fitted value of y at a given value x = x0 depends strongly on data values with x far from x0. in modern statistics, polynomial basis-functions are used along with new basis functions, such as splines, radial basis functions, and wavelets.  these families of basis functions offer a more parsimonious fit for many types of data.
+the goal of polynomial regression is to model a non-linear relationship between the independent and dependent variables (technically, between the independent variable and the conditional mean of the dependent variable).  this is similar to the goal of nonparametric regression, which aims to capture non-linear regression relationships. therefore, non-parametric regression approaches such as smoothing can be useful alternatives to polynomial regression.  some of these methods make use of a localized form of classical polynomial regression.  an advantage of traditional polynomial regression is that the inferential framework of multiple regression can be used (this also holds when using other families of basis functions such as splines).
+a final alternative is to use kernelized models such as support vector regression with a polynomial kernel.
+if residuals have unequal variance, a weighted least squares estimator may be used to account for that.
+
+
+== see also ==
+curve fitting
+line regression
+local polynomial regression
+polynomial and rational function modeling
+polynomial interpolation
+response surface methodology
+smoothing spline
+
+
+== notes ==
+microsoft excel makes use of polynomial regression when fitting a trendline to data points on an x y scatter plot.
+
+
+== references ==
+
+
+== external links ==
+curve fitting, phet interactive simulations, university of colorado at boulder

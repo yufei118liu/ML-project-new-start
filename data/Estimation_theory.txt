@@ -1,0 +1,1994 @@
+estimation theory is a branch of statistics that deals with estimating the values of parameters based on measured empirical data that has a random component.  the parameters describe an underlying physical setting in such a way that their value affects the distribution of the measured data. an estimator attempts to approximate the unknown parameters using the measurements.
+in estimation theory, two approaches are generally considered: 
+the probabilistic approach (described in this article) assumes that the measured data is random with probability distribution dependent on the parameters of interest
+the set-membership approach assumes that the measured data vector belongs to a set which depends on the parameter vector.
+
+
+== examples ==
+for example, it is desired to estimate the proportion of a population of voters who will vote for a particular candidate.  that proportion is the parameter sought; the estimate is based on a small random sample of voters. alternatively, it is desired to estimate the probability of a voter voting for a particular candidate, based on some demographic features, such as age.
+or, for example, in radar the aim is to find the range of objects (airplanes, boats, etc.) by analyzing the two-way transit timing of received echoes of transmitted pulses. since the reflected pulses are unavoidably embedded in electrical noise, their measured values are randomly distributed, so that the transit time must be estimated.
+as another example, in electrical communication theory, the measurements which contain information regarding the parameters of interest are often associated with a noisy signal.
+
+
+== basics ==
+for a given model, several statistical "ingredients" are needed so the estimator can be implemented. the first is a statistical sample – a set of data points taken from a random vector (rv) of size n. put into a vector,
+
+  
+    
+      
+        
+          x
+        
+        =
+        
+          
+            [
+            
+              
+                
+                  x
+                  [
+                  0
+                  ]
+                
+              
+              
+                
+                  x
+                  [
+                  1
+                  ]
+                
+              
+              
+                
+                  ⋮
+                
+              
+              
+                
+                  x
+                  [
+                  n
+                  −
+                  1
+                  ]
+                
+              
+            
+            ]
+          
+        
+        .
+      
+    
+    {\displaystyle \mathbf {x} ={\begin{bmatrix}x[0]\\x[1]\\\vdots \\x[n-1]\end{bmatrix}}.}
+  secondly, there are m parameters
+
+  
+    
+      
+        
+          θ
+        
+        =
+        
+          
+            [
+            
+              
+                
+                  
+                    θ
+                    
+                      1
+                    
+                  
+                
+              
+              
+                
+                  
+                    θ
+                    
+                      2
+                    
+                  
+                
+              
+              
+                
+                  ⋮
+                
+              
+              
+                
+                  
+                    θ
+                    
+                      m
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        ,
+      
+    
+    {\displaystyle \mathbf {\theta } ={\begin{bmatrix}\theta _{1}\\\theta _{2}\\\vdots \\\theta _{m}\end{bmatrix}},}
+  whose values are to be estimated. third, the continuous probability density function (pdf) or its discrete counterpart, the probability mass function (pmf), of the underlying distribution that generated the data must be stated conditional on the values of the parameters:
+
+  
+    
+      
+        p
+        (
+        
+          x
+        
+        
+          |
+        
+        
+          θ
+        
+        )
+        .
+        
+      
+    
+    {\displaystyle p(\mathbf {x} |\mathbf {\theta } ).\,}
+  it is also possible for the parameters themselves to have a probability distribution (e.g., bayesian statistics). it is then necessary to define the bayesian probability
+
+  
+    
+      
+        π
+        (
+        
+          θ
+        
+        )
+        .
+        
+      
+    
+    {\displaystyle \pi (\mathbf {\theta } ).\,}
+  after the model is formed, the goal is to estimate the parameters, with the estimates commonly denoted 
+  
+    
+      
+        
+          
+            
+              
+                θ
+              
+              ^
+            
+          
+        
+      
+    
+    {\displaystyle {\hat {\mathbf {\theta } }}}
+  , where the "hat" indicates the estimate.
+one common estimator is the minimum mean squared error (mmse) estimator, which utilizes the error between the estimated parameters and the actual value of the parameters
+
+  
+    
+      
+        
+          e
+        
+        =
+        
+          
+            
+              
+                θ
+              
+              ^
+            
+          
+        
+        −
+        
+          θ
+        
+      
+    
+    {\displaystyle \mathbf {e} ={\hat {\mathbf {\theta } }}-\mathbf {\theta } }
+  as the basis for optimality.  this error term is then squared and the expected value of this squared value is minimized for the mmse estimator.
+
+
+== estimators ==
+
+commonly used estimators (estimation methods) and topics related to them include:
+
+maximum likelihood estimators
+bayes estimators
+method of moments estimators
+cramér–rao bound
+least squares
+minimum mean squared error (mmse), also known as bayes least squared error (blse)
+maximum a posteriori (map)
+minimum variance unbiased estimator (mvue)
+nonlinear system identification
+best linear unbiased estimator (blue)
+unbiased estimators — see estimator bias.
+particle filter
+markov chain monte carlo (mcmc)
+kalman filter, and its various derivatives
+wiener filter
+
+
+== examples ==
+
+
+=== unknown constant in additive white gaussian noise ===
+consider a received discrete signal, 
+  
+    
+      
+        x
+        [
+        n
+        ]
+      
+    
+    {\displaystyle x[n]}
+  , of 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   independent samples that consists of an unknown constant 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   with additive white gaussian noise (awgn) 
+  
+    
+      
+        w
+        [
+        n
+        ]
+      
+    
+    {\displaystyle w[n]}
+   with zero mean and known variance 
+  
+    
+      
+        
+          σ
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \sigma ^{2}}
+   (i.e., 
+  
+    
+      
+        
+          
+            n
+          
+        
+        (
+        0
+        ,
+        
+          σ
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle {\mathcal {n}}(0,\sigma ^{2})}
+  ).
+since the variance is known then the only unknown parameter is 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  .
+the model for the signal is then
+
+  
+    
+      
+        x
+        [
+        n
+        ]
+        =
+        a
+        +
+        w
+        [
+        n
+        ]
+        
+        n
+        =
+        0
+        ,
+        1
+        ,
+        …
+        ,
+        n
+        −
+        1
+      
+    
+    {\displaystyle x[n]=a+w[n]\quad n=0,1,\dots ,n-1}
+  two possible (of many) estimators for the parameter 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   are:
+
+  
+    
+      
+        
+          
+            
+              
+                a
+                ^
+              
+            
+          
+          
+            1
+          
+        
+        =
+        x
+        [
+        0
+        ]
+      
+    
+    {\displaystyle {\hat {a}}_{1}=x[0]}
+  
+
+  
+    
+      
+        
+          
+            
+              
+                a
+                ^
+              
+            
+          
+          
+            2
+          
+        
+        =
+        
+          
+            1
+            n
+          
+        
+        
+          ∑
+          
+            n
+            =
+            0
+          
+          
+            n
+            −
+            1
+          
+        
+        x
+        [
+        n
+        ]
+      
+    
+    {\displaystyle {\hat {a}}_{2}={\frac {1}{n}}\sum _{n=0}^{n-1}x[n]}
+   which is the sample meanboth of these estimators have a mean of 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  , which can be shown through taking the expected value of each estimator
+
+  
+    
+      
+        
+          e
+        
+        
+          [
+          
+            
+              
+                
+                  a
+                  ^
+                
+              
+            
+            
+              1
+            
+          
+          ]
+        
+        =
+        
+          e
+        
+        
+          [
+          
+            x
+            [
+            0
+            ]
+          
+          ]
+        
+        =
+        a
+      
+    
+    {\displaystyle \mathrm {e} \left[{\hat {a}}_{1}\right]=\mathrm {e} \left[x[0]\right]=a}
+  and
+
+  
+    
+      
+        
+          e
+        
+        
+          [
+          
+            
+              
+                
+                  a
+                  ^
+                
+              
+            
+            
+              2
+            
+          
+          ]
+        
+        =
+        
+          e
+        
+        
+          [
+          
+            
+              
+                1
+                n
+              
+            
+            
+              ∑
+              
+                n
+                =
+                0
+              
+              
+                n
+                −
+                1
+              
+            
+            x
+            [
+            n
+            ]
+          
+          ]
+        
+        =
+        
+          
+            1
+            n
+          
+        
+        
+          [
+          
+            
+              ∑
+              
+                n
+                =
+                0
+              
+              
+                n
+                −
+                1
+              
+            
+            
+              e
+            
+            
+              [
+              
+                x
+                [
+                n
+                ]
+              
+              ]
+            
+          
+          ]
+        
+        =
+        
+          
+            1
+            n
+          
+        
+        
+          [
+          
+            n
+            a
+          
+          ]
+        
+        =
+        a
+      
+    
+    {\displaystyle \mathrm {e} \left[{\hat {a}}_{2}\right]=\mathrm {e} \left[{\frac {1}{n}}\sum _{n=0}^{n-1}x[n]\right]={\frac {1}{n}}\left[\sum _{n=0}^{n-1}\mathrm {e} \left[x[n]\right]\right]={\frac {1}{n}}\left[na\right]=a}
+  at this point, these two estimators would appear to perform the same.
+however, the difference between them becomes apparent when comparing the variances.
+
+  
+    
+      
+        
+          v
+          a
+          r
+        
+        
+          (
+          
+            
+              
+                
+                  a
+                  ^
+                
+              
+            
+            
+              1
+            
+          
+          )
+        
+        =
+        
+          v
+          a
+          r
+        
+        
+          (
+          
+            x
+            [
+            0
+            ]
+          
+          )
+        
+        =
+        
+          σ
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \mathrm {var} \left({\hat {a}}_{1}\right)=\mathrm {var} \left(x[0]\right)=\sigma ^{2}}
+  and
+
+  
+    
+      
+        
+          v
+          a
+          r
+        
+        
+          (
+          
+            
+              
+                
+                  a
+                  ^
+                
+              
+            
+            
+              2
+            
+          
+          )
+        
+        =
+        
+          v
+          a
+          r
+        
+        
+          (
+          
+            
+              
+                1
+                n
+              
+            
+            
+              ∑
+              
+                n
+                =
+                0
+              
+              
+                n
+                −
+                1
+              
+            
+            x
+            [
+            n
+            ]
+          
+          )
+        
+        
+          
+            =
+            independence
+          
+        
+        
+          
+            1
+            
+              n
+              
+                2
+              
+            
+          
+        
+        
+          [
+          
+            
+              ∑
+              
+                n
+                =
+                0
+              
+              
+                n
+                −
+                1
+              
+            
+            
+              v
+              a
+              r
+            
+            (
+            x
+            [
+            n
+            ]
+            )
+          
+          ]
+        
+        =
+        
+          
+            1
+            
+              n
+              
+                2
+              
+            
+          
+        
+        
+          [
+          
+            n
+            
+              σ
+              
+                2
+              
+            
+          
+          ]
+        
+        =
+        
+          
+            
+              σ
+              
+                2
+              
+            
+            n
+          
+        
+      
+    
+    {\displaystyle \mathrm {var} \left({\hat {a}}_{2}\right)=\mathrm {var} \left({\frac {1}{n}}\sum _{n=0}^{n-1}x[n]\right){\overset {\text{independence}}{=}}{\frac {1}{n^{2}}}\left[\sum _{n=0}^{n-1}\mathrm {var} (x[n])\right]={\frac {1}{n^{2}}}\left[n\sigma ^{2}\right]={\frac {\sigma ^{2}}{n}}}
+  it would seem that the sample mean is a better estimator since its variance is lower for every n > 1.
+
+
+==== maximum likelihood ====
+
+continuing the example using the maximum likelihood estimator, the probability density function (pdf) of the noise for one sample 
+  
+    
+      
+        w
+        [
+        n
+        ]
+      
+    
+    {\displaystyle w[n]}
+   is
+
+  
+    
+      
+        p
+        (
+        w
+        [
+        n
+        ]
+        )
+        =
+        
+          
+            1
+            
+              σ
+              
+                
+                  2
+                  π
+                
+              
+            
+          
+        
+        exp
+        ⁡
+        
+          (
+          
+            −
+            
+              
+                1
+                
+                  2
+                  
+                    σ
+                    
+                      2
+                    
+                  
+                
+              
+            
+            w
+            [
+            n
+            
+              ]
+              
+                2
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle p(w[n])={\frac {1}{\sigma {\sqrt {2\pi }}}}\exp \left(-{\frac {1}{2\sigma ^{2}}}w[n]^{2}\right)}
+  and the probability of 
+  
+    
+      
+        x
+        [
+        n
+        ]
+      
+    
+    {\displaystyle x[n]}
+   becomes (
+  
+    
+      
+        x
+        [
+        n
+        ]
+      
+    
+    {\displaystyle x[n]}
+   can be thought of a 
+  
+    
+      
+        
+          
+            n
+          
+        
+        (
+        a
+        ,
+        
+          σ
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle {\mathcal {n}}(a,\sigma ^{2})}
+  )
+
+  
+    
+      
+        p
+        (
+        x
+        [
+        n
+        ]
+        ;
+        a
+        )
+        =
+        
+          
+            1
+            
+              σ
+              
+                
+                  2
+                  π
+                
+              
+            
+          
+        
+        exp
+        ⁡
+        
+          (
+          
+            −
+            
+              
+                1
+                
+                  2
+                  
+                    σ
+                    
+                      2
+                    
+                  
+                
+              
+            
+            (
+            x
+            [
+            n
+            ]
+            −
+            a
+            
+              )
+              
+                2
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle p(x[n];a)={\frac {1}{\sigma {\sqrt {2\pi }}}}\exp \left(-{\frac {1}{2\sigma ^{2}}}(x[n]-a)^{2}\right)}
+  by independence, the probability of 
+  
+    
+      
+        
+          x
+        
+      
+    
+    {\displaystyle \mathbf {x} }
+   becomes
+
+  
+    
+      
+        p
+        (
+        
+          x
+        
+        ;
+        a
+        )
+        =
+        
+          ∏
+          
+            n
+            =
+            0
+          
+          
+            n
+            −
+            1
+          
+        
+        p
+        (
+        x
+        [
+        n
+        ]
+        ;
+        a
+        )
+        =
+        
+          
+            1
+            
+              
+                (
+                
+                  σ
+                  
+                    
+                      2
+                      π
+                    
+                  
+                
+                )
+              
+              
+                n
+              
+            
+          
+        
+        exp
+        ⁡
+        
+          (
+          
+            −
+            
+              
+                1
+                
+                  2
+                  
+                    σ
+                    
+                      2
+                    
+                  
+                
+              
+            
+            
+              ∑
+              
+                n
+                =
+                0
+              
+              
+                n
+                −
+                1
+              
+            
+            (
+            x
+            [
+            n
+            ]
+            −
+            a
+            
+              )
+              
+                2
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle p(\mathbf {x} ;a)=\prod _{n=0}^{n-1}p(x[n];a)={\frac {1}{\left(\sigma {\sqrt {2\pi }}\right)^{n}}}\exp \left(-{\frac {1}{2\sigma ^{2}}}\sum _{n=0}^{n-1}(x[n]-a)^{2}\right)}
+  taking the natural logarithm of the pdf
+
+  
+    
+      
+        ln
+        ⁡
+        p
+        (
+        
+          x
+        
+        ;
+        a
+        )
+        =
+        −
+        n
+        ln
+        ⁡
+        
+          (
+          
+            σ
+            
+              
+                2
+                π
+              
+            
+          
+          )
+        
+        −
+        
+          
+            1
+            
+              2
+              
+                σ
+                
+                  2
+                
+              
+            
+          
+        
+        
+          ∑
+          
+            n
+            =
+            0
+          
+          
+            n
+            −
+            1
+          
+        
+        (
+        x
+        [
+        n
+        ]
+        −
+        a
+        
+          )
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \ln p(\mathbf {x} ;a)=-n\ln \left(\sigma {\sqrt {2\pi }}\right)-{\frac {1}{2\sigma ^{2}}}\sum _{n=0}^{n-1}(x[n]-a)^{2}}
+  and the maximum likelihood estimator is
+
+  
+    
+      
+        
+          
+            
+              a
+              ^
+            
+          
+        
+        =
+        arg
+        ⁡
+        max
+        ln
+        ⁡
+        p
+        (
+        
+          x
+        
+        ;
+        a
+        )
+      
+    
+    {\displaystyle {\hat {a}}=\arg \max \ln p(\mathbf {x} ;a)}
+  taking the first derivative of the log-likelihood function
+
+  
+    
+      
+        
+          
+            ∂
+            
+              ∂
+              a
+            
+          
+        
+        ln
+        ⁡
+        p
+        (
+        
+          x
+        
+        ;
+        a
+        )
+        =
+        
+          
+            1
+            
+              σ
+              
+                2
+              
+            
+          
+        
+        
+          [
+          
+            
+              ∑
+              
+                n
+                =
+                0
+              
+              
+                n
+                −
+                1
+              
+            
+            (
+            x
+            [
+            n
+            ]
+            −
+            a
+            )
+          
+          ]
+        
+        =
+        
+          
+            1
+            
+              σ
+              
+                2
+              
+            
+          
+        
+        
+          [
+          
+            
+              ∑
+              
+                n
+                =
+                0
+              
+              
+                n
+                −
+                1
+              
+            
+            x
+            [
+            n
+            ]
+            −
+            n
+            a
+          
+          ]
+        
+      
+    
+    {\displaystyle {\frac {\partial }{\partial a}}\ln p(\mathbf {x} ;a)={\frac {1}{\sigma ^{2}}}\left[\sum _{n=0}^{n-1}(x[n]-a)\right]={\frac {1}{\sigma ^{2}}}\left[\sum _{n=0}^{n-1}x[n]-na\right]}
+  and setting it to zero
+
+  
+    
+      
+        0
+        =
+        
+          
+            1
+            
+              σ
+              
+                2
+              
+            
+          
+        
+        
+          [
+          
+            
+              ∑
+              
+                n
+                =
+                0
+              
+              
+                n
+                −
+                1
+              
+            
+            x
+            [
+            n
+            ]
+            −
+            n
+            a
+          
+          ]
+        
+        =
+        
+          ∑
+          
+            n
+            =
+            0
+          
+          
+            n
+            −
+            1
+          
+        
+        x
+        [
+        n
+        ]
+        −
+        n
+        a
+      
+    
+    {\displaystyle 0={\frac {1}{\sigma ^{2}}}\left[\sum _{n=0}^{n-1}x[n]-na\right]=\sum _{n=0}^{n-1}x[n]-na}
+  this results in the maximum likelihood estimator
+
+  
+    
+      
+        
+          
+            
+              a
+              ^
+            
+          
+        
+        =
+        
+          
+            1
+            n
+          
+        
+        
+          ∑
+          
+            n
+            =
+            0
+          
+          
+            n
+            −
+            1
+          
+        
+        x
+        [
+        n
+        ]
+      
+    
+    {\displaystyle {\hat {a}}={\frac {1}{n}}\sum _{n=0}^{n-1}x[n]}
+  which is simply the sample mean.
+from this example, it was found that the sample mean is the maximum likelihood estimator for 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   samples of a fixed, unknown parameter corrupted by awgn.
+
+
+==== cramér–rao lower bound ====
+
+to find the cramér–rao lower bound (crlb) of the sample mean estimator, it is first necessary to find the fisher information number
+
+  
+    
+      
+        
+          
+            i
+          
+        
+        (
+        a
+        )
+        =
+        
+          e
+        
+        
+          (
+          
+            
+              [
+              
+                
+                  
+                    ∂
+                    
+                      ∂
+                      a
+                    
+                  
+                
+                ln
+                ⁡
+                p
+                (
+                
+                  x
+                
+                ;
+                a
+                )
+              
+              ]
+            
+            
+              2
+            
+          
+          )
+        
+        =
+        −
+        
+          e
+        
+        
+          [
+          
+            
+              
+                
+                  ∂
+                  
+                    2
+                  
+                
+                
+                  ∂
+                  
+                    a
+                    
+                      2
+                    
+                  
+                
+              
+            
+            ln
+            ⁡
+            p
+            (
+            
+              x
+            
+            ;
+            a
+            )
+          
+          ]
+        
+      
+    
+    {\displaystyle {\mathcal {i}}(a)=\mathrm {e} \left(\left[{\frac {\partial }{\partial a}}\ln p(\mathbf {x} ;a)\right]^{2}\right)=-\mathrm {e} \left[{\frac {\partial ^{2}}{\partial a^{2}}}\ln p(\mathbf {x} ;a)\right]}
+  and copying from above
+
+  
+    
+      
+        
+          
+            ∂
+            
+              ∂
+              a
+            
+          
+        
+        ln
+        ⁡
+        p
+        (
+        
+          x
+        
+        ;
+        a
+        )
+        =
+        
+          
+            1
+            
+              σ
+              
+                2
+              
+            
+          
+        
+        
+          [
+          
+            
+              ∑
+              
+                n
+                =
+                0
+              
+              
+                n
+                −
+                1
+              
+            
+            x
+            [
+            n
+            ]
+            −
+            n
+            a
+          
+          ]
+        
+      
+    
+    {\displaystyle {\frac {\partial }{\partial a}}\ln p(\mathbf {x} ;a)={\frac {1}{\sigma ^{2}}}\left[\sum _{n=0}^{n-1}x[n]-na\right]}
+  taking the second derivative
+
+  
+    
+      
+        
+          
+            
+              ∂
+              
+                2
+              
+            
+            
+              ∂
+              
+                a
+                
+                  2
+                
+              
+            
+          
+        
+        ln
+        ⁡
+        p
+        (
+        
+          x
+        
+        ;
+        a
+        )
+        =
+        
+          
+            1
+            
+              σ
+              
+                2
+              
+            
+          
+        
+        (
+        −
+        n
+        )
+        =
+        
+          
+            
+              −
+              n
+            
+            
+              σ
+              
+                2
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {\partial ^{2}}{\partial a^{2}}}\ln p(\mathbf {x} ;a)={\frac {1}{\sigma ^{2}}}(-n)={\frac {-n}{\sigma ^{2}}}}
+  and finding the negative expected value is trivial since it is now a deterministic constant
+
+  
+    
+      
+        −
+        
+          e
+        
+        
+          [
+          
+            
+              
+                
+                  ∂
+                  
+                    2
+                  
+                
+                
+                  ∂
+                  
+                    a
+                    
+                      2
+                    
+                  
+                
+              
+            
+            ln
+            ⁡
+            p
+            (
+            
+              x
+            
+            ;
+            a
+            )
+          
+          ]
+        
+        =
+        
+          
+            n
+            
+              σ
+              
+                2
+              
+            
+          
+        
+      
+    
+    {\displaystyle -\mathrm {e} \left[{\frac {\partial ^{2}}{\partial a^{2}}}\ln p(\mathbf {x} ;a)\right]={\frac {n}{\sigma ^{2}}}}
+  
+finally, putting the fisher information into
+
+  
+    
+      
+        
+          v
+          a
+          r
+        
+        
+          (
+          
+            
+              
+                a
+                ^
+              
+            
+          
+          )
+        
+        ≥
+        
+          
+            1
+            
+              i
+            
+          
+        
+      
+    
+    {\displaystyle \mathrm {var} \left({\hat {a}}\right)\geq {\frac {1}{\mathcal {i}}}}
+  results in
+
+  
+    
+      
+        
+          v
+          a
+          r
+        
+        
+          (
+          
+            
+              
+                a
+                ^
+              
+            
+          
+          )
+        
+        ≥
+        
+          
+            
+              σ
+              
+                2
+              
+            
+            n
+          
+        
+      
+    
+    {\displaystyle \mathrm {var} \left({\hat {a}}\right)\geq {\frac {\sigma ^{2}}{n}}}
+  comparing this to the variance of the sample mean (determined previously) shows that the sample mean is equal to the cramér–rao lower bound for all values of 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   and 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  .
+in other words, the sample mean is the (necessarily unique) efficient estimator, and thus also the minimum variance unbiased estimator (mvue), in addition to being the maximum likelihood estimator.
+
+
+=== maximum of a uniform distribution ===
+
+one of the simplest non-trivial examples of estimation is the estimation of the maximum of a uniform distribution. it is used as a hands-on classroom exercise and to illustrate basic principles of estimation theory. further, in the case of estimation based on a single sample, it demonstrates philosophical issues and possible misunderstandings in the use of maximum likelihood estimators and likelihood functions.
+given a discrete uniform distribution 
+  
+    
+      
+        1
+        ,
+        2
+        ,
+        …
+        ,
+        n
+      
+    
+    {\displaystyle 1,2,\dots ,n}
+   with unknown maximum, the umvu estimator for the maximum is given by
+
+  
+    
+      
+        
+          
+            
+              k
+              +
+              1
+            
+            k
+          
+        
+        m
+        −
+        1
+        =
+        m
+        +
+        
+          
+            m
+            k
+          
+        
+        −
+        1
+      
+    
+    {\displaystyle {\frac {k+1}{k}}m-1=m+{\frac {m}{k}}-1}
+  where m is the sample maximum and k is the sample size, sampling without replacement. this problem is commonly known as the german tank problem, due to application of maximum estimation to estimates of german tank production during world war ii.
+the formula may be understood intuitively as;
+
+"the sample maximum plus the average gap between observations in the sample",the gap being added to compensate for the negative bias of the sample maximum as an estimator for the population maximum.this has a variance of
+
+  
+    
+      
+        
+          
+            1
+            k
+          
+        
+        
+          
+            
+              (
+              n
+              −
+              k
+              )
+              (
+              n
+              +
+              1
+              )
+            
+            
+              (
+              k
+              +
+              2
+              )
+            
+          
+        
+        ≈
+        
+          
+            
+              n
+              
+                2
+              
+            
+            
+              k
+              
+                2
+              
+            
+          
+        
+        
+           for small samples 
+        
+        k
+        ≪
+        n
+      
+    
+    {\displaystyle {\frac {1}{k}}{\frac {(n-k)(n+1)}{(k+2)}}\approx {\frac {n^{2}}{k^{2}}}{\text{ for small samples }}k\ll n}
+  so a standard deviation of approximately 
+  
+    
+      
+        n
+        
+          /
+        
+        k
+      
+    
+    {\displaystyle n/k}
+  , the (population) average size of a gap between samples; compare 
+  
+    
+      
+        
+          
+            m
+            k
+          
+        
+      
+    
+    {\displaystyle {\frac {m}{k}}}
+   above. this can be seen as a very simple case of maximum spacing estimation.
+the sample maximum is the maximum likelihood estimator for the population maximum, but, as discussed above, it is biased.
+
+
+== applications ==
+numerous fields require the use of estimation theory.
+some of these fields include:
+
+interpretation of scientific experiments
+signal processing
+clinical trials
+opinion polls
+quality control
+telecommunications
+project management
+software engineering
+control theory (in particular adaptive control)
+network intrusion detection system
+orbit determinationmeasured data are likely to be subject to noise or uncertainty and it is through statistical probability that optimal solutions are sought to extract as much information from the data as possible.
+
+
+== see also ==
+
+
+== notes ==
+
+
+== references ==
+
+
+=== citations ===
+
+
+=== sources ===
+
+
+== external links ==
+ media related to estimation theory at wikimedia commons

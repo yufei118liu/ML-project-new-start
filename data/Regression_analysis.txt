@@ -1,0 +1,2776 @@
+in statistical modeling, regression analysis is a set of statistical processes for estimating the relationships between a dependent variable (often called the 'outcome' or 'response' variable) and one or more independent variables (often called 'predictors', 'covariates', 'explanatory variables' or 'features'). the most common form of regression analysis is linear regression, in which one finds the line (or a more complex linear combination) that most closely fits the data according to a specific mathematical criterion. for example, the method of ordinary least squares computes the unique line (or hyperplane) that minimizes the sum of squared differences between the true data and that line (or hyperplane). for specific mathematical reasons (see linear regression), this allows the researcher to estimate the conditional expectation (or population average value) of the dependent variable when the independent variables take on a given set of values. less common forms of regression use slightly different procedures to estimate alternative location parameters (e.g., quantile regression or necessary condition analysis) or estimate the conditional expectation across a broader collection of non-linear models (e.g., nonparametric regression).
+regression analysis is primarily used for two conceptually distinct purposes. 
+first, regression analysis is widely used for prediction and forecasting, where its use has substantial overlap with the field of machine learning. 
+second, in some situations regression analysis can be used to infer causal relationships between the independent and dependent variables. importantly, regressions by themselves only reveal relationships between a dependent variable and a collection of independent variables in a fixed dataset. to use regressions for prediction or to infer causal relationships, respectively, a researcher must carefully justify why existing relationships have predictive power for a new context or why a relationship between two variables has a causal interpretation. the latter is especially important when researchers hope to estimate causal relationships using  observational data.
+
+
+== history ==
+the earliest form of regression was the method of least squares, which was published by legendre in 1805, and by gauss in 1809. legendre and gauss both applied the method to the problem of determining, from astronomical observations, the orbits of bodies about the sun (mostly comets, but also later the then newly discovered minor planets). gauss published a further development of the theory of least squares in 1821, including a version of the gauss–markov theorem.
+the term "regression" was coined by francis galton in the 19th century to describe a biological phenomenon. the phenomenon was that the heights of descendants of tall ancestors tend to regress down towards a normal average (a phenomenon also known as regression toward the mean).
+for galton, regression had only this biological meaning, but his work was later extended by udny yule and karl pearson to a more general statistical context. in the work of yule and pearson, the joint distribution of the response and explanatory variables is assumed to be gaussian. this assumption was weakened by r.a. fisher in his works of 1922 and 1925. fisher assumed that the conditional distribution of the response variable is gaussian, but the joint distribution need not be. in this respect, fisher's assumption is closer to gauss's formulation of 1821.
+in the 1950s and 1960s, economists used electromechanical desk "calculators" to calculate regressions. before 1970, it sometimes took up to 24 hours to receive the result from one regression.regression methods continue to be an area of active research. in recent decades, new methods have been developed for robust regression, regression involving correlated responses such as time series and growth curves, regression in which the predictor (independent variable) or response variables are curves, images, graphs, or other complex data objects, regression methods accommodating various types of missing data, nonparametric regression, bayesian methods for regression, regression in which the predictor variables are measured with error, regression with more predictor variables than observations, and causal inference with regression.
+
+
+== regression model ==
+in practice, researchers first select a model they would like to estimate and then use their chosen method (e.g., ordinary least squares) to estimate the parameters of that model. regression models involve the following components:
+
+the unknown parameters, often denoted as a scalar or vector 
+  
+    
+      
+        β
+      
+    
+    {\displaystyle \beta }
+  .
+the independent variables, which are observed in data and are often denoted as a vector 
+  
+    
+      
+        
+          x
+          
+            i
+          
+        
+      
+    
+    {\displaystyle x_{i}}
+   (where 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   denotes a row of data).
+the dependent variable, which are observed in data and often denoted using the scalar 
+  
+    
+      
+        
+          y
+          
+            i
+          
+        
+      
+    
+    {\displaystyle y_{i}}
+  .
+the error terms, which are not directly observed in data and are often denoted using the scalar 
+  
+    
+      
+        
+          e
+          
+            i
+          
+        
+      
+    
+    {\displaystyle e_{i}}
+  .in various fields of application, different terminologies are used in place of dependent and independent variables.
+most regression models propose that 
+  
+    
+      
+        
+          y
+          
+            i
+          
+        
+      
+    
+    {\displaystyle y_{i}}
+   is a function of 
+  
+    
+      
+        
+          x
+          
+            i
+          
+        
+      
+    
+    {\displaystyle x_{i}}
+   and 
+  
+    
+      
+        β
+      
+    
+    {\displaystyle \beta }
+  , with 
+  
+    
+      
+        
+          e
+          
+            i
+          
+        
+      
+    
+    {\displaystyle e_{i}}
+   representing an additive error term that may stand in for un-modeled determinants of 
+  
+    
+      
+        
+          y
+          
+            i
+          
+        
+      
+    
+    {\displaystyle y_{i}}
+   or random statistical noise:
+
+  
+    
+      
+        
+          y
+          
+            i
+          
+        
+        =
+        f
+        (
+        
+          x
+          
+            i
+          
+        
+        ,
+        β
+        )
+        +
+        
+          e
+          
+            i
+          
+        
+      
+    
+    {\displaystyle y_{i}=f(x_{i},\beta )+e_{i}}
+  the researchers' goal is to estimate the function 
+  
+    
+      
+        f
+        (
+        
+          x
+          
+            i
+          
+        
+        ,
+        β
+        )
+      
+    
+    {\displaystyle f(x_{i},\beta )}
+   that most closely fits the data. to carry out regression analysis, the form of the function 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   must be specified. sometimes the form of this function is based on knowledge about the relationship between 
+  
+    
+      
+        
+          y
+          
+            i
+          
+        
+      
+    
+    {\displaystyle y_{i}}
+   and 
+  
+    
+      
+        
+          x
+          
+            i
+          
+        
+      
+    
+    {\displaystyle x_{i}}
+   that does not rely on the data. if no such knowledge is available, a flexible or convenient form for 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   is chosen. for example, a simple univariate regression may propose 
+  
+    
+      
+        f
+        (
+        
+          x
+          
+            i
+          
+        
+        ,
+        β
+        )
+        =
+        
+          β
+          
+            0
+          
+        
+        +
+        
+          β
+          
+            1
+          
+        
+        
+          x
+          
+            i
+          
+        
+      
+    
+    {\displaystyle f(x_{i},\beta )=\beta _{0}+\beta _{1}x_{i}}
+  , suggesting that the researcher believes 
+  
+    
+      
+        
+          y
+          
+            i
+          
+        
+        =
+        
+          β
+          
+            0
+          
+        
+        +
+        
+          β
+          
+            1
+          
+        
+        
+          x
+          
+            i
+          
+        
+        +
+        
+          e
+          
+            i
+          
+        
+      
+    
+    {\displaystyle y_{i}=\beta _{0}+\beta _{1}x_{i}+e_{i}}
+   to be a reasonable approximation for the statistical process generating the data.  
+once researchers determine their preferred statistical model, different forms of regression analysis provide tools to estimate the parameters 
+  
+    
+      
+        β
+      
+    
+    {\displaystyle \beta }
+  . for example,  least squares (including its most common variant, ordinary least squares) finds the value of 
+  
+    
+      
+        β
+      
+    
+    {\displaystyle \beta }
+   that minimizes the sum of squared errors 
+  
+    
+      
+        
+          ∑
+          
+            i
+          
+        
+        (
+        
+          y
+          
+            i
+          
+        
+        −
+        f
+        (
+        
+          x
+          
+            i
+          
+        
+        ,
+        β
+        )
+        
+          )
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \sum _{i}(y_{i}-f(x_{i},\beta ))^{2}}
+  . a given regression method will ultimately provide an estimate of 
+  
+    
+      
+        β
+      
+    
+    {\displaystyle \beta }
+  , usually denoted 
+  
+    
+      
+        
+          
+            
+              β
+              ^
+            
+          
+        
+      
+    
+    {\displaystyle {\hat {\beta }}}
+   to distinguish the estimate from the true (unknown) parameter value that generated the data. using this estimate, the researcher can then use the fitted value 
+  
+    
+      
+        
+          
+            
+              
+                y
+                
+                  i
+                
+              
+              ^
+            
+          
+        
+        =
+        f
+        (
+        
+          x
+          
+            i
+          
+        
+        ,
+        
+          
+            
+              β
+              ^
+            
+          
+        
+        )
+      
+    
+    {\displaystyle {\hat {y_{i}}}=f(x_{i},{\hat {\beta }})}
+   for prediction or to assess the accuracy of the model in explaining the data. whether the researcher is intrinsically interested in the estimate 
+  
+    
+      
+        
+          
+            
+              β
+              ^
+            
+          
+        
+      
+    
+    {\displaystyle {\hat {\beta }}}
+   or the predicted value 
+  
+    
+      
+        
+          
+            
+              
+                y
+                
+                  i
+                
+              
+              ^
+            
+          
+        
+      
+    
+    {\displaystyle {\hat {y_{i}}}}
+   will depend on context and their goals. as described in ordinary least squares, least squares is widely used because the estimated function 
+  
+    
+      
+        f
+        (
+        
+          x
+          
+            i
+          
+        
+        ,
+        
+          
+            
+              β
+              ^
+            
+          
+        
+        )
+      
+    
+    {\displaystyle f(x_{i},{\hat {\beta }})}
+   approximates the conditional expectation 
+  
+    
+      
+        e
+        (
+        
+          y
+          
+            i
+          
+        
+        
+          |
+        
+        
+          x
+          
+            i
+          
+        
+        )
+      
+    
+    {\displaystyle e(y_{i}|x_{i})}
+  . however, alternative variants (e.g., least absolute deviations or quantile regression) are useful when researchers want to model other functions 
+  
+    
+      
+        f
+        (
+        
+          x
+          
+            i
+          
+        
+        ,
+        β
+        )
+      
+    
+    {\displaystyle f(x_{i},\beta )}
+  . 
+it is important to note that there must be sufficient data to estimate a regression model. for example, suppose that a researcher has access to 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   rows of data with one dependent and two independent variables: 
+  
+    
+      
+        (
+        
+          y
+          
+            i
+          
+        
+        ,
+        
+          x
+          
+            1
+            i
+          
+        
+        ,
+        
+          x
+          
+            2
+            i
+          
+        
+        )
+      
+    
+    {\displaystyle (y_{i},x_{1i},x_{2i})}
+  . suppose further that the researcher wants to estimate a bivariate linear model via least squares: 
+  
+    
+      
+        
+          y
+          
+            i
+          
+        
+        =
+        
+          β
+          
+            0
+          
+        
+        +
+        
+          β
+          
+            1
+          
+        
+        
+          x
+          
+            1
+            i
+          
+        
+        +
+        
+          β
+          
+            2
+          
+        
+        
+          x
+          
+            2
+            i
+          
+        
+        +
+        
+          e
+          
+            i
+          
+        
+      
+    
+    {\displaystyle y_{i}=\beta _{0}+\beta _{1}x_{1i}+\beta _{2}x_{2i}+e_{i}}
+  . if the researcher only has access to 
+  
+    
+      
+        n
+        =
+        2
+      
+    
+    {\displaystyle n=2}
+   data points, then they could find infinitely many combinations 
+  
+    
+      
+        (
+        
+          
+            
+              
+                β
+                ^
+              
+            
+          
+          
+            0
+          
+        
+        ,
+        
+          
+            
+              
+                β
+                ^
+              
+            
+          
+          
+            1
+          
+        
+        ,
+        
+          
+            
+              
+                β
+                ^
+              
+            
+          
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle ({\hat {\beta }}_{0},{\hat {\beta }}_{1},{\hat {\beta }}_{2})}
+   that explain the data equally well: any combination can be chosen that satisfies 
+  
+    
+      
+        
+          
+            
+              
+                y
+                ^
+              
+            
+          
+          
+            i
+          
+        
+        =
+        
+          
+            
+              
+                β
+                ^
+              
+            
+          
+          
+            0
+          
+        
+        +
+        
+          
+            
+              
+                β
+                ^
+              
+            
+          
+          
+            1
+          
+        
+        
+          x
+          
+            1
+            i
+          
+        
+        +
+        
+          
+            
+              
+                β
+                ^
+              
+            
+          
+          
+            2
+          
+        
+        
+          x
+          
+            2
+            i
+          
+        
+      
+    
+    {\displaystyle {\hat {y}}_{i}={\hat {\beta }}_{0}+{\hat {\beta }}_{1}x_{1i}+{\hat {\beta }}_{2}x_{2i}}
+  , all of which lead to 
+  
+    
+      
+        
+          ∑
+          
+            i
+          
+        
+        
+          
+            
+              
+                e
+                ^
+              
+            
+          
+          
+            i
+          
+          
+            2
+          
+        
+        =
+        
+          ∑
+          
+            i
+          
+        
+        (
+        
+          
+            
+              
+                y
+                ^
+              
+            
+          
+          
+            i
+          
+        
+        −
+        (
+        
+          
+            
+              
+                β
+                ^
+              
+            
+          
+          
+            0
+          
+        
+        +
+        
+          
+            
+              
+                β
+                ^
+              
+            
+          
+          
+            1
+          
+        
+        
+          x
+          
+            1
+            i
+          
+        
+        +
+        
+          
+            
+              
+                β
+                ^
+              
+            
+          
+          
+            2
+          
+        
+        
+          x
+          
+            2
+            i
+          
+        
+        )
+        
+          )
+          
+            2
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle \sum _{i}{\hat {e}}_{i}^{2}=\sum _{i}({\hat {y}}_{i}-({\hat {\beta }}_{0}+{\hat {\beta }}_{1}x_{1i}+{\hat {\beta }}_{2}x_{2i}))^{2}=0}
+   and are therefore valid solutions that minimize the sum of squared residuals. to understand why there are infinitely many options, note that the system of 
+  
+    
+      
+        n
+        =
+        2
+      
+    
+    {\displaystyle n=2}
+   equations is to be solved for 3 unknowns, which makes the system underdetermined. alternatively, one can visualize infinitely many 3-dimensional planes that go through 
+  
+    
+      
+        n
+        =
+        2
+      
+    
+    {\displaystyle n=2}
+   fixed points. 
+more generally, to estimate a least squares model with 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   distinct parameters, one must have 
+  
+    
+      
+        n
+        ≥
+        k
+      
+    
+    {\displaystyle n\geq k}
+   distinct data points. if 
+  
+    
+      
+        n
+        >
+        k
+      
+    
+    {\displaystyle n>k}
+  , then there does not generally exist a set of parameters that will perfectly fit the data. the quantity 
+  
+    
+      
+        k
+        −
+        n
+      
+    
+    {\displaystyle k-n}
+   appears often in regression analysis, and is referred to as the degrees of freedom in the model. moreover, to estimate a least squares model, the independent variables 
+  
+    
+      
+        (
+        
+          x
+          
+            1
+            i
+          
+        
+        ,
+        
+          x
+          
+            2
+            i
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          x
+          
+            k
+            i
+          
+        
+        )
+      
+    
+    {\displaystyle (x_{1i},x_{2i},...,x_{ki})}
+   must be linearly independent: one must not be able to reconstruct any of the independent variables by adding and multiplying the remaining independent variables. as discussed in ordinary least squares, this condition ensures that 
+  
+    
+      
+        
+          x
+          
+            t
+          
+        
+        x
+      
+    
+    {\displaystyle x^{t}x}
+   is an invertible matrix and therefore that a unique solution 
+  
+    
+      
+        
+          
+            
+              β
+              ^
+            
+          
+        
+      
+    
+    {\displaystyle {\hat {\beta }}}
+   exists.
+
+
+== underlying assumptions ==
+by itself, a regression is simply a calculation using the data. in order to interpret the output of a regression as a meaningful statistical quantity that measures real-world relationships, researchers often rely on a number of classical assumptions. these assumptions often include:
+
+the sample is representative of the population at large.
+the independent variables are measured with no error.
+deviations from the model have an expected value of zero, conditional on covariates: 
+  
+    
+      
+        e
+        (
+        
+          e
+          
+            i
+          
+        
+        
+          |
+        
+        
+          x
+          
+            i
+          
+        
+        )
+        =
+        0
+      
+    
+    {\displaystyle e(e_{i}|x_{i})=0}
+  
+the variance of the residuals 
+  
+    
+      
+        
+          e
+          
+            i
+          
+        
+      
+    
+    {\displaystyle e_{i}}
+   is constant across observations (homoscedasticity).
+the residuals 
+  
+    
+      
+        
+          e
+          
+            i
+          
+        
+      
+    
+    {\displaystyle e_{i}}
+   are uncorrelated with one another. mathematically, the variance–covariance matrix of the errors is diagonal.a handful of conditions are sufficient for the least-squares estimator to possess desirable properties: in particular, the gauss–markov assumptions imply that the parameter estimates will be unbiased, consistent, and efficient in the class of linear unbiased estimators. practitioners have developed a variety of methods to maintain some or all of these desirable properties in real-world settings, because these classical assumptions are unlikely to hold exactly. for example, modeling errors-in-variables can lead to reasonable estimates independent variables are measured with errors. heteroscedasticity-consistent standard errors allow the variance of 
+  
+    
+      
+        
+          e
+          
+            i
+          
+        
+      
+    
+    {\displaystyle e_{i}}
+   to change across values of 
+  
+    
+      
+        
+          x
+          
+            i
+          
+        
+      
+    
+    {\displaystyle x_{i}}
+  . correlated errors that exist within subsets of the data or follow specific patterns can be handled using clustered standard errors, geographic weighted regression, or newey–west standard errors, among other techniques. when rows of data correspond to locations in space, the choice of how to model 
+  
+    
+      
+        
+          e
+          
+            i
+          
+        
+      
+    
+    {\displaystyle e_{i}}
+   within geographic units can have important consequences. the subfield of econometrics is largely focused on developing techniques that allow researchers to make reasonable real-world conclusions in real-world settings, where classical assumptions do not hold exactly.
+
+
+== linear regression ==
+
+in linear regression, the model specification is that the dependent variable, 
+  
+    
+      
+        
+          y
+          
+            i
+          
+        
+      
+    
+    {\displaystyle y_{i}}
+   is a linear combination of the parameters (but need not be linear in the independent variables). for example, in simple linear regression for modeling 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   data points there is one independent variable: 
+  
+    
+      
+        
+          x
+          
+            i
+          
+        
+      
+    
+    {\displaystyle x_{i}}
+  , and two parameters, 
+  
+    
+      
+        
+          β
+          
+            0
+          
+        
+      
+    
+    {\displaystyle \beta _{0}}
+   and 
+  
+    
+      
+        
+          β
+          
+            1
+          
+        
+      
+    
+    {\displaystyle \beta _{1}}
+  :
+
+straight line: 
+  
+    
+      
+        
+          y
+          
+            i
+          
+        
+        =
+        
+          β
+          
+            0
+          
+        
+        +
+        
+          β
+          
+            1
+          
+        
+        
+          x
+          
+            i
+          
+        
+        +
+        
+          ε
+          
+            i
+          
+        
+        ,
+        
+        i
+        =
+        1
+        ,
+        …
+        ,
+        n
+        .
+        
+      
+    
+    {\displaystyle y_{i}=\beta _{0}+\beta _{1}x_{i}+\varepsilon _{i},\quad i=1,\dots ,n.\!}
+  in multiple linear regression, there are several independent variables or functions of independent variables.
+adding a term in 
+  
+    
+      
+        
+          x
+          
+            i
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle x_{i}^{2}}
+   to the preceding regression gives:
+
+parabola: 
+  
+    
+      
+        
+          y
+          
+            i
+          
+        
+        =
+        
+          β
+          
+            0
+          
+        
+        +
+        
+          β
+          
+            1
+          
+        
+        
+          x
+          
+            i
+          
+        
+        +
+        
+          β
+          
+            2
+          
+        
+        
+          x
+          
+            i
+          
+          
+            2
+          
+        
+        +
+        
+          ε
+          
+            i
+          
+        
+        ,
+         
+        i
+        =
+        1
+        ,
+        …
+        ,
+        n
+        .
+        
+      
+    
+    {\displaystyle y_{i}=\beta _{0}+\beta _{1}x_{i}+\beta _{2}x_{i}^{2}+\varepsilon _{i},\ i=1,\dots ,n.\!}
+  this is still linear regression; although the expression on the right hand side is quadratic in the independent variable 
+  
+    
+      
+        
+          x
+          
+            i
+          
+        
+      
+    
+    {\displaystyle x_{i}}
+  , it is linear in the parameters 
+  
+    
+      
+        
+          β
+          
+            0
+          
+        
+      
+    
+    {\displaystyle \beta _{0}}
+  , 
+  
+    
+      
+        
+          β
+          
+            1
+          
+        
+      
+    
+    {\displaystyle \beta _{1}}
+   and 
+  
+    
+      
+        
+          β
+          
+            2
+          
+        
+        .
+      
+    
+    {\displaystyle \beta _{2}.}
+  
+in both cases, 
+  
+    
+      
+        
+          ε
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \varepsilon _{i}}
+   is an error term and the subscript 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   indexes a particular observation.
+returning our attention to the straight line case: given a random sample from the population, we estimate the population parameters and obtain the sample linear regression model:
+
+  
+    
+      
+        
+          
+            
+              
+                y
+                ^
+              
+            
+          
+          
+            i
+          
+        
+        =
+        
+          
+            
+              
+                β
+                ^
+              
+            
+          
+          
+            0
+          
+        
+        +
+        
+          
+            
+              
+                β
+                ^
+              
+            
+          
+          
+            1
+          
+        
+        
+          x
+          
+            i
+          
+        
+        .
+      
+    
+    {\displaystyle {\widehat {y}}_{i}={\widehat {\beta }}_{0}+{\widehat {\beta }}_{1}x_{i}.}
+  the residual, 
+  
+    
+      
+        
+          e
+          
+            i
+          
+        
+        =
+        
+          y
+          
+            i
+          
+        
+        −
+        
+          
+            
+              
+                y
+                ^
+              
+            
+          
+          
+            i
+          
+        
+      
+    
+    {\displaystyle e_{i}=y_{i}-{\widehat {y}}_{i}}
+  , is the difference between the value of the dependent variable predicted by the model, 
+  
+    
+      
+        
+          
+            
+              
+                y
+                ^
+              
+            
+          
+          
+            i
+          
+        
+      
+    
+    {\displaystyle {\widehat {y}}_{i}}
+  , and the true value of the dependent variable, 
+  
+    
+      
+        
+          y
+          
+            i
+          
+        
+      
+    
+    {\displaystyle y_{i}}
+  . one method of estimation is ordinary least squares. this method obtains parameter estimates that minimize the sum of squared residuals, ssr:
+
+  
+    
+      
+        s
+        s
+        r
+        =
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            n
+          
+        
+        
+          e
+          
+            i
+          
+          
+            2
+          
+        
+        .
+        
+      
+    
+    {\displaystyle ssr=\sum _{i=1}^{n}e_{i}^{2}.\,}
+  minimization of this function results in a set of normal equations, a set of simultaneous linear equations in the parameters, which are solved to yield the parameter estimators, 
+  
+    
+      
+        
+          
+            
+              
+                β
+                ^
+              
+            
+          
+          
+            0
+          
+        
+        ,
+        
+          
+            
+              
+                β
+                ^
+              
+            
+          
+          
+            1
+          
+        
+      
+    
+    {\displaystyle {\widehat {\beta }}_{0},{\widehat {\beta }}_{1}}
+  .
+
+in the case of simple regression, the formulas for the least squares estimates are
+
+  
+    
+      
+        
+          
+            
+              
+                β
+                ^
+              
+            
+          
+          
+            1
+          
+        
+        =
+        
+          
+            
+              ∑
+              (
+              
+                x
+                
+                  i
+                
+              
+              −
+              
+                
+                  
+                    x
+                    ¯
+                  
+                
+              
+              )
+              (
+              
+                y
+                
+                  i
+                
+              
+              −
+              
+                
+                  
+                    y
+                    ¯
+                  
+                
+              
+              )
+            
+            
+              ∑
+              (
+              
+                x
+                
+                  i
+                
+              
+              −
+              
+                
+                  
+                    x
+                    ¯
+                  
+                
+              
+              
+                )
+                
+                  2
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\widehat {\beta }}_{1}={\frac {\sum (x_{i}-{\bar {x}})(y_{i}-{\bar {y}})}{\sum (x_{i}-{\bar {x}})^{2}}}}
+  
+
+  
+    
+      
+        
+          
+            
+              
+                β
+                ^
+              
+            
+          
+          
+            0
+          
+        
+        =
+        
+          
+            
+              y
+              ¯
+            
+          
+        
+        −
+        
+          
+            
+              
+                β
+                ^
+              
+            
+          
+          
+            1
+          
+        
+        
+          
+            
+              x
+              ¯
+            
+          
+        
+      
+    
+    {\displaystyle {\widehat {\beta }}_{0}={\bar {y}}-{\widehat {\beta }}_{1}{\bar {x}}}
+  where 
+  
+    
+      
+        
+          
+            
+              x
+              ¯
+            
+          
+        
+      
+    
+    {\displaystyle {\bar {x}}}
+   is the mean (average) of the 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   values and 
+  
+    
+      
+        
+          
+            
+              y
+              ¯
+            
+          
+        
+      
+    
+    {\displaystyle {\bar {y}}}
+   is the mean of the 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   values.
+under the assumption that the population error term has a constant variance, the estimate of that variance is given by:
+
+  
+    
+      
+        
+          
+            
+              
+                σ
+                ^
+              
+            
+          
+          
+            ε
+          
+          
+            2
+          
+        
+        =
+        
+          
+            
+              s
+              s
+              r
+            
+            
+              n
+              −
+              2
+            
+          
+        
+        .
+        
+      
+    
+    {\displaystyle {\hat {\sigma }}_{\varepsilon }^{2}={\frac {ssr}{n-2}}.\,}
+  this is called the mean square error (mse) of the regression. the denominator is the sample size reduced by the number of model parameters estimated from the same data, 
+  
+    
+      
+        (
+        n
+        −
+        p
+        )
+      
+    
+    {\displaystyle (n-p)}
+   for 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   regressors or 
+  
+    
+      
+        (
+        n
+        −
+        p
+        −
+        1
+        )
+      
+    
+    {\displaystyle (n-p-1)}
+   if an intercept is used. in this case, 
+  
+    
+      
+        p
+        =
+        1
+      
+    
+    {\displaystyle p=1}
+   so the denominator is 
+  
+    
+      
+        n
+        −
+        2
+      
+    
+    {\displaystyle n-2}
+  .
+the standard errors of the parameter estimates are given by
+
+  
+    
+      
+        
+          
+            
+              
+                σ
+                ^
+              
+            
+          
+          
+            
+              β
+              
+                1
+              
+            
+          
+        
+        =
+        
+          
+            
+              
+                σ
+                ^
+              
+            
+          
+          
+            ε
+          
+        
+        
+          
+            
+              1
+              
+                ∑
+                (
+                
+                  x
+                  
+                    i
+                  
+                
+                −
+                
+                  
+                    
+                      x
+                      ¯
+                    
+                  
+                
+                
+                  )
+                  
+                    2
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\hat {\sigma }}_{\beta _{1}}={\hat {\sigma }}_{\varepsilon }{\sqrt {\frac {1}{\sum (x_{i}-{\bar {x}})^{2}}}}}
+  
+  
+    
+      
+        
+          
+            
+              
+                σ
+                ^
+              
+            
+          
+          
+            
+              β
+              
+                0
+              
+            
+          
+        
+        =
+        
+          
+            
+              
+                σ
+                ^
+              
+            
+          
+          
+            ε
+          
+        
+        
+          
+            
+              
+                1
+                n
+              
+            
+            +
+            
+              
+                
+                  
+                    
+                      
+                        x
+                        ¯
+                      
+                    
+                  
+                  
+                    2
+                  
+                
+                
+                  ∑
+                  (
+                  
+                    x
+                    
+                      i
+                    
+                  
+                  −
+                  
+                    
+                      
+                        x
+                        ¯
+                      
+                    
+                  
+                  
+                    )
+                    
+                      2
+                    
+                  
+                
+              
+            
+          
+        
+        =
+        
+          
+            
+              
+                σ
+                ^
+              
+            
+          
+          
+            
+              β
+              
+                1
+              
+            
+          
+        
+        
+          
+            
+              
+                ∑
+                
+                  x
+                  
+                    i
+                  
+                  
+                    2
+                  
+                
+              
+              n
+            
+          
+        
+        .
+      
+    
+    {\displaystyle {\hat {\sigma }}_{\beta _{0}}={\hat {\sigma }}_{\varepsilon }{\sqrt {{\frac {1}{n}}+{\frac {{\bar {x}}^{2}}{\sum (x_{i}-{\bar {x}})^{2}}}}}={\hat {\sigma }}_{\beta _{1}}{\sqrt {\frac {\sum x_{i}^{2}}{n}}}.}
+  under the further assumption that the population error term is normally distributed, the researcher can use these estimated standard errors to create confidence intervals and conduct hypothesis tests about the population parameters.
+
+
+=== general linear model ===
+
+in the more general multiple regression model, there are 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   independent variables:
+
+  
+    
+      
+        
+          y
+          
+            i
+          
+        
+        =
+        
+          β
+          
+            1
+          
+        
+        
+          x
+          
+            i
+            1
+          
+        
+        +
+        
+          β
+          
+            2
+          
+        
+        
+          x
+          
+            i
+            2
+          
+        
+        +
+        ⋯
+        +
+        
+          β
+          
+            p
+          
+        
+        
+          x
+          
+            i
+            p
+          
+        
+        +
+        
+          ε
+          
+            i
+          
+        
+        ,
+        
+      
+    
+    {\displaystyle y_{i}=\beta _{1}x_{i1}+\beta _{2}x_{i2}+\cdots +\beta _{p}x_{ip}+\varepsilon _{i},\,}
+  where 
+  
+    
+      
+        
+          x
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle x_{ij}}
+   is the 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  -th observation on the 
+  
+    
+      
+        j
+      
+    
+    {\displaystyle j}
+  -th independent variable.
+if the first independent variable takes the value 1 for all 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  , 
+  
+    
+      
+        
+          x
+          
+            i
+            1
+          
+        
+        =
+        1
+      
+    
+    {\displaystyle x_{i1}=1}
+  , then 
+  
+    
+      
+        
+          β
+          
+            1
+          
+        
+      
+    
+    {\displaystyle \beta _{1}}
+   is called the regression intercept.
+the least squares parameter estimates are obtained from 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   normal equations. the residual can be written as
+
+  
+    
+      
+        
+          ε
+          
+            i
+          
+        
+        =
+        
+          y
+          
+            i
+          
+        
+        −
+        
+          
+            
+              
+                β
+                ^
+              
+            
+          
+          
+            1
+          
+        
+        
+          x
+          
+            i
+            1
+          
+        
+        −
+        ⋯
+        −
+        
+          
+            
+              
+                β
+                ^
+              
+            
+          
+          
+            p
+          
+        
+        
+          x
+          
+            i
+            p
+          
+        
+        .
+      
+    
+    {\displaystyle \varepsilon _{i}=y_{i}-{\hat {\beta }}_{1}x_{i1}-\cdots -{\hat {\beta }}_{p}x_{ip}.}
+  the normal equations are
+
+  
+    
+      
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            n
+          
+        
+        
+          ∑
+          
+            k
+            =
+            1
+          
+          
+            p
+          
+        
+        
+          x
+          
+            i
+            j
+          
+        
+        
+          x
+          
+            i
+            k
+          
+        
+        
+          
+            
+              
+                β
+                ^
+              
+            
+          
+          
+            k
+          
+        
+        =
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            n
+          
+        
+        
+          x
+          
+            i
+            j
+          
+        
+        
+          y
+          
+            i
+          
+        
+        ,
+         
+        j
+        =
+        1
+        ,
+        …
+        ,
+        p
+        .
+        
+      
+    
+    {\displaystyle \sum _{i=1}^{n}\sum _{k=1}^{p}x_{ij}x_{ik}{\hat {\beta }}_{k}=\sum _{i=1}^{n}x_{ij}y_{i},\ j=1,\dots ,p.\,}
+  in matrix notation, the normal equations are written as
+
+  
+    
+      
+        
+          (
+          
+            x
+            
+              ⊤
+            
+          
+          x
+          )
+          
+            
+              
+                β
+                ^
+              
+            
+          
+          =
+          
+
+          
+          
+            x
+            
+              ⊤
+            
+          
+          y
+        
+        ,
+        
+      
+    
+    {\displaystyle \mathbf {(x^{\top }x){\hat {\boldsymbol {\beta }}}={}x^{\top }y} ,\,}
+  where the 
+  
+    
+      
+        i
+        j
+      
+    
+    {\displaystyle ij}
+   element of 
+  
+    
+      
+        
+          x
+        
+      
+    
+    {\displaystyle \mathbf {x} }
+   is 
+  
+    
+      
+        
+          x
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle x_{ij}}
+  , the 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   element of the column vector 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   is 
+  
+    
+      
+        
+          y
+          
+            i
+          
+        
+      
+    
+    {\displaystyle y_{i}}
+  , and the 
+  
+    
+      
+        j
+      
+    
+    {\displaystyle j}
+   element of 
+  
+    
+      
+        
+          
+            
+              β
+              ^
+            
+          
+        
+      
+    
+    {\displaystyle {\hat {\boldsymbol {\beta }}}}
+   is 
+  
+    
+      
+        
+          
+            
+              
+                β
+                ^
+              
+            
+          
+          
+            j
+          
+        
+      
+    
+    {\displaystyle {\hat {\beta }}_{j}}
+  . thus 
+  
+    
+      
+        
+          x
+        
+      
+    
+    {\displaystyle \mathbf {x} }
+   is 
+  
+    
+      
+        n
+        ×
+        p
+      
+    
+    {\displaystyle n\times p}
+  , 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   is 
+  
+    
+      
+        n
+        ×
+        1
+      
+    
+    {\displaystyle n\times 1}
+  , and 
+  
+    
+      
+        
+          
+            
+              β
+              ^
+            
+          
+        
+      
+    
+    {\displaystyle {\hat {\boldsymbol {\beta }}}}
+   is 
+  
+    
+      
+        p
+        ×
+        1
+      
+    
+    {\displaystyle p\times 1}
+  . the solution is
+
+  
+    
+      
+        
+          
+            
+              
+                β
+                ^
+              
+            
+          
+          =
+          (
+          
+            x
+            
+              ⊤
+            
+          
+          x
+          
+            )
+            
+              −
+              1
+            
+          
+          
+            x
+            
+              ⊤
+            
+          
+          y
+        
+        .
+        
+      
+    
+    {\displaystyle \mathbf {{\hat {\boldsymbol {\beta }}}=(x^{\top }x)^{-1}x^{\top }y} .\,}
+  
+
+
+=== diagnostics ===
+
+once a regression model has been constructed, it may be important to confirm the goodness of fit of the model and the statistical significance of the estimated parameters. commonly used checks of goodness of fit include the r-squared, analyses of the pattern of residuals and hypothesis testing. statistical significance can be checked by an f-test of the overall fit, followed by t-tests of individual parameters.
+interpretations of these diagnostic tests rest heavily on the model's assumptions. although examination of the residuals can be used to invalidate a model, the results of a t-test or f-test are sometimes more difficult to interpret if the model's assumptions are violated. for example, if the error term does not have a normal distribution, in small samples the estimated parameters will not follow normal distributions and complicate inference. with relatively large samples, however, a central limit theorem can be invoked such that hypothesis testing may proceed using asymptotic approximations.
+
+
+=== limited dependent variables ===
+limited dependent variables, which are response variables that are categorical variables or are variables constrained to fall only in a certain range, often arise in econometrics.
+the response variable may be non-continuous ("limited" to lie on some subset of the real line). for binary (zero or one) variables, if analysis proceeds with least-squares linear regression, the model is called the linear probability model. nonlinear models for binary dependent variables include the probit and logit model. the multivariate probit model is a standard method of estimating a joint relationship between several binary dependent variables and some independent variables. for categorical variables with more than two values there is the multinomial logit. for ordinal variables with more than two values, there are the ordered logit and ordered probit models. censored regression models may be used when the dependent variable is only sometimes observed, and heckman correction type models may be used when the sample is not randomly selected from the population of interest. an alternative to such procedures is linear regression based on polychoric correlation (or polyserial correlations) between the categorical variables. such procedures differ in the assumptions made about the distribution of the variables in the population. if the variable is positive with low values and represents the repetition of the occurrence of an event, then count models like the poisson regression or the negative binomial model may be used.
+
+
+== nonlinear regression ==
+
+when the model function is not linear in the parameters, the sum of squares must be minimized by an iterative procedure. this introduces many complications which are summarized in differences between linear and non-linear least squares.
+
+
+== interpolation and extrapolation ==
+
+regression models predict a value of the y variable given known values of the x variables. prediction within the range of values in the dataset used for model-fitting is known informally as interpolation. prediction outside this range of the data is known as extrapolation. performing extrapolation relies strongly on the regression assumptions. the further the extrapolation goes outside the data, the more room there is for the model to fail due to differences between the assumptions and the sample data or the true values.
+it is generally advised that when performing extrapolation, one should accompany the estimated value of the dependent variable with a prediction interval that represents the uncertainty. such intervals tend to expand rapidly as the values of the independent variable(s) moved outside the range covered by the observed data.
+for such reasons and others, some tend to say that it might be unwise to undertake extrapolation.however, this does not cover the full set of modeling errors that may be made: in particular, the assumption of a particular form for the relation between y and x. a properly conducted regression analysis will include an assessment of how well the assumed form is matched by the observed data, but it can only do so within the range of values of the independent variables actually available. this means that any extrapolation is particularly reliant on the assumptions being made about the structural form of the regression relationship. best-practice advice here is that a linear-in-variables and linear-in-parameters relationship should not be chosen simply for computational convenience, but that all available knowledge should be deployed in constructing a regression model. if this knowledge includes the fact that the dependent variable cannot go outside a certain range of values, this can be made use of in selecting the model – even if the observed dataset has no values particularly near such bounds. the implications of this step of choosing an appropriate functional form for the regression can be great when extrapolation is considered. at a minimum, it can ensure that any extrapolation arising from a fitted model is "realistic" (or in accord with what is known).
+
+
+== power and sample size calculations ==
+there are no generally agreed methods for relating the number of observations versus the number of independent variables in the model. one method conjectured by good and hardin is 
+  
+    
+      
+        n
+        =
+        
+          m
+          
+            n
+          
+        
+      
+    
+    {\displaystyle n=m^{n}}
+  , where 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   is the sample size, 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   is the number of independent variables and 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   is the number of observations needed to reach the desired precision if the model had only one independent variable. for example, a researcher is building a linear regression model using a dataset that contains 1000 patients (
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  ). if the researcher decides that five observations are needed to precisely define a straight line (
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+  ), then the maximum number of independent variables the model can support is 4, because
+
+  
+    
+      
+        
+          
+            
+              log
+              ⁡
+              1000
+            
+            
+              log
+              ⁡
+              5
+            
+          
+        
+        =
+        4.29.
+      
+    
+    {\displaystyle {\frac {\log 1000}{\log 5}}=4.29.}
+  
+
+
+== other methods ==
+although the parameters of a regression model are usually estimated using the method of least squares, other methods which have been used include:
+
+bayesian methods, e.g. bayesian linear regression
+percentage regression, for situations where reducing percentage errors is deemed more appropriate.
+least absolute deviations, which is more robust in the presence of outliers, leading to quantile regression
+nonparametric regression, requires a large number of observations and is computationally intensive
+scenario optimization, leading to  interval predictor models
+distance metric learning, which is learned by the search of a meaningful distance metric in a given input space.
+
+
+== software ==
+
+all major statistical software packages perform least squares regression analysis and inference. simple linear regression and multiple regression using least squares can be done in some spreadsheet applications and on some calculators. while many statistical software packages can perform various types of nonparametric and robust regression, these methods are less standardized. different software packages implement different methods, and a method with a given name may be implemented differently in different packages. specialized regression software has been developed for use in fields such as survey analysis and neuroimaging.
+
+
+== see also ==
+
+
+== references ==
+
+
+== further reading ==
+william h. kruskal and judith m. tanur, ed. (1978), "linear hypotheses," international encyclopedia of statistics. free press,  v. 1,evan j. williams, "i. regression," pp. 523–41.
+julian c. stanley, "ii. analysis of variance," pp. 541–554.lindley, d.v. (1987). "regression and correlation analysis," new palgrave: a dictionary of economics, v. 4, pp. 120–23.
+birkes, david and dodge, y., alternative methods of regression. isbn 0-471-56881-3
+chatfield, c. (1993) "calculating interval forecasts," journal of business and economic statistics, 11. pp. 121–135.
+draper, n.r.; smith, h. (1998). applied regression analysis (3rd ed.). john wiley. isbn 978-0-471-17082-2.
+fox, j. (1997).  applied regression analysis, linear models and related methods. sage
+hardle, w., applied nonparametric regression (1990), isbn 0-521-42950-1
+meade, nigel; islam, towhidul (1995). "prediction intervals for growth curve forecasts". journal of forecasting. 14 (5): 413–430. doi:10.1002/for.3980140502.
+a. sen, m. srivastava, regression analysis — theory, methods, and applications, springer-verlag, berlin, 2011 (4th printing).
+t. strutz: data fitting and uncertainty (a practical introduction to weighted least squares and beyond). vieweg+teubner, isbn 978-3-8348-1022-9.
+stulp, freek, and olivier sigaud. many regression algorithms, one unified model: a review. neural networks, vol. 69, sept. 2015, pp. 60–79. https://doi.org/10.1016/j.neunet.2015.05.005.
+malakooti, b. (2013). operations and production systems with multiple objectives. john wiley & sons.
+
+
+== external links ==
+"regression analysis", encyclopedia of mathematics, ems press, 2001 [1994]
+earliest uses: regression – basic history and references
+what is multiple regression used for? – multiple regression
+regression of weakly correlated data – how linear regression mistakes can appear when y-range is much smaller than x-range

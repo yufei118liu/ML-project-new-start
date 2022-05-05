@@ -1,0 +1,954 @@
+in the foundations of mathematics, morse–kelley set theory (mk), kelley–morse set theory (km), morse–tarski set theory (mt), quine–morse set theory (qm) or the system of quine and morse is a first-order axiomatic set theory that is closely related to von neumann–bernays–gödel set theory (nbg). while von neumann–bernays–gödel set theory restricts the bound variables in the schematic formula appearing in the axiom schema of class comprehension to range over sets alone, morse–kelley set theory allows these bound variables to range over proper classes as well as sets, as first suggested by quine in 1940 for his system ml.
+morse–kelley set theory is named after mathematicians john l. kelley and anthony morse and was first set out by wang (1949) and later in an appendix to kelley's textbook general topology (1955), a graduate level introduction to topology. kelley said the system in his book was a variant of the systems due to thoralf skolem and morse. morse's own version appeared later in his book a theory of sets (1965).
+while von neumann–bernays–gödel set theory is a conservative extension of zermelo–fraenkel set theory (zfc, the canonical set theory) in the sense that a statement in the language of zfc is provable in nbg if and only if it is provable in zfc, morse–kelley set theory is a proper extension of zfc. unlike von neumann–bernays–gödel set theory, where the axiom schema of class comprehension can be replaced with finitely many of its instances, morse–kelley set theory cannot be finitely axiomatized.
+
+
+== mk axioms and ontology ==
+nbg and mk share a common ontology. the universe of discourse consists of classes. classes that are members of other classes are called sets. a class that is not a set is a proper class. the primitive atomic sentences involve membership or equality.
+with the exception of class comprehension, the following axioms are the same as those for nbg, inessential details aside. the symbolic versions of the axioms employ the following notational devices:
+
+the upper case letters other than m, appearing in extensionality, class comprehension, and foundation, denote variables ranging over classes. a lower case letter denotes a variable that cannot be a proper class, because it appears to the left of an ∈. as mk is a one-sorted theory, this notational convention is only mnemonic.
+the monadic predicate 
+  
+    
+      
+         
+        m
+        x
+        ,
+      
+    
+    {\displaystyle \ mx,}
+   whose intended reading is "the class x is a set", abbreviates 
+  
+    
+      
+        ∃
+        w
+        (
+        x
+        ∈
+        w
+        )
+        .
+      
+    
+    {\displaystyle \exists w(x\in w).}
+  
+the empty set 
+  
+    
+      
+        ∅
+      
+    
+    {\displaystyle \varnothing }
+   is defined by 
+  
+    
+      
+        ∀
+        x
+        (
+        x
+        ∉
+        ∅
+        )
+        .
+      
+    
+    {\displaystyle \forall x(x\not \in \varnothing ).}
+  
+the class v, the universal class having all possible sets as members, is defined by 
+  
+    
+      
+        ∀
+        x
+        (
+        m
+        x
+        →
+        x
+        ∈
+        v
+        )
+        .
+      
+    
+    {\displaystyle \forall x(mx\to x\in v).}
+   v is also the von neumann universe.extensionality: classes having the same members are the same class.
+
+  
+    
+      
+        ∀
+        x
+        
+        ∀
+        y
+        
+        (
+        ∀
+        z
+        
+        (
+        z
+        ∈
+        x
+        ↔
+        z
+        ∈
+        y
+        )
+        →
+        x
+        =
+        y
+        )
+        .
+      
+    
+    {\displaystyle \forall x\,\forall y\,(\forall z\,(z\in x\leftrightarrow z\in y)\rightarrow x=y).}
+  a set and a class having the same extension are identical. hence mk is not a two-sorted theory, appearances to the contrary notwithstanding.
+foundation: each nonempty class a is disjoint from at least one of its members.
+
+  
+    
+      
+        ∀
+        a
+        [
+        a
+        ≠
+        ∅
+        →
+        ∃
+        b
+        (
+        b
+        ∈
+        a
+        ∧
+        ∀
+        c
+        (
+        c
+        ∈
+        b
+        →
+        c
+        ∉
+        a
+        )
+        )
+        ]
+        .
+      
+    
+    {\displaystyle \forall a[a\not =\varnothing \rightarrow \exists b(b\in a\land \forall c(c\in b\rightarrow c\not \in a))].}
+  class comprehension: let φ(x) be any formula in the language of mk in which x is a free variable and y is not free. φ(x) may contain parameters that are either sets or proper classes. more consequentially, the quantified variables in φ(x) may range over all classes and not just over all sets; this is the only way mk differs from nbg. then there exists a class 
+  
+    
+      
+        y
+        =
+        {
+        x
+        ∣
+        ϕ
+        (
+        x
+        )
+        }
+      
+    
+    {\displaystyle y=\{x\mid \phi (x)\}}
+   whose members are exactly those sets x such that 
+  
+    
+      
+        ϕ
+        (
+        x
+        )
+      
+    
+    {\displaystyle \phi (x)}
+   comes out true. formally, if y is not free in φ:
+
+  
+    
+      
+        ∀
+        
+          w
+          
+            1
+          
+        
+        .
+        .
+        .
+        
+          w
+          
+            n
+          
+        
+        ∃
+        y
+        ∀
+        x
+        [
+        x
+        ∈
+        y
+        ↔
+        (
+        ϕ
+        (
+        x
+        ,
+        
+          w
+          
+            1
+          
+        
+        ,
+        .
+        .
+        .
+        
+          w
+          
+            n
+          
+        
+        )
+        ∧
+        m
+        x
+        )
+        ]
+        .
+      
+    
+    {\displaystyle \forall w_{1}...w_{n}\exists y\forall x[x\in y\leftrightarrow (\phi (x,w_{1},...w_{n})\land mx)].}
+  pairing: for any sets x and y, there exists a set 
+  
+    
+      
+        z
+        =
+        {
+        x
+        ,
+        y
+        }
+      
+    
+    {\displaystyle z=\{x,y\}}
+   whose members are exactly x and y.
+
+  
+    
+      
+        ∀
+        x
+        
+        ∀
+        y
+        
+        [
+        (
+        m
+        x
+        ∧
+        m
+        y
+        )
+        →
+        ∃
+        z
+        
+        (
+        m
+        z
+        ∧
+        ∀
+        s
+        
+        [
+        s
+        ∈
+        z
+        ↔
+        (
+        s
+        =
+        x
+        
+        ∨
+        
+        s
+        =
+        y
+        )
+        ]
+        )
+        ]
+        .
+      
+    
+    {\displaystyle \forall x\,\forall y\,[(mx\land my)\rightarrow \exists z\,(mz\land \forall s\,[s\in z\leftrightarrow (s=x\,\lor \,s=y)])].}
+  pairing licenses the unordered pair in terms of which the ordered pair, 
+  
+    
+      
+        ⟨
+        x
+        ,
+        y
+        ⟩
+      
+    
+    {\displaystyle \langle x,y\rangle }
+  , may be defined in the usual way, as 
+  
+    
+      
+         
+        {
+        {
+        x
+        }
+        ,
+        {
+        x
+        ,
+        y
+        }
+        }
+      
+    
+    {\displaystyle \ \{\{x\},\{x,y\}\}}
+  . with ordered pairs in hand, class comprehension enables defining relations and functions on sets as sets of ordered pairs, making possible the next axiom:
+limitation of size: c is a proper class if and only if v can be mapped one-to-one into c.
+
+  
+    
+      
+        
+          
+            
+              
+                ∀
+                c
+                [
+                ¬
+                m
+                c
+                ↔
+                ∃
+                f
+                (
+                ∀
+                x
+                [
+                m
+                x
+                →
+                ∃
+                s
+                (
+                s
+                ∈
+                c
+                ∧
+                ⟨
+                x
+                ,
+                s
+                ⟩
+                ∈
+                f
+                )
+                ]
+                ∧
+              
+            
+            
+              
+                
+                ∀
+                x
+                ∀
+                y
+                ∀
+                s
+                [
+                (
+                ⟨
+                x
+                ,
+                s
+                ⟩
+                ∈
+                f
+                ∧
+                ⟨
+                y
+                ,
+                s
+                ⟩
+                ∈
+                f
+                )
+                →
+                x
+                =
+                y
+                ]
+                )
+                ]
+                .
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{array}{l}\forall c[\lnot mc\leftrightarrow \exists f(\forall x[mx\rightarrow \exists s(s\in c\land \langle x,s\rangle \in f)]\land \\\qquad \forall x\forall y\forall s[(\langle x,s\rangle \in f\land \langle y,s\rangle \in f)\rightarrow x=y])].\end{array}}}
+  the formal version of this axiom resembles the axiom schema of replacement, and embodies the class function f. the next section explains how limitation of size is stronger than the usual forms of the axiom of choice.
+power set: let p be a class whose members are all possible subsets of the set a. then p is a set.
+
+  
+    
+      
+        ∀
+        a
+        
+        ∀
+        p
+        
+        [
+        (
+        m
+        a
+        ∧
+        ∀
+        x
+        
+        [
+        x
+        ∈
+        p
+        ↔
+        ∀
+        y
+        
+        (
+        y
+        ∈
+        x
+        →
+        y
+        ∈
+        a
+        )
+        ]
+        )
+        →
+        m
+        p
+        ]
+        .
+      
+    
+    {\displaystyle \forall a\,\forall p\,[(ma\land \forall x\,[x\in p\leftrightarrow \forall y\,(y\in x\rightarrow y\in a)])\rightarrow mp].}
+  union: let 
+  
+    
+      
+        s
+        =
+        ⋃
+        a
+      
+    
+    {\displaystyle s=\bigcup a}
+   be the sum class of the set a, namely the union of all members of a. then s is a set.
+
+  
+    
+      
+        ∀
+        a
+        
+        ∀
+        s
+        
+        [
+        (
+        m
+        a
+        ∧
+        ∀
+        x
+        
+        [
+        x
+        ∈
+        s
+        ↔
+        ∃
+        y
+        
+        (
+        x
+        ∈
+        y
+        ∧
+        y
+        ∈
+        a
+        )
+        ]
+        )
+        →
+        m
+        s
+        ]
+        .
+      
+    
+    {\displaystyle \forall a\,\forall s\,[(ma\land \forall x\,[x\in s\leftrightarrow \exists y\,(x\in y\land y\in a)])\rightarrow ms].}
+  infinity: there exists an inductive set y, meaning that (i) the empty set is a member of y; (ii) if x is a member of y, then so is 
+  
+    
+      
+        x
+        ∪
+        {
+        x
+        }
+        .
+      
+    
+    {\displaystyle x\cup \{x\}.}
+  .
+
+  
+    
+      
+        ∃
+        y
+        [
+        m
+        y
+        ∧
+        ∅
+        ∈
+        y
+        ∧
+        ∀
+        z
+        (
+        z
+        ∈
+        y
+        →
+        ∃
+        x
+        [
+        x
+        ∈
+        y
+        ∧
+        ∀
+        w
+        (
+        w
+        ∈
+        x
+        ↔
+        [
+        w
+        =
+        z
+        ∨
+        w
+        ∈
+        z
+        ]
+        )
+        ]
+        )
+        ]
+        .
+      
+    
+    {\displaystyle \exists y[my\land \varnothing \in y\land \forall z(z\in y\rightarrow \exists x[x\in y\land \forall w(w\in x\leftrightarrow [w=z\lor w\in z])])].}
+  note that p and s in power set and union are universally, not existentially, quantified, as class comprehension suffices to establish the existence of p and s. power set and union only serve to establish that p and s cannot be proper classes.
+the above axioms are shared with other set theories as follows:
+
+zfc and nbg: pairing, power set, union, infinity;
+nbg (and zfc, if quantified variables were restricted to sets): extensionality, foundation;
+nbg: limitation of size.
+
+
+== discussion ==
+monk (1980) and rubin (1967) are set theory texts built around mk; rubin's ontology includes urelements. these authors and mendelson (1997: 287) submit that mk does what is expected of a set theory while being less cumbersome than zfc and nbg.
+mk is strictly stronger than zfc and its conservative extension nbg, the other well-known set theory with proper classes. in fact, nbg—and hence zfc—can be proved consistent in mk. mk's strength stems from its axiom schema of class comprehension being impredicative, meaning that φ(x) may contain quantified variables ranging over classes. the quantified variables in nbg's axiom schema of class comprehension are restricted to sets; hence class comprehension in nbg must be predicative. (separation with respect to sets is still impredicative in nbg, because the quantifiers in φ(x) may range over all sets.) the nbg axiom schema of class comprehension can be replaced with finitely many of its instances; this is not possible in mk. mk is consistent relative to zfc augmented by an axiom asserting the existence of strongly inaccessible cardinals.
+the only advantage of the axiom of limitation of size is that it implies the axiom of global choice. limitation of size does not appear in rubin (1967), monk (1980), or mendelson (1997). instead, these authors invoke a usual form of the local axiom of choice, and an "axiom of replacement," asserting that if the domain of a class function is a set, its range is also a set. replacement can prove everything that limitation of size proves, except prove some form of the axiom of choice.
+limitation of size plus i being a set (hence the universe is nonempty) renders provable the sethood of the empty set; hence no need for an axiom of empty set. such an axiom could be added, of course, and minor perturbations of the above axioms would necessitate this addition. the set i is not identified with the limit ordinal 
+  
+    
+      
+        ω
+        ,
+      
+    
+    {\displaystyle \omega ,}
+   as i could be a set larger than 
+  
+    
+      
+        ω
+        .
+      
+    
+    {\displaystyle \omega .}
+   in this case, the existence of 
+  
+    
+      
+        ω
+      
+    
+    {\displaystyle \omega }
+   would follow from either form of limitation of size.
+the class of von neumann ordinals can be well-ordered. it cannot be a set (under pain of paradox); hence that class is a proper class, and all proper classes have the same size as v. hence v too can be well-ordered.
+mk can be confused with second-order zfc, zfc with second-order logic (representing second-order objects in set rather than predicate language) as its background logic. the language of second-order zfc is similar to that of mk (although a set and a class having the same extension can no longer be identified), and their syntactical resources for practical proof are almost identical (and are identical if mk includes the strong form of limitation of size). but the semantics of second-order zfc are quite different from those of mk. for example, if mk is consistent then it has a countable first-order model, while second-order zfc has no countable models.
+
+
+=== model theory ===
+zfc, nbg, and mk each have models describable in terms of v, the von neumann universe of sets in zfc. let the inaccessible cardinal κ be a member of v. also let def(x) denote the δ0 definable subsets of x (see constructible universe). then:
+
+vκ is model of zfc;
+def(vκ) is a model of mendelson's version of nbg, which excludes global choice, replacing limitation of size by replacement and ordinary choice;
+vκ+1, the power set of vκ, is a model of mk.
+
+
+=== history ===
+mk was first set out in wang (1949) and popularized in an appendix to j. l. kelley's (1955) general topology, using the axioms given in the next section. the system of anthony morse's (1965) a theory of sets is equivalent to kelley's, but formulated in an idiosyncratic formal language rather than, as is done here, in standard first-order logic.  the first set theory to include impredicative class comprehension was quine's ml, that built on new foundations rather than on zfc. impredicative class comprehension was also proposed in mostowski (1951) and lewis (1991).
+
+
+== the axioms in kelley's general topology ==
+the axioms and definitions in this section are, but for a few inessential details, taken from the appendix to kelley (1955). the explanatory remarks below are not his. the appendix states 181 theorems and definitions, and warrants careful reading as an abbreviated exposition of axiomatic set theory by a working mathematician of the first rank. kelley introduced his axioms gradually, as needed to develop the topics listed after each instance of develop below.
+notations appearing below and now well-known are not defined. peculiarities of kelley's notation include:
+
+he did not distinguish variables ranging over classes from those ranging over sets;
+domain f and range f denote the domain and range of the function f; this peculiarity has been carefully respected below;
+his primitive logical language includes class abstracts of the form 
+  
+    
+      
+         
+        {
+        x
+        :
+        a
+        (
+        x
+        )
+        }
+        ,
+      
+    
+    {\displaystyle \ \{x:a(x)\},}
+   "the class of all sets x satisfying a(x)."definition: x is a set (and hence not a proper class) if, for some y, 
+  
+    
+      
+        x
+        ∈
+        y
+      
+    
+    {\displaystyle x\in y}
+  .
+i. extent: for each x and each y, x=y if and only if for each z, 
+  
+    
+      
+        z
+        ∈
+        x
+      
+    
+    {\displaystyle z\in x}
+   when and only when 
+  
+    
+      
+        z
+        ∈
+        y
+        .
+      
+    
+    {\displaystyle z\in y.}
+  
+identical to extensionality above. i would be identical to the axiom of extensionality in zfc, except that the scope of i includes proper classes as well as sets.
+ii. classification (schema): an axiom results if in
+
+for each 
+  
+    
+      
+        β
+      
+    
+    {\displaystyle \beta }
+  , 
+  
+    
+      
+        β
+        ∈
+        {
+        α
+        :
+        a
+        }
+      
+    
+    {\displaystyle \beta \in \{\alpha :a\}}
+   if and only if 
+  
+    
+      
+        β
+      
+    
+    {\displaystyle \beta }
+   is a set and 
+  
+    
+      
+        b
+        ,
+      
+    
+    {\displaystyle b,}
+  'α' and 'β' are replaced by variables, ' a ' by a formula æ, and ' b ' by the formula obtained from æ by replacing each occurrence of the variable that replaced α by the variable that replaced β provided that the variable that replaced β does not appear bound in a.
+develop: boolean algebra of sets. existence of the null class and of the universal class v.
+iii. subsets:  if x is a set, there exists a set y such that for each z, if 
+  
+    
+      
+        z
+        ⊆
+        x
+      
+    
+    {\displaystyle z\subseteq x}
+  , then 
+  
+    
+      
+        z
+        ∈
+        y
+        .
+      
+    
+    {\displaystyle z\in y.}
+  
+the import of iii is that of power set above. sketch of the proof of power set from iii: for any class z that is a subclass of the set x, the class z is a member of the set y whose existence iii asserts. hence z is a set.
+develop: v is not a set. existence of singletons. separation provable.
+iv. union: if x and y are both sets, then 
+  
+    
+      
+        x
+        ∪
+        y
+      
+    
+    {\displaystyle x\cup y}
+   is a set.
+the import of iv is that of pairing above. sketch of the proof of pairing from iv: the singleton 
+  
+    
+      
+        {
+        x
+        }
+      
+    
+    {\displaystyle \{x\}}
+   of a set x is a set because it is a subclass of the power set of x (by two applications of iii). then iv implies that 
+  
+    
+      
+        {
+        x
+        ,
+        y
+        }
+      
+    
+    {\displaystyle \{x,y\}}
+   is a set if x and y are sets.
+develop: unordered and ordered pairs, relations, functions, domain, range, function composition.
+v. substitution: if f is a [class] function and domain f is a set, then range f is a set.
+the import of v is that of the axiom schema of replacement in nbg and zfc.
+vi. amalgamation: if x is a set, then 
+  
+    
+      
+        ⋃
+        x
+      
+    
+    {\displaystyle \bigcup x}
+   is a set.
+the import of vi is that of union above. iv and vi may be combined into one axiom.develop: cartesian product, injection, surjection, bijection, order theory.
+vii. regularity: if 
+  
+    
+      
+        x
+        ≠
+        ∅
+      
+    
+    {\displaystyle x\neq \varnothing }
+   there is a member y of x such that 
+  
+    
+      
+        x
+        ∩
+        y
+        =
+        ∅
+        .
+      
+    
+    {\displaystyle x\cap y=\varnothing .}
+  
+the import of vii is that of foundation above.
+develop: ordinal numbers, transfinite induction.
+viii. infinity: there exists a set y, such that 
+  
+    
+      
+        ∅
+        ∈
+        y
+      
+    
+    {\displaystyle \varnothing \in y}
+   and 
+  
+    
+      
+        x
+        ∪
+        {
+        x
+        }
+        ∈
+        y
+      
+    
+    {\displaystyle x\cup \{x\}\in y}
+   whenever 
+  
+    
+      
+        x
+        ∈
+        y
+        .
+      
+    
+    {\displaystyle x\in y.}
+  
+this axiom, or equivalents thereto, are included in zfc and nbg. viii asserts the unconditional existence of two sets, the infinite inductive set y, and the null set 
+  
+    
+      
+        ∅
+        .
+      
+    
+    {\displaystyle \varnothing .}
+   
+  
+    
+      
+        ∅
+      
+    
+    {\displaystyle \varnothing }
+   is a set simply because it is a member of y. up to this point, everything that has been proved to exist is a class, and kelley's discussion of sets was entirely hypothetical.
+develop:  natural numbers, n is a set, peano axioms, integers, rational numbers, real numbers.
+definition: c is a choice function if c is a function and 
+  
+    
+      
+        c
+        (
+        x
+        )
+        ∈
+        x
+      
+    
+    {\displaystyle c(x)\in x}
+   for each member x of domain c.
+ix. choice: there exists a choice function c whose domain is 
+  
+    
+      
+        v
+        −
+        {
+        ∅
+        }
+        .
+      
+    
+    {\displaystyle v-\{\varnothing \}.}
+  .
+ix is very similar to the axiom of global choice derivable from limitation of size above.
+develop: equivalents of the axiom of choice. as is the case with zfc, the development of the cardinal numbers requires some form of choice.
+if the scope of all quantified variables in the above axioms is restricted to sets, all axioms except iii and the schema iv are zfc axioms. iv is provable in zfc. hence the kelley treatment of mk makes very clear that all that distinguishes mk from zfc are variables ranging over proper classes as well as sets, and the classification schema.
+
+
+== notes ==
+
+
+== references ==
+john l. kelley 1975 (1955) general topology. springer. earlier ed., van nostrand. appendix, "elementary set theory."
+lemmon, e. j. (1986) introduction to axiomatic set theory. routledge & kegan paul.
+david k. lewis (1991) parts of classes. oxford: basil blackwell.
+mendelson, elliott (1987). introduction to mathematical logic. chapman & hall. isbn 0-534-06624-0. the definitive treatment of the closely related set theory nbg, followed by a page on mk. harder than monk or rubin.
+monk, j. donald (1980) introduction to set theory. krieger. easier and less thorough than rubin.
+morse, a. p., (1965) a theory of sets. academic press.
+mostowski, andrzej (1950), "some impredicative definitions in the axiomatic set theory" (pdf), fundamenta mathematicae, 37: 111–124, doi:10.4064/fm-37-1-111-124.
+rubin, jean e. (1967) set theory for the mathematician. san francisco: holden day. more thorough than monk; the ontology includes urelements.
+wang, hao (1949), "on zermelo's and von neumann's axioms for set theory", proc. natl. acad. sci. u.s.a., 35 (3): 150–155, doi:10.1073/pnas.35.3.150, jstor 88430, mr 0029850, pmc 1062986, pmid 16588874.
+
+
+== external links ==
+download general topology (1955) by john l. kelley in various formats. the appendix contains kelley's axiomatic development of mk.from foundations of mathematics (fom) discussion group:
+
+allen hazen on set theory with classes.
+joseph shoenfield's doubts about mk.

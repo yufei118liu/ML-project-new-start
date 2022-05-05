@@ -1,0 +1,2097 @@
+in cryptography, the elliptic curve digital signature algorithm (ecdsa) offers a variant of the digital signature algorithm (dsa) which uses elliptic curve cryptography.
+
+
+== key and signature-size ==
+as with elliptic-curve cryptography in general, the bit size of the private key believed to be needed for ecdsa is about twice the size of the security level, in bits. for example, at a security level of 80 bits—meaning an attacker requires a maximum of about 
+  
+    
+      
+        
+          2
+          
+            80
+          
+        
+      
+    
+    {\displaystyle 2^{80}}
+   operations to find the private key—the size of an ecdsa private key would be 160 bits.  on the other hand, the signature size is the same for both dsa and ecdsa: approximately 
+  
+    
+      
+        4
+        t
+      
+    
+    {\displaystyle 4t}
+   bits, where 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   is the security level measured in bits, that is, about 320 bits for a security level of 80 bits.
+
+
+== signature generation algorithm ==
+suppose alice wants to send a signed message to bob. initially, they must agree on the curve parameters 
+  
+    
+      
+        (
+        
+          
+            curve
+          
+        
+        ,
+        g
+        ,
+        n
+        )
+      
+    
+    {\displaystyle ({\textrm {curve}},g,n)}
+  .  in addition to the field and equation of the curve, we need 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+  , a base point of prime order on the curve; 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   is the multiplicative order of the point 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+  .
+
+the order 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   of the base point 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+   must be prime. indeed, we assume that every nonzero element of the ring 
+  
+    
+      
+        
+          z
+        
+        
+          /
+        
+        n
+        
+          z
+        
+      
+    
+    {\displaystyle \mathbb {z} /n\mathbb {z} }
+   is invertible, so that 
+  
+    
+      
+        
+          z
+        
+        
+          /
+        
+        n
+        
+          z
+        
+      
+    
+    {\displaystyle \mathbb {z} /n\mathbb {z} }
+   must be a field. it implies that 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   must be prime (cf. bézout's identity).
+alice creates a key pair, consisting of a private key integer 
+  
+    
+      
+        
+          d
+          
+            a
+          
+        
+      
+    
+    {\displaystyle d_{a}}
+  , randomly selected in the interval 
+  
+    
+      
+        [
+        1
+        ,
+        n
+        −
+        1
+        ]
+      
+    
+    {\displaystyle [1,n-1]}
+  ; and a public key curve point 
+  
+    
+      
+        
+          q
+          
+            a
+          
+        
+        =
+        
+          d
+          
+            a
+          
+        
+        ×
+        g
+      
+    
+    {\displaystyle q_{a}=d_{a}\times g}
+  . we use 
+  
+    
+      
+        ×
+      
+    
+    {\displaystyle \times }
+   to denote elliptic curve point multiplication by a scalar.
+for alice to sign a message 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+  , she follows these steps:
+
+calculate 
+  
+    
+      
+        e
+        =
+        
+          
+            hash
+          
+        
+        (
+        m
+        )
+      
+    
+    {\displaystyle e={\textrm {hash}}(m)}
+  .  (here hash is a cryptographic hash function, such as sha-2, with the output converted to an integer.)
+let 
+  
+    
+      
+        z
+      
+    
+    {\displaystyle z}
+   be the 
+  
+    
+      
+        
+          l
+          
+            n
+          
+        
+      
+    
+    {\displaystyle l_{n}}
+   leftmost bits of 
+  
+    
+      
+        e
+      
+    
+    {\displaystyle e}
+  , where 
+  
+    
+      
+        
+          l
+          
+            n
+          
+        
+      
+    
+    {\displaystyle l_{n}}
+   is the bit length of the group order 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  .  (note that 
+  
+    
+      
+        z
+      
+    
+    {\displaystyle z}
+   can be greater than 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   but not longer.)
+select a cryptographically secure random integer 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   from 
+  
+    
+      
+        [
+        1
+        ,
+        n
+        −
+        1
+        ]
+      
+    
+    {\displaystyle [1,n-1]}
+  .
+calculate the curve point 
+  
+    
+      
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          y
+          
+            1
+          
+        
+        )
+        =
+        k
+        ×
+        g
+      
+    
+    {\displaystyle (x_{1},y_{1})=k\times g}
+  .
+calculate 
+  
+    
+      
+        r
+        =
+        
+          x
+          
+            1
+          
+        
+        
+        
+          mod
+          
+            
+          
+        
+        n
+      
+    
+    {\displaystyle r=x_{1}\,{\bmod {\,}}n}
+  . if 
+  
+    
+      
+        r
+        =
+        0
+      
+    
+    {\displaystyle r=0}
+  , go back to step 3.
+calculate 
+  
+    
+      
+        s
+        =
+        
+          k
+          
+            −
+            1
+          
+        
+        (
+        z
+        +
+        r
+        
+          d
+          
+            a
+          
+        
+        )
+        
+        
+          mod
+          
+            
+          
+        
+        n
+      
+    
+    {\displaystyle s=k^{-1}(z+rd_{a})\,{\bmod {\,}}n}
+  . if 
+  
+    
+      
+        s
+        =
+        0
+      
+    
+    {\displaystyle s=0}
+  , go back to step 3.
+the signature is the pair 
+  
+    
+      
+        (
+        r
+        ,
+        s
+        )
+      
+    
+    {\displaystyle (r,s)}
+  .  (and 
+  
+    
+      
+        (
+        r
+        ,
+        −
+        s
+        
+        
+          mod
+          
+            
+          
+        
+        n
+        )
+      
+    
+    {\displaystyle (r,-s\,{\bmod {\,}}n)}
+   is also a valid signature.)
+as the standard notes, it is not only required for 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   to be secret, but it is also crucial to select different 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   for different signatures, otherwise the equation in step 6 can be solved for 
+  
+    
+      
+        
+          d
+          
+            a
+          
+        
+      
+    
+    {\displaystyle d_{a}}
+  , the private key: given two signatures 
+  
+    
+      
+        (
+        r
+        ,
+        s
+        )
+      
+    
+    {\displaystyle (r,s)}
+   and 
+  
+    
+      
+        (
+        r
+        ,
+        
+          s
+          ′
+        
+        )
+      
+    
+    {\displaystyle (r,s')}
+  , employing the same unknown 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   for different known messages 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   and 
+  
+    
+      
+        
+          m
+          ′
+        
+      
+    
+    {\displaystyle m'}
+  , an attacker can calculate 
+  
+    
+      
+        z
+      
+    
+    {\displaystyle z}
+   and 
+  
+    
+      
+        
+          z
+          ′
+        
+      
+    
+    {\displaystyle z'}
+  , and since 
+  
+    
+      
+        s
+        −
+        
+          s
+          ′
+        
+        =
+        
+          k
+          
+            −
+            1
+          
+        
+        (
+        z
+        −
+        
+          z
+          ′
+        
+        )
+      
+    
+    {\displaystyle s-s'=k^{-1}(z-z')}
+   (all operations in this paragraph are done modulo 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  ) the attacker can find 
+  
+    
+      
+        k
+        =
+        
+          
+            
+              z
+              −
+              
+                z
+                ′
+              
+            
+            
+              s
+              −
+              
+                s
+                ′
+              
+            
+          
+        
+      
+    
+    {\displaystyle k={\frac {z-z'}{s-s'}}}
+  . since 
+  
+    
+      
+        s
+        =
+        
+          k
+          
+            −
+            1
+          
+        
+        (
+        z
+        +
+        r
+        
+          d
+          
+            a
+          
+        
+        )
+      
+    
+    {\displaystyle s=k^{-1}(z+rd_{a})}
+  , the attacker can now calculate the private key 
+  
+    
+      
+        
+          d
+          
+            a
+          
+        
+        =
+        
+          
+            
+              s
+              k
+              −
+              z
+            
+            r
+          
+        
+      
+    
+    {\displaystyle d_{a}={\frac {sk-z}{r}}}
+  . 
+this implementation failure was used, for example, to extract the signing key used for the playstation 3 gaming-console.another way ecdsa signature may leak private keys is when 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   is generated by a faulty random number generator. such a failure in random number generation caused users of android bitcoin wallet to lose their funds in august 2013.to ensure that 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   is unique for each message, one may bypass random number generation completely and generate deterministic signatures by deriving 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   from both the message and the private key.
+
+
+== signature verification algorithm ==
+for bob to authenticate alice's signature, he must have a copy of her public-key curve point 
+  
+    
+      
+        
+          q
+          
+            a
+          
+        
+      
+    
+    {\displaystyle q_{a}}
+  . bob can verify 
+  
+    
+      
+        
+          q
+          
+            a
+          
+        
+      
+    
+    {\displaystyle q_{a}}
+   is a valid curve point as follows:
+
+check that 
+  
+    
+      
+        
+          q
+          
+            a
+          
+        
+      
+    
+    {\displaystyle q_{a}}
+   is not equal to the identity element o, and its coordinates are otherwise valid
+check that 
+  
+    
+      
+        
+          q
+          
+            a
+          
+        
+      
+    
+    {\displaystyle q_{a}}
+   lies on the curve
+check that 
+  
+    
+      
+        n
+        ×
+        
+          q
+          
+            a
+          
+        
+        =
+        o
+      
+    
+    {\displaystyle n\times q_{a}=o}
+  after that, bob follows these steps:
+
+verify that r and s are integers in 
+  
+    
+      
+        [
+        1
+        ,
+        n
+        −
+        1
+        ]
+      
+    
+    {\displaystyle [1,n-1]}
+  . if not, the signature is invalid.
+calculate 
+  
+    
+      
+        e
+        =
+        
+          
+            hash
+          
+        
+        (
+        m
+        )
+      
+    
+    {\displaystyle e={\textrm {hash}}(m)}
+  , where hash is the same function used in the signature generation.
+let z be the 
+  
+    
+      
+        
+          l
+          
+            n
+          
+        
+      
+    
+    {\displaystyle l_{n}}
+   leftmost bits of e.
+calculate 
+  
+    
+      
+        
+          u
+          
+            1
+          
+        
+        =
+        z
+        
+          s
+          
+            −
+            1
+          
+        
+        
+        
+          mod
+          
+            
+          
+        
+        n
+      
+    
+    {\displaystyle u_{1}=zs^{-1}\,{\bmod {\,}}n}
+   and 
+  
+    
+      
+        
+          u
+          
+            2
+          
+        
+        =
+        r
+        
+          s
+          
+            −
+            1
+          
+        
+        
+        
+          mod
+          
+            
+          
+        
+        n
+      
+    
+    {\displaystyle u_{2}=rs^{-1}\,{\bmod {\,}}n}
+  .
+calculate the curve point 
+  
+    
+      
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          y
+          
+            1
+          
+        
+        )
+        =
+        
+          u
+          
+            1
+          
+        
+        ×
+        g
+        +
+        
+          u
+          
+            2
+          
+        
+        ×
+        
+          q
+          
+            a
+          
+        
+      
+    
+    {\displaystyle (x_{1},y_{1})=u_{1}\times g+u_{2}\times q_{a}}
+  . if 
+  
+    
+      
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          y
+          
+            1
+          
+        
+        )
+        =
+        o
+      
+    
+    {\displaystyle (x_{1},y_{1})=o}
+   then the signature is invalid.
+the signature is valid if 
+  
+    
+      
+        r
+        ≡
+        
+          x
+          
+            1
+          
+        
+        
+          
+          (
+          mod
+          
+          n
+          )
+        
+      
+    
+    {\displaystyle r\equiv x_{1}{\pmod {n}}}
+  , invalid otherwise.note that an efficient implementation would compute inverse 
+  
+    
+      
+        
+          s
+          
+            −
+            1
+          
+        
+        
+        
+          mod
+          
+            
+          
+        
+        n
+      
+    
+    {\displaystyle s^{-1}\,{\bmod {\,}}n}
+   only once. also, using shamir's trick, a sum of two scalar multiplications 
+  
+    
+      
+        
+          u
+          
+            1
+          
+        
+        ×
+        g
+        +
+        
+          u
+          
+            2
+          
+        
+        ×
+        
+          q
+          
+            a
+          
+        
+      
+    
+    {\displaystyle u_{1}\times g+u_{2}\times q_{a}}
+   can be calculated faster than two scalar multiplications done independently.
+
+
+=== correctness of the algorithm ===
+it is not immediately obvious why verification even functions correctly.  to see why, denote as c the curve point computed in step 5 of verification,
+
+  
+    
+      
+        c
+        =
+        
+          u
+          
+            1
+          
+        
+        ×
+        g
+        +
+        
+          u
+          
+            2
+          
+        
+        ×
+        
+          q
+          
+            a
+          
+        
+      
+    
+    {\displaystyle c=u_{1}\times g+u_{2}\times q_{a}}
+  from the definition of the public key as 
+  
+    
+      
+        
+          q
+          
+            a
+          
+        
+        =
+        
+          d
+          
+            a
+          
+        
+        ×
+        g
+      
+    
+    {\displaystyle q_{a}=d_{a}\times g}
+  ,
+
+  
+    
+      
+        c
+        =
+        
+          u
+          
+            1
+          
+        
+        ×
+        g
+        +
+        
+          u
+          
+            2
+          
+        
+        
+          d
+          
+            a
+          
+        
+        ×
+        g
+      
+    
+    {\displaystyle c=u_{1}\times g+u_{2}d_{a}\times g}
+  because elliptic curve scalar multiplication distributes over addition,
+
+  
+    
+      
+        c
+        =
+        (
+        
+          u
+          
+            1
+          
+        
+        +
+        
+          u
+          
+            2
+          
+        
+        
+          d
+          
+            a
+          
+        
+        )
+        ×
+        g
+      
+    
+    {\displaystyle c=(u_{1}+u_{2}d_{a})\times g}
+  expanding the definition of 
+  
+    
+      
+        
+          u
+          
+            1
+          
+        
+      
+    
+    {\displaystyle u_{1}}
+   and 
+  
+    
+      
+        
+          u
+          
+            2
+          
+        
+      
+    
+    {\displaystyle u_{2}}
+   from verification step 4,
+
+  
+    
+      
+        c
+        =
+        (
+        z
+        
+          s
+          
+            −
+            1
+          
+        
+        +
+        r
+        
+          d
+          
+            a
+          
+        
+        
+          s
+          
+            −
+            1
+          
+        
+        )
+        ×
+        g
+      
+    
+    {\displaystyle c=(zs^{-1}+rd_{a}s^{-1})\times g}
+  collecting the common term 
+  
+    
+      
+        
+          s
+          
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle s^{-1}}
+  ,
+
+  
+    
+      
+        c
+        =
+        (
+        z
+        +
+        r
+        
+          d
+          
+            a
+          
+        
+        )
+        
+          s
+          
+            −
+            1
+          
+        
+        ×
+        g
+      
+    
+    {\displaystyle c=(z+rd_{a})s^{-1}\times g}
+  expanding the definition of s from signature step 6,
+
+  
+    
+      
+        c
+        =
+        (
+        z
+        +
+        r
+        
+          d
+          
+            a
+          
+        
+        )
+        (
+        z
+        +
+        r
+        
+          d
+          
+            a
+          
+        
+        
+          )
+          
+            −
+            1
+          
+        
+        (
+        
+          k
+          
+            −
+            1
+          
+        
+        
+          )
+          
+            −
+            1
+          
+        
+        ×
+        g
+      
+    
+    {\displaystyle c=(z+rd_{a})(z+rd_{a})^{-1}(k^{-1})^{-1}\times g}
+  since the inverse of an inverse is the original element, and the product of an element's inverse and the element is the identity, we are left with
+
+  
+    
+      
+        c
+        =
+        k
+        ×
+        g
+      
+    
+    {\displaystyle c=k\times g}
+  from the definition of r, this is verification step 6.
+this shows only that a correctly signed message will verify correctly; many other properties are required for a secure signature algorithm.
+
+
+== public key recovery ==
+given a message m and alice's signature 
+  
+    
+      
+        r
+        ,
+        s
+      
+    
+    {\displaystyle r,s}
+   on that message, bob can (potentially) recover alice's public key:
+verify that r and s are integers in 
+  
+    
+      
+        [
+        1
+        ,
+        n
+        −
+        1
+        ]
+      
+    
+    {\displaystyle [1,n-1]}
+  . if not, the signature is invalid.
+calculate a curve point 
+  
+    
+      
+        r
+        =
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          y
+          
+            1
+          
+        
+        )
+      
+    
+    {\displaystyle r=(x_{1},y_{1})}
+   where 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+      
+    
+    {\displaystyle x_{1}}
+   is one of 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+  , 
+  
+    
+      
+        r
+        +
+        n
+      
+    
+    {\displaystyle r+n}
+  , 
+  
+    
+      
+        r
+        +
+        2
+        n
+      
+    
+    {\displaystyle r+2n}
+  , etc. (provided 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+      
+    
+    {\displaystyle x_{1}}
+   is not too large for a field element) and 
+  
+    
+      
+        
+          y
+          
+            1
+          
+        
+      
+    
+    {\displaystyle y_{1}}
+   is a value such that the curve equation is satisfied. note that there may be several curve points satisfying these conditions, and each different r value results in a distinct recovered key.
+calculate 
+  
+    
+      
+        e
+        =
+        
+          
+            hash
+          
+        
+        (
+        m
+        )
+      
+    
+    {\displaystyle e={\textrm {hash}}(m)}
+  , where hash is the same function used in the signature generation.
+let z be the 
+  
+    
+      
+        
+          l
+          
+            n
+          
+        
+      
+    
+    {\displaystyle l_{n}}
+   leftmost bits of e.
+calculate 
+  
+    
+      
+        
+          u
+          
+            1
+          
+        
+        =
+        −
+        z
+        
+          r
+          
+            −
+            1
+          
+        
+        
+        
+          mod
+          
+            
+          
+        
+        n
+      
+    
+    {\displaystyle u_{1}=-zr^{-1}\,{\bmod {\,}}n}
+   and 
+  
+    
+      
+        
+          u
+          
+            2
+          
+        
+        =
+        s
+        
+          r
+          
+            −
+            1
+          
+        
+        
+        
+          mod
+          
+            
+          
+        
+        n
+      
+    
+    {\displaystyle u_{2}=sr^{-1}\,{\bmod {\,}}n}
+  .
+calculate the curve point 
+  
+    
+      
+        
+          q
+          
+            a
+          
+        
+        =
+        (
+        
+          x
+          
+            a
+          
+        
+        ,
+        
+          y
+          
+            a
+          
+        
+        )
+        =
+        
+          u
+          
+            1
+          
+        
+        ×
+        g
+        +
+        
+          u
+          
+            2
+          
+        
+        ×
+        r
+      
+    
+    {\displaystyle q_{a}=(x_{a},y_{a})=u_{1}\times g+u_{2}\times r}
+  .
+the signature is valid if 
+  
+    
+      
+        
+          q
+          
+            a
+          
+        
+      
+    
+    {\displaystyle q_{a}}
+  , matches alice's public key.
+the signature is invalid if all the possible r points have been tried and none match alice's public key.note that an invalid signature, or a signature from a different message, will result in the recovery of an incorrect public key. the recovery algorithm can only be used to check validity of a signature if the signer's public key (or its hash) is known beforehand.
+
+
+=== correctness of the recovery algorithm ===
+start with the definition of 
+  
+    
+      
+        
+          q
+          
+            a
+          
+        
+      
+    
+    {\displaystyle q_{a}}
+   from recovery step 6,
+
+  
+    
+      
+        
+          q
+          
+            a
+          
+        
+        =
+        (
+        
+          x
+          
+            a
+          
+        
+        ,
+        
+          y
+          
+            a
+          
+        
+        )
+        =
+        
+          u
+          
+            1
+          
+        
+        ×
+        g
+        +
+        
+          u
+          
+            2
+          
+        
+        ×
+        r
+      
+    
+    {\displaystyle q_{a}=(x_{a},y_{a})=u_{1}\times g+u_{2}\times r}
+  from the definition 
+  
+    
+      
+        r
+        =
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          y
+          
+            1
+          
+        
+        )
+        =
+        k
+        ×
+        g
+      
+    
+    {\displaystyle r=(x_{1},y_{1})=k\times g}
+   from signing step 4,
+
+  
+    
+      
+        
+          q
+          
+            a
+          
+        
+        =
+        
+          u
+          
+            1
+          
+        
+        ×
+        g
+        +
+        
+          u
+          
+            2
+          
+        
+        k
+        ×
+        g
+      
+    
+    {\displaystyle q_{a}=u_{1}\times g+u_{2}k\times g}
+  because elliptic curve scalar multiplication distributes over addition,
+
+  
+    
+      
+        
+          q
+          
+            a
+          
+        
+        =
+        (
+        
+          u
+          
+            1
+          
+        
+        +
+        
+          u
+          
+            2
+          
+        
+        k
+        )
+        ×
+        g
+      
+    
+    {\displaystyle q_{a}=(u_{1}+u_{2}k)\times g}
+  expanding the definition of 
+  
+    
+      
+        
+          u
+          
+            1
+          
+        
+      
+    
+    {\displaystyle u_{1}}
+   and 
+  
+    
+      
+        
+          u
+          
+            2
+          
+        
+      
+    
+    {\displaystyle u_{2}}
+   from recovery step 5,
+
+  
+    
+      
+        
+          q
+          
+            a
+          
+        
+        =
+        (
+        −
+        z
+        
+          r
+          
+            −
+            1
+          
+        
+        +
+        s
+        k
+        
+          r
+          
+            −
+            1
+          
+        
+        )
+        ×
+        g
+      
+    
+    {\displaystyle q_{a}=(-zr^{-1}+skr^{-1})\times g}
+  expanding the definition of s from signature step 6,
+
+  
+    
+      
+        
+          q
+          
+            a
+          
+        
+        =
+        (
+        −
+        z
+        
+          r
+          
+            −
+            1
+          
+        
+        +
+        
+          k
+          
+            −
+            1
+          
+        
+        (
+        z
+        +
+        r
+        
+          d
+          
+            a
+          
+        
+        )
+        k
+        
+          r
+          
+            −
+            1
+          
+        
+        )
+        ×
+        g
+      
+    
+    {\displaystyle q_{a}=(-zr^{-1}+k^{-1}(z+rd_{a})kr^{-1})\times g}
+  since the product of an element's inverse and the element is the identity, we are left with
+
+  
+    
+      
+        
+          q
+          
+            a
+          
+        
+        =
+        (
+        −
+        z
+        
+          r
+          
+            −
+            1
+          
+        
+        +
+        (
+        z
+        
+          r
+          
+            −
+            1
+          
+        
+        +
+        
+          d
+          
+            a
+          
+        
+        )
+        )
+        ×
+        g
+      
+    
+    {\displaystyle q_{a}=(-zr^{-1}+(zr^{-1}+d_{a}))\times g}
+  the first and second terms cancel each other out,
+
+  
+    
+      
+        
+          q
+          
+            a
+          
+        
+        =
+        
+          d
+          
+            a
+          
+        
+        ×
+        g
+      
+    
+    {\displaystyle q_{a}=d_{a}\times g}
+  from the definition of 
+  
+    
+      
+        
+          q
+          
+            a
+          
+        
+        =
+        
+          d
+          
+            a
+          
+        
+        ×
+        g
+      
+    
+    {\displaystyle q_{a}=d_{a}\times g}
+  , this is alice's public key.
+this shows that a correctly signed message will recover the correct public key, provided additional information was shared to uniquely calculate curve point 
+  
+    
+      
+        r
+        =
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          y
+          
+            1
+          
+        
+        )
+      
+    
+    {\displaystyle r=(x_{1},y_{1})}
+   from signature value r.
+
+
+== security ==
+in december 2010, a group calling itself fail0verflow announced recovery of the ecdsa private key used by sony to sign software for the playstation 3 game console. however, this attack only worked because sony did not properly implement the algorithm, because 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   was static instead of random. as pointed out in the signature generation algorithm section above, this makes 
+  
+    
+      
+        
+          d
+          
+            a
+          
+        
+      
+    
+    {\displaystyle d_{a}}
+   solvable, rendering the entire algorithm useless.on march 29, 2011, two researchers published an iacr paper demonstrating that it is possible to retrieve a tls private key of a server using openssl that authenticates with elliptic curves dsa over a binary field via a timing attack. the vulnerability was fixed in openssl 1.0.0e.in august 2013, it was revealed that bugs in some implementations of the java class securerandom sometimes generated collisions in the 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   value. this allowed hackers to recover private keys giving them the same control over bitcoin transactions as legitimate keys' owners had,  using the same exploit that was used to reveal the ps3 signing key on some android app implementations, which use java and rely on ecdsa to authenticate transactions.this issue can be prevented by an unpredictable generation of 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  , e.g., a deterministic procedure as described by rfc 6979.
+
+
+=== concerns ===
+some concerns expressed about ecdsa:
+
+political concerns: the trustworthiness of nist-produced curves being questioned after revelations that the nsa willingly inserts backdoors into software, hardware components and published standards were made; well-known cryptographers have expressed doubts about how the nist curves were designed, and voluntary tainting has already been proved in the past. (see also the libssh curve25519 introduction.) nevertheless, a proof that the named nist curves exploit a rare weakness, is missing yet.
+technical concerns: the difficulty of properly implementing the standard, its slowness, and design flaws which reduce security in insufficiently defensive implementations.
+
+
+== implementations ==
+below is a list of cryptographic libraries that provide support for ecdsa:
+
+botan
+bouncy castle
+cryptlib
+crypto++
+libgcrypt
+gnutls
+openssl
+wolfcrypt
+libressl
+mbed tls
+microsoft cryptoapi
+crypto api (linux)
+
+
+== see also ==
+eddsa
+rsa (cryptosystem)
+
+
+== references ==
+
+
+== further reading ==
+accredited standards committee x9, asc x9 issues new standard for public key cryptography/ecdsa, oct. 6, 2020. source
+accredited standards committee x9, american national standard x9.62-2005, public key cryptography for the financial services industry, the elliptic curve digital signature algorithm (ecdsa), november 16, 2005.
+certicom research, standards for efficient cryptography, sec 1: elliptic curve cryptography, version 2.0, may 21, 2009.
+lópez, j. and dahab, r. an overview of elliptic curve cryptography, technical report ic-00-10, state university of campinas, 2000.
+daniel j. bernstein, pippenger's exponentiation algorithm, 2002.
+daniel r. l. brown, generic groups, collision resistance, and ecdsa, designs, codes and cryptography, 35, 119–152, 2005.  eprint version
+ian f. blake, gadiel seroussi, and nigel smart, editors, advances in elliptic curve cryptography, london mathematical society lecture note series 317, cambridge university press, 2005.
+hankerson, d.; vanstone, s.; menezes, a. (2004). guide to elliptic curve cryptography. springer professional computing. new york: springer. doi:10.1007/b97644. isbn 0-387-95273-x. s2cid 720546.
+
+
+== external links ==
+digital signature standard; includes info on ecdsa
+the elliptic curve digital signature algorithm (ecdsa); provides an in-depth guide on ecdsa. wayback link

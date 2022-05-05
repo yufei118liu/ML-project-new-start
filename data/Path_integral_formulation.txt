@@ -1,0 +1,8993 @@
+the path integral formulation is a description in quantum mechanics that generalizes the action principle of classical mechanics.  it replaces the classical notion of a single, unique classical trajectory for a system with a sum, or functional integral, over an infinity of quantum-mechanically possible trajectories to compute a quantum amplitude.
+this formulation has proven crucial to the subsequent development of theoretical physics, because manifest lorentz covariance (time and space components of quantities enter equations in the same way) is easier to achieve than in the operator formalism of canonical quantization. unlike previous methods, the path integral allows one to easily change coordinates between very different canonical descriptions of the same quantum system. another advantage is that it is in practice easier to guess the correct form of the lagrangian of a theory, which naturally enters the path integrals (for interactions of a certain type, these are coordinate space or feynman path integrals), than the hamiltonian. possible downsides of the approach include that unitarity (this is related to conservation of probability; the probabilities of all physically possible outcomes must add up to one) of the s-matrix is obscure in the formulation. the path-integral approach has proven to be equivalent to the other formalisms of quantum mechanics and quantum field theory. thus, by deriving either approach from the other, problems associated with one or the other approach (as exemplified by lorentz covariance or unitarity) go away.the path integral also relates quantum and stochastic processes, and this provided the basis for the grand synthesis of the 1970s, which unified quantum field theory with the statistical field theory of a fluctuating field near a second-order phase transition. the schrödinger equation is a diffusion equation with an imaginary diffusion constant, and the path integral is an analytic continuation of a method for summing up all possible random walks.the basic idea of the path integral formulation can be traced back to norbert wiener, who introduced the wiener integral for solving problems in diffusion and brownian motion. this idea was extended to the use of the lagrangian in quantum mechanics by paul dirac in his 1933 article. the complete method was developed in 1948 by richard feynman. some preliminaries were worked out earlier in his doctoral work under the supervision of john archibald wheeler. the original motivation stemmed from the desire to obtain a quantum-mechanical formulation for the wheeler–feynman absorber theory using a lagrangian (rather than a hamiltonian) as a starting point.
+
+
+== quantum action principle ==
+in quantum mechanics, as in classical mechanics, the hamiltonian is the generator of time translations. this means that the state at a slightly later time differs from the state at the current time by the result of acting with the hamiltonian operator (multiplied by the negative imaginary unit, −i). for states with a definite energy, this is a statement of the de broglie relation between frequency and energy, and the general relation is consistent with that plus the superposition principle.
+the hamiltonian in classical mechanics is derived from a lagrangian, which is a more fundamental quantity relative to special relativity. the hamiltonian indicates how to march forward in time, but the time is different in different reference frames. the lagrangian is a lorentz scalar, while the hamiltonian is the time component of a four-vector. so the hamiltonian is different in different frames, and this type of symmetry is not apparent in the original formulation of quantum mechanics.
+the hamiltonian is a function of the position and momentum at one time, and it determines the position and momentum a little later. the lagrangian is a function of the position now and the position a little later (or, equivalently for infinitesimal time separations, it is a function of the position and velocity). the relation between the two is by a legendre transformation, and the condition that determines the classical equations of motion (the euler–lagrange equations) is that the action has an extremum.
+in quantum mechanics, the legendre transform is hard to interpret, because the motion is not over a definite trajectory. in classical mechanics, with discretization in time, the legendre transform becomes
+
+  
+    
+      
+        ε
+        h
+        =
+        p
+        (
+        t
+        )
+        
+          
+            (
+          
+        
+        q
+        (
+        t
+        +
+        ε
+        )
+        −
+        q
+        (
+        t
+        )
+        
+          
+            )
+          
+        
+        −
+        ε
+        l
+      
+    
+    {\displaystyle \varepsilon h=p(t){\big (}q(t+\varepsilon )-q(t){\big )}-\varepsilon l}
+  and
+
+  
+    
+      
+        p
+        =
+        
+          
+            
+              ∂
+              l
+            
+            
+              ∂
+              
+                
+                  
+                    q
+                    ˙
+                  
+                
+              
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle p={\frac {\partial l}{\partial {\dot {q}}}},}
+  where the partial derivative with respect to 
+  
+    
+      
+        
+          
+            
+              q
+              ˙
+            
+          
+        
+      
+    
+    {\displaystyle {\dot {q}}}
+   holds q(t + ε) fixed. the inverse legendre transform is
+
+  
+    
+      
+        ε
+        l
+        =
+        ε
+        p
+        
+          
+            
+              q
+              ˙
+            
+          
+        
+        −
+        ε
+        h
+        ,
+      
+    
+    {\displaystyle \varepsilon l=\varepsilon p{\dot {q}}-\varepsilon h,}
+  where
+
+  
+    
+      
+        
+          
+            
+              q
+              ˙
+            
+          
+        
+        =
+        
+          
+            
+              ∂
+              h
+            
+            
+              ∂
+              p
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle {\dot {q}}={\frac {\partial h}{\partial p}},}
+  and the partial derivative now is with respect to p at fixed q.
+in quantum mechanics, the state is a superposition of different states with different values of q, or different values of p, and the quantities p and q can be interpreted as noncommuting operators. the operator p is only definite on states that are indefinite with respect to q. so consider two states separated in time and act with the operator corresponding to the lagrangian:
+
+  
+    
+      
+        
+          e
+          
+            i
+            
+              
+                [
+              
+            
+            p
+            
+              
+                (
+              
+            
+            q
+            (
+            t
+            +
+            ε
+            )
+            −
+            q
+            (
+            t
+            )
+            
+              
+                )
+              
+            
+            −
+            ε
+            h
+            (
+            p
+            ,
+            q
+            )
+            
+              
+                ]
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle e^{i{\big [}p{\big (}q(t+\varepsilon )-q(t){\big )}-\varepsilon h(p,q){\big ]}}.}
+  if the multiplications implicit in this formula are reinterpreted as matrix multiplications, the first factor is
+
+  
+    
+      
+        
+          e
+          
+            −
+            i
+            p
+            q
+            (
+            t
+            )
+          
+        
+        ,
+      
+    
+    {\displaystyle e^{-ipq(t)},}
+  and if this is also interpreted as a matrix multiplication, the sum over all states integrates over all q(t), and so it takes the fourier transform in q(t) to change basis to p(t). that is the action on the hilbert space – change basis to p at time t.
+next comes
+
+  
+    
+      
+        
+          e
+          
+            −
+            i
+            ε
+            h
+            (
+            p
+            ,
+            q
+            )
+          
+        
+        ,
+      
+    
+    {\displaystyle e^{-i\varepsilon h(p,q)},}
+  or evolve an infinitesimal time into the future.
+finally, the last factor in this interpretation is
+
+  
+    
+      
+        
+          e
+          
+            i
+            p
+            q
+            (
+            t
+            +
+            ε
+            )
+          
+        
+        ,
+      
+    
+    {\displaystyle e^{ipq(t+\varepsilon )},}
+  which means change basis back to q at a later time.
+this is not very different from just ordinary time evolution: the h factor contains all the dynamical information – it pushes the state forward in time. the first part and the last part are just fourier transforms to change to a pure q basis from an intermediate p basis.
+
+another way of saying this is that since the hamiltonian is naturally a function of p and q, exponentiating this quantity and changing basis from p to q at each step allows the matrix element of h to be expressed as a simple function along each path. this function is the quantum analog of the classical action. this observation is due to paul dirac.dirac further noted that one could square the time-evolution operator in the s representation:
+
+  
+    
+      
+        
+          e
+          
+            i
+            ε
+            s
+          
+        
+        ,
+      
+    
+    {\displaystyle e^{i\varepsilon s},}
+  and this gives the time-evolution operator between time t and time t + 2ε. while in the h representation the quantity that is being summed over the intermediate states is an obscure matrix element, in the s representation it is reinterpreted as a quantity associated to the path. in the limit that one takes a large power of this operator, one reconstructs the full quantum evolution between two states, the early one with a fixed value of q(0) and the later one with a fixed value of q(t). the result is a sum over paths with a phase, which is the quantum action. crucially, dirac identified in this article the deep quantum-mechanical reason for the principle of least action controlling the classical limit (see quotation box).
+
+
+== feynman's interpretation ==
+dirac's work did not provide a precise prescription to calculate the sum over paths, and he did not show that one could recover the schrödinger equation or the canonical commutation relations from this rule. this was done by feynman. that is, the classical path arises naturally in the classical limit.
+feynman showed that dirac's quantum action was, for most cases of interest, simply equal to the classical action, appropriately discretized. this means that the classical action is the phase acquired by quantum evolution between two fixed endpoints. he proposed to recover all of quantum mechanics from the following postulates:
+
+the probability for an event is given by the squared modulus of a complex number called the "probability amplitude".
+the probability amplitude is given by adding together the contributions of all paths in configuration space.
+the contribution of a path is proportional to eis/ħ, where s is the action given by the time integral of the lagrangian along the path.in order to find the overall probability amplitude for a given process, then, one adds up, or integrates, the amplitude of the 3rd postulate over the space of all possible paths of the system in between the initial and final states, including those that are absurd by classical standards. in calculating the probability amplitude for a single particle to go from one space-time coordinate to another, it is correct to include paths in which the particle describes elaborate curlicues, curves in which the particle shoots off into outer space and flies back again, and so forth. the path integral assigns to all these amplitudes equal weight but varying phase, or argument of the complex number. contributions from paths wildly different from the classical trajectory may be suppressed by interference (see below).
+feynman showed that this formulation of quantum mechanics is equivalent to the canonical approach to quantum mechanics when the hamiltonian is at most quadratic in the momentum.  an amplitude computed according to feynman's principles will also obey the schrödinger equation for the hamiltonian corresponding to the given action.
+the path integral formulation of quantum field theory represents the transition amplitude (corresponding to the classical correlation function) as a weighted sum of all possible histories of the system from the initial to the final state. a feynman diagram is a graphical representation of a perturbative contribution to the transition amplitude.
+
+
+== path integral in quantum mechanics ==
+
+
+=== time-slicing derivation ===
+
+one common approach to deriving the path integral formula is to divide the time interval into small pieces. once this is done, the trotter product formula tells us that the noncommutativity of the kinetic and potential energy operators can be ignored.
+for a particle in a smooth potential, the path integral is approximated by zigzag paths, which in one dimension is a product of ordinary integrals. for the motion of the particle from position xa at time ta to xb at time tb, the time sequence
+
+  
+    
+      
+        
+          t
+          
+            a
+          
+        
+        =
+        
+          t
+          
+            0
+          
+        
+        <
+        
+          t
+          
+            1
+          
+        
+        <
+        ⋯
+        <
+        
+          t
+          
+            n
+            −
+            1
+          
+        
+        <
+        
+          t
+          
+            n
+          
+        
+        <
+        
+          t
+          
+            n
+            +
+            1
+          
+        
+        =
+        
+          t
+          
+            b
+          
+        
+      
+    
+    {\displaystyle t_{a}=t_{0}<t_{1}<\cdots <t_{n-1}<t_{n}<t_{n+1}=t_{b}}
+  can be divided up into n + 1 smaller segments tj − tj − 1, where j = 1, ..., n + 1, of fixed duration
+
+  
+    
+      
+        ε
+        =
+        δ
+        t
+        =
+        
+          
+            
+              
+                t
+                
+                  b
+                
+              
+              −
+              
+                t
+                
+                  a
+                
+              
+            
+            
+              n
+              +
+              1
+            
+          
+        
+        .
+      
+    
+    {\displaystyle \varepsilon =\delta t={\frac {t_{b}-t_{a}}{n+1}}.}
+  this process is called time-slicing.
+an approximation for the path integral can be computed as proportional to
+
+  
+    
+      
+        
+          ∫
+          
+            −
+            ∞
+          
+          
+            +
+            ∞
+          
+        
+        ⋯
+        
+          ∫
+          
+            −
+            ∞
+          
+          
+            +
+            ∞
+          
+        
+        exp
+        ⁡
+        
+          (
+          
+            
+              
+                i
+                ℏ
+              
+            
+            
+              ∫
+              
+                
+                  t
+                  
+                    a
+                  
+                
+              
+              
+                
+                  t
+                  
+                    b
+                  
+                
+              
+            
+            l
+            
+              
+                (
+              
+            
+            x
+            (
+            t
+            )
+            ,
+            v
+            (
+            t
+            )
+            
+              
+                )
+              
+            
+            
+            d
+            t
+          
+          )
+        
+        
+        d
+        
+          x
+          
+            0
+          
+        
+        
+        ⋯
+        
+        d
+        
+          x
+          
+            n
+          
+        
+        ,
+      
+    
+    {\displaystyle \int \limits _{-\infty }^{+\infty }\cdots \int \limits _{-\infty }^{+\infty }\exp \left({\frac {i}{\hbar }}\int _{t_{a}}^{t_{b}}l{\big (}x(t),v(t){\big )}\,dt\right)\,dx_{0}\,\cdots \,dx_{n},}
+  where l(x, v) is the lagrangian of the one-dimensional system with position variable x(t) and velocity v = ẋ(t) considered (see below), and dxj corresponds to the position at the jth time step, if the time integral is approximated by a sum of n terms.in the limit n → ∞, this becomes a functional integral, which, apart from a nonessential factor, is directly the product of the probability amplitudes ⟨xb, tb|xa, ta⟩ (more precisely, since one must work with a continuous spectrum, the respective densities) to find the quantum mechanical particle at ta in the initial state xa and at tb in the final state xb.
+actually l is the classical lagrangian of the one-dimensional system considered,
+
+  
+    
+      
+        l
+        (
+        x
+        ,
+        
+          
+            
+              x
+              ˙
+            
+          
+        
+        )
+        =
+        t
+        −
+        v
+        =
+        
+          
+            1
+            2
+          
+        
+        m
+        
+          |
+        
+        
+          
+            
+              x
+              ˙
+            
+          
+        
+        
+          
+            |
+          
+          
+            2
+          
+        
+        −
+        v
+        (
+        x
+        )
+      
+    
+    {\displaystyle l(x,{\dot {x}})=t-v={\frac {1}{2}}m|{\dot {x}}|^{2}-v(x)}
+  and the abovementioned "zigzagging" corresponds to the appearance of the terms
+
+  
+    
+      
+        exp
+        ⁡
+        
+          (
+          
+            
+              
+                i
+                ℏ
+              
+            
+            ε
+            
+              ∑
+              
+                j
+                =
+                1
+              
+              
+                n
+                +
+                1
+              
+            
+            l
+            
+              (
+              
+                
+                  
+                    
+                      
+                        x
+                        ~
+                      
+                    
+                  
+                  
+                    j
+                  
+                
+                ,
+                
+                  
+                    
+                      
+                        x
+                        
+                          j
+                        
+                      
+                      −
+                      
+                        x
+                        
+                          j
+                          −
+                          1
+                        
+                      
+                    
+                    ε
+                  
+                
+                ,
+                j
+              
+              )
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \exp \left({\frac {i}{\hbar }}\varepsilon \sum _{j=1}^{n+1}l\left({\tilde {x}}_{j},{\frac {x_{j}-x_{j-1}}{\varepsilon }},j\right)\right)}
+  in the riemann sum approximating the time integral, which are finally integrated over x1 to xn with the integration measure dx1...dxn, x̃j is an arbitrary value of the interval corresponding to j, e.g. its center, xj + xj−1/2.
+thus, in contrast to classical mechanics, not only does the stationary path contribute, but actually all virtual paths between the initial and the final point also contribute.
+
+
+=== path integral ===
+in terms of the wave function in the position representation, the path integral formula reads as follows:
+
+  
+    
+      
+        ψ
+        (
+        x
+        ,
+        t
+        )
+        =
+        
+          
+            1
+            z
+          
+        
+        
+          ∫
+          
+            
+              x
+            
+            (
+            0
+            )
+            =
+            x
+          
+        
+        
+          
+            d
+          
+        
+        
+          x
+        
+        
+        
+          e
+          
+            i
+            s
+            [
+            
+              x
+            
+            ,
+            
+              
+                
+                  
+                    x
+                  
+                  ˙
+                
+              
+            
+            ]
+          
+        
+        
+          ψ
+          
+            0
+          
+        
+        (
+        
+          x
+        
+        (
+        t
+        )
+        )
+        
+      
+    
+    {\displaystyle \psi (x,t)={\frac {1}{z}}\int _{\mathbf {x} (0)=x}{\mathcal {d}}\mathbf {x} \,e^{is[\mathbf {x} ,{\dot {\mathbf {x} }}]}\psi _{0}(\mathbf {x} (t))\,}
+  where 
+  
+    
+      
+        
+          
+            d
+          
+        
+        
+          x
+        
+      
+    
+    {\displaystyle {\mathcal {d}}\mathbf {x} }
+   denotes integration over all paths 
+  
+    
+      
+        
+          x
+        
+      
+    
+    {\displaystyle \mathbf {x} }
+   with 
+  
+    
+      
+        
+          x
+        
+        (
+        0
+        )
+        =
+        x
+      
+    
+    {\displaystyle \mathbf {x} (0)=x}
+   and where 
+  
+    
+      
+        z
+      
+    
+    {\displaystyle z}
+   is a normalization factor. here 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+   is the action, given by
+
+  
+    
+      
+        s
+        [
+        
+          x
+        
+        ,
+        
+          
+            
+              
+                x
+              
+              ˙
+            
+          
+        
+        ]
+        =
+        ∫
+        d
+        t
+        
+        l
+        (
+        
+          x
+        
+        (
+        t
+        )
+        ,
+        
+          
+            
+              
+                x
+              
+              ˙
+            
+          
+        
+        (
+        t
+        )
+        )
+      
+    
+    {\displaystyle s[\mathbf {x} ,{\dot {\mathbf {x} }}]=\int dt\,l(\mathbf {x} (t),{\dot {\mathbf {x} }}(t))}
+  
+
+
+=== free particle ===
+the path integral representation gives the quantum amplitude to go from point x to point y as an integral over all paths. for a free-particle action (for simplicity let m = 1, ħ = 1)
+
+  
+    
+      
+        s
+        =
+        ∫
+        
+          
+            
+              
+                
+                  
+                    x
+                    ˙
+                  
+                
+              
+              
+                2
+              
+            
+            2
+          
+        
+        
+        d
+        t
+        ,
+      
+    
+    {\displaystyle s=\int {\frac {{\dot {x}}^{2}}{2}}\,dt,}
+  the integral can be evaluated explicitly.
+to do this, it is convenient to start without the factor i in the exponential, so that large deviations are suppressed by small numbers, not by cancelling oscillatory contributions. the amplitude (or kernel) reads:
+
+  
+    
+      
+        k
+        (
+        x
+        −
+        y
+        ;
+        t
+        )
+        =
+        
+          ∫
+          
+            x
+            (
+            0
+            )
+            =
+            x
+          
+          
+            x
+            (
+            t
+            )
+            =
+            y
+          
+        
+        exp
+        ⁡
+        
+          (
+          
+            −
+            
+              ∫
+              
+                0
+              
+              
+                t
+              
+            
+            
+              
+                
+                  
+                    
+                      
+                        x
+                        ˙
+                      
+                    
+                  
+                  
+                    2
+                  
+                
+                2
+              
+            
+            
+            d
+            t
+          
+          )
+        
+        
+        d
+        x
+        .
+      
+    
+    {\displaystyle k(x-y;t)=\int _{x(0)=x}^{x(t)=y}\exp \left(-\int _{0}^{t}{\frac {{\dot {x}}^{2}}{2}}\,dt\right)\,dx.}
+  splitting the integral into time slices:
+
+  
+    
+      
+        k
+        (
+        x
+        ,
+        y
+        ;
+        t
+        )
+        =
+        
+          ∫
+          
+            x
+            (
+            0
+            )
+            =
+            x
+          
+          
+            x
+            (
+            t
+            )
+            =
+            y
+          
+        
+        
+          ∏
+          
+            t
+          
+        
+        exp
+        ⁡
+        
+          (
+          
+            −
+            
+              
+                
+                  1
+                  2
+                
+              
+            
+            
+              
+                (
+                
+                  
+                    
+                      x
+                      (
+                      t
+                      +
+                      ε
+                      )
+                      −
+                      x
+                      (
+                      t
+                      )
+                    
+                    ε
+                  
+                
+                )
+              
+              
+                2
+              
+            
+            ε
+          
+          )
+        
+        
+        d
+        x
+        ,
+      
+    
+    {\displaystyle k(x,y;t)=\int _{x(0)=x}^{x(t)=y}\prod _{t}\exp \left(-{\tfrac {1}{2}}\left({\frac {x(t+\varepsilon )-x(t)}{\varepsilon }}\right)^{2}\varepsilon \right)\,dx,}
+  where the dx is interpreted as a finite collection of integrations at each integer multiple of ε. each factor in the product is a gaussian as a function of x(t + ε) centered at x(t) with variance ε. the multiple integrals are a repeated convolution of this gaussian gε with copies of itself at adjacent times:
+
+  
+    
+      
+        k
+        (
+        x
+        −
+        y
+        ;
+        t
+        )
+        =
+        
+          g
+          
+            ε
+          
+        
+        ∗
+        
+          g
+          
+            ε
+          
+        
+        ∗
+        ⋯
+        ∗
+        
+          g
+          
+            ε
+          
+        
+        ,
+      
+    
+    {\displaystyle k(x-y;t)=g_{\varepsilon }*g_{\varepsilon }*\cdots *g_{\varepsilon },}
+  where the number of convolutions is t/ε. the result is easy to evaluate by taking the fourier transform of both sides, so that the convolutions become multiplications:
+
+  
+    
+      
+        
+          
+            
+              k
+              ~
+            
+          
+        
+        (
+        p
+        ;
+        t
+        )
+        =
+        
+          
+            
+              
+                g
+                ~
+              
+            
+          
+          
+            ε
+          
+        
+        (
+        p
+        
+          )
+          
+            t
+            
+              /
+            
+            ε
+          
+        
+        .
+      
+    
+    {\displaystyle {\tilde {k}}(p;t)={\tilde {g}}_{\varepsilon }(p)^{t/\varepsilon }.}
+  the fourier transform of the gaussian g is another gaussian of reciprocal variance:
+
+  
+    
+      
+        
+          
+            
+              
+                g
+                ~
+              
+            
+          
+          
+            ε
+          
+        
+        (
+        p
+        )
+        =
+        
+          e
+          
+            −
+            
+              
+                
+                  ε
+                  
+                    p
+                    
+                      2
+                    
+                  
+                
+                2
+              
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle {\tilde {g}}_{\varepsilon }(p)=e^{-{\frac {\varepsilon p^{2}}{2}}},}
+  and the result is
+
+  
+    
+      
+        
+          
+            
+              k
+              ~
+            
+          
+        
+        (
+        p
+        ;
+        t
+        )
+        =
+        
+          e
+          
+            −
+            
+              
+                
+                  t
+                  
+                    p
+                    
+                      2
+                    
+                  
+                
+                2
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle {\tilde {k}}(p;t)=e^{-{\frac {tp^{2}}{2}}}.}
+  the fourier transform gives k, and it is a gaussian again with reciprocal variance:
+
+  
+    
+      
+        k
+        (
+        x
+        −
+        y
+        ;
+        t
+        )
+        ∝
+        
+          e
+          
+            −
+            
+              
+                
+                  (
+                  x
+                  −
+                  y
+                  
+                    )
+                    
+                      2
+                    
+                  
+                
+                
+                  2
+                  t
+                
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle k(x-y;t)\propto e^{-{\frac {(x-y)^{2}}{2t}}}.}
+  the proportionality constant is not really determined by the time-slicing approach, only the ratio of values for different endpoint choices is determined. the proportionality constant should be chosen to ensure that between each two time slices the time evolution is quantum-mechanically unitary, but a more illuminating way to fix the normalization is to consider the path integral as a description of a stochastic process.
+the result has a probability interpretation. the sum over all paths of the exponential factor can be seen as the sum over each path of the probability of selecting that path. the probability is the product over each segment of the probability of selecting that segment, so that each segment is probabilistically independently chosen. the fact that the answer is a gaussian spreading linearly in time is the central limit theorem, which can be interpreted as the first historical evaluation of a statistical path integral.
+the probability interpretation gives a natural normalization choice. the path integral should be defined so that
+
+  
+    
+      
+        ∫
+        k
+        (
+        x
+        −
+        y
+        ;
+        t
+        )
+        
+        d
+        y
+        =
+        1.
+      
+    
+    {\displaystyle \int k(x-y;t)\,dy=1.}
+  this condition normalizes the gaussian and produces a kernel that obeys the diffusion equation:
+
+  
+    
+      
+        
+          
+            d
+            
+              d
+              t
+            
+          
+        
+        k
+        (
+        x
+        ;
+        t
+        )
+        =
+        
+          
+            
+              ∇
+              
+                2
+              
+            
+            2
+          
+        
+        k
+        .
+      
+    
+    {\displaystyle {\frac {d}{dt}}k(x;t)={\frac {\nabla ^{2}}{2}}k.}
+  for oscillatory path integrals, ones with an i in the numerator, the time slicing produces convolved gaussians, just as before. now, however, the convolution product is marginally singular, since it requires careful limits to evaluate the oscillating integrals. to make the factors well defined, the easiest way is to add a small imaginary part to the time increment ε. this is closely related to wick rotation. then the same convolution argument as before gives the propagation kernel:
+
+  
+    
+      
+        k
+        (
+        x
+        −
+        y
+        ;
+        t
+        )
+        ∝
+        
+          e
+          
+            
+              
+                i
+                (
+                x
+                −
+                y
+                
+                  )
+                  
+                    2
+                  
+                
+              
+              
+                2
+                t
+              
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle k(x-y;t)\propto e^{\frac {i(x-y)^{2}}{2t}},}
+  which, with the same normalization as before (not the sum-squares normalization – this function has a divergent norm), obeys a free schrödinger equation:
+
+  
+    
+      
+        
+          
+            d
+            
+              d
+              t
+            
+          
+        
+        k
+        (
+        x
+        ;
+        t
+        )
+        =
+        i
+        
+          
+            
+              ∇
+              
+                2
+              
+            
+            2
+          
+        
+        k
+        .
+      
+    
+    {\displaystyle {\frac {d}{dt}}k(x;t)=i{\frac {\nabla ^{2}}{2}}k.}
+  this means that any superposition of ks will also obey the same equation, by linearity. defining
+
+  
+    
+      
+        
+          ψ
+          
+            t
+          
+        
+        (
+        y
+        )
+        =
+        ∫
+        
+          ψ
+          
+            0
+          
+        
+        (
+        x
+        )
+        k
+        (
+        x
+        −
+        y
+        ;
+        t
+        )
+        
+        d
+        x
+        =
+        ∫
+        
+          ψ
+          
+            0
+          
+        
+        (
+        x
+        )
+        
+          ∫
+          
+            x
+            (
+            0
+            )
+            =
+            x
+          
+          
+            x
+            (
+            t
+            )
+            =
+            y
+          
+        
+        
+          e
+          
+            i
+            s
+          
+        
+        
+        d
+        x
+        ,
+      
+    
+    {\displaystyle \psi _{t}(y)=\int \psi _{0}(x)k(x-y;t)\,dx=\int \psi _{0}(x)\int _{x(0)=x}^{x(t)=y}e^{is}\,dx,}
+  then ψt obeys the free schrödinger equation just as k does:
+
+  
+    
+      
+        i
+        
+          
+            ∂
+            
+              ∂
+              t
+            
+          
+        
+        
+          ψ
+          
+            t
+          
+        
+        =
+        −
+        
+          
+            
+              ∇
+              
+                2
+              
+            
+            2
+          
+        
+        
+          ψ
+          
+            t
+          
+        
+        .
+      
+    
+    {\displaystyle i{\frac {\partial }{\partial t}}\psi _{t}=-{\frac {\nabla ^{2}}{2}}\psi _{t}.}
+  
+
+
+=== simple harmonic oscillator ===
+the lagrangian for the simple harmonic oscillator is
+
+  
+    
+      
+        
+          
+            l
+          
+        
+        =
+        
+          
+            
+              1
+              2
+            
+          
+        
+        m
+        
+          
+            
+              
+                x
+                ˙
+              
+            
+          
+          
+            2
+          
+        
+        −
+        
+          
+            
+              1
+              2
+            
+          
+        
+        m
+        
+          ω
+          
+            2
+          
+        
+        
+          x
+          
+            2
+          
+        
+        .
+      
+    
+    {\displaystyle {\mathcal {l}}={\tfrac {1}{2}}m{\dot {x}}^{2}-{\tfrac {1}{2}}m\omega ^{2}x^{2}.}
+  write its trajectory x(t) as the classical trajectory plus some perturbation, x(t) = xc(t) + δx(t) and the action as s = sc + δs. the classical trajectory can be written as
+
+  
+    
+      
+        
+          x
+          
+            c
+          
+        
+        (
+        t
+        )
+        =
+        
+          x
+          
+            i
+          
+        
+        
+          
+            
+              sin
+              ⁡
+              ω
+              (
+              
+                t
+                
+                  f
+                
+              
+              −
+              t
+              )
+            
+            
+              sin
+              ⁡
+              ω
+              (
+              
+                t
+                
+                  f
+                
+              
+              −
+              
+                t
+                
+                  i
+                
+              
+              )
+            
+          
+        
+        +
+        
+          x
+          
+            f
+          
+        
+        
+          
+            
+              sin
+              ⁡
+              ω
+              (
+              t
+              −
+              
+                t
+                
+                  i
+                
+              
+              )
+            
+            
+              sin
+              ⁡
+              ω
+              (
+              
+                t
+                
+                  f
+                
+              
+              −
+              
+                t
+                
+                  i
+                
+              
+              )
+            
+          
+        
+        .
+      
+    
+    {\displaystyle x_{\text{c}}(t)=x_{i}{\frac {\sin \omega (t_{f}-t)}{\sin \omega (t_{f}-t_{i})}}+x_{f}{\frac {\sin \omega (t-t_{i})}{\sin \omega (t_{f}-t_{i})}}.}
+  this trajectory yields the classical action
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  s
+                  
+                    c
+                  
+                
+              
+              
+                
+                =
+                
+                  ∫
+                  
+                    
+                      t
+                      
+                        i
+                      
+                    
+                  
+                  
+                    
+                      t
+                      
+                        f
+                      
+                    
+                  
+                
+                
+                  
+                    l
+                  
+                
+                
+                d
+                t
+                =
+                
+                  ∫
+                  
+                    
+                      t
+                      
+                        i
+                      
+                    
+                  
+                  
+                    
+                      t
+                      
+                        f
+                      
+                    
+                  
+                
+                
+                  (
+                  
+                    
+                      
+                        
+                          1
+                          2
+                        
+                      
+                    
+                    m
+                    
+                      
+                        
+                          
+                            x
+                            ˙
+                          
+                        
+                      
+                      
+                        2
+                      
+                    
+                    −
+                    
+                      
+                        
+                          1
+                          2
+                        
+                      
+                    
+                    m
+                    
+                      ω
+                      
+                        2
+                      
+                    
+                    
+                      x
+                      
+                        2
+                      
+                    
+                  
+                  )
+                
+                
+                d
+                t
+              
+            
+            
+              
+              
+                
+                =
+                
+                  
+                    1
+                    2
+                  
+                
+                m
+                ω
+                
+                  (
+                  
+                    
+                      
+                        (
+                        
+                          x
+                          
+                            i
+                          
+                          
+                            2
+                          
+                        
+                        +
+                        
+                          x
+                          
+                            f
+                          
+                          
+                            2
+                          
+                        
+                        )
+                        cos
+                        ⁡
+                        ω
+                        (
+                        
+                          t
+                          
+                            f
+                          
+                        
+                        −
+                        
+                          t
+                          
+                            i
+                          
+                        
+                        )
+                        −
+                        2
+                        
+                          x
+                          
+                            i
+                          
+                        
+                        
+                          x
+                          
+                            f
+                          
+                        
+                      
+                      
+                        sin
+                        ⁡
+                        ω
+                        (
+                        
+                          t
+                          
+                            f
+                          
+                        
+                        −
+                        
+                          t
+                          
+                            i
+                          
+                        
+                        )
+                      
+                    
+                  
+                  )
+                
+                 
+                .
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}s_{\text{c}}&=\int _{t_{i}}^{t_{f}}{\mathcal {l}}\,dt=\int _{t_{i}}^{t_{f}}\left({\tfrac {1}{2}}m{\dot {x}}^{2}-{\tfrac {1}{2}}m\omega ^{2}x^{2}\right)\,dt\\[6pt]&={\frac {1}{2}}m\omega \left({\frac {(x_{i}^{2}+x_{f}^{2})\cos \omega (t_{f}-t_{i})-2x_{i}x_{f}}{\sin \omega (t_{f}-t_{i})}}\right)~.\end{aligned}}}
+  next, expand the deviation from the classical path as a fourier series, and calculate the contribution to the action δs, which gives
+
+  
+    
+      
+        s
+        =
+        
+          s
+          
+            c
+          
+        
+        +
+        
+          ∑
+          
+            n
+            =
+            1
+          
+          
+            ∞
+          
+        
+        
+          
+            
+              1
+              2
+            
+          
+        
+        
+          a
+          
+            n
+          
+          
+            2
+          
+        
+        
+          
+            m
+            2
+          
+        
+        
+          (
+          
+            
+              
+                
+                  (
+                  n
+                  π
+                  
+                    )
+                    
+                      2
+                    
+                  
+                
+                
+                  
+                    t
+                    
+                      f
+                    
+                  
+                  −
+                  
+                    t
+                    
+                      i
+                    
+                  
+                
+              
+            
+            −
+            
+              ω
+              
+                2
+              
+            
+            (
+            
+              t
+              
+                f
+              
+            
+            −
+            
+              t
+              
+                i
+              
+            
+            )
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle s=s_{\text{c}}+\sum _{n=1}^{\infty }{\tfrac {1}{2}}a_{n}^{2}{\frac {m}{2}}\left({\frac {(n\pi )^{2}}{t_{f}-t_{i}}}-\omega ^{2}(t_{f}-t_{i})\right).}
+  this means that the propagator is
+
+  
+    
+      
+        
+          
+            
+              
+                k
+                (
+                
+                  x
+                  
+                    f
+                  
+                
+                ,
+                
+                  t
+                  
+                    f
+                  
+                
+                ;
+                
+                  x
+                  
+                    i
+                  
+                
+                ,
+                
+                  t
+                  
+                    i
+                  
+                
+                )
+              
+              
+                
+                =
+                q
+                
+                  e
+                  
+                    
+                      
+                        i
+                        
+                          s
+                          
+                            c
+                          
+                        
+                      
+                      ℏ
+                    
+                  
+                
+                
+                  ∏
+                  
+                    j
+                    =
+                    1
+                  
+                  
+                    ∞
+                  
+                
+                
+                  
+                    
+                      j
+                      π
+                    
+                    
+                      2
+                    
+                  
+                
+                ∫
+                d
+                
+                  a
+                  
+                    j
+                  
+                
+                exp
+                ⁡
+                
+                  
+                    (
+                    
+                      
+                        
+                          i
+                          
+                            2
+                            ℏ
+                          
+                        
+                      
+                      
+                        a
+                        
+                          j
+                        
+                        
+                          2
+                        
+                      
+                      
+                        
+                          m
+                          2
+                        
+                      
+                      
+                        (
+                        
+                          
+                            
+                              
+                                (
+                                j
+                                π
+                                
+                                  )
+                                  
+                                    2
+                                  
+                                
+                              
+                              
+                                
+                                  t
+                                  
+                                    f
+                                  
+                                
+                                −
+                                
+                                  t
+                                  
+                                    i
+                                  
+                                
+                              
+                            
+                          
+                          −
+                          
+                            ω
+                            
+                              2
+                            
+                          
+                          (
+                          
+                            t
+                            
+                              f
+                            
+                          
+                          −
+                          
+                            t
+                            
+                              i
+                            
+                          
+                          )
+                        
+                        )
+                      
+                    
+                    )
+                  
+                
+              
+            
+            
+              
+              
+                
+                =
+                
+                  e
+                  
+                    
+                      
+                        i
+                        
+                          s
+                          
+                            c
+                          
+                        
+                      
+                      ℏ
+                    
+                  
+                
+                q
+                
+                  ∏
+                  
+                    j
+                    =
+                    1
+                  
+                  
+                    ∞
+                  
+                
+                
+                  
+                    (
+                    
+                      1
+                      −
+                      
+                        
+                          (
+                          
+                            
+                              
+                                ω
+                                (
+                                
+                                  t
+                                  
+                                    f
+                                  
+                                
+                                −
+                                
+                                  t
+                                  
+                                    i
+                                  
+                                
+                                )
+                              
+                              
+                                j
+                                π
+                              
+                            
+                          
+                          )
+                        
+                        
+                          2
+                        
+                      
+                    
+                    )
+                  
+                  
+                    −
+                    
+                      
+                        1
+                        2
+                      
+                    
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}k(x_{f},t_{f};x_{i},t_{i})&=qe^{\frac {is_{\text{c}}}{\hbar }}\prod _{j=1}^{\infty }{\frac {j\pi }{\sqrt {2}}}\int da_{j}\exp {\left({\frac {i}{2\hbar }}a_{j}^{2}{\frac {m}{2}}\left({\frac {(j\pi )^{2}}{t_{f}-t_{i}}}-\omega ^{2}(t_{f}-t_{i})\right)\right)}\\[6pt]&=e^{\frac {is_{\text{c}}}{\hbar }}q\prod _{j=1}^{\infty }\left(1-\left({\frac {\omega (t_{f}-t_{i})}{j\pi }}\right)^{2}\right)^{-{\frac {1}{2}}}\end{aligned}}}
+  for some normalization
+
+  
+    
+      
+        q
+        =
+        
+          
+            
+              m
+              
+                2
+                π
+                i
+                ℏ
+                (
+                
+                  t
+                  
+                    f
+                  
+                
+                −
+                
+                  t
+                  
+                    i
+                  
+                
+                )
+              
+            
+          
+        
+         
+        .
+      
+    
+    {\displaystyle q={\sqrt {\frac {m}{2\pi i\hbar (t_{f}-t_{i})}}}~.}
+  using the infinite-product representation of the sinc function,
+
+  
+    
+      
+        
+          ∏
+          
+            j
+            =
+            1
+          
+          
+            ∞
+          
+        
+        
+          (
+          
+            1
+            −
+            
+              
+                
+                  x
+                  
+                    2
+                  
+                
+                
+                  j
+                  
+                    2
+                  
+                
+              
+            
+          
+          )
+        
+        =
+        
+          
+            
+              sin
+              ⁡
+              π
+              x
+            
+            
+              π
+              x
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle \prod _{j=1}^{\infty }\left(1-{\frac {x^{2}}{j^{2}}}\right)={\frac {\sin \pi x}{\pi x}},}
+  the propagator can be written as
+
+  
+    
+      
+        k
+        (
+        
+          x
+          
+            f
+          
+        
+        ,
+        
+          t
+          
+            f
+          
+        
+        ;
+        
+          x
+          
+            i
+          
+        
+        ,
+        
+          t
+          
+            i
+          
+        
+        )
+        =
+        q
+        
+          e
+          
+            
+              
+                i
+                
+                  s
+                  
+                    c
+                  
+                
+              
+              ℏ
+            
+          
+        
+        
+          
+            
+              
+                ω
+                (
+                
+                  t
+                  
+                    f
+                  
+                
+                −
+                
+                  t
+                  
+                    i
+                  
+                
+                )
+              
+              
+                sin
+                ⁡
+                ω
+                (
+                
+                  t
+                  
+                    f
+                  
+                
+                −
+                
+                  t
+                  
+                    i
+                  
+                
+                )
+              
+            
+          
+        
+        =
+        
+          e
+          
+            
+              
+                i
+                
+                  s
+                  
+                    c
+                  
+                
+              
+              ℏ
+            
+          
+        
+        
+          
+            
+              
+                m
+                ω
+              
+              
+                2
+                π
+                i
+                ℏ
+                sin
+                ⁡
+                ω
+                (
+                
+                  t
+                  
+                    f
+                  
+                
+                −
+                
+                  t
+                  
+                    i
+                  
+                
+                )
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle k(x_{f},t_{f};x_{i},t_{i})=qe^{\frac {is_{\text{c}}}{\hbar }}{\sqrt {\frac {\omega (t_{f}-t_{i})}{\sin \omega (t_{f}-t_{i})}}}=e^{\frac {is_{c}}{\hbar }}{\sqrt {\frac {m\omega }{2\pi i\hbar \sin \omega (t_{f}-t_{i})}}}.}
+  let t = tf − ti.  one may write this propagator in terms of energy eigenstates as
+
+  
+    
+      
+        
+          
+            
+              
+                k
+                (
+                
+                  x
+                  
+                    f
+                  
+                
+                ,
+                
+                  t
+                  
+                    f
+                  
+                
+                ;
+                
+                  x
+                  
+                    i
+                  
+                
+                ,
+                
+                  t
+                  
+                    i
+                  
+                
+                )
+              
+              
+                
+                =
+                
+                  
+                    (
+                    
+                      
+                        
+                          m
+                          ω
+                        
+                        
+                          2
+                          π
+                          i
+                          ℏ
+                          sin
+                          ⁡
+                          ω
+                          t
+                        
+                      
+                    
+                    )
+                  
+                  
+                    
+                      1
+                      2
+                    
+                  
+                
+                exp
+                ⁡
+                
+                  
+                    (
+                    
+                      
+                        
+                          i
+                          ℏ
+                        
+                      
+                      
+                        
+                          
+                            1
+                            2
+                          
+                        
+                      
+                      m
+                      ω
+                      
+                        
+                          
+                            (
+                            
+                              x
+                              
+                                i
+                              
+                              
+                                2
+                              
+                            
+                            +
+                            
+                              x
+                              
+                                f
+                              
+                              
+                                2
+                              
+                            
+                            )
+                            cos
+                            ⁡
+                            ω
+                            t
+                            −
+                            2
+                            
+                              x
+                              
+                                i
+                              
+                            
+                            
+                              x
+                              
+                                f
+                              
+                            
+                          
+                          
+                            sin
+                            ⁡
+                            ω
+                            t
+                          
+                        
+                      
+                    
+                    )
+                  
+                
+              
+            
+            
+              
+              
+                
+                =
+                
+                  ∑
+                  
+                    n
+                    =
+                    0
+                  
+                  
+                    ∞
+                  
+                
+                exp
+                ⁡
+                
+                  
+                    (
+                    
+                      −
+                      
+                        
+                          
+                            i
+                            
+                              e
+                              
+                                n
+                              
+                            
+                            t
+                          
+                          ℏ
+                        
+                      
+                    
+                    )
+                  
+                
+                
+                  ψ
+                  
+                    n
+                  
+                
+                (
+                
+                  x
+                  
+                    f
+                  
+                
+                )
+                
+                  ψ
+                  
+                    n
+                  
+                
+                (
+                
+                  x
+                  
+                    i
+                  
+                
+                
+                  )
+                  
+                    ∗
+                  
+                
+                 
+                .
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}k(x_{f},t_{f};x_{i},t_{i})&=\left({\frac {m\omega }{2\pi i\hbar \sin \omega t}}\right)^{\frac {1}{2}}\exp {\left({\frac {i}{\hbar }}{\tfrac {1}{2}}m\omega {\frac {(x_{i}^{2}+x_{f}^{2})\cos \omega t-2x_{i}x_{f}}{\sin \omega t}}\right)}\\[6pt]&=\sum _{n=0}^{\infty }\exp {\left(-{\frac {ie_{n}t}{\hbar }}\right)}\psi _{n}(x_{f})\psi _{n}(x_{i})^{*}~.\end{aligned}}}
+  using the identities i sin ωt = 1/2eiωt (1 − e−2iωt) and cos ωt = 1/2eiωt (1 + e−2iωt), this amounts to
+
+  
+    
+      
+        k
+        (
+        
+          x
+          
+            f
+          
+        
+        ,
+        
+          t
+          
+            f
+          
+        
+        ;
+        
+          x
+          
+            i
+          
+        
+        ,
+        
+          t
+          
+            i
+          
+        
+        )
+        =
+        
+          
+            (
+            
+              
+                
+                  m
+                  ω
+                
+                
+                  π
+                  ℏ
+                
+              
+            
+            )
+          
+          
+            
+              1
+              2
+            
+          
+        
+        
+          e
+          
+            
+              
+                −
+                i
+                ω
+                t
+              
+              2
+            
+          
+        
+        
+          
+            (
+            
+              1
+              −
+              
+                e
+                
+                  −
+                  2
+                  i
+                  ω
+                  t
+                
+              
+            
+            )
+          
+          
+            −
+            
+              
+                1
+                2
+              
+            
+          
+        
+        exp
+        ⁡
+        
+          
+            (
+            
+              −
+              
+                
+                  
+                    m
+                    ω
+                  
+                  
+                    2
+                    ℏ
+                  
+                
+              
+              
+                (
+                
+                  
+                    (
+                    
+                      
+                        x
+                        
+                          i
+                        
+                        
+                          2
+                        
+                      
+                      +
+                      
+                        x
+                        
+                          f
+                        
+                        
+                          2
+                        
+                      
+                    
+                    )
+                  
+                  
+                    
+                      
+                        1
+                        +
+                        
+                          e
+                          
+                            −
+                            2
+                            i
+                            ω
+                            t
+                          
+                        
+                      
+                      
+                        1
+                        −
+                        
+                          e
+                          
+                            −
+                            2
+                            i
+                            ω
+                            t
+                          
+                        
+                      
+                    
+                  
+                  −
+                  
+                    
+                      
+                        4
+                        
+                          x
+                          
+                            i
+                          
+                        
+                        
+                          x
+                          
+                            f
+                          
+                        
+                        
+                          e
+                          
+                            −
+                            i
+                            ω
+                            t
+                          
+                        
+                      
+                      
+                        1
+                        −
+                        
+                          e
+                          
+                            −
+                            2
+                            i
+                            ω
+                            t
+                          
+                        
+                      
+                    
+                  
+                
+                )
+              
+            
+            )
+          
+        
+        .
+      
+    
+    {\displaystyle k(x_{f},t_{f};x_{i},t_{i})=\left({\frac {m\omega }{\pi \hbar }}\right)^{\frac {1}{2}}e^{\frac {-i\omega t}{2}}\left(1-e^{-2i\omega t}\right)^{-{\frac {1}{2}}}\exp {\left(-{\frac {m\omega }{2\hbar }}\left(\left(x_{i}^{2}+x_{f}^{2}\right){\frac {1+e^{-2i\omega t}}{1-e^{-2i\omega t}}}-{\frac {4x_{i}x_{f}e^{-i\omega t}}{1-e^{-2i\omega t}}}\right)\right)}.}
+  one may absorb all terms after the first e−iωt/2 into r(t), thereby  obtaining
+
+  
+    
+      
+        k
+        (
+        
+          x
+          
+            f
+          
+        
+        ,
+        
+          t
+          
+            f
+          
+        
+        ;
+        
+          x
+          
+            i
+          
+        
+        ,
+        
+          t
+          
+            i
+          
+        
+        )
+        =
+        
+          
+            (
+            
+              
+                
+                  m
+                  ω
+                
+                
+                  π
+                  ℏ
+                
+              
+            
+            )
+          
+          
+            
+              1
+              2
+            
+          
+        
+        
+          e
+          
+            
+              
+                −
+                i
+                ω
+                t
+              
+              2
+            
+          
+        
+        ⋅
+        r
+        (
+        t
+        )
+        .
+      
+    
+    {\displaystyle k(x_{f},t_{f};x_{i},t_{i})=\left({\frac {m\omega }{\pi \hbar }}\right)^{\frac {1}{2}}e^{\frac {-i\omega t}{2}}\cdot r(t).}
+  one may  finally expand r(t) in  powers of e−iωt: all  terms in this expansion get multiplied by the e−iωt/2 factor in the front,  yielding terms  of the form
+
+  
+    
+      
+        
+          e
+          
+            
+              
+                −
+                i
+                ω
+                t
+              
+              2
+            
+          
+        
+        
+          e
+          
+            −
+            i
+            n
+            ω
+            t
+          
+        
+        =
+        
+          e
+          
+            −
+            i
+            ω
+            t
+            
+              (
+              
+                
+                  
+                    1
+                    2
+                  
+                
+                +
+                n
+              
+              )
+            
+          
+        
+        
+        
+          for 
+        
+        n
+        =
+        0
+        ,
+        1
+        ,
+        2
+        ,
+        …
+        .
+      
+    
+    {\displaystyle e^{\frac {-i\omega t}{2}}e^{-in\omega t}=e^{-i\omega t\left({\frac {1}{2}}+n\right)}\quad {\text{for }}n=0,1,2,\ldots .}
+  comparison  to the above eigenstate expansion  yields the  standard energy spectrum for the simple harmonic oscillator,
+
+  
+    
+      
+        
+          e
+          
+            n
+          
+        
+        =
+        
+          (
+          
+            n
+            +
+            
+              
+                
+                  1
+                  2
+                
+              
+            
+          
+          )
+        
+        ℏ
+        ω
+         
+        .
+      
+    
+    {\displaystyle e_{n}=\left(n+{\tfrac {1}{2}}\right)\hbar \omega ~.}
+  
+
+
+=== coulomb potential ===
+feynman's time-sliced approximation does not, however, exist for the most important quantum-mechanical path integrals of atoms, due to the singularity of the coulomb potential e2/r at the origin. only after replacing the time t by another path-dependent pseudo-time parameter
+
+  
+    
+      
+        s
+        =
+        ∫
+        
+          
+            
+              d
+              t
+            
+            
+              r
+              (
+              t
+              )
+            
+          
+        
+      
+    
+    {\displaystyle s=\int {\frac {dt}{r(t)}}}
+  the singularity is removed and a time-sliced approximation exists, which is exactly integrable, since it can be made harmonic by a simple coordinate transformation, as discovered in 1979 by i̇smail hakkı duru and hagen kleinert. the combination of a path-dependent time transformation and a coordinate transformation is an important tool to solve many path integrals and is called generically the duru–kleinert transformation.
+
+
+=== the schrödinger equation ===
+
+the path integral reproduces the schrödinger equation for the initial and final state even when a potential is present. this is easiest to see by taking a path-integral over infinitesimally separated times.
+
+  
+    
+      
+        ψ
+        (
+        y
+        ;
+        t
+        +
+        ε
+        )
+        =
+        
+          ∫
+          
+            −
+            ∞
+          
+          
+            ∞
+          
+        
+        ψ
+        (
+        x
+        ;
+        t
+        )
+        
+          ∫
+          
+            x
+            (
+            t
+            )
+            =
+            x
+          
+          
+            x
+            (
+            t
+            +
+            ε
+            )
+            =
+            y
+          
+        
+        
+          e
+          
+            i
+            
+              ∫
+              
+                t
+              
+              
+                t
+                +
+                ε
+              
+            
+            
+              
+                (
+              
+            
+            
+              
+                1
+                2
+              
+            
+            
+              
+                
+                  
+                    x
+                    ˙
+                  
+                
+              
+              
+                2
+              
+            
+            −
+            v
+            (
+            x
+            )
+            
+              
+                )
+              
+            
+            d
+            t
+          
+        
+        d
+        x
+        (
+        t
+        )
+        
+        d
+        x
+        
+        (
+        1
+        )
+      
+    
+    {\displaystyle \psi (y;t+\varepsilon )=\int _{-\infty }^{\infty }\psi (x;t)\int _{x(t)=x}^{x(t+\varepsilon )=y}e^{i\int _{t}^{t+\varepsilon }{\bigl (}{\frac {1}{2}}{\dot {x}}^{2}-v(x){\bigr )}dt}dx(t)\,dx\qquad (1)}
+  since the time separation is infinitesimal and the cancelling oscillations become severe for large values of ẋ, the path integral has most weight for y close to x. in this case, to lowest order the potential energy is constant, and only the kinetic energy contribution is nontrivial. (this separation of the kinetic and potential energy terms in the exponent is essentially the trotter product formula.) the exponential of the action is
+
+  
+    
+      
+        
+          e
+          
+            −
+            i
+            ε
+            v
+            (
+            x
+            )
+          
+        
+        
+          e
+          
+            i
+            
+              
+                
+                  
+                    
+                      
+                        x
+                        ˙
+                      
+                    
+                  
+                  
+                    2
+                  
+                
+                2
+              
+            
+            ε
+          
+        
+      
+    
+    {\displaystyle e^{-i\varepsilon v(x)}e^{i{\frac {{\dot {x}}^{2}}{2}}\varepsilon }}
+  the first term rotates the phase of ψ(x) locally by an amount proportional to the potential energy. the second term is the free particle propagator, corresponding to i times a diffusion process. to lowest order in ε they are additive; in any case one has with (1):
+
+  
+    
+      
+        ψ
+        (
+        y
+        ;
+        t
+        +
+        ε
+        )
+        ≈
+        ∫
+        ψ
+        (
+        x
+        ;
+        t
+        )
+        
+          e
+          
+            −
+            i
+            ε
+            v
+            (
+            x
+            )
+          
+        
+        
+          e
+          
+            
+              
+                i
+                (
+                x
+                −
+                y
+                
+                  )
+                  
+                    2
+                  
+                
+              
+              
+                2
+                ε
+              
+            
+          
+        
+        
+        d
+        x
+        
+        .
+      
+    
+    {\displaystyle \psi (y;t+\varepsilon )\approx \int \psi (x;t)e^{-i\varepsilon v(x)}e^{\frac {i(x-y)^{2}}{2\varepsilon }}\,dx\,.}
+  as mentioned, the spread in ψ is diffusive from the free particle propagation, with an extra infinitesimal rotation in phase which slowly varies from point to point from the potential:
+
+  
+    
+      
+        
+          
+            
+              ∂
+              ψ
+            
+            
+              ∂
+              t
+            
+          
+        
+        =
+        i
+        ⋅
+        
+          (
+          
+            
+              
+                
+                  1
+                  2
+                
+              
+            
+            
+              ∇
+              
+                2
+              
+            
+            −
+            v
+            (
+            x
+            )
+          
+          )
+        
+        ψ
+        
+      
+    
+    {\displaystyle {\frac {\partial \psi }{\partial t}}=i\cdot \left({\tfrac {1}{2}}\nabla ^{2}-v(x)\right)\psi \,}
+  and this is the schrödinger equation. the normalization of the path integral needs to be fixed in exactly the same way as in the free particle case. an arbitrary continuous potential does not affect the normalization, although singular potentials require careful treatment.
+
+
+=== equations of motion ===
+since the states obey the schrödinger equation, the path integral must reproduce the heisenberg equations of motion for the averages of x and  ẋ variables, but it is instructive to see this directly. the direct approach shows that the expectation values calculated from the path integral reproduce the usual ones of quantum mechanics.
+start by considering the path integral with some fixed initial state
+
+  
+    
+      
+        ∫
+        
+          ψ
+          
+            0
+          
+        
+        (
+        x
+        )
+        
+          ∫
+          
+            x
+            (
+            0
+            )
+            =
+            x
+          
+        
+        
+          e
+          
+            i
+            s
+            (
+            x
+            ,
+            
+              
+                
+                  x
+                  ˙
+                
+              
+            
+            )
+          
+        
+        
+        d
+        x
+        
+      
+    
+    {\displaystyle \int \psi _{0}(x)\int _{x(0)=x}e^{is(x,{\dot {x}})}\,dx\,}
+  now x(t) at each separate time is a separate integration variable. so it is legitimate to change variables in the integral by shifting: x(t) = u(t) + ε(t) where ε(t) is a different shift at each time but ε(0) = ε(t) = 0, since the endpoints are not integrated:
+
+  
+    
+      
+        ∫
+        
+          ψ
+          
+            0
+          
+        
+        (
+        x
+        )
+        
+          ∫
+          
+            u
+            (
+            0
+            )
+            =
+            x
+          
+        
+        
+          e
+          
+            i
+            s
+            (
+            u
+            +
+            ε
+            ,
+            
+              
+                
+                  u
+                  ˙
+                
+              
+            
+            +
+            
+              
+                
+                  ε
+                  ˙
+                
+              
+            
+            )
+          
+        
+        
+        d
+        u
+        
+      
+    
+    {\displaystyle \int \psi _{0}(x)\int _{u(0)=x}e^{is(u+\varepsilon ,{\dot {u}}+{\dot {\varepsilon }})}\,du\,}
+  the change in the integral from the shift is, to first infinitesimal order in ε:
+
+  
+    
+      
+        ∫
+        
+          ψ
+          
+            0
+          
+        
+        (
+        x
+        )
+        
+          ∫
+          
+            u
+            (
+            0
+            )
+            =
+            x
+          
+        
+        
+          (
+          
+            ∫
+            
+              
+                
+                  ∂
+                  s
+                
+                
+                  ∂
+                  u
+                
+              
+            
+            ε
+            +
+            
+              
+                
+                  ∂
+                  s
+                
+                
+                  ∂
+                  
+                    
+                      
+                        u
+                        ˙
+                      
+                    
+                  
+                
+              
+            
+            
+              
+                
+                  ε
+                  ˙
+                
+              
+            
+            
+            d
+            t
+          
+          )
+        
+        
+          e
+          
+            i
+            s
+          
+        
+        
+        d
+        u
+        
+      
+    
+    {\displaystyle \int \psi _{0}(x)\int _{u(0)=x}\left(\int {\frac {\partial s}{\partial u}}\varepsilon +{\frac {\partial s}{\partial {\dot {u}}}}{\dot {\varepsilon }}\,dt\right)e^{is}\,du\,}
+  which, integrating by parts in t, gives:
+
+  
+    
+      
+        ∫
+        
+          ψ
+          
+            0
+          
+        
+        (
+        x
+        )
+        
+          ∫
+          
+            u
+            (
+            0
+            )
+            =
+            x
+          
+        
+        −
+        
+          (
+          
+            ∫
+            
+              (
+              
+                
+                  
+                    d
+                    
+                      d
+                      t
+                    
+                  
+                
+                
+                  
+                    
+                      ∂
+                      s
+                    
+                    
+                      ∂
+                      
+                        
+                          
+                            u
+                            ˙
+                          
+                        
+                      
+                    
+                  
+                
+                −
+                
+                  
+                    
+                      ∂
+                      s
+                    
+                    
+                      ∂
+                      u
+                    
+                  
+                
+              
+              )
+            
+            ε
+            (
+            t
+            )
+            
+            d
+            t
+          
+          )
+        
+        
+          e
+          
+            i
+            s
+          
+        
+        
+        d
+        u
+        
+      
+    
+    {\displaystyle \int \psi _{0}(x)\int _{u(0)=x}-\left(\int \left({\frac {d}{dt}}{\frac {\partial s}{\partial {\dot {u}}}}-{\frac {\partial s}{\partial u}}\right)\varepsilon (t)\,dt\right)e^{is}\,du\,}
+  but this was just a shift of integration variables, which doesn't change the value of the integral for any choice of ε(t). the conclusion is that this first order variation is zero for an arbitrary initial state and at any arbitrary point in time:
+
+  
+    
+      
+        
+          ⟨
+          
+            
+              ψ
+              
+                0
+              
+            
+            
+              |
+              
+                
+                  
+                    
+                      δ
+                      s
+                    
+                    
+                      δ
+                      x
+                    
+                  
+                
+                (
+                t
+                )
+              
+              |
+            
+            
+              ψ
+              
+                0
+              
+            
+          
+          ⟩
+        
+        =
+        0
+      
+    
+    {\displaystyle \left\langle \psi _{0}\left|{\frac {\delta s}{\delta x}}(t)\right|\psi _{0}\right\rangle =0}
+  this is the heisenberg equation of motion.
+if the action contains terms which multiply ẋ and x, at the same moment in time, the manipulations above are only heuristic, because the multiplication rules for these quantities is just as noncommuting in the path integral as it is in the operator formalism.
+
+
+=== stationary-phase approximation ===
+if the variation in the action exceeds ħ by many orders of magnitude, we typically have destructive interference other than in the vicinity of those trajectories satisfying the euler–lagrange equation, which is now reinterpreted as the condition for constructive interference. this can be shown using the method of stationary phase applied to the propagator. as ħ decreases, the exponential in the integral oscillates rapidly in the complex domain for any change in the action. thus, in the limit that ħ goes to zero, only points where the classical action does not vary contribute to the propagator.
+
+
+=== canonical commutation relations ===
+the formulation of the path integral does not make it clear at first sight that the quantities x and p do not commute. in the path integral, these are just integration variables and they have no obvious ordering. feynman discovered that the non-commutativity is still present.to see this, consider the simplest path integral, the brownian walk. this is not yet quantum mechanics, so in the path-integral the action is not multiplied by i:
+
+  
+    
+      
+        s
+        =
+        ∫
+        
+          
+            (
+            
+              
+                
+                  d
+                  x
+                
+                
+                  d
+                  t
+                
+              
+            
+            )
+          
+          
+            2
+          
+        
+        
+        d
+        t
+      
+    
+    {\displaystyle s=\int \left({\frac {dx}{dt}}\right)^{2}\,dt}
+  the quantity x(t) is fluctuating, and the derivative is defined as the limit of a discrete difference.
+
+  
+    
+      
+        
+          
+            
+              d
+              x
+            
+            
+              d
+              t
+            
+          
+        
+        =
+        
+          
+            
+              x
+              (
+              t
+              +
+              ε
+              )
+              −
+              x
+              (
+              t
+              )
+            
+            ε
+          
+        
+      
+    
+    {\displaystyle {\frac {dx}{dt}}={\frac {x(t+\varepsilon )-x(t)}{\varepsilon }}}
+  the distance that a random walk moves is proportional to √t, so that:
+
+  
+    
+      
+        x
+        (
+        t
+        +
+        ε
+        )
+        −
+        x
+        (
+        t
+        )
+        ≈
+        
+          
+            ε
+          
+        
+      
+    
+    {\displaystyle x(t+\varepsilon )-x(t)\approx {\sqrt {\varepsilon }}}
+  this shows that the random walk is not differentiable, since the ratio that defines the derivative diverges with probability one.
+the quantity xẋ is ambiguous, with two possible meanings:
+
+  
+    
+      
+        [
+        1
+        ]
+        =
+        x
+        
+          
+            
+              d
+              x
+            
+            
+              d
+              t
+            
+          
+        
+        =
+        x
+        (
+        t
+        )
+        
+          
+            
+              x
+              (
+              t
+              +
+              ε
+              )
+              −
+              x
+              (
+              t
+              )
+            
+            ε
+          
+        
+      
+    
+    {\displaystyle [1]=x{\frac {dx}{dt}}=x(t){\frac {x(t+\varepsilon )-x(t)}{\varepsilon }}}
+  
+  
+    
+      
+        [
+        2
+        ]
+        =
+        x
+        
+          
+            
+              d
+              x
+            
+            
+              d
+              t
+            
+          
+        
+        =
+        x
+        (
+        t
+        +
+        ε
+        )
+        
+          
+            
+              x
+              (
+              t
+              +
+              ε
+              )
+              −
+              x
+              (
+              t
+              )
+            
+            ε
+          
+        
+      
+    
+    {\displaystyle [2]=x{\frac {dx}{dt}}=x(t+\varepsilon ){\frac {x(t+\varepsilon )-x(t)}{\varepsilon }}}
+  in elementary calculus, the two are only different by an amount which goes to 0 as ε goes to 0. but in this case, the difference between the two is not 0:
+
+  
+    
+      
+        [
+        2
+        ]
+        −
+        [
+        1
+        ]
+        =
+        
+          
+            
+              
+                
+                  (
+                
+              
+              x
+              (
+              t
+              +
+              ε
+              )
+              −
+              x
+              (
+              t
+              )
+              
+                
+                  
+                    )
+                  
+                
+                
+                  2
+                
+              
+            
+            ε
+          
+        
+        ≈
+        
+          
+            ε
+            ε
+          
+        
+      
+    
+    {\displaystyle [2]-[1]={\frac {{\big (}x(t+\varepsilon )-x(t){\big )}^{2}}{\varepsilon }}\approx {\frac {\varepsilon }{\varepsilon }}}
+  let
+
+  
+    
+      
+        f
+        (
+        t
+        )
+        =
+        
+          
+            
+              
+                
+                  (
+                
+              
+              x
+              (
+              t
+              +
+              ε
+              )
+              −
+              x
+              (
+              t
+              )
+              
+                
+                  
+                    )
+                  
+                
+                
+                  2
+                
+              
+            
+            ε
+          
+        
+      
+    
+    {\displaystyle f(t)={\frac {{\big (}x(t+\varepsilon )-x(t){\big )}^{2}}{\varepsilon }}}
+  then f(t) is a rapidly fluctuating statistical quantity, whose average value is 1, i.e. a normalized "gaussian process". the fluctuations of such a quantity can be described by a statistical lagrangian
+
+  
+    
+      
+        
+          
+            l
+          
+        
+        =
+        (
+        f
+        (
+        t
+        )
+        −
+        1
+        
+          )
+          
+            2
+          
+        
+        
+        ,
+      
+    
+    {\displaystyle {\mathcal {l}}=(f(t)-1)^{2}\,,}
+  and the equations of motion for f derived from extremizing the action s corresponding to l just set it equal to 1. in physics, such a quantity is "equal to 1 as an operator identity". in mathematics, it "weakly converges to 1". in either case, it is 1 in any expectation value, or when averaged over any interval, or for all practical purpose.
+defining the time order to be the operator order:
+
+  
+    
+      
+        [
+        x
+        ,
+        
+          
+            
+              x
+              ˙
+            
+          
+        
+        ]
+        =
+        x
+        
+          
+            
+              d
+              x
+            
+            
+              d
+              t
+            
+          
+        
+        −
+        
+          
+            
+              d
+              x
+            
+            
+              d
+              t
+            
+          
+        
+        x
+        =
+        1
+      
+    
+    {\displaystyle [x,{\dot {x}}]=x{\frac {dx}{dt}}-{\frac {dx}{dt}}x=1}
+  this is called the itō lemma in stochastic calculus, and the (euclideanized) canonical commutation relations in physics.
+for a general statistical action, a similar argument shows that
+
+  
+    
+      
+        
+          [
+          
+            x
+            ,
+            
+              
+                
+                  ∂
+                  s
+                
+                
+                  ∂
+                  
+                    
+                      
+                        x
+                        ˙
+                      
+                    
+                  
+                
+              
+            
+          
+          ]
+        
+        =
+        1
+      
+    
+    {\displaystyle \left[x,{\frac {\partial s}{\partial {\dot {x}}}}\right]=1}
+  and in quantum mechanics, the extra imaginary unit in the action converts this to the canonical commutation relation,
+
+  
+    
+      
+        [
+        x
+        ,
+        p
+        ]
+        =
+        i
+      
+    
+    {\displaystyle [x,p]=i}
+  
+
+
+=== particle in curved space ===
+for a particle in curved space the kinetic term depends on the position, and the above time slicing cannot be applied, this being a manifestation of the notorious operator ordering problem in schrödinger quantum mechanics. one may, however, solve this problem by transforming the time-sliced flat-space path integral to curved space using a multivalued coordinate transformation (nonholonomic mapping explained here).
+
+
+=== measure-theoretic factors ===
+sometimes (e.g. a particle moving in curved space) we also have measure-theoretic factors in the functional integral:
+
+  
+    
+      
+        ∫
+        μ
+        [
+        x
+        ]
+        
+          e
+          
+            i
+            s
+            [
+            x
+            ]
+          
+        
+        
+        
+          
+            d
+          
+        
+        x
+        .
+      
+    
+    {\displaystyle \int \mu [x]e^{is[x]}\,{\mathcal {d}}x.}
+  this factor is needed to restore unitarity.
+for instance, if
+
+  
+    
+      
+        s
+        =
+        ∫
+        
+          (
+          
+            
+              
+                m
+                2
+              
+            
+            
+              g
+              
+                i
+                j
+              
+            
+            
+              
+                
+                  
+                    x
+                    ˙
+                  
+                
+              
+              
+                i
+              
+            
+            
+              
+                
+                  
+                    x
+                    ˙
+                  
+                
+              
+              
+                j
+              
+            
+            −
+            v
+            (
+            x
+            )
+          
+          )
+        
+        
+        d
+        t
+        ,
+      
+    
+    {\displaystyle s=\int \left({\frac {m}{2}}g_{ij}{\dot {x}}^{i}{\dot {x}}^{j}-v(x)\right)\,dt,}
+  then it means that each spatial slice is multiplied by the measure √g. this measure cannot be expressed as a functional multiplying the dx measure because they belong to entirely different classes.
+
+
+=== expectation values and matrix elements ===
+matrix elements of the kind 
+  
+    
+      
+        ⟨
+        
+          x
+          
+            f
+          
+        
+        
+          |
+        
+        
+          e
+          
+            −
+            
+              
+                i
+                ℏ
+              
+            
+            
+              
+                
+                  h
+                  ^
+                
+              
+            
+            (
+            t
+            −
+            
+              t
+              ′
+            
+            )
+          
+        
+        f
+        (
+        
+          
+            
+              x
+              ^
+            
+          
+        
+        )
+        
+          e
+          
+            −
+            
+              
+                i
+                ℏ
+              
+            
+            
+              
+                
+                  h
+                  ^
+                
+              
+            
+            (
+            
+              t
+              ′
+            
+            )
+          
+        
+        
+          |
+        
+        
+          x
+          
+            i
+          
+        
+        ⟩
+      
+    
+    {\displaystyle \langle x_{f}|e^{-{\frac {i}{\hbar }}{\hat {h}}(t-t')}f({\hat {x}})e^{-{\frac {i}{\hbar }}{\hat {h}}(t')}|x_{i}\rangle }
+   take the form
+
+  
+    
+      
+        
+          ∫
+          
+            x
+            (
+            0
+            )
+            =
+            
+              x
+              
+                i
+              
+            
+          
+          
+            x
+            (
+            t
+            )
+            =
+            
+              x
+              
+                f
+              
+            
+          
+        
+        
+          
+            d
+          
+        
+        [
+        x
+        ]
+        f
+        (
+        x
+        (
+        
+          t
+          ′
+        
+        )
+        )
+        
+          e
+          
+            
+              
+                i
+                ℏ
+              
+            
+            ∫
+            d
+            t
+            l
+            (
+            x
+            (
+            t
+            )
+            ,
+            
+              
+                
+                  x
+                  ˙
+                
+              
+            
+            (
+            t
+            )
+            )
+          
+        
+      
+    
+    {\displaystyle \int _{x(0)=x_{i}}^{x(t)=x_{f}}{\mathcal {d}}[x]f(x(t'))e^{{\frac {i}{\hbar }}\int dtl(x(t),{\dot {x}}(t))}}
+  .this generalizes to multiple operators, for example
+
+  
+    
+      
+        ⟨
+        
+          x
+          
+            f
+          
+        
+        
+          |
+        
+        
+          e
+          
+            −
+            
+              
+                i
+                ℏ
+              
+            
+            
+              
+                
+                  h
+                  ^
+                
+              
+            
+            (
+            t
+            −
+            
+              t
+              
+                1
+              
+            
+            )
+          
+        
+        
+          f
+          
+            1
+          
+        
+        (
+        
+          
+            
+              x
+              ^
+            
+          
+        
+        )
+        
+          e
+          
+            −
+            
+              
+                i
+                ℏ
+              
+            
+            
+              
+                
+                  h
+                  ^
+                
+              
+            
+            (
+            
+              t
+              
+                1
+              
+            
+            −
+            
+              t
+              
+                2
+              
+            
+            )
+          
+        
+        
+          f
+          
+            2
+          
+        
+        (
+        
+          
+            
+              x
+              ^
+            
+          
+        
+        )
+        
+          e
+          
+            −
+            
+              
+                i
+                ℏ
+              
+            
+            
+              
+                
+                  h
+                  ^
+                
+              
+            
+            (
+            
+              t
+              
+                2
+              
+            
+            )
+          
+        
+        
+          |
+        
+        
+          x
+          
+            i
+          
+        
+        ⟩
+        =
+        
+          ∫
+          
+            x
+            (
+            0
+            )
+            =
+            
+              x
+              
+                i
+              
+            
+          
+          
+            x
+            (
+            t
+            )
+            =
+            
+              x
+              
+                f
+              
+            
+          
+        
+        
+          
+            d
+          
+        
+        [
+        x
+        ]
+        
+          f
+          
+            1
+          
+        
+        (
+        x
+        (
+        
+          t
+          
+            1
+          
+        
+        )
+        )
+        
+          f
+          
+            2
+          
+        
+        (
+        x
+        (
+        
+          t
+          
+            2
+          
+        
+        )
+        )
+        
+          e
+          
+            
+              
+                i
+                ℏ
+              
+            
+            ∫
+            d
+            t
+            l
+            (
+            x
+            (
+            t
+            )
+            ,
+            
+              
+                
+                  x
+                  ˙
+                
+              
+            
+            (
+            t
+            )
+            )
+          
+        
+      
+    
+    {\displaystyle \langle x_{f}|e^{-{\frac {i}{\hbar }}{\hat {h}}(t-t_{1})}f_{1}({\hat {x}})e^{-{\frac {i}{\hbar }}{\hat {h}}(t_{1}-t_{2})}f_{2}({\hat {x}})e^{-{\frac {i}{\hbar }}{\hat {h}}(t_{2})}|x_{i}\rangle =\int _{x(0)=x_{i}}^{x(t)=x_{f}}{\mathcal {d}}[x]f_{1}(x(t_{1}))f_{2}(x(t_{2}))e^{{\frac {i}{\hbar }}\int dtl(x(t),{\dot {x}}(t))}}
+  ,and to the general expectation value
+
+  
+    
+      
+        ⟨
+        f
+        ⟩
+        =
+        
+          
+            
+              ∫
+              
+                
+                  d
+                
+              
+              [
+              ϕ
+              ]
+              f
+              (
+              ϕ
+              )
+              
+                e
+                
+                  
+                    
+                      i
+                      ℏ
+                    
+                  
+                  s
+                  [
+                  ϕ
+                  ]
+                
+              
+            
+            
+              ∫
+              
+                
+                  d
+                
+              
+              [
+              ϕ
+              ]
+              
+                e
+                
+                  
+                    
+                      i
+                      ℏ
+                    
+                  
+                  s
+                  [
+                  ϕ
+                  ]
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle \langle f\rangle ={\frac {\int {\mathcal {d}}[\phi ]f(\phi )e^{{\frac {i}{\hbar }}s[\phi ]}}{\int {\mathcal {d}}[\phi ]e^{{\frac {i}{\hbar }}s[\phi ]}}}}
+  .
+
+
+== euclidean path integrals ==
+it is very common in path integrals to perform a wick rotation from real to imaginary times. in the setting of quantum field theory, the wick rotation changes the geometry of space-time from lorentzian to euclidean; as a result, wick-rotated path integrals are often called euclidean path integrals.
+
+
+=== wick rotation and the feynman–kac formula ===
+if we replace 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   by 
+  
+    
+      
+        −
+        i
+        t
+      
+    
+    {\displaystyle -it}
+  , the time-evolution operator 
+  
+    
+      
+        
+          e
+          
+            −
+            i
+            t
+            
+              
+                
+                  h
+                  ^
+                
+              
+            
+            
+              /
+            
+            ℏ
+          
+        
+      
+    
+    {\displaystyle e^{-it{\hat {h}}/\hbar }}
+   is replaced by 
+  
+    
+      
+        
+          e
+          
+            −
+            t
+            
+              
+                
+                  h
+                  ^
+                
+              
+            
+            
+              /
+            
+            ℏ
+          
+        
+      
+    
+    {\displaystyle e^{-t{\hat {h}}/\hbar }}
+  . (this change is known as a wick rotation.) if we repeat the derivation of the path-integral formula in this setting, we obtain
+
+  
+    
+      
+        ψ
+        (
+        x
+        ,
+        t
+        )
+        =
+        
+          
+            1
+            z
+          
+        
+        
+          ∫
+          
+            
+              x
+            
+            (
+            0
+            )
+            =
+            x
+          
+        
+        
+          e
+          
+            −
+            
+              s
+              
+                
+                  e
+                  u
+                  c
+                  l
+                  i
+                  d
+                  e
+                  a
+                  n
+                
+              
+            
+            (
+            
+              x
+            
+            ,
+            
+              
+                
+                  
+                    x
+                  
+                  ˙
+                
+              
+            
+            )
+            
+              /
+            
+            ℏ
+          
+        
+        
+          ψ
+          
+            0
+          
+        
+        (
+        
+          x
+        
+        (
+        t
+        )
+        )
+        
+        
+          
+            d
+          
+        
+        
+          x
+        
+        
+      
+    
+    {\displaystyle \psi (x,t)={\frac {1}{z}}\int _{\mathbf {x} (0)=x}e^{-s_{\mathrm {euclidean} }(\mathbf {x} ,{\dot {\mathbf {x} }})/\hbar }\psi _{0}(\mathbf {x} (t))\,{\mathcal {d}}\mathbf {x} \,}
+  ,where 
+  
+    
+      
+        
+          s
+          
+            
+              e
+              u
+              c
+              l
+              i
+              d
+              e
+              a
+              n
+            
+          
+        
+      
+    
+    {\displaystyle s_{\mathrm {euclidean} }}
+   is the euclidean action, given by
+
+  
+    
+      
+        
+          s
+          
+            
+              e
+              u
+              c
+              l
+              i
+              d
+              e
+              a
+              n
+            
+          
+        
+        (
+        
+          x
+        
+        ,
+        
+          
+            
+              
+                x
+              
+              ˙
+            
+          
+        
+        )
+        =
+        ∫
+        
+          [
+          
+            
+              
+                m
+                2
+              
+            
+            
+              |
+            
+            
+              
+                
+                  
+                    x
+                  
+                  ˙
+                
+              
+            
+            (
+            t
+            )
+            
+              
+                |
+              
+              
+                2
+              
+            
+            +
+            v
+            (
+            
+              x
+            
+            (
+            t
+            )
+            )
+          
+          ]
+        
+        
+        d
+        t
+      
+    
+    {\displaystyle s_{\mathrm {euclidean} }(\mathbf {x} ,{\dot {\mathbf {x} }})=\int \left[{\frac {m}{2}}|{\dot {\mathbf {x} }}(t)|^{2}+v(\mathbf {x} (t))\right]\,dt}
+  .note the sign change between this and the normal action, where the potential energy term is negative. (the term euclidean is from the context of quantum field theory, where the change from real to imaginary time changes the space-time geometry from lorentzian to euclidean.)
+now, the contribution of the kinetic energy to the path integral is as follows:
+
+  
+    
+      
+        
+          
+            1
+            z
+          
+        
+        
+          ∫
+          
+            
+              x
+            
+            (
+            0
+            )
+            =
+            x
+          
+        
+        f
+        (
+        
+          x
+        
+        )
+        
+          e
+          
+            −
+            
+              
+                m
+                2
+              
+            
+            ∫
+            
+              |
+            
+            
+              
+                
+                  
+                    x
+                  
+                  ˙
+                
+              
+            
+            
+              
+                |
+              
+              
+                2
+              
+            
+            d
+            t
+          
+        
+        
+        
+          
+            d
+          
+        
+        
+          x
+        
+        
+      
+    
+    {\displaystyle {\frac {1}{z}}\int _{\mathbf {x} (0)=x}f(\mathbf {x} )e^{-{\frac {m}{2}}\int |{\dot {\mathbf {x} }}|^{2}dt}\,{\mathcal {d}}\mathbf {x} \,}
+  where 
+  
+    
+      
+        f
+        (
+        
+          x
+        
+        )
+      
+    
+    {\displaystyle f(\mathbf {x} )}
+   includes all the remaining dependence of the integrand on the path. this integral has a rigorous mathematical interpretation as integration against the wiener measure, denoted 
+  
+    
+      
+        
+          μ
+          
+            x
+          
+        
+      
+    
+    {\displaystyle \mu _{x}}
+  . the wiener measure, constructed by norbert wiener gives a rigorous foundation to einstein's mathematical model of brownian motion. the subscript 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   indicates that the measure 
+  
+    
+      
+        
+          μ
+          
+            x
+          
+        
+      
+    
+    {\displaystyle \mu _{x}}
+   is supported on paths 
+  
+    
+      
+        
+          x
+        
+      
+    
+    {\displaystyle \mathbf {x} }
+   with 
+  
+    
+      
+        
+          x
+        
+        (
+        0
+        )
+        =
+        x
+      
+    
+    {\displaystyle \mathbf {x} (0)=x}
+  .
+we then have a rigorous version of the feynman path integral, known as the feynman–kac formula:
+
+  
+    
+      
+        ψ
+        (
+        x
+        ,
+        t
+        )
+        =
+        ∫
+        
+          e
+          
+            −
+            ∫
+            v
+            (
+            
+              x
+            
+            (
+            t
+            )
+            
+            d
+            t
+            
+              /
+            
+            ℏ
+          
+        
+        
+        
+          ψ
+          
+            0
+          
+        
+        (
+        
+          x
+        
+        (
+        t
+        )
+        )
+        
+        d
+        
+          μ
+          
+            x
+          
+        
+        (
+        
+          x
+        
+        )
+      
+    
+    {\displaystyle \psi (x,t)=\int e^{-\int v(\mathbf {x} (t)\,dt/\hbar }\,\psi _{0}(\mathbf {x} (t))\,d\mu _{x}(\mathbf {x} )}
+  ,where now 
+  
+    
+      
+        ψ
+        (
+        x
+        ,
+        t
+        )
+      
+    
+    {\displaystyle \psi (x,t)}
+   satisfies the wick-rotated version of the schrödinger equation,
+
+  
+    
+      
+        ℏ
+        
+          
+            ∂
+            
+              ∂
+              t
+            
+          
+        
+        ψ
+        (
+        x
+        ,
+        t
+        )
+        =
+        −
+        
+          
+            
+              h
+              ^
+            
+          
+        
+        ψ
+        (
+        x
+        ,
+        t
+        )
+      
+    
+    {\displaystyle \hbar {\frac {\partial }{\partial t}}\psi (x,t)=-{\hat {h}}\psi (x,t)}
+  .although the wick-rotated schrödinger equation does not have a direct physical meaning, interesting properties of the schrödinger operator 
+  
+    
+      
+        
+          
+            
+              h
+              ^
+            
+          
+        
+      
+    
+    {\displaystyle {\hat {h}}}
+   can be extracted by studying it.much of the study of quantum field theories from the path-integral perspective, in both the mathematics and physics literatures, is done in the euclidean setting, that is, after a wick rotation. in particular, there are various results showing that if a euclidean field theory with suitable properties can be constructed, one can then undo the wick rotation to recover the physical, lorentzian theory. on the other hand, it is much more difficult to give a meaning to path integrals (even euclidean path integrals) in quantum field theory than in quantum mechanics.
+
+
+=== the path integral and the partition function ===
+the path integral is just the generalization of the integral above to all quantum mechanical problems—
+
+  
+    
+      
+        z
+        =
+        ∫
+        
+          e
+          
+            
+              
+                i
+                
+                  
+                    s
+                  
+                
+                [
+                
+                  x
+                
+                ]
+              
+              ℏ
+            
+          
+        
+        
+        
+          
+            d
+          
+        
+        
+          x
+        
+        
+        
+          where 
+        
+        
+          
+            s
+          
+        
+        [
+        
+          x
+        
+        ]
+        =
+        
+          ∫
+          
+            0
+          
+          
+            t
+          
+        
+        l
+        [
+        
+          x
+        
+        (
+        t
+        )
+        ,
+        
+          
+            
+              
+                x
+              
+              ˙
+            
+          
+        
+        (
+        t
+        )
+        ]
+        
+        d
+        t
+      
+    
+    {\displaystyle z=\int e^{\frac {i{\mathcal {s}}[\mathbf {x} ]}{\hbar }}\,{\mathcal {d}}\mathbf {x} \quad {\text{where }}{\mathcal {s}}[\mathbf {x} ]=\int _{0}^{t}l[\mathbf {x} (t),{\dot {\mathbf {x} }}(t)]\,dt}
+  is the action of the classical problem in which one investigates the path starting at time t = 0 and ending at time t = t, and 
+  
+    
+      
+        
+          
+            d
+          
+        
+        
+          x
+        
+      
+    
+    {\displaystyle {\mathcal {d}}\mathbf {x} }
+   denotes integration over all paths. in the classical limit, 
+  
+    
+      
+        
+          
+            s
+          
+        
+        [
+        
+          x
+        
+        ]
+        ≫
+        ℏ
+      
+    
+    {\displaystyle {\mathcal {s}}[\mathbf {x} ]\gg \hbar }
+  , the path of minimum action dominates the integral, because the phase of any path away from this fluctuates rapidly and different contributions cancel.the connection with statistical mechanics follows. considering only paths which begin and end in the same configuration, perform the wick rotation it = τ, i.e., make time imaginary, and integrate over all possible beginning-ending configurations. the wick-rotated path integral—described in the previous subsection, with the ordinary action replaced by its "euclidean" counterpart—now resembles the partition function of statistical mechanics defined in a canonical ensemble with inverse temperature proportional to imaginary time, 1/t = kbτ/ħ. strictly speaking, though, this is the partition function for a statistical field theory.
+clearly, such a deep analogy between quantum mechanics and statistical mechanics cannot be dependent on the formulation. in the canonical formulation, one sees that the unitary evolution operator of a state is given by
+
+  
+    
+      
+        
+          |
+        
+        α
+        ;
+        t
+        ⟩
+        =
+        
+          e
+          
+            −
+            
+              
+                
+                  i
+                  h
+                  t
+                
+                ℏ
+              
+            
+          
+        
+        
+          |
+        
+        α
+        ;
+        0
+        ⟩
+      
+    
+    {\displaystyle |\alpha ;t\rangle =e^{-{\frac {iht}{\hbar }}}|\alpha ;0\rangle }
+  where the state α is evolved from time t = 0. if one makes a wick rotation here, and finds the amplitude to go from any state, back to the same state in (imaginary) time it is given by
+
+  
+    
+      
+        z
+        =
+        tr
+        ⁡
+        
+          [
+          
+            e
+            
+              
+                
+                  −
+                  h
+                  t
+                
+                ℏ
+              
+            
+          
+          ]
+        
+      
+    
+    {\displaystyle z=\operatorname {tr} \left[e^{\frac {-ht}{\hbar }}\right]}
+  which is precisely the partition function of statistical mechanics for the same system at temperature quoted earlier. one aspect of this equivalence was also known to erwin schrödinger who remarked that the equation named after him looked like the diffusion equation after wick rotation. note, however, that the euclidean path integral is actually in the form of a classical statistical mechanics model.
+
+
+== quantum field theory ==
+both the schrödinger and heisenberg approaches to quantum mechanics single out time and are not in the spirit of relativity. for example, the heisenberg approach requires that scalar field operators obey the commutation relation
+
+  
+    
+      
+        [
+        φ
+        (
+        x
+        )
+        ,
+        
+          ∂
+          
+            t
+          
+        
+        φ
+        (
+        y
+        )
+        ]
+        =
+        i
+        
+          δ
+          
+            3
+          
+        
+        (
+        x
+        −
+        y
+        )
+      
+    
+    {\displaystyle [\varphi (x),\partial _{t}\varphi (y)]=i\delta ^{3}(x-y)}
+  for two simultaneous spatial positions x and y, and this is not a relativistically invariant concept. the results of a calculation are covariant, but the symmetry is not apparent in intermediate stages. if naive field-theory calculations did not produce infinite answers in the continuum limit, this would not have been such a big problem – it would just have been a bad choice of coordinates. but the lack of symmetry means that the infinite quantities must be cut off, and the bad coordinates make it nearly impossible to cut off the theory without spoiling the symmetry. this makes it difficult to extract the physical predictions, which require a careful limiting procedure.
+the problem of lost symmetry also appears in classical mechanics, where the hamiltonian formulation also superficially singles out time. the lagrangian formulation makes the relativistic invariance apparent. in the same way, the path integral is manifestly relativistic. it reproduces the schrödinger equation, the heisenberg equations of motion, and the canonical commutation relations and shows that they are compatible with relativity. it extends the heisenberg-type operator algebra to operator product rules, which are new relations difficult to see in the old formalism.
+further, different choices of canonical variables lead to very different-seeming formulations of the same theory. the transformations between the variables can be very complicated, but the path integral makes them into reasonably straightforward changes of integration variables. for these reasons, the feynman path integral has made earlier formalisms largely obsolete.
+the price of a path integral representation is that the unitarity of a theory is no longer self-evident, but it can be proven by changing variables to some canonical representation. the path integral itself also deals with larger mathematical spaces than is usual, which requires more careful mathematics, not all of which has been fully worked out. the path integral historically was not immediately accepted, partly because it took many years to incorporate fermions properly. this required physicists to invent an entirely new mathematical object – the grassmann variable – which also allowed changes of variables to be done naturally, as well as allowing constrained quantization.
+the integration variables in the path integral are subtly non-commuting. the value of the product of two field operators at what looks like the same point depends on how the two points are ordered in space and time. this makes some naive identities fail.
+
+
+=== the propagator ===
+in relativistic theories, there is both a particle and field representation for every theory. the field representation is a sum over all field configurations, and the particle representation is a sum over different particle paths.
+the nonrelativistic formulation is traditionally given in terms of particle paths, not fields. there, the path integral in the usual variables, with fixed boundary conditions, gives the probability amplitude for a particle to go from point x to point y in time t:
+
+  
+    
+      
+        k
+        (
+        x
+        ,
+        y
+        ;
+        t
+        )
+        =
+        ⟨
+        y
+        ;
+        t
+        ∣
+        x
+        ;
+        0
+        ⟩
+        =
+        
+          ∫
+          
+            x
+            (
+            0
+            )
+            =
+            x
+          
+          
+            x
+            (
+            t
+            )
+            =
+            y
+          
+        
+        
+          e
+          
+            i
+            s
+            [
+            x
+            ]
+          
+        
+        
+        d
+        x
+        .
+      
+    
+    {\displaystyle k(x,y;t)=\langle y;t\mid x;0\rangle =\int _{x(0)=x}^{x(t)=y}e^{is[x]}\,dx.}
+  this is called the propagator. superposing different values of the initial position x with an arbitrary initial state ψ0(x) constructs the final state:
+
+  
+    
+      
+        
+          ψ
+          
+            t
+          
+        
+        (
+        y
+        )
+        =
+        
+          ∫
+          
+            x
+          
+        
+        
+          ψ
+          
+            0
+          
+        
+        (
+        x
+        )
+        k
+        (
+        x
+        ,
+        y
+        ;
+        t
+        )
+        
+        d
+        x
+        =
+        
+          ∫
+          
+            x
+            (
+            t
+            )
+            =
+            y
+          
+        
+        
+          ψ
+          
+            0
+          
+        
+        (
+        x
+        (
+        0
+        )
+        )
+        
+          e
+          
+            i
+            s
+            [
+            x
+            ]
+          
+        
+        
+        d
+        x
+        .
+      
+    
+    {\displaystyle \psi _{t}(y)=\int _{x}\psi _{0}(x)k(x,y;t)\,dx=\int ^{x(t)=y}\psi _{0}(x(0))e^{is[x]}\,dx.}
+  for a spatially homogeneous system, where k(x, y) is only a function of (x − y), the integral is a convolution, the final state is the initial state convolved with the propagator:
+
+  
+    
+      
+        
+          ψ
+          
+            t
+          
+        
+        =
+        
+          ψ
+          
+            0
+          
+        
+        ∗
+        k
+        (
+        ;
+        t
+        )
+        .
+      
+    
+    {\displaystyle \psi _{t}=\psi _{0}*k(;t).}
+  for a free particle of mass m, the propagator can be evaluated either explicitly from the path integral or by noting that the schrödinger equation is a diffusion equation in imaginary time, and the solution must be a normalized gaussian:
+
+  
+    
+      
+        k
+        (
+        x
+        ,
+        y
+        ;
+        t
+        )
+        ∝
+        
+          e
+          
+            
+              
+                i
+                m
+                (
+                x
+                −
+                y
+                
+                  )
+                  
+                    2
+                  
+                
+              
+              
+                2
+                t
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle k(x,y;t)\propto e^{\frac {im(x-y)^{2}}{2t}}.}
+  taking the fourier transform in (x − y) produces another gaussian:
+
+  
+    
+      
+        k
+        (
+        p
+        ;
+        t
+        )
+        =
+        
+          e
+          
+            
+              
+                i
+                t
+                
+                  p
+                  
+                    2
+                  
+                
+              
+              
+                2
+                m
+              
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle k(p;t)=e^{\frac {itp^{2}}{2m}},}
+  and in p-space the proportionality factor here is constant in time, as will be verified in a moment. the fourier transform in time, extending k(p; t) to be zero for negative times, gives green's function, or the frequency-space propagator:
+
+  
+    
+      
+        
+          g
+          
+            f
+          
+        
+        (
+        p
+        ,
+        e
+        )
+        =
+        
+          
+            
+              −
+              i
+            
+            
+              e
+              −
+              
+                
+                  
+                    
+                      
+                        
+                          p
+                          →
+                        
+                      
+                    
+                    
+                      2
+                    
+                  
+                  
+                    2
+                    m
+                  
+                
+              
+              +
+              i
+              ε
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle g_{\text{f}}(p,e)={\frac {-i}{e-{\frac {{\vec {p}}^{2}}{2m}}+i\varepsilon }},}
+  which is the reciprocal of the operator that annihilates the wavefunction in the schrödinger equation, which wouldn't have come out right if the proportionality factor weren't constant in the p-space representation.
+the infinitesimal term in the denominator is a small positive number, which guarantees that the inverse fourier transform in e will be nonzero only for future times. for past times, the inverse fourier transform contour closes toward values of e where there is no singularity. this guarantees that k propagates the particle into the future and is the reason for the subscript "f" on g. the infinitesimal term can be interpreted as an infinitesimal rotation toward imaginary time.
+it is also possible to reexpress the nonrelativistic time evolution in terms of propagators going toward the past, since the schrödinger equation is time-reversible. the past propagator is the same as the future propagator except for the obvious difference that it vanishes in the future, and in the gaussian t is replaced by −t. in this case, the interpretation is that these are the quantities to convolve the final wavefunction so as to get the initial wavefunction:
+
+  
+    
+      
+        
+          g
+          
+            b
+          
+        
+        (
+        p
+        ,
+        e
+        )
+        =
+        
+          
+            
+              −
+              i
+            
+            
+              −
+              e
+              −
+              
+                
+                  
+                    i
+                    
+                      
+                        
+                          
+                            p
+                            →
+                          
+                        
+                      
+                      
+                        2
+                      
+                    
+                  
+                  
+                    2
+                    m
+                  
+                
+              
+              +
+              i
+              ε
+            
+          
+        
+        .
+      
+    
+    {\displaystyle g_{\text{b}}(p,e)={\frac {-i}{-e-{\frac {i{\vec {p}}^{2}}{2m}}+i\varepsilon }}.}
+  given the nearly identical only change is the sign of e and ε, the parameter e in green's function can either be the energy if the paths are going toward the future, or the negative of the energy if the paths are going toward the past.
+for a nonrelativistic theory, the time as measured along the path of a moving particle and the time as measured by an outside observer are the same. in relativity, this is no longer true. for a relativistic theory the propagator should be defined as the sum over all paths that travel between two points in a fixed proper time, as measured along the path (these paths describe the trajectory of a particle in space and in time):
+
+  
+    
+      
+        k
+        (
+        x
+        −
+        y
+        ,
+        
+          t
+        
+        )
+        =
+        
+          ∫
+          
+            x
+            (
+            0
+            )
+            =
+            x
+          
+          
+            x
+            (
+            
+              t
+            
+            )
+            =
+            y
+          
+        
+        
+          e
+          
+            i
+            
+              ∫
+              
+                0
+              
+              
+                
+                  t
+                
+              
+            
+            
+              
+                
+                  
+                    
+                      
+                        x
+                        ˙
+                      
+                    
+                  
+                  
+                    2
+                  
+                
+              
+            
+            −
+            α
+            
+            d
+            τ
+          
+        
+        .
+      
+    
+    {\displaystyle k(x-y,\mathrm {t} )=\int _{x(0)=x}^{x(\mathrm {t} )=y}e^{i\int _{0}^{\mathrm {t} }{\sqrt {{\dot {x}}^{2}}}-\alpha \,d\tau }.}
+  the integral above is not trivial to interpret because of the square root. fortunately, there is a heuristic trick. the sum is over the relativistic arc length of the path of an oscillating quantity, and like the nonrelativistic path integral should be interpreted as slightly rotated into imaginary time. the function k(x − y, τ) can be evaluated when the sum is over paths in euclidean space:
+
+  
+    
+      
+        k
+        (
+        x
+        −
+        y
+        ,
+        
+          t
+        
+        )
+        =
+        
+          e
+          
+            −
+            α
+            
+              t
+            
+          
+        
+        
+          ∫
+          
+            x
+            (
+            0
+            )
+            =
+            x
+          
+          
+            x
+            (
+            
+              t
+            
+            )
+            =
+            y
+          
+        
+        
+          e
+          
+            −
+            l
+          
+        
+        .
+      
+    
+    {\displaystyle k(x-y,\mathrm {t} )=e^{-\alpha \mathrm {t} }\int _{x(0)=x}^{x(\mathrm {t} )=y}e^{-l}.}
+  this describes a sum over all paths of length τ of the exponential of minus the length. this can be given a probability interpretation. the sum over all paths is a probability average over a path constructed step by step. the total number of steps is proportional to τ, and each step is less likely the longer it is. by the central limit theorem, the result of many independent steps is a gaussian of variance proportional to τ:
+
+  
+    
+      
+        k
+        (
+        x
+        −
+        y
+        ,
+        
+          t
+        
+        )
+        =
+        
+          e
+          
+            −
+            α
+            
+              t
+            
+          
+        
+        
+          e
+          
+            −
+            
+              
+                
+                  (
+                  x
+                  −
+                  y
+                  
+                    )
+                    
+                      2
+                    
+                  
+                
+                
+                  t
+                
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle k(x-y,\mathrm {t} )=e^{-\alpha \mathrm {t} }e^{-{\frac {(x-y)^{2}}{\mathrm {t} }}}.}
+  the usual definition of the relativistic propagator only asks for the amplitude is to travel from x to y, after summing over all the possible proper times it could take:
+
+  
+    
+      
+        k
+        (
+        x
+        −
+        y
+        )
+        =
+        
+          ∫
+          
+            0
+          
+          
+            ∞
+          
+        
+        k
+        (
+        x
+        −
+        y
+        ,
+        
+          t
+        
+        )
+        w
+        (
+        
+          t
+        
+        )
+        
+        d
+        
+          t
+        
+        ,
+      
+    
+    {\displaystyle k(x-y)=\int _{0}^{\infty }k(x-y,\mathrm {t} )w(\mathrm {t} )\,d\mathrm {t} ,}
+  where w(τ) is a weight factor, the relative importance of paths of different proper time. by the translation symmetry in proper time, this weight can only be an exponential factor and can be absorbed into the constant α:
+
+  
+    
+      
+        k
+        (
+        x
+        −
+        y
+        )
+        =
+        
+          ∫
+          
+            0
+          
+          
+            ∞
+          
+        
+        
+          e
+          
+            −
+            
+              
+                
+                  (
+                  x
+                  −
+                  y
+                  
+                    )
+                    
+                      2
+                    
+                  
+                
+                
+                  t
+                
+              
+            
+            −
+            α
+            
+              t
+            
+          
+        
+        
+        d
+        
+          t
+        
+        .
+      
+    
+    {\displaystyle k(x-y)=\int _{0}^{\infty }e^{-{\frac {(x-y)^{2}}{\mathrm {t} }}-\alpha \mathrm {t} }\,d\mathrm {t} .}
+  this is the schwinger representation. taking a fourier transform over the variable (x − y) can be done for each value of τ separately, and because each separate τ contribution is a gaussian, gives whose fourier transform is another gaussian with reciprocal width. so in p-space, the propagator can be reexpressed simply:
+
+  
+    
+      
+        k
+        (
+        p
+        )
+        =
+        
+          ∫
+          
+            0
+          
+          
+            ∞
+          
+        
+        
+          e
+          
+            −
+            
+              t
+            
+            
+              p
+              
+                2
+              
+            
+            −
+            
+              t
+            
+            α
+          
+        
+        
+        d
+        
+          t
+        
+        =
+        
+          
+            1
+            
+              
+                p
+                
+                  2
+                
+              
+              +
+              α
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle k(p)=\int _{0}^{\infty }e^{-\mathrm {t} p^{2}-\mathrm {t} \alpha }\,d\mathrm {t} ={\frac {1}{p^{2}+\alpha }},}
+  which is the euclidean propagator for a scalar particle. rotating p0 to be imaginary gives the usual relativistic propagator, up to a factor of −i and an ambiguity, which will be clarified below:
+
+  
+    
+      
+        k
+        (
+        p
+        )
+        =
+        
+          
+            i
+            
+              
+                p
+                
+                  0
+                
+                
+                  2
+                
+              
+              −
+              
+                
+                  
+                    
+                      p
+                      →
+                    
+                  
+                
+                
+                  2
+                
+              
+              −
+              
+                m
+                
+                  2
+                
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle k(p)={\frac {i}{p_{0}^{2}-{\vec {p}}^{2}-m^{2}}}.}
+  this expression can be interpreted in the nonrelativistic limit, where it is convenient to split it by partial fractions:
+
+  
+    
+      
+        2
+        
+          p
+          
+            0
+          
+        
+        k
+        (
+        p
+        )
+        =
+        
+          
+            i
+            
+              
+                p
+                
+                  0
+                
+              
+              −
+              
+                
+                  
+                    
+                      
+                        
+                          p
+                          →
+                        
+                      
+                    
+                    
+                      2
+                    
+                  
+                  +
+                  
+                    m
+                    
+                      2
+                    
+                  
+                
+              
+            
+          
+        
+        +
+        
+          
+            i
+            
+              
+                p
+                
+                  0
+                
+              
+              +
+              
+                
+                  
+                    
+                      
+                        
+                          p
+                          →
+                        
+                      
+                    
+                    
+                      2
+                    
+                  
+                  +
+                  
+                    m
+                    
+                      2
+                    
+                  
+                
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle 2p_{0}k(p)={\frac {i}{p_{0}-{\sqrt {{\vec {p}}^{2}+m^{2}}}}}+{\frac {i}{p_{0}+{\sqrt {{\vec {p}}^{2}+m^{2}}}}}.}
+  for states where one nonrelativistic particle is present, the initial wavefunction has a frequency distribution concentrated near p0 = m. when convolving with the propagator, which in p space just means multiplying by the propagator, the second term is suppressed and the first term is enhanced. for frequencies near p0 = m, the dominant first term has the form
+
+  
+    
+      
+        2
+        m
+        
+          k
+          
+            nr
+          
+        
+        (
+        p
+        )
+        =
+        
+          
+            i
+            
+              (
+              
+                p
+                
+                  0
+                
+              
+              −
+              m
+              )
+              −
+              
+                
+                  
+                    
+                      
+                        
+                          p
+                          →
+                        
+                      
+                    
+                    
+                      2
+                    
+                  
+                  
+                    2
+                    m
+                  
+                
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle 2mk_{\text{nr}}(p)={\frac {i}{(p_{0}-m)-{\frac {{\vec {p}}^{2}}{2m}}}}.}
+  this is the expression for the nonrelativistic green's function of a free schrödinger particle.
+the second term has a nonrelativistic limit also, but this limit is concentrated on frequencies that are negative. the second pole is dominated by contributions from paths where the proper time and the coordinate time are ticking in an opposite sense, which means that the second term is to be interpreted as the antiparticle. the nonrelativistic analysis shows that with this form the antiparticle still has positive energy.
+the proper way to express this mathematically is that, adding a small suppression factor in proper time, the limit where t → −∞ of the first term must vanish, while the t → +∞ limit of the second term must vanish. in the fourier transform, this means shifting the pole in p0 slightly, so that the inverse fourier transform will pick up a small decay factor in one of the time directions:
+
+  
+    
+      
+        k
+        (
+        p
+        )
+        =
+        
+          
+            i
+            
+              
+                p
+                
+                  0
+                
+              
+              −
+              
+                
+                  
+                    
+                      
+                        
+                          p
+                          →
+                        
+                      
+                    
+                    
+                      2
+                    
+                  
+                  +
+                  
+                    m
+                    
+                      2
+                    
+                  
+                
+              
+              +
+              i
+              ε
+            
+          
+        
+        +
+        
+          
+            i
+            
+              
+                p
+                
+                  0
+                
+              
+              −
+              
+                
+                  
+                    
+                      
+                        
+                          p
+                          →
+                        
+                      
+                    
+                    
+                      2
+                    
+                  
+                  +
+                  
+                    m
+                    
+                      2
+                    
+                  
+                
+              
+              −
+              i
+              ε
+            
+          
+        
+        .
+      
+    
+    {\displaystyle k(p)={\frac {i}{p_{0}-{\sqrt {{\vec {p}}^{2}+m^{2}}}+i\varepsilon }}+{\frac {i}{p_{0}-{\sqrt {{\vec {p}}^{2}+m^{2}}}-i\varepsilon }}.}
+  without these terms, the pole contribution could not be unambiguously evaluated when taking the inverse fourier transform of p0. the terms can be recombined:
+
+  
+    
+      
+        k
+        (
+        p
+        )
+        =
+        
+          
+            i
+            
+              
+                p
+                
+                  2
+                
+              
+              −
+              
+                m
+                
+                  2
+                
+              
+              +
+              i
+              ε
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle k(p)={\frac {i}{p^{2}-m^{2}+i\varepsilon }},}
+  which when factored, produces opposite-sign infinitesimal terms in each factor. this is the mathematically precise form of the relativistic particle propagator, free of any ambiguities. the ε term introduces a small imaginary part to the α = m2, which in the minkowski version is a small exponential suppression of long paths.
+so in the relativistic case, the feynman path-integral representation of the propagator includes paths going backwards in time, which describe antiparticles. the paths that contribute to the relativistic propagator go forward and backwards in time, and the interpretation of this is that the amplitude for a free particle to travel between two points includes amplitudes for the particle to fluctuate into an antiparticle, travel back in time, then forward again.
+unlike the nonrelativistic case, it is impossible to produce a relativistic theory of local particle propagation without including antiparticles. all local differential operators have inverses that are nonzero outside the light cone, meaning that it is impossible to keep a particle from travelling faster than light. such a particle cannot have a green's function which is only nonzero in the future in a relativistically invariant theory.
+
+
+=== functionals of fields ===
+however, the path integral formulation is also extremely important in direct application to quantum field theory, in which the "paths" or histories being considered are not the motions of a single particle, but the possible time evolutions of a field over all space.  the action is referred to technically as a functional of the field: s[ϕ], where the field ϕ(xμ) is itself a function of space and time, and the square brackets are a reminder that the action depends on all the field's values everywhere, not just some particular value. one such given function ϕ(xμ) of spacetime is called a field configuration. in principle, one integrates feynman's amplitude over the class of all possible field configurations.
+much of the formal study of qft is devoted to the properties of the resulting functional integral, and much effort (not yet entirely successful) has been made toward making these functional integrals mathematically precise.
+such a functional integral is extremely similar to the partition function in statistical mechanics.  indeed, it is sometimes called a partition function, and the two are essentially mathematically identical except for the factor of i in the exponent in feynman's postulate 3. analytically continuing the integral to an imaginary time variable (called a wick rotation) makes the functional integral even more like a statistical partition function and also tames some of the mathematical difficulties of working with these integrals.
+
+
+=== expectation values ===
+in quantum field theory, if the action is given by the functional s of field configurations (which only depends locally on the fields), then the time-ordered vacuum expectation value of polynomially bounded functional f, ⟨f⟩, is given by
+
+  
+    
+      
+        ⟨
+        f
+        ⟩
+        =
+        
+          
+            
+              ∫
+              
+                
+                  d
+                
+              
+              φ
+              f
+              [
+              φ
+              ]
+              
+                e
+                
+                  i
+                  
+                    
+                      s
+                    
+                  
+                  [
+                  φ
+                  ]
+                
+              
+            
+            
+              ∫
+              
+                
+                  d
+                
+              
+              φ
+              
+                e
+                
+                  i
+                  
+                    
+                      s
+                    
+                  
+                  [
+                  φ
+                  ]
+                
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle \langle f\rangle ={\frac {\int {\mathcal {d}}\varphi f[\varphi ]e^{i{\mathcal {s}}[\varphi ]}}{\int {\mathcal {d}}\varphi e^{i{\mathcal {s}}[\varphi ]}}}.}
+  the symbol ∫dϕ here is a concise way to represent the infinite-dimensional integral over all possible field configurations on all of space-time. as stated above, the unadorned path integral in the denominator ensures proper normalization.
+
+
+=== as a probability ===
+strictly speaking, the only question that can be asked in physics is: what fraction of states satisfying condition a also satisfy condition b? the answer to this is a number between 0 and 1, which can be interpreted as a conditional probability, written as p(b|a). in terms of path integration, since p(b|a) = p(a∩b) / p(a), this means
+
+  
+    
+      
+        p
+        ⁡
+        (
+        b
+        ∣
+        a
+        )
+        =
+        
+          
+            
+              
+                ∑
+                
+                  f
+                  ⊂
+                  a
+                  ∩
+                  b
+                
+              
+              
+                
+                  |
+                  
+                    ∫
+                    
+                      
+                        d
+                      
+                    
+                    φ
+                    
+                      o
+                      
+                        in
+                      
+                    
+                    [
+                    φ
+                    ]
+                    
+                      e
+                      
+                        i
+                        
+                          
+                            s
+                          
+                        
+                        [
+                        φ
+                        ]
+                      
+                    
+                    f
+                    [
+                    φ
+                    ]
+                  
+                  |
+                
+                
+                  2
+                
+              
+            
+            
+              
+                ∑
+                
+                  f
+                  ⊂
+                  a
+                
+              
+              
+                
+                  |
+                  
+                    ∫
+                    
+                      
+                        d
+                      
+                    
+                    φ
+                    
+                      o
+                      
+                        in
+                      
+                    
+                    [
+                    φ
+                    ]
+                    
+                      e
+                      
+                        i
+                        
+                          
+                            s
+                          
+                        
+                        [
+                        φ
+                        ]
+                      
+                    
+                    f
+                    [
+                    φ
+                    ]
+                  
+                  |
+                
+                
+                  2
+                
+              
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle \operatorname {p} (b\mid a)={\frac {\sum _{f\subset a\cap b}\left|\int {\mathcal {d}}\varphi o_{\text{in}}[\varphi ]e^{i{\mathcal {s}}[\varphi ]}f[\varphi ]\right|^{2}}{\sum _{f\subset a}\left|\int {\mathcal {d}}\varphi o_{\text{in}}[\varphi ]e^{i{\mathcal {s}}[\varphi ]}f[\varphi ]\right|^{2}}},}
+  where the functional oin[ϕ] is the superposition of all incoming states that could lead to the states we are interested in. in particular, this could be a state corresponding to the state of the universe just after the big bang, although for actual calculation this can be simplified using heuristic methods. since this expression is a quotient of path integrals, it is naturally normalised.
+
+
+=== schwinger–dyson equations ===
+
+since this formulation of quantum mechanics is analogous to classical action principle, one might expect that identities concerning the action in classical mechanics would have quantum counterparts derivable from a functional integral. this is often the case.
+in the language of functional analysis, we can write the euler–lagrange equations as
+
+  
+    
+      
+        
+          
+            
+              δ
+              
+                
+                  s
+                
+              
+              [
+              φ
+              ]
+            
+            
+              δ
+              φ
+            
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle {\frac {\delta {\mathcal {s}}[\varphi ]}{\delta \varphi }}=0}
+  (the left-hand side is a functional derivative; the equation means that the action is stationary under small changes in the field configuration).  the quantum analogues of these equations are called the schwinger–dyson equations.
+if the functional measure dϕ turns out to be translationally invariant (we'll assume this for the rest of this article, although this does not hold for, let's say nonlinear sigma models), and if we assume that after a wick rotation
+
+  
+    
+      
+        
+          e
+          
+            i
+            
+              
+                s
+              
+            
+            [
+            φ
+            ]
+          
+        
+        ,
+      
+    
+    {\displaystyle e^{i{\mathcal {s}}[\varphi ]},}
+  which now becomes
+
+  
+    
+      
+        
+          e
+          
+            −
+            h
+            [
+            φ
+            ]
+          
+        
+      
+    
+    {\displaystyle e^{-h[\varphi ]}}
+  for some h, it goes to zero faster than a reciprocal of any polynomial for large values of φ, then we can integrate by parts (after a wick rotation, followed by a wick rotation back) to get the following schwinger–dyson equations for the expectation:
+
+  
+    
+      
+        
+          ⟨
+          
+            
+              
+                δ
+                f
+                [
+                φ
+                ]
+              
+              
+                δ
+                φ
+              
+            
+          
+          ⟩
+        
+        =
+        −
+        i
+        
+          ⟨
+          
+            f
+            [
+            φ
+            ]
+            
+              
+                
+                  δ
+                  
+                    
+                      s
+                    
+                  
+                  [
+                  φ
+                  ]
+                
+                
+                  δ
+                  φ
+                
+              
+            
+          
+          ⟩
+        
+      
+    
+    {\displaystyle \left\langle {\frac {\delta f[\varphi ]}{\delta \varphi }}\right\rangle =-i\left\langle f[\varphi ]{\frac {\delta {\mathcal {s}}[\varphi ]}{\delta \varphi }}\right\rangle }
+  for any polynomially-bounded functional f. in the dewitt notation this looks like
+
+  
+    
+      
+        
+          ⟨
+          
+            f
+            
+              ,
+              i
+            
+          
+          ⟩
+        
+        =
+        −
+        i
+        
+          ⟨
+          
+            f
+            
+              
+                
+                  s
+                
+              
+              
+                ,
+                i
+              
+            
+          
+          ⟩
+        
+        .
+      
+    
+    {\displaystyle \left\langle f_{,i}\right\rangle =-i\left\langle f{\mathcal {s}}_{,i}\right\rangle .}
+  these equations are the analog of the on-shell el equations. the time ordering is taken before the time derivatives inside the s,i.
+if j (called the source field) is an element of the dual space of the field configurations (which has at least an affine structure because of the assumption of the translational invariance for the functional measure), then the generating functional z of the source fields is defined to be
+
+  
+    
+      
+        z
+        [
+        j
+        ]
+        =
+        ∫
+        
+          
+            d
+          
+        
+        φ
+        
+          e
+          
+            i
+            
+              (
+              
+                
+                  
+                    s
+                  
+                
+                [
+                φ
+                ]
+                +
+                ⟨
+                j
+                ,
+                φ
+                ⟩
+              
+              )
+            
+          
+        
+        .
+      
+    
+    {\displaystyle z[j]=\int {\mathcal {d}}\varphi e^{i\left({\mathcal {s}}[\varphi ]+\langle j,\varphi \rangle \right)}.}
+  note that
+
+  
+    
+      
+        
+          
+            
+              
+                δ
+                
+                  n
+                
+              
+              z
+            
+            
+              δ
+              j
+              (
+              
+                x
+                
+                  1
+                
+              
+              )
+              ⋯
+              δ
+              j
+              (
+              
+                x
+                
+                  n
+                
+              
+              )
+            
+          
+        
+        [
+        j
+        ]
+        =
+        
+          i
+          
+            n
+          
+        
+        
+        z
+        [
+        j
+        ]
+        
+        
+          
+            ⟨
+            
+              φ
+              (
+              
+                x
+                
+                  1
+                
+              
+              )
+              ⋯
+              φ
+              (
+              
+                x
+                
+                  n
+                
+              
+              )
+            
+            ⟩
+          
+          
+            j
+          
+        
+        ,
+      
+    
+    {\displaystyle {\frac {\delta ^{n}z}{\delta j(x_{1})\cdots \delta j(x_{n})}}[j]=i^{n}\,z[j]\,\left\langle \varphi (x_{1})\cdots \varphi (x_{n})\right\rangle _{j},}
+  or
+
+  
+    
+      
+        
+          z
+          
+            ,
+            
+              i
+              
+                1
+              
+            
+            ⋯
+            
+              i
+              
+                n
+              
+            
+          
+        
+        [
+        j
+        ]
+        =
+        
+          i
+          
+            n
+          
+        
+        z
+        [
+        j
+        ]
+        
+          
+            ⟨
+            
+              
+                φ
+                
+                  
+                    i
+                    
+                      1
+                    
+                  
+                
+              
+              ⋯
+              
+                φ
+                
+                  
+                    i
+                    
+                      n
+                    
+                  
+                
+              
+            
+            ⟩
+          
+          
+            j
+          
+        
+        ,
+      
+    
+    {\displaystyle z^{,i_{1}\cdots i_{n}}[j]=i^{n}z[j]\left\langle \varphi ^{i_{1}}\cdots \varphi ^{i_{n}}\right\rangle _{j},}
+  where
+
+  
+    
+      
+        ⟨
+        f
+        
+          ⟩
+          
+            j
+          
+        
+        =
+        
+          
+            
+              ∫
+              
+                
+                  d
+                
+              
+              φ
+              f
+              [
+              φ
+              ]
+              
+                e
+                
+                  i
+                  
+                    (
+                    
+                      
+                        
+                          s
+                        
+                      
+                      [
+                      φ
+                      ]
+                      +
+                      ⟨
+                      j
+                      ,
+                      φ
+                      ⟩
+                    
+                    )
+                  
+                
+              
+            
+            
+              ∫
+              
+                
+                  d
+                
+              
+              φ
+              
+                e
+                
+                  i
+                  
+                    (
+                    
+                      
+                        
+                          s
+                        
+                      
+                      [
+                      φ
+                      ]
+                      +
+                      ⟨
+                      j
+                      ,
+                      φ
+                      ⟩
+                    
+                    )
+                  
+                
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle \langle f\rangle _{j}={\frac {\int {\mathcal {d}}\varphi f[\varphi ]e^{i\left({\mathcal {s}}[\varphi ]+\langle j,\varphi \rangle \right)}}{\int {\mathcal {d}}\varphi e^{i\left({\mathcal {s}}[\varphi ]+\langle j,\varphi \rangle \right)}}}.}
+  basically, if dφ eis[φ] is viewed as a functional distribution (this shouldn't be taken too literally as an interpretation of qft, unlike its wick-rotated statistical mechanics analogue, because we have time ordering complications here!), then ⟨φ(x1) ... φ(xn)⟩ are its moments, and z is its fourier transform.
+if f is a functional of φ, then for an operator k, f[k] is defined to be the operator that substitutes k for φ. for example, if
+
+  
+    
+      
+        f
+        [
+        φ
+        ]
+        =
+        
+          
+            
+              ∂
+              
+                
+                  k
+                  
+                    1
+                  
+                
+              
+            
+            
+              ∂
+              
+                x
+                
+                  1
+                
+                
+                  
+                    k
+                    
+                      1
+                    
+                  
+                
+              
+            
+          
+        
+        φ
+        (
+        
+          x
+          
+            1
+          
+        
+        )
+        ⋯
+        
+          
+            
+              ∂
+              
+                
+                  k
+                  
+                    n
+                  
+                
+              
+            
+            
+              ∂
+              
+                x
+                
+                  n
+                
+                
+                  
+                    k
+                    
+                      n
+                    
+                  
+                
+              
+            
+          
+        
+        φ
+        (
+        
+          x
+          
+            n
+          
+        
+        )
+        ,
+      
+    
+    {\displaystyle f[\varphi ]={\frac {\partial ^{k_{1}}}{\partial x_{1}^{k_{1}}}}\varphi (x_{1})\cdots {\frac {\partial ^{k_{n}}}{\partial x_{n}^{k_{n}}}}\varphi (x_{n}),}
+  and g is a functional of j, then
+
+  
+    
+      
+        f
+        
+          [
+          
+            −
+            i
+            
+              
+                δ
+                
+                  δ
+                  j
+                
+              
+            
+          
+          ]
+        
+        g
+        [
+        j
+        ]
+        =
+        (
+        −
+        i
+        
+          )
+          
+            n
+          
+        
+        
+          
+            
+              ∂
+              
+                
+                  k
+                  
+                    1
+                  
+                
+              
+            
+            
+              ∂
+              
+                x
+                
+                  1
+                
+                
+                  
+                    k
+                    
+                      1
+                    
+                  
+                
+              
+            
+          
+        
+        
+          
+            δ
+            
+              δ
+              j
+              (
+              
+                x
+                
+                  1
+                
+              
+              )
+            
+          
+        
+        ⋯
+        
+          
+            
+              ∂
+              
+                
+                  k
+                  
+                    n
+                  
+                
+              
+            
+            
+              ∂
+              
+                x
+                
+                  n
+                
+                
+                  
+                    k
+                    
+                      n
+                    
+                  
+                
+              
+            
+          
+        
+        
+          
+            δ
+            
+              δ
+              j
+              (
+              
+                x
+                
+                  n
+                
+              
+              )
+            
+          
+        
+        g
+        [
+        j
+        ]
+        .
+      
+    
+    {\displaystyle f\left[-i{\frac {\delta }{\delta j}}\right]g[j]=(-i)^{n}{\frac {\partial ^{k_{1}}}{\partial x_{1}^{k_{1}}}}{\frac {\delta }{\delta j(x_{1})}}\cdots {\frac {\partial ^{k_{n}}}{\partial x_{n}^{k_{n}}}}{\frac {\delta }{\delta j(x_{n})}}g[j].}
+  then, from the properties of the functional integrals
+
+  
+    
+      
+        
+          
+            ⟨
+            
+              
+                
+                  
+                    δ
+                    
+                      
+                        s
+                      
+                    
+                  
+                  
+                    δ
+                    φ
+                    (
+                    x
+                    )
+                  
+                
+              
+              [
+              φ
+              ]
+              +
+              j
+              (
+              x
+              )
+            
+            ⟩
+          
+          
+            j
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle \left\langle {\frac {\delta {\mathcal {s}}}{\delta \varphi (x)}}[\varphi ]+j(x)\right\rangle _{j}=0}
+  we get the "master" schwinger–dyson equation:
+
+  
+    
+      
+        
+          
+            
+              δ
+              
+                
+                  s
+                
+              
+            
+            
+              δ
+              φ
+              (
+              x
+              )
+            
+          
+        
+        
+          [
+          
+            −
+            i
+            
+              
+                δ
+                
+                  δ
+                  j
+                
+              
+            
+          
+          ]
+        
+        z
+        [
+        j
+        ]
+        +
+        j
+        (
+        x
+        )
+        z
+        [
+        j
+        ]
+        =
+        0
+        ,
+      
+    
+    {\displaystyle {\frac {\delta {\mathcal {s}}}{\delta \varphi (x)}}\left[-i{\frac {\delta }{\delta j}}\right]z[j]+j(x)z[j]=0,}
+  or
+
+  
+    
+      
+        
+          
+            
+              s
+            
+          
+          
+            ,
+            i
+          
+        
+        [
+        −
+        i
+        ∂
+        ]
+        z
+        +
+        
+          j
+          
+            i
+          
+        
+        z
+        =
+        0.
+      
+    
+    {\displaystyle {\mathcal {s}}_{,i}[-i\partial ]z+j_{i}z=0.}
+  if the functional measure is not translationally invariant, it might be possible to express it as the product m[φ] dφ, where m is a functional and dφ is a translationally invariant measure. this is true, for example, for nonlinear sigma models where the target space is diffeomorphic to rn. however, if the target manifold is some topologically nontrivial space, the concept of a translation does not even make any sense.
+in that case, we would have to replace the s in this equation by another functional
+
+  
+    
+      
+        
+          
+            
+              
+                s
+              
+              ^
+            
+          
+        
+        =
+        
+          
+            s
+          
+        
+        −
+        i
+        ln
+        ⁡
+        m
+        .
+      
+    
+    {\displaystyle {\hat {\mathcal {s}}}={\mathcal {s}}-i\ln m.}
+  if we expand this equation as a taylor series about j = 0, we get the entire set of schwinger–dyson equations.
+
+
+== localization ==
+the path integrals are usually thought of as being the sum of all paths through an infinite space–time. however, in local quantum field theory we would restrict everything to lie within a finite causally complete region, for example inside a double light-cone. this gives a more mathematically precise and physically rigorous definition of quantum field theory.
+
+
+=== ward–takahashi identities ===
+
+now how about the on shell noether's theorem for the classical case? does it have a quantum analog as well? yes, but with a caveat. the functional measure would have to be invariant under the one parameter group of symmetry transformation as well.
+let's just assume for simplicity here that the symmetry in question is local (not local in the sense of a gauge symmetry, but in the sense that the transformed value of the field at any given point under an infinitesimal transformation would only depend on the field configuration over an arbitrarily small neighborhood of the point in question). let's also assume that the action is local in the sense that it is the integral over spacetime of a lagrangian, and that
+
+  
+    
+      
+        q
+        [
+        
+          
+            l
+          
+        
+        (
+        x
+        )
+        ]
+        =
+        
+          ∂
+          
+            μ
+          
+        
+        
+          f
+          
+            μ
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle q[{\mathcal {l}}(x)]=\partial _{\mu }f^{\mu }(x)}
+  for some function f where f only depends locally on φ (and possibly the spacetime position).
+if we don't assume any special boundary conditions, this would not be a "true" symmetry in the true sense of the term in general unless f = 0 or something. here, q is a derivation which generates the one parameter group in question. we could have antiderivations as well, such as brst and supersymmetry.
+let's also assume
+
+  
+    
+      
+        ∫
+        
+          
+            d
+          
+        
+        φ
+        
+        q
+        [
+        f
+        ]
+        [
+        φ
+        ]
+        =
+        0
+      
+    
+    {\displaystyle \int {\mathcal {d}}\varphi \,q[f][\varphi ]=0}
+  for any polynomially-bounded functional f. this property is called the invariance of the measure. and this does not hold in general. see anomaly (physics) for more details.
+then,
+
+  
+    
+      
+        ∫
+        
+          
+            d
+          
+        
+        φ
+        
+        q
+        
+          [
+          
+            f
+            
+              e
+              
+                i
+                s
+              
+            
+          
+          ]
+        
+        [
+        φ
+        ]
+        =
+        0
+        ,
+      
+    
+    {\displaystyle \int {\mathcal {d}}\varphi \,q\left[fe^{is}\right][\varphi ]=0,}
+  which implies
+
+  
+    
+      
+        ⟨
+        q
+        [
+        f
+        ]
+        ⟩
+        +
+        i
+        
+          ⟨
+          
+            f
+            
+              ∫
+              
+                ∂
+                v
+              
+            
+            
+              f
+              
+                μ
+              
+            
+            
+            d
+            
+              s
+              
+                μ
+              
+            
+          
+          ⟩
+        
+        =
+        0
+      
+    
+    {\displaystyle \langle q[f]\rangle +i\left\langle f\int _{\partial v}f^{\mu }\,ds_{\mu }\right\rangle =0}
+  where the integral is over the boundary. this is the quantum analog of noether's theorem.
+now, let's assume even further that q is a local integral
+
+  
+    
+      
+        q
+        =
+        ∫
+        
+          d
+          
+            d
+          
+        
+        x
+        
+        q
+        (
+        x
+        )
+      
+    
+    {\displaystyle q=\int d^{d}x\,q(x)}
+  where
+
+  
+    
+      
+        q
+        (
+        x
+        )
+        [
+        φ
+        (
+        y
+        )
+        ]
+        =
+        
+          δ
+          
+            (
+            d
+            )
+          
+        
+        (
+        x
+        −
+        y
+        )
+        q
+        [
+        φ
+        (
+        y
+        )
+        ]
+        
+      
+    
+    {\displaystyle q(x)[\varphi (y)]=\delta ^{(d)}(x-y)q[\varphi (y)]\,}
+  so that
+
+  
+    
+      
+        q
+        (
+        x
+        )
+        [
+        s
+        ]
+        =
+        
+          ∂
+          
+            μ
+          
+        
+        
+          j
+          
+            μ
+          
+        
+        (
+        x
+        )
+        
+      
+    
+    {\displaystyle q(x)[s]=\partial _{\mu }j^{\mu }(x)\,}
+  where
+
+  
+    
+      
+        
+          j
+          
+            μ
+          
+        
+        (
+        x
+        )
+        =
+        
+          f
+          
+            μ
+          
+        
+        (
+        x
+        )
+        −
+        
+          
+            ∂
+            
+              ∂
+              (
+              
+                ∂
+                
+                  μ
+                
+              
+              φ
+              )
+            
+          
+        
+        
+          
+            l
+          
+        
+        (
+        x
+        )
+        q
+        [
+        φ
+        ]
+        
+      
+    
+    {\displaystyle j^{\mu }(x)=f^{\mu }(x)-{\frac {\partial }{\partial (\partial _{\mu }\varphi )}}{\mathcal {l}}(x)q[\varphi ]\,}
+  (this is assuming the lagrangian only depends on φ and its first partial derivatives! more general lagrangians would require a modification to this definition!). we're not insisting that q(x) is the generator of a symmetry (i.e. we are not insisting upon the gauge principle), but just that q is.  and we also assume the even stronger assumption that the functional measure is locally invariant:
+
+  
+    
+      
+        ∫
+        
+          
+            d
+          
+        
+        φ
+        
+        q
+        (
+        x
+        )
+        [
+        f
+        ]
+        [
+        φ
+        ]
+        =
+        0.
+      
+    
+    {\displaystyle \int {\mathcal {d}}\varphi \,q(x)[f][\varphi ]=0.}
+  then, we would have
+
+  
+    
+      
+        ⟨
+        q
+        (
+        x
+        )
+        [
+        f
+        ]
+        ⟩
+        +
+        i
+        ⟨
+        f
+        q
+        (
+        x
+        )
+        [
+        s
+        ]
+        ⟩
+        =
+        ⟨
+        q
+        (
+        x
+        )
+        [
+        f
+        ]
+        ⟩
+        +
+        i
+        
+          ⟨
+          
+            f
+            
+              ∂
+              
+                μ
+              
+            
+            
+              j
+              
+                μ
+              
+            
+            (
+            x
+            )
+          
+          ⟩
+        
+        =
+        0.
+      
+    
+    {\displaystyle \langle q(x)[f]\rangle +i\langle fq(x)[s]\rangle =\langle q(x)[f]\rangle +i\left\langle f\partial _{\mu }j^{\mu }(x)\right\rangle =0.}
+  alternatively,
+
+  
+    
+      
+        q
+        (
+        x
+        )
+        [
+        s
+        ]
+        
+          [
+          
+            −
+            i
+            
+              
+                δ
+                
+                  δ
+                  j
+                
+              
+            
+          
+          ]
+        
+        z
+        [
+        j
+        ]
+        +
+        j
+        (
+        x
+        )
+        q
+        [
+        φ
+        (
+        x
+        )
+        ]
+        
+          [
+          
+            −
+            i
+            
+              
+                δ
+                
+                  δ
+                  j
+                
+              
+            
+          
+          ]
+        
+        z
+        [
+        j
+        ]
+        =
+        
+          ∂
+          
+            μ
+          
+        
+        
+          j
+          
+            μ
+          
+        
+        (
+        x
+        )
+        
+          [
+          
+            −
+            i
+            
+              
+                δ
+                
+                  δ
+                  j
+                
+              
+            
+          
+          ]
+        
+        z
+        [
+        j
+        ]
+        +
+        j
+        (
+        x
+        )
+        q
+        [
+        φ
+        (
+        x
+        )
+        ]
+        
+          [
+          
+            −
+            i
+            
+              
+                δ
+                
+                  δ
+                  j
+                
+              
+            
+          
+          ]
+        
+        z
+        [
+        j
+        ]
+        =
+        0.
+      
+    
+    {\displaystyle q(x)[s]\left[-i{\frac {\delta }{\delta j}}\right]z[j]+j(x)q[\varphi (x)]\left[-i{\frac {\delta }{\delta j}}\right]z[j]=\partial _{\mu }j^{\mu }(x)\left[-i{\frac {\delta }{\delta j}}\right]z[j]+j(x)q[\varphi (x)]\left[-i{\frac {\delta }{\delta j}}\right]z[j]=0.}
+  the above two equations are the ward–takahashi identities.
+now for the case where f = 0, we can forget about all the boundary conditions and locality assumptions. we'd simply have
+
+  
+    
+      
+        
+          ⟨
+          
+            q
+            [
+            f
+            ]
+          
+          ⟩
+        
+        =
+        0.
+      
+    
+    {\displaystyle \left\langle q[f]\right\rangle =0.}
+  alternatively,
+
+  
+    
+      
+        ∫
+        
+          d
+          
+            d
+          
+        
+        x
+        
+        j
+        (
+        x
+        )
+        q
+        [
+        φ
+        (
+        x
+        )
+        ]
+        
+          [
+          
+            −
+            i
+            
+              
+                δ
+                
+                  δ
+                  j
+                
+              
+            
+          
+          ]
+        
+        z
+        [
+        j
+        ]
+        =
+        0.
+      
+    
+    {\displaystyle \int d^{d}x\,j(x)q[\varphi (x)]\left[-i{\frac {\delta }{\delta j}}\right]z[j]=0.}
+  
+
+
+== caveats ==
+
+
+=== the need for regulators and renormalization ===
+path integrals as they are defined here require the introduction of regulators. changing the scale of the regulator leads to the renormalization group. in fact, renormalization is the major obstruction to making path integrals well-defined.
+
+
+=== ordering prescription ===
+regardless of whether one works in configuration space or phase space, when equating the operator formalism and the path integral formulation, an ordering prescription is required to resolve the ambiguity in the correspondence between non-commutative operators and the commutative functions that appear in path integrands.  for example, the operator 
+  
+    
+      
+        
+          
+            1
+            2
+          
+        
+        (
+        
+          
+            
+              q
+              ^
+            
+          
+        
+        
+          
+            
+              p
+              ^
+            
+          
+        
+        +
+        
+          
+            
+              p
+              ^
+            
+          
+        
+        
+          
+            
+              q
+              ^
+            
+          
+        
+        )
+      
+    
+    {\displaystyle {\frac {1}{2}}({\hat {q}}{\hat {p}}+{\hat {p}}{\hat {q}})}
+   can be translated back as either 
+  
+    
+      
+        q
+        p
+        −
+        
+          
+            
+              i
+              ℏ
+            
+            2
+          
+        
+      
+    
+    {\displaystyle qp-{\frac {i\hbar }{2}}}
+  , 
+  
+    
+      
+        q
+        p
+        +
+        
+          
+            
+              i
+              ℏ
+            
+            2
+          
+        
+      
+    
+    {\displaystyle qp+{\frac {i\hbar }{2}}}
+  , or 
+  
+    
+      
+        q
+        p
+      
+    
+    {\displaystyle qp}
+   depending on whether one chooses the 
+  
+    
+      
+        
+          
+            
+              q
+              ^
+            
+          
+        
+        
+          
+            
+              p
+              ^
+            
+          
+        
+      
+    
+    {\displaystyle {\hat {q}}{\hat {p}}}
+  , 
+  
+    
+      
+        
+          
+            
+              p
+              ^
+            
+          
+        
+        
+          
+            
+              q
+              ^
+            
+          
+        
+      
+    
+    {\displaystyle {\hat {p}}{\hat {q}}}
+  , or weyl ordering prescription; conversely, 
+  
+    
+      
+        q
+        p
+      
+    
+    {\displaystyle qp}
+   can be translated to either 
+  
+    
+      
+        
+          
+            
+              q
+              ^
+            
+          
+        
+        
+          
+            
+              p
+              ^
+            
+          
+        
+      
+    
+    {\displaystyle {\hat {q}}{\hat {p}}}
+  , 
+  
+    
+      
+        
+          
+            
+              p
+              ^
+            
+          
+        
+        
+          
+            
+              q
+              ^
+            
+          
+        
+      
+    
+    {\displaystyle {\hat {p}}{\hat {q}}}
+  , or 
+  
+    
+      
+        
+          
+            1
+            2
+          
+        
+        (
+        
+          
+            
+              q
+              ^
+            
+          
+        
+        
+          
+            
+              p
+              ^
+            
+          
+        
+        +
+        
+          
+            
+              p
+              ^
+            
+          
+        
+        
+          
+            
+              q
+              ^
+            
+          
+        
+        )
+      
+    
+    {\displaystyle {\frac {1}{2}}({\hat {q}}{\hat {p}}+{\hat {p}}{\hat {q}})}
+   for the same respective choice of ordering prescription.
+
+
+== the path integral in quantum-mechanical interpretation ==
+in one interpretation of quantum mechanics, the "sum over histories" interpretation, the path integral is taken to be fundamental, and reality is viewed as a single indistinguishable "class" of paths that all share the same events. for this interpretation, it is crucial to understand what exactly an event is. the sum-over-histories method gives identical results to canonical quantum mechanics, and sinha and sorkin claim the interpretation explains the einstein–podolsky–rosen paradox without resorting to nonlocality.
+some advocates of interpretations of quantum mechanics emphasizing decoherence have attempted to make more rigorous the notion of extracting a classical-like "coarse-grained" history from the space of all possible histories.
+
+
+== quantum gravity ==
+whereas in quantum mechanics the path integral formulation is fully equivalent to other formulations, it may be that it can be extended to quantum gravity, which would make it different from the hilbert space model. feynman had some success in this direction, and his work has been extended by hawking and others. approaches that use this method include causal dynamical triangulations and spinfoam models.
+
+
+== quantum tunneling ==
+quantum tunnelling can be modeled by using the path integral formation to determine the action of the trajectory through a potential barrier. using the wkb approximation, the tunneling rate (γ) can be determined to be of the form
+
+  
+    
+      
+        γ
+        =
+        
+          a
+          
+            
+              o
+            
+          
+        
+        exp
+        ⁡
+        
+          (
+          
+            −
+            
+              
+                
+                  s
+                  
+                    
+                      e
+                      f
+                      f
+                    
+                  
+                
+                ℏ
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \gamma =a_{\mathrm {o} }\exp \left(-{\frac {s_{\mathrm {eff} }}{\hbar }}\right)}
+  with the effective action seff and pre-exponential factor ao. this form is specifically useful in a dissipative system, in which the systems and surroundings must be modeled together. using the langevin equation to model brownian motion, the path integral formation can be used to determine an effective action and pre-exponential model to see the effect of dissipation on tunnelling. from this model, tunneling rates of macroscopic systems (at finite temperatures) can be predicted.
+
+
+== see also ==
+
+
+== remarks ==
+
+
+== notes ==
+
+
+== references ==
+ahmad, ishfaq (1971). mathematical integrals in quantum nature. the nucleus. pp. 189–209.
+albeverio, s.; hoegh-krohn., r. & mazzucchi, s (2008). mathematical theory of feynman path integral. lecture notes in mathematics 523. springer-verlag. isbn 9783540769569.
+caldeira, a. o.; leggett, a. j. (1983). "quantum tunnelling in a dissipative system". annals of physics. 149 (2): 374–456. bibcode:1983anphy.149..374c. doi:10.1016/0003-4916(83)90202-6.
+cartier, p; dewitt-morette, cécile (1995). "a new perspective on functional integration". journal of mathematical physics. 36 (5): 2137–2340. arxiv:funct-an/9602005. bibcode:1995jmp....36.2237c. doi:10.1063/1.531039. s2cid 119581543.
+chaichian, m.; demichev, a. p. (2001). "introduction". path integrals in physics volume 1: stochastic process & quantum mechanics. taylor & francis. p. 1ff. isbn 978-0-7503-0801-4.
+dewitt-morette, c. (1972). "feynman's path integral: definition without limiting procedure". communications in mathematical physics. 28 (1): 47–67. bibcode:1972cmaph..28...47d. doi:10.1007/bf02099371. mr 0309456. s2cid 119669964.
+dirac, paul a. m. (1933). "the lagrangian in quantum mechanics" (pdf). physikalische zeitschrift der sowjetunion. 3: 64–72.
+duru, i̇. h.; kleinert, hagen (1979). "solution of the path integral for the h-atom" (pdf). physics letters. 84b (2): 185–188. bibcode:1979phlb...84..185d. doi:10.1016/0370-2693(79)90280-6. retrieved 2007-11-25.
+etingof, p (2002). "geometry and quantum field theory". mit opencourseware. this course, designed for mathematicians, is a rigorous introduction to perturbative quantum field theory, using the language of functional integrals.
+feynman, r. p. (2005) [1942/1948].  brown, l. m. (ed.). feynman's thesis — a new approach to quantum theory. world scientific. bibcode:2005ftna.book.....b. doi:10.1142/5852. isbn 978-981-256-366-8. the 1942 thesis. also includes dirac's 1933 paper and feynman's 1948 publication.
+feynman, r. p. (1948). "space-time approach to non-relativistic quantum mechanics" (pdf). reviews of modern physics. 20 (2): 367–387. bibcode:1948rvmp...20..367f. doi:10.1103/revmodphys.20.367.
+feynman, r. p.; hibbs, a. r. (1965). quantum mechanics and path integrals. new york: mcgraw-hill. isbn 978-0-07-020650-2. the historical reference, written by the inventor of the path integral formulation himself and one of his students.
+feynman, r. p.; hibbs, a. r.; styer, d. f. (2010). quantum mechanics and path integrals. mineola, ny: dover publications. pp. 29–31. isbn 978-0-486-47722-0.
+gell-mann, murray (1993). "most of the good stuff".  in brown, laurie m.; rigden, john s. (eds.). memories of richard feynman. american institute of physics. isbn 978-0883188705.
+glimm, j. & jaffe, a. (1981). quantum physics: a functional integral point of view. new york: springer-verlag. isbn 978-0-387-90562-4.
+grosche, christian & steiner, frank (1998). handbook of feynman path integrals. springer tracts in modern physics 145. springer-verlag. isbn 978-3-540-57135-3.
+grosche, christian (1992). "an introduction into the feynman path integral". arxiv:hep-th/9302097.
+hall, brian c. (2013). quantum theory for mathematicians. graduate texts in mathematics. vol. 267. springer. doi:10.1007/978-1-4614-7116-5. isbn 978-1-4614-7115-8.
+inomata, akira; kuratsuji, hiroshi; gerry, christopher (1992). path integrals and coherent states of su(2) and su(1,1). singapore: world scientific. isbn 978-981-02-0656-7.
+janke, w.; pelster, axel, eds. (2008). path integrals--new trends and perspectives. proceedings of the 9th international conference. world scientific publishing. isbn 978-981-283-726-4.
+johnson, gerald w.; lapidus, michel l. (2002). the feynman integral and feynman's operational calculus. oxford mathematical monographs. oxford university press. isbn 978-0-19-851572-2.
+klauder, john r. (2010). a modern approach to functional integration. new york: birkhäuser. isbn 978-0-8176-4790-2.
+kleinert, hagen (2004). path integrals in quantum mechanics, statistics, polymer physics, and financial markets (4th ed.). singapore: world scientific. isbn 978-981-238-107-1.
+mackenzie, richard (2000). "path integral methods and applications". arxiv:quant-ph/0004090.
+mazzucchi, s. (2009). mathematical feynman path integrals and their applications. world scientific. isbn 978-981-283-690-8.
+müller-kirsten, harald j. w. (2012). introduction to quantum mechanics: schrödinger equation and path integral (2nd ed.). singapore: world scientific.
+rivers, r. j. (1987). path integrals methods in quantum field theory. cambridge university press. isbn 978-0-521-25979-8.
+ryder, lewis h. (1985). quantum field theory. cambridge university press. isbn 978-0-521-33859-2. highly readable textbook; introduction to relativistic qft for particle physics.
+schulman, l s. (1981). techniques & applications of path integration. new york: john wiley & sons. isbn 978-0-486-44528-1.
+simon, b. (1979). functional integration and quantum physics. new york: academic press. isbn 978-0-8218-6941-3.
+sinha, sukanya; sorkin, rafael d. (1991). "a sum-over-histories account of an epr(b) experiment" (pdf). foundations of physics letters. 4 (4): 303–335. bibcode:1991fophl...4..303s. doi:10.1007/bf00665892. s2cid 121370426.
+tomé, w. a. (1998). path integrals on group manifolds. singapore: world scientific. isbn 978-981-02-3355-6. discusses the definition of path integrals for systems whose kinematical variables are the generators of a real separable, connected lie group with irreducible, square integrable representations.
+van vleck, j. h. (1928). "the correspondence principle in the statistical interpretation of quantum mechanics". proceedings of the national academy of sciences of the united states of america. 14 (2): 178–188. bibcode:1928pnas...14..178v. doi:10.1073/pnas.14.2.178. pmc 1085402. pmid 16577107.
+weinberg, s. (2002) [1995], foundations, the quantum theory of fields, vol. 1, cambridge: cambridge university press, isbn 978-0-521-55001-7
+zee, a. (2010-02-21). quantum field theory in a nutshell (second ed.). princeton university press. isbn 978-0-691-14034-6. a great introduction to path integrals (chapter 1) and qft in general.
+zinn justin, j. (2004). path integrals in quantum mechanics. oxford university press. isbn 978-0-19-856674-8.
+
+
+== external links ==
+path integral on scholarpedia
+path integrals in quantum theories: a pedagogic 1st step
+a mathematically rigorous approach to perturbative path integrals  via animation on youtube
+feynman's infinite quantum paths | pbs space time. july 7, 2017. (video, 15:48)

@@ -1,0 +1,2137 @@
+in category theory, a branch of mathematics, a monad (also triple, triad, standard construction and fundamental construction) is a monoid in the category of endofunctors. an endofunctor is a functor mapping a category to itself, and a monad is an endofunctor together with two natural transformations required to fulfill certain coherence conditions.  monads are used in the theory of pairs of adjoint functors, and they generalize closure operators on partially ordered sets to arbitrary categories. monads are also useful in the theory of datatypes and in functional programming languages, allowing languages with non-mutable states to do things such as simulate for-loops.
+
+
+== introduction and definition ==
+a monad is a certain type of endofunctor. for example, if 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   and 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+   are a pair of adjoint functors, with 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   left adjoint to 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+  , then the composition 
+  
+    
+      
+        g
+        ∘
+        f
+      
+    
+    {\displaystyle g\circ f}
+   is a monad.  if 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   and 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+   are inverse functors, the corresponding monad is the identity functor.  in general, adjunctions are not equivalences—they relate categories of different natures.  the monad theory matters as part of the effort to capture what it is that adjunctions 'preserve'. the other half of the theory, of what can be learned likewise from consideration of 
+  
+    
+      
+        f
+        ∘
+        g
+      
+    
+    {\displaystyle f\circ g}
+  , is discussed under the dual theory of comonads.
+
+
+=== formal definition ===
+throughout this article 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+   denotes a category. a monad on 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+   consists of an endofunctor 
+  
+    
+      
+        t
+        :
+        c
+        →
+        c
+      
+    
+    {\displaystyle t\colon c\to c}
+   together with two natural transformations: 
+  
+    
+      
+        η
+        :
+        
+          1
+          
+            c
+          
+        
+        →
+        t
+      
+    
+    {\displaystyle \eta \colon 1_{c}\to t}
+   (where 
+  
+    
+      
+        
+          1
+          
+            c
+          
+        
+      
+    
+    {\displaystyle 1_{c}}
+   denotes the identity functor on 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+  ) and 
+  
+    
+      
+        μ
+        :
+        
+          t
+          
+            2
+          
+        
+        →
+        t
+      
+    
+    {\displaystyle \mu \colon t^{2}\to t}
+   (where 
+  
+    
+      
+        
+          t
+          
+            2
+          
+        
+      
+    
+    {\displaystyle t^{2}}
+   is the functor 
+  
+    
+      
+        t
+        ∘
+        t
+      
+    
+    {\displaystyle t\circ t}
+   from 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+   to 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+  ).  these are required to fulfill the following conditions (sometimes called coherence conditions):
+
+  
+    
+      
+        μ
+        ∘
+        t
+        μ
+        =
+        μ
+        ∘
+        μ
+        t
+      
+    
+    {\displaystyle \mu \circ t\mu =\mu \circ \mu t}
+   (as natural transformations 
+  
+    
+      
+        
+          t
+          
+            3
+          
+        
+        →
+        t
+      
+    
+    {\displaystyle t^{3}\to t}
+  ); here 
+  
+    
+      
+        t
+        μ
+      
+    
+    {\displaystyle t\mu }
+   and 
+  
+    
+      
+        μ
+        t
+      
+    
+    {\displaystyle \mu t}
+   are formed by "horizontal composition"
+
+  
+    
+      
+        μ
+        ∘
+        t
+        η
+        =
+        μ
+        ∘
+        η
+        t
+        =
+        
+          1
+          
+            t
+          
+        
+      
+    
+    {\displaystyle \mu \circ t\eta =\mu \circ \eta t=1_{t}}
+   (as natural transformations 
+  
+    
+      
+        t
+        →
+        t
+      
+    
+    {\displaystyle t\to t}
+  ; here 
+  
+    
+      
+        
+          1
+          
+            t
+          
+        
+      
+    
+    {\displaystyle 1_{t}}
+   denotes the identity transformation from 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   to 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+  ).we can rewrite these conditions using the following commutative diagrams:
+
+see the article on natural transformations for the explanation of the notations 
+  
+    
+      
+        t
+        μ
+      
+    
+    {\displaystyle t\mu }
+    and 
+  
+    
+      
+        μ
+        t
+      
+    
+    {\displaystyle \mu t}
+  , or see below the commutative diagrams not using these notions:
+
+the first axiom is akin to the associativity in monoids if we think of 
+  
+    
+      
+        μ
+      
+    
+    {\displaystyle \mu }
+   as the monoid's binary operation, and the second axiom is akin to the existence of an identity element (which we think of as given by 
+  
+    
+      
+        η
+      
+    
+    {\displaystyle \eta }
+  ).  indeed, a monad on 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+   can alternatively be defined as a monoid in the category 
+  
+    
+      
+        
+          
+            e
+            n
+            d
+          
+          
+            c
+          
+        
+      
+    
+    {\displaystyle \mathbf {end} _{c}}
+   whose objects are the endofunctors of 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+   and whose morphisms are the natural transformations between them, with the monoidal structure induced by the composition of endofunctors.
+
+
+=== the power set monad ===
+the power set monad is a monad 
+  
+    
+      
+        
+          
+            p
+          
+        
+      
+    
+    {\displaystyle {\mathcal {p}}}
+   on the category 
+  
+    
+      
+        
+          s
+          e
+          t
+        
+      
+    
+    {\displaystyle \mathbf {set} }
+  : for a set 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   let 
+  
+    
+      
+        t
+        (
+        a
+        )
+      
+    
+    {\displaystyle t(a)}
+   be the power set of 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   and for a function 
+  
+    
+      
+        f
+        :
+        a
+        →
+        b
+      
+    
+    {\displaystyle f\colon a\to b}
+   let 
+  
+    
+      
+        t
+        (
+        f
+        )
+      
+    
+    {\displaystyle t(f)}
+   be the function between the power sets induced by taking direct images under 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+  .  for every set 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  , we have a map 
+  
+    
+      
+        
+          η
+          
+            a
+          
+        
+        :
+        a
+        →
+        t
+        (
+        a
+        )
+      
+    
+    {\displaystyle \eta _{a}\colon a\to t(a)}
+  , which assigns to every 
+  
+    
+      
+        a
+        ∈
+        a
+      
+    
+    {\displaystyle a\in a}
+   the singleton 
+  
+    
+      
+        {
+        a
+        }
+      
+    
+    {\displaystyle \{a\}}
+  . the function
+
+  
+    
+      
+        
+          μ
+          
+            a
+          
+        
+        :
+        t
+        (
+        t
+        (
+        a
+        )
+        )
+        →
+        t
+        (
+        a
+        )
+      
+    
+    {\displaystyle \mu _{a}\colon t(t(a))\to t(a)}
+  takes a set of sets to its union. these data describe a monad.
+
+
+=== remarks ===
+the axioms of a monad are formally similar to the monoid axioms. in fact, monads are special cases of monoids, namely they are precisely the monoids among endofunctors 
+  
+    
+      
+        end
+        ⁡
+        (
+        c
+        )
+      
+    
+    {\displaystyle \operatorname {end} (c)}
+  , which is equipped with the multiplication given by composition of endofunctors.
+composition of monads is not, in general, a monad. for example, the double power set functor 
+  
+    
+      
+        
+          
+            p
+          
+        
+        ∘
+        
+          
+            p
+          
+        
+      
+    
+    {\displaystyle {\mathcal {p}}\circ {\mathcal {p}}}
+   does not admit any monad structure.
+
+
+=== comonads ===
+the categorical dual definition is a formal definition of a comonad (or cotriple); this can be said quickly in the terms that a comonad for a category 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+   is a monad for the opposite category  
+  
+    
+      
+        
+          c
+          
+            
+              o
+              p
+            
+          
+        
+      
+    
+    {\displaystyle c^{\mathrm {op} }}
+  . it is therefore a functor 
+  
+    
+      
+        u
+      
+    
+    {\displaystyle u}
+   from 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+   to itself, with a set of axioms for counit and comultiplication that come from reversing the arrows everywhere in the definition just given.
+monads are to monoids as comonads are to comonoids. every set is a comonoid in a unique way, so comonoids are less familiar in abstract algebra than monoids; however, comonoids in the category of vector spaces with its usual tensor product are important and widely studied under the name of coalgebras.
+
+
+=== terminological history ===
+the notion of monad was invented by roger godement in 1958 under the name "standard construction." in the 1960s and 1970s, many people used the name "triple." the now standard term "monad" is due to saunders mac lane.
+
+
+== examples ==
+
+
+=== monads arising from adjunctions ===
+any adjunction
+
+  
+    
+      
+        f
+        :
+        c
+        ⇄
+        d
+        :
+        g
+      
+    
+    {\displaystyle f:c\rightleftarrows d:g}
+  gives rise to a monad on c. this very widespread construction works as follows: the endofunctor is the composite
+
+  
+    
+      
+        t
+        =
+        g
+        ∘
+        f
+        .
+      
+    
+    {\displaystyle t=g\circ f.}
+  this endofunctor is quickly seen to be a monad, where the unit map stems from the unit map 
+  
+    
+      
+        
+          id
+          
+            c
+          
+        
+        →
+        g
+        ∘
+        f
+      
+    
+    {\displaystyle \operatorname {id} _{c}\to g\circ f}
+   of the adjunction, and the multiplication map is constructed using the counit map of the adjunction:
+
+  
+    
+      
+        
+          t
+          
+            2
+          
+        
+        =
+        g
+        ∘
+        f
+        ∘
+        g
+        ∘
+        f
+        
+          →
+          
+            g
+            ∘
+            
+              counit
+            
+            ∘
+            f
+          
+        
+        g
+        ∘
+        f
+        =
+        t
+        .
+      
+    
+    {\displaystyle t^{2}=g\circ f\circ g\circ f\xrightarrow {g\circ {\text{counit}}\circ f} g\circ f=t.}
+  in fact, any monad can be found as an explicit adjunction of functors using the eilenberg–moore category 
+  
+    
+      
+        
+          c
+          
+            t
+          
+        
+      
+    
+    {\displaystyle c^{t}}
+   (the category of 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+  -algebras).
+
+
+==== double dualization ====
+the double dualization monad, for a fixed field k arises from the adjunction
+
+  
+    
+      
+        (
+        −
+        
+          )
+          
+            ∗
+          
+        
+        :
+        
+          
+            v
+            e
+            c
+            t
+          
+          
+            k
+          
+        
+        ⇄
+        
+          
+            v
+            e
+            c
+            t
+          
+          
+            k
+          
+          
+            o
+            p
+          
+        
+        :
+        (
+        −
+        
+          )
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle (-)^{*}:\mathbf {vect} _{k}\rightleftarrows \mathbf {vect} _{k}^{op}:(-)^{*}}
+  where both functors are given by sending a vector space v to its dual vector space 
+  
+    
+      
+        
+          v
+          
+            ∗
+          
+        
+        :=
+        hom
+        ⁡
+        (
+        v
+        ,
+        k
+        )
+      
+    
+    {\displaystyle v^{*}:=\operatorname {hom} (v,k)}
+  . the associated monad sends a vector space v to its double dual 
+  
+    
+      
+        
+          v
+          
+            ∗
+            ∗
+          
+        
+      
+    
+    {\displaystyle v^{**}}
+  . this monad is discussed, in much greater generality, by kock (1970).
+
+
+==== closure operators on partially ordered sets ====
+for categories arising from partially ordered sets 
+  
+    
+      
+        (
+        p
+        ,
+        ≤
+        )
+      
+    
+    {\displaystyle (p,\leq )}
+   (with a single morphism from 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   to 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   if and only if 
+  
+    
+      
+        x
+        ≤
+        y
+      
+    
+    {\displaystyle x\leq y}
+  ), then the formalism becomes much simpler: adjoint pairs are galois connections and monads are closure operators.
+
+
+==== free-forgetful adjunctions ====
+for example, let 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+   be the forgetful functor from the category grp of groups to the category set of sets, and let  
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   be the free group functor from the category of sets to the category of groups.  then 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   is left adjoint of 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+  . in this case, the associated monad 
+  
+    
+      
+        t
+        =
+        g
+        ∘
+        f
+      
+    
+    {\displaystyle t=g\circ f}
+   takes a set 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   and returns the underlying set of the free group 
+  
+    
+      
+        
+          f
+          r
+          e
+          e
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle \mathrm {free} (x)}
+  .
+the unit map of this monad is given by the maps
+
+  
+    
+      
+        x
+        →
+        t
+        (
+        x
+        )
+      
+    
+    {\displaystyle x\to t(x)}
+  including any set 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   into the set 
+  
+    
+      
+        
+          f
+          r
+          e
+          e
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle \mathrm {free} (x)}
+   in the natural way, as strings of length 1. further, the multiplication of this monad is the map
+
+  
+    
+      
+        t
+        (
+        t
+        (
+        x
+        )
+        )
+        →
+        t
+        (
+        x
+        )
+      
+    
+    {\displaystyle t(t(x))\to t(x)}
+  made out of a natural concatenation or 'flattening' of 'strings of strings'.  this amounts to two natural transformations.
+the preceding example about free groups can be generalized to any type of algebra in the sense of a variety of algebras in universal algebra.  thus, every such type of algebra gives rise to a monad on the category of sets.  importantly, the algebra type can be recovered from the monad (as the category of eilenberg–moore algebras), so monads can also be seen as generalizing varieties of universal algebras.
+another monad arising from an adjunction is when 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   is the endofunctor on the category of vector spaces which maps a vector space 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   to its tensor algebra 
+  
+    
+      
+        t
+        (
+        v
+        )
+      
+    
+    {\displaystyle t(v)}
+  , and which maps linear maps to their tensor product. we then have a natural transformation corresponding to the embedding of 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   into its tensor algebra, and a natural transformation corresponding to the map from 
+  
+    
+      
+        t
+        (
+        t
+        (
+        v
+        )
+        )
+      
+    
+    {\displaystyle t(t(v))}
+   to 
+  
+    
+      
+        t
+        (
+        v
+        )
+      
+    
+    {\displaystyle t(v)}
+   obtained by simply expanding all tensor products.
+
+
+=== codensity monads ===
+under mild conditions, functors not admitting a left adjoint also give rise to a monad, the so-called codensity monad. for example, the inclusion
+
+  
+    
+      
+        
+          f
+          i
+          n
+          s
+          e
+          t
+        
+        ⊂
+        
+          s
+          e
+          t
+        
+      
+    
+    {\displaystyle \mathbf {finset} \subset \mathbf {set} }
+  does not admit a left adjoint. its codensity monad is the monad on sets sending any set x to the set of ultrafilters on x. this and similar examples are discussed in leinster (2013).
+
+
+== algebras for a monad ==
+
+given a monad 
+  
+    
+      
+        (
+        t
+        ,
+        η
+        ,
+        μ
+        )
+      
+    
+    {\displaystyle (t,\eta ,\mu )}
+   on a category 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+  , it is natural to consider 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+  -algebras, i.e., objects of 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+   acted upon by 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   in a way which is compatible with the unit and multiplication of the monad. more formally, a 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+  -algebra  
+  
+    
+      
+        (
+        x
+        ,
+        h
+        )
+      
+    
+    {\displaystyle (x,h)}
+   is an object 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   of 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+   together with an arrow 
+  
+    
+      
+        h
+        :
+        t
+        x
+        →
+        x
+      
+    
+    {\displaystyle h\colon tx\to x}
+   of 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+   called the structure map of the algebra such that the diagrams
+
+commute.
+
+a morphism 
+  
+    
+      
+        f
+        :
+        (
+        x
+        ,
+        h
+        )
+        →
+        (
+        
+          x
+          ′
+        
+        ,
+        
+          h
+          ′
+        
+        )
+      
+    
+    {\displaystyle f\colon (x,h)\to (x',h')}
+   of 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+  -algebras is an arrow 
+  
+    
+      
+        f
+        :
+        x
+        →
+        
+          x
+          ′
+        
+      
+    
+    {\displaystyle f\colon x\to x'}
+   of 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+   such that the diagram  commutes. 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+  -algebras form a category called the eilenberg–moore category and denoted by 
+  
+    
+      
+        
+          c
+          
+            t
+          
+        
+      
+    
+    {\displaystyle c^{t}}
+  .
+
+
+=== examples ===
+
+
+==== algebras over the free group monad ====
+for example, for the free group monad discussed above, a 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+  -algebra is a set 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   together with a map from the free group generated by 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   towards 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   subject to associativity and unitality conditions. such a structure is equivalent to saying that 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   is a group itself.
+
+
+==== algebras over the distribution monad ====
+another example is the distribution monad 
+  
+    
+      
+        
+          
+            d
+          
+        
+      
+    
+    {\displaystyle {\mathcal {d}}}
+   on the category of sets. it is defined by sending a set 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   to the set of functions 
+  
+    
+      
+        f
+        :
+        x
+        →
+        [
+        0
+        ,
+        1
+        ]
+      
+    
+    {\displaystyle f:x\to [0,1]}
+   with finite support and such that their sum is equal to 
+  
+    
+      
+        1
+      
+    
+    {\displaystyle 1}
+  . in set-builder notation, this is the setby inspection of the definitions, it can be shown that algebras over the distribution monad are equivalent to convex sets, i.e., sets equipped with operations 
+  
+    
+      
+        x
+        
+          +
+          
+            r
+          
+        
+        y
+      
+    
+    {\displaystyle x+_{r}y}
+   for 
+  
+    
+      
+        r
+        ∈
+        [
+        0
+        ,
+        1
+        ]
+      
+    
+    {\displaystyle r\in [0,1]}
+   subject to axioms resembling the behavior of convex linear combinations 
+  
+    
+      
+        r
+        x
+        +
+        (
+        1
+        −
+        r
+        )
+        y
+      
+    
+    {\displaystyle rx+(1-r)y}
+   in euclidean space.
+
+
+==== algebras over the symmetric monad ====
+another useful example of a monad is the symmetric algebra functor on the category of 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+  -modules for a commutative ring 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+  .sending an 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+  -module 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   to the direct sum of symmetric tensor powerswhere 
+  
+    
+      
+        
+          
+            sym
+          
+          
+            0
+          
+        
+        (
+        m
+        )
+        =
+        r
+      
+    
+    {\displaystyle {\text{sym}}^{0}(m)=r}
+  . for example, 
+  
+    
+      
+        
+          
+            sym
+          
+          
+            ∙
+          
+        
+        (
+        
+          r
+          
+            ⊕
+            n
+          
+        
+        )
+        ≅
+        r
+        [
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+        ]
+      
+    
+    {\displaystyle {\text{sym}}^{\bullet }(r^{\oplus n})\cong r[x_{1},\ldots ,x_{n}]}
+   where the 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+  -algebra on the right is considered as a module. then, an algebra over this monad are commutative 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+  -algebras. there are also algebras over the monads for the alternating tensors 
+  
+    
+      
+        
+          
+            alt
+          
+          
+            ∙
+          
+        
+        (
+        −
+        )
+      
+    
+    {\displaystyle {\text{alt}}^{\bullet }(-)}
+   and total tensor functors 
+  
+    
+      
+        
+          t
+          
+            ∙
+          
+        
+        (
+        −
+        )
+      
+    
+    {\displaystyle t^{\bullet }(-)}
+   giving anti-symmetric 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+  -algebras, and free 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+  -algebras, sowhere the first ring is the free anti-symmetric algebra over 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+   in 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  -generators and the second ring is the free algebra over 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+   in 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  -generators.
+
+
+==== commutative algebras in e-infinity ring spectra ====
+there is an analogous construction for commutative 
+  
+    
+      
+        
+          s
+        
+      
+    
+    {\displaystyle \mathbb {s} }
+  -algebraspg 113 which gives commutative 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  -algebras for a commutative 
+  
+    
+      
+        
+          s
+        
+      
+    
+    {\displaystyle \mathbb {s} }
+  -algebra 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  . if 
+  
+    
+      
+        
+          
+            
+              m
+            
+          
+          
+            a
+          
+        
+      
+    
+    {\displaystyle {\mathcal {m}}_{a}}
+   is the category of 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  -modules, then the functor 
+  
+    
+      
+        
+          p
+        
+        :
+        
+          
+            
+              m
+            
+          
+          
+            a
+          
+        
+        →
+        
+          
+            
+              m
+            
+          
+          
+            a
+          
+        
+      
+    
+    {\displaystyle \mathbb {p} :{\mathcal {m}}_{a}\to {\mathcal {m}}_{a}}
+   is the monad given bywhere 
+  
+    
+      
+        j
+      
+    
+    {\displaystyle j}
+  -times. then there is an associated category 
+  
+    
+      
+        
+          
+            
+              c
+            
+          
+          
+            a
+          
+        
+      
+    
+    {\displaystyle {\mathcal {c}}_{a}}
+   of commutative 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  -algebras from the category of algebras over this monad.
+
+
+== monads and adjunctions ==
+as was mentioned above, any adjunction gives rise to a monad. conversely, every monad arises from some adjunction, namely the free–forgetful adjunction
+
+  
+    
+      
+        t
+        (
+        −
+        )
+        :
+        c
+        ⇄
+        
+          c
+          
+            t
+          
+        
+        :
+        
+          forget
+        
+      
+    
+    {\displaystyle t(-):c\rightleftarrows c^{t}:{\text{forget}}}
+  whose left adjoint sends an object x to the free t-algebra t(x). however, there are usually several distinct adjunctions giving rise to a monad: let 
+  
+    
+      
+        
+          a
+          d
+          j
+        
+        (
+        c
+        ,
+        t
+        )
+      
+    
+    {\displaystyle \mathbf {adj} (c,t)}
+   be the category whose objects are the adjunctions 
+  
+    
+      
+        (
+        f
+        ,
+        g
+        ,
+        e
+        ,
+        ε
+        )
+      
+    
+    {\displaystyle (f,g,e,\varepsilon )}
+   such that 
+  
+    
+      
+        (
+        g
+        f
+        ,
+        e
+        ,
+        g
+        ε
+        f
+        )
+        =
+        (
+        t
+        ,
+        η
+        ,
+        μ
+        )
+      
+    
+    {\displaystyle (gf,e,g\varepsilon f)=(t,\eta ,\mu )}
+   and whose arrows are the morphisms of adjunctions that are the identity on 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+  . then the above free–forgetful adjunction involving the eilenberg–moore category 
+  
+    
+      
+        
+          c
+          
+            t
+          
+        
+      
+    
+    {\displaystyle c^{t}}
+   is a terminal object in 
+  
+    
+      
+        
+          a
+          d
+          j
+        
+        (
+        c
+        ,
+        t
+        )
+      
+    
+    {\displaystyle \mathbf {adj} (c,t)}
+  . an initial object is the kleisli category, which is by definition the full subcategory of 
+  
+    
+      
+        
+          c
+          
+            t
+          
+        
+      
+    
+    {\displaystyle c^{t}}
+   consisting only of free t-algebras, i.e., t-algebras of the form 
+  
+    
+      
+        t
+        (
+        x
+        )
+      
+    
+    {\displaystyle t(x)}
+   for some object x of c.
+
+
+=== monadic adjunctions ===
+given any adjunction 
+  
+    
+      
+        (
+        f
+        :
+        c
+        →
+        d
+        ,
+        g
+        :
+        d
+        →
+        c
+        ,
+        η
+        ,
+        ε
+        )
+      
+    
+    {\displaystyle (f:c\to d,g:d\to c,\eta ,\varepsilon )}
+   with associated monad t, the functor g can be factored as
+
+  
+    
+      
+        d
+        
+          
+            
+              
+                →
+              
+              
+                
+                  
+                    g
+                    ~
+                  
+                
+              
+            
+          
+        
+        
+          c
+          
+            t
+          
+        
+        
+          
+            
+              
+                →
+              
+              
+                forget
+              
+            
+          
+        
+        c
+        ,
+      
+    
+    {\displaystyle d{\stackrel {\tilde {g}}{\to }}c^{t}{\stackrel {\text{forget}}{\to }}c,}
+  i.e., g(y) can be naturally endowed with a t-algebra structure for any y in d. the adjunction is called a monadic adjunction if the first functor 
+  
+    
+      
+        
+          
+            
+              g
+              ~
+            
+          
+        
+      
+    
+    {\displaystyle {\tilde {g}}}
+   yields an equivalence of categories between d and the eilenberg–moore category 
+  
+    
+      
+        
+          c
+          
+            t
+          
+        
+      
+    
+    {\displaystyle c^{t}}
+  . by extension, a functor 
+  
+    
+      
+        g
+        :
+        d
+        →
+        c
+      
+    
+    {\displaystyle g\colon d\to c}
+   is said to be monadic if it has a left adjoint 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   forming a monadic adjunction.  for example, the free–forgetful adjunction between groups and sets is monadic, since algebras over the associated monad are groups, as was mentioned above. in general, knowing that an adjunction is monadic allows one to reconstruct objects in d out of objects in c and the t-action.
+
+
+=== beck's monadicity theorem ===
+beck's monadicity theorem gives a necessary and sufficient condition for an adjunction to be monadic. a simplified version of this theorem states that g is monadic if it is conservative (or g reflects isomorphisms, i.e., a morphism in d is an isomorphism if and only if its image under g is an isomorphism in c) and c has and g preserves coequalizers.
+for example, the forgetful functor from the category of compact hausdorff spaces to sets is monadic. however the forgetful functor from all topological spaces to sets is not conservative since there are continuous bijective maps (between non-compact or non-hausdorff spaces) that fail to be homeomorphisms. thus, this forgetful functor is not monadic.
+the dual version of beck's theorem, characterizing comonadic adjunctions, is relevant in different fields such as topos theory and topics in algebraic geometry related to descent. a first example of a comonadic adjunction is the adjunction
+
+  
+    
+      
+        −
+        
+          ⊗
+          
+            a
+          
+        
+        b
+        :
+        
+          
+            m
+            o
+            d
+          
+          
+            a
+          
+        
+        ⇄
+        
+          
+            m
+            o
+            d
+          
+          
+            b
+          
+        
+        :
+        forget
+      
+    
+    {\displaystyle -\otimes _{a}b:\mathbf {mod} _{a}\rightleftarrows \mathbf {mod} _{b}:\operatorname {forget} }
+  for a ring homomorphism 
+  
+    
+      
+        a
+        →
+        b
+      
+    
+    {\displaystyle a\to b}
+   between commutative rings. this adjunction is comonadic, by beck's theorem, if and only if b is faithfully flat as an a-module. it thus allows to descend b-modules, equipped with a descent datum (i.e., an action of the comonad given by the adjunction) to a-modules. the resulting theory of faithfully flat descent is widely applied in algebraic geometry.
+
+
+== uses ==
+monads are used in functional programming to express types of sequential computation (sometimes with side-effects). see monads in functional programming, and the more mathematically oriented wikibook module b:haskell/category theory.
+in categorical logic, an analogy has been drawn between the monad-comonad theory, and modal logic via closure operators, interior algebras, and their relation to models of s4 and intuitionistic logics.
+
+
+== generalization ==
+it is possible to define monads in a 2-category 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+  . monads described above are monads for 
+  
+    
+      
+        c
+        =
+        
+          c
+          a
+          t
+        
+      
+    
+    {\displaystyle c=\mathbf {cat} }
+  .
+
+
+== see also ==
+distributive law between monads
+lawvere theory
+monad (functional programming)
+polyad
+strong monad
+
+
+== references ==
+
+
+== further reading ==
+barr, michael; wells, charles (1999), category theory for computing science (pdf)
+godement, roger (1958), topologie algébrique et théorie des faisceaux., actualités sci. ind., publ. math. univ. strasbourg, vol. 1252, paris: hermann, pp. viii+283 pp
+kock, anders (1970), "on double dualization monads", mathematica scandinavica, 27: 151, doi:10.7146/math.scand.a-10995
+leinster, tom (2013), "codensity and the ultrafilter monad", theory and applications of categories, 28: 332–370, arxiv:1209.3606, bibcode:2012arxiv1209.3606l
+maclane, saunders (1978), categories for the working mathematician, graduate texts in mathematics, vol. 5, doi:10.1007/978-1-4757-4721-8, isbn 978-1-4419-3123-8
+pedicchio, maria cristina; tholen, walter, eds. (2004). categorical foundations. special topics in order, topology, algebra, and sheaf theory. encyclopedia of mathematics and its applications. vol. 97. cambridge: cambridge university press. isbn 0-521-83414-7. zbl 1034.18001.
+riehl, emily (2017), category theory in context, isbn 9780486820804
+turi, daniele (1996–2001), category theory lecture notes (pdf)
+
+
+== external links ==
+monads, five short lectures (with one appendix).
+john baez's this week's finds in mathematical physics (week 89) covers monads in 2-categories.

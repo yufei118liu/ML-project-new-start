@@ -1,0 +1,1924 @@
+algebraic k-theory is a subject area in mathematics with connections to geometry, topology, ring theory, and number theory.  geometric, algebraic, and arithmetic objects are assigned objects called k-groups.  these are groups in the sense of abstract algebra.  they contain detailed information about the original object but are notoriously difficult to compute; for example, an important outstanding problem is to compute the k-groups of the integers.
+k-theory was invented in the late 1950s by alexander grothendieck in his study of intersection theory on algebraic varieties. in the modern language, grothendieck defined only k0, the zeroth k-group, but even this single group has plenty of applications, such as the grothendieck–riemann–roch theorem. intersection theory is still a motivating force in the development of (higher) algebraic k-theory through its links with motivic cohomology and specifically chow groups.  the subject also includes classical number-theoretic topics like quadratic reciprocity and embeddings of number fields into the real numbers and complex numbers, as well as more modern concerns like the construction of higher regulators and special values of l-functions.
+the lower k-groups were discovered first, in the sense that adequate descriptions of these groups in terms of other algebraic structures were found.  for example, if f is a field, then k0(f) is isomorphic to the integers z and is closely related to the notion of vector space dimension.  for a commutative ring r, the group k0(r) is related to the picard group of r, and when r is the ring of integers in a number field, this generalizes the classical construction of the class group.  the group k1(r) is closely related to the group of units r×, and if r is a field, it is exactly the group of units.  for a number field f, the group k2(f) is related to class field theory, the hilbert symbol, and the solvability of quadratic equations over completions.  in contrast, finding the correct definition of the higher k-groups of rings was a difficult achievement of daniel quillen, and many of the basic facts about the higher k-groups of algebraic varieties were not known until the work of robert thomason.
+
+
+== history ==
+the history of k-theory was detailed by charles weibel.
+
+
+=== the grothendieck group k0 ===
+in the 19th century, bernhard riemann and his student gustav roch proved what is now known as the riemann–roch theorem.  if x is a riemann surface, then the sets of meromorphic functions and meromorphic differential forms on x form vector spaces.  a line bundle on x determines subspaces of these vector spaces, and if x is projective, then these subspaces are finite dimensional.  the riemann–roch theorem states that the difference in dimensions between these subspaces is equal to the degree of the line bundle (a measure of twistedness) plus one minus the genus of x.  in the mid-20th century, the riemann–roch theorem was generalized by friedrich hirzebruch to all algebraic varieties.  in hirzebruch's formulation, the hirzebruch–riemann–roch theorem, the theorem became a statement about euler characteristics: the euler characteristic of a vector bundle on an algebraic variety (which is the alternating sum of the dimensions of its cohomology groups) equals the euler characteristic of the trivial bundle plus a correction factor coming from characteristic classes of the vector bundle.  this is a generalization because on a projective riemann surface, the euler characteristic of a line bundle equals the difference in dimensions mentioned previously, the euler characteristic of the trivial bundle is one minus the genus, and the only nontrivial characteristic class is the degree.
+the subject of k-theory takes its name from a 1957 construction of alexander grothendieck which appeared in the grothendieck–riemann–roch theorem, his generalization of hirzebruch's theorem.  let x be a smooth algebraic variety.  to each vector bundle on x, grothendieck associates an invariant, its class.  the set of all classes on x was called k(x) from the german klasse.  by definition, k(x) is a quotient of the free abelian group on isomorphism classes of vector bundles on x, and so it is an abelian group.  if the basis element corresponding to a vector bundle v is denoted [v], then for each short exact sequence of vector bundles:
+
+  
+    
+      
+        0
+        →
+        
+          v
+          ′
+        
+        →
+        v
+        →
+        
+          v
+          ″
+        
+        →
+        0
+        ,
+      
+    
+    {\displaystyle 0\to v'\to v\to v''\to 0,}
+  grothendieck imposed the relation [v] = [v′] + [v″].  these generators and relations define k(x), and they imply that it is the universal way to assign invariants to vector bundles in a way compatible with exact sequences.
+grothendieck took the perspective that the riemann–roch theorem is a statement about morphisms of varieties, not the varieties themselves.  he proved that there is a homomorphism from k(x) to the chow groups of x coming from the chern character and todd class of x.  additionally, he proved that a proper morphism f : x → y to a smooth variety y determines a homomorphism f* : k(x) → k(y) called the pushforward.  this gives two ways of determining an element in the chow group of y from a vector bundle on x: starting from x, one can first compute the pushforward in k-theory and then apply the chern character and todd class of y, or one can first apply the chern character and todd class of x and then compute the pushforward for chow groups.  the grothendieck–riemann–roch theorem says that these are equal.  when y is a point, a vector bundle is a vector space, the class of a vector space is its dimension, and the grothendieck–riemann–roch theorem specializes to hirzebruch's theorem.
+the group k(x) is now known as k0(x).  upon replacing vector bundles by projective modules, k0 also became defined for non-commutative rings, where it had applications to group representations.  atiyah and hirzebruch quickly transported grothendieck's construction to topology and used it to define topological k-theory.  topological k-theory was one of the first examples of an extraordinary cohomology theory: it associates to each topological space x (satisfying some mild technical constraints) a sequence of groups kn(x) which satisfy all the eilenberg–steenrod axioms except the normalization axiom.  the setting of algebraic varieties, however, is much more rigid, and the flexible constructions used in topology were not available.  while the group k0 seemed to satisfy the necessary properties to be the beginning of a cohomology theory of algebraic varieties and of non-commutative rings, there was no clear definition of the higher kn(x).  even as such definitions were developed, technical issues surrounding restriction and gluing usually forced kn to be defined only for rings, not for varieties.
+
+
+=== k0, k1, and k2 ===
+a group closely related to k1 for group rings was earlier introduced by j.h.c. whitehead. henri poincaré had attempted to define the betti numbers of a manifold in terms of a triangulation.  his methods, however, had a serious gap: poincaré could not prove that two triangulations of a manifold always yielded the same betti numbers.  it was clearly true that betti numbers were unchanged by subdividing the triangulation, and therefore it was clear that any two triangulations that shared a common subdivision had the same betti numbers.  what was not known was that any two triangulations admitted a common subdivision.  this hypothesis became a conjecture known as the hauptvermutung (roughly "main conjecture").  the fact that triangulations were stable under subdivision led j.h.c. whitehead to introduce the notion of simple homotopy type.  a simple homotopy equivalence is defined in terms of adding simplices or cells to a simplicial complex or cell complex in such a way that each additional simplex or cell deformation retracts into a subdivision of the old space.  part of the motivation for this definition is that a subdivision of a triangulation is simple homotopy equivalent to the original triangulation, and therefore two triangulations that share a common subdivision must be simple homotopy equivalent.  whitehead proved that simple homotopy equivalence is a finer invariant than homotopy equivalence by introducing an invariant called the torsion.  the torsion of a homotopy equivalence takes values in a group now called the whitehead group and denoted wh(π), where π is the fundamental group of the two complexes.  whitehead found examples of non-trivial torsion and thereby proved that some homotopy equivalences were not simple.  the whitehead group was later discovered to be a quotient of k1(zπ), where zπ is the integral group ring of π.  later john milnor used reidemeister torsion, an invariant related to whitehead torsion, to disprove the hauptvermutung.
+the first adequate definition of k1 of a ring was made by hyman bass and stephen schanuel.  in topological k-theory, k1 is defined using vector bundles on a suspension of the space.  all such vector bundles come from the clutching construction, where two trivial vector bundles on two halves of a space are glued along a common strip of the space.  this gluing data is expressed using the general linear group, but elements of that group coming from elementary matrices (matrices corresponding to elementary row or column operations) define equivalent gluings.  motivated by this, the bass–schanuel definition of k1 of a ring r is gl(r) / e(r), where gl(r) is the infinite general linear group (the union of all gln(r)) and e(r) is the subgroup of elementary matrices.  they also provided a definition of k0 of a homomorphism of rings and proved that k0 and k1 could be fit together into an exact sequence similar to the relative homology exact sequence.
+work in k-theory from this period culminated in bass' book algebraic k-theory.  in addition to providing a coherent exposition of the results then known, bass improved many of the statements of the theorems.  of particular note is that bass, building on his earlier work with murthy, provided the first proof of what is now known as the fundamental theorem of algebraic k-theory.  this is a four-term exact sequence relating k0 of a ring r to k1 of r, the polynomial ring r[t], and the localization r[t, t−1].  bass recognized that this theorem provided a description of k0 entirely in terms of k1.  by applying this description recursively, he produced negative k-groups k−n(r).  in independent work, max karoubi gave another definition of negative k-groups for certain categories and proved that his definitions yielded that same groups as those of bass.the next major development in the subject came with the definition of k2.  steinberg studied the universal central extensions of a chevalley group over a field and gave an explicit presentation of this group in terms of generators and relations.  in the case of the group en(k) of elementary matrices, the universal central extension is now written stn(k) and called the steinberg group.  in the spring of 1967, john milnor defined k2(r) to be the kernel of the homomorphism st(r) → e(r).  the group k2 further extended some of the exact sequences known for k1 and k0, and it had striking applications to number theory.  hideya matsumoto's 1968 thesis showed that for a field f, k2(f) was isomorphic to:
+
+  
+    
+      
+        
+          f
+          
+            ×
+          
+        
+        
+          ⊗
+          
+            
+              z
+            
+          
+        
+        
+          f
+          
+            ×
+          
+        
+        
+          /
+        
+        ⟨
+        x
+        ⊗
+        (
+        1
+        −
+        x
+        )
+        :
+        x
+        ∈
+        f
+        ∖
+        {
+        0
+        ,
+        1
+        }
+        ⟩
+        .
+      
+    
+    {\displaystyle f^{\times }\otimes _{\mathbf {z} }f^{\times }/\langle x\otimes (1-x)\colon x\in f\setminus \{0,1\}\rangle .}
+  this relation is also satisfied by the hilbert symbol, which expresses the solvability of quadratic equations over local fields.  in particular, john tate was able to prove that k2(q) is essentially structured around the law of quadratic reciprocity.
+
+
+=== higher k-groups ===
+in the late 1960s and early 1970s, several definitions of higher k-theory were proposed.  swan and gersten both produced definitions of kn for all n, and gersten proved that his and swan's theories were equivalent, but the two theories were not known to satisfy all the expected properties.  nobile and villamayor also proposed a definition of higher k-groups.  karoubi and villamayor defined well-behaved k-groups for all n, but their equivalent of k1 was sometimes a proper quotient of the bass–schanuel k1.  their k-groups are now called kvn and are related to homotopy-invariant modifications of k-theory.
+inspired in part by matsumoto's theorem, milnor made a definition of the higher k-groups of a field.  he referred to his definition as "purely ad hoc", and it neither appeared to generalize to all rings nor did it appear to be the correct definition of the higher k-theory of fields.  much later, it was discovered by nesterenko and suslin and by totaro that milnor k-theory is actually a direct summand of the true k-theory of the field.  specifically, k-groups have a filtration called the weight filtration, and the milnor k-theory of a field is the highest weight-graded piece of the k-theory.  additionally, thomason discovered that there is no analog of milnor k-theory for a general variety.the first definition of higher k-theory to be widely accepted was daniel quillen's.  as part of quillen's work on the adams conjecture in topology, he had constructed maps from the classifying spaces bgl(fq) to the homotopy fiber of ψq − 1, where ψq is the qth adams operation acting on the classifying space bu.  this map is acyclic, and after modifying bgl(fq) slightly to produce a new space bgl(fq)+, the map became a homotopy equivalence.  this modification was called the plus construction.  the adams operations had been known to be related to chern classes and to k-theory since the work of grothendieck, and so quillen was led to define the k-theory of r as the homotopy groups of bgl(r)+.  not only did this recover k1 and k2, the relation of k-theory to the adams operations allowed quillen to compute the k-groups of finite fields.
+the classifying space bgl is connected, so quillen's definition failed to give the correct value for k0.  additionally, it did not give any negative k-groups.  since k0 had a known and accepted definition it was possible to sidestep this difficulty, but it remained technically awkward.  conceptually, the problem was that the definition sprung from gl, which was classically the source of k1.  because gl knows only about gluing vector bundles, not about the vector bundles themselves, it was impossible for it to describe k0.
+inspired by conversations with quillen, segal soon introduced another approach to constructing algebraic k-theory under the name of γ-objects.  segal's approach is a homotopy analog of grothendieck's construction of k0.  where grothendieck worked with isomorphism classes of bundles, segal worked with the bundles themselves and used isomorphisms of the bundles as part of his data.  this results in a spectrum whose homotopy groups are the higher k-groups (including k0).  however, segal's approach was only able to impose relations for split exact sequences, not general exact sequences.  in the category of projective modules over a ring, every short exact sequence splits, and so γ-objects could be used to define the k-theory of a ring.  however, there are non-split short exact sequences in the category of vector bundles on a variety and in the category of all modules over a ring, so segal's approach did not apply to all cases of interest.
+in the spring of 1972, quillen found another approach to the construction of higher k-theory which was to prove enormously successful.  this new definition began with an exact category, a category satisfying certain formal properties similar to, but slightly weaker than, the properties satisfied by a category of modules or vector bundles.  from this he constructed an auxiliary category using a new device called his "q-construction."  like segal's γ-objects, the q-construction has its roots in grothendieck's definition of k0.  unlike grothendieck's definition, however, the q-construction builds a category, not an abelian group, and unlike segal's γ-objects, the q-construction works directly with short exact sequences.  if c is an abelian category, then qc is a category with the same objects as c but whose morphisms are defined in terms of short exact sequences in c.  the k-groups of the exact category are the homotopy groups of ωbqc, the loop space of the geometric realization (taking the loop space corrects the indexing).  quillen additionally proved his "+ = q theorem" that his two definitions of k-theory agreed with each other.  this yielded the correct k0 and led to simpler proofs, but still did not yield any negative k-groups.
+all abelian categories are exact categories, but not all exact categories are abelian.  because quillen was able to work in this more general situation, he was able to use exact categories as tools in his proofs.  this technique allowed him to prove many of the basic theorems of algebraic k-theory.  additionally, it was possible to prove that the earlier definitions of swan and gersten were equivalent to quillen's under certain conditions.
+k-theory now appeared to be a homology theory for rings and a cohomology theory for varieties.  however, many of its basic theorems carried the hypothesis that the ring or variety in question was regular.  one of the basic expected relations was a long exact sequence (called the "localization sequence") relating the k-theory of a variety x and an open subset u.  quillen was unable to prove the existence of the localization sequence in full generality.  he was, however, able to prove its existence for a related theory called g-theory (or sometimes k′-theory).  g-theory had been defined early in the development of the subject by grothendieck.  grothendieck defined g0(x) for a variety x to be the free abelian group on isomorphism classes of coherent sheaves on x, modulo relations coming from exact sequences of coherent sheaves.  in the categorical framework adopted by later authors, the k-theory of a variety is the k-theory of its category of vector bundles, while its g-theory is the k-theory of its category of coherent sheaves.  not only could quillen prove the existence of a localization exact sequence for g-theory, he could prove that for a regular ring or variety, k-theory equaled g-theory, and therefore k-theory of regular varieties had a localization exact sequence.  since this sequence was fundamental to many of the facts in the subject, regularity hypotheses pervaded early work on higher k-theory.
+
+
+=== applications of algebraic k-theory in topology ===
+the earliest application of algebraic k-theory to topology was whitehead's construction of whitehead torsion.  a closely related construction was found by c. t. c. wall in 1963.  wall found that a space π dominated by a finite complex has a generalized euler characteristic taking values in a quotient of k0(zπ), where π is the fundamental group of the space.  this invariant is called wall's finiteness obstruction because x is homotopy equivalent to a finite complex if and only if the invariant vanishes.  laurent siebenmann in his thesis found an invariant similar to wall's that gives an obstruction to an open manifold being the interior of a compact manifold with boundary.  if two manifolds with boundary m and n have isomorphic interiors (in top, pl, or diff as appropriate), then the isomorphism between them defines an h-cobordism between m and n.
+whitehead torsion was eventually reinterpreted in a more directly k-theoretic way.  this reinterpretation happened through the study of h-cobordisms.  two n-dimensional manifolds m and n are h-cobordant if there exists an (n + 1)-dimensional manifold with boundary w whose boundary is the disjoint union of m and n and for which the inclusions of m and n into w are homotopy equivalences (in the categories top, pl, or diff).  stephen smale's h-cobordism theorem asserted that if n ≥ 5, w is compact, and m, n, and w are simply connected, then w is isomorphic to the cylinder m × [0, 1] (in top, pl, or diff as appropriate).  this theorem proved the poincaré conjecture for n ≥ 5.
+if m and n are not assumed to be simply connected, then an h-cobordism need not be a cylinder.  the s-cobordism theorem, due independently to mazur, stallings, and barden, explains the general situation: an h-cobordism is a cylinder if and only if the whitehead torsion of the inclusion m ⊂ w vanishes.  this generalizes the h-cobordism theorem because the simple connectedness hypotheses imply that the relevant whitehead group is trivial.  in fact the s-cobordism theorem implies that there is a bijective correspondence between isomorphism classes of h-cobordisms and elements of the whitehead group.
+an obvious question associated with the existence of h-cobordisms is their uniqueness.  the natural notion of equivalence is isotopy.  jean cerf proved that for simply connected smooth manifolds m of dimension at least 5, isotopy of h-cobordisms is the same as a weaker notion called pseudo-isotopy.  hatcher and wagoner studied the components of the space of pseudo-isotopies and related it to a quotient of k2(zπ).the proper context for the s-cobordism theorem is the classifying space of h-cobordisms.  if m is a cat manifold, then hcat(m) is a space that classifies bundles of h-cobordisms on m.  the s-cobordism theorem can be reinterpreted as the statement that the set of connected components of this space is the whitehead group of π1(m).  this space contains strictly more information than the whitehead group; for example, the connected component of the trivial cobordism describes the possible cylinders on m and in particular is the obstruction to the uniqueness of a homotopy between a manifold and m × [0, 1].  consideration of these questions led waldhausen to introduce his algebraic k-theory of spaces.  the algebraic k-theory of m is a space a(m) which is defined so that it plays essentially the same role for higher k-groups as k1(zπ1(m)) does for m.  in particular, waldhausen showed that there is a map from a(m) to a space wh(m) which generalizes the map k1(zπ1(m)) → wh(π1(m)) and whose homotopy fiber is a homology theory.
+in order to fully develop a-theory, waldhausen made significant technical advances in the foundations of k-theory.  waldhausen introduced waldhausen categories, and for a waldhausen category c he introduced a simplicial category s⋅c (the s is for segal) defined in terms of chains of cofibrations in c.  this freed the foundations of k-theory from the need to invoke analogs of exact sequences.
+
+
+=== algebraic topology and algebraic geometry in algebraic k-theory ===
+quillen suggested to his student kenneth brown that it might be possible to create a theory of sheaves of spectra of which k-theory would provide an example.  the sheaf of k-theory spectra would, to each open subset of a variety, associate the k-theory of that open subset.  brown developed such a theory for his thesis.  simultaneously, gersten had the same idea.  at a seattle conference in autumn of 1972, they together discovered a spectral sequence converging from the sheaf cohomology of 
+  
+    
+      
+        
+          
+            
+              k
+            
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\mathcal {k}}_{n}}
+  , the sheaf of kn-groups on x, to the k-group of the total space.  this is now called the brown–gersten spectral sequence.spencer bloch, influenced by gersten's work on sheaves of k-groups, proved that on a regular surface, the cohomology group 
+  
+    
+      
+        
+          h
+          
+            2
+          
+        
+        (
+        x
+        ,
+        
+          
+            
+              k
+            
+          
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle h^{2}(x,{\mathcal {k}}_{2})}
+   is isomorphic to the chow group ch2(x) of codimension 2 cycles on x.  inspired by this, gersten conjectured that for a regular local ring r with fraction field f, kn(r) injects into kn(f) for all n.  soon quillen proved that this is true when r contains a field, and using this he proved that
+
+  
+    
+      
+        
+          h
+          
+            p
+          
+        
+        (
+        x
+        ,
+        
+          
+            
+              k
+            
+          
+          
+            p
+          
+        
+        )
+        ≅
+        
+          ch
+          
+            p
+          
+        
+        ⁡
+        (
+        x
+        )
+      
+    
+    {\displaystyle h^{p}(x,{\mathcal {k}}_{p})\cong \operatorname {ch} ^{p}(x)}
+  for all p.  this is known as  bloch's formula.  while progress has been made on gersten's conjecture since then, the general case remains open.
+lichtenbaum conjectured that special values of the zeta function of a number field could be expressed in terms of the k-groups of the ring of integers of the field.  these special values were known to be related to the étale cohomology of the ring of integers.  quillen therefore generalized lichtenbaum's conjecture, predicting the existence of a spectral sequence like the atiyah–hirzebruch spectral sequence in topological k-theory.  quillen's proposed spectral sequence would start from the étale cohomology of a ring r and, in high enough degrees and after completing at a prime l invertible in r, abut to the l-adic completion of the k-theory of r.  in the case studied by lichtenbaum, the spectral sequence would degenerate, yielding lichtenbaum's conjecture.
+the necessity of localizing at a prime l suggested to browder that there should be a variant of k-theory with finite coefficients.  he introduced k-theory groups kn(r; z/lz) which were z/lz-vector spaces, and he found an analog of the bott element in topological k-theory.  soule used this theory to construct "étale chern classes", an analog of topological chern classes which took elements of algebraic k-theory to classes in étale cohomology.  unlike algebraic k-theory, étale cohomology is highly computable, so étale chern classes provided an effective tool for detecting the existence of elements in k-theory.  william g. dwyer and eric friedlander then invented an analog of k-theory for the étale topology called étale k-theory.  for varieties defined over the complex numbers, étale k-theory is isomorphic to topological k-theory.  moreover, étale k-theory admitted a spectral sequence similar to the one conjectured by quillen.  thomason proved around 1980 that after inverting the bott element, algebraic k-theory with finite coefficients became isomorphic to étale k-theory.throughout the 1970s and early 1980s, k-theory on singular varieties still lacked adequate foundations.  while it was believed that quillen's k-theory gave the correct groups, it was not known that these groups had all of the envisaged properties.  for this, algebraic k-theory had to be reformulated.  this was done by thomason in a lengthy monograph which he co-credited to his dead friend thomas trobaugh, who he said gave him a key idea in a dream.  thomason combined waldhausen's construction of k-theory with the foundations of intersection theory described in volume six of grothendieck's séminaire de géométrie algébrique du bois marie.  there, k0 was described in terms of complexes of sheaves on algebraic varieties.  thomason discovered that if one worked with in derived category of sheaves, there was a simple description of when a complex of sheaves could be extended from an open subset of a variety to the whole variety.  by applying waldhausen's construction of k-theory to derived categories, thomason was able to prove that algebraic k-theory had all the expected properties of a cohomology theory.
+in 1976, keith dennis discovered an entirely novel technique for computing k-theory based on hochschild homology.  this was based around the existence of the dennis trace map, a homomorphism from k-theory to hochschild homology.  while the dennis trace map seemed to be successful for calculations of k-theory with finite coefficients, it was less successful for rational calculations.  goodwillie, motivated by his "calculus of functors", conjectured the existence of a theory intermediate to k-theory and hochschild homology.  he called this theory topological hochschild homology because its ground ring should be the sphere spectrum (considered as a ring whose operations are defined only up to homotopy).  in the mid-1980s, bokstedt gave a definition of topological hochschild homology that satisfied nearly all of goodwillie's conjectural properties, and this made possible further computations of k-groups.  bokstedt's version of the dennis trace map was a transformation of spectra k → thh.  this transformation factored through the fixed points of a circle action on thh, which suggested a relationship with cyclic homology.  in the course of proving an algebraic k-theory analog of the novikov conjecture, bokstedt, hsiang, and madsen introduced topological cyclic homology, which bore the same relationship to topological hochschild homology as cyclic homology did to hochschild homology.  
+the dennis trace map to topological hochschild homology factors through topological cyclic homology, providing an even more detailed tool for calculations.  in 1996, dundas, goodwillie, and mccarthy proved that topological cyclic homology has in a precise sense the same local structure as algebraic k-theory, so that if a calculation in k-theory or topological cyclic homology is possible, then many other "nearby" calculations follow.
+
+
+== lower k-groups ==
+the lower k-groups were discovered first, and given various ad hoc descriptions, which remain useful. throughout, let a be a ring.
+
+
+=== k0 ===
+the functor k0 takes a ring a to the grothendieck group of the set of isomorphism classes of its finitely generated projective modules, regarded as a monoid under direct sum. any ring homomorphism a → b gives a map k0(a) → k0(b) by mapping (the class of) a projective a-module m to m ⊗a b, making k0 a covariant functor.
+if the ring a is commutative, we can define a subgroup of  k0(a) as the set
+
+  
+    
+      
+        
+          
+            
+              
+                k
+                ~
+              
+            
+          
+          
+            0
+          
+        
+        
+          (
+          a
+          )
+        
+        =
+        
+          ⋂
+          
+            
+              
+                p
+              
+            
+            
+               prime ideal of 
+            
+            a
+          
+        
+        
+          k
+          e
+          r
+        
+        
+          dim
+          
+            
+              p
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle {\tilde {k}}_{0}\left(a\right)=\bigcap \limits _{{\mathfrak {p}}{\text{ prime ideal of }}a}\mathrm {ker} \dim _{\mathfrak {p}},}
+  where :
+
+  
+    
+      
+        
+          dim
+          
+            
+              p
+            
+          
+        
+        :
+        
+          k
+          
+            0
+          
+        
+        
+          (
+          a
+          )
+        
+        →
+        
+          z
+        
+      
+    
+    {\displaystyle \dim _{\mathfrak {p}}:k_{0}\left(a\right)\to \mathbf {z} }
+  is the map sending every (class of a) finitely generated projective a-module m to the rank of the free 
+  
+    
+      
+        
+          a
+          
+            
+              p
+            
+          
+        
+      
+    
+    {\displaystyle a_{\mathfrak {p}}}
+  -module 
+  
+    
+      
+        
+          m
+          
+            
+              p
+            
+          
+        
+      
+    
+    {\displaystyle m_{\mathfrak {p}}}
+   (this module is indeed free, as any finitely generated projective module over a local ring is free). this subgroup 
+  
+    
+      
+        
+          
+            
+              
+                k
+                ~
+              
+            
+          
+          
+            0
+          
+        
+        
+          (
+          a
+          )
+        
+      
+    
+    {\displaystyle {\tilde {k}}_{0}\left(a\right)}
+   is known as the reduced zeroth k-theory of a.
+if b is a ring without an identity element, we can extend the definition of k0 as follows.  let a = b⊕z be the extension of b to a ring with unity obtaining by adjoining an identity element (0,1).  there is a short exact sequence b → a → z and we define k0(b) to be the kernel of the corresponding map k0(a) → k0(z) = z.
+
+
+==== examples ====
+
+(projective) modules over a field k are vector spaces and k0(k) is isomorphic to z, by dimension.
+finitely generated projective modules over a local ring a are free and so in this case once again k0(a) is isomorphic to z, by rank.
+for a a dedekind domain, k0(a) = pic(a) ⊕ z, where pic(a) is the picard group of a,an algebro-geometric variant of this construction is applied to the category of algebraic varieties; it associates with a given algebraic variety x the grothendieck's k-group of the category of locally free sheaves (or coherent sheaves) on x. given a compact topological space x, the topological k-theory ktop(x) of (real) vector bundles over x coincides with k0 of the ring of continuous real-valued functions on x.
+
+
+==== relative k0 ====
+let i be an ideal of a and define the "double" to be a subring of the cartesian product a×a:
+
+  
+    
+      
+        d
+        (
+        a
+        ,
+        i
+        )
+        =
+        {
+        (
+        x
+        ,
+        y
+        )
+        ∈
+        a
+        ×
+        a
+        :
+        x
+        −
+        y
+        ∈
+        i
+        }
+         
+        .
+      
+    
+    {\displaystyle d(a,i)=\{(x,y)\in a\times a:x-y\in i\}\ .}
+  the relative k-group is defined in terms of the "double"
+
+  
+    
+      
+        
+          k
+          
+            0
+          
+        
+        (
+        a
+        ,
+        i
+        )
+        =
+        ker
+        ⁡
+        
+          (
+          
+            
+              k
+              
+                0
+              
+            
+            (
+            d
+            (
+            a
+            ,
+            i
+            )
+            )
+            →
+            
+              k
+              
+                0
+              
+            
+            (
+            a
+            )
+          
+          )
+        
+         
+        .
+      
+    
+    {\displaystyle k_{0}(a,i)=\ker \left({k_{0}(d(a,i))\rightarrow k_{0}(a)}\right)\ .}
+  where the map is induced by projection along the first factor.
+the relative k0(a,i) is isomorphic to k0(i), regarding i as a ring without identity.  the independence from a is an analogue of the excision theorem in homology.
+
+
+==== k0 as a ring ====
+if a is a commutative ring, then the tensor product of projective modules is again projective, and so tensor product induces a multiplication turning k0 into a commutative ring with the class [a] as identity.  the exterior product similarly induces a λ-ring structure.
+the picard group embeds as a subgroup of the group of units k0(a)∗.
+
+
+=== k1 ===
+hyman bass provided this definition, which generalizes the group of units of a ring: k1(a) is the abelianization of the infinite general linear group:
+
+  
+    
+      
+        
+          k
+          
+            1
+          
+        
+        (
+        a
+        )
+        =
+        gl
+        ⁡
+        (
+        a
+        
+          )
+          
+            
+              ab
+            
+          
+        
+        =
+        gl
+        ⁡
+        (
+        a
+        )
+        
+          /
+        
+        [
+        gl
+        ⁡
+        (
+        a
+        )
+        ,
+        gl
+        ⁡
+        (
+        a
+        )
+        ]
+      
+    
+    {\displaystyle k_{1}(a)=\operatorname {gl} (a)^{\mbox{ab}}=\operatorname {gl} (a)/[\operatorname {gl} (a),\operatorname {gl} (a)]}
+  here
+
+  
+    
+      
+        gl
+        ⁡
+        (
+        a
+        )
+        =
+        colim
+        ⁡
+        gl
+        ⁡
+        (
+        n
+        ,
+        a
+        )
+      
+    
+    {\displaystyle \operatorname {gl} (a)=\operatorname {colim} \operatorname {gl} (n,a)}
+  is the direct limit of the gl(n), which embeds in gl(n + 1) as the upper left block matrix, and 
+  
+    
+      
+        [
+        gl
+        ⁡
+        (
+        a
+        )
+        ,
+        gl
+        ⁡
+        (
+        a
+        )
+        ]
+      
+    
+    {\displaystyle [\operatorname {gl} (a),\operatorname {gl} (a)]}
+   is its commutator subgroup. define an elementary matrix to be one which is the sum of an identity matrix and a single off-diagonal element (this is a subset of the elementary matrices used in linear algebra). then whitehead's lemma states that the group e(a) generated by elementary matrices equals the commutator subgroup [gl(a), gl(a)]. indeed, the group gl(a)/e(a) was first defined and studied by whitehead, and is called the whitehead group of the ring a.
+
+
+==== relative k1 ====
+the relative k-group is defined in terms of the "double"
+
+  
+    
+      
+        
+          k
+          
+            1
+          
+        
+        (
+        a
+        ,
+        i
+        )
+        =
+        ker
+        ⁡
+        
+          (
+          
+            
+              k
+              
+                1
+              
+            
+            (
+            d
+            (
+            a
+            ,
+            i
+            )
+            )
+            →
+            
+              k
+              
+                1
+              
+            
+            (
+            a
+            )
+          
+          )
+        
+         
+        .
+      
+    
+    {\displaystyle k_{1}(a,i)=\ker \left({k_{1}(d(a,i))\rightarrow k_{1}(a)}\right)\ .}
+  there is a natural exact sequence
+
+  
+    
+      
+        
+          k
+          
+            1
+          
+        
+        (
+        a
+        ,
+        i
+        )
+        →
+        
+          k
+          
+            1
+          
+        
+        (
+        a
+        )
+        →
+        
+          k
+          
+            1
+          
+        
+        (
+        a
+        
+          /
+        
+        i
+        )
+        →
+        
+          k
+          
+            0
+          
+        
+        (
+        a
+        ,
+        i
+        )
+        →
+        
+          k
+          
+            0
+          
+        
+        (
+        a
+        )
+        →
+        
+          k
+          
+            0
+          
+        
+        (
+        a
+        
+          /
+        
+        i
+        )
+         
+        .
+      
+    
+    {\displaystyle k_{1}(a,i)\rightarrow k_{1}(a)\rightarrow k_{1}(a/i)\rightarrow k_{0}(a,i)\rightarrow k_{0}(a)\rightarrow k_{0}(a/i)\ .}
+  
+
+
+==== commutative rings and fields ====
+for a a commutative ring, one can define a determinant det: gl(a) → a* to the group of units of a, which vanishes on e(a) and thus descends to a map det : k1(a) → a*.  as e(a) ◅ sl(a), one can also define the special whitehead group sk1(a) := sl(a)/e(a). this map splits via the map a* → gl(1, a) → k1(a) (unit in the upper left corner), and hence is onto, and has the special whitehead group as kernel, yielding the split short exact sequence:
+
+  
+    
+      
+        1
+        →
+        s
+        
+          k
+          
+            1
+          
+        
+        (
+        a
+        )
+        →
+        
+          k
+          
+            1
+          
+        
+        (
+        a
+        )
+        →
+        
+          a
+          
+            ∗
+          
+        
+        →
+        1
+        ,
+      
+    
+    {\displaystyle 1\to sk_{1}(a)\to k_{1}(a)\to a^{*}\to 1,}
+  which is a quotient of the usual split short exact sequence defining the special linear group, namely
+
+  
+    
+      
+        1
+        →
+        sl
+        ⁡
+        (
+        a
+        )
+        →
+        gl
+        ⁡
+        (
+        a
+        )
+        →
+        
+          a
+          
+            ∗
+          
+        
+        →
+        1.
+      
+    
+    {\displaystyle 1\to \operatorname {sl} (a)\to \operatorname {gl} (a)\to a^{*}\to 1.}
+  the determinant is split by including the group of units  a* = gl1(a) into the general linear group gl(a), so  k1(a) splits as the direct sum of the group of units and the special whitehead group: k1(a) ≅ a* ⊕ sk1 (a).
+when a is a euclidean domain (e.g. a field, or the integers) sk1(a) vanishes, and the determinant map is an isomorphism from k1(a) to a∗. this is false in general for pids, thus providing one of the rare mathematical features of euclidean domains that do not generalize to all pids.  an explicit pid such that sk1 is nonzero was given by ischebeck in 1980 and by grayson in 1981. if a is a dedekind domain whose quotient field is an algebraic number field (a finite extension of the rationals) then milnor (1971, corollary 16.3) shows that sk1(a) vanishes.the vanishing of sk1 can be interpreted as saying that k1 is generated by the image of gl1 in gl.  when this fails, one can ask whether k1 is generated by the image of gl2.  for a dedekind domain, this is the case: indeed, k1 is generated by the images of gl1 and sl2 in gl.  the subgroup of sk1 generated by sl2 may be studied by mennicke symbols.  for dedekind domains with all quotients by maximal  ideals finite, sk1 is a torsion group.for a non-commutative ring, the determinant cannot in general be defined, but the map gl(a) → k1(a) is a generalisation of the determinant.
+
+
+==== central simple algebras ====
+in the case of a central simple algebra a over a field f, the reduced norm provides a generalisation of the determinant giving a map k1(a) → f∗ and sk1(a) may be defined as the kernel.  wang's theorem states that if a has prime degree then sk1(a) is trivial, and this may be extended to square-free degree.  wang also showed that sk1(a) is trivial for any central simple algebra over a number field, but platonov has given examples of algebras of degree prime squared for which sk1(a) is non-trivial.
+
+
+=== k2 ===
+
+john milnor found the right definition of k2: it is the center of the steinberg group st(a) of a.
+it can also be defined as the kernel of the map
+
+  
+    
+      
+        φ
+        :
+        st
+        ⁡
+        (
+        a
+        )
+        →
+        
+          g
+          l
+        
+        (
+        a
+        )
+        ,
+      
+    
+    {\displaystyle \varphi \colon \operatorname {st} (a)\to \mathrm {gl} (a),}
+  or as the schur multiplier of the group of elementary matrices.
+for a field, k2 is determined by steinberg symbols: this leads to matsumoto's theorem.
+one can compute that k2 is zero for any finite field.  the computation of k2(q) is complicated: tate proved
+
+  
+    
+      
+        
+          k
+          
+            2
+          
+        
+        (
+        
+          q
+        
+        )
+        =
+        (
+        
+          z
+        
+        
+          /
+        
+        4
+        
+          )
+          
+            ∗
+          
+        
+        ×
+        
+          ∏
+          
+            p
+            
+               odd prime
+            
+          
+        
+        (
+        
+          z
+        
+        
+          /
+        
+        p
+        
+          )
+          
+            ∗
+          
+        
+         
+      
+    
+    {\displaystyle k_{2}(\mathbf {q} )=(\mathbf {z} /4)^{*}\times \prod _{p{\text{ odd prime}}}(\mathbf {z} /p)^{*}\ }
+  and remarked that the proof followed gauss's first proof of the law of quadratic reciprocity.for non-archimedean local fields, the group k2(f) is the direct sum of a finite cyclic group of order m, say, and a divisible group k2(f)m.we have k2(z) = z/2, and in general k2 is finite for the ring of integers of a number field.we further have k2(z/n) = z/2 if n is divisible by 4, and otherwise zero.
+
+
+==== matsumoto's theorem ====
+matsumoto's theorem states that for a field k, the second k-group is given by
+
+  
+    
+      
+        
+          k
+          
+            2
+          
+        
+        (
+        k
+        )
+        =
+        
+          k
+          
+            ×
+          
+        
+        
+          ⊗
+          
+            
+              z
+            
+          
+        
+        
+          k
+          
+            ×
+          
+        
+        
+          /
+        
+        ⟨
+        a
+        ⊗
+        (
+        1
+        −
+        a
+        )
+        ∣
+        a
+        ≠
+        0
+        ,
+        1
+        ⟩
+        .
+      
+    
+    {\displaystyle k_{2}(k)=k^{\times }\otimes _{\mathbf {z} }k^{\times }/\langle a\otimes (1-a)\mid a\not =0,1\rangle .}
+  matsumoto's original theorem is even more general: for any root system, it gives a presentation for the unstable k-theory. this presentation is different from the one given here only for symplectic root systems. for non-symplectic root systems, the unstable second k-group with respect to the root system is exactly the stable k-group for gl(a). unstable second k-groups (in this context) are defined by taking the kernel of the universal central extension of the chevalley group of universal type for a given root system. this construction yields the kernel of the steinberg extension for the root systems an (n > 1) and, in the limit, stable second k-groups.
+
+
+==== long exact sequences ====
+if a is a dedekind domain with field of fractions f then there is a long exact sequence
+
+  
+    
+      
+        
+          k
+          
+            2
+          
+        
+        f
+        →
+        
+          ⊕
+          
+            
+              p
+            
+          
+        
+        
+          k
+          
+            1
+          
+        
+        a
+        
+          /
+        
+        
+          
+            p
+          
+        
+        →
+        
+          k
+          
+            1
+          
+        
+        a
+        →
+        
+          k
+          
+            1
+          
+        
+        f
+        →
+        
+          ⊕
+          
+            
+              p
+            
+          
+        
+        
+          k
+          
+            0
+          
+        
+        a
+        
+          /
+        
+        
+          
+            p
+          
+        
+        →
+        
+          k
+          
+            0
+          
+        
+        a
+        →
+        
+          k
+          
+            0
+          
+        
+        f
+        →
+        0
+         
+      
+    
+    {\displaystyle k_{2}f\rightarrow \oplus _{\mathbf {p} }k_{1}a/{\mathbf {p} }\rightarrow k_{1}a\rightarrow k_{1}f\rightarrow \oplus _{\mathbf {p} }k_{0}a/{\mathbf {p} }\rightarrow k_{0}a\rightarrow k_{0}f\rightarrow 0\ }
+  where p runs over all prime ideals of a.there is also an extension of the exact sequence for relative k1 and k0:
+
+  
+    
+      
+        
+          k
+          
+            2
+          
+        
+        (
+        a
+        )
+        →
+        
+          k
+          
+            2
+          
+        
+        (
+        a
+        
+          /
+        
+        i
+        )
+        →
+        
+          k
+          
+            1
+          
+        
+        (
+        a
+        ,
+        i
+        )
+        →
+        
+          k
+          
+            1
+          
+        
+        (
+        a
+        )
+        ⋯
+         
+        .
+      
+    
+    {\displaystyle k_{2}(a)\rightarrow k_{2}(a/i)\rightarrow k_{1}(a,i)\rightarrow k_{1}(a)\cdots \ .}
+  
+
+
+==== pairing ====
+there is a pairing on k1 with values in k2.  given commuting matrices x and y over a, take elements x and y in the steinberg group  with x,y as images.  the commutator 
+  
+    
+      
+        x
+        y
+        
+          x
+          
+            −
+            1
+          
+        
+        
+          y
+          
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle xyx^{-1}y^{-1}}
+   is an element of k2.  the map is not always surjective.
+
+
+== milnor k-theory ==
+
+the above expression for k2 of a field k led milnor to the following definition of "higher" k-groups by
+
+  
+    
+      
+        
+          k
+          
+            ∗
+          
+          
+            m
+          
+        
+        (
+        k
+        )
+        :=
+        
+          t
+          
+            ∗
+          
+        
+        (
+        
+          k
+          
+            ×
+          
+        
+        )
+        
+          /
+        
+        (
+        a
+        ⊗
+        (
+        1
+        −
+        a
+        )
+        )
+        ,
+      
+    
+    {\displaystyle k_{*}^{m}(k):=t^{*}(k^{\times })/(a\otimes (1-a)),}
+  thus as graded parts of a quotient of the tensor algebra of the multiplicative group k× by the two-sided ideal, generated by the
+
+  
+    
+      
+        
+          {
+          
+            a
+            ⊗
+            (
+            1
+            −
+            a
+            )
+            :
+             
+            a
+            ≠
+            0
+            ,
+            1
+          
+          }
+        
+        .
+      
+    
+    {\displaystyle \left\{a\otimes (1-a):\ a\neq 0,1\right\}.}
+  for n = 0,1,2 these coincide with those below, but for n ≧ 3 they differ in general.  for example, we have kmn(fq) = 0 for n ≧ 2
+but knfq is nonzero for odd n (see below).
+the tensor product on the tensor algebra induces a product 
+  
+    
+      
+        
+          k
+          
+            m
+          
+        
+        ×
+        
+          k
+          
+            n
+          
+        
+        →
+        
+          k
+          
+            m
+            +
+            n
+          
+        
+      
+    
+    {\displaystyle k_{m}\times k_{n}\rightarrow k_{m+n}}
+   making 
+  
+    
+      
+        
+          k
+          
+            ∗
+          
+          
+            m
+          
+        
+        (
+        f
+        )
+      
+    
+    {\displaystyle k_{*}^{m}(f)}
+   a graded ring which is graded-commutative.the images of elements 
+  
+    
+      
+        
+          a
+          
+            1
+          
+        
+        ⊗
+        ⋯
+        ⊗
+        
+          a
+          
+            n
+          
+        
+      
+    
+    {\displaystyle a_{1}\otimes \cdots \otimes a_{n}}
+   in 
+  
+    
+      
+        
+          k
+          
+            n
+          
+          
+            m
+          
+        
+        (
+        k
+        )
+      
+    
+    {\displaystyle k_{n}^{m}(k)}
+   are termed symbols, denoted 
+  
+    
+      
+        {
+        
+          a
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          a
+          
+            n
+          
+        
+        }
+      
+    
+    {\displaystyle \{a_{1},\ldots ,a_{n}\}}
+  .  for integer m invertible in k there is a map
+
+  
+    
+      
+        ∂
+        :
+        
+          k
+          
+            ∗
+          
+        
+        →
+        
+          h
+          
+            1
+          
+        
+        (
+        k
+        ,
+        
+          μ
+          
+            m
+          
+        
+        )
+      
+    
+    {\displaystyle \partial :k^{*}\rightarrow h^{1}(k,\mu _{m})}
+  where 
+  
+    
+      
+        
+          μ
+          
+            m
+          
+        
+      
+    
+    {\displaystyle \mu _{m}}
+   denotes the group of m-th roots of unity in some separable extension of k.  this extends to
+
+  
+    
+      
+        
+          ∂
+          
+            n
+          
+        
+        :
+        
+          k
+          
+            ∗
+          
+        
+        ×
+        ⋯
+        ×
+        
+          k
+          
+            ∗
+          
+        
+        →
+        
+          h
+          
+            n
+          
+        
+        
+          (
+          
+            k
+            ,
+            
+              μ
+              
+                m
+              
+              
+                ⊗
+                n
+              
+            
+          
+          )
+        
+         
+      
+    
+    {\displaystyle \partial ^{n}:k^{*}\times \cdots \times k^{*}\rightarrow h^{n}\left({k,\mu _{m}^{\otimes n}}\right)\ }
+  satisfying the defining relations of the milnor k-group.  hence  
+  
+    
+      
+        
+          ∂
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \partial ^{n}}
+   may be regarded as a map on 
+  
+    
+      
+        
+          k
+          
+            n
+          
+          
+            m
+          
+        
+        (
+        k
+        )
+      
+    
+    {\displaystyle k_{n}^{m}(k)}
+  , called the galois symbol map.the relation between étale (or galois) cohomology of the field and milnor k-theory modulo 2 is the milnor conjecture, proven by vladimir voevodsky. the analogous statement for odd primes is the bloch-kato conjecture, proved by voevodsky, rost, and others.
+
+
+== higher k-theory ==
+the accepted definitions of higher k-groups were given by quillen (1973), after a few years during which several incompatible definitions were suggested.  the object of the program was to find definitions of k(r) and k(r,i) in terms of classifying spaces so that 
+r ⇒ k(r) and (r,i) ⇒ k(r,i) are functors into a homotopy category of spaces and the long exact sequence for relative k-groups arises as the long exact homotopy sequence of a fibration k(r,i) → k(r) → k(r/i).quillen gave two constructions, the "plus-construction" and the "q-construction", the latter subsequently modified in different ways.  the two constructions yield the same k-groups.
+
+
+=== the +-construction ===
+one possible definition of higher algebraic k-theory of rings was given by quillen
+
+  
+    
+      
+        
+          k
+          
+            n
+          
+        
+        (
+        r
+        )
+        =
+        
+          π
+          
+            n
+          
+        
+        (
+        b
+        gl
+        ⁡
+        (
+        r
+        
+          )
+          
+            +
+          
+        
+        )
+        ,
+      
+    
+    {\displaystyle k_{n}(r)=\pi _{n}(b\operatorname {gl} (r)^{+}),}
+  here πn is a homotopy group, gl(r) is the direct limit of the general linear groups over r for the size of the matrix tending to infinity, b is the classifying space construction of homotopy theory, and the + is quillen's plus construction. he originally found this idea while studying the group cohomology of 
+  
+    
+      
+        g
+        
+          l
+          
+            n
+          
+        
+        (
+        
+          
+            f
+          
+          
+            q
+          
+        
+        )
+      
+    
+    {\displaystyle gl_{n}(\mathbb {f} _{q})}
+   and noted some of his calculations were related to 
+  
+    
+      
+        
+          k
+          
+            1
+          
+        
+        (
+        
+          
+            f
+          
+          
+            q
+          
+        
+        )
+      
+    
+    {\displaystyle k_{1}(\mathbb {f} _{q})}
+  .
+this definition only holds for n > 0 so one often defines the higher algebraic k-theory via
+
+  
+    
+      
+        
+          k
+          
+            n
+          
+        
+        (
+        r
+        )
+        =
+        
+          π
+          
+            n
+          
+        
+        (
+        b
+        gl
+        ⁡
+        (
+        r
+        
+          )
+          
+            +
+          
+        
+        ×
+        
+          k
+          
+            0
+          
+        
+        (
+        r
+        )
+        )
+      
+    
+    {\displaystyle k_{n}(r)=\pi _{n}(b\operatorname {gl} (r)^{+}\times k_{0}(r))}
+  since bgl(r)+ is path connected and k0(r) discrete, this definition doesn't differ in higher degrees and also holds for n = 0.
+
+
+=== the q-construction ===
+
+the q-construction gives the same results as the +-construction, but it applies in more general situations. moreover, the definition is more direct in the sense that the k-groups, defined via the q-construction are functorial by definition. this fact is not automatic in the plus-construction.
+suppose 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   is an exact category; associated to 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   a new category 
+  
+    
+      
+        q
+        p
+      
+    
+    {\displaystyle qp}
+   is defined, objects of which are those of 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   and morphisms from m′ to m″ are isomorphism classes of diagrams
+
+  
+    
+      
+        
+          m
+          ′
+        
+        ⟵
+        n
+        ⟶
+        
+          m
+          ″
+        
+        ,
+      
+    
+    {\displaystyle m'\longleftarrow n\longrightarrow m'',}
+  
+where the first arrow is an admissible epimorphism and the second arrow is an admissible monomorphism. note the morphisms in 
+  
+    
+      
+        q
+        p
+      
+    
+    {\displaystyle qp}
+   are analogous to the definitions of morphisms in the category of motives, where morphisms are given as correspondences 
+  
+    
+      
+        z
+        ⊂
+        x
+        ×
+        y
+      
+    
+    {\displaystyle z\subset x\times y}
+   such that
+  
+    
+      
+        x
+        ←
+        z
+        →
+        y
+      
+    
+    {\displaystyle x\leftarrow z\rightarrow y}
+  is a diagram where the arrow on the left is a covering map (hence surjective) and the arrow on the right is injective. this category can then be turned into a topological space using the classifying space construction 
+  
+    
+      
+        b
+        q
+        p
+      
+    
+    {\displaystyle bqp}
+   , which is defined to be the geometric realisation of the nerve of 
+  
+    
+      
+        q
+        p
+      
+    
+    {\displaystyle qp}
+  . then, the i-th k-group of the exact category 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   is then defined as
+
+  
+    
+      
+        
+          k
+          
+            i
+          
+        
+        (
+        p
+        )
+        =
+        
+          π
+          
+            i
+            +
+            1
+          
+        
+        (
+        
+          b
+          q
+        
+        p
+        ,
+        0
+        )
+      
+    
+    {\displaystyle k_{i}(p)=\pi _{i+1}(\mathrm {bq} p,0)}
+  with a fixed zero-object 
+  
+    
+      
+        0
+      
+    
+    {\displaystyle 0}
+  . note the classifying space of a groupoid 
+  
+    
+      
+        b
+        
+          
+            g
+          
+        
+      
+    
+    {\displaystyle b{\mathcal {g}}}
+   moves the homotopy groups up one degree, hence the shift in degrees for 
+  
+    
+      
+        
+          k
+          
+            i
+          
+        
+      
+    
+    {\displaystyle k_{i}}
+   being 
+  
+    
+      
+        
+          π
+          
+            i
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle \pi _{i+1}}
+   of a space.
+this definition coincides with the above definition of k0(p). if p is the category of finitely generated projective r-modules, this definition agrees with the above bgl+
+definition of kn(r) for all n.
+more generally, for a scheme x, the higher k-groups of x are defined to be the k-groups of (the exact category of) locally free coherent sheaves on x.
+the following variant of this is also used: instead of finitely generated projective (= locally free) modules, take finitely generated modules. the resulting k-groups are usually written gn(r). when r is a noetherian regular ring, then g- and k-theory coincide. indeed, the global dimension of regular rings is finite, i.e. any finitely generated module has a finite projective resolution p* → m, and a simple argument shows that the canonical map k0(r) → g0(r) is an isomorphism, with [m]=σ ± [pn].  this isomorphism extends to the higher k-groups, too.
+
+
+=== the s-construction ===
+
+a third construction of k-theory groups is the s-construction, due to waldhausen. it applies to categories with cofibrations (also called waldhausen categories). this is a more general concept than exact categories.
+
+
+== examples ==
+while the quillen algebraic k-theory has provided deep insight into various aspects of algebraic geometry and topology, the k-groups have proved particularly difficult to compute except in a few isolated but interesting cases. (see also: k-groups of a field.)
+
+
+=== algebraic k-groups of finite fields ===
+the first and one of the most important calculations of the higher algebraic k-groups of a ring were made by quillen himself for the case of finite fields:
+if  fq is the finite field with q elements, then:
+
+k0(fq) = z,
+k2i(fq) = 0 for i ≥1,
+k2i–1(fq) = z/(q i − 1)z for i ≥ 1.rick jardine (1993) reproved quillen's computation using different methods.
+
+
+=== algebraic k-groups of rings of integers ===
+quillen proved that if a is the ring of algebraic integers in an algebraic number field f (a finite extension of the rationals), then the algebraic k-groups of a are finitely generated.  armand borel used this to calculate ki(a) and ki(f) modulo torsion. for example, for the integers z, borel proved that (modulo torsion)
+
+ki (z)/tors.=0 for positive i unless i=4k+1 with k positive
+k4k+1 (z)/tors.= z for positive k.the torsion subgroups of k2i+1(z), and the orders of the finite groups k4k+2(z) have recently been determined, but whether the latter groups are cyclic, and whether the groups k4k(z) vanish depends upon vandiver's conjecture about the class groups of cyclotomic integers. see quillen–lichtenbaum conjecture for more details.
+
+
+== applications and open questions ==
+algebraic k-groups are used in conjectures on special values of l-functions and the formulation of a non-commutative main conjecture of iwasawa theory and in construction of higher regulators.parshin's conjecture concerns the higher algebraic k-groups for smooth varieties over finite fields, and states that in this case the groups vanish up to torsion.
+another fundamental conjecture due to hyman bass (bass' conjecture) says that all  of the groups gn(a) are finitely generated when a is a finitely generated z-algebra. (the groups
+gn(a) are the k-groups of the category of finitely generated a-modules) 
+
+
+== see also ==
+bloch's formula
+fundamental theorem of algebraic k-theory
+basic theorems in algebraic k-theory
+k-theory
+k-theory of a category
+k-group of a field
+k-theory spectrum
+redshift conjecture
+topological k-theory
+rigidity (k-theory)
+
+
+== notes ==
+
+
+== references ==
+bass, hyman (1968), algebraic k-theory, mathematics lecture note series, new york-amsterdam: w.a. benjamin, inc., zbl 0174.30302
+friedlander, eric; grayson, daniel, eds. (2005), handbook of k-theory, berlin, new york: springer-verlag, doi:10.1007/3-540-27855-9, isbn 978-3-540-30436-4, mr 2182598
+friedlander, eric m.; weibel, charles w. (1999), an overview of algebraic k-theory, world sci. publ., river edge, nj, pp. 1–119, mr 1715873
+gille, philippe; szamuely, tamás (2006), central simple algebras and galois cohomology, cambridge studies in advanced mathematics, vol. 101, cambridge: cambridge university press, isbn 978-0-521-86103-8, zbl 1137.12001
+gras, georges (2003), class field theory. from theory to practice, springer monographs in mathematics, berlin: springer-verlag, isbn 978-3-540-44133-5, zbl 1019.11032
+jardine, john frederick (1993), "the k-theory of finite fields, revisited", k-theory, 7 (6): 579–595, doi:10.1007/bf00961219, mr 1268594
+lam, tsit-yuen (2005), introduction to quadratic forms over fields, graduate studies in mathematics, vol. 67, american mathematical society, isbn 978-0-8218-1095-8, mr 2104929, zbl 1068.11023
+lemmermeyer, franz (2000), reciprocity laws. from euler to eisenstein, springer monographs in mathematics, berlin: springer-verlag, doi:10.1007/978-3-662-12893-0, isbn 978-3-540-66957-9, mr 1761696, zbl 0949.11002
+milnor, john willard (1970), "algebraic k-theory and quadratic forms", inventiones mathematicae, 9 (4): 318–344, bibcode:1970inmat...9..318m, doi:10.1007/bf01425486, issn 0020-9910, mr 0260844
+milnor, john willard (1971), introduction to algebraic k-theory, annals of mathematics studies, vol. 72, princeton, nj: princeton university press, mr 0349811, zbl 0237.18005 (lower k-groups)
+quillen, daniel (1973), "higher algebraic k-theory. i", algebraic k-theory, i: higher k-theories (proc. conf., battelle memorial inst., seattle, wash., 1972), lecture notes in math, vol. 341, berlin, new york: springer-verlag, pp. 85–147, doi:10.1007/bfb0067053, isbn 978-3-540-06434-3, mr 0338129
+quillen, daniel (1975), "higher algebraic k-theory", proceedings of the international congress of mathematicians (vancouver, b. c., 1974), vol. 1, montreal, quebec: canad. math. congress, pp. 171–176, mr 0422392 (quillen's q-construction)
+quillen, daniel (1974), "higher k-theory for categories with exact sequences", new developments in topology (proc. sympos. algebraic topology, oxford, 1972), london math. soc. lecture note ser., vol. 11, cambridge university press, pp. 95–103, mr 0335604 (relation of q-construction to plus-construction)
+rosenberg, jonathan (1994), algebraic k-theory and its applications, graduate texts in mathematics, vol. 147, berlin, new york: springer-verlag, doi:10.1007/978-1-4612-4314-4, isbn 978-0-387-94248-3, mr 1282290, zbl 0801.19001.  errata
+seiler, wolfgang (1988), "λ-rings and adams operations in algebraic k-theory",  in rapoport, m.; schneider, p.; schappacher, n. (eds.), beilinson's conjectures on special values of l-functions, boston, ma: academic press, isbn 978-0-12-581120-0
+silvester, john r. (1981), introduction to algebraic k-theory, chapman and hall mathematics series, london, new york: chapman and hall, isbn 978-0-412-22700-4, zbl 0468.18006
+weibel, charles (2005), "algebraic k-theory of rings of integers in local and global fields" (pdf), handbook of k-theory, berlin, new york: springer-verlag, pp. 139–190, doi:10.1007/3-540-27855-9_5, isbn 978-3-540-23019-9, mr 2181823 (survey article)
+weibel, charles (1999), the development of algebraic k-theory before 1980, contemporary mathematics, vol. 243, providence, ri: american mathematical society, pp. 211–238, doi:10.1090/conm/243/03695, mr 1732049
+
+
+== further reading ==
+lluis-puebla, emilio; loday, jean-louis; gillet, henri; soulé, christophe; snaith, victor (1992), higher algebraic k-theory: an overview, lecture notes in mathematics, vol. 1491, berlin, heidelberg: springer-verlag, isbn 978-3-540-55007-5, zbl 0746.19001
+magurn, bruce a. (2009), an algebraic introduction to k-theory, encyclopedia of mathematics and its applications, vol. 87 (corrected paperback ed.), cambridge university press, isbn 978-0-521-10658-0
+srinivas, v. (2008), algebraic k-theory, modern birkhäuser classics (paperback reprint of the 1996 2nd ed.), boston, ma: birkhäuser, isbn 978-0-8176-4736-0, zbl 1125.19300
+weibel, c., the k-book: an introduction to algebraic k-theory
+
+
+=== pedagogical references ===
+higher algebraic k-theory: an overview
+rosenberg, jonathan (1994), algebraic k-theory and its applications, graduate texts in mathematics, vol. 147, berlin, new york: springer-verlag, doi:10.1007/978-1-4612-4314-4, isbn 978-0-387-94248-3, mr 1282290, zbl 0801.19001.  errata
+weibel, charles (2013), the k-book: an introduction to algebraic k-theory, graduate studies in mathematics, vol. 145, ams
+
+
+=== historical references ===
+atiyah, michael f.; hirzebruch, friedrich (1961), vector bundles and homogeneous spaces, proc. sympos. pure math., vol. 3, american mathematical society, pp. 7–38
+barden, dennis (1964). on the structure and classification of differential manifolds (thesis). cambridge university.
+bass, hyman; murthy, m.p. (1967). "grothendieck groups and picard groups of abelian group rings". annals of mathematics. 86 (1): 16–73. doi:10.2307/1970360. jstor 1970360.
+bass, hyman; schanuel, s. (1962). "the homotopy theory of projective modules". bulletin of the american mathematical society. 68 (4): 425–428. doi:10.1090/s0002-9904-1962-10826-x.
+bass, hyman (1968). algebraic k-theory. benjamin.
+bloch, spencer (1974). "k2 of algebraic cycles". annals of mathematics. 99 (2): 349–379. doi:10.2307/1970902. jstor 1970902.
+bokstedt, m., topological hochschild homology. preprint, bielefeld, 1986.
+bokstedt, m., hsiang, w. c., madsen, i., the cyclotomic trace and algebraic k-theory of spaces. invent. math., 111(3) (1993), 465–539.
+borel, armand; serre, jean-pierre (1958). "le theoreme de riemann–roch". bulletin de la société mathématique de france. 86: 97–136. doi:10.24033/bsmf.1500.
+browder, william (1978), algebraic k-theory with coefficients z/p, lecture notes in mathematics, vol. 657, springer–verlag, pp. 40–84
+brown, k., gersten, s., algebraic k-theory as generalized sheaf cohomology, algebraic k-theory i, lecture notes in math., vol. 341, springer-verlag, 1973, pp. 266–292.
+cerf, jean (1970). "la stratification naturelle des espaces de fonctions differentiables reelles et le theoreme de la pseudo-isotopie". publications mathématiques de l'ihés. 39: 5–173. doi:10.1007/bf02684687.
+dennis, r. k., higher algebraic k-theory and hochschild homology, unpublished preprint (1976).
+gersten, s (1971). "on the functor k2". j. algebra. 17 (2): 212–237. doi:10.1016/0021-8693(71)90030-5.
+grothendieck, alexander, classes de fasiceaux et theoreme de riemann–roch, mimeographed notes, princeton 1957.
+hatcher, allen; wagoner, john (1973), "pseudo-isotopies of compact manifolds", astérisque, 6, mr 0353337
+karoubi, max (1968). "foncteurs derives et k-theorie. categories filtres". comptes rendus de l'académie des sciences, série a-b. 267: a328–a331.
+karoubi, max; villamayor, o. (1971). "k-theorie algebrique et k-theorie topologique". math. scand. 28: 265–307. doi:10.7146/math.scand.a-11024.
+matsumoto, hideya (1969). "sur les sous-groupes aritmetiques des groupes semi-simples deployes". annales scientifiques de l'école normale supérieure. 2: 1–62. doi:10.24033/asens.1174.
+mazur, barry (1963). "differential topology from the point of view of simple homotopy theory" (pdf). publications mathématiques de l'ihés. 15: 5–93.
+milnor, j (1970). "algebraic k-theory and quadratic forms". invent. math. 9 (4): 318–344. bibcode:1970inmat...9..318m. doi:10.1007/bf01425486.
+milnor, j., introduction to algebraic k-theory, princeton univ. press, 1971.
+nobile, a., villamayor, o., sur la k-theorie algebrique,  annales scientifiques de l'école normale supérieure, 4e serie, 1, no. 3, 1968, 581–616.
+quillen, daniel, cohomology of groups, proc. icm nice 1970, vol. 2, gauthier-villars, paris, 1971, 47–52.
+quillen, daniel, higher algebraic k-theory i, algebraic k-theory i, lecture notes in math., vol. 341, springer verlag, 1973, 85–147.
+quillen, daniel, higher algebraic k-theory, proc. intern. congress math., vancouver, 1974, vol. i, canad. math. soc., 1975, pp. 171–176.
+segal, graeme (1974). "categories and cohomology theories". topology. 13 (3): 293–312. doi:10.1016/0040-9383(74)90022-6.
+siebenmann, larry, the obstruction to finding a boundary for an open manifold of dimension greater than five, thesis, princeton university (1965).
+smale, s (1962). "on the structure of manifolds". amer. j. math. 84 (3): 387–399. doi:10.2307/2372978. jstor 2372978.
+steinberg, r., generateurs, ,relations et revetements de groupes algebriques, ́colloq. theorie des groupes algebriques, gauthier-villars, paris, 1962, pp. 113–127. (french)
+swan, richard, nonabelian homological algebra and k-theory, proc. sympos. pure math., vol. xvii, 1970, pp. 88–123.
+thomason, r. w., algebraic k-theory and étale cohomology, ann. scient. ec. norm. sup. 18, 4e serie (1985), 437–552; erratum 22 (1989), 675–677.
+thomason, r. w., le principe de sciendage et l'inexistence d'une k-theorie de milnor globale, topology  31, no. 3, 1992, 571–588.
+thomason, robert w.; trobaugh, thomas (1990), "higher algebraic k-theory of schemes and of derived categories", the grothendieck festschrift, vol. iii, progr. math., vol. 88, boston, ma: birkhäuser boston, pp. 247–435, doi:10.1007/978-0-8176-4576-2_10, isbn 978-0-8176-3487-2, mr 1106918
+waldhausen, f., algebraic k-theory of topological spaces. i, in algebraic and geometric topology (proc. sympos. pure math., stanford univ., stanford, calif., 1976), part 1, pp. 35–60, proc. sympos. pure math., xxxii, amer. math. soc., providence, r.i., 1978.
+waldhausen, f., algebraic k-theory of spaces, in algebraic and geometric topology (new brunswick, n.j., 1983), lecture notes in mathematics, vol. 1126 (1985), 318–419.
+wall, c. t. c. (1965). "finiteness conditions for cw-complexes". annals of mathematics. 81 (1): 56–69. doi:10.2307/1970382. jstor 1970382.
+whitehead, j.h.c. (1941). "on incidence matrices, nuclei and homotopy types". annals of mathematics. 42 (5): 1197–1239. doi:10.2307/1970465. jstor 1970465.
+whitehead, j.h.c. (1950). "simple homotopy types". amer. j. math. 72 (1): 1–57. doi:10.2307/2372133. jstor 2372133.
+whitehead, j.h.c. (1939). "simplicial spaces, nuclei and m-groups". proc. london math. soc. 45: 243–327. doi:10.1112/plms/s2-45.1.243.
+
+
+== external links ==
+k theory preprint archive

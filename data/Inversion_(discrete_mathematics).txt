@@ -1,0 +1,885 @@
+in computer science and discrete mathematics, an inversion in a sequence is a pair of elements that are out of their natural order.
+
+
+== definitions ==
+
+
+=== inversion ===
+let 
+  
+    
+      
+        π
+      
+    
+    {\displaystyle \pi }
+   be a permutation.  if 
+  
+    
+      
+        i
+        <
+        j
+      
+    
+    {\displaystyle i<j}
+   and 
+  
+    
+      
+        π
+        (
+        i
+        )
+        >
+        π
+        (
+        j
+        )
+      
+    
+    {\displaystyle \pi (i)>\pi (j)}
+  , either the pair of places 
+  
+    
+      
+        (
+        i
+        ,
+        j
+        )
+      
+    
+    {\displaystyle (i,j)}
+   or the pair of elements 
+  
+    
+      
+        
+          
+            (
+          
+        
+        π
+        (
+        i
+        )
+        ,
+        π
+        (
+        j
+        )
+        
+          
+            )
+          
+        
+      
+    
+    {\displaystyle {\bigl (}\pi (i),\pi (j){\bigr )}}
+   is called an inversion of 
+  
+    
+      
+        π
+      
+    
+    {\displaystyle \pi }
+  .
+the inversion is usually defined for permutations, but may also be defined for sequences:let 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+   be a sequence (or multiset permutation). if 
+  
+    
+      
+        i
+        <
+        j
+      
+    
+    {\displaystyle i<j}
+   and 
+  
+    
+      
+        s
+        (
+        i
+        )
+        >
+        s
+        (
+        j
+        )
+      
+    
+    {\displaystyle s(i)>s(j)}
+  , either the pair of places 
+  
+    
+      
+        (
+        i
+        ,
+        j
+        )
+      
+    
+    {\displaystyle (i,j)}
+   or the pair of elements 
+  
+    
+      
+        
+          
+            (
+          
+        
+        s
+        (
+        i
+        )
+        ,
+        s
+        (
+        j
+        )
+        
+          
+            )
+          
+        
+      
+    
+    {\displaystyle {\bigl (}s(i),s(j){\bigr )}}
+   is called an inversion of 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+  .
+for sequences, inversions according to the element-based definition are not unique, because different pairs of places may have the same pair of values.
+the inversion set is the set of all inversions. a permutation's inversion set according to the place-based definition is that of the inverse permutation's inversion set according to the element-based definition, and vice versa, just with the elements of the pairs exchanged.
+
+
+=== inversion number ===
+the inversion number 
+  
+    
+      
+        
+          
+            i
+            n
+            v
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle {\mathtt {inv}}(x)}
+   of a sequence 
+  
+    
+      
+        x
+        =
+        ⟨
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+        ⟩
+      
+    
+    {\displaystyle x=\langle x_{1},\dots ,x_{n}\rangle }
+  ,  is the cardinality of inversion set. it is a common measures of (pre-)sortedness of a permutation or sequence. this value is comprised between 0 and 
+  
+    
+      
+        
+          
+            
+              n
+              (
+              n
+              −
+              1
+              )
+            
+            2
+          
+        
+      
+    
+    {\displaystyle {\frac {n(n-1)}{2}}}
+   included.
+for example 
+  
+    
+      
+        
+          
+            i
+            n
+            v
+          
+        
+        (
+        ⟨
+        1
+        ,
+        2
+        ,
+        …
+        ,
+        n
+        ⟩
+        )
+        =
+        0
+      
+    
+    {\displaystyle {\mathtt {inv}}(\langle 1,2,\dots ,n\rangle )=0}
+   since the sequence is ordered. also 
+  
+    
+      
+        
+          
+            i
+            n
+            v
+          
+        
+        (
+        ⟨
+        n
+        +
+        1
+        ,
+        n
+        +
+        2
+        ,
+        …
+        ,
+        2
+        n
+        ,
+        1
+        ,
+        2
+        ,
+        …
+        ,
+        n
+        ⟩
+        )
+        =
+        
+          n
+          
+            2
+          
+        
+      
+    
+    {\displaystyle {\mathtt {inv}}(\langle n+1,n+2,\dots ,2n,1,2,\dots ,n\rangle )=n^{2}}
+   as each pairs 
+  
+    
+      
+        (
+        1
+        ≤
+        i
+        ≤
+        n
+        <
+        j
+        ≤
+        2
+        n
+        )
+      
+    
+    {\displaystyle (1\leq i\leq n<j\leq 2n)}
+   is an inversion. this last example shows that a sort that is intuitively sorted can still have a quadratic number of inversions.
+it is the number of crossings in the arrow diagram of the permutation, its kendall tau distance from the identity permutation, and the sum of each of the inversion related vectors defined below.
+it does not matter if the place-based or the element-based definition of inversion is used to define the inversion number, because a permutation and its inverse have the same number of inversions.
+other measures of (pre-)sortedness include the minimum number of elements that can be deleted from the sequence to yield a fully sorted sequence, the number and lengths of sorted "runs" within the sequence, the spearman footrule (sum of distances of each element from its sorted position), and the smallest number of exchanges needed to sort the sequence. standard comparison sorting algorithms can be adapted to compute the inversion number in time o(n log n).
+
+
+=== inversion related vectors ===
+three similar vectors are in use that condense the inversions of a permutation into a vector that uniquely determines it. they are often called inversion vector or lehmer code. (a list of sources is found here.)
+this article uses the term inversion vector (
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+  ) like wolfram. the remaining two vectors are sometimes called left and right inversion vector, but to avoid confusion with the inversion vector this article calls them  left inversion count (
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+  ) and right inversion count (
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+  ). interpreted as a factorial number the left inversion count gives the permutations reverse colexicographic, and the right inversion count gives the lexicographic index.
+
+inversion vector 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+  :with the element-based definition 
+  
+    
+      
+        v
+        (
+        i
+        )
+      
+    
+    {\displaystyle v(i)}
+   is the number of inversions whose smaller (right) component is 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  .
+
+  
+    
+      
+        v
+        (
+        i
+        )
+      
+    
+    {\displaystyle v(i)}
+   is the number of elements in 
+  
+    
+      
+        π
+      
+    
+    {\displaystyle \pi }
+   greater than 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   before 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  .
+
+  
+    
+      
+        v
+        (
+        i
+        )
+         
+         
+        =
+         
+         
+        #
+        {
+        k
+        ∣
+        k
+        >
+        i
+         
+        ∧
+         
+        
+          π
+          
+            −
+            1
+          
+        
+        (
+        k
+        )
+        <
+        
+          π
+          
+            −
+            1
+          
+        
+        (
+        i
+        )
+        }
+      
+    
+    {\displaystyle v(i)~~=~~\#\{k\mid k>i~\land ~\pi ^{-1}(k)<\pi ^{-1}(i)\}}
+  left inversion count 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+  :with the place-based definition 
+  
+    
+      
+        l
+        (
+        i
+        )
+      
+    
+    {\displaystyle l(i)}
+   is the number of inversions whose bigger (right) component is 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  .
+
+  
+    
+      
+        l
+        (
+        i
+        )
+      
+    
+    {\displaystyle l(i)}
+   is the number of elements in 
+  
+    
+      
+        π
+      
+    
+    {\displaystyle \pi }
+   greater than 
+  
+    
+      
+        π
+        (
+        i
+        )
+      
+    
+    {\displaystyle \pi (i)}
+   before 
+  
+    
+      
+        π
+        (
+        i
+        )
+      
+    
+    {\displaystyle \pi (i)}
+  .
+
+  
+    
+      
+        l
+        (
+        i
+        )
+         
+         
+        =
+         
+         
+        #
+        
+          {
+          
+            k
+            ∣
+            k
+            <
+            i
+             
+            ∧
+             
+            π
+            (
+            k
+            )
+            >
+            π
+            (
+            i
+            )
+          
+          }
+        
+      
+    
+    {\displaystyle l(i)~~=~~\#\left\{k\mid k<i~\land ~\pi (k)>\pi (i)\right\}}
+  right inversion count 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+  , often called lehmer code:with the place-based definition 
+  
+    
+      
+        r
+        (
+        i
+        )
+      
+    
+    {\displaystyle r(i)}
+   is the number of inversions whose smaller (left) component is 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  .
+
+  
+    
+      
+        r
+        (
+        i
+        )
+      
+    
+    {\displaystyle r(i)}
+   is the number of elements in 
+  
+    
+      
+        π
+      
+    
+    {\displaystyle \pi }
+   smaller than 
+  
+    
+      
+        π
+        (
+        i
+        )
+      
+    
+    {\displaystyle \pi (i)}
+   after 
+  
+    
+      
+        π
+        (
+        i
+        )
+      
+    
+    {\displaystyle \pi (i)}
+  .
+
+  
+    
+      
+        r
+        (
+        i
+        )
+         
+         
+        =
+         
+         
+        #
+        {
+        k
+        ∣
+        k
+        >
+        i
+         
+        ∧
+         
+        π
+        (
+        k
+        )
+        <
+        π
+        (
+        i
+        )
+        }
+      
+    
+    {\displaystyle r(i)~~=~~\#\{k\mid k>i~\land ~\pi (k)<\pi (i)\}}
+  both 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   and 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+   can be found with the help of a rothe diagram, which is a permutation matrix with the 1s represented by dots, and an inversion (often represented by a cross) in every position that has a dot to the right and below it. 
+  
+    
+      
+        r
+        (
+        i
+        )
+      
+    
+    {\displaystyle r(i)}
+   is the sum of inversions in row 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   of the rothe diagram, while 
+  
+    
+      
+        v
+        (
+        i
+        )
+      
+    
+    {\displaystyle v(i)}
+   is the sum of inversions in column 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  . the permutation matrix of the inverse is the transpose, therefore 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   of a permutation is 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+   of its inverse, and vice versa.
+
+
+== example: all permutations of four elements ==
+
+the following sortable table shows the 24 permutations of four elements with their place-based inversion sets, inversion related vectors and inversion numbers. (the small columns are reflections of the columns next to them, and can be used to sort them in colexicographic order.)
+it can be seen that 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   and 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+   always have the same digits, and that 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+   and 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+   are both related to the place-based inversion set. the nontrivial elements of 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+   are the sums of the descending diagonals of the shown triangle, and those of 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+   are the sums of the ascending diagonals. (pairs in descending diagonals have the right components 2, 3, 4 in common, while pairs in ascending diagonals have the left components 1, 2, 3 in common.)
+the default order of the table is reverse colex order by 
+  
+    
+      
+        π
+      
+    
+    {\displaystyle \pi }
+  , which is the same as colex order by 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+  . lex order by 
+  
+    
+      
+        π
+      
+    
+    {\displaystyle \pi }
+   is the same as lex order by 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+  .
+
+
+== weak order of permutations ==
+
+the set of permutations on n items can be given the structure of a partial order, called the weak order of permutations, which forms a lattice.
+the hasse diagram of the inversion sets ordered by the subset relation forms the skeleton of a permutohedron.
+if a permutation is assigned to each inversion set using the place-based definition, the resulting order of permutations is that of the permutohedron, where an edge corresponds to the swapping of two elements with consecutive values. this is the weak order of permutations. the identity is its minimum, and the permutation formed by reversing the identity is its maximum.
+if a permutation were assigned to each inversion set using the element-based definition, the resulting order of permutations would be that of a cayley graph, where an edge corresponds to the swapping of two elements on consecutive places. this cayley graph of the symmetric group is similar to its permutohedron, but with each permutation replaced by its inverse.
+
+
+== see also ==
+factorial number system
+permutation graph
+transpositions, simple transpositions, inversions and sorting
+damerau–levenshtein distance
+parity of a permutationsequences in the oeis:
+
+sequences related to factorial base representation
+factorial numbers: a007623 and a108731
+inversion numbers: a034968
+inversion sets of finite permutations interpreted as binary numbers: a211362   (related permutation: a211363)
+finite permutations that have only 0s and 1s in their inversion vectors: a059590   (their inversion sets: a211364)
+number of permutations of n elements with k inversions; mahonian numbers: a008302   (their row maxima; kendall-mann numbers: a000140)
+number of connected labeled graphs with n edges and n nodes: a057500
+
+
+== references ==
+
+
+=== source bibliography ===
+
+
+=== further reading ===
+
+
+=== presortedness measures ===

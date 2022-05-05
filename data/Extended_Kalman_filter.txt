@@ -1,0 +1,2817 @@
+in estimation theory, the extended kalman filter (ekf) is the nonlinear version of the kalman filter which linearizes about an estimate of the current mean and covariance. in the case of well defined transition models, the ekf has been considered the de facto standard in the theory of nonlinear state estimation, navigation systems and gps.
+
+
+== history ==
+the papers establishing the mathematical foundations of kalman type filters were published between 1959 and 1961.  the kalman filter is the optimal linear estimator for linear
+system models with additive independent white noise in both the transition and the measurement systems.
+unfortunately, in engineering, most systems are nonlinear, so attempts were made to apply
+this filtering method to nonlinear systems; most of this work was done at nasa ames.  the ekf adapted techniques from calculus, namely multivariate taylor series expansions, to linearize a model about a working point.  if the system model (as described below) is not well known or is inaccurate, then monte carlo methods, especially particle filters, are employed for estimation.  monte carlo techniques predate the existence of the ekf but are more computationally expensive for any moderately dimensioned state-space.
+
+
+== formulation ==
+in the extended kalman filter, the state transition and observation models don't need to be linear functions of the state but may instead be differentiable functions.
+
+  
+    
+      
+        
+          
+            x
+          
+          
+            k
+          
+        
+        =
+        f
+        (
+        
+          
+            x
+          
+          
+            k
+            −
+            1
+          
+        
+        ,
+        
+          
+            u
+          
+          
+            k
+          
+        
+        )
+        +
+        
+          
+            w
+          
+          
+            k
+          
+        
+      
+    
+    {\displaystyle {\boldsymbol {x}}_{k}=f({\boldsymbol {x}}_{k-1},{\boldsymbol {u}}_{k})+{\boldsymbol {w}}_{k}}
+  
+  
+    
+      
+        
+          
+            z
+          
+          
+            k
+          
+        
+        =
+        h
+        (
+        
+          
+            x
+          
+          
+            k
+          
+        
+        )
+        +
+        
+          
+            v
+          
+          
+            k
+          
+        
+      
+    
+    {\displaystyle {\boldsymbol {z}}_{k}=h({\boldsymbol {x}}_{k})+{\boldsymbol {v}}_{k}}
+  here wk and vk are the process and observation noises which are both assumed to be zero mean multivariate gaussian noises with covariance qk and rk respectively. uk is the control vector.
+the function f can be used to compute the predicted state from the previous estimate and similarly the function h can be used to compute the predicted measurement from the predicted state. however, f and h cannot be applied to the covariance directly. instead a matrix of partial derivatives (the jacobian) is computed.
+at each time step, the jacobian is evaluated with current predicted states. these matrices can be used in the kalman filter equations. this process essentially linearizes the non-linear function around the current estimate.
+see the kalman filter article for notational remarks.
+
+
+== discrete-time predict and update equations ==
+notation 
+  
+    
+      
+        
+          
+            
+              
+                
+                  x
+                
+                ^
+              
+            
+          
+          
+            n
+            ∣
+            m
+          
+        
+      
+    
+    {\displaystyle {\hat {\mathbf {x} }}_{n\mid m}}
+   represents the estimate of 
+  
+    
+      
+        
+          x
+        
+      
+    
+    {\displaystyle \mathbf {x} }
+   at time n given observations up to and including at time m ≤ n.
+
+
+=== predict ===
+
+
+=== update ===
+where the state transition and observation matrices are defined to be the following jacobians
+
+  
+    
+      
+        
+          
+            
+              f
+            
+            
+              k
+            
+          
+        
+        =
+        
+          
+            
+            
+              
+                
+                  ∂
+                  f
+                
+                
+                  ∂
+                  
+                    x
+                  
+                
+              
+            
+            |
+          
+          
+            
+              
+                
+                  
+                    x
+                    ^
+                  
+                
+              
+              
+                k
+                −
+                1
+                
+                  |
+                
+                k
+                −
+                1
+              
+            
+            ,
+            
+              
+                u
+              
+              
+                k
+              
+            
+          
+        
+      
+    
+    {\displaystyle {{\boldsymbol {f}}_{k}}=\left.{\frac {\partial f}{\partial {\boldsymbol {x}}}}\right\vert _{{\hat {\boldsymbol {x}}}_{k-1|k-1},{\boldsymbol {u}}_{k}}}
+  
+  
+    
+      
+        
+          
+            
+              h
+            
+            
+              k
+            
+          
+        
+        =
+        
+          
+            
+            
+              
+                
+                  ∂
+                  h
+                
+                
+                  ∂
+                  
+                    x
+                  
+                
+              
+            
+            |
+          
+          
+            
+              
+                
+                  
+                    x
+                    ^
+                  
+                
+              
+              
+                k
+                
+                  |
+                
+                k
+                −
+                1
+              
+            
+          
+        
+      
+    
+    {\displaystyle {{\boldsymbol {h}}_{k}}=\left.{\frac {\partial h}{\partial {\boldsymbol {x}}}}\right\vert _{{\hat {\boldsymbol {x}}}_{k|k-1}}}
+  
+
+
+== disadvantages ==
+unlike its linear counterpart, the extended kalman filter in general is not an optimal estimator (it is optimal if the measurement and the state transition model are both linear, as in that case the extended kalman filter is identical to the regular one). in addition, if the initial estimate of the state is wrong, or if the process is modeled incorrectly, the filter may quickly diverge, owing to its linearization.   another problem with the extended kalman filter is that the estimated covariance matrix tends to underestimate the true covariance matrix and therefore risks becoming inconsistent in the statistical sense without the addition of "stabilising noise"
+
+.
+having stated this, the extended kalman filter can give reasonable performance, and is arguably the de facto standard in navigation systems and gps.
+
+
+== generalizations ==
+
+
+=== continuous-time extended kalman filter ===
+model
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  
+                    
+                      
+                        x
+                      
+                      ˙
+                    
+                  
+                
+                (
+                t
+                )
+              
+              
+                
+                =
+                f
+                
+                  
+                    (
+                  
+                
+                
+                  x
+                
+                (
+                t
+                )
+                ,
+                
+                  u
+                
+                (
+                t
+                )
+                
+                  
+                    )
+                  
+                
+                +
+                
+                  w
+                
+                (
+                t
+                )
+              
+              
+                
+                  w
+                
+                (
+                t
+                )
+              
+              
+                
+                ∼
+                
+                  
+                    n
+                  
+                
+                
+                  
+                    (
+                  
+                
+                
+                  0
+                
+                ,
+                
+                  q
+                
+                (
+                t
+                )
+                
+                  
+                    )
+                  
+                
+              
+            
+            
+              
+                
+                  z
+                
+                (
+                t
+                )
+              
+              
+                
+                =
+                h
+                
+                  
+                    (
+                  
+                
+                
+                  x
+                
+                (
+                t
+                )
+                
+                  
+                    )
+                  
+                
+                +
+                
+                  v
+                
+                (
+                t
+                )
+              
+              
+                
+                  v
+                
+                (
+                t
+                )
+              
+              
+                
+                ∼
+                
+                  
+                    n
+                  
+                
+                
+                  
+                    (
+                  
+                
+                
+                  0
+                
+                ,
+                
+                  r
+                
+                (
+                t
+                )
+                
+                  
+                    )
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}{\dot {\mathbf {x} }}(t)&=f{\bigl (}\mathbf {x} (t),\mathbf {u} (t){\bigr )}+\mathbf {w} (t)&\mathbf {w} (t)&\sim {\mathcal {n}}{\bigl (}\mathbf {0} ,\mathbf {q} (t){\bigr )}\\\mathbf {z} (t)&=h{\bigl (}\mathbf {x} (t){\bigr )}+\mathbf {v} (t)&\mathbf {v} (t)&\sim {\mathcal {n}}{\bigl (}\mathbf {0} ,\mathbf {r} (t){\bigr )}\end{aligned}}}
+  initialize
+
+  
+    
+      
+        
+          
+            
+              
+                x
+              
+              ^
+            
+          
+        
+        (
+        
+          t
+          
+            0
+          
+        
+        )
+        =
+        e
+        
+          
+            [
+          
+        
+        
+          x
+        
+        (
+        
+          t
+          
+            0
+          
+        
+        )
+        
+          
+            ]
+          
+        
+        
+          , 
+        
+        
+          p
+        
+        (
+        
+          t
+          
+            0
+          
+        
+        )
+        =
+        v
+        a
+        r
+        
+          
+            [
+          
+        
+        
+          x
+        
+        (
+        
+          t
+          
+            0
+          
+        
+        )
+        
+          
+            ]
+          
+        
+      
+    
+    {\displaystyle {\hat {\mathbf {x} }}(t_{0})=e{\bigl [}\mathbf {x} (t_{0}){\bigr ]}{\text{, }}\mathbf {p} (t_{0})=var{\bigl [}\mathbf {x} (t_{0}){\bigr ]}}
+  predict-update
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  
+                    
+                      
+                        
+                          
+                            x
+                          
+                          ^
+                        
+                      
+                      ˙
+                    
+                  
+                
+                (
+                t
+                )
+              
+              
+                
+                =
+                f
+                
+                  
+                    (
+                  
+                
+                
+                  
+                    
+                      
+                        x
+                      
+                      ^
+                    
+                  
+                
+                (
+                t
+                )
+                ,
+                
+                  u
+                
+                (
+                t
+                )
+                
+                  
+                    )
+                  
+                
+                +
+                
+                  k
+                
+                (
+                t
+                )
+                
+                  
+                    (
+                  
+                
+                
+                  z
+                
+                (
+                t
+                )
+                −
+                h
+                
+                  
+                    (
+                  
+                
+                
+                  
+                    
+                      
+                        x
+                      
+                      ^
+                    
+                  
+                
+                (
+                t
+                )
+                
+                  
+                    )
+                  
+                
+                
+                  
+                    )
+                  
+                
+              
+            
+            
+              
+                
+                  
+                    
+                      
+                        p
+                      
+                      ˙
+                    
+                  
+                
+                (
+                t
+                )
+              
+              
+                
+                =
+                
+                  f
+                
+                (
+                t
+                )
+                
+                  p
+                
+                (
+                t
+                )
+                +
+                
+                  p
+                
+                (
+                t
+                )
+                
+                  f
+                
+                (
+                t
+                
+                  )
+                  
+                    ⊤
+                  
+                
+                −
+                
+                  k
+                
+                (
+                t
+                )
+                
+                  h
+                
+                (
+                t
+                )
+                
+                  p
+                
+                (
+                t
+                )
+                +
+                
+                  q
+                
+                (
+                t
+                )
+              
+            
+            
+              
+                
+                  k
+                
+                (
+                t
+                )
+              
+              
+                
+                =
+                
+                  p
+                
+                (
+                t
+                )
+                
+                  h
+                
+                (
+                t
+                
+                  )
+                  
+                    ⊤
+                  
+                
+                
+                  r
+                
+                (
+                t
+                
+                  )
+                  
+                    −
+                    1
+                  
+                
+              
+            
+            
+              
+                
+                  f
+                
+                (
+                t
+                )
+              
+              
+                
+                =
+                
+                  
+                    
+                    
+                      
+                        
+                          ∂
+                          f
+                        
+                        
+                          ∂
+                          
+                            x
+                          
+                        
+                      
+                    
+                    |
+                  
+                  
+                    
+                      
+                        
+                          
+                            x
+                          
+                          ^
+                        
+                      
+                    
+                    (
+                    t
+                    )
+                    ,
+                    
+                      u
+                    
+                    (
+                    t
+                    )
+                  
+                
+              
+            
+            
+              
+                
+                  h
+                
+                (
+                t
+                )
+              
+              
+                
+                =
+                
+                  
+                    
+                    
+                      
+                        
+                          ∂
+                          h
+                        
+                        
+                          ∂
+                          
+                            x
+                          
+                        
+                      
+                    
+                    |
+                  
+                  
+                    
+                      
+                        
+                          
+                            x
+                          
+                          ^
+                        
+                      
+                    
+                    (
+                    t
+                    )
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}{\dot {\hat {\mathbf {x} }}}(t)&=f{\bigl (}{\hat {\mathbf {x} }}(t),\mathbf {u} (t){\bigr )}+\mathbf {k} (t){\bigl (}\mathbf {z} (t)-h{\bigl (}{\hat {\mathbf {x} }}(t){\bigr )}{\bigr )}\\{\dot {\mathbf {p} }}(t)&=\mathbf {f} (t)\mathbf {p} (t)+\mathbf {p} (t)\mathbf {f} (t)^{\top }-\mathbf {k} (t)\mathbf {h} (t)\mathbf {p} (t)+\mathbf {q} (t)\\\mathbf {k} (t)&=\mathbf {p} (t)\mathbf {h} (t)^{\top }\mathbf {r} (t)^{-1}\\\mathbf {f} (t)&=\left.{\frac {\partial f}{\partial \mathbf {x} }}\right\vert _{{\hat {\mathbf {x} }}(t),\mathbf {u} (t)}\\\mathbf {h} (t)&=\left.{\frac {\partial h}{\partial \mathbf {x} }}\right\vert _{{\hat {\mathbf {x} }}(t)}\end{aligned}}}
+  unlike the discrete-time extended kalman filter, the prediction and update steps are coupled in the continuous-time extended kalman filter.
+
+
+==== discrete-time measurements ====
+most physical systems are represented as continuous-time models while discrete-time measurements are frequently taken for state estimation via a digital processor. therefore, the system model and measurement model are given by
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  
+                    
+                      
+                        x
+                      
+                      ˙
+                    
+                  
+                
+                (
+                t
+                )
+              
+              
+                
+                =
+                f
+                
+                  
+                    (
+                  
+                
+                
+                  x
+                
+                (
+                t
+                )
+                ,
+                
+                  u
+                
+                (
+                t
+                )
+                
+                  
+                    )
+                  
+                
+                +
+                
+                  w
+                
+                (
+                t
+                )
+              
+              
+                
+                  w
+                
+                (
+                t
+                )
+              
+              
+                
+                ∼
+                
+                  
+                    n
+                  
+                
+                
+                  
+                    (
+                  
+                
+                
+                  0
+                
+                ,
+                
+                  q
+                
+                (
+                t
+                )
+                
+                  
+                    )
+                  
+                
+              
+            
+            
+              
+                
+                  
+                    z
+                  
+                  
+                    k
+                  
+                
+              
+              
+                
+                =
+                h
+                (
+                
+                  
+                    x
+                  
+                  
+                    k
+                  
+                
+                )
+                +
+                
+                  
+                    v
+                  
+                  
+                    k
+                  
+                
+              
+              
+                
+                  
+                    v
+                  
+                  
+                    k
+                  
+                
+              
+              
+                
+                ∼
+                
+                  
+                    n
+                  
+                
+                (
+                
+                  0
+                
+                ,
+                
+                  
+                    r
+                  
+                  
+                    k
+                  
+                
+                )
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}{\dot {\mathbf {x} }}(t)&=f{\bigl (}\mathbf {x} (t),\mathbf {u} (t){\bigr )}+\mathbf {w} (t)&\mathbf {w} (t)&\sim {\mathcal {n}}{\bigl (}\mathbf {0} ,\mathbf {q} (t){\bigr )}\\\mathbf {z} _{k}&=h(\mathbf {x} _{k})+\mathbf {v} _{k}&\mathbf {v} _{k}&\sim {\mathcal {n}}(\mathbf {0} ,\mathbf {r} _{k})\end{aligned}}}
+  where 
+  
+    
+      
+        
+          
+            x
+          
+          
+            k
+          
+        
+        =
+        
+          x
+        
+        (
+        
+          t
+          
+            k
+          
+        
+        )
+      
+    
+    {\displaystyle \mathbf {x} _{k}=\mathbf {x} (t_{k})}
+  .
+initialize
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  x
+                
+                ^
+              
+            
+          
+          
+            0
+            
+              |
+            
+            0
+          
+        
+        =
+        e
+        
+          
+            [
+          
+        
+        
+          x
+        
+        (
+        
+          t
+          
+            0
+          
+        
+        )
+        
+          
+            ]
+          
+        
+        ,
+        
+          
+            p
+          
+          
+            0
+            
+              |
+            
+            0
+          
+        
+        =
+        e
+        
+          
+            [
+          
+        
+        
+          (
+          
+            
+              x
+            
+            (
+            
+              t
+              
+                0
+              
+            
+            )
+            −
+            
+              
+                
+                  
+                    x
+                  
+                  ^
+                
+              
+            
+            (
+            
+              t
+              
+                0
+              
+            
+            )
+          
+          )
+        
+        
+          
+            (
+            
+              
+                x
+              
+              (
+              
+                t
+                
+                  0
+                
+              
+              )
+              −
+              
+                
+                  
+                    
+                      x
+                    
+                    ^
+                  
+                
+              
+              (
+              
+                t
+                
+                  0
+                
+              
+              )
+            
+            )
+          
+          
+            t
+          
+        
+        
+          
+            ]
+          
+        
+      
+    
+    {\displaystyle {\hat {\mathbf {x} }}_{0|0}=e{\bigl [}\mathbf {x} (t_{0}){\bigr ]},\mathbf {p} _{0|0}=e{\bigl [}\left(\mathbf {x} (t_{0})-{\hat {\mathbf {x} }}(t_{0})\right)\left(\mathbf {x} (t_{0})-{\hat {\mathbf {x} }}(t_{0})\right)^{t}{\bigr ]}}
+  predict
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  solve 
+                
+              
+              
+                
+                  
+                    {
+                    
+                      
+                        
+                          
+                            
+                              
+                                
+                                  
+                                    
+                                      x
+                                    
+                                    ^
+                                  
+                                
+                                ˙
+                              
+                            
+                          
+                          (
+                          t
+                          )
+                          =
+                          f
+                          
+                            
+                              (
+                            
+                          
+                          
+                            
+                              
+                                
+                                  x
+                                
+                                ^
+                              
+                            
+                          
+                          (
+                          t
+                          )
+                          ,
+                          
+                            u
+                          
+                          (
+                          t
+                          )
+                          
+                            
+                              )
+                            
+                          
+                        
+                      
+                      
+                        
+                          
+                            
+                              
+                                
+                                  p
+                                
+                                ˙
+                              
+                            
+                          
+                          (
+                          t
+                          )
+                          =
+                          
+                            f
+                          
+                          (
+                          t
+                          )
+                          
+                            p
+                          
+                          (
+                          t
+                          )
+                          +
+                          
+                            p
+                          
+                          (
+                          t
+                          )
+                          
+                            f
+                          
+                          (
+                          t
+                          
+                            )
+                            
+                              ⊤
+                            
+                          
+                          +
+                          
+                            q
+                          
+                          (
+                          t
+                          )
+                        
+                      
+                    
+                    
+                  
+                
+                
+                
+                  with 
+                
+                
+                  
+                    {
+                    
+                      
+                        
+                          
+                            
+                              
+                                
+                                  x
+                                
+                                ^
+                              
+                            
+                          
+                          (
+                          
+                            t
+                            
+                              k
+                              −
+                              1
+                            
+                          
+                          )
+                          =
+                          
+                            
+                              
+                                
+                                  
+                                    x
+                                  
+                                  ^
+                                
+                              
+                            
+                            
+                              k
+                              −
+                              1
+                              
+                                |
+                              
+                              k
+                              −
+                              1
+                            
+                          
+                        
+                      
+                      
+                        
+                          
+                            p
+                          
+                          (
+                          
+                            t
+                            
+                              k
+                              −
+                              1
+                            
+                          
+                          )
+                          =
+                          
+                            
+                              p
+                            
+                            
+                              k
+                              −
+                              1
+                              
+                                |
+                              
+                              k
+                              −
+                              1
+                            
+                          
+                        
+                      
+                    
+                    
+                  
+                
+              
+            
+            
+              
+                ⇒
+              
+              
+                
+                  
+                    {
+                    
+                      
+                        
+                          
+                            
+                              
+                                
+                                  
+                                    x
+                                  
+                                  ^
+                                
+                              
+                            
+                            
+                              k
+                              
+                                |
+                              
+                              k
+                              −
+                              1
+                            
+                          
+                          =
+                          
+                            
+                              
+                                
+                                  x
+                                
+                                ^
+                              
+                            
+                          
+                          (
+                          
+                            t
+                            
+                              k
+                            
+                          
+                          )
+                        
+                      
+                      
+                        
+                          
+                            
+                              p
+                            
+                            
+                              k
+                              
+                                |
+                              
+                              k
+                              −
+                              1
+                            
+                          
+                          =
+                          
+                            p
+                          
+                          (
+                          
+                            t
+                            
+                              k
+                            
+                          
+                          )
+                        
+                      
+                    
+                    
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}{\text{solve }}&{\begin{cases}{\dot {\hat {\mathbf {x} }}}(t)=f{\bigl (}{\hat {\mathbf {x} }}(t),\mathbf {u} (t){\bigr )}\\{\dot {\mathbf {p} }}(t)=\mathbf {f} (t)\mathbf {p} (t)+\mathbf {p} (t)\mathbf {f} (t)^{\top }+\mathbf {q} (t)\end{cases}}\qquad {\text{with }}{\begin{cases}{\hat {\mathbf {x} }}(t_{k-1})={\hat {\mathbf {x} }}_{k-1|k-1}\\\mathbf {p} (t_{k-1})=\mathbf {p} _{k-1|k-1}\end{cases}}\\\rightarrow &{\begin{cases}{\hat {\mathbf {x} }}_{k|k-1}={\hat {\mathbf {x} }}(t_{k})\\\mathbf {p} _{k|k-1}=\mathbf {p} (t_{k})\end{cases}}\end{aligned}}}
+  where
+
+  
+    
+      
+        
+          f
+        
+        (
+        t
+        )
+        =
+        
+          
+            
+            
+              
+                
+                  ∂
+                  f
+                
+                
+                  ∂
+                  
+                    x
+                  
+                
+              
+            
+            |
+          
+          
+            
+              
+                
+                  
+                    x
+                  
+                  ^
+                
+              
+            
+            (
+            t
+            )
+            ,
+            
+              u
+            
+            (
+            t
+            )
+          
+        
+      
+    
+    {\displaystyle \mathbf {f} (t)=\left.{\frac {\partial f}{\partial \mathbf {x} }}\right\vert _{{\hat {\mathbf {x} }}(t),\mathbf {u} (t)}}
+  update
+
+  
+    
+      
+        
+          
+            k
+          
+          
+            k
+          
+        
+        =
+        
+          
+            p
+          
+          
+            k
+            
+              |
+            
+            k
+            −
+            1
+          
+        
+        
+          
+            h
+          
+          
+            k
+          
+          
+            ⊤
+          
+        
+        
+          
+            (
+          
+        
+        
+          
+            h
+          
+          
+            k
+          
+        
+        
+          
+            p
+          
+          
+            k
+            
+              |
+            
+            k
+            −
+            1
+          
+        
+        
+          
+            h
+          
+          
+            k
+          
+          
+            ⊤
+          
+        
+        +
+        
+          
+            r
+          
+          
+            k
+          
+        
+        
+          
+            
+              )
+            
+          
+          
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle \mathbf {k} _{k}=\mathbf {p} _{k|k-1}\mathbf {h} _{k}^{\top }{\bigl (}\mathbf {h} _{k}\mathbf {p} _{k|k-1}\mathbf {h} _{k}^{\top }+\mathbf {r} _{k}{\bigr )}^{-1}}
+  
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  x
+                
+                ^
+              
+            
+          
+          
+            k
+            
+              |
+            
+            k
+          
+        
+        =
+        
+          
+            
+              
+                
+                  x
+                
+                ^
+              
+            
+          
+          
+            k
+            
+              |
+            
+            k
+            −
+            1
+          
+        
+        +
+        
+          
+            k
+          
+          
+            k
+          
+        
+        
+          
+            (
+          
+        
+        
+          
+            z
+          
+          
+            k
+          
+        
+        −
+        h
+        (
+        
+          
+            
+              
+                
+                  x
+                
+                ^
+              
+            
+          
+          
+            k
+            
+              |
+            
+            k
+            −
+            1
+          
+        
+        )
+        
+          
+            )
+          
+        
+      
+    
+    {\displaystyle {\hat {\mathbf {x} }}_{k|k}={\hat {\mathbf {x} }}_{k|k-1}+\mathbf {k} _{k}{\bigl (}\mathbf {z} _{k}-h({\hat {\mathbf {x} }}_{k|k-1}){\bigr )}}
+  
+
+  
+    
+      
+        
+          
+            p
+          
+          
+            k
+            
+              |
+            
+            k
+          
+        
+        =
+        (
+        
+          i
+        
+        −
+        
+          
+            k
+          
+          
+            k
+          
+        
+        
+          
+            h
+          
+          
+            k
+          
+        
+        )
+        
+          
+            p
+          
+          
+            k
+            
+              |
+            
+            k
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle \mathbf {p} _{k|k}=(\mathbf {i} -\mathbf {k} _{k}\mathbf {h} _{k})\mathbf {p} _{k|k-1}}
+  where
+
+  
+    
+      
+        
+          
+            
+              h
+            
+          
+          
+            k
+          
+        
+        =
+        
+          
+            
+            
+              
+                
+                  ∂
+                  h
+                
+                
+                  ∂
+                  
+                    
+                      x
+                    
+                  
+                
+              
+            
+            |
+          
+          
+            
+              
+                
+                  
+                    
+                      x
+                    
+                    ^
+                  
+                
+              
+              
+                k
+                
+                  |
+                
+                k
+                −
+                1
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\textbf {h}}_{k}=\left.{\frac {\partial h}{\partial {\textbf {x}}}}\right\vert _{{\hat {\textbf {x}}}_{k|k-1}}}
+  the update equations are identical to those of discrete-time extended kalman filter.
+
+
+=== higher-order extended kalman filters ===
+the above recursion is a first-order extended kalman filter (ekf). higher order ekfs may be obtained by retaining more terms of the taylor series expansions. for example, second and third order ekfs have been described. however, higher order ekfs tend to only provide performance benefits when the measurement noise is small.
+
+
+=== non-additive noise formulation and equations ===
+the typical formulation of the ekf involves the assumption of additive process and measurement noise.  this assumption, however, is not necessary for ekf implementation.  instead, consider a more general system of the form:
+
+  
+    
+      
+        
+          
+            x
+          
+          
+            k
+          
+        
+        =
+        f
+        (
+        
+          
+            x
+          
+          
+            k
+            −
+            1
+          
+        
+        ,
+        
+          
+            u
+          
+          
+            k
+            −
+            1
+          
+        
+        ,
+        
+          
+            w
+          
+          
+            k
+            −
+            1
+          
+        
+        )
+      
+    
+    {\displaystyle {\boldsymbol {x}}_{k}=f({\boldsymbol {x}}_{k-1},{\boldsymbol {u}}_{k-1},{\boldsymbol {w}}_{k-1})}
+  
+  
+    
+      
+        
+          
+            z
+          
+          
+            k
+          
+        
+        =
+        h
+        (
+        
+          
+            x
+          
+          
+            k
+          
+        
+        ,
+        
+          
+            v
+          
+          
+            k
+          
+        
+        )
+      
+    
+    {\displaystyle {\boldsymbol {z}}_{k}=h({\boldsymbol {x}}_{k},{\boldsymbol {v}}_{k})}
+  here wk and vk are the process and observation noises which are both assumed to be zero mean multivariate gaussian noises with covariance qk and rk respectively.  then the covariance prediction and innovation equations become
+
+  
+    
+      
+        
+          
+            p
+          
+          
+            k
+            
+              |
+            
+            k
+            −
+            1
+          
+        
+        =
+        
+          
+            
+              f
+            
+            
+              k
+              −
+              1
+            
+          
+        
+        
+          
+            
+              p
+            
+            
+              k
+              −
+              1
+              
+                |
+              
+              k
+              −
+              1
+            
+          
+        
+        
+          
+            
+              f
+            
+            
+              k
+              −
+              1
+            
+            
+              ⊤
+            
+          
+        
+        
+          +
+        
+        
+          
+            
+              l
+            
+            
+              k
+              −
+              1
+            
+          
+        
+        
+          
+            
+              q
+            
+            
+              k
+              −
+              1
+            
+          
+        
+        
+          
+            
+              l
+            
+            
+              k
+              −
+              1
+            
+            
+              t
+            
+          
+        
+      
+    
+    {\displaystyle {\boldsymbol {p}}_{k|k-1}={{\boldsymbol {f}}_{k-1}}{{\boldsymbol {p}}_{k-1|k-1}}{{\boldsymbol {f}}_{k-1}^{\top }}{+}{{\boldsymbol {l}}_{k-1}}{{\boldsymbol {q}}_{k-1}}{{\boldsymbol {l}}_{k-1}^{t}}}
+  
+  
+    
+      
+        
+          
+            s
+          
+          
+            k
+          
+        
+        =
+        
+          
+            
+              h
+            
+            
+              k
+            
+          
+        
+        
+          
+            
+              p
+            
+            
+              k
+              
+                |
+              
+              k
+              −
+              1
+            
+          
+        
+        
+          
+            
+              h
+            
+            
+              k
+            
+            
+              ⊤
+            
+          
+        
+        
+          +
+        
+        
+          
+            
+              m
+            
+            
+              k
+            
+          
+        
+        
+          
+            
+              r
+            
+            
+              k
+            
+          
+        
+        
+          
+            
+              m
+            
+            
+              k
+            
+            
+              t
+            
+          
+        
+      
+    
+    {\displaystyle {\boldsymbol {s}}_{k}={{\boldsymbol {h}}_{k}}{{\boldsymbol {p}}_{k|k-1}}{{\boldsymbol {h}}_{k}^{\top }}{+}{{\boldsymbol {m}}_{k}}{{\boldsymbol {r}}_{k}}{{\boldsymbol {m}}_{k}^{t}}}
+  where the matrices 
+  
+    
+      
+        
+          
+            l
+          
+          
+            k
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle {\boldsymbol {l}}_{k-1}}
+   and 
+  
+    
+      
+        
+          
+            m
+          
+          
+            k
+          
+        
+      
+    
+    {\displaystyle {\boldsymbol {m}}_{k}}
+   are jacobian matrices:
+
+  
+    
+      
+        
+          
+            
+              l
+            
+            
+              k
+              −
+              1
+            
+          
+        
+        =
+        
+          
+            
+            
+              
+                
+                  ∂
+                  f
+                
+                
+                  ∂
+                  
+                    w
+                  
+                
+              
+            
+            |
+          
+          
+            
+              
+                
+                  
+                    x
+                    ^
+                  
+                
+              
+              
+                k
+                −
+                1
+                
+                  |
+                
+                k
+                −
+                1
+              
+            
+            ,
+            
+              
+                u
+              
+              
+                k
+                −
+                1
+              
+            
+          
+        
+      
+    
+    {\displaystyle {{\boldsymbol {l}}_{k-1}}=\left.{\frac {\partial f}{\partial {\boldsymbol {w}}}}\right\vert _{{\hat {\boldsymbol {x}}}_{k-1|k-1},{\boldsymbol {u}}_{k-1}}}
+  
+  
+    
+      
+        
+          
+            
+              m
+            
+            
+              k
+            
+          
+        
+        =
+        
+          
+            
+            
+              
+                
+                  ∂
+                  h
+                
+                
+                  ∂
+                  
+                    v
+                  
+                
+              
+            
+            |
+          
+          
+            
+              
+                
+                  
+                    x
+                    ^
+                  
+                
+              
+              
+                k
+                
+                  |
+                
+                k
+                −
+                1
+              
+            
+          
+        
+      
+    
+    {\displaystyle {{\boldsymbol {m}}_{k}}=\left.{\frac {\partial h}{\partial {\boldsymbol {v}}}}\right\vert _{{\hat {\boldsymbol {x}}}_{k|k-1}}}
+  the predicted state estimate and measurement residual are evaluated at the mean of the process and measurement noise terms, which is assumed to be zero.  otherwise, the non-additive noise formulation is implemented in the same manner as the additive noise ekf.
+
+
+=== implicit extended kalman filter ===
+in certain cases, the observation model of a nonlinear system cannot be solved for 
+  
+    
+      
+        
+          
+            z
+          
+          
+            k
+          
+        
+      
+    
+    {\displaystyle {\boldsymbol {z}}_{k}}
+  , but can be expressed by the implicit function:
+
+  
+    
+      
+        h
+        (
+        
+          
+            x
+          
+          
+            k
+          
+        
+        ,
+        
+          
+            
+              z
+              ′
+            
+          
+          
+            k
+          
+        
+        )
+        =
+        
+          0
+        
+      
+    
+    {\displaystyle h({\boldsymbol {x}}_{k},{\boldsymbol {z'}}_{k})={\boldsymbol {0}}}
+  where 
+  
+    
+      
+        
+          
+            z
+          
+          
+            k
+          
+        
+        =
+        
+          
+            
+              z
+              ′
+            
+          
+          
+            k
+          
+        
+        +
+        
+          
+            v
+          
+          
+            k
+          
+        
+      
+    
+    {\displaystyle {\boldsymbol {z}}_{k}={\boldsymbol {z'}}_{k}+{\boldsymbol {v}}_{k}}
+   are the noisy observations.
+the conventional extended kalman filter can be applied with the following substitutions:
+
+  
+    
+      
+        
+          
+            
+              r
+            
+            
+              k
+            
+          
+        
+        ←
+        
+          
+            
+              j
+            
+            
+              k
+            
+          
+        
+        
+          
+            
+              r
+            
+            
+              k
+            
+          
+        
+        
+          
+            
+              j
+            
+            
+              k
+            
+            
+              t
+            
+          
+        
+      
+    
+    {\displaystyle {{\boldsymbol {r}}_{k}}\leftarrow {{\boldsymbol {j}}_{k}}{{\boldsymbol {r}}_{k}}{{\boldsymbol {j}}_{k}^{t}}}
+  
+  
+    
+      
+        
+          
+            
+              
+                y
+                ~
+              
+            
+          
+          
+            k
+          
+        
+        ←
+        −
+        h
+        (
+        
+          
+            
+              
+                x
+                ^
+              
+            
+          
+          
+            k
+            
+              |
+            
+            k
+            −
+            1
+          
+        
+        ,
+        
+          
+            z
+          
+          
+            k
+          
+        
+        )
+      
+    
+    {\displaystyle {\tilde {\boldsymbol {y}}}_{k}\leftarrow -h({\hat {\boldsymbol {x}}}_{k|k-1},{\boldsymbol {z}}_{k})}
+  where:
+
+  
+    
+      
+        
+          
+            
+              j
+            
+            
+              k
+            
+          
+        
+        =
+        
+          
+            
+            
+              
+                
+                  ∂
+                  h
+                
+                
+                  ∂
+                  
+                    z
+                  
+                
+              
+            
+            |
+          
+          
+            
+              
+                
+                  
+                    x
+                    ^
+                  
+                
+              
+              
+                k
+                
+                  |
+                
+                k
+                −
+                1
+              
+            
+            ,
+            
+              
+                
+                  
+                    z
+                    ^
+                  
+                
+              
+              
+                k
+              
+            
+          
+        
+      
+    
+    {\displaystyle {{\boldsymbol {j}}_{k}}=\left.{\frac {\partial h}{\partial {\boldsymbol {z}}}}\right\vert _{{\hat {\boldsymbol {x}}}_{k|k-1},{\hat {\boldsymbol {z}}}_{k}}}
+  here the original observation covariance matrix 
+  
+    
+      
+        
+          
+            
+              r
+            
+            
+              k
+            
+          
+        
+      
+    
+    {\displaystyle {{\boldsymbol {r}}_{k}}}
+   is transformed, and the innovation 
+  
+    
+      
+        
+          
+            
+              
+                y
+                ~
+              
+            
+          
+          
+            k
+          
+        
+      
+    
+    {\displaystyle {\tilde {\boldsymbol {y}}}_{k}}
+   is defined differently. the jacobian matrix 
+  
+    
+      
+        
+          
+            
+              h
+            
+            
+              k
+            
+          
+        
+      
+    
+    {\displaystyle {{\boldsymbol {h}}_{k}}}
+   is defined as before, but determined from the implicit observation model 
+  
+    
+      
+        h
+        (
+        
+          
+            x
+          
+          
+            k
+          
+        
+        ,
+        
+          
+            z
+          
+          
+            k
+          
+        
+        )
+      
+    
+    {\displaystyle h({\boldsymbol {x}}_{k},{\boldsymbol {z}}_{k})}
+  .
+
+
+== modifications ==
+
+
+=== iterated extended kalman filter ===
+the iterated extended kalman filter improves the linearization of the extended kalman filter by recursively modifying the centre point of the taylor expansion. this reduces the linearization error at the cost of increased computational requirements.
+
+
+=== robust extended kalman filter ===
+the extended kalman filter arises by linearizing the signal model about the current state estimate and using the linear kalman filter to predict the next estimate. this attempts to produce a locally optimal filter, however, it is not necessarily stable because the solutions of the underlying riccati equation are not guaranteed to be positive definite. one way of improving performance is the faux algebraic riccati technique 
+  
+which trades off optimality for stability. the familiar structure of the extended kalman filter is retained but stability is achieved by selecting a positive definite solution to a faux algebraic riccati equation for the gain design.
+another way of improving extended kalman filter performance is to employ the h-infinity results from robust control. robust filters are obtained by adding a positive definite term to the design riccati equation. the additional term is parametrized by a scalar which the designer may tweak to achieve a trade-off between mean-square-error and peak error performance criteria.
+
+
+=== invariant extended kalman filter ===
+
+the invariant extended kalman filter (iekf) is a modified version of the ekf for nonlinear systems possessing symmetries (or invariances). it combines the advantages of both the ekf and the recently introduced symmetry-preserving filters. instead of using a linear correction term based on a linear output error, the iekf uses a geometrically adapted correction term based on an invariant output error; in the same way the gain matrix is not updated from a linear state error, but from an invariant state error. the main benefit is that the gain and covariance equations converge to constant values on a much bigger set of trajectories than equilibrium points as it is the case for the ekf, which results in a better convergence of the estimation.
+
+
+== unscented kalman filters ==
+a nonlinear kalman filter which shows promise as an improvement over the ekf is the unscented kalman filter (ukf). in the ukf, the probability density is approximated by a deterministic sampling of points which represent the underlying distribution as a gaussian.  the nonlinear transformation of these points are intended to be an estimation of the posterior distribution, the moments of which can then be derived from the transformed samples.  the transformation is known as the unscented transform.  the ukf tends to be more robust and more accurate than the ekf in its estimation of error in all the directions.
+
+"the extended kalman filter (ekf) is probably the most widely used estimation algorithm for nonlinear systems. however, more than 35 years of experience in the estimation community has shown that is difficult to implement, difficult to tune, and only reliable for systems that are almost linear on the time scale of the updates. many of these difficulties arise from its use of linearization."
+
+a 2012 paper includes simulation results which suggest that some published variants of the ukf fail to be as accurate as the second order extended kalman filter (soekf), also known as the augmented kalman filter.  the soekf predates the ukf by approximately 35 years with the moment dynamics first described by bass et al.  the difficulty in implementing any kalman-type filters for nonlinear state transitions stems from the numerical stability issues required for precision,  however the ukf does not escape this difficulty in that it uses linearization as well, namely linear regression.  the stability issues for the ukf generally stem from the numerical approximation to the square root of the covariance matrix, whereas the stability issues for both the ekf and the soekf stem from possible issues in the taylor series approximation along the trajectory.
+
+
+== ensemble kalman filter ==
+the ukf was in fact predated by the ensemble kalman filter, invented by evensen in 1994 ensemble kalman filter. it has the advantage over the ukf that the number of ensemble members used can be much smaller than the state dimension, allowing for applications in very high-dimensional systems, such as weather prediction, with state-space sizes of a billion or more.
+
+
+== fuzzy kalman filter ==
+fuzzy kalman filter with a new method to represent possibility distributions was recently proposed to replace probability distributions by possibility distributions in order to obtain a genuine possibilistic filter, enabling the use of non-symmetric process and observation noises as well as higher inaccuracies in both process and observation models.
+
+
+== see also ==
+kalman filter
+ensemble kalman filter
+fast kalman filter
+invariant extended kalman filter
+moving horizon estimation
+particle filter
+unscented kalman filter
+
+
+== references ==
+
+
+== further reading ==
+
+
+== external links ==
+position estimation of a differential-wheel robot based on odometry and landmarks

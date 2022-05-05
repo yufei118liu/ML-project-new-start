@@ -1,0 +1,493 @@
+bayesian statistics is a theory in the field of statistics based on the bayesian interpretation of probability where probability expresses a degree of belief in an event. the degree of belief may be based on prior knowledge about the event, such as the results of previous experiments, or on personal beliefs about the event. this differs from a number of other interpretations of probability, such as the frequentist interpretation that views probability as the limit of the relative frequency of an event after many trials.bayesian statistical methods use bayes' theorem to compute and update probabilities after obtaining new data. bayes' theorem describes the conditional probability of an event based on data as well as prior information or beliefs about the event or conditions related to the event. for example, in bayesian inference, bayes' theorem can be used to estimate the parameters of a probability distribution or statistical model. since bayesian statistics treats probability as a degree of belief, bayes' theorem can directly assign a probability distribution that quantifies the belief to the parameter or set of parameters.bayesian statistics is named after thomas bayes, who formulated a specific case of bayes' theorem in a paper published in 1763. in several papers spanning from the late 18th to the early 19th centuries, pierre-simon laplace developed the bayesian interpretation of probability. laplace used methods that would now be considered bayesian to solve a number of statistical problems. many bayesian methods were developed by later authors, but the term was not commonly used to describe such methods until the 1950s. during much of the 20th century, bayesian methods were viewed unfavorably by many statisticians due to philosophical and practical considerations. many bayesian methods required much computation to complete, and most methods that were widely used during the century were based on the frequentist interpretation. however, with the advent of powerful computers and new algorithms like markov chain monte carlo, bayesian methods have seen increasing use within statistics in the 21st century.
+
+
+== bayes' theorem ==
+
+bayes' theorem is used in bayesian methods to update probabilities, which are degrees of belief, after obtaining new data. given two events 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   and 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+  , the conditional probability of 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   given that 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   is true is expressed as follows:
+  
+    
+      
+        p
+        (
+        a
+        ∣
+        b
+        )
+        =
+        
+          
+            
+              p
+              (
+              b
+              ∣
+              a
+              )
+              p
+              (
+              a
+              )
+            
+            
+              p
+              (
+              b
+              )
+            
+          
+        
+      
+    
+    {\displaystyle p(a\mid b)={\frac {p(b\mid a)p(a)}{p(b)}}}
+  
+where 
+  
+    
+      
+        p
+        (
+        b
+        )
+        ≠
+        0
+      
+    
+    {\displaystyle p(b)\neq 0}
+  . although bayes' theorem is a fundamental result of probability theory, it has a specific interpretation in bayesian statistics. in the above equation, 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   usually represents a proposition (such as the statement that a coin lands on heads fifty percent of the time) and 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   represents the evidence, or new data that is to be taken into account (such as the result of a series of coin flips). 
+  
+    
+      
+        p
+        (
+        a
+        )
+      
+    
+    {\displaystyle p(a)}
+   is the prior probability of 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   which expresses one's beliefs about 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   before evidence is taken into account. the prior probability may also quantify prior knowledge or information about 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  . 
+  
+    
+      
+        p
+        (
+        b
+        ∣
+        a
+        )
+      
+    
+    {\displaystyle p(b\mid a)}
+   is the likelihood function, which can be interpreted as the probability of the evidence 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   given that 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   is true. the likelihood quantifies the extent to which the evidence 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   supports the proposition 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  . 
+  
+    
+      
+        p
+        (
+        a
+        ∣
+        b
+        )
+      
+    
+    {\displaystyle p(a\mid b)}
+   is the posterior probability, the probability of the proposition 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   after taking the evidence 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   into account. essentially, bayes' theorem updates one's prior beliefs 
+  
+    
+      
+        p
+        (
+        a
+        )
+      
+    
+    {\displaystyle p(a)}
+   after considering the new evidence 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+  .the probability of the evidence 
+  
+    
+      
+        p
+        (
+        b
+        )
+      
+    
+    {\displaystyle p(b)}
+   can be calculated using the law of total probability. if 
+  
+    
+      
+        {
+        
+          a
+          
+            1
+          
+        
+        ,
+        
+          a
+          
+            2
+          
+        
+        ,
+        …
+        ,
+        
+          a
+          
+            n
+          
+        
+        }
+      
+    
+    {\displaystyle \{a_{1},a_{2},\dots ,a_{n}\}}
+   is a partition of the sample space, which is the set of all outcomes of an experiment, then,
+  
+    
+      
+        p
+        (
+        b
+        )
+        =
+        p
+        (
+        b
+        ∣
+        
+          a
+          
+            1
+          
+        
+        )
+        p
+        (
+        
+          a
+          
+            1
+          
+        
+        )
+        +
+        p
+        (
+        b
+        ∣
+        
+          a
+          
+            2
+          
+        
+        )
+        p
+        (
+        
+          a
+          
+            2
+          
+        
+        )
+        +
+        ⋯
+        +
+        p
+        (
+        b
+        ∣
+        
+          a
+          
+            n
+          
+        
+        )
+        p
+        (
+        
+          a
+          
+            n
+          
+        
+        )
+        =
+        
+          ∑
+          
+            i
+          
+        
+        p
+        (
+        b
+        ∣
+        
+          a
+          
+            i
+          
+        
+        )
+        p
+        (
+        
+          a
+          
+            i
+          
+        
+        )
+      
+    
+    {\displaystyle p(b)=p(b\mid a_{1})p(a_{1})+p(b\mid a_{2})p(a_{2})+\dots +p(b\mid a_{n})p(a_{n})=\sum _{i}p(b\mid a_{i})p(a_{i})}
+  
+when there are an infinite number of outcomes, it is necessary to integrate over all outcomes to calculate 
+  
+    
+      
+        p
+        (
+        b
+        )
+      
+    
+    {\displaystyle p(b)}
+   using the law of total probability. often, 
+  
+    
+      
+        p
+        (
+        b
+        )
+      
+    
+    {\displaystyle p(b)}
+   is difficult to calculate as the calculation would involve sums or integrals that would be time-consuming to evaluate, so often only the product of the prior and likelihood is considered, since the evidence does not change in the same analysis. the posterior is proportional to this product:
+  
+    
+      
+        p
+        (
+        a
+        ∣
+        b
+        )
+        ∝
+        p
+        (
+        b
+        ∣
+        a
+        )
+        p
+        (
+        a
+        )
+      
+    
+    {\displaystyle p(a\mid b)\propto p(b\mid a)p(a)}
+  
+the maximum a posteriori, which is the mode of the posterior and is often computed in bayesian statistics using mathematical optimization methods, remains the same. the posterior can be approximated even without computing the exact value of 
+  
+    
+      
+        p
+        (
+        b
+        )
+      
+    
+    {\displaystyle p(b)}
+   with methods such as markov chain monte carlo or variational bayesian methods.
+
+
+== outline of bayesian methods ==
+the general set of statistical techniques can be divided into a number of activities, many of which have special bayesian versions.
+
+
+=== bayesian inference ===
+
+bayesian inference refers to statistical inference where uncertainty in inferences is quantified using probability. in classical frequentist inference, model parameters and hypotheses are considered to be fixed. probabilities are not assigned to parameters or hypotheses in frequentist inference. for example, it would not make sense in frequentist inference to directly assign a probability to an event that can only happen once, such as the result of the next flip of a fair coin. however, it would make sense to state that the proportion of heads approaches one-half as the number of coin flips increases.statistical models specify a set of statistical assumptions and processes that represent how the sample data are generated. statistical models have a number of parameters that can be modified. for example, a coin can be represented as samples from a bernoulli distribution, which models two possible outcomes. the bernoulli distribution has a single parameter equal to the probability of one outcome, which in most cases is the probability of landing on heads. devising a good model for the data is central in bayesian inference. in most cases, models only approximate the true process, and may not take into account certain factors influencing the data. in bayesian inference, probabilities can be assigned to model parameters. parameters can be represented as random variables. bayesian inference uses bayes' theorem to update probabilities after more evidence is obtained or known.
+
+
+=== statistical modeling ===
+the formulation of statistical models using bayesian statistics has the identifying feature of requiring the specification of prior distributions for any unknown parameters. indeed, parameters of prior distributions may themselves have prior distributions, leading to bayesian hierarchical modeling, or may be interrelated, leading to bayesian networks.
+
+
+=== design of experiments ===
+the bayesian design of experiments includes a concept called 'influence of prior beliefs'. this approach uses sequential analysis techniques to include the outcome of earlier experiments in the design of the next experiment. this is achieved by updating 'beliefs' through the use of prior and posterior distribution. this allows the design of experiments to make good use of resources of all types. an example of this is the multi-armed bandit problem.
+
+
+=== exploratory analysis of bayesian models ===
+exploratory analysis of bayesian models is an adaptation or extension of the exploratory data analysis approach to the needs and peculiarities of bayesian modeling. in the words of persi diaconis:
+exploratory data analysis seeks to reveal structure, or simple descriptions in data. we look at numbers or graphs and try to find patterns. we pursue leads suggested by background information, imagination, patterns perceived, and experience with other data analyses
+the inference process generates a posterior distribution, which has a central role in bayesian statistics, together with other distributions like the posterior predictive distribution and the prior predictive distribution. the correct visualization, analysis, and interpretation of these distributions is key to properly answer the questions that motivate the inference process.when working with bayesian models there are a series of related tasks that need to be addressed besides inference itself:
+
+diagnoses of the quality of the inference, this is needed when using numerical methods such as markov chain monte carlo techniques
+model criticism, including evaluations of both model assumptions and model predictions
+comparison of models, including model selection or model averaging
+preparation of the results for a particular audienceall these tasks are part of the exploratory analysis of bayesian models approach and successfully performing them is central to the iterative and interactive modeling process. these tasks require both numerical and visual summaries.
+
+
+== see also ==
+bayesian epistemology
+for a list of mathematical logic notation used in this article
+notation in probability and statistics
+list of logic symbols
+
+
+== references ==
+
+
+== further reading ==
+bernardo, josé m.; smith, adrian f. m. (2000). bayesian theory. new york: wiley. isbn 0-471-92416-4.
+bolstad, william m.; curran, james m. (2016). introduction to bayesian statistics (3rd ed.). wiley. isbn 978-1-118-09156-2.
+downey, allen b. (2021). think bayes: bayesian statistics in python (2nd ed.). o'reilly. isbn 978-1-4920-8946-9.
+hoff, peter d. (2009). a first course in bayesian statistical methods (2nd ed.). new york: springer. isbn 978-1-4419-2828-3.
+lee, peter m. (2012). bayesian statistics: an introduction (4th ed.). wiley. isbn 978-1-118-33257-3.
+robert, christian p. (2007). the bayesian choice : from decision-theoretic foundations to computational implementation (2nd ed.). new york: springer. isbn 978-0-387-71598-8.
+
+
+== external links ==
+eliezer s. yudkowsky. "an intuitive explanation of bayes' theorem" (webpage). retrieved 2015-06-15.
+theo kypraios. "a gentle tutorial in bayesian statistics" (pdf). retrieved 2013-11-03.
+jordi vallverdu. "bayesians versus frequentists a philosophical debate on statistical reasoning".
+bayesian statistics david spiegelhalter, kenneth rice scholarpedia 4(8):5230. doi:10.4249/scholarpedia.5230
+bayesian modeling book and examples available for downloading.
+rens van de schoot. "a gentle introduction to bayesian analysis" (pdf).
+bayesian a/b testing calculator dynamic yield

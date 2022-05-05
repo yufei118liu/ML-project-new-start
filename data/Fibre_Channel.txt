@@ -1,0 +1,150 @@
+fibre channel (fc) is a high-speed data transfer protocol providing in-order, lossless delivery of raw block data. fibre channel is primarily used to connect computer data storage to servers in storage area networks (san) in commercial data centers.
+fibre channel networks form a switched fabric because the switches in a network operate in unison as one big switch.  fibre channel typically runs on optical fiber cables within and between data centers, but can also run on copper cabling. supported data rates include 1, 2, 4, 8, 16, 32, 64, and 128 gigabit per second resulting from improvements in successive technology generations.
+there are various upper-level protocols for fibre channel, including two for block storage. fibre channel protocol (fcp) is a protocol that transports scsi commands over fibre channel networks. ficon is a protocol that transports escon commands, used by ibm mainframe computers, over fibre channel.  fibre channel can be used to transport data from storage systems that use solid-state flash memory storage medium by transporting nvme protocol commands.
+
+
+== etymology ==
+when the technology was originally devised, it ran over optical fiber cables only and, as such, was called "fiber channel". later, the ability to run over copper cabling was added to the specification. in order to avoid confusion and to create a unique name, the industry decided to change the spelling and use the british english fibre for the name of the standard.
+
+
+== history ==
+fibre channel is standardized in the t11 technical committee of the international committee for information technology standards (incits), an american national standards institute (ansi)-accredited standards committee. fibre channel started in 1988, with ansi standard approval in 1994, to merge the benefits of multiple physical layer implementations including scsi, hippi  and escon.
+fibre channel was designed as a serial interface to overcome limitations of the scsi and hippi physical-layer parallel-signal copper wire interfaces. such interfaces face the challenge of, among other things, maintaining signal timing coherence across all the data-signal wires (8, 16 and finally 32 for scsi, 50 for hippi) so that a receiver can determine when all the electrical signal values are "good" (stable and valid for simultaneous reception sampling). this challenge becomes evermore difficult in a mass-manufactured technology as data signal frequencies increase, with part of the technical compensation being ever reducing the supported connecting copper-parallel cable length. see parallel scsi. fc was developed with leading-edge multi-mode optical fiber technologies that overcame the speed limitations of the escon protocol.  by appealing to the large base of scsi disk drives and leveraging mainframe technologies, fibre channel developed economies of scale for advanced technologies and deployments became economical and widespread.
+commercial products were released while the standard was still in draft. by the time the standard was ratified lower speed versions were already growing out of use. fibre channel was the first serial storage transport to achieve gigabit speeds where it saw wide adoption, and its success grew with each successive speed. fibre channel has doubled in speed every few years since 1996.
+fibre channel has seen active development since its inception, with numerous speed improvements on a variety of underlying transport media. the following table shows the progression of native fibre channel speeds:
+in addition to a modern physical layer, fibre channel also added support for any number of "upper layer" protocols, including atm, ip (ipfc) and ficon, with scsi (fcp) being the predominant usage.
+
+
+== characteristics ==
+two major characteristics of fibre channel networks are in-order delivery and lossless delivery of raw block data. lossless delivery of raw data block is achieved based on a credit mechanism.
+
+
+== topologies ==
+there are three major fibre channel topologies, describing how a number of ports are connected together. a port in fibre channel terminology is any entity that actively communicates over the network, not necessarily a hardware port. this port is usually implemented in a device such as disk storage, a host bus adapter (hba) network connection on a server or a fibre channel switch.
+
+point-to-point (see fc-fs-3). two devices are connected directly to each other using n_ports. this is the simplest topology, with limited connectivity. the bandwidth is dedicated.
+arbitrated loop (see fc-al-2). in this design, all devices are in a loop or ring, similar to token ring networking. adding or removing a device from the loop causes all activity on the loop to be interrupted. the failure of one device causes a break in the ring. fibre channel hubs exist to connect multiple devices together and may bypass failed ports. a loop may also be made by cabling each port to the next in a ring.
+a minimal loop containing only two ports, while appearing to be similar to point-to-point, differs considerably in terms of the protocol.
+only one pair of ports can communicate concurrently on a loop.
+maximum speed of 8gfc.
+arbitrated loop has been rarely used after 2010 and its support is being discontinued for new gen switches.
+switched fabric (see fc-sw-6). in this design, all devices are connected to fibre channel switches, similar conceptually to modern ethernet implementations. advantages of this topology over point-to-point or arbitrated loop include:
+the fabric can scale to tens of thousands of ports.
+the switches manage the state of the fabric, providing optimized paths via fabric shortest path first (fspf) data routing protocol.
+the traffic between two ports flows through the switches and not through any other ports like in arbitrated loop.
+failure of a port is isolated to a link and should not affect operation of other ports.
+multiple pairs of ports may communicate simultaneously in a fabric.
+
+
+== layers ==
+fibre channel does not follow the osi model layering, and is split into five layers:
+
+fc-4 – protocol-mapping layer, in which upper level protocols such as nvm express (nvme), scsi, ip, and ficon are encapsulated into information units (ius) for delivery to fc-2. current fc-4s include fcp-4, fc-sb-5, and fc-nvme.
+fc-3 – common services layer, a thin layer that could eventually implement functions like encryption or raid redundancy algorithms; multiport connections;
+fc-2 – signaling protocol, defined by the fibre channel framing and signaling 4 (fc-fs-5) standard, consists of the low level fibre channel network protocols; port to port connections;
+fc-1 – transmission protocol, which implements line coding of signals;
+fc-0 – physical layer, includes cabling, connectors etc.;this diagram from fc-fs-4 defines the layers.
+layers fc-0 are defined in fibre channel physical interfaces (fc-pi-6), the physical layers of fibre channel.
+fibre channel products are available at 1, 2, 4, 8, 10, 16 and 32 and 128 gbit/s; these protocol flavors are called accordingly 1gfc, 2gfc, 4gfc, 8gfc, 10gfc, 16gfc, 32gfc or 128gfc. the 32gfc standard was approved by the incits t11 committee in 2013, and those products became available in 2016.  the 1gfc, 2gfc, 4gfc, 8gfc designs all use 8b/10b encoding, while the 10gfc and 16gfc standard uses 64b/66b encoding.  unlike the 10gfc standards, 16gfc provides backward compatibility with 4gfc and 8gfc since it provides exactly twice the throughput of 8gfc or four times that of 4gfc.
+
+
+== ports ==
+
+fibre channel ports come in a variety of logical configurations.  the most common types of ports are:
+
+n_port (node port) an n_port is typically an hba port that connects to a switch's f_port or another n_port.  nx_port communicating through a pn_port that is not operating a loop port state machine.
+f_port (fabric port) an f_port is a switch port that is connected to an n_port.
+e_port (expansion port) switch port that attaches to another e_port to create an inter-switch link.fibre channel loop protocols create multiple types of loop ports:
+
+l_port (loop port) fc_port that contains arbitrated loop functions associated with the arbitrated loop topology.
+fl_port (fabric loop port) l_port that is able to perform the function of an f_port, attached via a link to one or more nl_ports in an arbitrated loop topology.
+nl_port (node loop port) pn_port that is operating a loop port state machine.if a port can support loop and non-loop functionality, the port is known as:
+
+fx_port switch port capable of operating as an f_port or fl_port.
+nx_port end point for fibre channel frame communication, having a distinct address identifier and name_identifier,providing an independent set of fc-2v functions to higher levels, and having the ability to act as an originator, a responder, or both.
+ports have virtual components and physical components and are described as:
+
+pn_port entity that includes a link_control_facility and one or more nx_ports.
+vf_port (virtual f_port) instance of the fc-2v sublevel that connects to one or more vn_ports.
+vn_port (virtual n_port) instance of the fc-2v sublevel. vn_port is used when it is desired to emphasize support for multiple nx_ports on a single multiplexer (e.g., via a single pn_port).
+ve_port (virtual e_port) instance of the fc-2v sublevel that connects to another ve_port or to a b_port to create an inter-switch link.the following types of ports are also used in fibre channel:
+
+a_port (adjacent port) combination of one pa_port and one va_port operating together.
+b_port (bridge port) fabric inter-element port used to connect bridge devices with e_ports on a switch.
+d_port (diagnostic port) a configured port used to perform diagnostic tests on a link with another d_port.
+ex_port a type of e_port used to connect to an fc router fabric.
+g_port (generic fabric port) switch port that may function either as an e_port, a_port, or as an f_port.
+gl_port (generic fabric loop port) switch port that may function either as an e_port, a_port, or as an fx_port.
+pe_port lcf within the fabric that attaches to another pe_port or to a b_port through a link.
+pf_port lcf within a fabric that attaches to a pn_port through a link.
+te_port (trunking e_port) a trunking expansion port that expands the functionality of e ports to support vsan trunking, transport quality of service (qos) parameters, and fibre channel trace (fctrace) feature.
+u_port (universal port) a port waiting to become another port type
+va_port (virtual a_port) instance of the fc-2v sublevel of fibre channel that connects to another va_port.
+vex_port vex_ports are no different from ex_ports, except underlying transport is ip rather than fc.
+
+
+== media and modules ==
+
+the fibre channel physical layer is based on serial connections that use fiber optics to copper between corresponding pluggable modules.  the modules may have a single lane, dual lanes or quad lanes that correspond to the sfp, sfp-dd and qsfp form factors.  fibre channel has not used 8 or 16 lane modules (like cfp8, qsfp-dd, or cobo) used in 400gbe and has no plans to use these expensive and complex modules.
+the small form-factor pluggable transceiver (sfp) module and its enhanced version sfp+, sfp28 and sfp56 are common form factors for fibre channel ports.  sfp modules support a variety of distances via multi-mode and single-mode optical fiber as shown in the table below.  the sfp module uses duplex fiber cabling that has lc connectors.
+
+the sfp-dd module is used for high density applications that need to double the throughput of an sfp port.  the sfp-dd is defined by the sfp-dd msa and enables breakout to two sfp ports.   as seen in the picture, two rows of electrical contacts enable the doubling of the throughput of the module in a similar fashion as the qsfp-dd.
+the quad small form-factor pluggable (qsfp) module began being used for switch inter-connectivity and was later adopted for use in 4-lane implementations of gen 6 fibre channel supporting 128gfc.  the qsfp uses either the lc connector for 128gfc-cwdm4 or an mpo connector for 128gfc-sw4 or 128gfc-psm4.  the mpo cabling uses 8- or 12-fiber cabling infrastructure that connects to another 128gfc port or may be broken out into four duplex lc connections to 32gfc sfp+ ports.  fibre channel switches use either sfp or qsfp modules.
+
+modern fibre channel devices support sfp+ transceiver, mainly with lc (lucent connector) fiber connector. older 1gfc devices used gbic transceiver, mainly with sc (subscriber connector) fiber connector.
+
+
+== storage area networks ==
+
+the goal of fibre channel is to create a storage area network (san) to connect servers to storage.
+the san is a dedicated network that enables multiple servers to access data from one or more storage devices. enterprise storage uses the san to backup to secondary storage devices including disk arrays, tape libraries, and other backup while the storage is still accessible to the server. servers may access storage from multiple storage devices over the network as well.
+sans are often designed with dual fabrics to increase fault tolerance.  two completely separate fabrics are operational and if the primary fabric fails, then the second fabric becomes the primary.
+
+
+== switches ==
+
+fibre channel switches can be divided into two classes. these classes are not part of the standard, and the classification of every switch is a marketing decision of the manufacturer:
+
+directors offer a high port-count in a modular (slot-based) chassis with no single point of failure (high availability).
+switches are typically smaller, fixed-configuration (sometimes semi-modular), less redundant devices.a fabric consisting entirely of one vendors products is considered to be homogeneous. this is often referred to as operating in its "native mode" and allows the vendor to add proprietary features which may not be compliant with the fibre channel standard.
+if multiple switch vendors are used within the same fabric it is heterogeneous, the switches may only achieve adjacency if all switches are placed into their interoperability modes. this is called the "open fabric" mode as each vendor's switch may have to disable its proprietary features to comply with the fibre channel standard.
+some switch manufacturers offer a variety of interoperability modes above and beyond the "native" and "open fabric" states. these "native interoperability" modes allow switches to operate in the native mode of another vendor and still maintain some of the proprietary behaviors of both.  however, running in native interoperability mode may still disable some proprietary features and can produce fabrics of questionable stability.
+
+
+== host bus adapters ==
+
+fibre channel hbas, as well as cnas, are available for all major open systems, computer architectures, and buses, including pci and sbus. some are os dependent. each hba has a unique world wide name (wwn), which is similar to an ethernet mac address in that it uses an organizationally unique identifier (oui) assigned by the ieee. however, wwns are longer (8 bytes). there are two types of wwns on an hba; a world wide node name (wwnn), which can be shared by some or all ports of a device, and a world wide port name (wwpn), which is necessarily unique to each port.
+
+
+== see also ==
+
+
+== references ==
+
+
+=== incits fibre channel standards ===
+
+
+== sources ==
+clark, t. designing storage area networks, addison-wesley, 1999. isbn 0-201-61584-3
+
+
+== further reading ==
+rfc 2625 – ip and arp over fibre channel
+rfc 2837 – definitions of managed objects for the fabric element in fibre channel standard
+rfc 3723 – securing block storage protocols over ip
+rfc 4044 – fibre channel management mib
+rfc 4625 – fibre channel routing information mib
+rfc 4626 – mib for fibre channel's fabric shortest path first (fspf) protocol
+
+
+== external links ==
+fibre channel industry association (fcia)
+incits technical committee responsible for fc standards(t11)
+ibm san survival guide
+introduction to storage area networks
+fibre channel overview
+fibre channel tutorial (unh-iol)
+storage networking industry association (snia)
+virtual fibre channel in hyper v
+fc switch configuration tutorial

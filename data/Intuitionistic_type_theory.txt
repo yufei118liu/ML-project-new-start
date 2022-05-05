@@ -1,0 +1,2015 @@
+intuitionistic type theory (also known as constructive type theory, or martin-löf type theory) is a type theory and an alternative foundation of mathematics.
+intuitionistic type theory was created by per martin-löf, a swedish mathematician and philosopher, who first published it in 1972.  there are multiple versions of the type theory:  martin-löf proposed both intensional and extensional variants of the theory and early impredicative versions, shown to be inconsistent by girard's paradox, gave way to predicative versions. however, all versions keep the core design of constructive logic using dependent types.
+
+
+== design ==
+martin-löf designed the type theory on the principles of mathematical constructivism.  constructivism requires any existence proof to contain a "witness".  so, any proof of "there exists a prime greater than 1000" must identify a specific number that is both prime and greater than 1000.  intuitionistic type theory accomplished this design goal by internalizing the bhk interpretation.  an interesting consequence is that proofs become mathematical objects that can be examined, compared, and manipulated.
+intuitionistic type theory's type constructors were built to follow a one-to-one correspondence with logical connectives.  for example, the logical connective called implication (
+  
+    
+      
+        a
+        
+        ⟹
+        
+        b
+      
+    
+    {\displaystyle a\implies b}
+  ) corresponds to the type of a function (
+  
+    
+      
+        a
+        →
+        b
+      
+    
+    {\displaystyle a\to b}
+  ). this correspondence is called the curry–howard isomorphism.  previous type theories had also followed this isomorphism, but martin-löf's was the first to extend it to predicate logic by introducing dependent types.
+
+
+== type theory ==
+intuitionistic type theory has 3 finite types, which are then composed using 5 different type constructors.  unlike set theories, type theories are not built on top of a logic like frege's.  so, each feature of the type theory does double duty as a feature of both math and logic.
+if you are unfamiliar with type theory and know set theory, a quick summary is: types contain terms just like sets contain elements.  terms belong to one and only one type.  terms like 
+  
+    
+      
+        2
+        +
+        2
+      
+    
+    {\displaystyle 2+2}
+   and 
+  
+    
+      
+        2
+        ⋅
+        2
+      
+    
+    {\displaystyle 2\cdot 2}
+   compute ("reduce") down to canonical terms like 4.  for more, see the article on type theory.
+
+
+=== 0 type, 1 type and 2 type ===
+there are 3 finite types:  the 0 type contains 0 terms.  the 1 type contains 1 canonical term.  and the 2 type contains 2 canonical terms.
+because the 0 type contains 0 terms, it is also called the empty type.  it is used to represent anything that cannot exist.  it is also written 
+  
+    
+      
+        ⊥
+      
+    
+    {\displaystyle \bot }
+   and represents anything unprovable.  (that is, a proof of it cannot exist.)  as a result, negation is defined as a function to it: 
+  
+    
+      
+        ¬
+        a
+        :=
+        a
+        →
+        ⊥
+      
+    
+    {\displaystyle \neg a:=a\to \bot }
+  .
+likewise, the 1 type contains 1 canonical term and represents existence.  it also is called the unit type.  it often represents propositions that can be proven and is, therefore, sometimes written 
+  
+    
+      
+        ⊤
+      
+    
+    {\displaystyle \top }
+  .
+finally, the 2 type contains 2 canonical terms.  it represents a definite choice between two values.  it is used for boolean values but not propositions.  propositions are considered the 1 type and may be proven to never have a proof (the 0 type), or may not be proven either way.  (the law of excluded middle does not hold for propositions in intuitionistic type theory.)
+
+
+=== σ type constructor ===
+σ-types contain ordered pairs. as with typical ordered pair (or 2-tuple) types, a σ-type can describe the cartesian product, 
+  
+    
+      
+        a
+        ×
+        b
+      
+    
+    {\displaystyle a\times b}
+  , of two other types, 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   and 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+  . logically, such an ordered pair would hold a proof of 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   and a proof of 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+  , so one may see such a type written as 
+  
+    
+      
+        a
+        ∧
+        b
+      
+    
+    {\displaystyle a\wedge b}
+  .
+σ-types are more powerful than typical ordered pair types because of dependent typing. in the ordered pair, the type of the second term can depend on the value of the first term.  for example, the first term of the pair might be a natural number and the second term's type might be a vector of length equal to the first term. such a type would be written:
+
+  
+    
+      
+        
+          ∑
+          
+            n
+            
+              
+                :
+              
+            
+            
+              
+                n
+              
+            
+          
+        
+        vec
+        ⁡
+        (
+        
+          
+            r
+          
+        
+        ,
+        n
+        )
+      
+    
+    {\displaystyle \sum _{n{\mathbin {:}}{\mathbb {n} }}\operatorname {vec} ({\mathbb {r} },n)}
+  using set-theory terminology, this is similar to an indexed disjoint unions of sets. in the case of usual ordered pairs, the type of the second term does not depend on the value of the first term. thus the type describing the cartesian product 
+  
+    
+      
+        
+          
+            n
+          
+        
+        ×
+        
+          
+            r
+          
+        
+      
+    
+    {\displaystyle {\mathbb {n} }\times {\mathbb {r} }}
+   is written:
+
+  
+    
+      
+        
+          ∑
+          
+            n
+            
+              
+                :
+              
+            
+            
+              
+                n
+              
+            
+          
+        
+        
+          
+            r
+          
+        
+      
+    
+    {\displaystyle \sum _{n{\mathbin {:}}{\mathbb {n} }}{\mathbb {r} }}
+  it is important to note here that the value of the first term, 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  , is not depended on by the type of the second term, 
+  
+    
+      
+        
+          
+            r
+          
+        
+      
+    
+    {\displaystyle {\mathbb {r} }}
+  .
+σ-types can be used to build up longer dependently-typed tuples used in mathematics and the records or structs used in most programming languages.  an example of a dependently-typed 3-tuple is two integers and a proof that the first integer is smaller than the second integer, described by the type:
+
+  
+    
+      
+        
+          ∑
+          
+            m
+            
+              
+                :
+              
+            
+            
+              
+                z
+              
+            
+          
+        
+        
+          
+            ∑
+            
+              n
+              
+                
+                  :
+                
+              
+              
+                
+                  z
+                
+              
+            
+          
+          (
+          (
+          m
+          <
+          n
+          )
+          =
+          
+            true
+          
+          )
+        
+      
+    
+    {\displaystyle \sum _{m{\mathbin {:}}{\mathbb {z} }}{\sum _{n{\mathbin {:}}{\mathbb {z} }}((m<n)={\text{true}})}}
+  dependent typing allows σ-types to serve the role of existential quantifier.  the statement "there exists an 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   of type 
+  
+    
+      
+        
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\mathbb {n} }}
+  , such that 
+  
+    
+      
+        p
+        (
+        n
+        )
+      
+    
+    {\displaystyle p(n)}
+   is proven" becomes the type of ordered pairs where the first item is the value 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   of type 
+  
+    
+      
+        
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\mathbb {n} }}
+   and the second item is a proof of 
+  
+    
+      
+        p
+        (
+        n
+        )
+      
+    
+    {\displaystyle p(n)}
+  .  notice that the type of the second item (proofs of 
+  
+    
+      
+        p
+        (
+        n
+        )
+      
+    
+    {\displaystyle p(n)}
+  ) depends on the value in the first part of the ordered pair (
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  ). its type would be:
+
+  
+    
+      
+        
+          ∑
+          
+            n
+            
+              
+                :
+              
+            
+            
+              
+                n
+              
+            
+          
+        
+        p
+        (
+        n
+        )
+      
+    
+    {\displaystyle \sum _{n{\mathbin {:}}{\mathbb {n} }}p(n)}
+  
+
+
+=== π type constructor ===
+π-types contain functions. as with typical function types, they consist of an input type and an output type. they are more powerful than typical function types however, in that the return type can depend on the input value. functions in type theory are different from set theory.  in set theory, you look up the argument's value in a set of ordered pairs.  in type theory, the argument is substituted into a term and then computation ("reduction") is applied to the term. 
+as an example, the type of a function that, given a natural number 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  , returns a vector containing 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   real numbers is written:
+
+  
+    
+      
+        
+          ∏
+          
+            n
+            
+              
+                :
+              
+            
+            
+              
+                n
+              
+            
+          
+        
+        vec
+        ⁡
+        (
+        
+          
+            r
+          
+        
+        ,
+        n
+        )
+      
+    
+    {\displaystyle \prod _{n{\mathbin {:}}{\mathbb {n} }}\operatorname {vec} ({\mathbb {r} },n)}
+  when the output type does not depend on the input value, the function type is often simply written with a 
+  
+    
+      
+        →
+      
+    
+    {\displaystyle \to }
+  . thus, 
+  
+    
+      
+        
+          
+            n
+          
+        
+        →
+        
+          
+            r
+          
+        
+      
+    
+    {\displaystyle {\mathbb {n} }\to {\mathbb {r} }}
+   is the type of functions from natural numbers to real numbers. such π-types correspond to logical implication. the logical proposition 
+  
+    
+      
+        a
+        
+        ⟹
+        
+        b
+      
+    
+    {\displaystyle a\implies b}
+   corresponds to the type 
+  
+    
+      
+        a
+        →
+        b
+      
+    
+    {\displaystyle a\to b}
+  , containing functions that take proofs-of-a and return proofs-of-b. this type could be written more consistently as:
+
+  
+    
+      
+        
+          ∏
+          
+            a
+            
+              
+                :
+              
+            
+            a
+          
+        
+        b
+      
+    
+    {\displaystyle \prod _{a{\mathbin {:}}a}b}
+  π-types are also used in logic for universal quantification.  the statement "for every 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   of type 
+  
+    
+      
+        
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\mathbb {n} }}
+  , 
+  
+    
+      
+        p
+        (
+        n
+        )
+      
+    
+    {\displaystyle p(n)}
+   is proven" becomes a function from 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   of type 
+  
+    
+      
+        
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\mathbb {n} }}
+   to proofs of 
+  
+    
+      
+        p
+        (
+        n
+        )
+      
+    
+    {\displaystyle p(n)}
+  .  thus, given the value for 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   the function generates a proof that 
+  
+    
+      
+        p
+        (
+        )
+      
+    
+    {\displaystyle p()}
+   holds for that value. the type would be
+
+  
+    
+      
+        
+          ∏
+          
+            n
+            
+              
+                :
+              
+            
+            
+              
+                n
+              
+            
+          
+        
+        p
+        (
+        n
+        )
+      
+    
+    {\displaystyle \prod _{n{\mathbin {:}}{\mathbb {n} }}p(n)}
+  
+
+
+=== = type constructor ===
+=-types are created from two terms.  given two terms like 
+  
+    
+      
+        2
+        +
+        2
+      
+    
+    {\displaystyle 2+2}
+   and 
+  
+    
+      
+        2
+        ⋅
+        2
+      
+    
+    {\displaystyle 2\cdot 2}
+  , you can create a new type 
+  
+    
+      
+        2
+        +
+        2
+        =
+        2
+        ⋅
+        2
+      
+    
+    {\displaystyle 2+2=2\cdot 2}
+  .   the terms of that new type represent proofs that the pair reduce to the same canonical term.  thus, since both 
+  
+    
+      
+        2
+        +
+        2
+      
+    
+    {\displaystyle 2+2}
+   and 
+  
+    
+      
+        2
+        ⋅
+        2
+      
+    
+    {\displaystyle 2\cdot 2}
+   compute to the canonical term 
+  
+    
+      
+        4
+      
+    
+    {\displaystyle 4}
+  , there will be a term of the type 
+  
+    
+      
+        2
+        +
+        2
+        =
+        2
+        ⋅
+        2
+      
+    
+    {\displaystyle 2+2=2\cdot 2}
+  .  in intuitionistic type theory, there is a single way to make terms of =-types and that is by reflexivity:
+
+  
+    
+      
+        refl
+        
+          
+            :
+          
+        
+        
+          ∏
+          
+            a
+            
+              
+                :
+              
+            
+            a
+          
+        
+        (
+        a
+        =
+        a
+        )
+        .
+      
+    
+    {\displaystyle \operatorname {refl} {\mathbin {:}}\prod _{a{\mathbin {:}}a}(a=a).}
+  it is possible to create =-types such as 
+  
+    
+      
+        1
+        =
+        2
+      
+    
+    {\displaystyle 1=2}
+   where the terms do not reduce to the same canonical term, but you will be unable to create terms of that new type.  in fact, if you were able to create a term of 
+  
+    
+      
+        1
+        =
+        2
+      
+    
+    {\displaystyle 1=2}
+  , you could create a term of 
+  
+    
+      
+        ⊥
+      
+    
+    {\displaystyle \bot }
+  .  putting that into a function would generate a function of type 
+  
+    
+      
+        1
+        =
+        2
+        →
+        ⊥
+      
+    
+    {\displaystyle 1=2\to \bot }
+  . since 
+  
+    
+      
+        …
+        →
+        ⊥
+      
+    
+    {\displaystyle \ldots \to \bot }
+   is how intuitionistic type theory defines negation, you would have 
+  
+    
+      
+        ¬
+        (
+        1
+        =
+        2
+        )
+      
+    
+    {\displaystyle \neg (1=2)}
+   or, finally, 
+  
+    
+      
+        1
+        ≠
+        2
+      
+    
+    {\displaystyle 1\neq 2}
+  .
+equality of proofs is an area of active research in proof theory and has led to the development of homotopy type theory and other type theories.
+
+
+=== inductive types ===
+
+inductive types allow the creation of complex, self-referential types.  for example, a linked list of natural numbers is either an empty list or a pair of a natural number and another linked list.  inductive types can be used to define unbounded mathematical structures like trees, graphs, etc..  in fact, the natural numbers type may be defined as an inductive type, either being 
+  
+    
+      
+        0
+      
+    
+    {\displaystyle 0}
+   or the successor of another natural number.
+inductive types define new constants, such as zero 
+  
+    
+      
+        0
+        
+          
+            :
+          
+        
+        
+          
+            n
+          
+        
+      
+    
+    {\displaystyle 0{\mathbin {:}}{\mathbb {n} }}
+   and the successor function 
+  
+    
+      
+        s
+        
+          
+            :
+          
+        
+        
+          
+            n
+          
+        
+        →
+        
+          
+            n
+          
+        
+      
+    
+    {\displaystyle s{\mathbin {:}}{\mathbb {n} }\to {\mathbb {n} }}
+  .  since 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+   does not have a definition and cannot be evaluated using substitution, terms like 
+  
+    
+      
+        s
+        0
+      
+    
+    {\displaystyle s0}
+  
+and 
+  
+    
+      
+        s
+        s
+        s
+        0
+      
+    
+    {\displaystyle sss0}
+   become the canonical terms of the natural numbers.
+proofs on inductive types are made possible by induction.  each new inductive type comes with its own inductive rule.  to prove a predicate 
+  
+    
+      
+        p
+        (
+        )
+      
+    
+    {\displaystyle p()}
+   for every natural number, you use the following rule:
+
+  
+    
+      
+        
+          
+            
+              
+                n
+              
+            
+            -
+            e
+            l
+            i
+            m
+          
+        
+        
+        
+          
+            :
+          
+        
+        p
+        (
+        0
+        )
+        
+        →
+        
+          (
+          
+            
+              ∏
+              
+                n
+                
+                  
+                    :
+                  
+                
+                
+                  
+                    n
+                  
+                
+              
+            
+            p
+            (
+            n
+            )
+            →
+            p
+            (
+            s
+            (
+            n
+            )
+            )
+          
+          )
+        
+        →
+        
+          ∏
+          
+            n
+            
+              
+                :
+              
+            
+            
+              
+                n
+              
+            
+          
+        
+        p
+        (
+        n
+        )
+      
+    
+    {\displaystyle {\operatorname {{\mathbb {n} }-elim} }\,{\mathbin {:}}p(0)\,\to \left(\prod _{n{\mathbin {:}}{\mathbb {n} }}p(n)\to p(s(n))\right)\to \prod _{n{\mathbin {:}}{\mathbb {n} }}p(n)}
+  inductive types in intuitionistic type theory are defined in terms of w-types, the type of well-founded trees.  later work in type theory generated coinductive types, induction-recursion, and induction-induction for working on types with more obscure kinds of self-referentiality.  higher inductive types allow equality to be defined between terms.
+
+
+=== universe types ===
+the universe types allow proofs to be written about all the types created with the other type constructors.  every term in the universe type 
+  
+    
+      
+        
+          
+            
+              u
+            
+          
+          
+            0
+          
+        
+      
+    
+    {\displaystyle {\mathcal {u}}_{0}}
+   can be mapped to a type created with any combination of 
+  
+    
+      
+        0
+        ,
+        1
+        ,
+        2
+        ,
+        σ
+        ,
+        π
+        ,
+        =
+        ,
+      
+    
+    {\displaystyle 0,1,2,\sigma ,\pi ,=,}
+   and the inductive type constructor.  however, to avoid paradoxes, there is no term in 
+  
+    
+      
+        
+          
+            
+              u
+            
+          
+          
+            0
+          
+        
+      
+    
+    {\displaystyle {\mathcal {u}}_{0}}
+   that maps to 
+  
+    
+      
+        
+          
+            
+              u
+            
+          
+          
+            0
+          
+        
+      
+    
+    {\displaystyle {\mathcal {u}}_{0}}
+  .
+to write proofs about all "the small types" and 
+  
+    
+      
+        
+          
+            
+              u
+            
+          
+          
+            0
+          
+        
+      
+    
+    {\displaystyle {\mathcal {u}}_{0}}
+  , you must use 
+  
+    
+      
+        
+          
+            
+              u
+            
+          
+          
+            1
+          
+        
+      
+    
+    {\displaystyle {\mathcal {u}}_{1}}
+  , which does contain a term for 
+  
+    
+      
+        
+          
+            
+              u
+            
+          
+          
+            0
+          
+        
+      
+    
+    {\displaystyle {\mathcal {u}}_{0}}
+  , but not for itself 
+  
+    
+      
+        
+          
+            
+              u
+            
+          
+          
+            1
+          
+        
+      
+    
+    {\displaystyle {\mathcal {u}}_{1}}
+  .  similarly, for 
+  
+    
+      
+        
+          
+            
+              u
+            
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle {\mathcal {u}}_{2}}
+  .  there is a predicative hierarchy of universes, so to quantify a proof over any fixed constant 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   universes, you can use 
+  
+    
+      
+        
+          
+            
+              u
+            
+          
+          
+            k
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle {\mathcal {u}}_{k+1}}
+  .
+universe types are a tricky feature of type theories.  martin-löf's original type theory had to be changed to account for girard's paradox.  later research covered topics such as "super universes", "mahlo universes", and impredicative universes.
+
+
+== judgements ==
+the formal definition of intuitionistic type theory is written using judgements.  for example, in the statement "if 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   is a type and 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   is a type then 
+  
+    
+      
+        
+          
+            ∑
+            
+              a
+              :
+              a
+            
+          
+          b
+        
+      
+    
+    {\displaystyle \textstyle \sum _{a:a}b}
+   is a type" there are judgements of "is a type", "and", and "if ... then ...".  the expression 
+  
+    
+      
+        
+          
+            ∑
+            
+              a
+              :
+              a
+            
+          
+          b
+        
+      
+    
+    {\displaystyle \textstyle \sum _{a:a}b}
+   is not a judgement; it is the type being defined.
+this second level of the type theory can be confusing, particularly where it comes to equality.    there is a judgement of term equality, which might say 
+  
+    
+      
+        4
+        =
+        2
+        +
+        2
+      
+    
+    {\displaystyle 4=2+2}
+  .  it is a statement that two terms reduce to the same canonical term.  there is also a judgement of type equality, say that 
+  
+    
+      
+        a
+        =
+        b
+      
+    
+    {\displaystyle a=b}
+  , which means every element of 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   is an element of the type 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   and vice versa.  at the type level, there is a type 
+  
+    
+      
+        4
+        =
+        2
+        +
+        2
+      
+    
+    {\displaystyle 4=2+2}
+   and it contains terms if there is a proof that 
+  
+    
+      
+        4
+      
+    
+    {\displaystyle 4}
+   and 
+  
+    
+      
+        2
+        +
+        2
+      
+    
+    {\displaystyle 2+2}
+   reduce to the same value.  (terms of this type are generated using the term-equality judgement.)   lastly, there is an english-language level of equality, because we use the word "four" and symbol "
+  
+    
+      
+        4
+      
+    
+    {\displaystyle 4}
+  " to refer to the canonical term 
+  
+    
+      
+        s
+        s
+        s
+        s
+        0
+      
+    
+    {\displaystyle ssss0}
+  .  synonyms like these are called "definitionally equal" by martin-löf.
+the description of judgements below is based on the discussion in nordström, petersson, and smith.
+the formal theory works with types and objects.
+a type is declared by:
+
+  
+    
+      
+        a
+         
+        
+          
+            t
+            y
+            p
+            e
+          
+        
+      
+    
+    {\displaystyle a\ {\mathsf {type}}}
+  an object exists and is in a type if:
+
+  
+    
+      
+        a
+        
+          
+            :
+          
+        
+        a
+      
+    
+    {\displaystyle a{\mathbin {:}}a}
+  objects can be equal
+
+  
+    
+      
+        a
+        =
+        b
+      
+    
+    {\displaystyle a=b}
+  and types can be equal
+
+  
+    
+      
+        a
+        =
+        b
+      
+    
+    {\displaystyle a=b}
+  a type that depends on an object from another type is declared
+
+  
+    
+      
+        (
+        x
+        
+          
+            :
+          
+        
+        a
+        )
+        b
+      
+    
+    {\displaystyle (x{\mathbin {:}}a)b}
+  and removed by substitution
+
+  
+    
+      
+        b
+        [
+        x
+        
+          /
+        
+        a
+        ]
+      
+    
+    {\displaystyle b[x/a]}
+  , replacing the variable 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   with the object 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   in 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+  .an object that depends on an object from another type can be done two ways.
+if the object is "abstracted", then it is written
+
+  
+    
+      
+        [
+        x
+        ]
+        b
+      
+    
+    {\displaystyle [x]b}
+  and removed by substitution
+
+  
+    
+      
+        b
+        [
+        x
+        
+          /
+        
+        a
+        ]
+      
+    
+    {\displaystyle b[x/a]}
+  , replacing the variable 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   with the object 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   in 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+  .the object-depending-on-object can also be declared as a constant as part of a recursive type. an example of a recursive type is:
+
+  
+    
+      
+        0
+        
+          
+            :
+          
+        
+        
+          n
+        
+      
+    
+    {\displaystyle 0{\mathbin {:}}\mathbb {n} }
+  
+
+  
+    
+      
+        s
+        
+          
+            :
+          
+        
+        
+          n
+        
+        →
+        
+          n
+        
+      
+    
+    {\displaystyle s{\mathbin {:}}\mathbb {n} \to \mathbb {n} }
+  here, 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+   is a constant object-depending-on-object.  it is not associated with an abstraction.
+constants like 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+   can be removed by defining equality.  here the relationship with addition is defined using equality and using pattern matching to handle the recursive aspect of 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+  :
+
+  
+    
+      
+        
+          
+            
+              
+                add
+              
+              
+                
+                
+                  
+                    :
+                  
+                
+                 
+                (
+                
+                  n
+                
+                ×
+                
+                  n
+                
+                )
+                →
+                
+                  n
+                
+              
+            
+            
+              
+                add
+                ⁡
+                (
+                0
+                ,
+                b
+                )
+              
+              
+                
+                =
+                b
+              
+            
+            
+              
+                add
+                ⁡
+                (
+                s
+                (
+                a
+                )
+                ,
+                b
+                )
+              
+              
+                
+                =
+                s
+                (
+                add
+                ⁡
+                (
+                a
+                ,
+                b
+                )
+                )
+                )
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}\operatorname {add} &{\mathbin {:}}\ (\mathbb {n} \times \mathbb {n} )\to \mathbb {n} \\\operatorname {add} (0,b)&=b\\\operatorname {add} (s(a),b)&=s(\operatorname {add} (a,b)))\end{aligned}}}
+  
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+   is manipulated as an opaque constant - it has no internal structure for substitution.
+so, objects and types and these relations are used to express formulae in the theory.  the following styles of judgements are used to create new objects, types and relations from existing ones:
+
+by convention, there is a type that represents all other types.  it is called 
+  
+    
+      
+        
+          
+            u
+          
+        
+      
+    
+    {\displaystyle {\mathcal {u}}}
+   (or 
+  
+    
+      
+        set
+      
+    
+    {\displaystyle \operatorname {set} }
+  ).  since 
+  
+    
+      
+        
+          
+            u
+          
+        
+      
+    
+    {\displaystyle {\mathcal {u}}}
+   is a type, the members of it are objects.  there is a dependent type 
+  
+    
+      
+        el
+      
+    
+    {\displaystyle \operatorname {el} }
+   that maps each object to its corresponding type.  in most texts 
+  
+    
+      
+        el
+      
+    
+    {\displaystyle \operatorname {el} }
+   is never written.  from the context of the statement, a reader can almost always tell whether 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   refers to a type, or whether it refers to the object in 
+  
+    
+      
+        
+          
+            u
+          
+        
+      
+    
+    {\displaystyle {\mathcal {u}}}
+   that corresponds to the type.
+this is the complete foundation of the theory.  everything else is derived.
+to implement logic, each proposition is given its own type.  the objects in those types represent the different possible ways to prove the proposition.  if there is no proof for the proposition, then the type has no objects in it.  operators like "and" and "or" that work on propositions introduce new types and new objects.  so 
+  
+    
+      
+        a
+        ×
+        b
+      
+    
+    {\displaystyle a\times b}
+   is a type that depends on the type 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   and the type 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+  .  the objects in that dependent type are defined to exist for every pair of objects in 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   and 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+  .  if 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   or 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   has no proof and is an empty type, then the new type representing 
+  
+    
+      
+        a
+        ×
+        b
+      
+    
+    {\displaystyle a\times b}
+   is also empty.
+this can be done for other types (booleans, natural numbers, etc.) and their operators.
+
+
+== categorical models of type theory ==
+using the language of category theory, r. a. g. seely introduced the notion of a locally cartesian closed category (lccc) as the basic model of type theory. this has been refined by hofmann and dybjer to categories with families or categories with attributes based on earlier work by cartmell.a category with families is a category c of contexts (in which the objects are contexts, and
+the context morphisms are substitutions), together with a functor t : cop → fam(set).
+fam(set) is the category of families of sets, in which objects are pairs 
+  
+    
+      
+        (
+        a
+        ,
+        b
+        )
+      
+    
+    {\displaystyle (a,b)}
+   of an "index set" a and a function b: x → a, and morphisms are pairs of functions f : a → a'  and g : x → x' , such that b'  ° g = f ° b — in other words, f maps ba to bg(a).
+the functor t assigns to a context g a set 
+  
+    
+      
+        t
+        y
+        (
+        g
+        )
+      
+    
+    {\displaystyle ty(g)}
+   of types, and for each 
+  
+    
+      
+        a
+        :
+        t
+        y
+        (
+        g
+        )
+      
+    
+    {\displaystyle a:ty(g)}
+  , a set 
+  
+    
+      
+        t
+        m
+        (
+        g
+        ,
+        a
+        )
+      
+    
+    {\displaystyle tm(g,a)}
+   of terms.
+the axioms for a functor require that these play harmoniously with substitution. substitution is usually
+written in the form af or af, where a is a type in 
+  
+    
+      
+        t
+        y
+        (
+        g
+        )
+      
+    
+    {\displaystyle ty(g)}
+   and a is a term in 
+  
+    
+      
+        t
+        m
+        (
+        g
+        ,
+        a
+        )
+      
+    
+    {\displaystyle tm(g,a)}
+  , and f is a substitution
+from d to g.  here 
+  
+    
+      
+        a
+        f
+        :
+        t
+        y
+        (
+        d
+        )
+      
+    
+    {\displaystyle af:ty(d)}
+   and 
+  
+    
+      
+        a
+        f
+        :
+        t
+        m
+        (
+        d
+        ,
+        a
+        f
+        )
+      
+    
+    {\displaystyle af:tm(d,af)}
+  .
+the category c must contain a terminal object (the empty context), and a final object for a form
+of product called comprehension, or context extension, in which the right element is a type in the context of the left element.
+if g is a context, and 
+  
+    
+      
+        a
+        :
+        t
+        y
+        (
+        g
+        )
+      
+    
+    {\displaystyle a:ty(g)}
+  , then there should be an object 
+  
+    
+      
+        (
+        g
+        ,
+        a
+        )
+      
+    
+    {\displaystyle (g,a)}
+   final among
+contexts d with mappings p : d → g, q : tm(d,ap).
+a logical framework, such as martin-löf's takes the form of
+closure conditions on the context dependent sets of types and terms: that there should be a type called
+set, and for each set a type, that the types should be closed under forms of dependent sum and
+product, and so forth.
+a theory such as that of predicative set theory expresses closure conditions on the types of sets and
+their elements: that they should be closed under operations that reflect dependent sum and product,
+and under various forms of inductive definition.
+
+
+== extensional versus intensional ==
+a fundamental distinction is extensional vs intensional type theory. in extensional type theory definitional (i.e., computational) equality is not distinguished from propositional equality, which requires proof. as a consequence type checking becomes undecidable in extensional type theory because programs in the theory might not terminate. for example, such a theory allows one to give a type to the y-combinator, a detailed example of this can be found in nordstöm and petersson programming in martin-löf's type theory. however, this doesn't prevent extensional type theory from being a basis for a practical tool, for example, nuprl is based on extensional type theory.
+in contrast in intensional type theory type checking is decidable, but the representation of standard mathematical concepts is somewhat more cumbersome, since intensional reasoning requires using setoids or similar constructions. there are many common mathematical objects, which are hard to work with or can't be represented without this, for example, integer numbers, rational numbers, and real numbers. integers and rational numbers can be represented without setoids, but this representation isn't easy to work with. cauchy real numbers can't be represented without this.homotopy type theory works on resolving this problem. it allows one to define higher inductive types, which not only define first order constructors (values or points), but higher order constructors, i.e. equalities between elements (paths), equalities between equalities (homotopies), ad infinitum.
+
+
+== implementations of type theory ==
+different forms of type theory have been implemented as the formal systems underlying of a number of proof assistants. while many are based on per martin-löf's ideas, many have added features, more axioms, or different philosophical background. for instance, the  nuprl system is based on computational type theory and coq is based on the calculus of (co)inductive constructions. dependent types also feature in the design of programming languages such as ats, cayenne, epigram, agda, and idris.
+
+
+== martin-löf type theories ==
+per martin-löf constructed several type theories that were published at various times, some of them much later than when the preprints with their description became accessible to the specialists (among others jean-yves girard and giovanni sambin). the list below attempts to list all the theories that have been described in a printed form and to sketch the key features that distinguished them from each other. all of these theories had dependent products, dependent sums, disjoint unions, finite types and natural numbers. all the theories had the same reduction rules that did not include η-reduction either for dependent products or for dependent sums, except for mltt79 where the η-reduction for dependent products is added.
+mltt71 was the first of type theories created by per martin-löf. it appeared in a preprint in 1971. it had one universe but this universe had a name in itself, i.e. it was a type theory  with, as it is called today, "type in type".  jean-yves girard has shown that this system was inconsistent and the preprint was never published.
+mltt72  was presented in a 1972 preprint that has now been published.  that theory had one universe v and no identity types.  the universe was "predicative" in the sense that the dependent product of a family of objects from v over an object that was not in v such as, for example, v itself, was not assumed to be in v. the universe was à la russell,  i.e., one would write directly "t∈v" and "t∈t" (martin-löf uses the sign "∈" instead of modern ":") without the additional constructor such as "el".
+mltt73 was the first definition of a type theory that per martin-löf published (it was presented at the logic colloquium 73 and published in 1975).  there are identity types which he calls "propositions" but since no real distinction between propositions and the rest of the types is introduced the meaning of this is unclear.  there is what later acquires the name of j-eliminator but yet without a name (see pp. 94–95).  there is in this theory an infinite sequence of universes v0, ..., vn, ... . the universes are predicative, a-la russell and non-cumulative!  in fact, corollary 3.10 on p. 115 says that if a∈vm and b∈vn are such that a and b are convertible then m = n. this means, for example, that it would be difficult to formulate univalence in this theory—there are contractible types in each of the vi but it is unclear how to declare them to be equal since there are no identity types connecting vi and vj for i ≠ j.
+mltt79 was presented in 1979 and published in 1982.  in this paper, martin-löf introduced the four basic types of judgement for the dependent type theory that has since become fundamental in the study of the meta-theory of such systems.  he also introduced contexts as a separate concept in it (see p. 161).  there are identity types with the j-eliminator (which already appeared in mltt73 but did not have this name there) but also with the rule that makes the theory "extensional"  (p. 169).  there are w-types.  there is an infinite sequence of predicative universes that are cumulative.
+bibliopolis: there is a discussion of a type theory in the bibliopolis book from 1984 but it is somewhat open-ended and does not seem to represent a particular set of choices and so there is no specific type theory associated with it.
+
+
+== see also ==
+intuitionistic logic
+typed lambda calculus
+
+
+== notes ==
+
+
+== references ==
+martin-löf, per (1984). intuitionistic type theory (pdf). sambin, giovanni. napoli: bibliopolis. isbn 978-8870881059. oclc 12731401.
+
+
+== further reading ==
+per martin-löf's notes, as recorded by giovanni sambin (1980)
+nordström, bengt; petersson, kent; smith, jan m. (1990). programming in martin-löf's type theory. oxford university press. isbn 9780198538141.
+thompson, simon (1991). type theory and functional programming. addison-wesley. isbn 0-201-41667-0.
+granström, johan g. (2011). treatise on intuitionistic type theory. springer. isbn 978-94-007-1735-0.
+
+
+== external links ==
+eu types project: tutorials – lecture notes and slides from the types summer school 2005
+n-categories - sketch of a definition – letter from john baez and james dolan to ross street, november 29, 1995

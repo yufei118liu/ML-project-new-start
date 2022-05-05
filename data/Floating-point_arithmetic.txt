@@ -1,0 +1,972 @@
+in computing, floating-point arithmetic (fp) is arithmetic using formulaic representation of real numbers as an approximation to support a trade-off between range and precision. for this reason, floating-point computation is often used in systems with very small and very large real numbers that require fast processing times. in general, a floating-point number is represented approximately with a fixed number of significant digits (the significand) and scaled using an exponent in some fixed base; the base for the scaling is normally two, ten, or sixteen. a number that can be represented exactly is of the following form:
+
+where significand is an integer, base is an integer greater than or equal to two, and exponent is also an integer.
+for example:
+
+the term floating point refers to the fact that a number's radix point (decimal point, or, more commonly in computers, binary point) can "float"; that is, it can be placed anywhere relative to the significant digits of the number. this position is indicated by the exponent, and thus the floating-point representation can be thought of as a form of scientific notation.
+a floating-point system can be used to represent, with a fixed number of digits, numbers of different orders of magnitude: e.g. the distance between galaxies or the diameter of an atomic nucleus can be expressed with the same unit of length. the result of this dynamic range is that the numbers that can be represented are not uniformly spaced; the difference between two consecutive representable numbers varies with the chosen scale.
+
+over the years, a variety of floating-point representations have been used in computers.  in 1985, the ieee 754 standard for floating-point arithmetic was established, and since the 1990s, the most commonly encountered representations are those defined by the ieee.
+the speed of floating-point operations, commonly measured in terms of flops, is an important characteristic of a computer system, especially for applications that involve intensive mathematical calculations.
+a floating-point unit (fpu, colloquially a math coprocessor) is a part of a computer system specially designed to carry out operations on floating-point numbers.
+
+
+== overview ==
+
+
+=== floating-point numbers ===
+a number representation specifies some way of encoding a number, usually as a string of digits.
+there are several mechanisms by which strings of digits can represent numbers. in common mathematical notation, the digit string can be of any length, and the location of the radix point is indicated by placing an explicit "point" character (dot or comma) there. if the radix point is not specified, then the string implicitly represents an integer and the unstated radix point would be off the right-hand end of the string, next to the least significant digit. in fixed-point systems, a position in the string is specified for the radix point. so a fixed-point scheme might be to use a string of 8 decimal digits with the decimal point in the middle, whereby "00012345" would represent 0001.2345.
+in scientific notation, the given number is scaled by a power of 10, so that it lies within a certain range—typically between 1 and 10, with the radix point appearing immediately after the first digit.  the scaling factor, as a power of ten, is then indicated separately at the end of the number.  for example, the orbital period of jupiter's moon io is 152,853.5047 seconds, a value that would be represented in standard-form scientific notation as 1.528535047×105 seconds.
+floating-point representation is similar in concept to scientific notation. logically, a floating-point number consists of:
+
+a signed (meaning positive or negative) digit string of a given length in a given base (or radix). this digit string is referred to as the significand, mantissa, or coefficient. the length of the significand determines the precision to which numbers can be represented.  the radix point position is assumed always to be somewhere within the significand—often just after or just before the most significant digit, or to the right of the rightmost (least significant) digit.  this article generally follows the convention that the radix point is set just after the most significant (leftmost) digit.
+a signed integer exponent (also referred to as the characteristic, or scale), which modifies the magnitude of the number.to derive the value of the floating-point number, the significand is multiplied by the base raised to the power of the exponent, equivalent to shifting the radix point from its implied position by a number of places equal to the value of the exponent—to the right if the exponent is positive or to the left if the exponent is negative.
+using base-10 (the familiar decimal notation) as an example, the number 152,853.5047, which has ten decimal digits of precision, is represented as the significand 1,528,535,047 together with 5 as the exponent.  to determine the actual value, a decimal point is placed after the first digit of the significand and the result is multiplied by 105 to give 1.528535047×105, or 152,853.5047. in storing such a number, the base (10) need not be stored, since it will be the same for the entire range of supported numbers, and can thus be inferred.
+symbolically, this final value is:
+
+where s is the significand (ignoring any implied decimal point), p is the precision (the number of digits in the significand), b is the base (in our example, this is the number ten), and e is the exponent.
+historically, several number bases have been used for representing floating-point numbers, with base two (binary) being the most common, followed by base ten (decimal floating point), and other less common varieties, such as base sixteen (hexadecimal floating point), base eight (octal floating point), base four (quaternary floating point), base three (balanced ternary floating point) and even base 256 and base 65,536.a floating-point number is a rational number, because it can be represented as one integer divided by another; for example 1.45×103 is (145/100)×1000 or 145,000/100. the base determines the fractions that can be represented; for instance, 1/5 cannot be represented exactly as a floating-point number using a binary base, but 1/5 can be represented exactly using a decimal base (0.2, or 2×10−1). however, 1/3 cannot be represented exactly by either binary (0.010101...) or decimal (0.333...), but in base 3, it is trivial (0.1 or 1×3−1) . the occasions on which infinite expansions occur depend on the base and its prime factors.
+the way in which the significand (including its sign) and exponent are stored in a computer is implementation-dependent. the common ieee formats are described in detail later and elsewhere, but as an example, in the binary single-precision (32-bit) floating-point representation, 
+  
+    
+      
+        p
+        =
+        24
+      
+    
+    {\displaystyle p=24}
+  , and so the significand is a string of 24 bits.  for instance, the number π's first 33 bits are:
+
+in this binary expansion, let us denote the positions from 0 (leftmost bit, or most significant bit) to 32 (rightmost bit). the 24-bit significand will stop at position 23, shown as the underlined bit 0 above. the next bit, at position 24, is called the round bit or rounding bit. it is used to round the 33-bit approximation to the nearest 24-bit number (there are specific rules for halfway values, which is not the case here). this bit, which is 1 in this example, is added to the integer formed by the leftmost 24 bits, yielding:
+
+when this is stored in memory using the ieee 754 encoding, this becomes the significand s. the significand is assumed to have a binary point to the right of the leftmost bit. so, the binary representation of π is calculated from left-to-right as follows:
+
+where p is the precision (24 in this example), n is the position of the bit of the significand from the left (starting at 0 and finishing at 23 here) and e is the exponent (1 in this example).
+it can be required that the most significant digit of the significand of a non-zero number be non-zero (except when the corresponding exponent would be smaller than the minimum one). this process is called normalization. for binary formats (which uses only the digits 0 and 1), this non-zero digit is necessarily 1. therefore, it does not need to be represented in memory; allowing the format to have one more bit of precision. this rule is variously called the leading bit convention, the implicit bit convention, the hidden bit convention, or the assumed bit convention.
+
+
+=== alternatives to floating-point numbers ===
+the floating-point representation is by far the most common way of representing in computers an approximation to real numbers. however, there are alternatives:
+
+fixed-point representation uses integer hardware operations controlled by a software implementation of a specific convention about the location of the binary or decimal point, for example, 6 bits or digits from the right. the hardware to manipulate these representations is less costly than floating point, and it can be used to perform normal integer operations, too. binary fixed point is usually used in special-purpose applications on embedded processors that can only do integer arithmetic, but decimal fixed point is common in commercial applications.
+logarithmic number systems (lnss) represent a real number by the logarithm of its absolute value and a sign bit. the value distribution is similar to floating point, but the value-to-representation curve (i.e., the graph of the logarithm function) is smooth (except at 0). conversely to floating-point arithmetic, in a logarithmic number system multiplication, division and exponentiation are simple to implement, but addition and subtraction are complex. the (symmetric) level-index arithmetic (li and sli) of charles clenshaw, frank olver and peter turner is a scheme based on a generalized logarithm representation.
+tapered floating-point representation, which does not appear to be used in practice.
+some simple rational numbers (e.g., 1/3 and 1/10) cannot be represented exactly in binary floating point, no matter what the precision is. using a different radix allows one to represent some of them (e.g., 1/10 in decimal floating point), but the possibilities remain limited. software packages that perform rational arithmetic represent numbers as fractions with integral numerator and denominator, and can therefore represent any rational number exactly.  such packages generally need to use "bignum" arithmetic for the individual integers.
+interval arithmetic allows one to represent numbers as intervals and obtain guaranteed bounds on results. it is generally based on other arithmetics, in particular floating point.
+computer algebra systems such as mathematica, maxima, and maple can often handle irrational numbers like 
+  
+    
+      
+        π
+      
+    
+    {\displaystyle \pi }
+   or 
+  
+    
+      
+        
+          
+            3
+          
+        
+      
+    
+    {\displaystyle {\sqrt {3}}}
+   in a completely "formal" way, without dealing with a specific encoding of the significand.  such a program can evaluate expressions like "
+  
+    
+      
+        sin
+        ⁡
+        (
+        3
+        π
+        )
+      
+    
+    {\displaystyle \sin(3\pi )}
+  " exactly, because it is programmed to process the underlying mathematics directly, instead of using approximate values for each intermediate calculation.
+
+
+=== history ===
+
+in 1914, leonardo torres y quevedo proposed a form of floating point in the course of discussing his design for a special-purpose electromechanical calculator.
+in 1938, konrad zuse of berlin completed the z1, the first binary, programmable mechanical computer; it uses a 24-bit binary floating-point number representation with a 7-bit signed exponent, a 17-bit significand (including one implicit bit), and a sign bit. the more reliable relay-based z3, completed in 1941, has representations for both positive and negative infinities; in particular, it implements defined operations with infinity, such as 
+  
+    
+      
+        
+          
+          
+            1
+          
+        
+        
+          
+            /
+          
+          
+            ∞
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle ^{1}/_{\infty }=0}
+  , and it stops on undefined operations, such as 
+  
+    
+      
+        0
+        ×
+        ∞
+      
+    
+    {\displaystyle 0\times \infty }
+  .
+
+zuse also proposed, but did not complete, carefully rounded floating-point arithmetic that includes 
+  
+    
+      
+        ±
+        ∞
+      
+    
+    {\displaystyle \pm \infty }
+   and nan representations, anticipating features of the ieee standard by four decades. in contrast, von neumann recommended against floating-point numbers for the 1951 ias machine, arguing that fixed-point arithmetic is preferable.the first commercial computer with floating-point hardware was zuse's z4 computer, designed in 1942–1945. in 1946, bell laboratories introduced the mark v, which implemented decimal floating-point numbers.the pilot ace has binary floating-point arithmetic, and it became operational in 1950 at national physical laboratory, uk. thirty-three were later sold commercially as the english electric deuce. the arithmetic is actually implemented in software, but with a one megahertz clock rate, the speed of floating-point and fixed-point operations in this machine were initially faster than those of many competing computers.
+the mass-produced ibm 704 followed in 1954; it introduced the use of a biased exponent. for many decades after that, floating-point hardware was typically an optional feature, and computers that had it were said to be "scientific computers", or to have "scientific computation" (sc) capability (see also extensions for scientific computation (xsc)). it was not until the launch of the intel i486 in 1989 that general-purpose personal computers had floating-point capability in hardware as a standard feature.
+the univac 1100/2200 series, introduced in 1962, supported two floating-point representations:
+
+single precision: 36 bits, organized as a 1-bit sign, an 8-bit exponent, and a 27-bit significand.
+double precision: 72 bits, organized as a 1-bit sign, an 11-bit exponent, and a 60-bit significand.the ibm 7094, also introduced in 1962, supports single-precision and double-precision representations, but with no relation to the univac's representations. indeed, in 1964, ibm introduced hexadecimal floating-point representations in its system/360 mainframes; these same representations are still available for use in modern z/architecture systems.  however, in 1998, ibm included ieee-compatible binary floating-point arithmetic to its mainframes; in 2005, ibm also added ieee-compatible decimal floating-point arithmetic.
+initially, computers used many different representations for floating-point numbers. the lack of standardization at the mainframe level was an ongoing problem by the early 1970s for those writing and maintaining higher-level source code; these manufacturer floating-point standards differed in the word sizes, the representations, and the rounding behavior and general accuracy of operations. floating-point compatibility across multiple computing systems was in desperate need of standardization by the early 1980s, leading to the creation of the ieee 754 standard once the 32-bit (or 64-bit) word had become commonplace. this standard was significantly based on a proposal from intel, which was designing the i8087 numerical coprocessor; motorola, which was designing the 68000 around the same time, gave significant input as well.
+in 1989, mathematician and computer scientist william kahan was honored with the turing award for being the primary architect behind this proposal; he was aided by his student (jerome coonen) and a visiting professor (harold stone).among the x86 innovations are these:
+
+a precisely specified floating-point representation at the bit-string level, so that all compliant computers interpret bit patterns the same way. this makes it possible to accurately and efficiently transfer floating-point numbers from one computer to another (after accounting for endianness).
+a precisely specified behavior for the arithmetic operations: a result is required to be produced as if infinitely precise arithmetic were used to yield a value that is then rounded according to specific rules. this means that a compliant computer program would always produce the same result when given a particular input, thus mitigating the almost mystical reputation that floating-point computation had developed for its hitherto seemingly non-deterministic behavior.
+the ability of exceptional conditions (overflow, divide by zero, etc.) to propagate through a computation in a benign manner and then be handled by the software in a controlled fashion.
+
+
+== range of floating-point numbers ==
+a floating-point number consists of two fixed-point components, whose range depends exclusively on the number of bits or digits in their representation. whereas components linearly depend on their range, the floating-point range linearly depends on the significand range and exponentially on the range of exponent component, which attaches outstandingly wider range to the number.
+on a typical computer system, a double-precision (64-bit) binary floating-point number has a coefficient of 53 bits (including 1 implied bit), an exponent of 11 bits, and 1 sign bit. since 210 = 1024, the complete range of the positive normal floating-point numbers in this format is from 2−1022 ≈ 2 × 10−308 to approximately 21024 ≈ 2 × 10308.
+the number of normalized floating-point numbers in a system (b, p, l, u) where
+
+b is the base of the system,
+p is the precision of the significand (in base b),
+l is the smallest exponent of the system,
+u is the largest exponent of the system,is 
+  
+    
+      
+        2
+        
+          (
+          
+            b
+            −
+            1
+          
+          )
+        
+        
+          (
+          
+            b
+            
+              p
+              −
+              1
+            
+          
+          )
+        
+        
+          (
+          
+            u
+            −
+            l
+            +
+            1
+          
+          )
+        
+      
+    
+    {\displaystyle 2\left(b-1\right)\left(b^{p-1}\right)\left(u-l+1\right)}
+  .
+there is a smallest positive normalized floating-point number,
+
+underflow level = ufl = 
+  
+    
+      
+        
+          b
+          
+            l
+          
+        
+      
+    
+    {\displaystyle b^{l}}
+  ,which has a 1 as the leading digit and 0 for the remaining digits of the significand, and the smallest possible value for the exponent.
+there is a largest floating-point number,
+
+overflow level = ofl = 
+  
+    
+      
+        
+          (
+          
+            1
+            −
+            
+              b
+              
+                −
+                p
+              
+            
+          
+          )
+        
+        
+          (
+          
+            b
+            
+              u
+              +
+              1
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \left(1-b^{-p}\right)\left(b^{u+1}\right)}
+  ,which has b − 1 as the value for each digit of the significand and the largest possible value for the exponent.
+in addition, there are representable values strictly between −ufl and ufl. namely, positive and negative zeros, as well as denormalized numbers.
+
+
+== ieee 754: floating point in modern computers ==
+
+the ieee standardized the computer representation for binary floating-point numbers in ieee 754 (a.k.a. iec 60559) in 1985. this first standard is followed by almost all modern machines. it was revised in 2008. ibm mainframes support ibm's own hexadecimal floating point format and ieee 754-2008 decimal floating point in addition to the ieee 754 binary format. the cray t90 series had an ieee version, but the sv1 still uses cray floating-point format.the standard provides for many closely related formats, differing in only a few details. five of these formats are called basic formats, and others are termed extended precision formats and extendable precision format. three formats are especially widely used in computer hardware and languages:
+single precision (binary32), usually used to represent the "float" type in the c language family (though this is not guaranteed). this is a binary format that occupies 32 bits (4 bytes) and its significand has a precision of 24 bits (about 7 decimal digits).
+double precision (binary64), usually used to represent the "double" type in the c language family (though this is not guaranteed). this is a binary format that occupies 64 bits (8 bytes) and its significand has a precision of 53 bits (about 16 decimal digits).
+double extended, also ambiguously called "extended precision" format. this is a binary format that occupies at least 79 bits (80 if the hidden/implicit bit rule is not used) and its significand has a precision of at least 64 bits (about 19 decimal digits). the c99 and c11 standards of the c language family, in their annex f ("iec 60559 floating-point arithmetic"), recommend such an extended format to be provided as "long double". a format satisfying the minimal requirements (64-bit significand precision, 15-bit exponent, thus fitting on 80 bits) is provided by the x86 architecture. often on such processors, this format can be used with "long double", though extended precision is not available with msvc. for alignment purposes, many tools store this 80-bit value in a 96-bit or 128-bit space. on other processors, "long double" may stand for a larger format, such as quadruple precision, or just double precision, if any form of extended precision is not available.increasing the precision of the floating-point representation generally reduces the amount of accumulated round-off error caused by intermediate calculations.
+less common ieee formats include:
+
+quadruple precision (binary128). this is a binary format that occupies 128 bits (16 bytes) and its significand has a precision of 113 bits (about 34 decimal digits).
+decimal64 and decimal128 floating-point formats. these formats, along with the decimal32 format, are intended for performing decimal rounding correctly.
+half precision, also called binary16, a 16-bit floating-point value. it is being used in the nvidia cg graphics language, and in the openexr standard.any integer with absolute value less than 224 can be exactly represented in the single-precision format, and any integer with absolute value less than 253 can be exactly represented in the double-precision format. furthermore, a wide range of powers of 2 times such a number can be represented. these properties are sometimes used for purely integer data, to get 53-bit integers on platforms that have double-precision floats but only 32-bit integers.
+the standard specifies some special values, and their representation: positive infinity (+∞), negative infinity (−∞), a negative zero (−0) distinct from ordinary ("positive") zero, and "not a number" values (nans).
+comparison of floating-point numbers, as defined by the ieee standard, is a bit different from usual integer comparison. negative and positive zero compare equal, and every nan compares unequal to every value, including itself. all finite floating-point numbers are strictly smaller than +∞ and strictly greater than −∞, and they are ordered in the same way as their values (in the set of real numbers).
+
+
+=== internal representation ===
+floating-point numbers are typically packed into a computer datum as the sign bit, the exponent field, and the significand or mantissa, from left to right.  for the ieee 754 binary formats (basic and extended) which have extant hardware implementations, they are apportioned as follows:
+
+while the exponent can be positive or negative, in binary formats it is stored as an unsigned number that has a fixed "bias" added to it. values of all 0s in this field are reserved for the zeros and subnormal numbers; values of all 1s are reserved for the infinities and nans. the exponent range for normalized numbers is [−126, 127] for single precision, [−1022, 1023] for double, or [−16382, 16383] for quad. normalized numbers exclude subnormal values, zeros, infinities, and nans.
+in the ieee binary interchange formats the leading 1 bit of a normalized significand is not actually stored in the computer datum. it is called the "hidden" or "implicit" bit. because of this, the single-precision format actually has a significand with 24 bits of precision, the double-precision format has 53, and quad has 113.
+for example, it was shown above that π, rounded to 24 bits of precision, has:
+
+sign = 0 ; e = 1 ; s = 110010010000111111011011 (including the hidden bit)the sum of the exponent bias (127) and the exponent (1) is 128, so this is represented in the single-precision format as
+
+0 10000000 10010010000111111011011 (excluding the hidden bit) = 40490fdb as a hexadecimal number.an example of a layout for 32-bit floating point is
+
+and the 64 bit layout is similar.
+
+
+=== special values ===
+
+
+==== signed zero ====
+
+in the ieee 754 standard, zero is signed, meaning that there exist both a "positive zero" (+0) and a "negative zero" (−0).  in most run-time environments, positive zero is usually printed as "0" and the negative zero as "-0". the two values behave as equal in numerical comparisons, but some operations return different results for +0 and −0. for instance, 1/(−0) returns negative infinity, while 1/+0 returns positive infinity (so that the identity 1/(1/±∞) = ±∞ is maintained). other common functions with a discontinuity at x=0 which might treat +0 and −0 differently include log(x), signum(x), and the principal square root of y + xi for any negative number y. as with any approximation scheme, operations involving "negative zero" can occasionally cause confusion. for example, in ieee 754, x = y does not always imply 1/x = 1/y, as 0 = −0 but 1/0 ≠ 1/−0.
+
+
+==== subnormal numbers ====
+
+subnormal values fill the underflow gap with values where the absolute distance between them is the same as for adjacent values just outside the underflow gap. this is an improvement over the older practice to just have zero in the underflow gap, and where underflowing results were replaced by zero (flush to zero).modern floating-point hardware usually handles subnormal values (as well as normal values), and does not require software emulation for subnormals.
+
+
+==== infinities ====
+
+the infinities of the extended real number line can be represented in ieee floating-point datatypes, just like ordinary floating-point values like 1, 1.5, etc. they are not error values in any way, though they are often (but not always, as it depends on the rounding) used as replacement values when there is an overflow. upon a divide-by-zero exception, a positive or negative infinity is returned as an exact result. an infinity can also be introduced as a numeral (like c's "infinity" macro, or "∞" if the programming language allows that syntax).
+ieee 754 requires infinities to be handled in a reasonable way, such as
+
+(+∞) + (+7) = (+∞)
+(+∞) × (−2) = (−∞)
+(+∞) × 0 = nan – there is no meaningful thing to do
+
+
+==== nans ====
+
+ieee 754 specifies a special value called "not a number" (nan) to be returned as the result of certain "invalid" operations, such as 0/0, ∞×0, or sqrt(−1). in general, nans will be propagated, i.e. most operations involving a nan will result in a nan, although functions that would give some defined result for any given floating-point value will do so for nans as well, e.g. nan ^ 0 = 1. there are two kinds of nans: the default quiet nans and, optionally, signaling nans. a signaling nan in any arithmetic operation (including numerical comparisons) will cause an "invalid operation" exception to be signaled.
+the representation of nans specified by the standard has some unspecified bits that could be used to encode the type or source of error; but there is no standard for that encoding.  in theory, signaling nans could be used by a runtime system to flag uninitialized variables, or extend the floating-point numbers with other special values without slowing down the computations with ordinary values, although such extensions are not common.
+
+
+==== ieee 754 design rationale ====
+
+it is a common misconception that the more esoteric features of the ieee 754 standard discussed here, such as extended formats, nan, infinities, subnormals etc., are only of interest to numerical analysts, or for advanced numerical applications. in fact the opposite is true: these features are designed to give safe robust defaults for numerically unsophisticated programmers, in addition to supporting sophisticated numerical libraries by experts. the key designer of ieee 754, william kahan notes that it is incorrect to "... [deem] features of ieee standard 754 for binary floating-point arithmetic that ...[are] not appreciated to be features usable by none but numerical experts. the facts are quite the opposite. in 1977 those features were designed into the intel 8087 to serve the widest possible market... error-analysis tells us how to design floating-point arithmetic, like ieee standard 754, moderately tolerant of well-meaning ignorance among programmers".
+the special values such as infinity and nan ensure that the floating-point arithmetic is algebraically complete: every floating-point operation produces a well-defined result and will not—by default—throw a machine interrupt or trap. moreover, the choices of special values returned in exceptional cases were designed to give the correct answer in many cases. for instance, under ieee 754 arithmetic, continued fractions such as r(z) := 7 − 3/[z − 2 − 1/(z − 7 + 10/[z − 2 − 2/(z − 3)])] will give the correct answer on all inputs, as the potential divide by zero, e.g. for z = 3, is correctly handled by giving +infinity, and so such exceptions can be safely ignored. as noted by kahan, the unhandled trap consecutive to a floating-point to 16-bit integer conversion overflow that caused the loss of an ariane 5 rocket would not have happened under the default ieee 754 floating-point policy.
+subnormal numbers ensure that for finite floating-point numbers x and y, x − y = 0 if and only if x = y, as expected, but which did not hold under earlier floating-point representations.
+on the design rationale of the x87 80-bit format, kahan notes: "this extended format is designed to be used, with negligible loss of speed, for all but the simplest arithmetic with float and double operands. for example, it should be used for scratch variables in loops that implement recurrences like polynomial evaluation, scalar products, partial and continued fractions. it often averts premature over/underflow or severe local cancellation that can spoil simple algorithms". computing intermediate results in an extended format with high precision and extended exponent has precedents in the historical practice of scientific calculation and in the design of scientific calculators e.g. hewlett-packard's financial calculators performed arithmetic and financial functions to three more significant decimals than they stored or displayed. the implementation of extended precision enabled standard elementary function libraries to be readily developed that normally gave double precision results within one unit in the last place (ulp) at high speed.
+correct rounding of values to the nearest representable value avoids systematic biases in calculations and slows the growth of errors. rounding ties to even removes the statistical bias that can occur in adding similar figures.
+directed rounding was intended as an aid with checking error bounds, for instance in interval arithmetic. it is also used in the implementation of some functions.
+the mathematical basis of the operations, in particular correct rounding, allows one to prove mathematical properties and design floating-point algorithms such as 2sum, fast2sum and kahan summation algorithm, e.g. to improve accuracy or implement multiple-precision arithmetic subroutines relatively easily.a property of the single- and double-precision formats is that their encoding allows one to easily sort them without using floating-point hardware. their bits interpreted as a two's-complement integer already sort the positives correctly, with the negatives reversed. with an xor to flip the sign bit for positive values and all bits for negative values, all the values become sortable as unsigned integers (with −0 < +0). it is unclear whether this property is intended.
+
+
+== other notable floating-point formats ==
+in addition to the widely used ieee 754 standard formats, other floating-point formats are used, or have been used, in certain domain-specific areas.
+
+the microsoft binary format (mbf) was developed for the microsoft basic language products, including microsoft's first ever product the altair basic (1975), trs-80 level ii, cp/m's mbasic, ibm pc 5150's basica, ms-dos's gw-basic and quickbasic prior to version 4.00.  quickbasic version 4.00 and 4.50 switched to the ieee 754-1985 format but can revert to the mbf format using the /mbf command option.  mbf was designed and developed on a simulated intel 8080 by monte davidoff, a dormmate of bill gates, during spring of 1975 for the mits altair 8800.  the initial release of july 1975 supported a single-precision (32 bits) format due to cost of the mits altair 8800 4-kilobytes memory.  in december 1975, the 8-kilobytes version added a double-precision (64 bits) format.  a single-precision (40 bits) variant format was adopted for other cpu's, notably the mos 6502 (apple //, commodore pet, atari), motorola 6800 (mits altair 680) and motorola 6809 (trs-80 color computer).  all microsoft language products from 1975 through 1987 used the microsoft binary format until microsoft adopted the ieee-754 standard format in all its products starting in 1988 to their current releases. mbf consists of the mbf single-precision format (32 bits, "6-digit basic"), the mbf extended-precision format (40 bits, "9-digit basic"), and the mbf double-precision format (64 bits); each of them is represented with an 8-bit exponent, followed by a sign bit, followed by a significand of respectively 23, 31, and 55 bits.
+the bfloat16 format requires the same amount of memory (16 bits) as the ieee 754 half-precision format, but allocates 8 bits to the exponent instead of 5, thus providing the same range as a ieee 754 single-precision number. the tradeoff is a reduced precision, as the trailing significand field is reduced from 10 to 7 bits. this format is mainly used in the training of machine learning models, where range is more valuable than precision. many machine learning accelerators provide hardware support for this format.
+the tensorfloat-32 format provides the best of the bfloat16 and half-precision formats, having 8 bits of exponent as the former and 10 bits of trailing significand field as the latter. this format was introduced by nvidia, which provides hardware support for it in the tensor cores of its gpus based on the nvidia ampere architecture. the drawback of this format is its total size of 19 bits, which is not a power of 2. however, according to nvidia, this format should only be used internally by hardware to speed up computations, while inputs and outputs should be stored in the 32-bit single-precision ieee 754 format.
+
+
+== representable numbers, conversion and rounding ==
+by their nature, all numbers expressed in floating-point format are rational numbers with a terminating expansion in the relevant base (for example, a terminating decimal expansion in base-10, or a terminating binary expansion in base-2). irrational numbers, such as π or √2, or non-terminating rational numbers, must be approximated. the number of digits (or bits) of precision also limits the set of rational numbers that can be represented exactly. for example, the decimal number 123456789 cannot be exactly represented if only eight decimal digits of precision are available (it would be rounded to one of the two straddling representable values, 12345678 × 101 or 12345679 × 101), the same applies to non-terminating digits (.5 to be rounded to either .55555555 or .55555556).
+when a number is represented in some format (such as a character string) which is not a native floating-point representation supported in a computer implementation, then it will require a conversion before it can be used in that implementation. if the number can be represented exactly in the floating-point format then the conversion is exact. if there is not an exact representation then the conversion requires a choice of which floating-point number to use to represent the original value. the representation chosen will have a different value from the original, and the value thus adjusted is called the rounded value.
+whether or not a rational number has a terminating expansion depends on the base. for example, in base-10 the number 1/2 has a terminating expansion (0.5) while the number 1/3 does not (0.333...). in base-2 only rationals with denominators that are powers of 2 (such as 1/2 or 3/16) are terminating. any rational with a denominator that has a prime factor other than 2 will have an infinite binary expansion. this means that numbers that appear to be short and exact when written in decimal format may need to be approximated when converted to binary floating-point. for example, the decimal number 0.1 is not representable in binary floating-point of any finite precision;  the exact binary representation would have a "1100" sequence continuing endlessly:
+
+e = −4; s = 1100110011001100110011001100110011...,where, as previously, s is the significand and e is the exponent.
+when rounded to 24 bits this becomes
+
+e = −4; s = 110011001100110011001101,which is actually 0.100000001490116119384765625 in decimal.
+as a further example, the real number π, represented in binary as an infinite sequence of bits is
+
+11.0010010000111111011010101000100010000101101000110000100011010011...but is
+
+11.0010010000111111011011when approximated by rounding to a precision of 24 bits.
+in binary single-precision floating-point, this is represented as s = 1.10010010000111111011011 with e = 1.
+this has a decimal value of
+
+3.1415927410125732421875,whereas a more accurate approximation of the true value of π is
+
+3.14159265358979323846264338327950...the result of rounding differs from the true value by about 0.03 parts per million, and matches the decimal representation of π in the first 7 digits. the difference is the discretization error and is limited by the machine epsilon.
+the arithmetical difference between two consecutive representable floating-point numbers which have the same exponent is called a unit in the last place (ulp). for example, if there is no representable number lying between the representable numbers 1.45a70c22hex and 1.45a70c24hex, the ulp is 2×16−8, or 2−31. for numbers with a base-2 exponent part of 0, i.e. numbers with an absolute value higher than or equal to 1 but lower than 2, an ulp is exactly 2−23 or about 10−7 in single precision, and exactly 2−53 or about 10−16 in double precision. the mandated behavior of ieee-compliant hardware is that the result be within one-half of a ulp.
+
+
+=== rounding modes ===
+rounding is used when the exact result of a floating-point operation (or a conversion to floating-point format) would need more digits than there are digits in the significand. ieee 754 requires correct rounding: that is, the rounded result is as if infinitely precise arithmetic was used to compute the value and then rounded (although in implementation only three extra bits are needed to ensure this). there are several different rounding schemes (or rounding modes). historically, truncation was the typical approach. since the introduction of ieee 754, the default method (round to nearest, ties to even, sometimes called banker's rounding) is more commonly used. this method rounds the ideal (infinitely precise) result of an arithmetic operation to the nearest representable value, and gives that representation as the result. in the case of a tie, the value that would make the significand end in an even digit is chosen. the ieee 754 standard requires the same rounding to be applied to all fundamental algebraic operations, including square root and conversions, when there is a numeric (non-nan) result. it means that the results of ieee 754 operations are completely determined in all bits of the result, except for the representation of nans. ("library" functions such as cosine and log are not mandated.)
+alternative rounding options are also available. ieee 754 specifies the following rounding modes:
+
+round to nearest, where ties round to the nearest even digit in the required position (the default and by far the most common mode)
+round to nearest, where ties round away from zero (optional for binary floating-point and commonly used in decimal)
+round up (toward +∞; negative results thus round toward zero)
+round down (toward −∞; negative results thus round away from zero)
+round toward zero (truncation; it is similar to the common behavior of float-to-integer conversions, which convert −3.9 to −3 and 3.9 to 3)alternative modes are useful when the amount of error being introduced must be bounded. applications that require a bounded error are multi-precision floating-point, and interval arithmetic.
+the alternative rounding modes are also useful in diagnosing numerical instability: if the results of a subroutine vary substantially between rounding to + and − infinity then it is likely numerically unstable and affected by round-off error.
+
+
+=== binary-to-decimal conversion with minimal number of digits ===
+converting a double-precision binary floating-point number to a decimal string is a common operation, but an algorithm producing results that are both accurate and minimal did not appear in print until 1990, with steele and white's dragon4. some of the improvements since then include:
+
+david m. gay's dtoa.c, a practical open-source implementation of many ideas in dragon4.
+grisu3, with a 4× speedup as it removes the use of bignums. must be used with a fallback, as it fails for ~0.5% of cases.
+errol3, an always-succeeding algorithm similar to, but slower than, grisu3. apparently not as good as an early-terminating grisu with fallback.
+ryū, an always-succeeding algorithm that is faster and simpler than grisu3.many modern language runtimes use grisu3 with a dragon4 fallback.
+
+
+=== decimal-to-binary conversion ===
+the problem of parsing a decimal string into a binary fp representation is complex, with an accurate parser not appearing until clinger's 1990 work (implemented in dtoa.c). further work has likewise progressed in the direction of faster parsing.
+
+
+== floating-point operations ==
+for ease of presentation and understanding, decimal radix with 7 digit precision will be used in the examples, as in the ieee 754 decimal32 format. the fundamental principles are the same in any radix or precision, except that normalization is optional (it does not affect the numerical value of the result). here, s denotes the significand and e denotes the exponent.
+
+
+=== addition and subtraction ===
+a simple method to add floating-point numbers is to first represent them with the same exponent. in the example below, the second number is shifted right by three digits, and one then proceeds with the usual addition method:
+
+  123456.7 = 1.234567 × 10^5
+  101.7654 = 1.017654 × 10^2 = 0.001017654 × 10^5
+
+  hence:
+  123456.7 + 101.7654 = (1.234567 × 10^5) + (1.017654 × 10^2)
+                      = (1.234567 × 10^5) + (0.001017654 × 10^5)
+                      = (1.234567 + 0.001017654) × 10^5
+                      =  1.235584654 × 10^5
+
+in detail:
+
+  e=5;  s=1.234567     (123456.7)
++ e=2;  s=1.017654     (101.7654)
+
+  e=5;  s=1.234567
++ e=5;  s=0.001017654  (after shifting)
+--------------------
+  e=5;  s=1.235584654  (true sum: 123558.4654)
+
+this is the true result, the exact sum of the operands. it will be rounded to seven digits and then normalized if necessary. the final result is
+
+  e=5;  s=1.235585    (final sum: 123558.5)
+
+the lowest three digits of the second operand (654) are essentially lost. this is round-off error. in extreme cases, the sum of two non-zero numbers may be equal to one of them:
+
+  e=5;  s=1.234567
++ e=−3; s=9.876543
+
+  e=5;  s=1.234567
++ e=5;  s=0.00000009876543 (after shifting)
+----------------------
+  e=5;  s=1.23456709876543 (true sum)
+  e=5;  s=1.234567         (after rounding and normalization)
+
+in the above conceptual examples it would appear that a large number of extra digits would need to be provided by the adder to ensure correct rounding; however, for binary addition or subtraction using careful implementation techniques only a guard bit, a rounding bit and one extra sticky bit need to be carried beyond the precision of the operands.: 218–220 another problem of loss of significance occurs when approximations to two nearly equal numbers are subtracted. in the following example e = 5; s = 1.234571 and e = 5; s = 1.234567 are approximations to the rationals 123457.1467 and 123456.659.
+
+  e=5;  s=1.234571
+− e=5;  s=1.234567
+----------------
+  e=5;  s=0.000004
+  e=−1; s=4.000000 (after rounding and normalization)
+
+the floating-point difference is computed exactly because the numbers are close—the sterbenz lemma guarantees this, even in case of underflow when gradual underflow is supported. despite this, the difference of the original numbers is e = −1; s = 4.877000, which differs more than 20% from the difference e = −1; s = 4.000000 of the approximations. in extreme cases, all significant digits of precision can be lost. this cancellation illustrates the danger in assuming that all of the digits of a computed result are meaningful. dealing with the consequences of these errors is a topic in numerical analysis; see also accuracy problems.
+
+
+=== multiplication and division ===
+to multiply, the significands are multiplied while the exponents are added, and the result is rounded and normalized.
+
+  e=3;  s=4.734612
+× e=5;  s=5.417242
+-----------------------
+  e=8;  s=25.648538980104 (true product)
+  e=8;  s=25.64854        (after rounding)
+  e=9;  s=2.564854        (after normalization)
+
+similarly, division is accomplished by subtracting the divisor's exponent from the dividend's exponent, and dividing the dividend's significand by the divisor's significand.
+there are no cancellation or absorption problems with multiplication or division, though small errors may accumulate as operations are performed in succession. in practice, the way these operations are carried out in digital logic can be quite complex (see booth's multiplication algorithm and division algorithm).
+for a fast, simple method, see the horner method.
+
+
+=== literal syntax ===
+literals for floating-point numbers depend on languages. they typically use e or e to denote scientific notation. the c programming language and the ieee 754 standard also define a hexadecimal literal syntax with a base-2 exponent instead of 10. in languages like c, when the decimal exponent is omitted, a decimal point is needed to differentiate them from integers. other languages do not have an integer type (such as javascript), or allow overloading of numeric types (such as haskell). in these cases, digit strings such as 123 may also be floating-point literals.
+examples of floating-point literals are:
+
+99.9
+-5000.12
+6.02e23
+-3e-45
+0x1.fffffep+127 in c and ieee 754
+
+
+== dealing with exceptional cases ==
+floating-point computation in a computer can run into three kinds of problems:
+
+an operation can be mathematically undefined, such as ∞/∞, or division by zero.
+an operation can be legal in principle, but not supported by the specific format, for example, calculating the square root of −1 or the inverse sine of 2 (both of which result in complex numbers).
+an operation can be legal in principle, but the result can be impossible to represent in the specified format, because the exponent is too large or too small to encode in the exponent field. such an event is called an overflow (exponent too large), underflow (exponent too small) or denormalization (precision loss).prior to the ieee standard, such conditions usually caused the program to terminate, or triggered some kind
+of trap that the programmer might be able to catch. how this worked was system-dependent,
+meaning that floating-point programs were not portable. (the term "exception" as used in ieee 754 is a general term meaning an exceptional condition, which is not necessarily an error, and is a different usage to that typically defined in programming languages such as a c++ or java, in which an "exception" is an alternative flow of control, closer to what is termed a "trap" in ieee 754 terminology.)
+here, the required default method of handling exceptions according to ieee 754 is discussed (the ieee 754 optional trapping and other "alternate exception handling" modes are not discussed). arithmetic exceptions are (by default) required to be recorded in "sticky" status flag bits. that they are "sticky" means that they are not reset by the next (arithmetic) operation, but stay set until explicitly reset. the use of "sticky" flags thus allows for testing of exceptional conditions to be delayed until after a full floating-point expression or subroutine: without them exceptional conditions that could not be otherwise ignored would require explicit testing immediately after every floating-point operation. by default, an operation always returns a result according to specification without interrupting computation. for instance, 1/0 returns +∞, while also setting the divide-by-zero flag bit (this default of ∞ is designed to often return a finite result when used in subsequent operations and so be safely ignored).
+the original ieee 754 standard, however, failed to recommend operations to handle such sets of arithmetic exception flag bits. so while these were implemented in hardware, initially programming language implementations typically did not provide a means to access them (apart from assembler). over time some programming language standards (e.g., c99/c11 and fortran) have been updated to specify methods to access and change status flag bits. the 2008 version of the ieee 754 standard now specifies a few operations for accessing and handling the arithmetic flag bits. the programming model is based on a single thread of execution and use of them by multiple threads has to be handled by a means outside of the standard (e.g. c11 specifies that the flags have thread-local storage).
+ieee 754 specifies five arithmetic exceptions that are to be recorded in the status flags ("sticky bits"):
+
+inexact, set if the rounded (and returned) value is different from the mathematically exact result of the operation.
+underflow, set if the rounded value is tiny (as specified in ieee 754) and inexact (or maybe limited to if it has denormalization loss, as per the 1984 version of ieee 754), returning a subnormal value including the zeros.
+overflow, set if the absolute value of the rounded value is too large to be represented. an infinity or maximal finite value is returned, depending on which rounding is used.
+divide-by-zero, set if the result is infinite given finite operands, returning an infinity, either +∞ or −∞.
+invalid, set if a real-valued result cannot be returned e.g. sqrt(−1) or 0/0, returning a quiet nan.the default return value for each of the exceptions is designed to give the correct result in the majority of cases such that the exceptions can be ignored in the majority of codes. inexact returns a correctly rounded result, and underflow returns a denormalized small value and so can almost always be ignored. divide-by-zero returns infinity exactly, which will typically then divide a finite number and so give zero, or else will give an invalid exception subsequently if not, and so can also typically be ignored. for example, the effective resistance of n resistors in parallel (see fig. 1) is given by 
+  
+    
+      
+        
+          r
+          
+            tot
+          
+        
+        =
+        1
+        
+          /
+        
+        (
+        1
+        
+          /
+        
+        
+          r
+          
+            1
+          
+        
+        +
+        1
+        
+          /
+        
+        
+          r
+          
+            2
+          
+        
+        +
+        ⋯
+        +
+        1
+        
+          /
+        
+        
+          r
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle r_{\text{tot}}=1/(1/r_{1}+1/r_{2}+\cdots +1/r_{n})}
+  . if a short-circuit develops with 
+  
+    
+      
+        
+          r
+          
+            1
+          
+        
+      
+    
+    {\displaystyle r_{1}}
+   set to 0, 
+  
+    
+      
+        1
+        
+          /
+        
+        
+          r
+          
+            1
+          
+        
+      
+    
+    {\displaystyle 1/r_{1}}
+   will return +infinity which will give a final 
+  
+    
+      
+        
+          r
+          
+            t
+            o
+            t
+          
+        
+      
+    
+    {\displaystyle r_{tot}}
+   of 0, as expected (see the continued fraction example of ieee 754 design rationale for another example).
+overflow and invalid exceptions can typically not be ignored, but do not necessarily represent errors: for example, a root-finding routine, as part of its normal operation, may evaluate a passed-in function at values outside of its domain, returning nan and an invalid exception flag to be ignored until finding a useful start point.
+
+
+== accuracy problems ==
+the fact that floating-point numbers cannot precisely represent all real numbers, and that floating-point operations cannot precisely represent true arithmetic operations, leads to many surprising situations. this is related to the finite precision with which computers generally represent numbers.
+for example, the non-representability of 0.1 and 0.01 (in binary) means that the result of attempting to square 0.1 is neither 0.01 nor the representable number closest to it. in 24-bit (single precision) representation, 0.1 (decimal) was given previously as e = −4; s = 110011001100110011001101, which is
+
+squaring this number gives
+
+squaring it with single-precision floating-point hardware (with rounding) gives
+
+but the representable number closest to 0.01 is
+
+also, the non-representability of π (and π/2) means that an attempted computation of tan(π/2) will not yield a result of infinity, nor will it even overflow in the usual floating-point formats (assuming an accurate implementation of tan). it is simply not possible for standard floating-point hardware to attempt to compute tan(π/2), because π/2 cannot be represented exactly. this computation in c:
+
+will give a result of 16331239353195370.0. in single precision (using the tanf function), the result will be −22877332.0.
+by the same token, an attempted computation of sin(π) will not yield zero. the result will be (approximately) 0.1225×10−15 in double precision, or −0.8742×10−7 in single precision.while floating-point addition and multiplication are both commutative (a + b = b + a and a × b = b × a), they are not necessarily associative. that is, (a + b) + c is not necessarily equal to a + (b + c). using 7-digit significand decimal arithmetic:
+
+ a = 1234.567, b = 45.67834, c = 0.0004
+
+ (a + b) + c:
+     1234.567   (a)
+   +   45.67834 (b)
+   ____________
+     1280.24534   rounds to   1280.245
+
+    1280.245  (a + b)
+   +   0.0004 (c)
+   ____________
+    1280.2454   rounds to   1280.245  ← (a + b) + c
+
+ a + (b + c):
+   45.67834 (b)
+ +  0.0004  (c)
+ ____________
+   45.67874
+
+   1234.567   (a)
+ +   45.67874   (b + c)
+ ____________
+   1280.24574   rounds to   1280.246 ← a + (b + c)
+
+they are also not necessarily distributive. that is, (a + b) × c may not be the same as a × c + b × c:
+
+ 1234.567 × 3.333333 = 4115.223
+ 1.234567 × 3.333333 = 4.115223
+                       4115.223 + 4.115223 = 4119.338
+ but
+ 1234.567 + 1.234567 = 1235.802
+                       1235.802 × 3.333333 = 4119.340
+
+in addition to loss of significance, inability to represent numbers such as π and 0.1 exactly, and other slight inaccuracies, the following phenomena may occur:
+
+
+=== incidents ===
+on 25 february 1991, a loss of significance in a mim-104 patriot missile battery prevented it from intercepting an incoming scud missile in dhahran, saudi arabia, contributing to the death of 28 soldiers from the u.s. army's 14th quartermaster detachment.
+
+
+=== machine precision and backward error analysis ===
+machine precision is a quantity that characterizes the accuracy of a floating-point system, and is used in backward error analysis of floating-point algorithms. it is also known as unit roundoff or machine epsilon. usually denoted εmach, its value depends on the particular rounding being used.
+with rounding to zero,
+
+whereas rounding to nearest,
+
+this is important since it bounds the relative error in representing any non-zero real number x within the normalized range of a floating-point system:
+
+backward error analysis, the theory of which was developed and popularized by james h. wilkinson, can be used to establish that an algorithm implementing a numerical function is numerically stable. the basic approach is to show that although the calculated result, due to roundoff errors, will not be exactly correct, it is the exact solution to a nearby problem with slightly perturbed input data. if the perturbation required is small, on the order of the uncertainty in the input data, then the results are in some sense as accurate as the data "deserves". the algorithm is then defined as backward stable. stability is a measure of the sensitivity to rounding errors of a given numerical procedure; by contrast, the condition number of a function for a given problem indicates the inherent sensitivity of the function to small perturbations in its input and is independent of the implementation used to solve the problem.as a trivial example, consider a simple expression giving the inner product of (length two) vectors 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   and 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+  , then
+
+and so
+
+where
+
+where
+
+by definition, which is the sum of two slightly perturbed (on the order of εmach) input data, and so is backward stable. for more realistic examples in numerical linear algebra, see higham 2002 and other references below.
+
+
+=== minimizing the effect of accuracy problems ===
+although, as noted previously, individual arithmetic operations of ieee 754 are guaranteed accurate to within half a ulp, more complicated formulae can suffer from larger errors due to round-off. the loss of accuracy can be substantial if a problem or its data are ill-conditioned, meaning that the correct result is hypersensitive to tiny perturbations in its data. however, even functions that are well-conditioned can suffer from large loss of accuracy if an algorithm numerically unstable for that data is used: apparently equivalent formulations of expressions in a programming language can differ markedly in their numerical stability. one approach to remove the risk of such loss of accuracy is the design and analysis of numerically stable algorithms, which is an aim of the branch of mathematics known as numerical analysis. another approach that can protect against the risk of numerical instabilities is the computation of intermediate (scratch) values in an algorithm at a higher precision than the final result requires, which can remove, or reduce by orders of magnitude, such risk: ieee 754 quadruple precision and extended precision are designed for this purpose when computing at double precision.for example, the following algorithm is a direct implementation to compute the function a(x) = (x−1) / (exp(x−1) − 1) which is well-conditioned at 1.0, however it can be shown to be numerically unstable and lose up to half the significant digits carried by the arithmetic when computed near 1.0.
+
+if, however, intermediate computations are all performed in extended precision (e.g. by setting line [1] to c99 long double), then up to full precision in the final double result can be maintained. alternatively, a numerical analysis of the algorithm reveals that if the following non-obvious change to line [2] is made:
+
+then the algorithm becomes numerically stable and can compute to full double precision.
+to maintain the properties of such carefully constructed numerically stable programs, careful handling by the compiler is required. certain "optimizations" that compilers might make (for example, reordering operations) can work against the goals of well-behaved software. there is some controversy about the failings of compilers and language designs in this area: c99 is an example of a language where such optimizations are carefully specified to maintain numerical precision. see the external references at the bottom of this article.
+a detailed treatment of the techniques for writing high-quality floating-point software is beyond the scope of this article, and the reader is referred to, and the other references at the bottom of this article. kahan suggests several rules of thumb that can substantially decrease by orders of magnitude the risk of numerical anomalies, in addition to, or in lieu of, a more careful numerical analysis. these include: as noted above, computing all expressions and intermediate results in the highest precision supported in hardware (a common rule of thumb is to carry twice the precision of the desired result, i.e. compute in double precision for a final single-precision result, or in double extended or quad precision for up to double-precision results); and rounding input data and results to only the precision required and supported by the input data (carrying excess precision in the final result beyond that required and supported by the input data can be misleading, increases storage cost and decreases speed, and the excess bits can affect convergence of numerical procedures: notably, the first form of the iterative example given below converges correctly when using this rule of thumb). brief descriptions of several additional issues and techniques follow.
+as decimal fractions can often not be exactly represented in binary floating-point, such arithmetic is at its best when it is simply being used to measure real-world quantities over a wide range of scales (such as the orbital period of a moon around saturn or the mass of a proton), and at its worst when it is expected to model the interactions of quantities expressed as decimal strings that are expected to be exact. an example of the latter case is financial calculations. for this reason, financial software tends not to use a binary floating-point number representation. the "decimal" data type of the c# and python programming languages, and the decimal formats of the ieee 754-2008 standard, are designed to avoid the problems of binary floating-point representations when applied to human-entered exact decimal values, and make the arithmetic always behave as expected when numbers are printed in decimal.
+expectations from mathematics may not be realized in the field of floating-point computation. for example, it is known that 
+  
+    
+      
+        (
+        x
+        +
+        y
+        )
+        (
+        x
+        −
+        y
+        )
+        =
+        
+          x
+          
+            2
+          
+        
+        −
+        
+          y
+          
+            2
+          
+        
+        
+      
+    
+    {\displaystyle (x+y)(x-y)=x^{2}-y^{2}\,}
+  , and that 
+  
+    
+      
+        
+          sin
+          
+            2
+          
+        
+        ⁡
+        
+          θ
+        
+        +
+        
+          cos
+          
+            2
+          
+        
+        ⁡
+        
+          θ
+        
+        =
+        1
+        
+      
+    
+    {\displaystyle \sin ^{2}{\theta }+\cos ^{2}{\theta }=1\,}
+  , however these facts cannot be relied on when the quantities involved are the result of floating-point computation.
+the use of the equality test (if (x==y) ...) requires care when dealing with floating-point numbers. even simple expressions like 0.6/0.2-3==0 will, on most computers, fail to be true (in ieee 754 double precision, for example, 0.6/0.2 - 3 is approximately equal to -4.44089209850063e-16). consequently, such tests are sometimes replaced with "fuzzy" comparisons (if (abs(x-y) < epsilon) ..., where epsilon is sufficiently small and tailored to the application, such as 1.0e−13). the wisdom of doing this varies greatly, and can require numerical analysis to bound epsilon. values derived from the primary data representation and their comparisons should be performed in a wider, extended, precision to minimize the risk of such inconsistencies due to round-off errors. it is often better to organize the code in such a way that such tests are unnecessary. for example, in computational geometry, exact tests of whether a point lies off or on a line or plane defined by other points can be performed using adaptive precision or exact arithmetic methods.small errors in floating-point arithmetic can grow when mathematical algorithms perform operations an enormous number of times. a few examples are matrix inversion, eigenvector computation, and differential equation solving. these algorithms must be very carefully designed, using numerical approaches such as iterative refinement, if they are to work well.summation of a vector of floating-point values is a basic algorithm in scientific computing, and so an awareness of when loss of significance can occur is essential. for example, if one is adding a very large number of numbers, the individual addends are very small compared with the sum. this can lead to loss of significance. a typical addition would then be something like
+
+3253.671
++  3.141276
+-----------
+3256.812
+
+the low 3 digits of the addends are effectively lost. suppose, for example, that one needs to add many numbers, all approximately equal to 3. after 1000 of them have been added, the running sum is about 3000; the lost digits are not regained. the kahan summation algorithm may be used to reduce the errors.round-off error can affect the convergence and accuracy of iterative numerical procedures. as an example, archimedes approximated π by calculating the perimeters of polygons inscribing and circumscribing a circle, starting with hexagons, and successively doubling the number of sides. as noted above, computations may be rearranged in a way that is mathematically equivalent but less prone to error (numerical analysis). two forms of the recurrence formula for the circumscribed polygon are:
+
+  
+    
+      
+        
+          t
+          
+            0
+          
+        
+        =
+        1
+        
+          /
+        
+        
+          
+            3
+          
+        
+      
+    
+    {\textstyle t_{0}=1/{\sqrt {3}}}
+  
+first form: 
+  
+    
+      
+        
+          t
+          
+            i
+            +
+            1
+          
+        
+        =
+        (
+        
+          
+            
+              t
+              
+                i
+              
+              
+                2
+              
+            
+            +
+            1
+          
+        
+        −
+        1
+        )
+        
+          /
+        
+        
+          
+            t
+            
+              i
+            
+          
+        
+      
+    
+    {\textstyle t_{i+1}=({\sqrt {t_{i}^{2}+1}}-1)/{t_{i}}}
+  
+second form: 
+  
+    
+      
+        
+          t
+          
+            i
+            +
+            1
+          
+        
+        =
+        
+          
+            t
+            
+              i
+            
+          
+        
+        
+          /
+        
+        (
+        
+          
+            
+              t
+              
+                i
+              
+              
+                2
+              
+            
+            +
+            1
+          
+        
+        +
+        1
+        )
+      
+    
+    {\textstyle t_{i+1}={t_{i}}/({\sqrt {t_{i}^{2}+1}}+1)}
+  
+
+  
+    
+      
+        π
+        ∼
+        6
+        ×
+        
+          2
+          
+            i
+          
+        
+        ×
+        
+          t
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \pi \sim 6\times 2^{i}\times t_{i}}
+  , converging as 
+  
+    
+      
+        i
+        →
+        ∞
+      
+    
+    {\displaystyle i\rightarrow \infty }
+  here is a computation using ieee "double" (a significand with 53 bits of precision) arithmetic:
+
+ i   6 × 2i × ti, first form    6 × 2i × ti, second form
+---------------------------------------------------------
+ 0   3.4641016151377543863      3.4641016151377543863
+ 1   3.2153903091734710173      3.2153903091734723496
+ 2   3.1596599420974940120      3.1596599420975006733
+ 3   3.1460862151314012979      3.1460862151314352708
+ 4   3.1427145996453136334      3.1427145996453689225
+ 5   3.1418730499801259536      3.1418730499798241950
+ 6   3.1416627470548084133      3.1416627470568494473
+ 7   3.1416101765997805905      3.1416101766046906629
+ 8   3.1415970343230776862      3.1415970343215275928
+ 9   3.1415937488171150615      3.1415937487713536668
+10   3.1415929278733740748      3.1415929273850979885
+11   3.1415927256228504127      3.1415927220386148377
+12   3.1415926717412858693      3.1415926707019992125
+13   3.1415926189011456060      3.1415926578678454728
+14   3.1415926717412858693      3.1415926546593073709
+15   3.1415919358822321783      3.1415926538571730119
+16   3.1415926717412858693      3.1415926536566394222
+17   3.1415810075796233302      3.1415926536065061913
+18   3.1415926717412858693      3.1415926535939728836
+19   3.1414061547378810956      3.1415926535908393901
+20   3.1405434924008406305      3.1415926535900560168
+21   3.1400068646912273617      3.1415926535898608396
+22   3.1349453756585929919      3.1415926535898122118
+23   3.1400068646912273617      3.1415926535897995552
+24   3.2245152435345525443      3.1415926535897968907
+25                              3.1415926535897962246
+26                              3.1415926535897962246
+27                              3.1415926535897962246
+28                              3.1415926535897962246
+              the true value is 3.14159265358979323846264338327...
+
+while the two forms of the recurrence formula are clearly mathematically equivalent, the first subtracts 1 from a number extremely close to 1, leading to an increasingly problematic loss of significant digits. as the recurrence is applied repeatedly, the accuracy improves at first, but then it deteriorates. it never gets better than about 8 digits, even though 53-bit arithmetic should be capable of about 16 digits of precision. when the second form of the recurrence is used, the value converges to 15 digits of precision.
+
+
+=== "fast math" optimization ===
+the aforementioned lack of associativity of floating-point operations in general means that compilers cannot as effectively reorder arithmetic expressions as they could with integer and fixed-point arithmetic, presenting a roadblock in optimizations such as common subexpression elimination and auto-vectorization. the "fast math" option on many compilers (icc, gcc, clang, msvc...) turns on reassociation along with unsafe assumptions such as a lack of nan and infinite numbers in ieee 754. some compilers also offer more granular options to only turn on reassociation. in either case, the programmer is exposed to many of the precision pitfalls mentioned above for the portion of the program using "fast" math.in some compilers (gcc and clang), turning on "fast" math may cause the program to disable subnormal floats at startup, affecting the floating-point behavior of not only the generated code, but also any program using such code as a library.in most fortran compilers, as allowed by the iso/iec 1539-1:2004 fortran standard, reassociation is the default, with breakage largely prevented by the "protect parens" setting (also on by default). this setting stops the compiler from reassociating beyond the boundaries of parentheses. intel fortran compiler is a notable outlier.a common problem in "fast" math is that subexpressions may not be optimized identically from place to place, leading to unexpected differences. one interpretation of the issue is that "fast" math as implemented currently has a poorly defined semantics. one attempt at formalizing "fast" math optimizations is seen in icing, a verified compiler.
+
+
+== see also ==
+
+
+== notes ==
+
+
+== references ==
+
+
+== further reading ==
+wilkinson, james hardy (1963). rounding errors in algebraic processes (1 ed.). englewood cliffs, nj, usa: prentice-hall, inc. isbn 9780486679990. mr 0161456. (nb. classic influential treatises on floating-point arithmetic.)
+wilkinson, james hardy (1965). the algebraic eigenvalue problem. monographs on numerical analysis (1 ed.). oxford university press / clarendon press. isbn 9780198534037. retrieved 2016-02-11.
+sterbenz, pat h. (1974-05-01). floating-point computation. prentice-hall series in automatic computation (1 ed.). englewood cliffs, new jersey, usa: prentice hall. isbn 0-13-322495-3.
+golub, gene f.; van loan, charles f. (1986). matrix computations (3 ed.). johns hopkins university press. isbn 978-0-8018-5413-2.
+press, william henry; teukolsky, saul a.; vetterling, william t.; flannery, brian p. (2007) [1986]. numerical recipes - the art of scientific computing (3 ed.). cambridge university press. isbn 978-0-521-88407-5. (nb. edition with source code cd-rom.)
+knuth, donald ervin (1997). "section 4.2: floating-point arithmetic". the art of computer programming. vol. 2: seminumerical algorithms (3 ed.). addison-wesley. pp. 214–264. isbn 978-0-201-89684-8.
+blaauw, gerrit anne; brooks, jr., frederick phillips (1997). computer architecture: concepts and evolution (1 ed.). addison-wesley. isbn 0-201-10557-8. (1213 pages) (nb. this is a single-volume edition. this work was also available in a two-volume version.)
+savard, john j. g. (2018) [2005], "floating-point formats", quadibloc, archived from the original on 2018-07-16, retrieved 2018-07-16
+muller, jean-michel; brunie, nicolas; de dinechin, florent; jeannerod, claude-pierre; joldes, mioara; lefèvre, vincent; melquiond, guillaume; revol, nathalie; torres, serge (2018) [2010]. handbook of floating-point arithmetic (2 ed.). birkhäuser. doi:10.1007/978-3-319-76526-6. isbn 978-3-319-76525-9. lccn 2018935254.
+
+
+== external links ==
+"survey of floating-point formats". (nb. this page gives a very brief summary of floating-point formats that have been used over the years.)
+monniaux, david (may 2008). "the pitfalls of verifying floating-point computations". acm transactions on programming languages and systems. association for computing machinery (acm) transactions on programming languages and systems (toplas). 30 (3): 1–41. arxiv:cs/0701192. doi:10.1145/1353445.1353446. s2cid 218578808. (nb. a compendium of non-intuitive behaviors of floating point on popular architectures, with implications for program verification and testing.)
+opencores. (nb. this website contains open source floating-point ip cores for the implementation of floating-point operators in fpga or asic devices. the project double_fpu contains verilog source code of a double-precision floating-point unit. the project fpuvhdl contains vhdl source code of a single-precision floating-point unit.)
+fleegal, eric (2004). "microsoft visual c++ floating-point optimization". msdn.

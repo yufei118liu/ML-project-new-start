@@ -1,0 +1,955 @@
+in geometry, the notion of a connection makes precise the idea of transporting local geometric objects, such as tangent vectors or tensors in the tangent space, along a curve or family of curves in a parallel and consistent manner. there are various kinds of connections in modern geometry, depending on what sort of data one wants to transport. for instance, an affine connection, the most elementary type of connection, gives a means for parallel transport of tangent vectors on a manifold from one point to another along a curve.  an affine connection is typically given in the form of a covariant derivative, which gives a means for taking directional derivatives of vector fields, measuring the deviation of a vector field from being parallel in a given direction.
+connections are of central importance in modern geometry in large part because they allow a comparison between the local geometry at one point and the local geometry at another point.  differential geometry embraces several variations on the connection theme, which fall into two major groups: the infinitesimal and the local theory.  the local theory concerns itself primarily with notions of parallel transport and holonomy.  the infinitesimal theory concerns itself with the differentiation of geometric data.  thus a covariant derivative is a way of specifying a derivative of a vector field along another vector field on a manifold.  a cartan connection is a way of formulating some aspects of connection theory using differential forms and lie groups.  an ehresmann connection is a connection in a fibre bundle or a principal bundle by specifying the allowed directions of motion of the field.  a koszul connection is a connection which defines directional derivative for sections of a vector bundle more general than the tangent bundle.
+connections also lead to convenient formulations of geometric invariants, such as the curvature (see also curvature tensor and curvature form), and torsion tensor.
+
+
+== motivation: the unsuitability of coordinates ==
+
+consider the following problem.  suppose that a tangent vector to the sphere s is given at the north pole, and we are to define a manner of consistently moving this vector to other points of the sphere: a means for parallel transport.  naïvely, this could be done using a particular coordinate system.  however, unless proper care is applied, the parallel transport defined in one system of coordinates will not agree with that of another coordinate system.  a more appropriate parallel transportation system exploits the symmetry of the sphere under rotation.  given a vector at the north pole, one can transport this vector along a curve by rotating the sphere in such a way that the north pole moves along the curve without axial rolling.  this latter means of parallel transport is the levi-civita connection on the sphere.  if two different curves are given with the same initial and terminal point, and a vector v is rigidly moved along the first curve by a rotation, the resulting vector at the terminal point will be different from the vector resulting from rigidly moving v along the second curve.  this phenomenon reflects the curvature of the sphere. a simple mechanical device that can be used to visualize parallel transport is the south-pointing chariot.
+for instance, suppose that s is a sphere given coordinates by the stereographic projection.  regard s as consisting of unit vectors in r3.  then s carries a pair of coordinate patches corresponding to the projections from north pole and south pole. the mappings
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  φ
+                  
+                    0
+                  
+                
+                (
+                x
+                ,
+                y
+                )
+              
+              
+                
+                =
+                
+                  (
+                  
+                    
+                      
+                        
+                          2
+                          x
+                        
+                        
+                          1
+                          +
+                          
+                            x
+                            
+                              2
+                            
+                          
+                          +
+                          
+                            y
+                            
+                              2
+                            
+                          
+                        
+                      
+                    
+                    ,
+                    
+                      
+                        
+                          2
+                          y
+                        
+                        
+                          1
+                          +
+                          
+                            x
+                            
+                              2
+                            
+                          
+                          +
+                          
+                            y
+                            
+                              2
+                            
+                          
+                        
+                      
+                    
+                    ,
+                    
+                      
+                        
+                          1
+                          −
+                          
+                            x
+                            
+                              2
+                            
+                          
+                          −
+                          
+                            y
+                            
+                              2
+                            
+                          
+                        
+                        
+                          1
+                          +
+                          
+                            x
+                            
+                              2
+                            
+                          
+                          +
+                          
+                            y
+                            
+                              2
+                            
+                          
+                        
+                      
+                    
+                  
+                  )
+                
+              
+            
+            
+              
+                
+                  φ
+                  
+                    1
+                  
+                
+                (
+                x
+                ,
+                y
+                )
+              
+              
+                
+                =
+                
+                  (
+                  
+                    
+                      
+                        
+                          2
+                          x
+                        
+                        
+                          1
+                          +
+                          
+                            x
+                            
+                              2
+                            
+                          
+                          +
+                          
+                            y
+                            
+                              2
+                            
+                          
+                        
+                      
+                    
+                    ,
+                    
+                      
+                        
+                          2
+                          y
+                        
+                        
+                          1
+                          +
+                          
+                            x
+                            
+                              2
+                            
+                          
+                          +
+                          
+                            y
+                            
+                              2
+                            
+                          
+                        
+                      
+                    
+                    ,
+                    
+                      
+                        
+                          
+                            x
+                            
+                              2
+                            
+                          
+                          +
+                          
+                            y
+                            
+                              2
+                            
+                          
+                          −
+                          1
+                        
+                        
+                          1
+                          +
+                          
+                            x
+                            
+                              2
+                            
+                          
+                          +
+                          
+                            y
+                            
+                              2
+                            
+                          
+                        
+                      
+                    
+                  
+                  )
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}\varphi _{0}(x,y)&=\left({\frac {2x}{1+x^{2}+y^{2}}},{\frac {2y}{1+x^{2}+y^{2}}},{\frac {1-x^{2}-y^{2}}{1+x^{2}+y^{2}}}\right)\\[8pt]\varphi _{1}(x,y)&=\left({\frac {2x}{1+x^{2}+y^{2}}},{\frac {2y}{1+x^{2}+y^{2}}},{\frac {x^{2}+y^{2}-1}{1+x^{2}+y^{2}}}\right)\end{aligned}}}
+  cover a neighborhood u0 of the north pole and u1 of the south pole, respectively.  let x, y, z be the ambient coordinates in r3.  then φ0 and φ1 have inverses
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  φ
+                  
+                    0
+                  
+                  
+                    −
+                    1
+                  
+                
+                (
+                x
+                ,
+                y
+                ,
+                z
+                )
+              
+              
+                
+                =
+                
+                  (
+                  
+                    
+                      
+                        x
+                        
+                          z
+                          +
+                          1
+                        
+                      
+                    
+                    ,
+                    
+                      
+                        y
+                        
+                          z
+                          +
+                          1
+                        
+                      
+                    
+                  
+                  )
+                
+                ,
+              
+            
+            
+              
+                
+                  φ
+                  
+                    1
+                  
+                  
+                    −
+                    1
+                  
+                
+                (
+                x
+                ,
+                y
+                ,
+                z
+                )
+              
+              
+                
+                =
+                
+                  (
+                  
+                    
+                      
+                        
+                          −
+                          x
+                        
+                        
+                          z
+                          −
+                          1
+                        
+                      
+                    
+                    ,
+                    
+                      
+                        
+                          −
+                          y
+                        
+                        
+                          z
+                          −
+                          1
+                        
+                      
+                    
+                  
+                  )
+                
+                ,
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}\varphi _{0}^{-1}(x,y,z)&=\left({\frac {x}{z+1}},{\frac {y}{z+1}}\right),\\[8pt]\varphi _{1}^{-1}(x,y,z)&=\left({\frac {-x}{z-1}},{\frac {-y}{z-1}}\right),\end{aligned}}}
+  so that the coordinate transition function is inversion in the circle:
+
+  
+    
+      
+        
+          φ
+          
+            01
+          
+        
+        (
+        x
+        ,
+        y
+        )
+        =
+        
+          φ
+          
+            0
+          
+          
+            −
+            1
+          
+        
+        ∘
+        
+          φ
+          
+            1
+          
+        
+        (
+        x
+        ,
+        y
+        )
+        =
+        
+          (
+          
+            
+              
+                x
+                
+                  
+                    x
+                    
+                      2
+                    
+                  
+                  +
+                  
+                    y
+                    
+                      2
+                    
+                  
+                
+              
+            
+            ,
+            
+              
+                y
+                
+                  
+                    x
+                    
+                      2
+                    
+                  
+                  +
+                  
+                    y
+                    
+                      2
+                    
+                  
+                
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \varphi _{01}(x,y)=\varphi _{0}^{-1}\circ \varphi _{1}(x,y)=\left({\frac {x}{x^{2}+y^{2}}},{\frac {y}{x^{2}+y^{2}}}\right)}
+  let us now represent a vector field 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   on s (an assignment of a tangent vector to each point in s) in local coordinates.  if p is a point of u0 ⊂ s, then a vector field may be represented by the pushforward of a vector field v0 on r2 by 
+  
+    
+      
+        
+          φ
+          
+            0
+          
+        
+      
+    
+    {\displaystyle \varphi _{0}}
+  :
+
+where 
+  
+    
+      
+        
+          j
+          
+            
+              φ
+              
+                0
+              
+            
+          
+        
+      
+    
+    {\displaystyle j_{\varphi _{0}}}
+   denotes the jacobian matrix of φ0 (
+  
+    
+      
+        d
+        
+          
+            
+              φ
+              
+                0
+              
+            
+          
+          
+            x
+          
+        
+        (
+        
+          
+            u
+          
+        
+        )
+        =
+        
+          j
+          
+            
+              φ
+              
+                0
+              
+            
+          
+        
+        (
+        x
+        )
+        ⋅
+        
+          
+            u
+          
+        
+      
+    
+    {\displaystyle d{\varphi _{0}}_{x}({\mathbf {u} })=j_{\varphi _{0}}(x)\cdot {\mathbf {u} }}
+  ), and v0 = v0(x, y) is a vector field on r2 uniquely determined by v (since the pushforward of a local diffeomorphism at any point is invertible).  furthermore, on the overlap between the coordinate charts u0 ∩ u1, it is possible to represent the same vector field with respect to the φ1 coordinates:
+
+to relate the components v0 and v1, apply the chain rule to the identity φ1 = φ0 o φ01:
+
+  
+    
+      
+        
+          j
+          
+            
+              φ
+              
+                1
+              
+            
+          
+        
+        
+          (
+          
+            
+              φ
+              
+                1
+              
+              
+                −
+                1
+              
+            
+            (
+            p
+            )
+          
+          )
+        
+        =
+        
+          j
+          
+            
+              φ
+              
+                0
+              
+            
+          
+        
+        
+          (
+          
+            
+              φ
+              
+                0
+              
+              
+                −
+                1
+              
+            
+            (
+            p
+            )
+          
+          )
+        
+        ⋅
+        
+          j
+          
+            
+              φ
+              
+                01
+              
+            
+          
+        
+        
+          (
+          
+            
+              φ
+              
+                1
+              
+              
+                −
+                1
+              
+            
+            (
+            p
+            )
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle j_{\varphi _{1}}\left(\varphi _{1}^{-1}(p)\right)=j_{\varphi _{0}}\left(\varphi _{0}^{-1}(p)\right)\cdot j_{\varphi _{01}}\left(\varphi _{1}^{-1}(p)\right).}
+  applying both sides of this matrix equation to the component vector v1(φ1−1(p)) and invoking (1) and (2) yields
+
+we come now to the main question of defining how to transport a vector field parallelly along a curve.  suppose that p(t) is a curve in s.  naïvely, one may consider a vector field parallel if the coordinate components of the vector field are constant along the curve.  however, an immediate ambiguity arises: in which coordinate system should these components be constant?
+for instance, suppose that v(p(t)) has constant components in the u1 coordinate system.  that is, the functions v1(φ1−1(p(t))) are constant.  however, applying the product rule to (3) and using the fact that dv1/dt = 0 gives
+
+  
+    
+      
+        
+          
+            d
+            
+              d
+              t
+            
+          
+        
+        
+          
+            
+              v
+            
+          
+          
+            0
+          
+        
+        
+          (
+          
+            
+              φ
+              
+                0
+              
+              
+                −
+                1
+              
+            
+            (
+            p
+            (
+            t
+            )
+            )
+          
+          )
+        
+        =
+        
+          (
+          
+            
+              
+                d
+                
+                  d
+                  t
+                
+              
+            
+            
+              j
+              
+                
+                  φ
+                  
+                    01
+                  
+                
+              
+            
+            
+              (
+              
+                
+                  φ
+                  
+                    1
+                  
+                  
+                    −
+                    1
+                  
+                
+                (
+                p
+                (
+                t
+                )
+                )
+              
+              )
+            
+          
+          )
+        
+        ⋅
+        
+          
+            
+              v
+            
+          
+          
+            1
+          
+        
+        
+          (
+          
+            
+              φ
+              
+                1
+              
+              
+                −
+                1
+              
+            
+            (
+            p
+            (
+            t
+            )
+            )
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle {\frac {d}{dt}}{\mathbf {v} }_{0}\left(\varphi _{0}^{-1}(p(t))\right)=\left({\frac {d}{dt}}j_{\varphi _{01}}\left(\varphi _{1}^{-1}(p(t))\right)\right)\cdot {\mathbf {v} }_{1}\left(\varphi _{1}^{-1}(p(t))\right).}
+  but 
+  
+    
+      
+        
+          (
+          
+            
+              
+                d
+                
+                  d
+                  t
+                
+              
+            
+            
+              j
+              
+                
+                  φ
+                  
+                    01
+                  
+                
+              
+            
+            (
+            
+              φ
+              
+                1
+              
+              
+                −
+                1
+              
+            
+            (
+            p
+            (
+            t
+            )
+            )
+            )
+          
+          )
+        
+      
+    
+    {\displaystyle \left({\frac {d}{dt}}j_{\varphi _{01}}(\varphi _{1}^{-1}(p(t)))\right)}
+   is always a non-singular matrix (provided that the curve p(t) is not stationary), so v1 and v0 cannot ever be simultaneously constant along the curve.
+
+
+=== resolution ===
+the problem observed above is that the usual directional derivative of vector calculus does not behave well under changes in the coordinate system when applied to the components of vector fields.  this makes it quite difficult to describe how to translate vector fields in a parallel manner, if indeed such a notion makes any sense at all.  there are two fundamentally different ways of resolving this problem.
+the first approach is to examine what is required for a generalization of the directional derivative to "behave well" under coordinate transitions.  this is the tactic taken by the covariant derivative approach to connections: good behavior is equated with covariance.  here one considers a modification of the directional derivative by a certain linear operator, whose components are called the christoffel symbols, which involves no derivatives on the vector field itself.  the directional derivative duv of the components of a vector v in a coordinate system φ in the direction u are replaced by a covariant derivative:
+
+  
+    
+      
+        
+          ∇
+          
+            
+              u
+            
+          
+        
+        
+          
+            v
+          
+        
+        =
+        
+          d
+          
+            
+              u
+            
+          
+        
+        
+          
+            v
+          
+        
+        +
+        γ
+        (
+        φ
+        )
+        {
+        
+          
+            u
+          
+        
+        ,
+        
+          
+            v
+          
+        
+        }
+      
+    
+    {\displaystyle \nabla _{\mathbf {u} }{\mathbf {v} }=d_{\mathbf {u} }{\mathbf {v} }+\gamma (\varphi )\{{\mathbf {u} },{\mathbf {v} }\}}
+  where γ depends on the coordinate system φ and is bilinear in u and v.  in particular, γ does not involve any derivatives on u or v.  in this approach, γ must transform in a prescribed manner when the coordinate system φ is changed to a different coordinate system.  this transformation is not tensorial, since it involves not only the first derivative of the coordinate transition, but also its second derivative.  specifying the transformation law of γ is not sufficient to determine γ  uniquely.  some other normalization conditions must be imposed, usually depending on the type of geometry under consideration.  in riemannian geometry, the levi-civita connection requires compatibility of the christoffel symbols with the metric (as well as a certain symmetry condition).  with these normalizations, the connection is uniquely defined.
+the second approach is to use lie groups to attempt to capture some vestige of symmetry on the space.  this is the approach of cartan connections.  the example above using rotations to specify the parallel transport of vectors on the sphere is very much in this vein.
+
+
+== historical survey of connections ==
+historically, connections were studied from an infinitesimal perspective in riemannian geometry.  the infinitesimal study of connections began to some extent with elwin christoffel.   this was later taken up more thoroughly by gregorio ricci-curbastro and tullio levi-civita (levi-civita & ricci 1900) who observed in part that a connection in the infinitesimal sense of christoffel also allowed for a notion of parallel transport.
+the work of levi-civita focused exclusively on regarding connections as a kind of differential operator whose parallel displacements were then the solutions of differential equations.  as the twentieth century progressed, élie cartan developed a new notion of connection.  he sought to apply the techniques of pfaffian systems to the geometries of felix klein's erlangen program.  in these investigations, he found that a certain infinitesimal notion of connection (a cartan connection) could be applied to these geometries and more: his connection concept allowed for the presence of curvature which would otherwise be absent in a classical klein geometry.  (see, for example, (cartan 1926) and (cartan 1983).)  furthermore, using the dynamics of gaston darboux, cartan was able to generalize the notion of parallel transport for his class of infinitesimal connections.  this established another major thread in the theory of connections: that a connection is a certain kind of differential form.
+the two threads in connection theory have persisted through the present day: a connection as a differential operator, and a connection as a differential form.  in 1950, jean-louis koszul (koszul 1950) gave an algebraic framework for regarding a connection as a differential operator by means of the koszul connection.  the koszul connection was both more general than that of levi-civita, and was easier to work with because it finally was able to eliminate (or at least to hide) the awkward christoffel symbols from the connection formalism.  the attendant parallel displacement operations also had natural algebraic interpretations in terms of the connection.  koszul's definition was subsequently adopted by most of the differential geometry community, since it effectively converted the analytic correspondence between covariant differentiation and parallel translation to an algebraic one.
+in that same year, charles ehresmann (ehresmann 1950), a student of cartan's, presented a variation on the connection as a differential form view in the context of principal bundles and, more generally, fibre bundles.  ehresmann connections were, strictly speaking, not a generalization of cartan connections.  cartan connections were quite rigidly tied to the underlying differential topology of the manifold because of their relationship with cartan's equivalence method.  ehresmann connections were rather a solid framework for viewing the foundational work of other geometers of the time, such as shiing-shen chern, who had already begun moving away from cartan connections to study what might be called gauge connections.  in ehresmann's point of view, a connection in a principal bundle consists of a specification of horizontal and vertical vector fields on the total space of the bundle.  a parallel translation is then a lifting of a curve from the base to a curve in the principal bundle which is horizontal.  this viewpoint has proven especially valuable in the study of holonomy.
+
+
+== possible approaches ==
+a rather direct approach is to specify how a covariant derivative acts on elements of the module of vector fields as a differential operator.  more generally, a similar approach applies for connections in any vector bundle.
+traditional index notation specifies the connection by components; see christoffel symbols.  (note: this has three indices, but is not a tensor).
+in pseudo-riemannian and riemannian geometry the levi-civita connection is a special connection associated to the metric tensor.
+these are examples of affine connections. there is also a concept of projective connection, of which the schwarzian derivative in complex analysis is an instance.  more generally, both affine and projective connections are types of cartan connections.
+using principal bundles, a connection can be realized as a lie algebra-valued differential form.  see connection (principal bundle).
+an approach to connections which makes direct use of the notion of transport of "data" (whatever that may be) is the ehresmann connection.
+the most abstract approach may be that suggested by alexander grothendieck, where a grothendieck connection is seen as descent data from infinitesimal neighbourhoods of the diagonal; see (osserman 2004).
+
+
+== see also ==
+affine connection
+cartan connection
+ehresmann connection
+grothendieck connection
+levi-civita connection
+connection form
+connection (fibred manifold)
+connection (principal bundle)
+connection (vector bundle)
+connection (affine bundle)
+connection (composite bundle)
+connection (algebraic framework)
+gauge theory (mathematics)
+
+
+== references ==
+
+levi-civita, t.; ricci, g. (1900), "méthodes de calcul différentiel absolu et leurs applications", mathematische annalen, 54 (1–2): 125–201, doi:10.1007/bf01454201, s2cid 120009332
+cartan, élie (1924), "sur les variétés à connexion projective", bulletin de la société mathématique de france, 52: 205–241, doi:10.24033/bsmf.1053
+cartan, élie (1926), "les groupes d'holonomie des espaces généralisés", acta mathematica, 48 (1–2): 1–42, doi:10.1007/bf02629755
+cartan, élie (1983), geometry of riemannian spaces, math sci press, isbn 978-0-915692-34-7
+ehresmann, c. (1950), les connexions infinitésimales dans un espace fibré différentiable, colloque de toplogie, bruxelles, pp. 29–55
+koszul, j. l. (1950), "homologie et cohomologie des algèbres de lie", bulletin de la société mathématique de france, 78: 65–127, doi:10.24033/bsmf.1410
+lumiste, ü. (2001) [1994], "connection", encyclopedia of mathematics, ems press
+osserman, b. (2004), connections, curvature, and p-curvature (pdf), archived from the original (pdf) on 2006-12-21, retrieved 2007-02-04
+mangiarotti, l.; sardanashvily, g. (2000), connections in classical and quantum field theory, world scientific, isbn 981-02-2013-8.
+morita, shigeyuki (2001), geometry of differential forms, ams, isbn 0-8218-1045-6
+
+
+== external links ==
+ media related to connection (mathematics) at wikimedia commons
+connections at the manifold atlas

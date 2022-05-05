@@ -1,0 +1,631 @@
+algebraic geometry is a branch of mathematics, classically studying zeros of multivariate polynomials. modern algebraic geometry is based on the use of abstract algebraic techniques, mainly from commutative algebra, for solving  geometrical problems about these sets of zeros.
+the fundamental objects of study in algebraic geometry are algebraic varieties, which are geometric manifestations of solutions of systems of polynomial equations. examples of the most studied classes of algebraic varieties are: plane algebraic curves, which include lines, circles, parabolas, ellipses, hyperbolas, cubic curves like elliptic curves, and quartic curves like lemniscates and cassini ovals. a point of the plane belongs to an algebraic curve if its coordinates satisfy a given polynomial equation. basic questions involve the study of the points of special interest like the singular points, the inflection points and the points at infinity. more advanced questions involve the topology of the curve and relations between the curves given by different equations.
+algebraic geometry occupies a central place in modern mathematics and has multiple conceptual connections with such diverse fields as complex analysis, topology and number theory. initially a study of systems of polynomial equations in several variables, the subject of algebraic geometry starts where equation solving leaves off, and it becomes even more important to understand the intrinsic properties of the totality of solutions of a system of equations, than to find a specific solution; this leads into some of the deepest areas in all of mathematics, both conceptually and in terms of technique.
+in the 20th century, algebraic geometry split into several subareas.
+
+the mainstream of algebraic geometry is devoted to the study of the complex points of the algebraic varieties and more generally to the points with coordinates in an algebraically closed field.
+real algebraic geometry is the study of the real points of an algebraic variety.
+diophantine geometry and, more generally, arithmetic geometry is the study of the points of an algebraic variety with coordinates in fields that are not algebraically closed and occur in algebraic number theory, such as the field of rational numbers, number fields, finite fields, function fields, and p-adic fields.
+a large part of singularity theory is devoted to the singularities of algebraic varieties.
+computational algebraic geometry is an area that has emerged at the intersection of algebraic geometry and computer algebra, with the rise of computers. it consists mainly of algorithm design and software development for the study of properties of explicitly given algebraic varieties.much of the development of the mainstream of algebraic geometry in the 20th century occurred within an abstract algebraic framework, with increasing emphasis being placed on "intrinsic" properties of algebraic varieties not dependent on any particular way of embedding the variety in an ambient coordinate space; this parallels developments in topology, differential and complex geometry. one key achievement of this abstract algebraic geometry is grothendieck's scheme theory which allows one to use sheaf theory to study algebraic varieties in a way which is very similar to its use in the study of differential and analytic manifolds. this is obtained by extending the notion of point: in classical algebraic geometry, a point of an affine variety may be identified, through hilbert's nullstellensatz, with a maximal ideal of the coordinate ring, while the points of the corresponding affine scheme are all prime ideals of this ring. this means that a point of such a scheme may be either a usual point or a subvariety. this approach also enables a unification of the language and the tools of classical algebraic geometry, mainly concerned with complex points, and of algebraic number theory. wiles' proof of the longstanding conjecture called fermat's last theorem is an example of the power of this approach.
+
+
+== basic notions ==
+
+
+=== zeros of simultaneous polynomials ===
+
+in classical algebraic geometry, the main objects of interest are the vanishing sets of collections of polynomials, meaning the set of all points that simultaneously satisfy one or more polynomial equations. for instance, the two-dimensional sphere of radius 1 in three-dimensional euclidean space r3 could be defined as the set of all points (x,y,z) with
+
+  
+    
+      
+        
+          x
+          
+            2
+          
+        
+        +
+        
+          y
+          
+            2
+          
+        
+        +
+        
+          z
+          
+            2
+          
+        
+        −
+        1
+        =
+        0.
+        
+      
+    
+    {\displaystyle x^{2}+y^{2}+z^{2}-1=0.\,}
+  a "slanted" circle in r3 can be defined as the set of all points (x,y,z) which satisfy the two polynomial equations
+
+  
+    
+      
+        
+          x
+          
+            2
+          
+        
+        +
+        
+          y
+          
+            2
+          
+        
+        +
+        
+          z
+          
+            2
+          
+        
+        −
+        1
+        =
+        0
+        ,
+        
+      
+    
+    {\displaystyle x^{2}+y^{2}+z^{2}-1=0,\,}
+  
+
+  
+    
+      
+        x
+        +
+        y
+        +
+        z
+        =
+        0.
+        
+      
+    
+    {\displaystyle x+y+z=0.\,}
+  
+
+
+=== affine varieties ===
+
+first we start with a field k. in classical algebraic geometry, this field was always the complex numbers c, but many of the same results are true if we assume only that k is algebraically closed. we consider the affine space of dimension n over k, denoted an(k) (or more simply an, when k is clear from the context). when one fixes a coordinate system, one may identify an(k) with kn. the purpose of not working with kn is to emphasize that one "forgets" the vector space structure that kn carries.
+a function f : an → a1 is said to be polynomial (or regular) if it can be written as a polynomial, that is, if there is a polynomial p in k[x1,...,xn] such that f(m) = p(t1,...,tn) for every point m with coordinates (t1,...,tn) in an. the property of a function to be polynomial (or regular) does not depend on the choice of a coordinate system in an.
+when a coordinate system is chosen, the regular functions on the affine n-space may be identified with the ring of polynomial functions in n variables over k. therefore, the set of the regular functions on an is a ring, which is denoted k[an].
+we say that a polynomial vanishes at a point if evaluating it at that point gives zero. let s be a set of polynomials in k[an]. the vanishing set of s (or vanishing locus or zero set) is the set v(s) of all points in an where every polynomial in s vanishes. symbolically,
+
+  
+    
+      
+        v
+        (
+        s
+        )
+        =
+        {
+        (
+        
+          t
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          t
+          
+            n
+          
+        
+        )
+        ∣
+        p
+        (
+        
+          t
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          t
+          
+            n
+          
+        
+        )
+        =
+        0
+        
+           for all 
+        
+        p
+        ∈
+        s
+        }
+        .
+        
+      
+    
+    {\displaystyle v(s)=\{(t_{1},\dots ,t_{n})\mid p(t_{1},\dots ,t_{n})=0{\text{ for all }}p\in s\}.\,}
+  a subset of an which is v(s), for some s, is called an algebraic set. the v stands for variety (a specific type of algebraic set to be defined below).
+given a subset u of an, can one recover the set of polynomials which generate it? if u is any subset of an, define i(u) to be the set of all polynomials whose vanishing set contains u. the i stands for ideal: if two polynomials f and g both vanish on u, then f+g vanishes on u, and if h is any polynomial, then hf vanishes on u, so i(u) is always an ideal of the polynomial ring k[an].
+two natural questions to ask are:
+
+given a subset u of an, when is u = v(i(u))?
+given a set s of polynomials, when is s = i(v(s))?the answer to the first question is provided by introducing the zariski topology, a topology on an whose closed sets are the algebraic sets, and which directly reflects the algebraic structure of k[an]. then u = v(i(u)) if and only if u is an algebraic set or equivalently a zariski-closed set. the answer to the second question is given by hilbert's nullstellensatz. in one of its forms, it says that i(v(s)) is the radical of the ideal generated by s. in more abstract language, there is a galois connection, giving rise to two closure operators; they can be identified, and naturally play a basic role in the theory; the example is elaborated at galois connection.
+for various reasons we may not always want to work with the entire ideal corresponding to an algebraic set u. hilbert's basis theorem implies that ideals in k[an] are always finitely generated.
+an algebraic set is called irreducible if it cannot be written as the union of two smaller algebraic sets. any algebraic set is a finite union of irreducible algebraic sets and this decomposition is unique. thus its elements are called the irreducible components of the algebraic set. an irreducible algebraic set is also called a variety. it turns out that an algebraic set is a variety if and only if it may be defined as the vanishing set of a prime ideal of the polynomial ring.
+some authors do not make a clear distinction between algebraic sets and varieties and use irreducible variety to make the distinction when needed.
+
+
+=== regular functions ===
+
+just as continuous functions are the natural maps on topological spaces and smooth functions are the natural maps on differentiable manifolds, there is a natural class of functions on an algebraic set, called regular functions or polynomial functions. a regular function on an algebraic set v contained in an is the restriction to v of a regular function on an. for an algebraic set defined on the field of the complex numbers, the regular functions are smooth and even analytic.
+it may seem unnaturally restrictive to require that a regular function always extend to the ambient space, but it is very similar to the situation in a normal topological space, where the tietze extension theorem guarantees that a continuous function on a closed subset always extends to the ambient topological space.
+just as with the regular functions on affine space, the regular functions on v form a ring, which we denote by k[v]. this ring is called the coordinate ring of v.
+since regular functions on v come from regular functions on an, there is a relationship between the coordinate rings. specifically, if a regular function on v is the restriction of two functions f and g in k[an], then f − g is a polynomial function which is null on v and thus belongs to i(v). thus k[v] may be identified with k[an]/i(v).
+
+
+=== morphism of affine varieties ===
+using regular functions from an affine variety to a1, we can define regular maps from one affine variety to another. first we will define a regular map from a variety into affine space: let v be a variety contained in an. choose m regular functions on v, and call them f1, ..., fm. we define a regular map f from v to am by letting f = (f1, ..., fm). in other words, each fi determines one coordinate of the range of f.
+if v′ is a variety contained in am, we say that f is a regular map from v to v′ if the range of f is contained in v′.
+the definition of the regular maps apply also to algebraic sets.
+the regular maps are also called morphisms, as they make the collection of all affine algebraic sets into a category, where the objects are the affine algebraic sets and the morphisms are the regular maps. the affine varieties is a subcategory of the category of the algebraic sets.
+given a regular map g from v to v′ and a regular function f of k[v′], then f ∘ g ∈ k[v]. the map f → f ∘ g is a ring homomorphism from k[v′] to k[v]. conversely, every ring homomorphism from k[v′] to k[v] defines a regular map from v to v′. this defines an equivalence of categories between the category of algebraic sets and the opposite category of the finitely generated reduced k-algebras. this equivalence is one of the starting points of scheme theory.
+
+
+=== rational function and birational equivalence ===
+
+in contrast to the preceding sections, this section concerns only varieties and not algebraic sets. on the other hand, the definitions extend naturally to projective varieties (next section), as an affine variety and its projective completion have the same field of functions.
+if v is an affine variety, its coordinate ring is an integral domain and has thus a field of fractions which is denoted k(v) and called the field of the rational functions on v or, shortly, the function field of v. its elements are the restrictions to v of the rational functions over the affine space containing v. the domain of a rational function f is not v but the complement of the subvariety (a hypersurface) where the denominator of f vanishes.
+as with regular maps, one may define a rational map from a variety v to a variety v'. as with the regular maps, the rational maps from v to v' may be identified to the field homomorphisms from k(v') to k(v).
+two affine varieties are birationally equivalent if there are two rational functions between them which are inverse one to the other in the regions where both are defined. equivalently, they are birationally equivalent if their function fields are isomorphic.
+an affine variety is a rational variety if it is birationally equivalent to an affine space. this means that the variety admits a rational parameterization, that is a parametrization with rational functions. for example, the circle of equation 
+  
+    
+      
+        
+          x
+          
+            2
+          
+        
+        +
+        
+          y
+          
+            2
+          
+        
+        −
+        1
+        =
+        0
+      
+    
+    {\displaystyle x^{2}+y^{2}-1=0}
+   is a rational curve, as it has the parametric equation
+
+  
+    
+      
+        x
+        =
+        
+          
+            
+              2
+              
+              t
+            
+            
+              1
+              +
+              
+                t
+                
+                  2
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle x={\frac {2\,t}{1+t^{2}}}}
+  
+
+  
+    
+      
+        y
+        =
+        
+          
+            
+              1
+              −
+              
+                t
+                
+                  2
+                
+              
+            
+            
+              1
+              +
+              
+                t
+                
+                  2
+                
+              
+            
+          
+        
+        
+        ,
+      
+    
+    {\displaystyle y={\frac {1-t^{2}}{1+t^{2}}}\,,}
+  which may also be viewed as a rational map from the line to the circle.
+the problem of resolution of singularities is to know if every algebraic variety is birationally equivalent to a variety whose projective completion is nonsingular (see also smooth completion). it was solved in the affirmative in characteristic 0 by heisuke hironaka in 1964 and is yet unsolved in finite characteristic.
+
+
+=== projective variety ===
+
+just as the formulas for the roots of second, third, and fourth degree polynomials suggest extending real numbers to the more algebraically complete setting of the complex numbers, many properties of algebraic varieties suggest extending affine space to a more geometrically complete projective space. whereas the complex numbers are obtained by adding the number i, a root of the polynomial x2 + 1, projective space is obtained by adding in appropriate points "at infinity", points where parallel lines may meet.
+to see how this might come about, consider the variety v(y − x2). if we draw it, we get a parabola. as x goes to positive infinity, the slope of the line from the origin to the point (x, x2) also goes to positive infinity. as x goes to negative infinity, the slope of the same line goes to negative infinity.
+compare this to the variety v(y − x3). this is a cubic curve. as x goes to positive infinity, the slope of the line from the origin to the point (x, x3) goes to positive infinity just as before. but unlike before, as x goes to negative infinity, the slope of the same line goes to positive infinity as well; the exact opposite of the parabola. so the behavior "at infinity" of v(y − x3) is different from the behavior "at infinity" of v(y − x2).
+the consideration of the projective completion of the two curves, which is their prolongation "at infinity" in the projective plane, allows us to quantify this difference: the point at infinity of the parabola is a regular point, whose tangent is the line at infinity, while the point at infinity of the cubic curve is a cusp. also, both curves are rational, as they are parameterized by x, and the riemann-roch theorem implies that the cubic curve must have a singularity, which must be at infinity, as all its points in the affine space are regular.
+thus many of the properties of algebraic varieties, including birational equivalence and all the topological properties, depend on the behavior "at infinity" and so it is natural to study the varieties in projective space. furthermore, the introduction of projective techniques made many theorems in algebraic geometry simpler and sharper: for example, bézout's theorem on the number of intersection points between two varieties can be stated in its sharpest form only in projective space. for these reasons, projective space plays a fundamental role in algebraic geometry.
+nowadays, the projective space pn of dimension n is usually defined as the set of the lines passing through a point, considered as the origin, in the affine space of dimension n + 1, or equivalently to the set of the vector lines in a vector space of dimension n + 1. when a coordinate system has been chosen in the space of dimension n + 1, all the points of a line have the same set of coordinates, up to the multiplication by an element of k. this defines the homogeneous coordinates of a point of pn as a sequence of n + 1 elements of the base field k, defined up to the multiplication by a nonzero element of k (the same for the whole sequence).
+a polynomial in n + 1 variables vanishes at all points of a line passing through the origin if and only if it is homogeneous. in this case, one says that the polynomial vanishes at the corresponding point of pn. this allows us to define a projective algebraic set in pn as the set v(f1, ..., fk), where a finite set of homogeneous polynomials {f1, ..., fk}  vanishes. like for affine algebraic sets, there is a bijection between the projective algebraic sets and the reduced homogeneous ideals which define them. the projective varieties are the projective algebraic sets whose defining ideal is prime. in other words, a projective variety is a projective algebraic set, whose homogeneous coordinate ring is an integral domain, the projective coordinates ring being defined as the quotient of the graded ring or the polynomials in n + 1 variables by the homogeneous (reduced) ideal defining the variety. every projective algebraic set may be uniquely decomposed into a finite union of projective varieties.
+the only regular functions which may be defined properly on a projective variety are the constant functions. thus this notion is not used in projective situations. on the other hand, the field of the rational functions or function field  is a useful notion, which, similarly to the affine case, is defined as the set of the quotients of two homogeneous elements of the same degree in the homogeneous coordinate ring.
+
+
+== real algebraic geometry ==
+
+real algebraic geometry is the study of the real points of algebraic varieties.
+the fact that the field of the real numbers is an ordered field cannot be ignored in such a study. for example, the curve of equation 
+  
+    
+      
+        
+          x
+          
+            2
+          
+        
+        +
+        
+          y
+          
+            2
+          
+        
+        −
+        a
+        =
+        0
+      
+    
+    {\displaystyle x^{2}+y^{2}-a=0}
+   is a circle if 
+  
+    
+      
+        a
+        >
+        0
+      
+    
+    {\displaystyle a>0}
+  , but does not have any real point if 
+  
+    
+      
+        a
+        <
+        0
+      
+    
+    {\displaystyle a<0}
+  . it follows that real algebraic geometry is not only the study of the real algebraic varieties, but has been generalized to the study of the semi-algebraic sets, which are the solutions of systems of polynomial equations and polynomial inequalities. for example, a branch of the hyperbola of equation 
+  
+    
+      
+        x
+        y
+        −
+        1
+        =
+        0
+      
+    
+    {\displaystyle xy-1=0}
+   is not an algebraic variety, but is a semi-algebraic set defined by 
+  
+    
+      
+        x
+        y
+        −
+        1
+        =
+        0
+      
+    
+    {\displaystyle xy-1=0}
+   and 
+  
+    
+      
+        x
+        >
+        0
+      
+    
+    {\displaystyle x>0}
+   or by 
+  
+    
+      
+        x
+        y
+        −
+        1
+        =
+        0
+      
+    
+    {\displaystyle xy-1=0}
+   and 
+  
+    
+      
+        x
+        +
+        y
+        >
+        0
+      
+    
+    {\displaystyle x+y>0}
+  .
+one of the challenging problems of real algebraic geometry is the unsolved hilbert's sixteenth problem: decide which respective positions are possible for the ovals of a nonsingular plane curve of degree 8.
+
+
+== computational algebraic geometry ==
+one may date the origin of computational algebraic geometry to meeting eurosam'79 (international symposium on symbolic and algebraic manipulation) held at marseille, france, in june 1979. at this meeting,
+
+dennis s. arnon showed that george e. collins's cylindrical algebraic decomposition (cad) allows the computation of the topology of semi-algebraic sets,
+bruno buchberger presented the gröbner bases and his algorithm to compute them,
+daniel lazard presented a new algorithm for solving systems of homogeneous polynomial equations with a computational complexity which is essentially polynomial in the expected number of solutions and thus simply exponential in the number of the unknowns. this algorithm is strongly related with macaulay's multivariate resultant.since then, most results in this area are related to one or several of these items either by using or improving one of these algorithms, or by finding algorithms whose complexity is simply exponential in the number of the variables.
+a body of mathematical theory complementary to symbolic methods called numerical algebraic geometry has been developed over the last several decades.  the main computational method is homotopy continuation.  this supports, for example, a model of floating point computation for solving problems of algebraic geometry.
+
+
+=== gröbner basis ===
+
+a gröbner basis is a system of generators of a polynomial ideal whose computation allows the deduction of many properties of the affine algebraic variety defined by the ideal.
+given an ideal i defining an algebraic set v:
+
+v is empty (over an algebraically closed extension of the basis field), if and only if the gröbner basis for any monomial ordering is reduced to {1}.
+by means of the hilbert series one may compute the dimension and the degree of v from any gröbner basis of i for a monomial ordering refining the total degree.
+if the dimension of v is 0, one may compute the points (finite in number) of v from any gröbner basis of i (see systems of polynomial equations).
+a gröbner basis computation allows one to remove from v all irreducible components which are contained in a given hypersurface.
+a gröbner basis computation allows one to compute the zariski closure of the image of v by the projection on the k first coordinates, and the subset of the image where the projection is not proper.
+more generally gröbner basis computations allow one to compute the zariski closure of the image and the critical points of a rational function of v into another affine variety.gröbner basis computations do not allow one to compute directly the primary decomposition of i nor the prime ideals defining the irreducible components of v, but most algorithms for this involve gröbner basis computation. the algorithms which are not based on gröbner bases use regular chains but may need gröbner bases in some exceptional situations.
+gröbner bases are deemed to be difficult to compute. in fact they may contain, in the worst case, polynomials whose degree is doubly exponential in the number of variables and a number of polynomials which is also doubly exponential. however, this is only a worst case complexity, and the complexity bound of lazard's algorithm of 1979 may frequently apply. faugère f5 algorithm realizes this complexity, as it may be viewed as an improvement of lazard's 1979 algorithm. it follows that the best implementations allow one to compute almost routinely with algebraic sets of degree more than 100. this means that, presently, the difficulty of computing a gröbner basis is strongly related to the intrinsic difficulty of the problem.
+
+
+=== cylindrical algebraic decomposition (cad) ===
+cad is an algorithm which was introduced in 1973 by g. collins to implement with an acceptable complexity the tarski–seidenberg theorem on quantifier elimination over the real numbers.
+this theorem concerns the formulas of the first-order logic whose atomic formulas are polynomial equalities or inequalities between polynomials with real coefficients. these formulas are thus the formulas which may be constructed from the atomic formulas by the logical operators and (∧), or (∨), not (¬), for all (∀) and exists (∃). tarski's theorem asserts that, from such a formula, one may compute an equivalent formula without quantifier (∀, ∃).
+the complexity of cad is doubly exponential in the number of variables. this means that cad allows, in theory, to solve every problem of real algebraic geometry which may be expressed by such a formula, that is almost every problem concerning explicitly given varieties and semi-algebraic sets.
+while gröbner basis computation has doubly exponential complexity only in rare cases, cad has almost always this high complexity. this implies that, unless if most polynomials appearing in the input are linear, it may not solve problems with more than four variables.
+since 1973, most of the research on this subject is devoted either to improving cad or finding alternative algorithms in special cases of general interest.
+as an example of the state of art, there are efficient algorithms to find at least a point in every connected component of a semi-algebraic set, and thus to test if a semi-algebraic set is empty. on the other hand, cad is yet, in practice, the best algorithm to count the number of connected components.
+
+
+=== asymptotic complexity vs. practical efficiency ===
+the basic general algorithms of computational geometry have a double exponential worst case complexity. more precisely, if d is the maximal degree of the input polynomials and n the number of variables, their complexity is at most 
+  
+    
+      
+        
+          d
+          
+            
+              2
+              
+                c
+                n
+              
+            
+          
+        
+      
+    
+    {\displaystyle d^{2^{cn}}}
+   for some constant c, and, for some inputs, the complexity is at least 
+  
+    
+      
+        
+          d
+          
+            
+              2
+              
+                
+                  c
+                  ′
+                
+                n
+              
+            
+          
+        
+      
+    
+    {\displaystyle d^{2^{c'n}}}
+   for another constant c′.
+during the last 20 years of the 20th century, various algorithms have been introduced to solve specific subproblems with a better complexity. most of these algorithms have a complexity 
+  
+    
+      
+        
+          d
+          
+            o
+            (
+            
+              n
+              
+                2
+              
+            
+            )
+          
+        
+      
+    
+    {\displaystyle d^{o(n^{2})}}
+  .among these algorithms which solve a sub problem of the problems solved by gröbner bases, one may cite testing if an affine variety is empty and solving nonhomogeneous polynomial systems which have a finite number of solutions. such algorithms are rarely implemented because, on most entries faugère's f4 and f5 algorithms have a better practical efficiency and probably a similar or better complexity (probably because the evaluation of the complexity of gröbner basis algorithms on a particular class of entries is a difficult task which has been done only in a few special cases).
+the main algorithms of real algebraic geometry which solve a problem solved by cad are related to the topology of semi-algebraic sets. one may cite counting the number of connected components, testing if two points are in the same components or computing a whitney stratification of a real algebraic set. they have a complexity of
+
+  
+    
+      
+        
+          d
+          
+            o
+            (
+            
+              n
+              
+                2
+              
+            
+            )
+          
+        
+      
+    
+    {\displaystyle d^{o(n^{2})}}
+  , but the constant involved by o notation is so high that using them to solve any nontrivial problem effectively solved by cad, is impossible even if one could use all the existing computing power in the world. therefore, these algorithms have never been implemented and this is an active research area to search for algorithms with have together a good asymptotic complexity and a good practical efficiency.
+
+
+== abstract modern viewpoint ==
+the modern approaches to algebraic geometry redefine and effectively extend the range of basic objects in various levels of generality to schemes, formal schemes, ind-schemes, algebraic spaces, algebraic stacks and so on. the need for this arises already from the useful ideas within theory of varieties, e.g. the formal functions of zariski can be accommodated by introducing nilpotent elements in structure rings; considering spaces of loops and arcs, constructing quotients by group actions and developing formal grounds for natural intersection theory and deformation theory lead to some of the further extensions.
+most remarkably, in the late 1950s, algebraic varieties were subsumed into alexander grothendieck's concept of a scheme. their local objects are affine schemes or prime spectra which are locally ringed spaces which form a category which is antiequivalent to the category of commutative unital rings, extending the duality between the category of affine algebraic varieties over a field k, and the category of finitely generated reduced k-algebras. the gluing is along zariski topology; one can glue within the category of locally ringed spaces, but also, using the yoneda embedding, within the more abstract category of presheaves of sets over the category of affine schemes. the zariski topology in the set theoretic sense is then replaced by a grothendieck topology. grothendieck introduced grothendieck topologies having in mind more exotic but geometrically finer and more sensitive examples than the crude zariski topology, namely the étale topology, and the two flat grothendieck topologies: fppf and fpqc; nowadays some other examples became prominent including nisnevich topology. sheaves can be furthermore generalized to stacks in the sense of grothendieck, usually with some additional representability conditions leading to artin stacks and, even finer, deligne–mumford stacks, both often called algebraic stacks.
+sometimes other algebraic sites replace the category of affine schemes. for example, nikolai durov has introduced commutative algebraic monads as a generalization of local objects in a generalized algebraic geometry. versions of a tropical geometry, of an absolute geometry over a field of one element and an algebraic analogue of arakelov's geometry were realized in this setup.
+another formal generalization is possible to universal algebraic geometry in which every variety of algebras has its own algebraic geometry. the term variety of algebras should not be confused with algebraic variety.
+the language of schemes, stacks and generalizations has proved to be a valuable way of dealing with geometric concepts and became cornerstones of modern algebraic geometry.
+algebraic stacks can be further generalized and for many practical questions like deformation theory and intersection theory, this is often the most natural approach. one can extend the grothendieck site of affine schemes to a higher categorical site of derived affine schemes, by replacing the commutative rings with an infinity category of differential graded commutative algebras, or of simplicial commutative rings or a similar category with an appropriate variant of a grothendieck topology. one can also replace presheaves of sets by presheaves of simplicial sets (or of infinity groupoids). then, in presence of an appropriate homotopic machinery one can develop a notion of derived stack as such a presheaf on the infinity category of derived affine schemes, which is satisfying certain infinite categorical version of a sheaf axiom (and to be algebraic, inductively a sequence of representability conditions). quillen model categories, segal categories and quasicategories are some of the most often used tools to formalize this yielding the derived algebraic geometry, introduced by the school of carlos simpson, including andre hirschowitz, bertrand toën, gabrielle vezzosi, michel vaquié and others; and developed further by jacob lurie, bertrand toën, and gabriele vezzosi. another (noncommutative) version of derived algebraic geometry, using a-infinity categories has been developed from the early 1990s by maxim kontsevich and followers.
+
+
+== history ==
+
+
+=== before the 16th century ===
+some of the roots of algebraic geometry date back to the work of the hellenistic greeks from the 5th century bc. the delian problem, for instance, was to construct a length x so that the cube of side x contained the same volume as the rectangular box a2b for given sides a and b. menaechmus (circa 350 bc) considered the problem geometrically by intersecting the pair of plane conics ay = x2 and xy = ab. in the 3rd century bc, archimedes and apollonius systematically studied additional problems on conic sections using coordinates. medieval muslim mathematicians, including ibn al-haytham in the 10th century ad, solved certain cubic equations by purely algebraic means and then interpreted the results geometrically. the persian mathematician omar khayyám (born 1048 ad) discovered a method for solving cubic equations by intersecting a parabola with a circle and seems to have been the first to conceive a general theory of cubic equations. a few years after omar khayyám, sharaf al-din al-tusi's treatise on equations has been described by roshdi rashed as "inaugurating the beginning of algebraic geometry". this was criticized by jeffrey oaks, who claims that the study of curves by means of equations originated with descartes in the seventeenth century.
+
+
+=== renaissance ===
+such techniques of applying geometrical constructions to algebraic problems were also adopted by a number of renaissance mathematicians such as gerolamo cardano and niccolò fontana "tartaglia" on their studies of the cubic equation. the geometrical approach to construction problems, rather than the algebraic one, was favored by most 16th and 17th century mathematicians, notably blaise pascal who argued against the use of algebraic and analytical methods in geometry. the french mathematicians franciscus vieta and later rené descartes and pierre de fermat revolutionized the conventional way of thinking about construction problems through the introduction of coordinate geometry. they were interested primarily in the properties of algebraic curves, such as those defined by diophantine equations (in the case of fermat), and the algebraic reformulation of the classical greek works on conics and cubics (in the case of descartes).
+during the same period, blaise pascal and gérard desargues approached geometry from a different perspective, developing the synthetic notions of projective geometry. pascal and desargues also studied curves, but from the purely geometrical point of view: the analog of the greek ruler and compass construction. ultimately, the analytic geometry of descartes and fermat won out, for it supplied the 18th century mathematicians with concrete quantitative tools needed to study physical problems using the new calculus of newton and leibniz. however, by the end of the 18th century, most of the algebraic character of coordinate geometry was subsumed by the calculus of infinitesimals of lagrange and euler.
+
+
+=== 19th and early 20th century ===
+it took the simultaneous 19th century developments of non-euclidean geometry and abelian integrals in order to bring the old algebraic ideas back into the geometrical fold. the first of these new developments was seized up by edmond laguerre and arthur cayley, who attempted to ascertain the generalized metric properties of projective space. cayley introduced the idea of homogeneous polynomial forms, and more specifically quadratic forms, on projective space. subsequently, felix klein studied projective geometry (along with other types of geometry) from the viewpoint that the geometry on a space is encoded in a certain class of transformations on the space. by the end of the 19th century, projective geometers were studying more general kinds of transformations on figures in projective space. rather than the projective linear transformations which were normally regarded as giving the fundamental kleinian geometry on projective space, they concerned themselves also with the higher degree birational transformations. this weaker notion of congruence would later lead members of the 20th century italian school of algebraic geometry to classify algebraic surfaces up to birational isomorphism.
+the second early 19th century development, that of abelian integrals, would lead bernhard riemann to the development of riemann surfaces.
+in the same period began the algebraization of the algebraic geometry through commutative algebra. the prominent results in this direction are hilbert's basis theorem and hilbert's nullstellensatz, which are the basis of the connexion between algebraic geometry and commutative algebra, and macaulay's multivariate resultant, which is the basis of elimination theory. probably because of the size of the computation which is implied by multivariate resultants, elimination theory was forgotten during the middle of the 20th century until it was renewed by singularity theory and computational algebraic geometry.
+
+
+=== 20th century ===
+b. l. van der waerden, oscar zariski and andré weil developed a foundation for algebraic geometry based on contemporary commutative algebra, including valuation theory and the theory of ideals. one of the goals was to give a rigorous framework for proving the results of italian school of algebraic geometry. in particular, this school used systematically the notion of generic point without any precise definition, which was first given by these authors during the 1930s.
+in the 1950s and 1960s, jean-pierre serre and alexander grothendieck recast the foundations making use of sheaf theory. later, from about 1960, and largely led by grothendieck, the idea of schemes was worked out, in conjunction with a very refined apparatus of homological techniques. after a decade of rapid development the field stabilized in the 1970s, and new applications were made, both to number theory and to more classical geometric questions on algebraic varieties, singularities, moduli, and formal moduli.
+an important class of varieties, not easily understood directly from their defining equations, are the abelian varieties, which are the projective varieties whose points form an abelian group. the prototypical examples are the elliptic curves, which have a rich theory. they were instrumental in the proof of fermat's last theorem and are also used in elliptic-curve cryptography.
+in parallel with the abstract trend of the algebraic geometry, which is concerned with general statements about varieties, methods for effective computation with concretely-given varieties have also been developed, which lead to the new area of computational algebraic geometry. one of the founding methods of this area is the theory of gröbner bases, introduced by bruno buchberger in 1965. another founding method, more specially devoted to real algebraic geometry, is the cylindrical algebraic decomposition, introduced by george e. collins in 1973.
+see also: derived algebraic geometry.
+
+
+== analytic geometry ==
+an analytic variety is defined locally as the set of common solutions of several equations involving analytic functions. it is analogous to the included concept of real or complex algebraic variety. any complex manifold is an analytic variety. since analytic varieties may have singular points, not all analytic varieties are manifolds.
+modern analytic geometry is essentially equivalent to real and complex algebraic geometry, as has been shown by jean-pierre serre in his paper gaga, the name of which is french for algebraic geometry and analytic geometry. nevertheless, the two fields remain distinct, as the methods of proof are quite different and algebraic geometry includes also geometry in finite characteristic.
+
+
+== applications ==
+algebraic geometry now finds applications in statistics, control theory, robotics, error-correcting codes, phylogenetics and geometric modelling. there are also connections to string theory, game theory, graph matchings, solitons and integer programming.
+
+
+== see also ==
+
+
+== notes ==
+
+
+== references ==
+
+
+=== sources ===
+kline, m. (1972). mathematical thought from ancient to modern times. vol. 1. oxford university press. isbn 0195061357.
+
+
+== further reading ==
+some classic textbooks that predate schemes
+van der waerden, b. l. (1945). einfuehrung in die algebraische geometrie. dover.
+hodge, w. v. d.; pedoe, daniel (1994). methods of algebraic geometry volume 1. cambridge university press. isbn 978-0-521-46900-5. zbl 0796.14001.
+hodge, w. v. d.; pedoe, daniel (1994). methods of algebraic geometry volume 2. cambridge university press. isbn 978-0-521-46901-2. zbl 0796.14002.
+hodge, w. v. d.; pedoe, daniel (1994). methods of algebraic geometry volume 3. cambridge university press. isbn 978-0-521-46775-9. zbl 0796.14003.modern textbooks that do not use the language of schemes
+garrity, thomas;  et al. (2013). algebraic geometry a problem solving approach. american mathematical society. isbn 978-0-821-89396-8.
+griffiths, phillip; harris, joe (1994). principles of algebraic geometry. wiley-interscience. isbn 978-0-471-05059-9. zbl 0836.14001.
+harris, joe (1995). algebraic geometry a first course. springer-verlag. isbn 978-0-387-97716-4. zbl 0779.14001.
+mumford, david (1995). algebraic geometry i complex projective varieties (2nd ed.). springer-verlag. isbn 978-3-540-58657-9. zbl 0821.14001.
+reid, miles (1988). undergraduate algebraic geometry. cambridge university press. isbn 978-0-521-35662-6. zbl 0701.14001.
+shafarevich, igor (1995). basic algebraic geometry i varieties in projective space (2nd ed.). springer-verlag. isbn 978-0-387-54812-8. zbl 0797.14001.textbooks in computational algebraic geometrycox, david a.; little, john; o'shea, donal (1997). ideals, varieties, and algorithms (2nd ed.). springer-verlag. isbn 978-0-387-94680-1. zbl 0861.13012.
+schenck, hal (2003). computational algebraic geometry. cambridge university press.
+basu, saugata; pollack, richard; roy, marie-françoise (2006). algorithms in real algebraic geometry. springer-verlag.
+gonzález-vega, laureano; recio, tómas (1996). algorithms in algebraic geometry and applications. birkhaüser.
+elkadi, mohamed; mourrain, bernard; piene, ragni, eds. (2006). algebraic geometry and geometric modeling. springer-verlag.
+dickenstein, alicia; schreyer, frank-olaf; sommese, andrew j., eds. (2008). algorithms in algebraic geometry. the ima volumes in mathematics and its applications. vol. 146. springer. isbn 9780387751559. lccn 2007938208.
+cox, david a.; little, john b.; o'shea, donal (1998). using algebraic geometry. springer-verlag.
+caviness, bob f.; johnson, jeremy r. (1998). quantifier elimination and cylindrical algebraic decomposition. springer-verlag.textbooks and references for schemes
+eisenbud, david; harris, joe (1998). the geometry of schemes. springer-verlag. isbn 978-0-387-98637-1. zbl 0960.14002.
+grothendieck, alexander (1960). éléments de géométrie algébrique. publications mathématiques de l'ihés. zbl 0118.36206.
+grothendieck, alexander; dieudonné, jean alexandre (1971). éléments de géométrie algébrique. vol. 1 (2nd ed.). springer-verlag. isbn 978-3-540-05113-8. zbl 0203.23301.
+hartshorne, robin (1977). algebraic geometry. springer-verlag. isbn 978-0-387-90244-9. zbl 0367.14001.
+mumford, david (1999). the red book of varieties and schemes includes the michigan lectures on curves and their jacobians (2nd ed.). springer-verlag. isbn 978-3-540-63293-1. zbl 0945.14001.
+shafarevich, igor (1995). basic algebraic geometry ii schemes and complex manifolds (2nd ed.). springer-verlag. isbn 978-3-540-57554-2. zbl 0797.14002.
+
+
+== external links ==
+foundations of algebraic geometry by ravi vakil, 808 pp.
+algebraic geometry entry on planetmath
+english translation of the van der waerden textbook
+dieudonné, jean (march 3, 1972). "the history of algebraic geometry". talk at the department of mathematics of the university of wisconsin–milwaukee. archived from the original on 2021-11-22 – via youtube.
+the stacks project, an open source textbook and reference work on algebraic stacks and algebraic geometry

@@ -1,0 +1,752 @@
+in numerical analysis, a numerical method is a mathematical tool designed to solve numerical problems. the implementation of a numerical method with an appropriate convergence check in a programming language is called a numerical algorithm.
+
+
+== mathematical definition ==
+let 
+  
+    
+      
+        f
+        (
+        x
+        ,
+        y
+        )
+        =
+        0
+      
+    
+    {\displaystyle f(x,y)=0}
+   be a well-posed problem, i.e. 
+  
+    
+      
+        f
+        :
+        x
+        ×
+        y
+        →
+        
+          r
+        
+      
+    
+    {\displaystyle f:x\times y\rightarrow \mathbb {r} }
+   is a real or complex functional relationship, defined on the cross-product of an input data set 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   and an output data set 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+  , such that exists a locally lipschitz function 
+  
+    
+      
+        g
+        :
+        x
+        →
+        y
+      
+    
+    {\displaystyle g:x\rightarrow y}
+   called resolvent, which has the property that for every root 
+  
+    
+      
+        (
+        x
+        ,
+        y
+        )
+      
+    
+    {\displaystyle (x,y)}
+   of 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+  , 
+  
+    
+      
+        y
+        =
+        g
+        (
+        x
+        )
+      
+    
+    {\displaystyle y=g(x)}
+  . we define numerical method for the approximation of 
+  
+    
+      
+        f
+        (
+        x
+        ,
+        y
+        )
+        =
+        0
+      
+    
+    {\displaystyle f(x,y)=0}
+  , the sequence of problems
+
+  
+    
+      
+        
+          
+            {
+            
+              m
+              
+                n
+              
+            
+            }
+          
+          
+            n
+            ∈
+            
+              n
+            
+          
+        
+        =
+        
+          
+            {
+            
+              
+                f
+                
+                  n
+                
+              
+              (
+              
+                x
+                
+                  n
+                
+              
+              ,
+              
+                y
+                
+                  n
+                
+              
+              )
+              =
+              0
+            
+            }
+          
+          
+            n
+            ∈
+            
+              n
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle \left\{m_{n}\right\}_{n\in \mathbb {n} }=\left\{f_{n}(x_{n},y_{n})=0\right\}_{n\in \mathbb {n} },}
+  with 
+  
+    
+      
+        
+          f
+          
+            n
+          
+        
+        :
+        
+          x
+          
+            n
+          
+        
+        ×
+        
+          y
+          
+            n
+          
+        
+        →
+        
+          r
+        
+      
+    
+    {\displaystyle f_{n}:x_{n}\times y_{n}\rightarrow \mathbb {r} }
+  , 
+  
+    
+      
+        
+          x
+          
+            n
+          
+        
+        ∈
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x_{n}\in x_{n}}
+   and 
+  
+    
+      
+        
+          y
+          
+            n
+          
+        
+        ∈
+        
+          y
+          
+            n
+          
+        
+      
+    
+    {\displaystyle y_{n}\in y_{n}}
+   for every 
+  
+    
+      
+        n
+        ∈
+        
+          n
+        
+      
+    
+    {\displaystyle n\in \mathbb {n} }
+  . the problems of which the method consists need not be well-posed. if they are, the method is said to be stable or well-posed.
+
+
+== consistency ==
+necessary conditions for a numerical method to effectively approximate 
+  
+    
+      
+        f
+        (
+        x
+        ,
+        y
+        )
+        =
+        0
+      
+    
+    {\displaystyle f(x,y)=0}
+   are that 
+  
+    
+      
+        
+          x
+          
+            n
+          
+        
+        →
+        x
+      
+    
+    {\displaystyle x_{n}\rightarrow x}
+   and that 
+  
+    
+      
+        
+          f
+          
+            n
+          
+        
+      
+    
+    {\displaystyle f_{n}}
+   behaves like 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   when 
+  
+    
+      
+        n
+        →
+        ∞
+      
+    
+    {\displaystyle n\rightarrow \infty }
+  . so, a numerical method is called consistent if and only if the sequence of functions 
+  
+    
+      
+        
+          
+            {
+            
+              f
+              
+                n
+              
+            
+            }
+          
+          
+            n
+            ∈
+            
+              n
+            
+          
+        
+      
+    
+    {\displaystyle \left\{f_{n}\right\}_{n\in \mathbb {n} }}
+   pointwise converges to 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   on the set 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+   of its solutions:
+
+  
+    
+      
+        lim
+        
+          f
+          
+            n
+          
+        
+        (
+        x
+        ,
+        y
+        +
+        t
+        )
+        =
+        f
+        (
+        x
+        ,
+        y
+        ,
+        t
+        )
+        =
+        0
+        ,
+        
+        
+        ∀
+        (
+        x
+        ,
+        y
+        ,
+        t
+        )
+        ∈
+        s
+        .
+      
+    
+    {\displaystyle \lim f_{n}(x,y+t)=f(x,y,t)=0,\quad \quad \forall (x,y,t)\in s.}
+  when 
+  
+    
+      
+        
+          f
+          
+            n
+          
+        
+        =
+        f
+        ,
+        ∀
+        n
+        ∈
+        
+          n
+        
+      
+    
+    {\displaystyle f_{n}=f,\forall n\in \mathbb {n} }
+   on 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+   the method is said to be strictly consistent.
+
+
+== convergence ==
+denote by 
+  
+    
+      
+        
+          ℓ
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \ell _{n}}
+   a sequence of admissible perturbations of 
+  
+    
+      
+        x
+        ∈
+        x
+      
+    
+    {\displaystyle x\in x}
+   for some numerical method 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   (i.e. 
+  
+    
+      
+        x
+        +
+        
+          ℓ
+          
+            n
+          
+        
+        ∈
+        
+          x
+          
+            n
+          
+        
+        ∀
+        n
+        ∈
+        
+          n
+        
+      
+    
+    {\displaystyle x+\ell _{n}\in x_{n}\forall n\in \mathbb {n} }
+  ) and with 
+  
+    
+      
+        
+          y
+          
+            n
+          
+        
+        (
+        x
+        +
+        
+          ℓ
+          
+            n
+          
+        
+        )
+        ∈
+        
+          y
+          
+            n
+          
+        
+      
+    
+    {\displaystyle y_{n}(x+\ell _{n})\in y_{n}}
+   the value such that 
+  
+    
+      
+        
+          f
+          
+            n
+          
+        
+        (
+        x
+        +
+        
+          ℓ
+          
+            n
+          
+        
+        ,
+        
+          y
+          
+            n
+          
+        
+        (
+        x
+        +
+        
+          ℓ
+          
+            n
+          
+        
+        )
+        )
+        =
+        0
+      
+    
+    {\displaystyle f_{n}(x+\ell _{n},y_{n}(x+\ell _{n}))=0}
+  . a condition which the method has to satisfy to be a meaningful tool for solving the problem 
+  
+    
+      
+        f
+        (
+        x
+        ,
+        y
+        )
+        =
+        0
+      
+    
+    {\displaystyle f(x,y)=0}
+   is convergence:
+
+  
+    
+      
+        
+          
+            
+              
+              
+                ∀
+                ε
+                >
+                0
+                ,
+                ∃
+                
+                  n
+                  
+                    0
+                  
+                
+                (
+                ε
+                )
+                >
+                0
+                ,
+                ∃
+                
+                  δ
+                  
+                    ε
+                    ,
+                    
+                      n
+                      
+                        0
+                      
+                    
+                  
+                
+                
+                   such that
+                
+              
+            
+            
+              
+              
+                ∀
+                n
+                >
+                
+                  n
+                  
+                    0
+                  
+                
+                ,
+                ∀
+                
+                  ℓ
+                  
+                    n
+                  
+                
+                :
+                ‖
+                
+                  ℓ
+                  
+                    n
+                  
+                
+                ‖
+                <
+                
+                  δ
+                  
+                    ε
+                    ,
+                    
+                      n
+                      
+                        0
+                      
+                    
+                  
+                
+                ⇒
+                ‖
+                
+                  y
+                  
+                    n
+                  
+                
+                (
+                x
+                +
+                
+                  ℓ
+                  
+                    n
+                  
+                
+                )
+                −
+                y
+                ‖
+                ≤
+                ε
+                .
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}&\forall \varepsilon >0,\exists n_{0}(\varepsilon )>0,\exists \delta _{\varepsilon ,n_{0}}{\text{ such that}}\\&\forall n>n_{0},\forall \ell _{n}:\|\ell _{n}\|<\delta _{\varepsilon ,n_{0}}\rightarrow \|y_{n}(x+\ell _{n})-y\|\leq \varepsilon .\end{aligned}}}
+  one can easily prove that the point-wise convergence of 
+  
+    
+      
+        {
+        
+          y
+          
+            n
+          
+        
+        
+          }
+          
+            n
+            ∈
+            
+              n
+            
+          
+        
+      
+    
+    {\displaystyle \{y_{n}\}_{n\in \mathbb {n} }}
+   to 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   implies the convergence of the associated method is function.
+
+
+== references ==

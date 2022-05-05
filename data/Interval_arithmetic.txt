@@ -1,0 +1,5563 @@
+interval arithmetic (also known as interval mathematics, interval analysis, or interval computation) is a mathematical technique used to put bounds on rounding errors and measurement errors in mathematical computation. numerical methods using interval arithmetic can guarantee reliable, mathematically correct results. instead of representing a value as a single number, interval arithmetic represents each value as a range of possibilities. for example, instead of estimating the height of someone as exactly 2.0 metres, using interval arithmetic one might be certain that the person is somewhere between 1.97 and 2.03 metres.
+mathematically, instead of working with an uncertain real 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  , one works with the ends of an interval 
+  
+    
+      
+        [
+        a
+        ,
+        b
+        ]
+      
+    
+    {\displaystyle [a,b]}
+   that contains 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  . in interval arithmetic, any variable 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   lies in the closed interval between 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   and 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+  . a function 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+  , when applied to 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  , yields an uncertain result; 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   produces an interval 
+  
+    
+      
+        [
+        c
+        ,
+        d
+        ]
+      
+    
+    {\displaystyle [c,d]}
+   which includes all the possible values for 
+  
+    
+      
+        f
+        (
+        x
+        )
+      
+    
+    {\displaystyle f(x)}
+   for all 
+  
+    
+      
+        x
+        ∈
+        [
+        a
+        ,
+        b
+        ]
+      
+    
+    {\displaystyle x\in [a,b]}
+  .
+interval arithmetic is suitable for a variety of purposes. the most common use is in software, to keep track of rounding errors in calculations and of uncertainties in the knowledge of the exact values of physical and technical parameters. the latter often arise from measurement errors and tolerances for components or due to limits on computational accuracy. interval arithmetic also helps find guaranteed solutions to equations (such as differential equations) and optimization problems.
+
+
+== introduction ==
+the main objective of interval arithmetic is a simple way to calculate upper and lower bounds for the range of a function in one or more variables. these endpoints are not necessarily the true supremum or infimum, since the precise calculation of those values can be difficult or impossible; the bounds need only contain the function's range as a subset.
+this treatment is typically limited to real intervals, so quantities of form
+
+  
+    
+      
+        [
+        a
+        ,
+        b
+        ]
+        =
+        {
+        x
+        ∈
+        
+          r
+        
+        
+        
+          |
+        
+        
+        a
+        ≤
+        x
+        ≤
+        b
+        }
+        ,
+      
+    
+    {\displaystyle [a,b]=\{x\in \mathbb {r} \,|\,a\leq x\leq b\},}
+  where 
+  
+    
+      
+        a
+        =
+        
+          −
+          ∞
+        
+      
+    
+    {\displaystyle a={-\infty }}
+   and 
+  
+    
+      
+        b
+        =
+        
+          ∞
+        
+      
+    
+    {\displaystyle b={\infty }}
+   are allowed. with one of 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  , 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   infinite, the interval would be an unbounded interval; with both infinite, the interval would be the extended real number line. since a real number 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+   can be interpreted as the interval 
+  
+    
+      
+        [
+        r
+        ,
+        r
+        ]
+        ,
+      
+    
+    {\displaystyle [r,r],}
+   intervals and real numbers can be freely combined.
+as with traditional calculations with real numbers, simple arithmetic operations and functions on elementary intervals must first be defined. more complicated functions can be calculated from these basic elements.
+
+
+=== example ===
+
+as an example, consider the calculation of body mass index (bmi) and assessing whether a person is overweight. bmi is calculated as a person's body weight in kilograms divided by the square of their height in metres. a bathroom scale may have a resolution of one kilogram. intermediate values cannot be discerned—79.6 kg and 80.3 kg are indistinguishable, for example—but the true weight is rounded to the nearest whole number. it is unlikely that when the scale reads 80 kg, the person weighs exactly 80.0 kg. in normal rounding to the nearest value, the scale's showing 80 kg indicates a weight between 79.5 kg and 80.5 kg. this corresponds with the interval 
+  
+    
+      
+        [
+        79.5
+        ,
+        80.5
+        ]
+      
+    
+    {\displaystyle [79.5,80.5]}
+  .
+for a man who weighs 80 kg and is 1.80 m tall, the bmi is approximately 24.7. a weight of 79.5 kg and the same height yields approx. 24.537, while a weight of 80.5 kg yields approx. 24.846. since the function is monotonically increasing, we conclude that the true bmi is in the range 
+  
+    
+      
+        [
+        24.537
+        ,
+        24.846
+        ]
+      
+    
+    {\displaystyle [24.537,24.846]}
+  . since the entire range is less than 25, which is the cutoff between normal and excessive weight, we conclude that the man is of normal weight.
+the error in this case does not affect the conclusion (normal weight), but this is not always the case. if the man was slightly heavier, the bmi's range may include the cutoff value of 25. in that case, the scale's precision was insufficient to make a definitive conclusion.
+also, note that the range of bmi examples could be reported as 
+  
+    
+      
+        [
+        24.5
+        ,
+        24.9
+        ]
+      
+    
+    {\displaystyle [24.5,24.9]}
+  , since this interval is a superset of the calculated interval. the range could not, however, be reported as 
+  
+    
+      
+        [
+        24.6
+        ,
+        24.8
+        ]
+      
+    
+    {\displaystyle [24.6,24.8]}
+  , as now the interval does not contain possible bmi values.
+interval arithmetic states the range of possible outcomes explicitly.  results are no longer stated as numbers, but as intervals that represent imprecise values. the size of the intervals are similar to error bars in expressing the extent of uncertainty.
+
+
+==== multiple intervals ====
+
+height and body weight both affect the value of the bmi. we have already treated weight as an uncertain measurement, but height is also subject to uncertainty. height measurements in metres are usually rounded to the nearest centimeter: a recorded measurement of 1.79 metres actually means a height in the interval 
+  
+    
+      
+        [
+        1.785
+        ,
+        1.795
+        ]
+      
+    
+    {\displaystyle [1.785,1.795]}
+  . now, all four combinations of possible height/weight values must be considered.  using the interval methods described below, the bmi lies in the interval
+
+  
+    
+      
+        
+          
+            
+              [
+              79.5
+              ,
+              80.5
+              ]
+            
+            
+              [
+              1.785
+              ,
+              1.795
+              
+                ]
+                
+                  2
+                
+              
+            
+          
+        
+        ⊆
+        [
+        24.673
+        ,
+        25.266
+        ]
+        .
+      
+    
+    {\displaystyle {\frac {[79.5,80.5]}{[1.785,1.795]^{2}}}\subseteq [24.673,25.266].}
+  in this case, the man may have a normal weight or be overweight; the weight and height measurements were insufficiently precise to make a definitive conclusion. this demonstrates interval arithmetic's ability to correctly track and propagate error.
+
+
+== interval operators ==
+a binary operation 
+  
+    
+      
+        ⋆
+      
+    
+    {\displaystyle \star }
+   on two intervals, such as addition or multiplication, is defined by
+
+  
+    
+      
+        [
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        ]
+        
+          
+          ⋆
+          
+        
+        [
+        
+          y
+          
+            1
+          
+        
+        ,
+        
+          y
+          
+            2
+          
+        
+        ]
+        =
+        {
+        x
+        ⋆
+        y
+        
+        
+          |
+        
+        
+        x
+        ∈
+        [
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        ]
+        
+        ∧
+        
+        y
+        ∈
+        [
+        
+          y
+          
+            1
+          
+        
+        ,
+        
+          y
+          
+            2
+          
+        
+        ]
+        }
+        .
+      
+    
+    {\displaystyle [x_{1},x_{2}]{\,\star \,}[y_{1},y_{2}]=\{x\star y\,|\,x\in [x_{1},x_{2}]\,\land \,y\in [y_{1},y_{2}]\}.}
+  in other words, it is the set of all possible values of 
+  
+    
+      
+        x
+        ⋆
+        y
+      
+    
+    {\displaystyle x\star y}
+  , where 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   and 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   are in their corresponding intervals. if 
+  
+    
+      
+        ⋆
+      
+    
+    {\displaystyle \star }
+   is monotone in each operand on the intervals, which is the case for the four basic arithmetic operations (except division when the denominator contains 
+  
+    
+      
+        0
+      
+    
+    {\displaystyle 0}
+  ), the extreme values occur at the endpoints of the operand intervals. writing out all combinations, one way of stating this is
+
+  
+    
+      
+        [
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        ]
+        ⋆
+        [
+        
+          y
+          
+            1
+          
+        
+        ,
+        
+          y
+          
+            2
+          
+        
+        ]
+        =
+        
+          [
+          
+            min
+            {
+            
+              x
+              
+                1
+              
+            
+            ⋆
+            
+              y
+              
+                1
+              
+            
+            ,
+            
+              x
+              
+                1
+              
+            
+            ⋆
+            
+              y
+              
+                2
+              
+            
+            ,
+            
+              x
+              
+                2
+              
+            
+            ⋆
+            
+              y
+              
+                1
+              
+            
+            ,
+            
+              x
+              
+                2
+              
+            
+            ⋆
+            
+              y
+              
+                2
+              
+            
+            }
+            ,
+            max
+            {
+            
+              x
+              
+                1
+              
+            
+            ⋆
+            
+              y
+              
+                1
+              
+            
+            ,
+            
+              x
+              
+                1
+              
+            
+            ⋆
+            
+              y
+              
+                2
+              
+            
+            ,
+            
+              x
+              
+                2
+              
+            
+            ⋆
+            
+              y
+              
+                1
+              
+            
+            ,
+            
+              x
+              
+                2
+              
+            
+            ⋆
+            
+              y
+              
+                2
+              
+            
+            }
+          
+          ]
+        
+        ,
+      
+    
+    {\displaystyle [x_{1},x_{2}]\star [y_{1},y_{2}]=\left[\min\{x_{1}\star y_{1},x_{1}\star y_{2},x_{2}\star y_{1},x_{2}\star y_{2}\},\max\{x_{1}\star y_{1},x_{1}\star y_{2},x_{2}\star y_{1},x_{2}\star y_{2}\}\right],}
+  provided that 
+  
+    
+      
+        x
+        ⋆
+        y
+      
+    
+    {\displaystyle x\star y}
+   is defined for all 
+  
+    
+      
+        x
+        ∈
+        [
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        ]
+      
+    
+    {\displaystyle x\in [x_{1},x_{2}]}
+   and 
+  
+    
+      
+        y
+        ∈
+        [
+        
+          y
+          
+            1
+          
+        
+        ,
+        
+          y
+          
+            2
+          
+        
+        ]
+      
+    
+    {\displaystyle y\in [y_{1},y_{2}]}
+  .
+for practical applications this can be simplified further:
+
+addition: 
+subtraction: 
+multiplication: 
+division:  where the last case loses useful information about the exclusion of 
+  
+    
+      
+        (
+        1
+        
+          /
+        
+        
+          y
+          
+            1
+          
+        
+        ,
+        1
+        
+          /
+        
+        
+          y
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle (1/y_{1},1/y_{2})}
+  . thus, it is common to work with 
+  
+    
+      
+        
+          [
+          
+            −
+            ∞
+            ,
+            
+              
+                
+                  1
+                  
+                    y
+                    
+                      1
+                    
+                  
+                
+              
+            
+          
+          ]
+        
+      
+    
+    {\displaystyle \left[-\infty ,{\tfrac {1}{y_{1}}}\right]}
+   and 
+  
+    
+      
+        
+          [
+          
+            
+              
+                
+                  1
+                  
+                    y
+                    
+                      2
+                    
+                  
+                
+              
+            
+            ,
+            ∞
+          
+          ]
+        
+      
+    
+    {\displaystyle \left[{\tfrac {1}{y_{2}}},\infty \right]}
+   as separate intervals. more generally, when working with discontinuous functions, it is sometimes useful to do the calculation with so-called multi-intervals of the form 
+  
+    
+      
+        
+          ⋃
+          
+            i
+          
+        
+        
+          [
+          
+            
+              a
+              
+                i
+              
+            
+            ,
+            
+              b
+              
+                i
+              
+            
+          
+          ]
+        
+        .
+      
+    
+    {\textstyle \bigcup _{i}\left[a_{i},b_{i}\right].}
+   the corresponding multi-interval arithmetic maintains a set of (usually disjoint) intervals and also provides for overlapping intervals to unite.
+
+interval multiplication often only requires two multiplications. if 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+      
+    
+    {\displaystyle x_{1}}
+  , 
+  
+    
+      
+        
+          y
+          
+            1
+          
+        
+      
+    
+    {\displaystyle y_{1}}
+   are nonnegative,
+
+  
+    
+      
+        [
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        ]
+        ⋅
+        [
+        
+          y
+          
+            1
+          
+        
+        ,
+        
+          y
+          
+            2
+          
+        
+        ]
+        =
+        [
+        
+          x
+          
+            1
+          
+        
+        ⋅
+        
+          y
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        ⋅
+        
+          y
+          
+            2
+          
+        
+        ]
+        ,
+        
+        
+           if 
+        
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          y
+          
+            1
+          
+        
+        ≥
+        0.
+      
+    
+    {\displaystyle [x_{1},x_{2}]\cdot [y_{1},y_{2}]=[x_{1}\cdot y_{1},x_{2}\cdot y_{2}],\qquad {\text{ if }}x_{1},y_{1}\geq 0.}
+  the multiplication can be interpreted as the area of a rectangle with varying edges. the result interval covers all possible areas, from smallest to the largest.
+with the help of these definitions, it is already possible to calculate the range of simple functions, such as 
+  
+    
+      
+        f
+        (
+        a
+        ,
+        b
+        ,
+        x
+        )
+        =
+        a
+        ⋅
+        x
+        +
+        b
+        .
+      
+    
+    {\displaystyle f(a,b,x)=a\cdot x+b.}
+   for example, if 
+  
+    
+      
+        a
+        =
+        [
+        1
+        ,
+        2
+        ]
+      
+    
+    {\displaystyle a=[1,2]}
+  , 
+  
+    
+      
+        b
+        =
+        [
+        5
+        ,
+        7
+        ]
+      
+    
+    {\displaystyle b=[5,7]}
+   and 
+  
+    
+      
+        x
+        =
+        [
+        2
+        ,
+        3
+        ]
+      
+    
+    {\displaystyle x=[2,3]}
+  :
+
+  
+    
+      
+        f
+        (
+        a
+        ,
+        b
+        ,
+        x
+        )
+        =
+        (
+        [
+        1
+        ,
+        2
+        ]
+        ⋅
+        [
+        2
+        ,
+        3
+        ]
+        )
+        +
+        [
+        5
+        ,
+        7
+        ]
+        =
+        [
+        1
+        ⋅
+        2
+        ,
+        2
+        ⋅
+        3
+        ]
+        +
+        [
+        5
+        ,
+        7
+        ]
+        =
+        [
+        7
+        ,
+        13
+        ]
+        .
+      
+    
+    {\displaystyle f(a,b,x)=([1,2]\cdot [2,3])+[5,7]=[1\cdot 2,2\cdot 3]+[5,7]=[7,13].}
+  
+
+
+=== notation ===
+to make the notation of intervals smaller in formulae, brackets can be used.
+
+  
+    
+      
+        [
+        x
+        ]
+        ≡
+        [
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        ]
+      
+    
+    {\displaystyle [x]\equiv [x_{1},x_{2}]}
+   can be used to represent an interval. note that in such a compact notation, 
+  
+    
+      
+        [
+        x
+        ]
+      
+    
+    {\displaystyle [x]}
+   should not be confused between a single-point interval 
+  
+    
+      
+        [
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            1
+          
+        
+        ]
+      
+    
+    {\displaystyle [x_{1},x_{1}]}
+   and a general interval. for the set of all intervals, we can use
+
+  
+    
+      
+        [
+        
+          r
+        
+        ]
+        :=
+        
+          {
+          
+            
+            [
+            
+              x
+              
+                1
+              
+            
+            ,
+            
+              x
+              
+                2
+              
+            
+            ]
+            
+            
+              |
+            
+            
+            
+              x
+              
+                1
+              
+            
+            ≤
+            
+              x
+              
+                2
+              
+            
+            
+               and 
+            
+            
+              x
+              
+                1
+              
+            
+            ,
+            
+              x
+              
+                2
+              
+            
+            ∈
+            
+              r
+            
+            ∪
+            {
+            −
+            ∞
+            ,
+            ∞
+            }
+          
+          }
+        
+      
+    
+    {\displaystyle [\mathbb {r} ]:=\left\{\,[x_{1},x_{2}]\,|\,x_{1}\leq x_{2}{\text{ and }}x_{1},x_{2}\in \mathbb {r} \cup \{-\infty ,\infty \}\right\}}
+  as an abbreviation.  for a vector of intervals 
+  
+    
+      
+        
+          (
+          
+            [
+            x
+            
+              ]
+              
+                1
+              
+            
+            ,
+            …
+            ,
+            [
+            x
+            
+              ]
+              
+                n
+              
+            
+          
+          )
+        
+        ∈
+        [
+        
+          r
+        
+        
+          ]
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \left([x]_{1},\ldots ,[x]_{n}\right)\in [\mathbb {r} ]^{n}}
+   we can use a bold font: 
+  
+    
+      
+        [
+        
+          x
+        
+        ]
+      
+    
+    {\displaystyle [\mathbf {x} ]}
+  .
+
+
+=== elementary functions ===
+
+interval functions beyond the four basic operators may also be defined.
+for monotonic functions in one variable, the range of values is simple to compute. if 
+  
+    
+      
+        f
+        :
+        
+          r
+        
+        →
+        
+          r
+        
+      
+    
+    {\displaystyle f:\mathbb {r} \to \mathbb {r} }
+   is monotonically increasing (resp. decreasing) in the interval 
+  
+    
+      
+        [
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        ]
+        ,
+      
+    
+    {\displaystyle [x_{1},x_{2}],}
+   then for all 
+  
+    
+      
+        
+          y
+          
+            1
+          
+        
+        ,
+        
+          y
+          
+            2
+          
+        
+        ∈
+        [
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        ]
+      
+    
+    {\displaystyle y_{1},y_{2}\in [x_{1},x_{2}]}
+   such that 
+  
+    
+      
+        
+          y
+          
+            1
+          
+        
+        ≤
+        
+          y
+          
+            2
+          
+        
+        ,
+      
+    
+    {\displaystyle y_{1}\leq y_{2},}
+   
+  
+    
+      
+        f
+        (
+        
+          y
+          
+            1
+          
+        
+        )
+        <
+        f
+        (
+        
+          y
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle f(y_{1})<f(y_{2})}
+   (resp. 
+  
+    
+      
+        f
+        (
+        
+          y
+          
+            2
+          
+        
+        )
+        <
+        f
+        (
+        
+          y
+          
+            1
+          
+        
+        )
+      
+    
+    {\displaystyle f(y_{2})<f(y_{1})}
+  ).
+the range corresponding to the interval 
+  
+    
+      
+        [
+        
+          y
+          
+            1
+          
+        
+        ,
+        
+          y
+          
+            2
+          
+        
+        ]
+        ⊆
+        [
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        ]
+      
+    
+    {\displaystyle [y_{1},y_{2}]\subseteq [x_{1},x_{2}]}
+   can be therefore calculated by applying the function to its endpoints:
+
+  
+    
+      
+        f
+        (
+        [
+        
+          y
+          
+            1
+          
+        
+        ,
+        
+          y
+          
+            2
+          
+        
+        ]
+        )
+        =
+        
+          [
+          
+            min
+            
+              {
+              
+                f
+                (
+                
+                  y
+                  
+                    1
+                  
+                
+                )
+                ,
+                f
+                (
+                
+                  y
+                  
+                    2
+                  
+                
+                )
+              
+              }
+            
+            ,
+            max
+            
+              {
+              
+                f
+                (
+                
+                  y
+                  
+                    1
+                  
+                
+                )
+                ,
+                f
+                (
+                
+                  y
+                  
+                    2
+                  
+                
+                )
+              
+              }
+            
+          
+          ]
+        
+        .
+      
+    
+    {\displaystyle f([y_{1},y_{2}])=\left[\min \left\{f(y_{1}),f(y_{2})\right\},\max \left\{f(y_{1}),f(y_{2})\right\}\right].}
+  from this, the following basic features for interval functions can easily be defined:
+
+exponential function: 
+  
+    
+      
+        
+          a
+          
+            [
+            
+              x
+              
+                1
+              
+            
+            ,
+            
+              x
+              
+                2
+              
+            
+            ]
+          
+        
+        =
+        [
+        
+          a
+          
+            
+              x
+              
+                1
+              
+            
+          
+        
+        ,
+        
+          a
+          
+            
+              x
+              
+                2
+              
+            
+          
+        
+        ]
+      
+    
+    {\displaystyle a^{[x_{1},x_{2}]}=[a^{x_{1}},a^{x_{2}}]}
+   for 
+  
+    
+      
+        a
+        >
+        1
+        ,
+      
+    
+    {\displaystyle a>1,}
+  
+logarithm: 
+  
+    
+      
+        
+          log
+          
+            a
+          
+        
+        ⁡
+        [
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        ]
+        =
+        [
+        
+          log
+          
+            a
+          
+        
+        ⁡
+        
+          
+            x
+            
+              1
+            
+          
+        
+        ,
+        
+          log
+          
+            a
+          
+        
+        ⁡
+        
+          
+            x
+            
+              2
+            
+          
+        
+        ]
+      
+    
+    {\displaystyle \log _{a}[x_{1},x_{2}]=[\log _{a}{x_{1}},\log _{a}{x_{2}}]}
+   for positive intervals 
+  
+    
+      
+        [
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        ]
+      
+    
+    {\displaystyle [x_{1},x_{2}]}
+   and 
+  
+    
+      
+        a
+        >
+        1
+        ,
+      
+    
+    {\displaystyle a>1,}
+  
+odd powers: 
+  
+    
+      
+        [
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        
+          ]
+          
+            n
+          
+        
+        =
+        [
+        
+          x
+          
+            1
+          
+          
+            n
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+          
+            n
+          
+        
+        ]
+      
+    
+    {\displaystyle [x_{1},x_{2}]^{n}=[x_{1}^{n},x_{2}^{n}]}
+  , for odd 
+  
+    
+      
+        n
+        ∈
+        
+          n
+        
+        .
+      
+    
+    {\displaystyle n\in \mathbb {n} .}
+  for even powers, the range of values being considered is important, and needs to be dealt with before doing any multiplication. for example, 
+  
+    
+      
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x^{n}}
+   for 
+  
+    
+      
+        x
+        ∈
+        [
+        −
+        1
+        ,
+        1
+        ]
+      
+    
+    {\displaystyle x\in [-1,1]}
+   should produce the interval 
+  
+    
+      
+        [
+        0
+        ,
+        1
+        ]
+      
+    
+    {\displaystyle [0,1]}
+   when 
+  
+    
+      
+        n
+        =
+        2
+        ,
+        4
+        ,
+        6
+        ,
+        …
+        .
+      
+    
+    {\displaystyle n=2,4,6,\ldots .}
+   but if 
+  
+    
+      
+        [
+        −
+        1
+        ,
+        1
+        
+          ]
+          
+            n
+          
+        
+      
+    
+    {\displaystyle [-1,1]^{n}}
+   is taken by repeating interval multiplication of form  
+  
+    
+      
+        [
+        −
+        1
+        ,
+        1
+        ]
+        ⋅
+        [
+        −
+        1
+        ,
+        1
+        ]
+        ⋅
+        ⋯
+        ⋅
+        [
+        −
+        1
+        ,
+        1
+        ]
+      
+    
+    {\displaystyle [-1,1]\cdot [-1,1]\cdot \cdots \cdot [-1,1]}
+   then the result is 
+  
+    
+      
+        [
+        −
+        1
+        ,
+        1
+        ]
+        ,
+      
+    
+    {\displaystyle [-1,1],}
+   wider than necessary.
+more generally one can say that, for piecewise monotonic functions, it is sufficient to consider the endpoints 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+      
+    
+    {\displaystyle x_{1}}
+  , 
+  
+    
+      
+        
+          x
+          
+            2
+          
+        
+      
+    
+    {\displaystyle x_{2}}
+  of an interval, together with the so-called critical points within the interval, being those points where the monotonicity of the function changes direction. for the sine and cosine functions, the critical points are at 
+  
+    
+      
+        
+          (
+          
+            
+              
+                
+                  1
+                  2
+                
+              
+            
+            +
+            n
+          
+          )
+        
+        π
+      
+    
+    {\displaystyle \left({\tfrac {1}{2}}+n\right)\pi }
+   or 
+  
+    
+      
+        n
+        π
+      
+    
+    {\displaystyle n\pi }
+   for 
+  
+    
+      
+        n
+        ∈
+        
+          z
+        
+      
+    
+    {\displaystyle n\in \mathbb {z} }
+  , respectively. thus, only up to five points within an interval need to be considered, as the resulting interval is 
+  
+    
+      
+        [
+        −
+        1
+        ,
+        1
+        ]
+      
+    
+    {\displaystyle [-1,1]}
+   if the interval includes at least two extrema. for sine and cosine, only the endpoints need full evaluation, as the critical points lead to easily pre-calculated values—namely -1, 0, and 1.
+
+
+=== interval extensions of general functions ===
+in general, it may not be easy to find such a simple description of the output interval for many functions.  but it may still be possible to extend functions to interval arithmetic.
+if 
+  
+    
+      
+        f
+        :
+        
+          
+            r
+          
+          
+            n
+          
+        
+        →
+        
+          r
+        
+      
+    
+    {\displaystyle f:\mathbb {r} ^{n}\to \mathbb {r} }
+   is a function from a real vector to a real number, then 
+  
+    
+      
+        [
+        f
+        ]
+        :
+        [
+        
+          r
+        
+        
+          ]
+          
+            n
+          
+        
+        →
+        [
+        
+          r
+        
+        ]
+      
+    
+    {\displaystyle [f]:[\mathbb {r} ]^{n}\to [\mathbb {r} ]}
+   is called an interval extension of 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   if
+
+  
+    
+      
+        [
+        f
+        ]
+        (
+        [
+        
+          x
+        
+        ]
+        )
+        ⊇
+        {
+        f
+        (
+        
+          y
+        
+        )
+        ∣
+        
+          y
+        
+        ∈
+        [
+        
+          x
+        
+        ]
+        }
+        .
+      
+    
+    {\displaystyle [f]([\mathbf {x} ])\supseteq \{f(\mathbf {y} )\mid \mathbf {y} \in [\mathbf {x} ]\}.}
+  this definition of the interval extension does not give a precise result.  for example, both  
+  
+    
+      
+        [
+        f
+        ]
+        (
+        [
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        ]
+        )
+        =
+        [
+        
+          e
+          
+            
+              x
+              
+                1
+              
+            
+          
+        
+        ,
+        
+          e
+          
+            
+              x
+              
+                2
+              
+            
+          
+        
+        ]
+      
+    
+    {\displaystyle [f]([x_{1},x_{2}])=[e^{x_{1}},e^{x_{2}}]}
+   and 
+  
+    
+      
+        [
+        g
+        ]
+        (
+        [
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        ]
+        )
+        =
+        [
+        
+          −
+          ∞
+        
+        ,
+        
+          ∞
+        
+        ]
+      
+    
+    {\displaystyle [g]([x_{1},x_{2}])=[{-\infty },{\infty }]}
+   are allowable extensions of the exponential function. tighter extensions are desirable, though the relative costs of calculation and imprecision should be considered; in this case, 
+  
+    
+      
+        [
+        f
+        ]
+      
+    
+    {\displaystyle [f]}
+   should be chosen as it gives the tightest possible result.
+given a real expression, its natural interval extension is achieved by using the interval extensions of each of its subexpressions, functions and operators.
+the taylor interval extension (of degree 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   ) is a 
+  
+    
+      
+        k
+        +
+        1
+      
+    
+    {\displaystyle k+1}
+   times differentiable function 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   defined by
+
+  
+    
+      
+        [
+        f
+        ]
+        (
+        [
+        
+          x
+        
+        ]
+        )
+        :=
+        f
+        (
+        
+          y
+        
+        )
+        +
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            k
+          
+        
+        
+          
+            1
+            
+              i
+              !
+            
+          
+        
+        
+          
+            d
+          
+          
+            i
+          
+        
+        f
+        (
+        
+          y
+        
+        )
+        ⋅
+        (
+        [
+        
+          x
+        
+        ]
+        −
+        
+          y
+        
+        
+          )
+          
+            i
+          
+        
+        +
+        [
+        r
+        ]
+        (
+        [
+        
+          x
+        
+        ]
+        ,
+        [
+        
+          x
+        
+        ]
+        ,
+        
+          y
+        
+        )
+        ,
+      
+    
+    {\displaystyle [f]([\mathbf {x} ]):=f(\mathbf {y} )+\sum _{i=1}^{k}{\frac {1}{i!}}\mathrm {d} ^{i}f(\mathbf {y} )\cdot ([\mathbf {x} ]-\mathbf {y} )^{i}+[r]([\mathbf {x} ],[\mathbf {x} ],\mathbf {y} ),}
+  for some 
+  
+    
+      
+        
+          y
+        
+        ∈
+        [
+        
+          x
+        
+        ]
+      
+    
+    {\displaystyle \mathbf {y} \in [\mathbf {x} ]}
+  , where 
+  
+    
+      
+        
+          
+            d
+          
+          
+            i
+          
+        
+        f
+        (
+        
+          y
+        
+        )
+      
+    
+    {\displaystyle \mathrm {d} ^{i}f(\mathbf {y} )}
+   is the 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  th order differential of 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   at the point 
+  
+    
+      
+        
+          y
+        
+      
+    
+    {\displaystyle \mathbf {y} }
+   and 
+  
+    
+      
+        [
+        r
+        ]
+      
+    
+    {\displaystyle [r]}
+   is an interval extension of the taylor remainder
+
+  
+    
+      
+        r
+        (
+        
+          x
+        
+        ,
+        ξ
+        ,
+        
+          y
+        
+        )
+        =
+        
+          
+            1
+            
+              (
+              k
+              +
+              1
+              )
+              !
+            
+          
+        
+        
+          
+            d
+          
+          
+            k
+            +
+            1
+          
+        
+        f
+        (
+        ξ
+        )
+        ⋅
+        (
+        
+          x
+        
+        −
+        
+          y
+        
+        
+          )
+          
+            k
+            +
+            1
+          
+        
+        .
+      
+    
+    {\displaystyle r(\mathbf {x} ,\xi ,\mathbf {y} )={\frac {1}{(k+1)!}}\mathrm {d} ^{k+1}f(\xi )\cdot (\mathbf {x} -\mathbf {y} )^{k+1}.}
+  
+the vector 
+  
+    
+      
+        ξ
+      
+    
+    {\displaystyle \xi }
+   lies between 
+  
+    
+      
+        
+          x
+        
+      
+    
+    {\displaystyle \mathbf {x} }
+   and 
+  
+    
+      
+        
+          y
+        
+      
+    
+    {\displaystyle \mathbf {y} }
+   with 
+  
+    
+      
+        
+          x
+        
+        ,
+        
+          y
+        
+        ∈
+        [
+        
+          x
+        
+        ]
+      
+    
+    {\displaystyle \mathbf {x} ,\mathbf {y} \in [\mathbf {x} ]}
+  , 
+  
+    
+      
+        ξ
+      
+    
+    {\displaystyle \xi }
+   is protected by 
+  
+    
+      
+        [
+        
+          x
+        
+        ]
+      
+    
+    {\displaystyle [\mathbf {x} ]}
+  .
+usually one chooses 
+  
+    
+      
+        
+          y
+        
+      
+    
+    {\displaystyle \mathbf {y} }
+   to be the midpoint of the interval and uses the natural interval extension to assess the remainder.
+the special case of the taylor interval extension of degree 
+  
+    
+      
+        k
+        =
+        0
+      
+    
+    {\displaystyle k=0}
+   is also referred to as the mean value form.
+
+
+== complex interval arithmetic ==
+an interval can also be defined as a locus of points at a given distance from the centre, and this definition can be extended from real numbers to complex numbers. as it is the case with computing with real numbers, computing with complex numbers involves uncertain data. so, given the fact that an interval number is a real closed interval and a complex number is an ordered pair of real numbers, there is no reason to limit the application of interval arithmetic to the measure of uncertainties in computations with real numbers. interval arithmetic can thus be extended, via complex interval numbers, to determine regions of uncertainty in computing with complex numbers.the basic algebraic operations for real interval numbers (real closed intervals) can be extended to complex numbers. it is therefore not surprising that complex interval arithmetic is similar to, but not the same as, ordinary complex arithmetic. it can be shown that, as it is the case with real interval arithmetic, there is no distributivity between addition and multiplication of complex interval numbers except for certain special cases, and inverse elements do not always exist for complex interval numbers. two other useful properties of ordinary complex arithmetic fail to hold in complex interval arithmetic: the additive and multiplicative properties, of ordinary complex conjugates, do not hold for complex interval conjugates.interval arithmetic can be extended, in an analogous manner, to other multidimensional number systems such as quaternions and octonions, but with the expense that we have to sacrifice other useful properties of ordinary arithmetic.
+
+
+== interval methods ==
+the methods of classical numerical analysis can not be transferred one-to-one into interval-valued algorithms, as dependencies between numerical values are usually not taken into account.
+
+
+=== rounded interval arithmetic ===
+
+to work effectively in a real-life implementation, intervals must be compatible with floating point computing.  the earlier operations were based on exact arithmetic, but in general fast numerical solution methods may not be available.  the range of values of the function 
+  
+    
+      
+        f
+        (
+        x
+        ,
+        y
+        )
+        =
+        x
+        +
+        y
+      
+    
+    {\displaystyle f(x,y)=x+y}
+  
+for 
+  
+    
+      
+        x
+        ∈
+        [
+        0.1
+        ,
+        0.8
+        ]
+      
+    
+    {\displaystyle x\in [0.1,0.8]}
+   and 
+  
+    
+      
+        y
+        ∈
+        [
+        0.06
+        ,
+        0.08
+        ]
+      
+    
+    {\displaystyle y\in [0.06,0.08]}
+   are for example 
+  
+    
+      
+        [
+        0.16
+        ,
+        0.88
+        ]
+      
+    
+    {\displaystyle [0.16,0.88]}
+  .  where the same calculation is done with single digit precision, the result would normally be 
+  
+    
+      
+        [
+        0.2
+        ,
+        0.9
+        ]
+      
+    
+    {\displaystyle [0.2,0.9]}
+  . but 
+  
+    
+      
+        [
+        0.2
+        ,
+        0.9
+        ]
+        ⊉
+        [
+        0.16
+        ,
+        0.88
+        ]
+      
+    
+    {\displaystyle [0.2,0.9]\not \supseteq [0.16,0.88]}
+  ,
+so this approach would contradict the basic principles of interval arithmetic, as a part of the domain of 
+  
+    
+      
+        f
+        (
+        [
+        0.1
+        ,
+        0.8
+        ]
+        ,
+        [
+        0.06
+        ,
+        0.08
+        ]
+        )
+      
+    
+    {\displaystyle f([0.1,0.8],[0.06,0.08])}
+   would be lost.
+instead, the outward rounded solution 
+  
+    
+      
+        [
+        0.1
+        ,
+        0.9
+        ]
+      
+    
+    {\displaystyle [0.1,0.9]}
+   is used.
+the standard ieee 754 for binary floating-point arithmetic also sets out procedures for the implementation of rounding.  an ieee 754 compliant system allows programmers to round to the nearest floating point number; alternatives are rounding towards 0 (truncating), rounding toward positive infinity (i.e. up), or rounding towards negative infinity (i.e. down).
+the required external rounding for interval arithmetic can thus be achieved by changing the rounding settings of the processor in the calculation of the upper limit (up) and lower limit (down). alternatively, an appropriate small interval 
+  
+    
+      
+        [
+        
+          ε
+          
+            1
+          
+        
+        ,
+        
+          ε
+          
+            2
+          
+        
+        ]
+      
+    
+    {\displaystyle [\varepsilon _{1},\varepsilon _{2}]}
+   can be added.
+
+
+=== dependency problem ===
+
+the so-called dependency problem is a major obstacle to the application of interval arithmetic. although interval methods can determine the range of elementary arithmetic operations and functions very accurately, this is not always true with more complicated functions. if an interval occurs several times in a calculation using parameters, and each occurrence is taken independently then this can lead to an unwanted expansion of the resulting intervals.
+
+as an illustration, take the function 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   defined by 
+  
+    
+      
+        f
+        (
+        x
+        )
+        =
+        
+          x
+          
+            2
+          
+        
+        +
+        x
+        .
+      
+    
+    {\displaystyle f(x)=x^{2}+x.}
+   the values of this function over the interval 
+  
+    
+      
+        [
+        −
+        1
+        ,
+        1
+        ]
+      
+    
+    {\displaystyle [-1,1]}
+   are 
+  
+    
+      
+        
+          [
+          
+            −
+            
+              
+                
+                  1
+                  4
+                
+              
+            
+            ,
+            2
+          
+          ]
+        
+        .
+      
+    
+    {\displaystyle \left[-{\tfrac {1}{4}},2\right].}
+   as the natural interval extension, it is calculated as:
+
+  
+    
+      
+        [
+        −
+        1
+        ,
+        1
+        
+          ]
+          
+            2
+          
+        
+        +
+        [
+        −
+        1
+        ,
+        1
+        ]
+        =
+        [
+        0
+        ,
+        1
+        ]
+        +
+        [
+        −
+        1
+        ,
+        1
+        ]
+        =
+        [
+        −
+        1
+        ,
+        2
+        ]
+        ,
+      
+    
+    {\displaystyle [-1,1]^{2}+[-1,1]=[0,1]+[-1,1]=[-1,2],}
+  which is slightly larger; we have instead calculated the infimum and supremum of the function 
+  
+    
+      
+        h
+        (
+        x
+        ,
+        y
+        )
+        =
+        
+          x
+          
+            2
+          
+        
+        +
+        y
+      
+    
+    {\displaystyle h(x,y)=x^{2}+y}
+   over 
+  
+    
+      
+        x
+        ,
+        y
+        ∈
+        [
+        −
+        1
+        ,
+        1
+        ]
+        .
+      
+    
+    {\displaystyle x,y\in [-1,1].}
+   there is a better expression of 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   in which the variable 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   only appears once, namely by rewriting 
+  
+    
+      
+        f
+        (
+        x
+        )
+        =
+        
+          x
+          
+            2
+          
+        
+        +
+        x
+      
+    
+    {\displaystyle f(x)=x^{2}+x}
+   as addition and squaring in the quadratic
+
+  
+    
+      
+        f
+        (
+        x
+        )
+        =
+        
+          
+            (
+            
+              x
+              +
+              
+                
+                  1
+                  2
+                
+              
+            
+            )
+          
+          
+            2
+          
+        
+        −
+        
+          
+            1
+            4
+          
+        
+        .
+      
+    
+    {\displaystyle f(x)=\left(x+{\frac {1}{2}}\right)^{2}-{\frac {1}{4}}.}
+  so the suitable interval calculation is
+
+  
+    
+      
+        
+          
+            (
+            
+              [
+              −
+              1
+              ,
+              1
+              ]
+              +
+              
+                
+                  1
+                  2
+                
+              
+            
+            )
+          
+          
+            2
+          
+        
+        −
+        
+          
+            1
+            4
+          
+        
+        =
+        
+          
+            [
+            
+              −
+              
+                
+                  1
+                  2
+                
+              
+              ,
+              
+                
+                  3
+                  2
+                
+              
+            
+            ]
+          
+          
+            2
+          
+        
+        −
+        
+          
+            1
+            4
+          
+        
+        =
+        
+          [
+          
+            0
+            ,
+            
+              
+                9
+                4
+              
+            
+          
+          ]
+        
+        −
+        
+          
+            1
+            4
+          
+        
+        =
+        
+          [
+          
+            −
+            
+              
+                1
+                4
+              
+            
+            ,
+            2
+          
+          ]
+        
+      
+    
+    {\displaystyle \left([-1,1]+{\frac {1}{2}}\right)^{2}-{\frac {1}{4}}=\left[-{\frac {1}{2}},{\frac {3}{2}}\right]^{2}-{\frac {1}{4}}=\left[0,{\frac {9}{4}}\right]-{\frac {1}{4}}=\left[-{\frac {1}{4}},2\right]}
+  and gives the correct values.
+in general, it can be shown that the exact range of values can be achieved, if each variable appears only once and if 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   is continuous inside the box. however, not every function can be rewritten this way.
+
+the dependency of the problem causing over-estimation of the value range can go as far as covering a large range, preventing more meaningful conclusions.
+an additional increase in the range stems from the solution of areas that do not take the form of an interval vector. the solution set of the linear system
+
+  
+    
+      
+        
+          
+            {
+            
+              
+                
+                  x
+                  =
+                  p
+                
+              
+              
+                
+                  y
+                  =
+                  p
+                
+              
+            
+            
+          
+        
+        
+        p
+        ∈
+        [
+        −
+        1
+        ,
+        1
+        ]
+      
+    
+    {\displaystyle {\begin{cases}x=p\\y=p\end{cases}}\qquad p\in [-1,1]}
+  is precisely the line between the points 
+  
+    
+      
+        (
+        −
+        1
+        ,
+        −
+        1
+        )
+      
+    
+    {\displaystyle (-1,-1)}
+   and 
+  
+    
+      
+        (
+        1
+        ,
+        1
+        )
+        .
+      
+    
+    {\displaystyle (1,1).}
+   using interval methods results in the unit square, 
+  
+    
+      
+        [
+        −
+        1
+        ,
+        1
+        ]
+        ×
+        [
+        −
+        1
+        ,
+        1
+        ]
+        .
+      
+    
+    {\displaystyle [-1,1]\times [-1,1].}
+   this is known as the wrapping effect.
+
+
+=== linear interval systems ===
+a linear interval system consists of a matrix interval extension 
+  
+    
+      
+        [
+        
+          a
+        
+        ]
+        ∈
+        [
+        
+          r
+        
+        
+          ]
+          
+            n
+            ×
+            m
+          
+        
+      
+    
+    {\displaystyle [\mathbf {a} ]\in [\mathbb {r} ]^{n\times m}}
+   and an interval vector 
+  
+    
+      
+        [
+        
+          b
+        
+        ]
+        ∈
+        [
+        
+          r
+        
+        
+          ]
+          
+            n
+          
+        
+      
+    
+    {\displaystyle [\mathbf {b} ]\in [\mathbb {r} ]^{n}}
+  . we want the smallest cuboid 
+  
+    
+      
+        [
+        
+          x
+        
+        ]
+        ∈
+        [
+        
+          r
+        
+        
+          ]
+          
+            m
+          
+        
+      
+    
+    {\displaystyle [\mathbf {x} ]\in [\mathbb {r} ]^{m}}
+  , for all vectors
+
+  
+    
+      
+        
+          x
+        
+        ∈
+        
+          
+            r
+          
+          
+            m
+          
+        
+      
+    
+    {\displaystyle \mathbf {x} \in \mathbb {r} ^{m}}
+   which there is a pair 
+  
+    
+      
+        (
+        
+          a
+        
+        ,
+        
+          b
+        
+        )
+      
+    
+    {\displaystyle (\mathbf {a} ,\mathbf {b} )}
+   with 
+  
+    
+      
+        
+          a
+        
+        ∈
+        [
+        
+          a
+        
+        ]
+      
+    
+    {\displaystyle \mathbf {a} \in [\mathbf {a} ]}
+   and 
+  
+    
+      
+        
+          b
+        
+        ∈
+        [
+        
+          b
+        
+        ]
+      
+    
+    {\displaystyle \mathbf {b} \in [\mathbf {b} ]}
+   satisfying
+
+  
+    
+      
+        
+          a
+        
+        ⋅
+        
+          x
+        
+        =
+        
+          b
+        
+      
+    
+    {\displaystyle \mathbf {a} \cdot \mathbf {x} =\mathbf {b} }
+  .for quadratic systems – in other words, for 
+  
+    
+      
+        n
+        =
+        m
+      
+    
+    {\displaystyle n=m}
+   – there can be such an interval vector 
+  
+    
+      
+        [
+        
+          x
+        
+        ]
+      
+    
+    {\displaystyle [\mathbf {x} ]}
+  , which covers all possible solutions, found simply with the interval gauss method.  this replaces the numerical operations, in that the linear algebra method known as gaussian elimination becomes its interval version.  however, since this method uses the interval entities
+  
+    
+      
+        [
+        
+          a
+        
+        ]
+      
+    
+    {\displaystyle [\mathbf {a} ]}
+   and 
+  
+    
+      
+        [
+        
+          b
+        
+        ]
+      
+    
+    {\displaystyle [\mathbf {b} ]}
+   repeatedly in the calculation, it can produce poor results for some problems. hence using the result of the interval-valued gauss only provides first rough estimates, since although it contains the entire solution set, it also has a large area outside it.
+a rough solution 
+  
+    
+      
+        [
+        
+          x
+        
+        ]
+      
+    
+    {\displaystyle [\mathbf {x} ]}
+   can often be improved by an interval version of the gauss–seidel method.
+the motivation for this is that the 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  -th row of the interval extension of the linear equation
+
+  
+    
+      
+        
+          
+            (
+            
+              
+                
+                  
+                    [
+                    
+                      a
+                      
+                        11
+                      
+                    
+                    ]
+                  
+                
+                
+                  ⋯
+                
+                
+                  
+                    [
+                    
+                      a
+                      
+                        1
+                        n
+                      
+                    
+                    ]
+                  
+                
+              
+              
+                
+                  ⋮
+                
+                
+                  ⋱
+                
+                
+                  ⋮
+                
+              
+              
+                
+                  
+                    [
+                    
+                      a
+                      
+                        n
+                        1
+                      
+                    
+                    ]
+                  
+                
+                
+                  ⋯
+                
+                
+                  
+                    [
+                    
+                      a
+                      
+                        n
+                        n
+                      
+                    
+                    ]
+                  
+                
+              
+            
+            )
+          
+        
+        ⋅
+        
+          
+            (
+            
+              
+                
+                  
+                    
+                      x
+                      
+                        1
+                      
+                    
+                  
+                
+              
+              
+                
+                  ⋮
+                
+              
+              
+                
+                  
+                    
+                      x
+                      
+                        n
+                      
+                    
+                  
+                
+              
+            
+            )
+          
+        
+        =
+        
+          
+            (
+            
+              
+                
+                  
+                    [
+                    
+                      b
+                      
+                        1
+                      
+                    
+                    ]
+                  
+                
+              
+              
+                
+                  ⋮
+                
+              
+              
+                
+                  
+                    [
+                    
+                      b
+                      
+                        n
+                      
+                    
+                    ]
+                  
+                
+              
+            
+            )
+          
+        
+      
+    
+    {\displaystyle {\begin{pmatrix}{[a_{11}]}&\cdots &{[a_{1n}]}\\\vdots &\ddots &\vdots \\{[a_{n1}]}&\cdots &{[a_{nn}]}\end{pmatrix}}\cdot {\begin{pmatrix}{x_{1}}\\\vdots \\{x_{n}}\end{pmatrix}}={\begin{pmatrix}{[b_{1}]}\\\vdots \\{[b_{n}]}\end{pmatrix}}}
+  can be determined by the variable 
+  
+    
+      
+        
+          x
+          
+            i
+          
+        
+      
+    
+    {\displaystyle x_{i}}
+   if the division 
+  
+    
+      
+        1
+        
+          /
+        
+        [
+        
+          a
+          
+            i
+            i
+          
+        
+        ]
+      
+    
+    {\displaystyle 1/[a_{ii}]}
+   is allowed.  it is therefore simultaneously
+
+  
+    
+      
+        
+          x
+          
+            j
+          
+        
+        ∈
+        [
+        
+          x
+          
+            j
+          
+        
+        ]
+      
+    
+    {\displaystyle x_{j}\in [x_{j}]}
+   and 
+  
+    
+      
+        
+          x
+          
+            j
+          
+        
+        ∈
+        
+          
+            
+              [
+              
+                b
+                
+                  i
+                
+              
+              ]
+              −
+              
+                ∑
+                
+                  k
+                  ≠
+                  j
+                
+              
+              [
+              
+                a
+                
+                  i
+                  k
+                
+              
+              ]
+              ⋅
+              [
+              
+                x
+                
+                  k
+                
+              
+              ]
+            
+            
+              [
+              
+                a
+                
+                  i
+                  i
+                
+              
+              ]
+            
+          
+        
+      
+    
+    {\displaystyle x_{j}\in {\frac {[b_{i}]-\sum \limits _{k\not =j}[a_{ik}]\cdot [x_{k}]}{[a_{ii}]}}}
+  .so we can now replace 
+  
+    
+      
+        [
+        
+          x
+          
+            j
+          
+        
+        ]
+      
+    
+    {\displaystyle [x_{j}]}
+   by
+
+  
+    
+      
+        [
+        
+          x
+          
+            j
+          
+        
+        ]
+        ∩
+        
+          
+            
+              [
+              
+                b
+                
+                  i
+                
+              
+              ]
+              −
+              
+                ∑
+                
+                  k
+                  ≠
+                  j
+                
+              
+              [
+              
+                a
+                
+                  i
+                  k
+                
+              
+              ]
+              ⋅
+              [
+              
+                x
+                
+                  k
+                
+              
+              ]
+            
+            
+              [
+              
+                a
+                
+                  i
+                  i
+                
+              
+              ]
+            
+          
+        
+      
+    
+    {\displaystyle [x_{j}]\cap {\frac {[b_{i}]-\sum \limits _{k\not =j}[a_{ik}]\cdot [x_{k}]}{[a_{ii}]}}}
+  ,and so the vector 
+  
+    
+      
+        [
+        
+          x
+        
+        ]
+      
+    
+    {\displaystyle [\mathbf {x} ]}
+   by each element.
+since the procedure is more efficient for a diagonally dominant matrix, instead of the system 
+  
+    
+      
+        [
+        
+          a
+        
+        ]
+        ⋅
+        
+          x
+        
+        =
+        [
+        
+          b
+        
+        ]
+        
+          
+            ,
+          
+        
+      
+    
+    {\displaystyle [\mathbf {a} ]\cdot \mathbf {x} =[\mathbf {b} ]{\mbox{,}}}
+   one can often try multiplying it by an appropriate rational matrix 
+  
+    
+      
+        
+          m
+        
+      
+    
+    {\displaystyle \mathbf {m} }
+    with the resulting matrix equation
+
+  
+    
+      
+        (
+        
+          m
+        
+        ⋅
+        [
+        
+          a
+        
+        ]
+        )
+        ⋅
+        
+          x
+        
+        =
+        
+          m
+        
+        ⋅
+        [
+        
+          b
+        
+        ]
+      
+    
+    {\displaystyle (\mathbf {m} \cdot [\mathbf {a} ])\cdot \mathbf {x} =\mathbf {m} \cdot [\mathbf {b} ]}
+  left to solve. if one chooses, for example, 
+  
+    
+      
+        
+          m
+        
+        =
+        
+          
+            a
+          
+          
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle \mathbf {m} =\mathbf {a} ^{-1}}
+   for the central matrix 
+  
+    
+      
+        
+          a
+        
+        ∈
+        [
+        
+          a
+        
+        ]
+      
+    
+    {\displaystyle \mathbf {a} \in [\mathbf {a} ]}
+  , then 
+  
+    
+      
+        
+          m
+        
+        ⋅
+        [
+        
+          a
+        
+        ]
+      
+    
+    {\displaystyle \mathbf {m} \cdot [\mathbf {a} ]}
+   is outer extension of the identity matrix.
+these methods only work well if the widths of the intervals occurring are sufficiently small.  for wider intervals it can be useful to use an interval-linear system on finite (albeit large) real number equivalent linear systems. if all the matrices 
+  
+    
+      
+        
+          a
+        
+        ∈
+        [
+        
+          a
+        
+        ]
+      
+    
+    {\displaystyle \mathbf {a} \in [\mathbf {a} ]}
+   are invertible, it is sufficient to consider all possible combinations (upper and lower) of the endpoints occurring in the intervals.  the resulting problems can be resolved using conventional numerical methods. interval arithmetic is still used to determine rounding errors.
+this is only suitable for systems of smaller dimension, since with a fully occupied 
+  
+    
+      
+        n
+        ×
+        n
+      
+    
+    {\displaystyle n\times n}
+   matrix, 
+  
+    
+      
+        
+          2
+          
+            
+              n
+              
+                2
+              
+            
+          
+        
+      
+    
+    {\displaystyle 2^{n^{2}}}
+   real matrices need to be inverted, with 
+  
+    
+      
+        
+          2
+          
+            n
+          
+        
+      
+    
+    {\displaystyle 2^{n}}
+   vectors for the right hand side.  this approach was developed by jiri rohn and is still being developed.
+
+
+=== interval newton method ===
+
+an interval variant of newton's method for finding the zeros in an interval vector 
+  
+    
+      
+        [
+        
+          x
+        
+        ]
+      
+    
+    {\displaystyle [\mathbf {x} ]}
+   can be derived from the average value extension. for an unknown vector 
+  
+    
+      
+        
+          z
+        
+        ∈
+        [
+        
+          x
+        
+        ]
+      
+    
+    {\displaystyle \mathbf {z} \in [\mathbf {x} ]}
+   applied to 
+  
+    
+      
+        
+          y
+        
+        ∈
+        [
+        
+          x
+        
+        ]
+      
+    
+    {\displaystyle \mathbf {y} \in [\mathbf {x} ]}
+  , gives
+
+  
+    
+      
+        f
+        (
+        
+          z
+        
+        )
+        ∈
+        f
+        (
+        
+          y
+        
+        )
+        +
+        [
+        
+          j
+          
+            f
+          
+        
+        ]
+        (
+        
+          [
+          x
+          ]
+        
+        )
+        ⋅
+        (
+        
+          z
+        
+        −
+        
+          y
+        
+        )
+      
+    
+    {\displaystyle f(\mathbf {z} )\in f(\mathbf {y} )+[j_{f}](\mathbf {[x]} )\cdot (\mathbf {z} -\mathbf {y} )}
+  .for a zero 
+  
+    
+      
+        
+          z
+        
+      
+    
+    {\displaystyle \mathbf {z} }
+  , that is 
+  
+    
+      
+        f
+        (
+        z
+        )
+        =
+        0
+      
+    
+    {\displaystyle f(z)=0}
+  , and thus must satisfy
+
+  
+    
+      
+        f
+        (
+        
+          y
+        
+        )
+        +
+        [
+        
+          j
+          
+            f
+          
+        
+        ]
+        (
+        
+          [
+          x
+          ]
+        
+        )
+        ⋅
+        (
+        
+          z
+        
+        −
+        
+          y
+        
+        )
+        =
+        0
+      
+    
+    {\displaystyle f(\mathbf {y} )+[j_{f}](\mathbf {[x]} )\cdot (\mathbf {z} -\mathbf {y} )=0}
+  .this is equivalent to
+
+  
+    
+      
+        
+          z
+        
+        ∈
+        
+          y
+        
+        −
+        [
+        
+          j
+          
+            f
+          
+        
+        ]
+        (
+        
+          [
+          x
+          ]
+        
+        
+          )
+          
+            −
+            1
+          
+        
+        ⋅
+        f
+        (
+        
+          y
+        
+        )
+      
+    
+    {\displaystyle \mathbf {z} \in \mathbf {y} -[j_{f}](\mathbf {[x]} )^{-1}\cdot f(\mathbf {y} )}
+  .
+an outer estimate of 
+  
+    
+      
+        [
+        
+          j
+          
+            f
+          
+        
+        ]
+        (
+        
+          [
+          x
+          ]
+        
+        
+          )
+          
+            −
+            1
+          
+        
+        ⋅
+        f
+        (
+        
+          y
+        
+        )
+        )
+      
+    
+    {\displaystyle [j_{f}](\mathbf {[x]} )^{-1}\cdot f(\mathbf {y} ))}
+   can be determined using linear methods.
+in each step of the interval newton method, an approximate starting value 
+  
+    
+      
+        [
+        
+          x
+        
+        ]
+        ∈
+        [
+        
+          r
+        
+        
+          ]
+          
+            n
+          
+        
+      
+    
+    {\displaystyle [\mathbf {x} ]\in [\mathbb {r} ]^{n}}
+   is replaced by 
+  
+    
+      
+        [
+        
+          x
+        
+        ]
+        ∩
+        
+          (
+          
+            
+              y
+            
+            −
+            [
+            
+              j
+              
+                f
+              
+            
+            ]
+            (
+            
+              [
+              x
+              ]
+            
+            
+              )
+              
+                −
+                1
+              
+            
+            ⋅
+            f
+            (
+            
+              y
+            
+            )
+          
+          )
+        
+      
+    
+    {\displaystyle [\mathbf {x} ]\cap \left(\mathbf {y} -[j_{f}](\mathbf {[x]} )^{-1}\cdot f(\mathbf {y} )\right)}
+   and so the result can be improved iteratively. in contrast to traditional methods, the interval method approaches the result by containing the zeros. this guarantees that the result produces all zeros in the initial range. conversely, it proves that no zeros of 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   were in the initial range 
+  
+    
+      
+        [
+        
+          x
+        
+        ]
+      
+    
+    {\displaystyle [\mathbf {x} ]}
+   if a newton step produces the empty set.
+the method converges on all zeros in the starting region. division by zero can lead to separation of distinct zeros, though the separation may not be complete; it can be complemented by the bisection method.
+as an example, consider the function 
+  
+    
+      
+        f
+        (
+        x
+        )
+        =
+        
+          x
+          
+            2
+          
+        
+        −
+        2
+      
+    
+    {\displaystyle f(x)=x^{2}-2}
+  , the starting range 
+  
+    
+      
+        [
+        x
+        ]
+        =
+        [
+        −
+        2
+        ,
+        2
+        ]
+      
+    
+    {\displaystyle [x]=[-2,2]}
+  , and the point 
+  
+    
+      
+        y
+        =
+        0
+      
+    
+    {\displaystyle y=0}
+  . we then have 
+  
+    
+      
+        
+          j
+          
+            f
+          
+        
+        (
+        x
+        )
+        =
+        2
+        
+        x
+      
+    
+    {\displaystyle j_{f}(x)=2\,x}
+   and the first newton step gives
+
+  
+    
+      
+        [
+        −
+        2
+        ,
+        2
+        ]
+        ∩
+        
+          (
+          
+            0
+            −
+            
+              
+                1
+                
+                  2
+                  ⋅
+                  [
+                  −
+                  2
+                  ,
+                  2
+                  ]
+                
+              
+            
+            (
+            0
+            −
+            2
+            )
+          
+          )
+        
+        =
+        [
+        −
+        2
+        ,
+        2
+        ]
+        ∩
+        
+          
+            (
+          
+        
+        [
+        
+          −
+          ∞
+        
+        ,
+        
+          −
+          0.5
+        
+        ]
+        ∪
+        [
+        
+          0.5
+        
+        ,
+        
+          ∞
+        
+        ]
+        
+          
+            )
+          
+        
+        =
+        [
+        
+          −
+          2
+        
+        ,
+        
+          −
+          0.5
+        
+        ]
+        ∪
+        [
+        
+          0.5
+        
+        ,
+        
+          2
+        
+        ]
+      
+    
+    {\displaystyle [-2,2]\cap \left(0-{\frac {1}{2\cdot [-2,2]}}(0-2)\right)=[-2,2]\cap {\big (}[{-\infty },{-0.5}]\cup [{0.5},{\infty }]{\big )}=[{-2},{-0.5}]\cup [{0.5},{2}]}
+  .more newton steps are used separately on 
+  
+    
+      
+        x
+        ∈
+        [
+        
+          −
+          2
+        
+        ,
+        
+          −
+          0.5
+        
+        ]
+      
+    
+    {\displaystyle x\in [{-2},{-0.5}]}
+   and 
+  
+    
+      
+        [
+        
+          0.5
+        
+        ,
+        
+          2
+        
+        ]
+      
+    
+    {\displaystyle [{0.5},{2}]}
+  . these converge to arbitrarily small intervals around 
+  
+    
+      
+        −
+        
+          
+            2
+          
+        
+      
+    
+    {\displaystyle -{\sqrt {2}}}
+   and 
+  
+    
+      
+        +
+        
+          
+            2
+          
+        
+      
+    
+    {\displaystyle +{\sqrt {2}}}
+  .
+the interval newton method can also be used with thick functions such as  
+  
+    
+      
+        g
+        (
+        x
+        )
+        =
+        
+          x
+          
+            2
+          
+        
+        −
+        [
+        2
+        ,
+        3
+        ]
+      
+    
+    {\displaystyle g(x)=x^{2}-[2,3]}
+  , which would in any case have interval results. the result then produces intervals containing 
+  
+    
+      
+        
+          [
+          
+            −
+            
+              
+                3
+              
+            
+            ,
+            −
+            
+              
+                2
+              
+            
+          
+          ]
+        
+        ∪
+        
+          [
+          
+            
+              
+                2
+              
+            
+            ,
+            
+              
+                3
+              
+            
+          
+          ]
+        
+      
+    
+    {\displaystyle \left[-{\sqrt {3}},-{\sqrt {2}}\right]\cup \left[{\sqrt {2}},{\sqrt {3}}\right]}
+  .
+
+
+=== bisection and covers ===
+
+the various interval methods deliver conservative results as dependencies between the sizes of different intervals extensions are not taken into account. however the dependency problem becomes less significant for narrower intervals.
+covering an interval vector 
+  
+    
+      
+        [
+        
+          x
+        
+        ]
+      
+    
+    {\displaystyle [\mathbf {x} ]}
+   by smaller boxes 
+  
+    
+      
+        [
+        
+          
+            x
+          
+          
+            1
+          
+        
+        ]
+        ,
+        …
+        ,
+        [
+        
+          
+            x
+          
+          
+            k
+          
+        
+        ]
+        ,
+      
+    
+    {\displaystyle [\mathbf {x} _{1}],\ldots ,[\mathbf {x} _{k}],}
+   so that
+
+  
+    
+      
+        [
+        
+          x
+        
+        ]
+        =
+        
+          ⋃
+          
+            i
+            =
+            1
+          
+          
+            k
+          
+        
+        [
+        
+          
+            x
+          
+          
+            i
+          
+        
+        ]
+        ,
+      
+    
+    {\displaystyle [\mathbf {x} ]=\bigcup _{i=1}^{k}[\mathbf {x} _{i}],}
+  is then valid for the range of values
+
+  
+    
+      
+        f
+        (
+        [
+        
+          x
+        
+        ]
+        )
+        =
+        
+          ⋃
+          
+            i
+            =
+            1
+          
+          
+            k
+          
+        
+        f
+        (
+        [
+        
+          
+            x
+          
+          
+            i
+          
+        
+        ]
+        )
+        .
+      
+    
+    {\displaystyle f([\mathbf {x} ])=\bigcup _{i=1}^{k}f([\mathbf {x} _{i}]).}
+  so for the interval extensions described above the following holds:
+
+  
+    
+      
+        [
+        f
+        ]
+        (
+        [
+        
+          x
+        
+        ]
+        )
+        ⊇
+        
+          ⋃
+          
+            i
+            =
+            1
+          
+          
+            k
+          
+        
+        [
+        f
+        ]
+        (
+        [
+        
+          
+            x
+          
+          
+            i
+          
+        
+        ]
+        )
+        .
+      
+    
+    {\displaystyle [f]([\mathbf {x} ])\supseteq \bigcup _{i=1}^{k}[f]([\mathbf {x} _{i}]).}
+  since 
+  
+    
+      
+        [
+        f
+        ]
+        (
+        [
+        
+          x
+        
+        ]
+        )
+      
+    
+    {\displaystyle [f]([\mathbf {x} ])}
+   is often a genuine superset of the right-hand side, this usually leads to an improved estimate.
+such a cover can be generated by the bisection method such as thick elements 
+  
+    
+      
+        [
+        
+          x
+          
+            i
+            1
+          
+        
+        ,
+        
+          x
+          
+            i
+            2
+          
+        
+        ]
+      
+    
+    {\displaystyle [x_{i1},x_{i2}]}
+    of the interval vector 
+  
+    
+      
+        [
+        
+          x
+        
+        ]
+        =
+        (
+        [
+        
+          x
+          
+            11
+          
+        
+        ,
+        
+          x
+          
+            12
+          
+        
+        ]
+        ,
+        …
+        ,
+        [
+        
+          x
+          
+            n
+            1
+          
+        
+        ,
+        
+          x
+          
+            n
+            2
+          
+        
+        ]
+        )
+      
+    
+    {\displaystyle [\mathbf {x} ]=([x_{11},x_{12}],\ldots ,[x_{n1},x_{n2}])}
+   by splitting in the centre into the two intervals 
+  
+    
+      
+        
+          [
+          
+            
+              x
+              
+                i
+                1
+              
+            
+            ,
+            
+              
+                
+                  1
+                  2
+                
+              
+            
+            (
+            
+              x
+              
+                i
+                1
+              
+            
+            +
+            
+              x
+              
+                i
+                2
+              
+            
+            )
+          
+          ]
+        
+      
+    
+    {\displaystyle \left[x_{i1},{\tfrac {1}{2}}(x_{i1}+x_{i2})\right]}
+   and 
+  
+    
+      
+        
+          [
+          
+            
+              
+                
+                  1
+                  2
+                
+              
+            
+            (
+            
+              x
+              
+                i
+                1
+              
+            
+            +
+            
+              x
+              
+                i
+                2
+              
+            
+            )
+            ,
+            
+              x
+              
+                i
+                2
+              
+            
+          
+          ]
+        
+        .
+      
+    
+    {\displaystyle \left[{\tfrac {1}{2}}(x_{i1}+x_{i2}),x_{i2}\right].}
+   if the result is still not suitable then further gradual subdivision is possible. a cover of 
+  
+    
+      
+        
+          2
+          
+            r
+          
+        
+      
+    
+    {\displaystyle 2^{r}}
+   intervals results from 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+   divisions of vector elements, substantially increasing the computation costs.
+with very wide intervals, it can be helpful to split all intervals into several subintervals with a constant (and smaller) width, a method known as mincing. this then avoids the calculations for intermediate bisection steps. both methods are only suitable for problems of low dimension.
+
+
+== application ==
+interval arithmetic can be used in various areas (such as set inversion, motion planning, set estimation or stability analysis) to treat estimates with no exact numerical value.
+
+
+=== rounding error analysis ===
+interval arithmetic is used with error analysis, to control rounding errors arising from each calculation.
+the advantage of interval arithmetic is that after each operation there is an interval that reliably includes the true result. the distance between the interval boundaries gives the current calculation of rounding errors directly:
+
+error = 
+  
+    
+      
+        
+          a
+          b
+          s
+        
+        (
+        a
+        −
+        b
+        )
+      
+    
+    {\displaystyle \mathrm {abs} (a-b)}
+   for a given interval 
+  
+    
+      
+        [
+        a
+        ,
+        b
+        ]
+      
+    
+    {\displaystyle [a,b]}
+  .interval analysis adds to rather than substituting for traditional methods for error reduction, such as pivoting.
+
+
+=== tolerance analysis ===
+parameters for which no exact figures can be allocated often arise during the simulation of technical and physical processes.
+the production process of technical components allows certain tolerances, so some parameters fluctuate within intervals.
+in addition, many fundamental constants are not known precisely.if the behavior of such a system affected by tolerances satisfies, for example, 
+  
+    
+      
+        f
+        (
+        
+          x
+        
+        ,
+        
+          p
+        
+        )
+        =
+        0
+      
+    
+    {\displaystyle f(\mathbf {x} ,\mathbf {p} )=0}
+  , for 
+  
+    
+      
+        
+          p
+        
+        ∈
+        [
+        
+          p
+        
+        ]
+      
+    
+    {\displaystyle \mathbf {p} \in [\mathbf {p} ]}
+   and unknown 
+  
+    
+      
+        
+          x
+        
+      
+    
+    {\displaystyle \mathbf {x} }
+   then the set of possible solutions
+
+  
+    
+      
+        {
+        
+          x
+        
+        
+        
+          |
+        
+        
+        ∃
+        
+          p
+        
+        ∈
+        [
+        
+          p
+        
+        ]
+        ,
+        f
+        (
+        
+          x
+        
+        ,
+        
+          p
+        
+        )
+        =
+        0
+        }
+      
+    
+    {\displaystyle \{\mathbf {x} \,|\,\exists \mathbf {p} \in [\mathbf {p} ],f(\mathbf {x} ,\mathbf {p} )=0\}}
+  ,can be found by interval methods. this provides an alternative to traditional propagation of error analysis.
+unlike point methods, such as monte carlo simulation, interval arithmetic methodology ensures that no part of the solution area can be overlooked.
+however, the result is always a worst-case analysis for the distribution of error, as other probability-based distributions are not considered.
+
+
+=== fuzzy interval arithmetic ===
+
+interval arithmetic can also be used with affiliation functions for fuzzy quantities as they are used in fuzzy logic. apart from the strict statements 
+  
+    
+      
+        x
+        ∈
+        [
+        x
+        ]
+      
+    
+    {\displaystyle x\in [x]}
+   and 
+  
+    
+      
+        x
+        ∉
+        [
+        x
+        ]
+      
+    
+    {\displaystyle x\not \in [x]}
+  , intermediate values are also possible, to which real numbers 
+  
+    
+      
+        μ
+        ∈
+        [
+        0
+        ,
+        1
+        ]
+      
+    
+    {\displaystyle \mu \in [0,1]}
+   are assigned. 
+  
+    
+      
+        μ
+        =
+        1
+      
+    
+    {\displaystyle \mu =1}
+   corresponds to definite membership while 
+  
+    
+      
+        μ
+        =
+        0
+      
+    
+    {\displaystyle \mu =0}
+   is non-membership. a distribution function assigns uncertainty, which can be understood as a further interval.
+for fuzzy arithmetic only a finite number of discrete affiliation stages 
+  
+    
+      
+        
+          μ
+          
+            i
+          
+        
+        ∈
+        [
+        0
+        ,
+        1
+        ]
+      
+    
+    {\displaystyle \mu _{i}\in [0,1]}
+   are considered. the form of such a distribution for an indistinct value can then represented by a sequence of intervals
+
+  
+    
+      
+        
+          [
+          
+            x
+            
+              (
+              1
+              )
+            
+          
+          ]
+        
+        ⊃
+        
+          [
+          
+            x
+            
+              (
+              2
+              )
+            
+          
+          ]
+        
+        ⊃
+        ⋯
+        ⊃
+        
+          [
+          
+            x
+            
+              (
+              k
+              )
+            
+          
+          ]
+        
+        .
+      
+    
+    {\displaystyle \left[x^{(1)}\right]\supset \left[x^{(2)}\right]\supset \cdots \supset \left[x^{(k)}\right].}
+  the interval 
+  
+    
+      
+        
+          [
+          
+            x
+            
+              (
+              i
+              )
+            
+          
+          ]
+        
+      
+    
+    {\displaystyle \left[x^{(i)}\right]}
+   corresponds exactly to the fluctuation range for the stage 
+  
+    
+      
+        
+          μ
+          
+            i
+          
+        
+        .
+      
+    
+    {\displaystyle \mu _{i}.}
+  
+the appropriate distribution for a function 
+  
+    
+      
+        f
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle f(x_{1},\ldots ,x_{n})}
+   concerning indistinct values 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x_{1},\ldots ,x_{n}}
+   and the corresponding sequences
+
+  
+    
+      
+        
+          [
+          
+            x
+            
+              1
+            
+            
+              (
+              1
+              )
+            
+          
+          ]
+        
+        ⊃
+        ⋯
+        ⊃
+        
+          [
+          
+            x
+            
+              1
+            
+            
+              (
+              k
+              )
+            
+          
+          ]
+        
+        ,
+        …
+        ,
+        
+          [
+          
+            x
+            
+              n
+            
+            
+              (
+              1
+              )
+            
+          
+          ]
+        
+        ⊃
+        ⋯
+        ⊃
+        
+          [
+          
+            x
+            
+              n
+            
+            
+              (
+              k
+              )
+            
+          
+          ]
+        
+      
+    
+    {\displaystyle \left[x_{1}^{(1)}\right]\supset \cdots \supset \left[x_{1}^{(k)}\right],\ldots ,\left[x_{n}^{(1)}\right]\supset \cdots \supset \left[x_{n}^{(k)}\right]}
+  can be approximated by the sequence
+
+  
+    
+      
+        
+          [
+          
+            y
+            
+              (
+              1
+              )
+            
+          
+          ]
+        
+        ⊃
+        ⋯
+        ⊃
+        
+          [
+          
+            y
+            
+              (
+              k
+              )
+            
+          
+          ]
+        
+        ,
+      
+    
+    {\displaystyle \left[y^{(1)}\right]\supset \cdots \supset \left[y^{(k)}\right],}
+  where
+
+  
+    
+      
+        
+          [
+          
+            y
+            
+              (
+              i
+              )
+            
+          
+          ]
+        
+        =
+        f
+        
+          (
+          
+            
+              [
+              
+                x
+                
+                  1
+                
+                
+                  (
+                  i
+                  )
+                
+              
+              ]
+            
+            ,
+            …
+            
+              [
+              
+                x
+                
+                  n
+                
+                
+                  (
+                  i
+                  )
+                
+              
+              ]
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \left[y^{(i)}\right]=f\left(\left[x_{1}^{(i)}\right],\ldots \left[x_{n}^{(i)}\right]\right)}
+  and can be calculated by interval methods. the value 
+  
+    
+      
+        
+          [
+          
+            y
+            
+              (
+              1
+              )
+            
+          
+          ]
+        
+      
+    
+    {\displaystyle \left[y^{(1)}\right]}
+   corresponds to the result of an interval calculation.
+
+
+=== computer-assisted proof ===
+warwick tucker used interval arithmetic in order to solve the 14th of smale's problems, that is, to show that the lorenz attractor is a strange attractor. thomas hales used interval arithmetic in order to solve the kepler conjecture.
+
+
+== history ==
+interval arithmetic is not a completely new phenomenon in mathematics; it has appeared several times under different names in the course of history. for example, archimedes calculated lower and upper bounds 223/71 < π < 22/7 in the 3rd century bc. actual calculation with intervals has neither been as popular as other numerical techniques nor been completely forgotten.
+rules for calculating with intervals and other subsets of the real numbers were published in a 1931 work by rosalind cicely young. arithmetic work on range numbers to improve the reliability of digital systems were then published in a 1951 textbook on linear algebra by paul s. dwyer; intervals were used to measure rounding errors associated with floating-point numbers. a comprehensive paper on interval algebra in numerical analysis was published by teruo sunaga (1958).the birth of modern interval arithmetic was marked by the appearance of the book interval analysis by ramon e. moore in 1966. he had the idea in spring 1958, and a year later he published an article about computer interval arithmetic. its merit was that starting with a simple principle, it provided a general method for automated error analysis, not just errors resulting from rounding.
+independently in 1956, mieczyslaw warmus suggested formulae for calculations with intervals, though moore found the first non-trivial applications.
+in the following twenty years, german groups of researchers carried out pioneering work around ulrich w. kulisch and götz alefeld at the university of karlsruhe and later also at the bergische university of wuppertal.
+for example, karl nickel explored more effective implementations, while improved containment procedures for the solution set of systems of equations were due to arnold neumaier among others. in the 1960s, eldon r. hansen dealt with interval extensions for linear equations and then provided crucial contributions to global optimisation, including what is now known as hansen's method, perhaps the most widely used interval algorithm. classical methods in this often have the problem of determining the largest (or smallest) global value, but could only find a local optimum and could not find better values; helmut ratschek and jon george rokne developed branch and bound methods, which until then had only applied to integer values, by using intervals to provide applications for continuous values.
+in 1988, rudolf lohner developed fortran-based software for reliable solutions for initial value problems using ordinary differential equations.the journal reliable computing (originally interval computations) has been published since the 1990s, dedicated to the reliability of computer-aided computations. as lead editor, r. baker kearfott, in addition to his work on global optimisation, has contributed significantly to the unification of notation and terminology used in interval arithmetic.in recent years work has concentrated in particular on the estimation of preimages of parameterised functions and to robust control theory by the coprin working group of inria in sophia antipolis in france.
+
+
+== implementations ==
+there are many software packages that permit the development of numerical applications using interval arithmetic. these are usually provided in the form of program libraries.  there are also c++ and fortran compilers that handle interval data types and suitable operations as a language extension, so interval arithmetic is supported directly.
+since 1967, extensions for scientific computation (xsc) have been developed in the university of karlsruhe for various programming languages, such as c++, fortran and pascal. the first platform was a zuse z23, for which a new interval data type with appropriate elementary operators was made available. there followed in 1976, pascal-sc, a pascal variant on a zilog z80 that it made possible to create fast, complicated routines for automated result verification. then came the fortran 77-based acrith-xsc for the system/370 architecture (fortran-sc), which was later delivered by ibm. starting from 1991 one could produce code for c compilers with pascal-xsc; a year later the c++ class library supported c-xsc on many different computer systems. in 1997, all xsc variants were made available under the gnu general public license. at the beginning of 2000 c-xsc 2.0 was released under the leadership of the working group for scientific computation at the bergische university of wuppertal to correspond to the improved c++ standard.
+another c++-class library was created in 1993 at the hamburg university of technology called profil/bias (programmer's runtime optimized fast interval library, basic interval arithmetic), which made the usual interval operations more user friendly. it emphasized the efficient use of hardware, portability and independence of a particular presentation of intervals.
+the boost collection of c++ libraries contains a template class for intervals. its authors are aiming to have interval arithmetic in the standard c++ language.the frink programming language has an implementation of interval arithmetic that handles arbitrary-precision numbers. programs written in frink can use intervals without rewriting or recompilation.
+gaol is another c++ interval arithmetic library that is unique in that it offers the relational interval operators used in interval constraint programming.
+the moore library is an efficient implementation of interval arithmetic in c++. it provides intervals with endpoints of arbitrary precision and is based on the ``concepts´´ feature of c++.
+the julia programming language has an implementation of interval arithmetics along with high-level features, such as root-finding (for both real and complex-valued functions) and interval constraint programming, via the validatednumerics.jl package.in addition computer algebra systems, such as fricas, mathematica, maple, maxima (software) and mupad, can handle intervals. a matlab extension intlab builds on blas routines, and the toolbox b4m makes a profil/bias interface. moreover, the software euler math toolbox includes an interval arithmetic.
+a library for the functional language ocaml was written in assembly language and c.
+
+
+== ieee 1788 standard ==
+
+a standard for interval arithmetic, ieee std 1788-2015, has been approved in june 2015. two reference implementations are freely available. these have been developed by members of the standard's working group: the libieeep1788 library for c++, and the interval package for gnu octave.
+a minimal subset of the standard, ieee std 1788.1-2017, has been approved in december 2017 and published in february 2018. it should be easier to implement and may speed production of implementations.
+
+
+== conferences and workshops ==
+several international conferences or workshop take place every year in the world. the main conference is probably scan (international symposium on scientific computing, computer arithmetic, and verified numerical computation), but there is also swim (small workshop on interval methods), ppam (international conference on parallel processing and applied mathematics), rec (international workshop on reliable engineering computing).
+
+
+== see also ==
+affine arithmetic
+intlab (interval laboratory)
+automatic differentiation
+multigrid method
+monte-carlo simulation
+interval finite element
+fuzzy number
+significant figures
+karlsruhe accurate arithmetic (kaa)
+unum
+
+
+== references ==
+
+
+== further reading ==
+hayes, brian (november–december 2003). "a lucid interval" (pdf). american scientist. sigma xi. 91 (6): 484–488. doi:10.1511/2003.6.484.
+tucker, warwick (2011). validated numerics: a short introduction to rigorous computations. princeton university press.
+wippermann, hans-wilm (1968) [1967-06-15, 1966]. "definition von schrankenzahlen in triplex-algol". computing (in german). karlsruhe, germany: springer. 3 (2): 99–109. doi:10.1007/bf02277452. issn 0010-485x. s2cid 36685400. (11 pages) (nb. about triplex-algol karlsruhe, an algol 60 (1963) implementation with support for triplex numbers.)
+
+
+== external links ==
+interval arithmetic (wolfram mathworld)
+validated numerics for pedestrians
+interval methods from arnold neumaier, university of vienna
+swim (summer workshop on interval methods)
+international conference on parallel processing and applied mathematics
+intlab, institute for reliable computing, hamburg university of technology
+ball arithmetic by joris van der hoeven
+kv - a c++ library for verified numerical computation
+kv on github
+arb - a c library for arbitrary-precision ball arithmetic
+arb on github
+juliaintervals on github

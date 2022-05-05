@@ -1,0 +1,717 @@
+in mathematics, fredholm theory is a theory of integral equations. in the narrowest sense, fredholm theory concerns itself with the solution of the fredholm integral equation. in a broader sense, the abstract structure of fredholm's theory is given in terms of the spectral theory of fredholm operators and fredholm kernels on hilbert space. the theory is named in honour of erik ivar fredholm.
+
+
+== overview ==
+the following sections provide a casual sketch of the place of fredholm theory in the broader context of operator theory and functional analysis. the outline presented here is broad, whereas the difficulty of formalizing this sketch is, of course, in the details.
+
+
+== fredholm equation of the first kind ==
+much of fredholm theory concerns itself with the following integral equation for f when g and k are given:
+
+  
+    
+      
+        g
+        (
+        x
+        )
+        =
+        
+          ∫
+          
+            a
+          
+          
+            b
+          
+        
+        k
+        (
+        x
+        ,
+        y
+        )
+        f
+        (
+        y
+        )
+        
+        d
+        y
+        .
+      
+    
+    {\displaystyle g(x)=\int _{a}^{b}k(x,y)f(y)\,dy.}
+  this equation arises naturally in many problems in physics and mathematics, as the inverse of a differential equation. that is, one is asked to solve the differential equation
+
+  
+    
+      
+        l
+        g
+        (
+        x
+        )
+        =
+        f
+        (
+        x
+        )
+      
+    
+    {\displaystyle lg(x)=f(x)}
+  where the function  f is given and   g is unknown. here,   l stands for a linear differential operator. 
+for example, one might take   l to be an elliptic operator, such as
+
+  
+    
+      
+        l
+        =
+        
+          
+            
+              d
+              
+                2
+              
+            
+            
+              d
+              
+                x
+                
+                  2
+                
+              
+            
+          
+        
+        
+      
+    
+    {\displaystyle l={\frac {d^{2}}{dx^{2}}}\,}
+  in which case the equation to be solved becomes the poisson equation. 
+a general method of solving such equations is by means of green's functions, namely, rather than a direct attack, one first finds the function 
+  
+    
+      
+        k
+        =
+        k
+        (
+        x
+        ,
+        y
+        )
+      
+    
+    {\displaystyle k=k(x,y)}
+   such that for a given pair  x,y,
+
+  
+    
+      
+        l
+        k
+        (
+        x
+        ,
+        y
+        )
+        =
+        δ
+        (
+        x
+        −
+        y
+        )
+        ,
+      
+    
+    {\displaystyle lk(x,y)=\delta (x-y),}
+  where  δ(x)  is the dirac delta function. 
+the desired solution to the above differential equation is then written as an integral in the form of a fredholm integral equation,
+
+  
+    
+      
+        g
+        (
+        x
+        )
+        =
+        ∫
+        k
+        (
+        x
+        ,
+        y
+        )
+        f
+        (
+        y
+        )
+        
+        d
+        y
+        .
+      
+    
+    {\displaystyle g(x)=\int k(x,y)f(y)\,dy.}
+  the function  k(x,y) is variously known as a green's function, or the kernel of an integral. it is sometimes called the nucleus of the integral, whence the term nuclear operator arises.
+in the general theory,   x and   y may be points on any manifold; the real number line or   m-dimensional euclidean space in the simplest cases. the general theory also often requires that the functions belong to some given function space: often, the space of square-integrable functions is studied, and sobolev spaces appear often.
+the actual function space used is often determined by the solutions of the eigenvalue problem of the differential operator; that is, by the solutions to
+
+  
+    
+      
+        l
+        
+          ψ
+          
+            n
+          
+        
+        (
+        x
+        )
+        =
+        
+          ω
+          
+            n
+          
+        
+        
+          ψ
+          
+            n
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle l\psi _{n}(x)=\omega _{n}\psi _{n}(x)}
+  where the   ωn are the eigenvalues, and the  ψn(x)  are the eigenvectors. the set of eigenvectors span a banach space, and, when there is a natural inner product, then the eigenvectors span a hilbert space, at which point the riesz representation theorem is applied. examples of such spaces are the orthogonal polynomials that occur as the solutions to a class of second-order ordinary differential equations.
+given a hilbert space as above, the kernel may be written in the form
+
+  
+    
+      
+        k
+        (
+        x
+        ,
+        y
+        )
+        =
+        
+          ∑
+          
+            n
+          
+        
+        
+          
+            
+              
+                ψ
+                
+                  n
+                
+              
+              (
+              x
+              )
+              
+                ψ
+                
+                  n
+                
+              
+              (
+              y
+              )
+            
+            
+              ω
+              
+                n
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle k(x,y)=\sum _{n}{\frac {\psi _{n}(x)\psi _{n}(y)}{\omega _{n}}}.}
+  in this form, the object   k(x,y)  is often called the fredholm operator or the fredholm kernel. that this is the same kernel as before  follows from the completeness of the basis of the hilbert space, namely, that one has
+
+  
+    
+      
+        δ
+        (
+        x
+        −
+        y
+        )
+        =
+        
+          ∑
+          
+            n
+          
+        
+        
+          ψ
+          
+            n
+          
+        
+        (
+        x
+        )
+        
+          ψ
+          
+            n
+          
+        
+        (
+        y
+        )
+        .
+      
+    
+    {\displaystyle \delta (x-y)=\sum _{n}\psi _{n}(x)\psi _{n}(y).}
+  since the  ωn  are generally increasing, the resulting eigenvalues of the operator   k(x,y) are thus seen to be decreasing towards zero.
+
+
+== inhomogeneous equations ==
+the inhomogeneous fredholm integral equation
+
+  
+    
+      
+        f
+        (
+        x
+        )
+        =
+        −
+        ω
+        φ
+        (
+        x
+        )
+        +
+        ∫
+        k
+        (
+        x
+        ,
+        y
+        )
+        φ
+        (
+        y
+        )
+        
+        d
+        y
+      
+    
+    {\displaystyle f(x)=-\omega \varphi (x)+\int k(x,y)\varphi (y)\,dy}
+  may be written formally as
+
+  
+    
+      
+        f
+        =
+        (
+        k
+        −
+        ω
+        )
+        φ
+      
+    
+    {\displaystyle f=(k-\omega )\varphi }
+  which has the formal solution
+
+  
+    
+      
+        φ
+        =
+        
+          
+            1
+            
+              k
+              −
+              ω
+            
+          
+        
+        f
+        .
+      
+    
+    {\displaystyle \varphi ={\frac {1}{k-\omega }}f.}
+  a solution of this form is referred to as the resolvent formalism, where the resolvent is defined as the operator
+
+  
+    
+      
+        r
+        (
+        ω
+        )
+        =
+        
+          
+            1
+            
+              k
+              −
+              ω
+              i
+            
+          
+        
+        .
+      
+    
+    {\displaystyle r(\omega )={\frac {1}{k-\omega i}}.}
+  given the collection of eigenvectors and eigenvalues of k, the resolvent may be given a concrete form as
+
+  
+    
+      
+        r
+        (
+        ω
+        ;
+        x
+        ,
+        y
+        )
+        =
+        
+          ∑
+          
+            n
+          
+        
+        
+          
+            
+              
+                ψ
+                
+                  n
+                
+              
+              (
+              y
+              )
+              
+                ψ
+                
+                  n
+                
+              
+              (
+              x
+              )
+            
+            
+              
+                ω
+                
+                  n
+                
+              
+              −
+              ω
+            
+          
+        
+      
+    
+    {\displaystyle r(\omega ;x,y)=\sum _{n}{\frac {\psi _{n}(y)\psi _{n}(x)}{\omega _{n}-\omega }}}
+  with the solution being
+
+  
+    
+      
+        φ
+        (
+        x
+        )
+        =
+        ∫
+        r
+        (
+        ω
+        ;
+        x
+        ,
+        y
+        )
+        f
+        (
+        y
+        )
+        
+        d
+        y
+        .
+      
+    
+    {\displaystyle \varphi (x)=\int r(\omega ;x,y)f(y)\,dy.}
+  a necessary and sufficient condition for such a solution to exist is one of fredholm's theorems. the resolvent is commonly expanded in powers of 
+  
+    
+      
+        λ
+        =
+        1
+        
+          /
+        
+        ω
+      
+    
+    {\displaystyle \lambda =1/\omega }
+  , in which case it is known as the liouville-neumann series. in this case, the integral equation is written as
+
+  
+    
+      
+        g
+        (
+        x
+        )
+        =
+        φ
+        (
+        x
+        )
+        −
+        λ
+        ∫
+        k
+        (
+        x
+        ,
+        y
+        )
+        φ
+        (
+        y
+        )
+        
+        d
+        y
+      
+    
+    {\displaystyle g(x)=\varphi (x)-\lambda \int k(x,y)\varphi (y)\,dy}
+  and the resolvent is written in the alternate form as
+
+  
+    
+      
+        r
+        (
+        λ
+        )
+        =
+        
+          
+            1
+            
+              i
+              −
+              λ
+              k
+            
+          
+        
+        .
+      
+    
+    {\displaystyle r(\lambda )={\frac {1}{i-\lambda k}}.}
+  
+
+
+== fredholm determinant ==
+the fredholm determinant is commonly defined as
+
+  
+    
+      
+        det
+        (
+        i
+        −
+        λ
+        k
+        )
+        =
+        exp
+        ⁡
+        
+          [
+          
+            −
+            
+              ∑
+              
+                n
+              
+            
+            
+              
+                
+                  λ
+                  
+                    n
+                  
+                
+                n
+              
+            
+            tr
+            
+            
+              k
+              
+                n
+              
+            
+          
+          ]
+        
+      
+    
+    {\displaystyle \det(i-\lambda k)=\exp \left[-\sum _{n}{\frac {\lambda ^{n}}{n}}\operatorname {tr} \,k^{n}\right]}
+  where
+
+  
+    
+      
+        tr
+        
+        k
+        =
+        ∫
+        k
+        (
+        x
+        ,
+        x
+        )
+        
+        d
+        x
+      
+    
+    {\displaystyle \operatorname {tr} \,k=\int k(x,x)\,dx}
+  and
+
+  
+    
+      
+        tr
+        
+        
+          k
+          
+            2
+          
+        
+        =
+        ∬
+        k
+        (
+        x
+        ,
+        y
+        )
+        k
+        (
+        y
+        ,
+        x
+        )
+        
+        d
+        x
+        
+        d
+        y
+      
+    
+    {\displaystyle \operatorname {tr} \,k^{2}=\iint k(x,y)k(y,x)\,dx\,dy}
+  and so on. the corresponding zeta function is
+
+  
+    
+      
+        ζ
+        (
+        s
+        )
+        =
+        
+          
+            1
+            
+              det
+              (
+              i
+              −
+              s
+              k
+              )
+            
+          
+        
+        .
+      
+    
+    {\displaystyle \zeta (s)={\frac {1}{\det(i-sk)}}.}
+  the zeta function can be thought of as the determinant of the resolvent.
+the zeta function plays an important role in studying dynamical systems. note that this is the same general type of zeta function as the riemann zeta function; however, in this case, the corresponding kernel is not known. the existence of such a kernel is known as the hilbert–pólya conjecture.
+
+
+== main results ==
+the classical results of the theory are fredholm's theorems, one of which is the fredholm alternative.
+one of the important results from the general theory is that the kernel is a compact operator when the space of functions are equicontinuous.
+a related celebrated result is the atiyah–singer index theorem, pertaining to index (dim ker – dim coker) of elliptic operators on compact manifolds.
+
+
+== history ==
+fredholm's 1903 paper in acta mathematica is considered to be one of the major landmarks in the establishment of operator theory. david hilbert developed the abstraction of hilbert space in association with research on integral equations prompted by fredholm's (amongst other things).
+
+
+== see also ==
+green's functions
+spectral theory
+fredholm alternative
+
+
+== references ==
+fredholm, e. i. (1903). "sur une classe d'equations fonctionnelles" (pdf). acta mathematica. 27: 365–390. doi:10.1007/bf02421317.
+edmunds, d. e.; evans, w. d. (1987). spectral theory and differential operators. oxford university press. isbn 0-19-853542-2.
+b. v. khvedelidze, g. l. litvinov (2001) [1994], "fredholm kernel", encyclopedia of mathematics, ems press
+driver, bruce k. "compact and fredholm operators and the spectral theorem" (pdf). analysis tools with applications. pp. 579–600.
+mathews, jon; walker, robert l. (1970). mathematical methods of physics (2nd ed.). new york: w. a. benjamin. isbn 0-8053-7002-1.
+mcowen, robert c. (1980). "fredholm theory of partial differential equations on complete riemannian manifolds". pacific j. math. 87 (1): 169–185. doi:10.2140/pjm.1980.87.169. zbl 0457.35084.

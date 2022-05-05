@@ -1,0 +1,1532 @@
+pontryagin's maximum principle is used in optimal control theory to find the best possible control for taking a dynamical system from one state to another, especially in the presence of constraints for the state or input controls. it states that it is necessary for any optimal control along with the optimal state trajectory to solve the so-called hamiltonian system, which is a two-point boundary value problem, plus a maximum condition of the control hamiltonian. these necessary conditions become sufficient under certain convexity conditions on the objective and constraint functions.the maximum principle was formulated in 1956 by the russian mathematician lev pontryagin and his students, and its initial application was to the maximization of the terminal speed of a rocket. the result was derived using ideas from the classical calculus of variations. after a slight perturbation of the optimal control, one considers the first-order term of a taylor expansion with respect to the perturbation; sending the perturbation to zero leads to a variational inequality from which the maximum principle follows.widely regarded as a milestone in optimal control theory, the significance of the maximum principle lies in the fact that maximizing the hamiltonian is much easier than the original infinite-dimensional control problem; rather than maximizing over a function space, the problem is converted to a pointwise optimization. a similar logic leads to bellman's principle of optimality, a related approach to optimal control problems which states that the optimal trajectory remains optimal at intermediate points in time. the resulting hamilton–jacobi–bellman equation provides a necessary and sufficient condition for an optimum, and admits a straightforward extension to stochastic optimal control problems, whereas the maximum principle does not.  however in contrast to the hamilton–jacobi–bellman equation, which needs to hold over the entire state space to be valid, pontryagin's maximum principle is potentially more computationally efficient in that the conditions which it specifies only need to hold over a particular trajectory.
+
+
+== notation ==
+for set 
+  
+    
+      
+        
+          
+            u
+          
+        
+      
+    
+    {\displaystyle {\mathcal {u}}}
+   and functions 
+  
+    
+      
+        ψ
+        :
+        
+          
+            r
+          
+          
+            n
+          
+        
+        →
+        
+          r
+        
+        ,
+      
+    
+    {\displaystyle \psi :\mathbb {r} ^{n}\to \mathbb {r} ,}
+   
+  
+    
+      
+        h
+        :
+        
+          
+            r
+          
+          
+            n
+          
+        
+        ×
+        
+          
+            u
+          
+        
+        ×
+        
+          
+            r
+          
+          
+            n
+          
+        
+        ×
+        
+          r
+        
+        →
+        
+          r
+        
+        ,
+      
+    
+    {\displaystyle h:\mathbb {r} ^{n}\times {\mathcal {u}}\times \mathbb {r} ^{n}\times \mathbb {r} \to \mathbb {r} ,}
+   
+  
+    
+      
+        l
+        :
+        
+          
+            r
+          
+          
+            n
+          
+        
+        ×
+        
+          
+            u
+          
+        
+        →
+        
+          r
+        
+      
+    
+    {\displaystyle l:\mathbb {r} ^{n}\times {\mathcal {u}}\to \mathbb {r} }
+   and 
+  
+    
+      
+        f
+        :
+        
+          
+            r
+          
+          
+            n
+          
+        
+        ×
+        
+          
+            u
+          
+        
+        →
+        
+          
+            r
+          
+          
+            n
+          
+        
+        ,
+      
+    
+    {\displaystyle f:\mathbb {r} ^{n}\times {\mathcal {u}}\to \mathbb {r} ^{n},}
+   we use the following notation:
+
+  
+    
+      
+        
+          ψ
+          
+            t
+          
+        
+        (
+        x
+        (
+        t
+        )
+        )
+        =
+        
+          
+            
+            
+              
+                
+                  ∂
+                  ψ
+                  (
+                  x
+                  )
+                
+                
+                  ∂
+                  t
+                
+              
+            
+            |
+          
+          
+            x
+            =
+            x
+            (
+            t
+            )
+          
+        
+        
+      
+    
+    {\displaystyle \psi _{t}(x(t))=\left.{\frac {\partial \psi (x)}{\partial t}}\right|_{x=x(t)}\,}
+  
+  
+    
+      
+        
+          ψ
+          
+            x
+          
+        
+        (
+        x
+        (
+        t
+        )
+        )
+        =
+        
+          
+            [
+            
+              
+                
+                  
+                    
+                      
+                      
+                        
+                          
+                            ∂
+                            ψ
+                            (
+                            x
+                            )
+                          
+                          
+                            ∂
+                            
+                              x
+                              
+                                1
+                              
+                            
+                          
+                        
+                      
+                      |
+                    
+                    
+                      x
+                      =
+                      x
+                      (
+                      t
+                      )
+                    
+                  
+                
+                
+                  ⋯
+                
+                
+                  
+                    
+                      
+                      
+                        
+                          
+                            ∂
+                            ψ
+                            (
+                            x
+                            )
+                          
+                          
+                            ∂
+                            
+                              x
+                              
+                                n
+                              
+                            
+                          
+                        
+                      
+                      |
+                    
+                    
+                      x
+                      =
+                      x
+                      (
+                      t
+                      )
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+      
+    
+    {\displaystyle \psi _{x}(x(t))={\begin{bmatrix}\left.{\frac {\partial \psi (x)}{\partial x_{1}}}\right|_{x=x(t)}&\cdots &\left.{\frac {\partial \psi (x)}{\partial x_{n}}}\right|_{x=x(t)}\end{bmatrix}}}
+  
+  
+    
+      
+        
+          h
+          
+            x
+          
+        
+        (
+        
+          x
+          
+            ∗
+          
+        
+        ,
+        
+          u
+          
+            ∗
+          
+        
+        ,
+        
+          λ
+          
+            ∗
+          
+        
+        ,
+        t
+        )
+        =
+        
+          
+            [
+            
+              
+                
+                  
+                    
+                      
+                      
+                        
+                          
+                            ∂
+                            h
+                          
+                          
+                            ∂
+                            
+                              x
+                              
+                                1
+                              
+                            
+                          
+                        
+                      
+                      |
+                    
+                    
+                      x
+                      =
+                      
+                        x
+                        
+                          ∗
+                        
+                      
+                      ,
+                      u
+                      =
+                      
+                        u
+                        
+                          ∗
+                        
+                      
+                      ,
+                      λ
+                      =
+                      
+                        λ
+                        
+                          ∗
+                        
+                      
+                    
+                  
+                
+                
+                  ⋯
+                
+                
+                  
+                    
+                      
+                      
+                        
+                          
+                            ∂
+                            h
+                          
+                          
+                            ∂
+                            
+                              x
+                              
+                                n
+                              
+                            
+                          
+                        
+                      
+                      |
+                    
+                    
+                      x
+                      =
+                      
+                        x
+                        
+                          ∗
+                        
+                      
+                      ,
+                      u
+                      =
+                      
+                        u
+                        
+                          ∗
+                        
+                      
+                      ,
+                      λ
+                      =
+                      
+                        λ
+                        
+                          ∗
+                        
+                      
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+      
+    
+    {\displaystyle h_{x}(x^{*},u^{*},\lambda ^{*},t)={\begin{bmatrix}\left.{\frac {\partial h}{\partial x_{1}}}\right|_{x=x^{*},u=u^{*},\lambda =\lambda ^{*}}&\cdots &\left.{\frac {\partial h}{\partial x_{n}}}\right|_{x=x^{*},u=u^{*},\lambda =\lambda ^{*}}\end{bmatrix}}}
+  
+  
+    
+      
+        
+          l
+          
+            x
+          
+        
+        (
+        
+          x
+          
+            ∗
+          
+        
+        ,
+        
+          u
+          
+            ∗
+          
+        
+        )
+        =
+        
+          
+            [
+            
+              
+                
+                  
+                    
+                      
+                      
+                        
+                          
+                            ∂
+                            l
+                          
+                          
+                            ∂
+                            
+                              x
+                              
+                                1
+                              
+                            
+                          
+                        
+                      
+                      |
+                    
+                    
+                      x
+                      =
+                      
+                        x
+                        
+                          ∗
+                        
+                      
+                      ,
+                      u
+                      =
+                      
+                        u
+                        
+                          ∗
+                        
+                      
+                    
+                  
+                
+                
+                  ⋯
+                
+                
+                  
+                    
+                      
+                      
+                        
+                          
+                            ∂
+                            l
+                          
+                          
+                            ∂
+                            
+                              x
+                              
+                                n
+                              
+                            
+                          
+                        
+                      
+                      |
+                    
+                    
+                      x
+                      =
+                      
+                        x
+                        
+                          ∗
+                        
+                      
+                      ,
+                      u
+                      =
+                      
+                        u
+                        
+                          ∗
+                        
+                      
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+      
+    
+    {\displaystyle l_{x}(x^{*},u^{*})={\begin{bmatrix}\left.{\frac {\partial l}{\partial x_{1}}}\right|_{x=x^{*},u=u^{*}}&\cdots &\left.{\frac {\partial l}{\partial x_{n}}}\right|_{x=x^{*},u=u^{*}}\end{bmatrix}}}
+  
+  
+    
+      
+        
+          f
+          
+            x
+          
+        
+        (
+        
+          x
+          
+            ∗
+          
+        
+        ,
+        
+          u
+          
+            ∗
+          
+        
+        )
+        =
+        
+          
+            [
+            
+              
+                
+                  
+                    
+                      
+                      
+                        
+                          
+                            ∂
+                            
+                              f
+                              
+                                1
+                              
+                            
+                          
+                          
+                            ∂
+                            
+                              x
+                              
+                                1
+                              
+                            
+                          
+                        
+                      
+                      |
+                    
+                    
+                      x
+                      =
+                      
+                        x
+                        
+                          ∗
+                        
+                      
+                      ,
+                      u
+                      =
+                      
+                        u
+                        
+                          ∗
+                        
+                      
+                    
+                  
+                
+                
+                  ⋯
+                
+                
+                  
+                    
+                      
+                      
+                        
+                          
+                            ∂
+                            
+                              f
+                              
+                                1
+                              
+                            
+                          
+                          
+                            ∂
+                            
+                              x
+                              
+                                n
+                              
+                            
+                          
+                        
+                      
+                      |
+                    
+                    
+                      x
+                      =
+                      
+                        x
+                        
+                          ∗
+                        
+                      
+                      ,
+                      u
+                      =
+                      
+                        u
+                        
+                          ∗
+                        
+                      
+                    
+                  
+                
+              
+              
+                
+                  ⋮
+                
+                
+                  ⋱
+                
+                
+                  ⋮
+                
+              
+              
+                
+                  
+                    
+                      
+                      
+                        
+                          
+                            ∂
+                            
+                              f
+                              
+                                n
+                              
+                            
+                          
+                          
+                            ∂
+                            
+                              x
+                              
+                                1
+                              
+                            
+                          
+                        
+                      
+                      |
+                    
+                    
+                      x
+                      =
+                      
+                        x
+                        
+                          ∗
+                        
+                      
+                      ,
+                      u
+                      =
+                      
+                        u
+                        
+                          ∗
+                        
+                      
+                    
+                  
+                
+                
+                  …
+                
+                
+                  
+                    
+                      
+                      
+                        
+                          
+                            ∂
+                            
+                              f
+                              
+                                n
+                              
+                            
+                          
+                          
+                            ∂
+                            
+                              x
+                              
+                                n
+                              
+                            
+                          
+                        
+                      
+                      |
+                    
+                    
+                      x
+                      =
+                      
+                        x
+                        
+                          ∗
+                        
+                      
+                      ,
+                      u
+                      =
+                      
+                        u
+                        
+                          ∗
+                        
+                      
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+      
+    
+    {\displaystyle f_{x}(x^{*},u^{*})={\begin{bmatrix}\left.{\frac {\partial f_{1}}{\partial x_{1}}}\right|_{x=x^{*},u=u^{*}}&\cdots &\left.{\frac {\partial f_{1}}{\partial x_{n}}}\right|_{x=x^{*},u=u^{*}}\\\vdots &\ddots &\vdots \\\left.{\frac {\partial f_{n}}{\partial x_{1}}}\right|_{x=x^{*},u=u^{*}}&\ldots &\left.{\frac {\partial f_{n}}{\partial x_{n}}}\right|_{x=x^{*},u=u^{*}}\end{bmatrix}}}
+  
+
+
+== formal statement of necessary conditions for minimization problem ==
+here the necessary conditions are shown for minimization of a functional. take 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   to be the state of the dynamical system with input 
+  
+    
+      
+        u
+      
+    
+    {\displaystyle u}
+  , such that
+
+  
+    
+      
+        
+          
+            
+              x
+              ˙
+            
+          
+        
+        =
+        f
+        (
+        x
+        ,
+        u
+        )
+        ,
+        
+        x
+        (
+        0
+        )
+        =
+        
+          x
+          
+            0
+          
+        
+        ,
+        
+        u
+        (
+        t
+        )
+        ∈
+        
+          
+            u
+          
+        
+        ,
+        
+        t
+        ∈
+        [
+        0
+        ,
+        t
+        ]
+      
+    
+    {\displaystyle {\dot {x}}=f(x,u),\quad x(0)=x_{0},\quad u(t)\in {\mathcal {u}},\quad t\in [0,t]}
+  where 
+  
+    
+      
+        
+          
+            u
+          
+        
+      
+    
+    {\displaystyle {\mathcal {u}}}
+   is the set of admissible controls and 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   is the terminal (i.e., final) time of the system. the control 
+  
+    
+      
+        u
+        ∈
+        
+          
+            u
+          
+        
+      
+    
+    {\displaystyle u\in {\mathcal {u}}}
+   must be chosen for all 
+  
+    
+      
+        t
+        ∈
+        [
+        0
+        ,
+        t
+        ]
+      
+    
+    {\displaystyle t\in [0,t]}
+   to minimize the objective functional 
+  
+    
+      
+        j
+      
+    
+    {\displaystyle j}
+   which is defined by the application and can be abstracted as
+
+  
+    
+      
+        j
+        =
+        ψ
+        (
+        x
+        (
+        t
+        )
+        )
+        +
+        
+          ∫
+          
+            0
+          
+          
+            t
+          
+        
+        l
+        (
+        x
+        (
+        t
+        )
+        ,
+        u
+        (
+        t
+        )
+        )
+        
+        d
+        t
+      
+    
+    {\displaystyle j=\psi (x(t))+\int _{0}^{t}l(x(t),u(t))\,dt}
+  the constraints on the system dynamics can be adjoined to the lagrangian 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+   by introducing time-varying lagrange multiplier vector 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+  , whose elements are called the costates of the system. this motivates the construction of the hamiltonian 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   defined for all 
+  
+    
+      
+        t
+        ∈
+        [
+        0
+        ,
+        t
+        ]
+      
+    
+    {\displaystyle t\in [0,t]}
+   by:
+
+  
+    
+      
+        h
+        (
+        x
+        (
+        t
+        )
+        ,
+        u
+        (
+        t
+        )
+        ,
+        λ
+        (
+        t
+        )
+        ,
+        t
+        )
+        =
+        
+          λ
+          
+            
+              t
+            
+          
+        
+        (
+        t
+        )
+        f
+        (
+        x
+        (
+        t
+        )
+        ,
+        u
+        (
+        t
+        )
+        )
+        +
+        l
+        (
+        x
+        (
+        t
+        )
+        ,
+        u
+        (
+        t
+        )
+        )
+        
+      
+    
+    {\displaystyle h(x(t),u(t),\lambda (t),t)=\lambda ^{\rm {t}}(t)f(x(t),u(t))+l(x(t),u(t))\,}
+  where 
+  
+    
+      
+        
+          λ
+          
+            
+              t
+            
+          
+        
+      
+    
+    {\displaystyle \lambda ^{\rm {t}}}
+   is the transpose of 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+  .
+pontryagin's minimum principle states that the optimal state trajectory 
+  
+    
+      
+        
+          x
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle x^{*}}
+  , optimal control 
+  
+    
+      
+        
+          u
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle u^{*}}
+  , and corresponding lagrange multiplier vector 
+  
+    
+      
+        
+          λ
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle \lambda ^{*}}
+   must  minimize the hamiltonian 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   so that
+
+  
+    
+      
+        (
+        1
+        )
+        
+        h
+        (
+        
+          x
+          
+            ∗
+          
+        
+        (
+        t
+        )
+        ,
+        
+          u
+          
+            ∗
+          
+        
+        (
+        t
+        )
+        ,
+        
+          λ
+          
+            ∗
+          
+        
+        (
+        t
+        )
+        ,
+        t
+        )
+        ≤
+        h
+        (
+        
+          x
+          
+            ∗
+          
+        
+        (
+        t
+        )
+        ,
+        u
+        ,
+        
+          λ
+          
+            ∗
+          
+        
+        (
+        t
+        )
+        ,
+        t
+        )
+        
+      
+    
+    {\displaystyle (1)\qquad h(x^{*}(t),u^{*}(t),\lambda ^{*}(t),t)\leq h(x^{*}(t),u,\lambda ^{*}(t),t)\,}
+  for all time 
+  
+    
+      
+        t
+        ∈
+        [
+        0
+        ,
+        t
+        ]
+      
+    
+    {\displaystyle t\in [0,t]}
+   and for all permissible control inputs 
+  
+    
+      
+        u
+        ∈
+        
+          
+            u
+          
+        
+      
+    
+    {\displaystyle u\in {\mathcal {u}}}
+  . additionally, the costate equation and its terminal conditions
+
+  
+    
+      
+        (
+        2
+        )
+        
+        −
+        
+          
+            
+              
+                λ
+                ˙
+              
+            
+          
+          
+            
+              t
+            
+          
+        
+        (
+        t
+        )
+        =
+        
+          h
+          
+            x
+          
+        
+        (
+        
+          x
+          
+            ∗
+          
+        
+        (
+        t
+        )
+        ,
+        
+          u
+          
+            ∗
+          
+        
+        (
+        t
+        )
+        ,
+        λ
+        (
+        t
+        )
+        ,
+        t
+        )
+        =
+        
+          λ
+          
+            
+              t
+            
+          
+        
+        (
+        t
+        )
+        
+          f
+          
+            x
+          
+        
+        (
+        
+          x
+          
+            ∗
+          
+        
+        (
+        t
+        )
+        ,
+        
+          u
+          
+            ∗
+          
+        
+        (
+        t
+        )
+        )
+        +
+        
+          l
+          
+            x
+          
+        
+        (
+        
+          x
+          
+            ∗
+          
+        
+        (
+        t
+        )
+        ,
+        
+          u
+          
+            ∗
+          
+        
+        (
+        t
+        )
+        )
+      
+    
+    {\displaystyle (2)\qquad -{\dot {\lambda }}^{\rm {t}}(t)=h_{x}(x^{*}(t),u^{*}(t),\lambda (t),t)=\lambda ^{\rm {t}}(t)f_{x}(x^{*}(t),u^{*}(t))+l_{x}(x^{*}(t),u^{*}(t))}
+  
+  
+    
+      
+        (
+        3
+        )
+        
+        
+          λ
+          
+            
+              t
+            
+          
+        
+        (
+        t
+        )
+        =
+        
+          ψ
+          
+            x
+          
+        
+        (
+        x
+        (
+        t
+        )
+        )
+        
+      
+    
+    {\displaystyle (3)\qquad \lambda ^{\rm {t}}(t)=\psi _{x}(x(t))\,}
+  must be satisfied. if the final state 
+  
+    
+      
+        x
+        (
+        t
+        )
+      
+    
+    {\displaystyle x(t)}
+   is not fixed (i.e., its differential variation is not zero), it must also be that
+
+  
+    
+      
+        (
+        4
+        )
+        
+        
+          ψ
+          
+            t
+          
+        
+        (
+        x
+        (
+        t
+        )
+        )
+        +
+        h
+        (
+        t
+        )
+        =
+        0
+        
+      
+    
+    {\displaystyle (4)\qquad \psi _{t}(x(t))+h(t)=0\,}
+  these four conditions in (1)-(4) are the necessary conditions for an optimal control. note that (4) only applies when 
+  
+    
+      
+        x
+        (
+        t
+        )
+      
+    
+    {\displaystyle x(t)}
+   is free. if it is fixed, then this condition is not necessary for an optimum.
+
+
+== see also ==
+lagrange multipliers on banach spaces, lagrangian method in calculus of variations
+
+
+== notes ==
+
+
+== references ==
+
+
+== further reading ==
+geering, h. p. (2007). optimal control with engineering applications. springer. isbn 978-3-540-69437-3.
+kirk, d. e. (1970). optimal control theory: an introduction. prentice hall. isbn 0-486-43484-2.
+lee, e. b.; markus, l. (1967). foundations of optimal control theory. new york: wiley.
+seierstad, atle; sydsæter, knut (1987). optimal control theory with economic applications. amsterdam: north-holland. isbn 0-444-87923-4.
+
+
+== external links ==
+"pontryagin maximum principle", encyclopedia of mathematics, ems press, 2001 [1994]

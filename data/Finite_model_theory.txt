@@ -1,0 +1,897 @@
+finite model theory is a subarea of model theory. model theory is the branch of logic which deals with the relation between a formal language (syntax) and its interpretations (semantics). finite model theory is a restriction of model theory to interpretations on finite structures, which have a finite universe.
+since many central theorems of model theory do not hold when restricted to finite structures, finite model theory is quite different from model theory in its methods of proof. central results of classical model theory that fail for finite structures under finite model theory include the compactness theorem, gödel's completeness theorem, and the method of ultraproducts for first-order logic (fo).  
+while model theory has many applications to mathematical algebra, finite model theory became an "unusually effective" instrument in computer science.  in other words: "in the history of mathematical logic most interest has concentrated on infinite structures. [...] yet, the objects computers have and hold are always finite.  to study computation we need a theory of finite structures."  thus the main application areas of finite model theory are: descriptive complexity theory, database theory and formal language theory.  
+
+
+== axiomatisability ==
+a common motivating question in finite model theory is whether a given class of structures can be described in a given language. for instance, one might ask whether the class of cyclic graphs can be distinguished among graphs by a fo sentence, which can also be phrased as asking whether cyclicity is fo-expressible.
+a single finite structure can always be axiomatized in first-order logic, where axiomatized in a language l means described uniquely up to isomorphism by a single l-sentence.  similarly, any finite collection of finite structures can always be axiomatized in first-order logic. some, but not all, infinite collections of finite structures can also be axiomatized by a single first-order sentence.
+
+
+=== characterisation of a single structure ===
+is a language l expressive enough to axiomatize a single finite structure s?
+
+
+==== problem ====
+a structure like (1) in the figure can be described by fo sentences in the logic of graphs like
+
+every node has an edge to another node: 
+  
+    
+      
+        
+          ∀
+          
+            x
+          
+        
+        
+          ∃
+          
+            y
+          
+        
+        g
+        (
+        x
+        ,
+        y
+        )
+        .
+      
+    
+    {\displaystyle \forall _{x}\exists _{y}g(x,y).}
+  
+no node has an edge to itself: 
+  
+    
+      
+        
+          ∀
+          
+            x
+            ,
+            y
+          
+        
+        (
+        g
+        (
+        x
+        ,
+        y
+        )
+        ⇒
+        x
+        ≠
+        y
+        )
+        .
+      
+    
+    {\displaystyle \forall _{x,y}(g(x,y)\rightarrow x\neq y).}
+  
+there is at least one node that is connected to all others: 
+  
+    
+      
+        
+          ∃
+          
+            x
+          
+        
+        
+          ∀
+          
+            y
+          
+        
+        (
+        x
+        ≠
+        y
+        ⇒
+        g
+        (
+        x
+        ,
+        y
+        )
+        )
+        .
+      
+    
+    {\displaystyle \exists _{x}\forall _{y}(x\neq y\rightarrow g(x,y)).}
+  however, these properties do not axiomatize the structure, since for structure (1') the above properties hold as well, yet structures (1) and (1') are not isomorphic.
+informally the question is whether by adding enough properties, these properties together describe exactly (1) and are valid (all together) for no other structure (up to isomorphism).
+
+
+==== approach ====
+for a single finite structure it is always possible to precisely describe the structure by a single fo sentence.  the principle is illustrated here for a structure with one binary relation 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+   and without constants:
+
+say that there are at least 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   elements: 
+  
+    
+      
+        
+          φ
+          
+            1
+          
+        
+        =
+        
+          ⋀
+          
+            i
+            ≠
+            j
+          
+        
+        ¬
+        (
+        
+          x
+          
+            i
+          
+        
+        =
+        
+          x
+          
+            j
+          
+        
+        )
+      
+    
+    {\displaystyle \varphi _{1}=\bigwedge _{i\neq j}\neg (x_{i}=x_{j})}
+  
+say that there are at most 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   elements: 
+  
+    
+      
+        
+          φ
+          
+            2
+          
+        
+        =
+        
+          ∀
+          
+            y
+          
+        
+        
+          ⋁
+          
+            i
+          
+        
+        (
+        
+          x
+          
+            i
+          
+        
+        =
+        y
+        )
+      
+    
+    {\displaystyle \varphi _{2}=\forall _{y}\bigvee _{i}(x_{i}=y)}
+  
+state every element of the relation 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+  : 
+  
+    
+      
+        
+          φ
+          
+            3
+          
+        
+        =
+        
+          ⋀
+          
+            (
+            
+              a
+              
+                i
+              
+            
+            ,
+            
+              a
+              
+                j
+              
+            
+            )
+            ∈
+            r
+          
+        
+        r
+        (
+        
+          x
+          
+            i
+          
+        
+        ,
+        
+          x
+          
+            j
+          
+        
+        )
+      
+    
+    {\displaystyle \varphi _{3}=\bigwedge _{(a_{i},a_{j})\in r}r(x_{i},x_{j})}
+  
+state every non-element of the relation 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+  : 
+  
+    
+      
+        
+          φ
+          
+            4
+          
+        
+        =
+        
+          ⋀
+          
+            (
+            
+              a
+              
+                i
+              
+            
+            ,
+            
+              a
+              
+                j
+              
+            
+            )
+            ∉
+            r
+          
+        
+        ¬
+        r
+        (
+        
+          x
+          
+            i
+          
+        
+        ,
+        
+          x
+          
+            j
+          
+        
+        )
+      
+    
+    {\displaystyle \varphi _{4}=\bigwedge _{(a_{i},a_{j})\notin r}\neg r(x_{i},x_{j})}
+  all for the same tuple 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+        .
+        .
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x_{1}..x_{n}}
+  , yielding the fo sentence 
+  
+    
+      
+        
+          ∃
+          
+            
+              x
+              
+                1
+              
+            
+          
+        
+        …
+        
+          ∃
+          
+            
+              x
+              
+                n
+              
+            
+          
+        
+        (
+        
+          φ
+          
+            1
+          
+        
+        ∧
+        
+          φ
+          
+            2
+          
+        
+        ∧
+        
+          φ
+          
+            3
+          
+        
+        ∧
+        
+          φ
+          
+            4
+          
+        
+        )
+      
+    
+    {\displaystyle \exists _{x_{1}}\dots \exists _{x_{n}}(\varphi _{1}\land \varphi _{2}\land \varphi _{3}\land \varphi _{4})}
+  .
+
+
+==== extension to a fixed number of structures ====
+the method of describing a single structure by means of a first-order sentence can easily be extended for any fixed number of structures.  a unique description can be obtained by the disjunction of the descriptions for each structure.  for instance, for two structures 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   and 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   with defining sentences 
+  
+    
+      
+        
+          φ
+          
+            a
+          
+        
+      
+    
+    {\displaystyle \varphi _{a}}
+   and 
+  
+    
+      
+        
+          φ
+          
+            b
+          
+        
+      
+    
+    {\displaystyle \varphi _{b}}
+   this would be
+
+  
+    
+      
+        
+          φ
+          
+            a
+          
+        
+        ∨
+        
+          φ
+          
+            b
+          
+        
+        .
+      
+    
+    {\displaystyle \varphi _{a}\lor \varphi _{b}.}
+  
+
+
+==== extension to an infinite structure ====
+by definition, a set containing an infinite structure falls outside the area that fmt deals with.  note that infinite structures can never be discriminated in fo, because of the löwenheim–skolem theorem, which implies that no first-order theory with an infinite model can have a unique model up to isomorphism.
+the most famous example is probably skolem's theorem, that there is a countable non-standard model of arithmetic.
+
+
+=== characterisation of a class of structures ===
+is a language l expressive enough to describe exactly (up to isomorphism) those finite structures that have certain property p?
+
+
+==== problem ====
+the descriptions given so far all specify the number of elements of the universe.  unfortunately most interesting sets of structures are not restricted to a certain size, like all graphs that are trees, are connected or are acyclic.  thus to discriminate a finite number of structures is of special importance.
+
+
+==== approach ====
+instead of a general statement, the following is a sketch of a methodology to differentiate between structures that can and cannot be discriminated.
+1. the core idea is that whenever one wants to see if a property p can be expressed in fo, one chooses structures a and b, where a does have p and b doesn't. if for a and b the same fo sentences hold, then p cannot be expressed in fo. in short:
+
+  
+    
+      
+        a
+        ∈
+        p
+        ,
+        b
+        ∉
+        p
+      
+    
+    {\displaystyle a\in p,b\not \in p}
+   and 
+  
+    
+      
+        a
+        ≡
+        b
+        ,
+      
+    
+    {\displaystyle a\equiv b,}
+  where 
+  
+    
+      
+        a
+        ≡
+        b
+      
+    
+    {\displaystyle a\equiv b}
+   is shorthand for 
+  
+    
+      
+        a
+        ⊨
+        α
+        ⇔
+        b
+        ⊨
+        α
+      
+    
+    {\displaystyle a\models \alpha \leftrightarrow b\models \alpha }
+   for all fo-sentences α, and p represents the class of structures with property p.
+2. the methodology considers countably many subsets of the language, the union of which forms the language itself. for instance, for fo consider classes fo[m] for each m.  for each m the above core idea then has to be shown.  that is:
+
+  
+    
+      
+        a
+        ∈
+        p
+        ,
+        b
+        ∉
+        p
+      
+    
+    {\displaystyle a\in p,b\not \in p}
+   and 
+  
+    
+      
+        a
+        
+          ≡
+          
+            m
+          
+        
+        b
+      
+    
+    {\displaystyle a\equiv _{m}b}
+  with a pair 
+  
+    
+      
+        a
+        ,
+        b
+      
+    
+    {\displaystyle a,b}
+   for each 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   and α (in ≡) from fo[m].  it may be appropriate to choose the classes fo[m] to form a partition of the language.
+3. one common way to define fo[m] is by means of the quantifier rank qr(α) of a fo formula α, which expresses the depth of quantifier nesting.  for example, for a formula in prenex normal form, qr is simply the total number of its quantifiers.  then fo[m] can be defined as all fo formulas α with qr(α) ≤ m (or, if a partition is desired, as those fo formulas with quantifier rank equal to m).
+4. thus it all comes down to showing 
+  
+    
+      
+        a
+        ⊨
+        α
+        ⇔
+        b
+        ⊨
+        α
+      
+    
+    {\displaystyle a\models \alpha \leftrightarrow b\models \alpha }
+   on the subsets fo[m].  the main approach here is to use the algebraic characterization provided by ehrenfeucht–fraïssé games. informally, these take a single partial isomorphism on a and b and extend it m times, in order to either prove or disprove 
+  
+    
+      
+        a
+        
+          ≡
+          
+            m
+          
+        
+        b
+      
+    
+    {\displaystyle a\equiv _{m}b}
+  , dependent on who wins the game.
+
+
+==== example ====
+we want to show that the property that the size of an ordered structure a = (a, ≤) is even, can not be expressed in fo.
+1. the idea is to pick a ∈ even and b ∉ even, where even is the class of all structures of even size.
+2. we start with two ordered structures a2 and b2 with universes a2 = {1, 2, 3, 4} and b2 = {1, 2, 3}.  obviously a2 ∈ even and b2 ∉ even.
+3. for m = 2, we can now show* that in a 2-move ehrenfeucht–fraïssé game on a2 and b2 the duplicator always wins, and thus a2 and b2 cannot be discriminated in fo[2], i.e. a2 
+  
+    
+      
+        ⊨
+      
+    
+    {\displaystyle \models }
+   α ⇔ b2 
+  
+    
+      
+        ⊨
+      
+    
+    {\displaystyle \models }
+   α for every α ∈ fo[2].
+4. next we have to scale the structures up by increasing m.  for example, for m = 3 we must find an a3 and b3 such that the duplicator always wins the 3-move game.  this can be achieved by a3 = {1, ..., 8} and b3 = {1, ..., 7}.  more generally, we can choose am = {1, ..., 2m} and bm = {1, ..., 2m-1}; for any m the duplicator always wins the m-move game for this pair of structures*.
+5. thus even on finite ordered structures cannot be expressed in fo.
+(*) note that the proof of the result of the ehrenfeucht–fraïssé game has been omitted, since it is not the main focus here.
+
+
+== zero-one laws ==
+glebskiĭ et al. (1969) and, independently,
+fagin (1976) proved a zero–one law for first-order sentences in finite models; fagin's proof used the compactness theorem. according to this result, every first-order sentence in a relational signature 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+   is  either almost always true or almost always false in finite 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+  -structures. that is, let s be a fixed first-order sentence, and choose a random 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+  -structure 
+  
+    
+      
+        
+          g
+          
+            n
+          
+        
+      
+    
+    {\displaystyle g_{n}}
+   with domain 
+  
+    
+      
+        {
+        1
+        ,
+        …
+        ,
+        n
+        }
+      
+    
+    {\displaystyle \{1,\dots ,n\}}
+  , uniformly among all 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+  -structures with domain 
+  
+    
+      
+        {
+        1
+        ,
+        …
+        ,
+        n
+        }
+      
+    
+    {\displaystyle \{1,\dots ,n\}}
+  . then in the limit as n tends to infinity, the probability that gn models s will tend either to zero or to one:
+
+  
+    
+      
+        
+          lim
+          
+            n
+            →
+            ∞
+          
+        
+        pr
+        ⁡
+        [
+        
+          g
+          
+            n
+          
+        
+        ⊨
+        s
+        ]
+        ∈
+        {
+        0
+        ,
+        1
+        }
+        .
+      
+    
+    {\displaystyle \lim _{n\to \infty }\operatorname {pr} [g_{n}\models s]\in \{0,1\}.}
+  the problem of determining whether a given sentence has probability tending to zero or to one is pspace-complete.a similar analysis has been performed for more expressive logics than first-order logic. the 0-1 law has been shown to hold for sentences in fo(lfp), first-order logic augmented with a least fixed point operator, and more generally for sentences in the infinitary logic 
+  
+    
+      
+        
+          l
+          
+            ∞
+            ω
+          
+          
+            ω
+          
+        
+      
+    
+    {\displaystyle l_{\infty \omega }^{\omega }}
+  , which allows for potentially arbitrarily long conjunctions and disjunctions.
+another important variant is the unlabelled 0-1 law, where instead of considering the fraction of structures with domain 
+  
+    
+      
+        {
+        1
+        ,
+        …
+        ,
+        n
+        }
+      
+    
+    {\displaystyle \{1,\dots ,n\}}
+  , one considers the fraction of isomorphism classes of structures with n elements. this fraction is well-defined, since any two isomorphic structures satisfy the same elements. the unlabelled 0-1 law also holds for 
+  
+    
+      
+        
+          l
+          
+            ∞
+            ω
+          
+          
+            ω
+          
+        
+      
+    
+    {\displaystyle l_{\infty \omega }^{\omega }}
+   and therefore in particular for fo(lfp) and first-order logic.
+
+
+== descriptive complexity theory ==
+
+an important goal of finite model theory is the characterisation of complexity classes by the type of logic needed to express the languages in them. for example, ph, the union of all complexity classes in the polynomial hierarchy, is precisely the class of languages expressible by statements of second-order logic. this connection between complexity and the logic of finite structures allows results to be transferred easily from one area to the other, facilitating new proof methods and providing additional evidence that the main complexity classes are somehow "natural" and not tied to the specific abstract machines used to define them.
+specifically, each logical system produces a set of queries expressible in it. the queries – when restricted to finite structures – correspond to the computational problems of traditional complexity theory.
+some well-known complexity classes are captured by logical languages as follows:
+
+in the presence of a linear order, first-order logic with a commutative, transitive closure operator added yields l, problems solvable in logarithmic space.
+in the presence of a linear order, first-order logic with a transitive closure operator yields nl, the problems solvable in nondeterministic logarithmic space.
+in the presence of a linear order, first-order logic with a least fixed point operator gives p, the problems solvable in deterministic polynomial time.
+on all finite structures (regardless of whether they are ordered), existential second-order logic gives np (fagin's theorem).
+
+
+== applications ==
+
+
+=== database theory ===
+a substantial fragment of sql (namely that which is effectively relational algebra) is based on first-order logic (more precisely can be translated in domain relational calculus by means of codd's theorem), as the following example illustrates: think of a database table "girls" with the columns "first_name" and "last_name".  this corresponds to a binary relation, say g(f, l) on first_name x last_name.  the fo query {l : g('judy', l)}, which returns all the last names where the first name is 'judy', would look in sql like this:
+
+select last_name 
+from girls
+where first_name = 'judy'
+
+notice, we assume here, that all last names appear only once (or we should use select distinct since we assume that relations and answers are sets, not bags).
+next we want to make a more complex statement.  therefore, in addition to the "girls" table we have a table "boys" also with the columns "first_name" and "last_name". now we want to query the last names of all the girls that have the same last name as at least one of the boys.  the fo query is {(f,l) : ∃h ( g(f, l) ∧ b(h, l) )}, and the corresponding sql statement is:
+
+select first_name, last_name 
+from girls
+where last_name in ( select last_name from boys );
+
+notice that in order to express the "∧" we introduced the new language element "in" with a subsequent select statement.  this makes the language more expressive for the price of higher difficulty to learn and implement.  this is a common trade-off in formal language design.  the way shown above ("in") is by far not the only one to extend the language. an alternative way is e.g. to introduce a "join" operator, that is:
+
+select distinct g.first_name, g.last_name 
+from girls g, boys b
+where g.last_name=b.last_name;
+
+first-order logic is too restrictive for some database applications, for instance because of its inability to express transitive closure.  this has led to more powerful constructs being added to database query languages, such as recursive with in sql:1999.  more expressive logics, like fixpoint logics, have therefore been studied in finite model theory because of their relevance to database theory and applications.
+
+
+=== querying and search ===
+narrative data contains no defined relations.  thus the logical structure of text search queries can be expressed in propositional logic, like in:
+
+("java" and not "island") or ("c#" and not "music")
+
+note that the challenges in full text search are different from database querying, like ranking of results.
+
+
+== history ==
+trakhtenbrot 1950: failure of completeness theorem in first-order logic
+scholz 1952: characterisation of spectra in first-order logic
+fagin 1974: the set of all properties expressible in existential second-order logic is precisely the complexity class np
+chandra, harel 1979/80: fixed-point first-order logic extension for database query languages capable of expressing transitive closure -> queries as central objects of fmt
+immerman, vardi 1982: fixed-point logic over ordered structures captures ptime -> descriptive complexity (immerman–szelepcsényi theorem)
+ebbinghaus, flum 1995: first comprehensive book "finite model theory"
+abiteboul, hull, vianu 1995: book "foundations of databases"
+immerman 1999: book "descriptive complexity"
+kuper, libkin, paredaens 2000: book "constraint databases"
+darmstadt 2005/ aachen 2006: first international workshops on "algorithmic model theory"
+
+
+== citations ==
+
+
+== references ==
+ebbinghaus, heinz-dieter; flum, jörg (1995). finite model theory. springer. isbn 978-3-540-60149-4.libkin, leonid (2004). elements of finite model theory. springer. isbn 3-540-21202-7.abiteboul, serge; hull, richard; vianu, victor (1995). foundations of databases. addison-wesley. isbn 0-201-53771-0.immerman, neil (1999). descriptive complexity. new york: springer. isbn 0-387-98600-6.
+
+
+== further reading ==
+grädel, erich; kolaitis, phokion g.; libkin, leonid; maarten, marx; spencer, joel; vardi, moshe y.; venema, yde; weinstein, scott (2007). finite model theory and its applications. texts in theoretical computer science. an eatcs series. berlin: springer-verlag. isbn 978-3-540-00428-8. zbl 1133.03001.
+
+
+== external links ==
+libkin, leonid (2009). "the finite model theory toolbox of a database theoretician". pods 2009: proceedings of the twenty-eighth acm sigact–sigmod symposium on principles of database systems. pp. 65–76. doi:10.1145/1559795.1559807.  also suitable as a general introduction and overview.
+leonid libkin. introductory chapter of "elements of finite model theory".  motivates three main application areas: databases, complexity and formal languages.
+jouko väänänen. a short course on finite model theory. department of mathematics, university of helsinki. based on lectures from 1993-1994.
+anuj dawar. infinite and finite model theory, slides, university of cambridge, 2002.
+"algorithmic model theory". rwth aachen. archived from the original on 17 july 2012. retrieved 7 november 2013. includes a list of open fmt problems.

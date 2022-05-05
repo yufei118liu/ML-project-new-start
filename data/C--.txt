@@ -1,0 +1,38 @@
+c-- (pronounced c minus minus) is a c-like programming language. its creators, functional programming researchers simon peyton jones and norman ramsey, designed it to be generated mainly by compilers for very high-level languages rather than written by human programmers. unlike many other intermediate languages, its representation is plain ascii text, not bytecode or another binary format.there are two main branches:
+
+c--, the original branch, with the final version 2.0 released in may 2005
+cmm, the fork actively used as the intermediate representation (ir) in the glasgow haskell compiler (ghc)
+
+
+== design ==
+c-- is a "portable assembly language", designed to ease the implementation of compilers that produce high-quality machine code. this is done by delegating low-level code-generation and program optimization to a c-- compiler. the language's syntax borrows heavily from c while omitting or changing standard c features such as variadic functions, pointer syntax, and aspects of c's type system, because they hamper essential features of c-- and ease of code-generation.
+the name of the language is an in-joke, indicating that c-- is a reduced form of c, in the same way that c++ is basically an expanded form of c. (-- and ++ mean "decrement" and "increment," respectively.)
+work on c-- began in the late 1990s. since writing a custom code generator is a challenge in itself, and the compiler backends available to researchers at that time were complex and poorly documented, several projects had written compilers which generated c code (for instance, the original modula-3 compiler). however, c is a poor choice for functional languages: it does not guarantee tail-call optimization, or support accurate garbage collection or efficient exception handling. c-- is a tightly-defined simpler alternative to c which supports all of these. its most innovative feature is a run-time interface which allows writing of portable garbage collectors, exception handling systems and other run-time features which work with any c-- compiler.
+the first version of c-- was released in april 1998 as a msra paper, accompanied by a january 1999 paper on garbage collection. a revised manual was posted in html form in may 1999. two sets of major changes proposed in 2000 by norman ramsey ("proposed changes") and christian lindig ("a new grammar") led to c-- version 2, which was finalized around 2004 and officially released in 2005.
+
+
+== type system ==
+the c-- type system is designed to reflect constraints imposed by hardware rather than conventions imposed by higher-level languages. a value stored in a register or memory may have only one type: bit-vector. however, bit-vector is a polymorphic type which comes in several widths, e.g. bits8, bits32, or bits64. a separate 32-or-64 bit family of floating-point types is supported. in addition to the bit-vector type, c-- provides a boolean type bool, which can be computed by expressions and used for control flow but cannot be stored in a register or memory. as in an assembly language, any higher type discipline, such as distinctions between signed, unsigned, float, and pointer, is imposed by the c-- operators or other syntactic constructs. c-- is not type-checked, nor does it enforce or check the calling convention.: 28 c-- version 2 removes the distinction between bit-vector and floating-point types. these types can be annotated with a string "kind" tag to distinguish, among other things, a variable's integer vs float typing and its storage behavior (global or local). the former is useful on targets that have separate registers for integer and floating-point values. special types for pointers and the native word were introduced, although they are mapped to a bit-vector with a target-dependent length.: 10 
+
+
+== implementations ==
+the specification page of c-- lists a few implementations of c--. the "most actively developed" compiler, quick c--, was abandoned in 2013.
+
+
+=== haskell ===
+some developers of c--, including simon peyton jones, joão dias, and norman ramsey, work or have worked on ghc, whose development has led to extensions in the c-- language, forming the cmm dialect which uses the c preprocessor for ergonomics.ghc backends are responsible for further transforming c-- into executable code, via llvm ir, slow c, or directly through the built-in native backend. despite the original intention, ghc does perform many of its generic optimizations on c--. as with other compiler irs, the c-- representation can be dumped for debugging. target-specific optimizations are, of course, performed later by the backend.
+
+
+== see also ==
+
+bcpl
+c++
+llvm
+
+
+== references ==
+
+
+== external links ==
+archive of old official website (cminusminus.org)
+quick c-- code archive (the reference implementation)

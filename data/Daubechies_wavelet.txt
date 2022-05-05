@@ -1,0 +1,842 @@
+the daubechies wavelets, based on the work of ingrid daubechies, are a family of orthogonal wavelets defining a discrete wavelet transform and characterized by a maximal number of vanishing moments for some given support. with each wavelet type of this class, there is a scaling function (called the father wavelet) which generates an orthogonal multiresolution analysis.
+
+
+== properties ==
+in general the daubechies wavelets are chosen to have the highest number a of vanishing moments, (this does not imply the best smoothness) for given support width (number of coefficients) 2a. there are two naming schemes in use, dn using the length or number of taps, and dba referring to the number of vanishing moments. so d4 and db2 are the same wavelet transform.
+among the 2a−1 possible solutions of the algebraic equations for the moment and orthogonality conditions, the one is chosen whose scaling filter has extremal phase. the wavelet transform is also easy to put into practice using the fast wavelet transform. daubechies wavelets are widely used in solving a broad range of problems, e.g. self-similarity properties of a signal or fractal problems, signal discontinuities, etc.
+the daubechies wavelets are not defined in terms of the resulting scaling and wavelet functions; in fact, they are not possible to write down in closed form. the graphs below are generated using the cascade algorithm, a numeric technique consisting of inverse-transforming [1 0 0 0 0 ... ] an appropriate number of times.
+
+note that the spectra shown here are not the frequency response of the high and low pass filters, but rather the amplitudes of the continuous fourier transforms of the scaling (blue) and wavelet (red) functions.
+daubechies orthogonal wavelets d2–d20 resp. db1–db10 are commonly used. the index number refers to the number n of coefficients. each wavelet has a number of zero moments or vanishing moments equal to half the number of coefficients. for example, d2 has one vanishing moment, d4 has two, etc. a vanishing moment limits the wavelets ability to represent polynomial behaviour or information in a signal. for example, d2, with one vanishing moment, easily encodes polynomials of one coefficient, or constant signal components. d4 encodes polynomials with two coefficients, i.e. constant and linear signal components; and d6 encodes 3-polynomials, i.e. constant, linear and quadratic signal components. this ability to encode signals is nonetheless subject to the phenomenon of scale leakage, and the lack of shift-invariance, which raise from the discrete shifting operation (below) during application of the transform. sub-sequences which represent linear, quadratic (for example) signal components are treated differently by the transform depending on whether the points align with even- or odd-numbered locations in the sequence. the lack of the important property of shift-invariance, has led to the development of several different versions of a shift-invariant (discrete) wavelet transform.
+
+
+== construction ==
+both the scaling sequence (low-pass filter) and the wavelet sequence (band-pass filter) (see orthogonal wavelet for details of this construction) will here be normalized to have sum equal 2 and sum of squares equal 2. in some applications, they are normalised to have sum 
+  
+    
+      
+        
+          
+            2
+          
+        
+      
+    
+    {\displaystyle {\sqrt {2}}}
+  , so that both sequences and all shifts of them by an even number of coefficients are orthonormal to each other.
+using the general representation for a scaling sequence of an orthogonal discrete wavelet transform with approximation order a, 
+
+  
+    
+      
+        a
+        (
+        z
+        )
+        =
+        
+          2
+          
+            1
+            −
+            a
+          
+        
+        (
+        1
+        +
+        z
+        
+          )
+          
+            a
+          
+        
+        p
+        (
+        z
+        )
+        ,
+      
+    
+    {\displaystyle a(z)=2^{1-a}(1+z)^{a}p(z),}
+  with n = 2a, p having real coefficients, p(1) = 1 and deg(p) = a − 1, one can write the orthogonality condition as
+
+  
+    
+      
+        a
+        (
+        z
+        )
+        a
+        
+          (
+          
+            z
+            
+              −
+              1
+            
+          
+          )
+        
+        +
+        a
+        (
+        −
+        z
+        )
+        a
+        
+          (
+          
+            −
+            
+              z
+              
+                −
+                1
+              
+            
+          
+          )
+        
+        =
+        4
+        ,
+      
+    
+    {\displaystyle a(z)a\left(z^{-1}\right)+a(-z)a\left(-z^{-1}\right)=4,}
+  or equally as 
+
+  
+    
+      
+        (
+        2
+        −
+        x
+        
+          )
+          
+            a
+          
+        
+        p
+        (
+        x
+        )
+        +
+        
+          x
+          
+            a
+          
+        
+        p
+        (
+        2
+        −
+        x
+        )
+        =
+        
+          2
+          
+            a
+          
+        
+        
+        (
+        ∗
+        )
+        ,
+      
+    
+    {\displaystyle (2-x)^{a}p(x)+x^{a}p(2-x)=2^{a}\qquad (*),}
+  with the laurent-polynomial 
+
+  
+    
+      
+        x
+        :=
+        
+          
+            1
+            2
+          
+        
+        
+          (
+          
+            2
+            −
+            z
+            −
+            
+              z
+              
+                −
+                1
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle x:={\frac {1}{2}}\left(2-z-z^{-1}\right)}
+  generating all symmetric sequences and 
+  
+    
+      
+        x
+        (
+        −
+        z
+        )
+        =
+        2
+        −
+        x
+        (
+        z
+        )
+        .
+      
+    
+    {\displaystyle x(-z)=2-x(z).}
+   further, p(x) stands for the symmetric laurent-polynomial 
+
+  
+    
+      
+        p
+        (
+        x
+        (
+        z
+        )
+        )
+        =
+        p
+        (
+        z
+        )
+        p
+        
+          (
+          
+            z
+            
+              −
+              1
+            
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle p(x(z))=p(z)p\left(z^{-1}\right).}
+  since 
+
+  
+    
+      
+        x
+        (
+        
+          e
+          
+            i
+            w
+          
+        
+        )
+        =
+        1
+        −
+        cos
+        ⁡
+        (
+        w
+        )
+      
+    
+    {\displaystyle x(e^{iw})=1-\cos(w)}
+  
+
+  
+    
+      
+        p
+        (
+        
+          e
+          
+            i
+            w
+          
+        
+        )
+        p
+        (
+        
+          e
+          
+            −
+            i
+            w
+          
+        
+        )
+        =
+        
+          |
+        
+        p
+        (
+        
+          e
+          
+            i
+            w
+          
+        
+        )
+        
+          
+            |
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle p(e^{iw})p(e^{-iw})=|p(e^{iw})|^{2}}
+  p takes nonnegative values on the segment [0,2].
+equation (*) has one minimal solution for each a, which can be obtained by division in the ring of truncated power series in x,
+
+  
+    
+      
+        
+          p
+          
+            a
+          
+        
+        (
+        x
+        )
+        =
+        
+          ∑
+          
+            k
+            =
+            0
+          
+          
+            a
+            −
+            1
+          
+        
+        
+          
+            
+              (
+            
+            
+              
+                a
+                +
+                k
+                −
+                1
+              
+              
+                a
+                −
+                1
+              
+            
+            
+              )
+            
+          
+        
+        
+          2
+          
+            −
+            k
+          
+        
+        
+          x
+          
+            k
+          
+        
+        .
+      
+    
+    {\displaystyle p_{a}(x)=\sum _{k=0}^{a-1}{\binom {a+k-1}{a-1}}2^{-k}x^{k}.}
+  obviously, this has positive values on (0,2).
+the homogeneous equation for (*) is antisymmetric about x = 1 and has thus the general solution 
+
+  
+    
+      
+        
+          x
+          
+            a
+          
+        
+        (
+        x
+        −
+        1
+        )
+        r
+        
+          (
+          
+            (
+            x
+            −
+            1
+            
+              )
+              
+                2
+              
+            
+          
+          )
+        
+        ,
+      
+    
+    {\displaystyle x^{a}(x-1)r\left((x-1)^{2}\right),}
+  with r some polynomial with real coefficients. that the sum
+
+  
+    
+      
+        p
+        (
+        x
+        )
+        =
+        
+          p
+          
+            a
+          
+        
+        (
+        x
+        )
+        +
+        
+          x
+          
+            a
+          
+        
+        (
+        x
+        −
+        1
+        )
+        r
+        
+          (
+          
+            (
+            x
+            −
+            1
+            
+              )
+              
+                2
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle p(x)=p_{a}(x)+x^{a}(x-1)r\left((x-1)^{2}\right)}
+  shall be nonnegative on the interval [0,2] translates into a set of linear restrictions on the coefficients of r. the values of p on the interval [0,2] are bounded by some quantity 
+  
+    
+      
+        
+          4
+          
+            a
+            −
+            r
+          
+        
+        ,
+      
+    
+    {\displaystyle 4^{a-r},}
+   maximizing r results in a linear program with infinitely many inequality conditions.
+to solve 
+
+  
+    
+      
+        p
+        (
+        x
+        (
+        z
+        )
+        )
+        =
+        p
+        (
+        z
+        )
+        p
+        
+          (
+          
+            z
+            
+              −
+              1
+            
+          
+          )
+        
+      
+    
+    {\displaystyle p(x(z))=p(z)p\left(z^{-1}\right)}
+  for p one uses a technique called spectral factorization resp. fejér-riesz-algorithm. the polynomial p(x) splits into linear factors 
+
+  
+    
+      
+        p
+        (
+        x
+        )
+        =
+        (
+        x
+        −
+        
+          μ
+          
+            1
+          
+        
+        )
+        ⋯
+        (
+        x
+        −
+        
+          μ
+          
+            n
+          
+        
+        )
+        ,
+        
+        n
+        =
+        a
+        +
+        1
+        +
+        2
+        deg
+        ⁡
+        (
+        r
+        )
+        .
+      
+    
+    {\displaystyle p(x)=(x-\mu _{1})\cdots (x-\mu _{n}),\qquad n=a+1+2\deg(r).}
+  each linear factor represents a laurent-polynomial 
+
+  
+    
+      
+        x
+        (
+        z
+        )
+        −
+        μ
+        =
+        −
+        
+          
+            1
+            2
+          
+        
+        z
+        +
+        1
+        −
+        μ
+        −
+        
+          
+            1
+            2
+          
+        
+        
+          z
+          
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle x(z)-\mu =-{\frac {1}{2}}z+1-\mu -{\frac {1}{2}}z^{-1}}
+  that can be factored into two linear factors. one can assign either one of the two linear factors to p(z), thus one obtains 2n possible solutions. for extremal phase one chooses the one that has all complex roots of p(z) inside or on the unit circle and is thus real.
+for daubechies wavelet transform, a pair of linear filters is used. each filter of the pair should be a quadrature mirror filter. solving the coefficient of the linear filter 
+  
+    
+      
+        
+          c
+          
+            i
+          
+        
+      
+    
+    {\displaystyle c_{i}}
+   using the quadrature mirror filter property results in the following solution for the coefficient values for filter of order 4.
+
+  
+    
+      
+        
+          c
+          
+            0
+          
+        
+        =
+        
+          
+            
+              1
+              +
+              
+                
+                  3
+                
+              
+            
+            
+              4
+              
+                
+                  2
+                
+              
+            
+          
+        
+        ,
+        
+        
+          c
+          
+            1
+          
+        
+        =
+        
+          
+            
+              3
+              +
+              
+                
+                  3
+                
+              
+            
+            
+              4
+              
+                
+                  2
+                
+              
+            
+          
+        
+        ,
+        
+        
+          c
+          
+            2
+          
+        
+        =
+        
+          
+            
+              3
+              −
+              
+                
+                  3
+                
+              
+            
+            
+              4
+              
+                
+                  2
+                
+              
+            
+          
+        
+        ,
+        
+        
+          c
+          
+            3
+          
+        
+        =
+        
+          
+            
+              1
+              −
+              
+                
+                  3
+                
+              
+            
+            
+              4
+              
+                
+                  2
+                
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle c_{0}={\frac {1+{\sqrt {3}}}{4{\sqrt {2}}}},\quad c_{1}={\frac {3+{\sqrt {3}}}{4{\sqrt {2}}}},\quad c_{2}={\frac {3-{\sqrt {3}}}{4{\sqrt {2}}}},\quad c_{3}={\frac {1-{\sqrt {3}}}{4{\sqrt {2}}}}.}
+  
+
+
+== the scaling sequences of lowest approximation order ==
+below are the coefficients for the scaling functions for d2-20. the wavelet coefficients are derived by reversing the order of the scaling function coefficients and then reversing the sign of every second one, (i.e., d4 wavelet 
+  
+    
+      
+        ≈
+      
+    
+    {\displaystyle \approx }
+   {−0.1830127, −0.3169873, 1.1830127, −0.6830127}). mathematically, this looks like 
+  
+    
+      
+        
+          b
+          
+            k
+          
+        
+        =
+        (
+        −
+        1
+        
+          )
+          
+            k
+          
+        
+        
+          a
+          
+            n
+            −
+            1
+            −
+            k
+          
+        
+      
+    
+    {\displaystyle b_{k}=(-1)^{k}a_{n-1-k}}
+   where k is the coefficient index, b is a coefficient of the wavelet sequence and a a coefficient of the scaling sequence. n is the wavelet index, i.e., 2 for d2.
+
+parts of the construction are also used to derive the biorthogonal cohen–daubechies–feauveau wavelets (cdfs).
+
+
+== implementation ==
+while software such as mathematica supports daubechies wavelets directly a basic implementation is possible in matlab (in this case, daubechies 4). this implementation uses periodization to handle the problem of finite length signals. other, more sophisticated methods are available, but often it is not necessary to use these as it only affects the very ends of the transformed signal. the periodization is accomplished in the forward transform directly in matlab vector notation, and the inverse transform by using the circshift() function:
+
+
+=== transform, d4 ===
+it is assumed that s, a column vector with an even number of elements, has been pre-defined as the signal to be analyzed. note that the d4 coefficients are [1 + √3, 3 + √3, 3 − √3, 1 − √3]/4.
+
+
+=== inverse transform, d4 ===
+
+
+== binomial-qmf ==
+it was shown by ali akansu in 1990 that the binomial quadrature mirror filter bank (binomial qmf) is identical to the daubechies wavelet filter, and its performance was ranked among known subspace solutions from a discrete-time signal processing perspective. it was an extension of the prior work on binomial coefficient and hermite polynomials that led to the development of the modified hermite transformation (mht) in 1987. the magnitude square functions of binomial-qmf filters are shown to be the unique maximally flat functions in a two-band perfect reconstruction qmf (pr-qmf) design formulation that is related to the wavelet regularity in the continuous domain.
+
+
+== see also ==
+fast wavelet transform
+
+
+== references ==
+
+
+== external links ==
+ingrid daubechies: ten lectures on wavelets, siam 1992.
+proc. 1st njit symposium on wavelets, subbands and transforms, april 1990.
+akansu, ali n.; haddad, richard a. (1992), multiresolution signal decomposition: transforms, subbands, and wavelets, boston, ma: academic press, isbn 978-0-12-047141-6
+a.n. akansu, filter banks and wavelets in signal processing: a critical review, proc. spie video communications and pacs for medical applications (invited paper), pp. 330-341, vol. 1977, berlin, oct. 1993.
+carlos cabrelli, ursula molter: "generalized self-similarity", journal of mathematical analysis and applications, 230: 251–260, 1999.
+hardware implementation of wavelets
+"daubechies wavelets", encyclopedia of mathematics, ems press, 2001 [1994].
+i. kaplan, the daubechies d4 wavelet transform.
+jensen; la cour-harbo (2001). ripples in mathematics. berlin: springer. pp. 157–160. isbn 3-540-41662-5.
+jianhong (jackie) shen and gilbert strang, applied and computational harmonic analysis, 5(3), asymptotics of daubechies filters, scaling functions, and wavelets.

@@ -1,0 +1,1329 @@
+elliptic curve scalar multiplication is the operation of successively adding a point along an elliptic curve to itself repeatedly.  it is used in elliptic curve cryptography (ecc) as a means of producing a one-way function.
+the literature presents this operation as scalar multiplication, as written in hessian form of an elliptic curve. a widespread name for this operation is also elliptic curve point multiplication, but this can convey the wrong impression of being a multiplication between two points.
+
+
+== basics ==
+given a curve, e, defined along some equation in a finite field (such as e: y2 = x3 + ax + b), point multiplication is defined as the repeated addition of a point along that curve.  denote as np = p + p + p + … + p for some scalar (integer) n and a point p = (x, y) that lies on the curve, e. this type of curve is known as a weierstrass curve.
+the security of modern ecc depends on the intractability of determining n from q = np given known values of q and p if n is large (known as the elliptic curve discrete logarithm problem by analogy to other cryptographic systems). this is because the addition of two points on an elliptic curve (or the addition of one point to itself) yields a third point on the elliptic curve whose location has no immediately obvious relationship to the locations of the first two, and repeating this many times over yields a point np that may be essentially anywhere. intuitively, this is not dissimilar to the fact that if you had a point p on a circle, adding 42.57 degrees to its angle may still be a point "not too far" from p, but adding 1000 or 1001 times 42.57 degrees will yield a point that requires a bit more complex calculation to be found. reverting this process, i.e., given q=np and p and determining n can therefore only be done by trying out all possible n—an effort that is computationally intractable if n is large.
+
+
+== point operations ==
+
+there are three commonly defined operations for elliptic curve points, addition, doubling and negation.
+
+
+=== point at infinity ===
+point at infinity 
+  
+    
+      
+        
+          
+            o
+          
+        
+      
+    
+    {\displaystyle {\mathcal {o}}}
+   is the identity element of elliptic curve arithmetic. adding it to any point results in that other point, including adding point at infinity to itself.
+that is:
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  
+                    o
+                  
+                
+                +
+                
+                  
+                    o
+                  
+                
+                =
+                
+                  
+                    o
+                  
+                
+              
+            
+            
+              
+                
+                  
+                    o
+                  
+                
+                +
+                p
+                =
+                p
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}{\mathcal {o}}+{\mathcal {o}}={\mathcal {o}}\\{\mathcal {o}}+p=p\end{aligned}}}
+  point at infinity is also written as 0.
+
+
+=== point negation ===
+point negation is finding such a point, that adding it to itself will result in point at infinity (
+  
+    
+      
+        
+          
+            o
+          
+        
+      
+    
+    {\displaystyle {\mathcal {o}}}
+  ).
+
+  
+    
+      
+        
+          
+            
+              
+                p
+                +
+                (
+                −
+                p
+                )
+                =
+                
+                  
+                    o
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}p+(-p)={\mathcal {o}}\end{aligned}}}
+  for elliptic curves that is a point with the same x coordinate but negated y coordinate:
+
+  
+    
+      
+        
+          
+            
+              
+                (
+                x
+                ,
+                y
+                )
+                +
+                (
+                −
+                (
+                x
+                ,
+                y
+                )
+                )
+              
+              
+                
+                =
+                
+                  
+                    o
+                  
+                
+              
+            
+            
+              
+                (
+                x
+                ,
+                y
+                )
+                +
+                (
+                x
+                ,
+                −
+                y
+                )
+              
+              
+                
+                =
+                
+                  
+                    o
+                  
+                
+              
+            
+            
+              
+                (
+                x
+                ,
+                −
+                y
+                )
+              
+              
+                
+                =
+                −
+                (
+                x
+                ,
+                y
+                )
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}(x,y)+(-(x,y))&={\mathcal {o}}\\(x,y)+(x,-y)&={\mathcal {o}}\\(x,-y)&=-(x,y)\end{aligned}}}
+  
+
+
+=== point addition ===
+with 2 distinct points, p and q, addition is defined as the negation of the point resulting from the intersection of the curve, e, and the straight line defined by the points p and q, giving the point, r.
+
+  
+    
+      
+        
+          
+            
+              
+                p
+                +
+                q
+              
+              
+                
+                =
+                r
+              
+            
+            
+              
+                (
+                
+                  x
+                  
+                    p
+                  
+                
+                ,
+                
+                  y
+                  
+                    p
+                  
+                
+                )
+                +
+                (
+                
+                  x
+                  
+                    q
+                  
+                
+                ,
+                
+                  y
+                  
+                    q
+                  
+                
+                )
+              
+              
+                
+                =
+                (
+                
+                  x
+                  
+                    r
+                  
+                
+                ,
+                
+                  y
+                  
+                    r
+                  
+                
+                )
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}p+q&=r\\(x_{p},y_{p})+(x_{q},y_{q})&=(x_{r},y_{r})\end{aligned}}}
+  assuming the elliptic curve, e, is given by y2 = x3 + ax + b, this can be calculated as:
+
+  
+    
+      
+        
+          
+            
+              
+                λ
+              
+              
+                
+                =
+                
+                  
+                    
+                      
+                        y
+                        
+                          q
+                        
+                      
+                      −
+                      
+                        y
+                        
+                          p
+                        
+                      
+                    
+                    
+                      
+                        x
+                        
+                          q
+                        
+                      
+                      −
+                      
+                        x
+                        
+                          p
+                        
+                      
+                    
+                  
+                
+              
+            
+            
+              
+                
+                  x
+                  
+                    r
+                  
+                
+              
+              
+                
+                =
+                
+                  λ
+                  
+                    2
+                  
+                
+                −
+                
+                  x
+                  
+                    p
+                  
+                
+                −
+                
+                  x
+                  
+                    q
+                  
+                
+              
+            
+            
+              
+                
+                  y
+                  
+                    r
+                  
+                
+              
+              
+                
+                =
+                λ
+                (
+                
+                  x
+                  
+                    p
+                  
+                
+                −
+                
+                  x
+                  
+                    r
+                  
+                
+                )
+                −
+                
+                  y
+                  
+                    p
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}\lambda &={\frac {y_{q}-y_{p}}{x_{q}-x_{p}}}\\x_{r}&=\lambda ^{2}-x_{p}-x_{q}\\y_{r}&=\lambda (x_{p}-x_{r})-y_{p}\\\end{aligned}}}
+  these equations are correct when neither point is the point at infinity, 
+  
+    
+      
+        
+          
+            o
+          
+        
+      
+    
+    {\displaystyle {\mathcal {o}}}
+  , and if the points have different x coordinates (they're not mutual inverses). this is important for the ecdsa verification algorithm where the hash value could be zero.
+
+
+=== point doubling ===
+where the points p and q are coincident (at the same coordinates), addition is similar, except that there is no well-defined straight line through p, so the operation is closed using limiting case, the tangent to the curve, e, at p.
+this is calculated as above, taking derivatives (de/dx)/(de/dy):
+
+  
+    
+      
+        λ
+        =
+        
+          
+            
+              3
+              
+                x
+                
+                  p
+                
+                
+                  2
+                
+              
+              +
+              a
+            
+            
+              2
+              
+                y
+                
+                  p
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle \lambda ={\frac {3x_{p}^{2}+a}{2y_{p}}}}
+  where a is from the defining equation of the curve, e, above.
+
+
+== point multiplication ==
+the straightforward way of computing a point multiplication is through repeated addition. however, there are more efficient approaches to computing the multiplication.
+
+
+=== double-and-add ===
+the simplest method is the double-and-add method, similar to multiply-and-square in modular exponentiation.  the algorithm works as follows:
+to compute sp, start with the binary representation for s: 
+  
+    
+      
+        s
+        =
+        
+          s
+          
+            0
+          
+        
+        +
+        2
+        
+          s
+          
+            1
+          
+        
+        +
+        
+          2
+          
+            2
+          
+        
+        
+          s
+          
+            2
+          
+        
+        +
+        ⋯
+        +
+        
+          2
+          
+            m
+          
+        
+        
+          s
+          
+            m
+          
+        
+      
+    
+    {\displaystyle s=s_{0}+2s_{1}+2^{2}s_{2}+\cdots +2^{m}s_{m}}
+  , where 
+  
+    
+      
+        
+          s
+          
+            0
+          
+        
+         
+        .
+        .
+         
+        
+          s
+          
+            m
+          
+        
+        ∈
+        {
+        0
+        ,
+        1
+        }
+        ,
+        m
+        =
+        ⌊
+        
+          log
+          
+            2
+          
+        
+        ⁡
+        
+          s
+        
+        ⌋
+      
+    
+    {\displaystyle s_{0}~..~s_{m}\in \{0,1\},m=\lfloor \log _{2}{s}\rfloor }
+  .
+
+iterative algorithm, index increasing:   let bits = bit_representation(s) # the vector of bits (from lsb to msb) representing s
+   let res = 
+  
+    
+      
+        
+          
+            
+              
+                
+                  
+                    o
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}{\mathcal {o}}\end{aligned}}}
+   # point at infinity
+   let temp = p # track doubled p val
+   for bit in bits: 
+       if bit == 1:            
+           res = res + temp # point add
+       temp = temp + temp # double
+   return res
+
+iterative algorithm, index decreasing:   let bits = bit_representation(s) # the vector of bits (from lsb to msb) representing s
+   let i = length(bits)-2
+   let res = p
+   while(i >= 0): # traversing from second msb to lsb
+       res = res + res # double
+       if bits[i] == 1:            
+           res = res + p # add
+       i = i -1
+   return res
+
+note that both of the iterative methods above are vulnerable to timing analysis. see montgomery ladder below for an alternative approach.
+
+recursive algorithm:  f(p, d) is
+     if d = 0 then
+         return 0                         # computation complete
+     else if d = 1 then
+         return p
+     else if d mod 2 = 1 then
+         return point_add(p, f(p, d - 1)) # addition when d is odd
+     else
+         return f(point_double(p), d/2)   # doubling when d is even
+
+where f is the function for multiplying, p is the coordinate to multiply, d is the number of times to add the coordinate to itself. example: 100p can be written as 2(2[p + 2(2[2(p + 2p)])]) and thus requires six point double operations and two point addition operations. 100p would be equal to f(p, 100).
+this algorithm requires log2(d) iterations of point doubling and addition to compute the full point multiplication.  there are many variations of this algorithm such as using a window, sliding window, naf, naf-w, vector chains, and montgomery ladder.
+
+
+=== windowed method ===
+in the windowed version of this algorithm, one selects a window size w and computes all 
+  
+    
+      
+        
+          
+            2
+            
+              w
+            
+          
+        
+      
+    
+    {\displaystyle \scriptstyle 2^{w}}
+   values of 
+  
+    
+      
+        
+          d
+          p
+        
+      
+    
+    {\displaystyle \scriptstyle dp}
+   for 
+  
+    
+      
+        
+          d
+           
+          =
+           
+          0
+          ,
+          
+          1
+          ,
+          
+          2
+          ,
+          
+          …
+          ,
+          
+          
+            2
+            
+              w
+            
+          
+          
+          −
+          
+          1
+        
+      
+    
+    {\displaystyle \scriptstyle d~=~0,\,1,\,2,\,\dots ,\,2^{w}\,-\,1}
+  .  the algorithm now uses the representation 
+  
+    
+      
+        
+          d
+           
+          =
+           
+          
+            d
+            
+              0
+            
+          
+          
+          +
+          
+          
+            2
+            
+              w
+            
+          
+          
+            d
+            
+              1
+            
+          
+          
+          +
+          
+          
+            2
+            
+              2
+              w
+            
+          
+          
+            d
+            
+              2
+            
+          
+          
+          +
+          
+          ⋯
+          
+          +
+          
+          
+            2
+            
+              m
+              w
+            
+          
+          
+            d
+            
+              m
+            
+          
+        
+      
+    
+    {\displaystyle \scriptstyle d~=~d_{0}\,+\,2^{w}d_{1}\,+\,2^{2w}d_{2}\,+\,\cdots \,+\,2^{mw}d_{m}}
+   and becomes
+
+  q ← 0
+  for i from m to 0 do
+      q ← point_double_repeat(q, w)
+      if di > 0 then
+          q ← point_add(q, dip) # using pre-computed value of dip
+  return q
+
+this algorithm has the same complexity as the double-and-add approach with the benefit of using fewer point additions (which in practice are slower than doubling).  typically, the value of w is chosen to be fairly small making the pre-computation stage a trivial component of the algorithm.  for the nist recommended curves, 
+  
+    
+      
+        
+          w
+           
+          =
+           
+          4
+        
+      
+    
+    {\displaystyle \scriptstyle w~=~4}
+   is usually the best selection.  the entire complexity for a n-bit number is measured as 
+  
+    
+      
+        
+          n
+          
+          +
+          
+          1
+        
+      
+    
+    {\displaystyle \scriptstyle n\,+\,1}
+   point doubles and 
+  
+    
+      
+        
+          
+            2
+            
+              w
+            
+          
+          
+          −
+          
+          2
+          
+          +
+          
+          
+            
+              n
+              w
+            
+          
+        
+      
+    
+    {\displaystyle \scriptstyle 2^{w}\,-\,2\,+\,{\frac {n}{w}}}
+   point additions.
+
+
+=== sliding-window method ===
+in the sliding-window version, we look to trade off point additions for point doubles.  we compute a similar table as in the windowed version except we only compute the points 
+  
+    
+      
+        
+          d
+          p
+        
+      
+    
+    {\displaystyle \scriptstyle dp}
+   for 
+  
+    
+      
+        
+          d
+           
+          =
+           
+          
+            2
+            
+              w
+              −
+              1
+            
+          
+          ,
+          
+          
+            2
+            
+              w
+              −
+              1
+            
+          
+          
+          +
+          
+          1
+          ,
+          
+          …
+          ,
+          
+          
+            2
+            
+              w
+            
+          
+          
+          −
+          
+          1
+        
+      
+    
+    {\displaystyle \scriptstyle d~=~2^{w-1},\,2^{w-1}\,+\,1,\,\dots ,\,2^{w}\,-\,1}
+  .  effectively, we are only computing the values for which the most significant bit of the window is set.  the algorithm then uses the original double-and-add representation of 
+  
+    
+      
+        
+          d
+           
+          =
+           
+          
+            d
+            
+              0
+            
+          
+          
+          +
+          
+          2
+          
+            d
+            
+              1
+            
+          
+          
+          +
+          
+          
+            2
+            
+              2
+            
+          
+          
+            d
+            
+              2
+            
+          
+          
+          +
+          
+          ⋯
+          
+          +
+          
+          
+            2
+            
+              m
+            
+          
+          
+            d
+            
+              m
+            
+          
+        
+      
+    
+    {\displaystyle \scriptstyle d~=~d_{0}\,+\,2d_{1}\,+\,2^{2}d_{2}\,+\,\cdots \,+\,2^{m}d_{m}}
+  .
+
+  q ← 0
+  for i from m downto 0 do
+      if di = 0 then
+          q ← point_double(q)
+      else 
+          t ← extract j (up to w − 1) additional bits from d (including di)
+          i ← i − j
+          if j < w then
+              perform double-and-add using t 
+              return q
+          else 
+              q ← point_double_repeat(q, w)
+              q ← point_add(q, tp)
+  return q
+
+this algorithm has the benefit that the pre-computation stage is roughly half as complex as the normal windowed method while also trading slower point additions for point doublings.  in effect, there is little reason to use the windowed method over this approach, except that the former can be implemented in constant time.  the algorithm requires 
+  
+    
+      
+        
+          w
+          
+          −
+          
+          1
+          
+          +
+          
+          n
+        
+      
+    
+    {\displaystyle \scriptstyle w\,-\,1\,+\,n}
+   point doubles and at most 
+  
+    
+      
+        
+          
+            2
+            
+              w
+              −
+              1
+            
+          
+          
+          −
+          
+          1
+          
+          +
+          
+          
+            
+              n
+              w
+            
+          
+        
+      
+    
+    {\displaystyle \scriptstyle 2^{w-1}\,-\,1\,+\,{\frac {n}{w}}}
+   point additions.
+
+
+=== w-ary non-adjacent form (wnaf) method ===
+in the non-adjacent form we aim to make use of the fact that point subtraction is just as easy as point addition to perform fewer (of either) as compared to a sliding-window method.  the naf of the multiplicand 
+  
+    
+      
+        
+          d
+        
+      
+    
+    {\displaystyle \scriptstyle d}
+   must be computed first with the following algorithm
+
+   i ← 0
+   while (d > 0) do
+       if (d mod 2) = 1 then 
+           di ← d mods 2w
+           d ← d − di
+       else
+           di = 0
+       d ← d/2
+       i ← i + 1
+   return (di−1, di-2, …, d0)
+
+where the signed modulo function mods is defined as 
+
+   if (d mod 2w) >= 2w−1
+       return (d mod 2w) − 2w
+   else
+       return d mod 2w
+this produces the naf needed to now perform the multiplication.  this algorithm requires the pre-computation of the points 
+  
+    
+      
+        
+          {
+          1
+          ,
+          
+          3
+          ,
+          
+          5
+          ,
+          
+          …
+          ,
+          
+          
+            2
+            
+              w
+              −
+              1
+            
+          
+          
+          −
+          
+          1
+          }
+          p
+        
+      
+    
+    {\displaystyle \scriptstyle \lbrace 1,\,3,\,5,\,\dots ,\,2^{w-1}\,-\,1\rbrace p}
+   and their negatives, where 
+  
+    
+      
+        
+          p
+        
+      
+    
+    {\displaystyle \scriptstyle p}
+   is the point to be multiplied.  on typical weierstrass curves, if 
+  
+    
+      
+        
+          p
+           
+          =
+           
+          {
+          x
+          ,
+          
+          y
+          }
+        
+      
+    
+    {\displaystyle \scriptstyle p~=~\lbrace x,\,y\rbrace }
+   then 
+  
+    
+      
+        
+          −
+          p
+           
+          =
+           
+          {
+          x
+          ,
+          
+          −
+          y
+          }
+        
+      
+    
+    {\displaystyle \scriptstyle -p~=~\lbrace x,\,-y\rbrace }
+  .  so in essence the negatives are cheap to compute. next, the following algorithm computes the multiplication 
+  
+    
+      
+        
+          d
+          p
+        
+      
+    
+    {\displaystyle \scriptstyle dp}
+  :
+
+   q ← 0
+   for j ← i − 1 downto 0 do
+       q ← point_double(q)
+       if (dj != 0)
+           q ← point_add(q, djg)
+   return q
+
+the wnaf guarantees that on average there will be a density of 
+  
+    
+      
+        
+          
+            
+              1
+              
+                w
+                
+                +
+                
+                1
+              
+            
+          
+        
+      
+    
+    {\displaystyle \scriptstyle {\frac {1}{w\,+\,1}}}
+   point additions (slightly better than the unsigned window).  it requires 1 point doubling and 
+  
+    
+      
+        
+          
+            2
+            
+              w
+              −
+              2
+            
+          
+          
+          −
+          
+          1
+        
+      
+    
+    {\displaystyle \scriptstyle 2^{w-2}\,-\,1}
+   point additions for precomputation.  the algorithm then requires 
+  
+    
+      
+        
+          n
+        
+      
+    
+    {\displaystyle \scriptstyle n}
+   point doublings and 
+  
+    
+      
+        
+          
+            
+              n
+              
+                w
+                
+                +
+                
+                1
+              
+            
+          
+        
+      
+    
+    {\displaystyle \scriptstyle {\frac {n}{w\,+\,1}}}
+   point additions for the rest of the multiplication.
+one property of the naf is that we are guaranteed that every non-zero element 
+  
+    
+      
+        
+          
+            d
+            
+              i
+            
+          
+        
+      
+    
+    {\displaystyle \scriptstyle d_{i}}
+   is followed by at least 
+  
+    
+      
+        
+          w
+          
+          −
+          
+          1
+        
+      
+    
+    {\displaystyle \scriptstyle w\,-\,1}
+   additional zeroes.  this is because the algorithm clears out the lower 
+  
+    
+      
+        
+          w
+        
+      
+    
+    {\displaystyle \scriptstyle w}
+   bits of 
+  
+    
+      
+        
+          d
+        
+      
+    
+    {\displaystyle \scriptstyle d}
+   with every subtraction of the output of the mods function.  this observation can be used for several purposes. after every non-zero element the additional zeroes can be implied and do not need to be stored.  secondly, the multiple serial divisions by 2 can be replaced by a division by 
+  
+    
+      
+        
+          
+            2
+            
+              w
+            
+          
+        
+      
+    
+    {\displaystyle \scriptstyle 2^{w}}
+   after every non-zero 
+  
+    
+      
+        
+          
+            d
+            
+              i
+            
+          
+        
+      
+    
+    {\displaystyle \scriptstyle d_{i}}
+   element and divide by 2 after every zero.
+it has been shown that through application of a flush+reload side-channel attack on openssl, the full private key can be revealed after performing cache-timing against as few as 200 signatures performed.
+
+
+=== montgomery ladder ===
+the montgomery ladder approach computes the point multiplication in a fixed amount of time.  this can be beneficial when timing or power consumption measurements are exposed to an attacker performing a side-channel attack.  the algorithm uses the same representation as from double-and-add.
+
+  r0 ← 0
+  r1 ← p
+  for i from m downto 0 do
+      if di = 0 then
+          r1 ← point_add(r0, r1)
+          r0 ← point_double(r0)
+      else
+          r0 ← point_add(r0, r1)
+          r1 ← point_double(r1)
+  return r0
+this algorithm has in effect the same speed as the double-and-add approach except that it computes the same number of point additions and doubles regardless of the value of the multiplicand d.  this means that at this level the algorithm does not leak any information through timing or power.
+however, it has been shown that through application of a flush+reload side-channel attack on openssl, the full private key can be revealed after performing cache-timing against only one signature at a very low cost.
+
+
+== references ==

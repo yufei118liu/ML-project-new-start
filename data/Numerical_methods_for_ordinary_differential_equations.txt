@@ -1,0 +1,1488 @@
+numerical methods for ordinary differential equations are methods used to find numerical approximations to the solutions of ordinary differential equations (odes). their use is also known as "numerical integration", although this term can also refer to the computation of integrals.
+many differential equations cannot be solved using symbolic computation ("analysis"). for practical purposes, however – such as in engineering – a numeric approximation to the solution is often sufficient. the algorithms studied here can be used to compute such an approximation. an alternative method is to use techniques from calculus to obtain a series expansion of the solution.
+ordinary differential equations occur in many scientific disciplines, including physics, chemistry, biology, and economics. in addition, some methods in numerical partial differential equations convert the partial differential equation into an ordinary differential equation, which must then be solved.
+
+
+== the problem ==
+a first-order differential equation is an initial value problem (ivp) of the form,
+
+where 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   is a function 
+  
+    
+      
+        f
+        :
+        [
+        
+          t
+          
+            0
+          
+        
+        ,
+        ∞
+        )
+        ×
+        
+          
+            r
+          
+          
+            d
+          
+        
+        →
+        
+          
+            r
+          
+          
+            d
+          
+        
+      
+    
+    {\displaystyle f:[t_{0},\infty )\times \mathbb {r} ^{d}\to \mathbb {r} ^{d}}
+  , and the initial condition 
+  
+    
+      
+        
+          y
+          
+            0
+          
+        
+        ∈
+        
+          
+            r
+          
+          
+            d
+          
+        
+      
+    
+    {\displaystyle y_{0}\in \mathbb {r} ^{d}}
+   is a given vector.  first-order means that only the first derivative of y appears in the equation, and higher derivatives are absent.
+without loss of generality to higher-order systems, we restrict ourselves to first-order differential equations, because a higher-order ode can be converted into a larger system of first-order equations by introducing extra variables.  for example, the second-order equation y′′ = −y can be rewritten as two first-order equations: y′ = z and z′ = −y.
+in this section, we describe numerical methods for ivps, and remark that boundary value problems (bvps) require a different set of tools.  in a bvp, one defines values, or components of the solution y at more than one point.  because of this, different methods need to be used to solve bvps.  for example, the shooting method (and its variants) or global methods like finite differences, galerkin methods, or collocation methods are appropriate for that class of problems.
+the picard–lindelöf theorem states that there is a unique solution, provided f is lipschitz-continuous.
+
+
+== methods ==
+numerical methods for solving first-order ivps often fall into one of two large categories: linear multistep methods, or runge–kutta methods. a further division can be realized by dividing methods into those that are explicit and those that are implicit. for example,  implicit linear multistep methods include adams-moulton methods, and backward differentiation methods (bdf), whereas implicit runge–kutta methods include diagonally implicit runge–kutta (dirk), singly diagonally implicit runge–kutta (sdirk), and gauss–radau (based on gaussian quadrature) numerical methods. explicit examples from the linear multistep family include the adams–bashforth methods, and any runge–kutta method with a lower diagonal butcher tableau is explicit. a loose rule of thumb dictates that stiff differential equations require the use of implicit schemes, whereas non-stiff problems can be solved more efficiently with explicit schemes.
+the so-called general linear methods (glms) are a generalization of the above two large classes of methods.
+
+
+=== euler method ===
+
+from any point on a curve, you can find an approximation of a nearby point on the curve by moving a short distance along a line tangent to the curve.
+starting with the differential equation (1), we replace the derivative y′ by the finite difference approximation
+
+which when re-arranged yields the following formula
+
+  
+    
+      
+        y
+        (
+        t
+        +
+        h
+        )
+        ≈
+        y
+        (
+        t
+        )
+        +
+        h
+        
+          y
+          ′
+        
+        (
+        t
+        )
+      
+    
+    {\displaystyle y(t+h)\approx y(t)+hy'(t)}
+  and using (1) gives:
+
+this formula is usually applied in the following way. we choose a step size h, and we construct the sequence 
+  
+    
+      
+        
+          t
+          
+            0
+          
+        
+        ,
+        
+          t
+          
+            1
+          
+        
+        =
+        
+          t
+          
+            0
+          
+        
+        +
+        h
+        ,
+        
+          t
+          
+            2
+          
+        
+        =
+        
+          t
+          
+            0
+          
+        
+        +
+        2
+        h
+        ,
+        .
+        .
+        .
+      
+    
+    {\displaystyle t_{0},t_{1}=t_{0}+h,t_{2}=t_{0}+2h,...}
+     we denote by 
+  
+    
+      
+        
+          y
+          
+            n
+          
+        
+      
+    
+    {\displaystyle y_{n}}
+   a numerical estimate of the exact solution 
+  
+    
+      
+        y
+        (
+        
+          t
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle y(t_{n})}
+  . motivated by (3), we compute these estimates by the following recursive scheme 
+
+this is the euler method (or forward euler method, in contrast with the backward euler method, to be described below). the method is named after leonhard euler who described it in 1768.
+the euler method is an example of an explicit method. this means that the new value yn+1 is defined in terms of things that are already known, like yn.
+
+
+=== backward euler method ===
+
+if, instead of (2), we use the approximation
+
+we get the backward euler method:
+
+the backward euler method is an implicit method, meaning that we have to solve an equation to find yn+1. one often uses fixed-point iteration or (some modification of) the newton–raphson method to achieve this.
+it costs more time to solve this equation than explicit methods; this cost must be taken into consideration when one selects the method to use. the advantage of implicit methods such as (6) is that they are usually more stable for solving a stiff equation, meaning that a larger step size h can be used.
+
+
+=== first-order exponential integrator method ===
+
+exponential integrators describe a large class of integrators that have recently seen a lot of development.  they date back to at least the 1960s.
+in place of (1), we assume the differential equation is either of the form
+
+or it has been locally linearized about a background state to produce a linear term 
+  
+    
+      
+        −
+        a
+        y
+      
+    
+    {\displaystyle -ay}
+   and a nonlinear term 
+  
+    
+      
+        
+          
+            n
+          
+        
+        (
+        y
+        )
+      
+    
+    {\displaystyle {\mathcal {n}}(y)}
+  .
+exponential integrators are constructed by multiplying (7) by 
+  
+    
+      
+        
+          e
+          
+            a
+            t
+          
+        
+      
+    
+    {\textstyle e^{at}}
+  , and exactly integrating the result over
+a time interval 
+  
+    
+      
+        [
+        
+          t
+          
+            n
+          
+        
+        ,
+        
+          t
+          
+            n
+            +
+            1
+          
+        
+        =
+        
+          t
+          
+            n
+          
+        
+        +
+        h
+        ]
+      
+    
+    {\displaystyle [t_{n},t_{n+1}=t_{n}+h]}
+  :
+
+  
+    
+      
+        
+          y
+          
+            n
+            +
+            1
+          
+        
+        =
+        
+          e
+          
+            −
+            a
+            h
+          
+        
+        
+          y
+          
+            n
+          
+        
+        +
+        
+          ∫
+          
+            0
+          
+          
+            h
+          
+        
+        
+          e
+          
+            −
+            (
+            h
+            −
+            τ
+            )
+            a
+          
+        
+        
+          
+            n
+          
+        
+        
+          (
+          
+            y
+            
+              (
+              
+                
+                  t
+                  
+                    n
+                  
+                
+                +
+                τ
+              
+              )
+            
+          
+          )
+        
+        
+        d
+        τ
+        .
+      
+    
+    {\displaystyle y_{n+1}=e^{-ah}y_{n}+\int _{0}^{h}e^{-(h-\tau )a}{\mathcal {n}}\left(y\left(t_{n}+\tau \right)\right)\,d\tau .}
+  this integral equation is exact, but it doesn't define the integral.
+the first-order exponential integrator can be realized by holding 
+  
+    
+      
+        
+          
+            n
+          
+        
+        (
+        y
+        (
+        
+          t
+          
+            n
+          
+        
+        +
+        τ
+        )
+        )
+      
+    
+    {\displaystyle {\mathcal {n}}(y(t_{n}+\tau ))}
+   constant over the full interval:
+
+
+=== generalizations ===
+the euler method is often not accurate enough. in more precise terms, it only has order one (the concept of order is explained below). this caused mathematicians to look for higher-order methods.
+one possibility is to use not only the previously computed value yn to determine yn+1, but to make the solution depend on more past values. this yields a so-called multistep method. perhaps the simplest is the leapfrog method which is second order and (roughly speaking) relies on two time values.
+almost all practical multistep methods fall within the family of linear multistep methods, which have the form
+
+  
+    
+      
+        
+          
+            
+              
+              
+                
+
+                
+                
+                  α
+                  
+                    k
+                  
+                
+                
+                  y
+                  
+                    n
+                    +
+                    k
+                  
+                
+                +
+                
+                  α
+                  
+                    k
+                    −
+                    1
+                  
+                
+                
+                  y
+                  
+                    n
+                    +
+                    k
+                    −
+                    1
+                  
+                
+                +
+                ⋯
+                +
+                
+                  α
+                  
+                    0
+                  
+                
+                
+                  y
+                  
+                    n
+                  
+                
+              
+            
+            
+              
+              
+                
+                
+
+                
+                
+                =
+                h
+                
+                  [
+                  
+                    
+                      β
+                      
+                        k
+                      
+                    
+                    f
+                    (
+                    
+                      t
+                      
+                        n
+                        +
+                        k
+                      
+                    
+                    ,
+                    
+                      y
+                      
+                        n
+                        +
+                        k
+                      
+                    
+                    )
+                    +
+                    
+                      β
+                      
+                        k
+                        −
+                        1
+                      
+                    
+                    f
+                    (
+                    
+                      t
+                      
+                        n
+                        +
+                        k
+                        −
+                        1
+                      
+                    
+                    ,
+                    
+                      y
+                      
+                        n
+                        +
+                        k
+                        −
+                        1
+                      
+                    
+                    )
+                    +
+                    ⋯
+                    +
+                    
+                      β
+                      
+                        0
+                      
+                    
+                    f
+                    (
+                    
+                      t
+                      
+                        n
+                      
+                    
+                    ,
+                    
+                      y
+                      
+                        n
+                      
+                    
+                    )
+                  
+                  ]
+                
+                .
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}&{}\alpha _{k}y_{n+k}+\alpha _{k-1}y_{n+k-1}+\cdots +\alpha _{0}y_{n}\\&{}\quad =h\left[\beta _{k}f(t_{n+k},y_{n+k})+\beta _{k-1}f(t_{n+k-1},y_{n+k-1})+\cdots +\beta _{0}f(t_{n},y_{n})\right].\end{aligned}}}
+  another possibility is to use more points in the interval 
+  
+    
+      
+        [
+        
+          t
+          
+            n
+          
+        
+        ,
+        
+          t
+          
+            n
+            +
+            1
+          
+        
+        ]
+      
+    
+    {\displaystyle [t_{n},t_{n+1}]}
+  . this leads to the family of runge–kutta methods, named after carl runge and martin kutta. one of their fourth-order methods is especially popular.
+
+
+=== advanced features ===
+a good implementation of one of these methods for solving an ode entails more than the time-stepping formula.
+it is often inefficient to use the same step size all the time, so variable step-size methods have been developed. usually, the step size is chosen such that the (local) error per step is below some tolerance level. this means that the methods must also compute an error indicator, an estimate of the local error.
+an extension of this idea is to choose dynamically between different methods of different orders (this is called a variable order method). methods based on richardson extrapolation, such as the bulirsch–stoer algorithm, are often used to construct various methods of different orders.
+other desirable features include: 
+
+dense output: cheap numerical approximations for the whole integration interval, and not only at the points t0, t1, t2, ...
+event location: finding the times where, say, a particular function vanishes. this typically requires the use of a root-finding algorithm.
+support for parallel computing.
+when used for integrating with respect to time, time reversibility
+
+
+=== alternative methods ===
+many methods do not fall within the framework discussed here. some classes of alternative methods are:
+
+multiderivative methods, which use not only the function f but also its derivatives. this class includes hermite–obreschkoff methods and fehlberg methods, as well as methods like the parker–sochacki method or bychkov–scherbakov method, which compute the coefficients of the taylor series of the solution y recursively.
+methods for second order odes. we said that all higher-order odes can be transformed to first-order odes of the form (1). while this is certainly true, it may not be the best way to proceed. in particular, nyström methods work directly with second-order equations.
+geometric integration methods are especially designed for special classes of odes (for example, symplectic integrators for the solution of hamiltonian equations). they take care that the numerical solution respects the underlying structure or geometry of these classes.
+quantized state systems methods are a family of ode integration methods based on the idea of state quantization. they are efficient when simulating sparse systems with frequent discontinuities.
+
+
+=== parallel-in-time methods ===
+for applications that require parallel computing on supercomputers, the degree of concurrency offered by a numerical method becomes relevant. 
+in view of the challenges from exascale computing systems, numerical methods for initial value problems which can provide concurrency in temporal direction are being studied.parareal is a relatively well known example of such a parallel-in-time integration method, but early ideas go back into the 1960s.
+in the advent of exascale computing, time-parallel integration methods receive again increased attention. algorithms for exponential integrators can leverage e.g., the standardized batched blas functions that allow an easy and efficient implementation of parallelized integrators.
+
+
+== analysis ==
+numerical analysis is not only the design of numerical methods, but also their analysis. three central concepts in this analysis are:
+
+convergence: whether the method approximates the solution,
+order: how well it approximates the solution, and
+stability: whether errors are damped out.
+
+
+=== convergence ===
+
+a numerical method is said to be convergent if the numerical solution approaches the exact solution as the step size h goes to 0. more precisely, we require that for every ode (1) with a lipschitz function f and every t* > 0,
+
+  
+    
+      
+        
+          lim
+          
+            h
+            →
+            
+              0
+              
+                +
+              
+            
+          
+        
+        
+          max
+          
+            n
+            =
+            0
+            ,
+            1
+            ,
+            …
+            ,
+            ⌊
+            
+              t
+              
+                ∗
+              
+            
+            
+              /
+            
+            h
+            ⌋
+          
+        
+        
+          ‖
+          
+            
+              y
+              
+                n
+                ,
+                h
+              
+            
+            −
+            y
+            (
+            
+              t
+              
+                n
+              
+            
+            )
+          
+          ‖
+        
+        =
+        0.
+      
+    
+    {\displaystyle \lim _{h\to 0^{+}}\max _{n=0,1,\dots ,\lfloor t^{*}/h\rfloor }\left\|y_{n,h}-y(t_{n})\right\|=0.}
+  all the methods mentioned above are convergent.
+
+
+=== consistency and order ===
+
+suppose the numerical method is
+
+  
+    
+      
+        
+          y
+          
+            n
+            +
+            k
+          
+        
+        =
+        ψ
+        (
+        
+          t
+          
+            n
+            +
+            k
+          
+        
+        ;
+        
+          y
+          
+            n
+          
+        
+        ,
+        
+          y
+          
+            n
+            +
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          y
+          
+            n
+            +
+            k
+            −
+            1
+          
+        
+        ;
+        h
+        )
+        .
+        
+      
+    
+    {\displaystyle y_{n+k}=\psi (t_{n+k};y_{n},y_{n+1},\dots ,y_{n+k-1};h).\,}
+  the local (truncation) error of the method is the error committed by one step of the method. that is, it is the difference between the result given by the method, assuming that no error was made in earlier steps, and the exact solution:
+
+  
+    
+      
+        
+          δ
+          
+            n
+            +
+            k
+          
+          
+            h
+          
+        
+        =
+        ψ
+        
+          (
+          
+            
+              t
+              
+                n
+                +
+                k
+              
+            
+            ;
+            y
+            (
+            
+              t
+              
+                n
+              
+            
+            )
+            ,
+            y
+            (
+            
+              t
+              
+                n
+                +
+                1
+              
+            
+            )
+            ,
+            …
+            ,
+            y
+            (
+            
+              t
+              
+                n
+                +
+                k
+                −
+                1
+              
+            
+            )
+            ;
+            h
+          
+          )
+        
+        −
+        y
+        (
+        
+          t
+          
+            n
+            +
+            k
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle \delta _{n+k}^{h}=\psi \left(t_{n+k};y(t_{n}),y(t_{n+1}),\dots ,y(t_{n+k-1});h\right)-y(t_{n+k}).}
+  the method is said to be consistent if 
+
+  
+    
+      
+        
+          lim
+          
+            h
+            →
+            0
+          
+        
+        
+          
+            
+              δ
+              
+                n
+                +
+                k
+              
+              
+                h
+              
+            
+            h
+          
+        
+        =
+        0.
+      
+    
+    {\displaystyle \lim _{h\to 0}{\frac {\delta _{n+k}^{h}}{h}}=0.}
+  the method has order 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   if
+
+  
+    
+      
+        
+          δ
+          
+            n
+            +
+            k
+          
+          
+            h
+          
+        
+        =
+        o
+        (
+        
+          h
+          
+            p
+            +
+            1
+          
+        
+        )
+        
+        
+          
+            as 
+          
+        
+        h
+        →
+        0.
+      
+    
+    {\displaystyle \delta _{n+k}^{h}=o(h^{p+1})\quad {\mbox{as }}h\to 0.}
+  hence a method is consistent if it has an order greater than 0. the (forward) euler method (4) and the backward euler method (6) introduced above both have order 1, so they are consistent. most methods being used in practice attain higher order. consistency is a necessary condition for convergence, but not sufficient; for a method to be convergent, it must be both consistent and zero-stable.
+a related concept is the global (truncation) error, the error sustained in all the steps one needs to reach a fixed time 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+  . explicitly, the global error at time 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   is 
+  
+    
+      
+        
+          y
+          
+            n
+          
+        
+        −
+        y
+        (
+        t
+        )
+      
+    
+    {\displaystyle y_{n}-y(t)}
+   where 
+  
+    
+      
+        n
+        =
+        (
+        t
+        −
+        
+          t
+          
+            0
+          
+        
+        )
+        
+          /
+        
+        h
+      
+    
+    {\displaystyle n=(t-t_{0})/h}
+  . the global error of a 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+  th order one-step method is 
+  
+    
+      
+        o
+        (
+        
+          h
+          
+            p
+          
+        
+        )
+      
+    
+    {\displaystyle o(h^{p})}
+  ; in particular, such a method is convergent.  this statement is not necessarily true for multi-step methods.
+
+
+=== stability and stiffness ===
+
+for some differential equations, application of standard methods—such as the euler method, explicit runge–kutta methods, or multistep methods (for example, adams–bashforth methods)—exhibit instability in the solutions, though other methods may produce stable solutions. this "difficult behaviour" in the equation (which may not necessarily be complex itself) is described as stiffness, and is often caused by the presence of different time scales in the underlying problem. for example, a collision in a mechanical system like in an impact oscillator typically occurs at much smaller time scale than the time for the motion of objects; this discrepancy makes for very "sharp turns" in the curves of the state parameters.
+stiff problems are ubiquitous in chemical kinetics, control theory, solid mechanics, weather forecasting, biology, plasma physics, and electronics. one way to overcome stiffness is to extend the notion of differential equation to that of differential inclusion, which allows for and models non-smoothness.
+
+
+== history ==
+below is a timeline of some important developments in this field.
+1768 - leonhard euler publishes his method.
+1824 - augustin louis cauchy proves convergence of the euler method. in this proof, cauchy uses the implicit euler method.
+1855 - first mention of the multistep methods of john couch adams in a letter written by francis bashforth.
+1895 - carl runge publishes the first runge–kutta method.
+1901 - martin kutta describes the popular fourth-order runge–kutta method.
+1910 - lewis fry richardson announces his extrapolation method, richardson extrapolation.
+1952 - charles f. curtiss and joseph oakland hirschfelder coin the term stiff equations.
+1963 - germund dahlquist introduces a-stability of integration methods.
+
+
+== numerical solutions to second-order one-dimensional boundary value problems ==
+boundary value problems (bvps) are usually solved numerically by solving an approximately equivalent matrix problem obtained by discretizing the original bvp. the most commonly used method for numerically solving bvps in one dimension is called the finite difference method.  this method takes advantage of linear combinations of point values to construct finite difference coefficients that describe derivatives of the function. for example, the second-order central difference approximation to the first derivative is given by:
+
+  
+    
+      
+        
+          
+            
+              
+                u
+                
+                  i
+                  +
+                  1
+                
+              
+              −
+              
+                u
+                
+                  i
+                  −
+                  1
+                
+              
+            
+            
+              2
+              h
+            
+          
+        
+        =
+        
+          u
+          ′
+        
+        (
+        
+          x
+          
+            i
+          
+        
+        )
+        +
+        
+          
+            o
+          
+        
+        (
+        
+          h
+          
+            2
+          
+        
+        )
+        ,
+      
+    
+    {\displaystyle {\frac {u_{i+1}-u_{i-1}}{2h}}=u'(x_{i})+{\mathcal {o}}(h^{2}),}
+  and the second-order central difference for the second derivative is given by:
+
+  
+    
+      
+        
+          
+            
+              
+                u
+                
+                  i
+                  +
+                  1
+                
+              
+              −
+              2
+              
+                u
+                
+                  i
+                
+              
+              +
+              
+                u
+                
+                  i
+                  −
+                  1
+                
+              
+            
+            
+              h
+              
+                2
+              
+            
+          
+        
+        =
+        
+          u
+          ″
+        
+        (
+        
+          x
+          
+            i
+          
+        
+        )
+        +
+        
+          
+            o
+          
+        
+        (
+        
+          h
+          
+            2
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle {\frac {u_{i+1}-2u_{i}+u_{i-1}}{h^{2}}}=u''(x_{i})+{\mathcal {o}}(h^{2}).}
+  in both of these formulae, 
+  
+    
+      
+        h
+        =
+        
+          x
+          
+            i
+          
+        
+        −
+        
+          x
+          
+            i
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle h=x_{i}-x_{i-1}}
+   is the distance between neighbouring x values on the discretized domain. one then constructs a linear system that can then be solved by standard matrix methods. for example, suppose the equation to be solved is:
+
+  
+    
+      
+        
+          
+            
+              
+              
+                
+
+                
+                
+                  
+                    
+                      
+                        d
+                        
+                          2
+                        
+                      
+                      u
+                    
+                    
+                      d
+                      
+                        x
+                        
+                          2
+                        
+                      
+                    
+                  
+                
+                −
+                u
+                =
+                0
+                ,
+              
+            
+            
+              
+              
+                
+
+                
+                u
+                (
+                0
+                )
+                =
+                0
+                ,
+              
+            
+            
+              
+              
+                
+
+                
+                u
+                (
+                1
+                )
+                =
+                1.
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}&{}{\frac {d^{2}u}{dx^{2}}}-u=0,\\&{}u(0)=0,\\&{}u(1)=1.\end{aligned}}}
+  the next step would be to discretize the problem and use linear derivative approximations such as
+
+  
+    
+      
+        
+          u
+          
+            i
+          
+          ″
+        
+        =
+        
+          
+            
+              
+                u
+                
+                  i
+                  +
+                  1
+                
+              
+              −
+              2
+              
+                u
+                
+                  i
+                
+              
+              +
+              
+                u
+                
+                  i
+                  −
+                  1
+                
+              
+            
+            
+              h
+              
+                2
+              
+            
+          
+        
+      
+    
+    {\displaystyle u''_{i}={\frac {u_{i+1}-2u_{i}+u_{i-1}}{h^{2}}}}
+  and solve the resulting system of linear equations. this would lead to equations such as:
+
+  
+    
+      
+        
+          
+            
+              
+                u
+                
+                  i
+                  +
+                  1
+                
+              
+              −
+              2
+              
+                u
+                
+                  i
+                
+              
+              +
+              
+                u
+                
+                  i
+                  −
+                  1
+                
+              
+            
+            
+              h
+              
+                2
+              
+            
+          
+        
+        −
+        
+          u
+          
+            i
+          
+        
+        =
+        0
+        ,
+        
+        ∀
+        i
+        =
+        
+          1
+          ,
+          2
+          ,
+          3
+          ,
+          .
+          .
+          .
+          ,
+          n
+          −
+          1
+        
+        .
+      
+    
+    {\displaystyle {\frac {u_{i+1}-2u_{i}+u_{i-1}}{h^{2}}}-u_{i}=0,\quad \forall i={1,2,3,...,n-1}.}
+  on first viewing, this system of equations appears to have difficulty associated with the fact that the equation involves no terms that are not multiplied by variables, but in fact this is false. at i = 1 and n − 1 there is a term involving the boundary values 
+  
+    
+      
+        u
+        (
+        0
+        )
+        =
+        
+          u
+          
+            0
+          
+        
+      
+    
+    {\displaystyle u(0)=u_{0}}
+   and 
+  
+    
+      
+        u
+        (
+        1
+        )
+        =
+        
+          u
+          
+            n
+          
+        
+      
+    
+    {\displaystyle u(1)=u_{n}}
+   and since these two values are known, one can simply substitute them into this equation and as a result have a non-homogeneous linear system of equations that has non-trivial solutions.
+
+
+== see also ==
+courant–friedrichs–lewy condition
+energy drift
+general linear methods
+list of numerical analysis topics#numerical methods for ordinary differential equations
+reversible reference system propagation algorithm
+modelica language and openmodelica software
+
+
+== notes ==
+
+
+== references ==
+bradie, brian (2006). a friendly introduction to numerical analysis. upper saddle river, new jersey: pearson prentice hall. isbn 978-0-13-013054-9.
+j. c. butcher, numerical methods for ordinary differential equations, isbn 0-471-96758-0
+ernst hairer, syvert paul nørsett and gerhard wanner, solving ordinary differential equations i: nonstiff problems, second edition, springer verlag, berlin, 1993. isbn 3-540-56670-8.
+ernst hairer and gerhard wanner, solving ordinary differential equations ii: stiff and differential-algebraic problems, second edition, springer verlag, berlin, 1996. isbn 3-540-60452-9.  (this two-volume monograph systematically covers all aspects of the field.)
+hochbruck, marlis; ostermann, alexander (may 2010). "exponential integrators". acta numerica. 19: 209–286. bibcode:2010acnum..19..209h. citeseerx 10.1.1.187.6794. doi:10.1017/s0962492910000048.
+arieh iserles, a first course in the numerical analysis of differential equations, cambridge university press, 1996. isbn 0-521-55376-8 (hardback), isbn 0-521-55655-4 (paperback).  (textbook, targeting advanced undergraduate and postgraduate students in mathematics, which also discusses numerical partial differential equations.)
+john denholm lambert, numerical methods for ordinary differential systems, john wiley & sons, chichester, 1991. isbn 0-471-92990-5.  (textbook, slightly more demanding than the book by iserles.)
+
+
+== external links ==
+joseph w. rudmin, application of the parker–sochacki method to celestial mechanics, 1998.
+dominique tournès, l'intégration approchée des équations différentielles ordinaires (1671-1914), thèse de doctorat de l'université paris 7 - denis diderot, juin 1996. réimp. villeneuve d'ascq : presses universitaires du septentrion, 1997, 468 p. (extensive online material on ode numerical analysis history, for english-language material on the history of ode numerical analysis, see, for example, the paper books by chabert and goldstine quoted by him.)
+pchelintsev, a.n. (2020). "an accurate numerical method and algorithm for constructing solutions of chaotic systems" (pdf). journal of applied nonlinear dynamics. 9 (2): 207–221. doi:10.5890/jand.2020.06.004.
+kv on github (c++ library with rigorous ode solvers)
+intlab (a library made by matlab/gnu octave which includes rigorous ode solvers)

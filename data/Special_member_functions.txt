@@ -1,0 +1,28 @@
+special member functions in c++ are functions which the compiler will automatically generate if they are used, but not declared explicitly by the programmer.
+the automatically generated special member functions are:
+
+default constructor if no other constructor is explicitly declared.
+copy constructor if no move constructor and move assignment operator are explicitly declared.if a destructor is declared generation of a copy constructor is deprecated (c++11, proposal n3242).move constructor if no copy constructor, copy assignment operator, move assignment operator and destructor are explicitly declared.
+copy assignment operator if no move constructor and move assignment operator are explicitly declared.if a destructor is declared, generation of a copy assignment operator is deprecated.move assignment operator if no copy constructor, copy assignment operator, move constructor and destructor are explicitly declared.
+destructorin these cases the compiler generated versions of these functions perform a memberwise operation. for example, the compiler generated destructor will destroy each sub-object (base class or member) of the object.
+the compiler generated functions will be public, non-virtual and the copy constructor and assignment operators will receive const& parameters (and not be of the alternative legal forms).
+
+
+== example ==
+the following example depicts two classes: explicit for which all special member functions are explicitly declared and implicit for which none are declared.
+
+
+== signatures ==
+here are the signatures of the special member functions:
+
+
+== c++03 ==
+in c++03 before the introduction of move semantics (in c++11) the special member functions were:
+
+default constructor (if no other constructor is explicitly declared)
+copy constructor
+copy assignment operator
+destructor
+
+
+== references ==

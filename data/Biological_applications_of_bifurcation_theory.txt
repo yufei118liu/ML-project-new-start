@@ -1,0 +1,1009 @@
+biological applications of bifurcation theory provide a framework for understanding the behavior of biological networks modeled as dynamical systems. in the context of a biological system, bifurcation theory describes how small changes in an input parameter can cause a bifurcation or qualitative change in the behavior of the system. the ability to make dramatic change in system output is often essential to organism function, and bifurcations are therefore ubiquitous in biological networks such as the switches of the cell cycle.
+
+
+== biological networks and dynamical systems ==
+biological networks originate from evolution and therefore have less standardized components and potentially more complex interactions than networks designed by humans, such as electrical networks. at the cellular level, components of a network can include a large variety of proteins, many of which differ between organisms. network interactions occur when one or more proteins affect the function of another through transcription, translation, translocation, phosphorylation, or other mechanisms. these interactions either activate or inhibit the action of the target protein in some way. while humans build networks with a concern for simplicity and order, biological networks acquire redundancy and complexity over the course of evolution. therefore, it can be impossible to predict the quantitative behavior of a biological network from knowledge of its organization. similarly, it is impossible to describe its organization purely from its behavior, though behavior can indicate the presence of certain network motifs.
+
+however, with knowledge of network interactions and a set of parameters for the proteins and protein interactions (usually obtained through empirical research), it is often possible to construct a model of the network as a dynamical system. in general, for n proteins, the dynamical system takes the following form where x is typically protein concentration:
+
+  
+    
+      
+        
+          
+            
+              
+                x
+                
+                  1
+                
+              
+              ˙
+            
+          
+        
+        =
+        
+          
+            
+              d
+              
+                x
+                
+                  1
+                
+              
+            
+            
+              d
+              t
+            
+          
+        
+        =
+        
+          f
+          
+            1
+          
+        
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle {\dot {x_{1}}}={\frac {dx_{1}}{dt}}=f_{1}(x_{1},\ldots ,x_{n})}
+  
+
+  
+    
+      
+        ⋮
+      
+    
+    {\displaystyle \vdots }
+  
+
+  
+    
+      
+        
+          
+            
+              
+                x
+                
+                  i
+                
+              
+              ˙
+            
+          
+        
+        =
+        
+          
+            
+              d
+              
+                x
+                
+                  i
+                
+              
+            
+            
+              d
+              t
+            
+          
+        
+        =
+        
+          f
+          
+            i
+          
+        
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle {\dot {x_{i}}}={\frac {dx_{i}}{dt}}=f_{i}(x_{1},\ldots ,x_{n})}
+  
+
+  
+    
+      
+        ⋮
+      
+    
+    {\displaystyle \vdots }
+  
+
+  
+    
+      
+        
+          
+            
+              
+                x
+                
+                  n
+                
+              
+              ˙
+            
+          
+        
+        =
+        
+          
+            
+              d
+              
+                x
+                
+                  n
+                
+              
+            
+            
+              d
+              t
+            
+          
+        
+        =
+        
+          f
+          
+            n
+          
+        
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle {\dot {x_{n}}}={\frac {dx_{n}}{dt}}=f_{n}(x_{1},\ldots ,x_{n})}
+  these systems are often very difficult to solve, so modeling of networks as a linear dynamical systems is easier. linear systems contain no products between xs and are always solvable.
+they have the following form for all i:
+
+  
+    
+      
+        
+          f
+          
+            i
+          
+        
+        =
+        
+          a
+          
+            i
+            1
+          
+        
+        
+          x
+          
+            1
+          
+        
+        +
+        
+          a
+          
+            i
+            2
+          
+        
+        
+          x
+          
+            2
+          
+        
+        +
+        ⋯
+        +
+        
+          a
+          
+            i
+            n
+          
+        
+        
+          x
+          
+            n
+          
+        
+        
+      
+    
+    {\displaystyle f_{i}=a_{i1}x_{1}+a_{i2}x_{2}+\cdots +a_{in}x_{n}\,}
+  unfortunately, biological systems are often nonlinear and therefore need nonlinear models.
+
+
+== input/output motifs ==
+despite the great potential complexity and diversity of biological networks, all first-order network behavior generalizes to one of four possible input-output motifs: hyperbolic or michaelis–menten, ultra-sensitive, bistable, and bistable irreversible (a bistability where negative and therefore biologically impossible input is needed to return from a state of high output). examples of each in biological contexts can be found on their respective pages.
+ultrasensitive, bistable, and irreversibly bistable networks all show qualitative change in network behavior around certain parameter values – these are their bifurcation points.
+
+
+== basic bifurcations in the presence of error ==
+
+nonlinear dynamical systems can be most easily understood with a one-dimensional example system where the change in some quantity x (e.g. protein concentration) abundance depends only on itself:
+
+  
+    
+      
+        
+          
+            
+              x
+              ˙
+            
+          
+        
+        =
+        
+          
+            
+              d
+              x
+            
+            
+              d
+              t
+            
+          
+        
+        =
+        f
+        (
+        x
+        )
+        
+      
+    
+    {\displaystyle {\dot {x}}={\frac {dx}{dt}}=f(x)\,}
+  instead of solving the system analytically, which can be difficult or impossible for many functions, it is often quickest and most informative to take a geometric approach and draw a phase portrait. a phase portrait is a qualitative sketch of the differential equation's behavior that shows equilibrium solutions or fixed points and the vector field on the real line.
+bifurcations describe changes in the stability or existence of fixed points as a control parameter in the system changes. as a very simple explanation of a bifurcation in a dynamical system, consider an object balanced on top of a vertical beam. the mass of the object can be thought of as the control parameter, r, and the beam's deflection from the vertical axis is the dynamic variable, x. as r increases, x remains relatively stable. but when the mass reaches a certain point – the bifurcation point – the beam will suddenly buckle, in a direction dependent on minor imperfections in the setup. this is an example of a pitchfork bifurcation. changes in the control parameter eventually changed the qualitative behavior of the system.
+
+
+=== saddle-node bifurcation ===
+for a more rigorous example, consider the dynamical system shown in figure 2, described by the following equation:
+
+  
+    
+      
+        
+          
+            
+              x
+              ˙
+            
+          
+        
+        =
+        −
+        
+          x
+          
+            2
+          
+        
+        +
+        r
+      
+    
+    {\displaystyle {\dot {x}}=-x^{2}+r}
+  
+where r is once again the control parameter (labeled ε in figure 2). the system's fixed points are represented by where the phase portrait curve crosses the x-axis. the stability of a given fixed point can be determined by the direction of flow on the x-axis; for instance, in figure 2, the green point is unstable (divergent flow), and the red one is stable (convergent flow). at first, when r is greater than 0, the system has one stable fixed point and one unstable fixed point. as r decreases the fixed points move together, briefly collide into a semi-stable fixed point at r = 0, and then cease to exist when r < 0. 
+in this case, because the behavior of the system changes significantly when the control parameter r is 0, 0 is a bifurcation point. by tracing the position of the fixed points in figure 2 as r varies, one is able to generate the bifurcation diagram shown in figure 3.
+
+other types of bifurcations are also important in dynamical systems, but the saddle-node bifurcation tends to be most important in biology. real biological systems are subject to small stochastic variations that introduce error terms into the dynamical equations, and this usually leads to more complex bifurcations simplifying into separate saddle nodes and fixed points. two such examples of "imperfect" bifurcations that can appear in biology are discussed below. note that the saddle node itself in the presence of error simply translates in the x-r plane, with no change in qualitative behavior; this can be proven using the same analysis as presented below.
+
+
+=== imperfect transcritical bifurcation ===
+a common simple bifurcation is the transcritical bifurcation, given by
+
+  
+    
+      
+        
+          
+            
+              d
+              x
+            
+            
+              d
+              t
+            
+          
+        
+        =
+        r
+        x
+        −
+        
+          x
+          
+            2
+          
+        
+      
+    
+    {\displaystyle {dx \over dt}=rx-x^{2}}
+  
+and the bifurcation diagram in figure 4 (black curves). the phase diagrams are shown in figure 5. tracking the x-intercepts in the phase diagram as r changes, there are two fixed point trajectories which intersect at the origin; this is the bifurcation point (intuitively, when the number of x-intercepts in the phase portrait changes). the left fixed point is always unstable, and the right one stable.
+
+now consider the addition of an error term h, where 0 < h << 1. that is,
+
+  
+    
+      
+        
+          
+            
+              d
+              x
+            
+            
+              d
+              t
+            
+          
+        
+        =
+        r
+        x
+        −
+        
+          x
+          
+            2
+          
+        
+        −
+        h
+      
+    
+    {\displaystyle {dx \over dt}=rx-x^{2}-h}
+  
+the error term translates all the phase portraits vertically, downward if h is positive. in the left half of figure 6 (x < 0), the black, red, and green fixed points are semistable, unstable, and stable, respectively. this is mirrored by the magenta, black, and blue points on the right half (x > 0). each of these halves thus behaves like a saddle-node bifurcation; in other words, the imperfect transcritical bifurcation can be approximated by two saddle-node bifurcations when close to the critical points, as evident in the red curves of figure 4.
+
+
+==== linear stability analysis ====
+
+besides observing the flow in the phase diagrams, it is also possible to demonstrate the stability of various fixed points using linear stability analysis. first, find the fixed points in the phase portrait by setting the bifurcation equation to 0:
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  
+                    
+                      d
+                      x
+                    
+                    
+                      d
+                      t
+                    
+                  
+                
+                =
+                f
+                (
+                x
+                )
+              
+              
+                
+                =
+                r
+                x
+                −
+                (
+                x
+                
+                  )
+                  
+                    2
+                  
+                
+                −
+                h
+              
+            
+            
+              
+                0
+              
+              
+                
+                =
+                r
+                
+                  x
+                  
+                    ∗
+                  
+                
+                −
+                (
+                
+                  x
+                  
+                    ∗
+                  
+                
+                
+                  )
+                  
+                    2
+                  
+                
+                −
+                h
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}{dx \over dt}=f(x)&=rx-(x)^{2}-h\\0&=rx^{*}-(x^{*})^{2}-h\end{aligned}}}
+  
+using the quadratic formula to find the fixed points x*:
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  x
+                  
+                    ∗
+                  
+                
+              
+              
+                
+                =
+                
+                  
+                    
+                      −
+                      r
+                      ±
+                      
+                        
+                          
+                            r
+                            
+                              2
+                            
+                          
+                          −
+                          4
+                          (
+                          −
+                          1
+                          )
+                          h
+                        
+                      
+                    
+                    
+                      2
+                      (
+                      −
+                      1
+                      )
+                    
+                  
+                
+              
+            
+            
+              
+              
+                
+                =
+                
+                  
+                    
+                      r
+                      ±
+                      
+                        
+                          
+                            r
+                            
+                              2
+                            
+                          
+                          +
+                          4
+                          h
+                        
+                      
+                    
+                    2
+                  
+                
+              
+            
+            
+              
+              
+                
+                ≈
+                
+                  
+                    
+                      r
+                      ±
+                      
+                        
+                          
+                            r
+                            
+                              2
+                            
+                          
+                        
+                      
+                    
+                    2
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}x^{*}&={-r\pm {\sqrt {r^{2}-4(-1)h}} \over 2(-1)}\\&={r\pm {\sqrt {r^{2}+4h}} \over 2}\\&\approx {r\pm {\sqrt {r^{2}}} \over 2}\end{aligned}}}
+  
+where in the last step the approximation 4h << r 2 has been used, which is reasonable for studying fixed points well past the bifurcation point, such as the light blue and green curves in figure 6. simplifying further, 
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  x
+                  
+                    ∗
+                  
+                
+              
+              
+                
+                ≈
+                
+                  
+                    
+                      r
+                      ±
+                      r
+                    
+                    2
+                  
+                
+              
+            
+            
+              
+              
+                
+                =
+                
+                  
+                    {
+                    
+                      
+                        
+                          0
+                          ,
+                        
+                        
+                          
+                            fixed point closer to origin
+                          
+                        
+                      
+                      
+                        
+                          r
+                          ,
+                        
+                        
+                          
+                            fixed point further from origin
+                          
+                        
+                      
+                    
+                    
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}x^{*}&\approx {r\pm r \over 2}\\&={\begin{cases}0,&{\text{fixed point closer to origin}}\\r,&{\text{fixed point further from origin}}\end{cases}}\end{aligned}}}
+  
+next, determine whether the phase portrait curve is increasing or decreasing at the fixed points, which can be assessed by plugging x* into the first derivative of the bifurcation equation.
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  f
+                  ′
+                
+                (
+                x
+                )
+              
+              
+                
+                =
+                r
+                −
+                2
+                x
+              
+            
+            
+              
+                
+                  f
+                  ′
+                
+                (
+                0
+                )
+              
+              
+                
+                =
+                r
+                =
+                
+                  
+                    {
+                    
+                      
+                        
+                          >
+                          0
+                          ,
+                        
+                        
+                          
+                            if 
+                          
+                          r
+                          >
+                          0
+                          →
+                          
+                            unstable (magenta)
+                          
+                        
+                      
+                      
+                        
+                          <
+                          0
+                          ,
+                        
+                        
+                          
+                            if 
+                          
+                          r
+                          <
+                          0
+                          →
+                          
+                            stable (green)
+                          
+                        
+                      
+                    
+                    
+                  
+                
+              
+            
+            
+              
+                
+                  f
+                  ′
+                
+                (
+                r
+                )
+              
+              
+                
+                =
+                −
+                r
+                =
+                
+                  
+                    {
+                    
+                      
+                        
+                          <
+                          0
+                          ,
+                        
+                        
+                          
+                            if 
+                          
+                          r
+                          >
+                          0
+                          →
+                          
+                            stable (blue)
+                          
+                        
+                      
+                      
+                        
+                          >
+                          0
+                          ,
+                        
+                        
+                          
+                            if 
+                          
+                          r
+                          <
+                          0
+                          →
+                          
+                            unstable (red)
+                          
+                        
+                      
+                    
+                    
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}f'(x)&=r-2x\\f'(0)&=r={\begin{cases}>0,&{\text{if }}r>0\rightarrow {\text{unstable (magenta)}}\\<0,&{\text{if }}r<0\rightarrow {\text{stable (green)}}\end{cases}}\\f'(r)&=-r={\begin{cases}<0,&{\text{if }}r>0\rightarrow {\text{stable (blue)}}\\>0,&{\text{if }}r<0\rightarrow {\text{unstable (red)}}\end{cases}}\end{aligned}}}
+  
+the results are complicated by the fact that r can be both positive and negative; nonetheless, the conclusions are the same as before regarding the stability of each fixed point. this comes as no surprise, since the first derivative contains the same information as the phase diagram flow analysis. the colors in the above solution correspond to the arrows in figure 6.
+
+
+=== imperfect pitchfork bifurcation ===
+the buckling beam example from earlier is an example of a pitchfork bifurcation (perhaps more appropriately dubbed a "trifurcation"). the "ideal" pitchfork is shown on the left of figure 7, given by
+
+  
+    
+      
+        
+          
+            
+              d
+              x
+            
+            
+              d
+              t
+            
+          
+        
+        =
+        r
+        x
+        −
+        
+          x
+          
+            3
+          
+        
+      
+    
+    {\displaystyle {dx \over dt}=rx-x^{3}}
+  
+and r = 0 is where the bifurcation occurs, represented by the black dot at the origin of figure 8. as r increases past 0, the black dot splits into three trajectories: the blue stable fixed point that moves right, the red stable point that moves left, and a third unstable point that stays at the origin. the blue and red are solid lines in figure 7 (left), while the black unstable trajectory is the dotted portion along the positive x-axis.
+as before, consider an error term h, where 0 < h << 1, i.e.
+
+  
+    
+      
+        
+          
+            
+              d
+              x
+            
+            
+              d
+              t
+            
+          
+        
+        =
+        r
+        x
+        −
+        
+          x
+          
+            3
+          
+        
+        +
+        h
+      
+    
+    {\displaystyle {dx \over dt}=rx-x^{3}+h}
+  
+once again, the phase portraits are translated upward an infinitesimal amount, as shown in figure 9.tracking the x-intercepts in the phase diagram as r changes yields the fixed points, which recapitulate the qualitative result from figure 7 (right). more specifically, the blue fixed point from figure 9 corresponds to the upper trajectory in figure 7 (right); the green fixed point is the dotted trajectory; and the red fixed point is the bottommost trajectory. thus, in the imperfect case (h ≠ 0), the pitchfork bifurcation simplifies into a single stable fixed point coupled with a saddle-node bifurcation.
+a linear stability analysis can also be performed here, except using the generalized solution for a cubic equation instead of quadratic. the process is the same: 1) set the differential equation to zero and find the analytical form of the fixed points x*, 2) plug each x* into the first derivative 
+  
+    
+      
+        
+          f
+          ′
+        
+        (
+        x
+        )
+        =
+        
+          
+            d
+            
+              d
+              x
+            
+          
+        
+        
+          
+            
+              d
+              x
+            
+            
+              d
+              t
+            
+          
+        
+      
+    
+    {\displaystyle f'(x)={d \over dx}{dx \over dt}}
+  , then 3) evaluate stability based on whether 
+  
+    
+      
+        
+          f
+          ′
+        
+        (
+        
+          x
+          
+            ∗
+          
+        
+        )
+      
+    
+    {\displaystyle f'(x^{*})}
+   is positive or negative.
+
+
+=== multistability ===
+combined saddle-node bifurcations in a system can generate multistability. bistability (a special case of multistability) is an important property in many biological systems, often the result of network architecture containing a mix of positive feedback interactions and ultra-sensitive elements. bistable systems are hysteretic, i.e. the state of the system depends on the history of inputs, which can be crucial for switch-like control of cellular processes. for instance, this is important in contexts where a cell decides whether to commit to a particular pathway; a non-hysteretic response might switch the system on-and-off rapidly when subject to random thermal fluctuations close to the activation threshold, which can be resource-inefficient.
+
+
+== specific examples in biology ==
+networks with bifurcation in their dynamics control many important transitions in the cell cycle. the g1/s, g2/m, and metaphase–anaphase transitions all act as biochemical switches in the cell cycle. for instance, egg extracts of xenopus laevis are driven in and out of mitosis irreversibly by positive feedback in the phosphorylation of cdc2, a cyclin-dependent kinase.in population ecology, the dynamics of food web interactions networks can exhibit hopf bifurcations. for instance, in an aquatic system consisting of a primary producer, a mineral resource, and an herbivore, researchers found that patterns of equilibrium, cycling, and extinction of populations could be qualitatively described with a simple nonlinear model with a hopf bifurcation.galactose utilization in budding yeast (s. cerevisiae) is measurable through gfp expression induced by the gal promoter as a function of changing galactose concentrations. the system exhibits bistable switching between induced and non-induced states.similarly, lactose utilization in e. coli as a function of thio-methylgalactoside (a lactose analogue) concentration measured by a gfp-expressing lac promoter exhibits bistability and hysteresis (figure 10, left and right respectively).
+
+
+== see also ==
+biochemical switches in the cell cycle
+dynamical systems
+dynamical systems theory
+bifurcation theory
+cell cycle
+theoretical biology
+computational biology
+systems biology
+cellular model
+ricardo kevin
+
+
+== references ==

@@ -1,0 +1,193 @@
+linear logic is a substructural logic proposed by jean-yves girard as a refinement of classical and intuitionistic logic, joining the dualities of the former with many of the constructive properties of the latter.  although the logic has also been studied for its own sake, more broadly, ideas from linear logic have been influential in fields such as programming languages, game semantics, and quantum physics (because linear logic can be seen as the logic of quantum information theory), as well as linguistics, particularly because of its emphasis on resource-boundedness, duality, and interaction.
+linear logic lends itself to many different presentations, explanations, and intuitions.
+proof-theoretically, it derives from an analysis of classical sequent calculus in which uses of (the structural rules) contraction and weakening are carefully controlled.  operationally, this means that logical deduction is no longer merely about an ever-expanding collection of persistent "truths", but also a way of manipulating resources that cannot always be duplicated or thrown away at will.  in terms of simple denotational models, linear logic may be seen as refining the interpretation of intuitionistic logic by replacing cartesian (closed) categories by symmetric monoidal (closed) categories, or the interpretation of classical logic by replacing boolean algebras by c*-algebras.
+
+
+== connectives, duality, and polarity ==
+
+
+=== syntax ===
+the language of classical linear logic (cll) is defined inductively by the bnf notation
+
+here p and p⊥ range
+over logical atoms.  for reasons to be explained
+below, the connectives ⊗, ⅋, 1, and
+⊥ are called multiplicatives, the connectives &,
+⊕, ⊤, and 0 are called additives, and the
+connectives ! and ? are called exponentials.  we can further
+employ the following terminology:
+
+binary connectives ⊗, ⊕, & and ⅋ are associative and commutative; 1 is the unit for ⊗, 0 is the unit for ⊕, ⊥ is the unit for ⅋ and ⊤ is the unit for &. 
+every proposition a in cll has a dual a⊥, defined as follows:
+
+observe that (-)⊥ is an involution, i.e., a⊥⊥ = a for all propositions.  a⊥ is also called the linear negation of a.
+the columns of the table suggest another way of classifying the connectives of linear logic, termed polarity: the connectives negated in the left column (⊗, ⊕, 1, 0, !) are called positive, while their duals on the right (⅋, &, ⊥, ⊤, ?) are called negative; cf. table on the right.
+linear implication is not included in the grammar of connectives, but is definable in cll using linear negation and multiplicative disjunction, by a ⊸ b := a⊥ ⅋ b.  the connective ⊸ is sometimes pronounced "lollipop", owing to its shape.
+
+
+== sequent calculus presentation ==
+one way of defining linear logic is as a sequent calculus.  we use the letters  γ and  δ to range over list of propositions a1, ..., an, also called contexts. a sequent places a context to the left and the right of the turnstile, written γ 
+  
+    
+      
+        ⊢
+      
+    
+    {\displaystyle \vdash }
+   δ. intuitively, the sequent asserts that the conjunction of  γ entails the disjunction of  δ (though we mean the "multiplicative" conjunction and disjunction, as explained below).  girard describes classical linear logic using only one-sided sequents (where the left-hand context is empty), and we follow here that more economical presentation. this is possible because any premises to the left of a turnstile can always be moved to the other side and dualised.
+we now give inference rules describing how to build proofs of sequents.first, to formalize the fact that we do not care about the order of propositions inside a context, we add the structural rule of
+exchange:
+
+note that we do not add the structural rules of weakening and contraction, because we do care about the
+absence of propositions in a sequent, and the number of copies present.
+next we add initial sequents and cuts:
+
+the cut rule can be seen as a way of composing proofs, and initial sequents serve as the units
+for composition.  in a certain sense these rules are redundant: as we introduce additional rules for building proofs below, we will maintain the property that arbitrary initial sequents can be derived from atomic initial sequents, and that whenever a sequent is provable it can be given a cut-free proof.  ultimately, this canonical form property (which can be divided into the completeness of atomic initial sequents and the cut-elimination theorem, inducing a notion of analytic proof) lies behind the applications of linear logic in computer science, since it allows the logic to be used in proof search and as a resource-aware lambda-calculus.
+now, we explain the connectives by giving logical rules.  typically in sequent calculus
+one gives both "right-rules" and "left-rules" for each connective, essentially describing two modes of reasoning
+about propositions involving that connective (e.g., verification and falsification).  in a one-sided presentation, one instead makes use of negation: the right-rules for a connective
+(say ⅋) effectively play the role of left-rules for its dual (⊗).  so, we should expect a certain "harmony"
+between the rule(s) for a connective and the rule(s) for its dual.
+
+
+=== multiplicatives ===
+the rules for multiplicative conjunction (⊗) and disjunction (⅋):
+
+and for their units:
+
+observe that the rules for multiplicative conjunction and disjunction are admissible for
+plain conjunction and disjunction under a classical interpretation
+(i.e., they are admissible rules in lk).
+
+
+=== additives ===
+the rules for additive conjunction (&) and disjunction (⊕) :
+
+and for their units:
+
+observe that the rules for additive conjunction and disjunction are again admissible
+under a classical interpretation.  but now we can explain the basis for the multiplicative/additive distinction
+in the rules for the two different versions of conjunction: for the multiplicative connective (⊗),
+the context of the conclusion (γ, δ) is split up between the premises, whereas
+for the additive case connective (&) the context of the conclusion (γ) is carried whole into both
+premises.
+
+
+=== exponentials ===
+the exponentials are used to give controlled access to weakening and contraction. specifically, we add
+structural rules of weakening and contraction for  ?'d propositions:
+and use the following logical rules:
+
+one might observe that the rules for the exponentials follow a different pattern from the rules for the other connectives,
+resembling the inference rules governing modalities in sequent calculus formalisations of the normal modal logic s4, and that there is no longer such a clear symmetry between the duals ! and ?.  this situation is remedied in alternative
+presentations of cll (e.g., the lu presentation).
+
+
+== remarkable formulas ==
+in addition to the de morgan dualities described above, some important equivalences in linear logic include:
+
+distributivity
+by definition of a ⊸ b as a⊥ ⅋ b, the last two distributivity laws also give:
+
+(here a ≣ b is (a ⊸ b) & (b ⊸ a).)
+
+exponential isomorphism
+linear distributions
+a map that is not an isomorphism yet plays a crucial role in linear logic is:
+
+linear distributions are fundamental in the proof theory of linear logic.  the consequences of this map were first investigated in  and called a "weak distribution".  in subsequent work it was renamed to "linear distribution" to reflect the fundamental connection to linear logic.
+
+other implications
+the following distributivity formulas are not in general an equivalence, only an implication:
+
+
+== encoding classical/intuitionistic logic in linear logic ==
+both intuitionistic and classical implication can be recovered from linear implication by inserting exponentials: intuitionistic implication is encoded as !a ⊸ b, while classical implication can be encoded as !?a ⊸ ?b or !a ⊸ ?!b (or a variety of alternative possible translations). the idea is that exponentials allow us to use a formula as many times as we need, which is always possible in classical and intuitionistic logic.
+formally, there exists a translation of formulas of intuitionistic logic to formulas of linear logic in a way that guarantees that the original formula is provable in intuitionistic logic if and only if the translated formula is provable in linear logic. using the gödel–gentzen negative translation, we can thus embed classical first-order logic into linear first-order logic.
+
+
+== the resource interpretation ==
+lafont (1993) first showed how intuitionistic linear logic can be explained as a logic of resources, so providing the logical language with access to formalisms that can be used for reasoning about resources within the logic itself, rather than, as in classical logic, by means of non-logical predicates and relations.  tony hoare (1985)'s classical example of the vending machine can be used to illustrate this idea.
+suppose we represent having a candy bar by the atomic proposition candy, and having a dollar by $1. to state the fact that a dollar will buy you one candy bar, we might write the implication $1 ⇒ candy.  but in ordinary (classical or intuitionistic) logic, from a and a ⇒ b one can conclude a ∧ b.  so, ordinary logic leads us to believe that we can buy the candy bar and keep our dollar!  of course,
+we can avoid this problem by using more sophisticated encodings, although typically such encodings suffer from the frame problem.  however, the rejection of weakening and contraction allows linear logic to avoid this kind of spurious reasoning even with the "naive" rule.  rather than $1 ⇒ candy, we express the property of the vending machine as a linear implication $1  ⊸ candy.  from $1 and this fact, we can conclude candy, but not $1 ⊗ candy.  in general, we can use the linear logic proposition a ⊸ b to express the validity of transforming resource a into resource b.
+running with the example of the vending machine, consider the "resource interpretations" of the other multiplicative and additive connectives.  (the exponentials provide the means to combine this resource interpretation with the usual notion of persistent logical truth.)
+multiplicative conjunction (a ⊗ b) denotes simultaneous occurrence of resources, to be used as the consumer directs. for example, if you buy a stick of gum and a bottle of soft drink, then you are requesting gum ⊗ drink. the constant 1 denotes the absence of any resource, and so functions as the unit of ⊗.
+additive conjunction (a & b) represents alternative occurrence of resources, the choice of which the consumer controls. if in the vending machine there is a packet of chips, a candy bar, and a can of soft drink, each costing one dollar, then for that price you can buy exactly one of these products.  thus we write $1 ⊸ (candy & chips & drink).  we do not write $1 ⊸ (candy ⊗ chips ⊗ drink), which would imply that one dollar suffices for buying all three products together.  however, from  $1 ⊸ (candy & chips & drink), we can correctly deduce $3 ⊸ (candy ⊗ chips ⊗ drink), where $3 := $1 ⊗ $1 ⊗ $1.  the unit ⊤ of additive conjunction can be seen as a wastebasket  for unneeded resources. for example, we can write $3 ⊸ (candy ⊗ ⊤) to express that with three dollars you can get a candy bar and some other stuff, without being more specific (for example, chips and a drink, or $2, or $1 and chips, etc.).
+additive disjunction (a ⊕ b) represents alternative occurrence of resources, the choice of which the machine controls.  for example, suppose the vending machine permits gambling: insert a dollar and the machine may dispense a candy bar, a packet of chips, or a soft drink.  we can express this situation as $1 ⊸ (candy ⊕ chips ⊕ drink).  the constant 0 represents a product that cannot be made, and thus serves as the unit of ⊕ (a machine that might produce a or 0 is as good as a machine that always produces a because it will never succeed in producing a 0). so unlike above, we cannot deduce $3 ⊸ (candy ⊗ chips ⊗ drink) from this.
+multiplicative disjunction (a ⅋ b) is more difficult to gloss in terms of the resource interpretation, although we can encode back into linear implication, either as a⊥ ⊸ b or b⊥ ⊸ a.
+
+
+== other proof systems ==
+
+
+=== proof nets ===
+
+introduced by jean-yves girard, proof nets have been created to avoid the bureaucracy, that is all the things that make two derivations different in the logical point of view, but not in a "moral" point of view.
+for instance, these two proofs are "morally" identical:
+
+the goal of proof nets is to make them identical by creating a graphical representation of them.
+
+
+== semantics ==
+
+
+=== algebraic semantics ===
+
+
+== decidability/complexity of entailment ==
+the entailment relation in full cll is undecidable.  when considering fragments of
+cll, the decision problem has varying complexity:
+
+multiplicative linear logic (mll): only the multiplicative connectives.  mll entailment is np-complete, even restricting to horn clauses in the purely implicative fragment, or to atom-free formulas.
+multiplicative-additive linear logic (mall): only multiplicatives and additives (i.e., exponential-free).  mall entailment is pspace-complete.
+multiplicative-exponential linear logic (mell): only multiplicatives and exponentials. by reduction from the reachability problem for petri nets, mell entailment must be at least expspace-hard, although decidability itself has had the status of a longstanding open problem. in 2015, a proof of decidability was published in the journal tcs, but was later shown to be erroneous.
+affine linear logic (that is linear logic with weakening, an extension rather than a fragment) was shown to be decidable, in 1995.
+
+
+== variants ==
+many variations of linear logic arise by further tinkering with the structural rules:
+
+affine logic, which forbids contraction but allows global weakening (a decidable extension).
+strict logic or relevant logic, which forbids weakening but allows global contraction.
+non-commutative logic or ordered logic, which removes the rule of exchange, in addition to barring weakening and contraction.  in ordered logic, linear implication divides further into left-implication and right-implication.different intuitionistic variants of linear logic have been considered. when based on a single-conclusion sequent calculus presentation, like in ill (intuitionistic linear logic), the connectives ⅋, ⊥, and ? are absent, and linear implication is treated as a primitive connective. in fill (full intuitionistic linear logic) the connectives ⅋, ⊥, and ? are present, linear implication is a primitive connective and, similarly to what happens in intuitionistic logic, all connectives (except linear negation) are independent.
+there are also first- and higher-order extensions of linear logic, whose formal development is somewhat standard (see first-order logic and higher-order logic).
+
+
+== see also ==
+
+linear type system, a substructural type system
+logic of unity (lu)
+proof nets
+geometry of interaction
+game semantics
+intuitionistic logic
+computability logic
+ludics
+chu spaces
+uniqueness type
+linear logic programming
+
+
+== references ==
+
+
+== further reading ==
+girard, jean-yves. linear logic, theoretical computer science, vol 50, no 1, pp. 1–102, 1987.
+girard, jean-yves, lafont, yves, and taylor, paul.  proofs and types.  cambridge press, 1989.
+hoare, c. a. r., 1985.  communicating sequential processes.  prentice-hall international. isbn 0-13-153271-5
+lafont, yves, 1993.  introduction to linear logic.  lecture notes from tempus summer school on algebraic and categorical methods in computer science, brno, czech republic.
+troelstra, a.s. lectures on linear logic.  csli (center for the study of language and information) lecture notes no. 29. stanford, 1992.
+a. s. troelstra, h. schwichtenberg (1996). basic proof theory.  in series cambridge tracts in theoretical computer science, cambridge university press, isbn 0-521-77911-1.
+di cosmo, roberto, and danos, vincent. the linear logic primer.
+introduction to linear logic (postscript) by patrick lincoln
+introduction to linear logic by torben brauner
+a taste of linear logic by philip wadler
+linear logic by roberto di cosmo and dale miller. the stanford encyclopedia of philosophy  (fall 2006 edition), edward n. zalta (ed.).
+overview of linear logic programming by dale miller. in linear logic in computer science, edited by ehrhard, girard, ruet, and scott. cambridge university press. london mathematical society lecture notes, volume 316, 2004.
+linear logic wiki
+
+
+== external links ==
+ media related to linear logic at wikimedia commons
+a linear logic prover (llprover), available for use online, from: naoyuki tamura / dept of cs / kobe university / japan

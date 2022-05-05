@@ -1,0 +1,414 @@
+in mathematics, a partial differential equation (pde) is an equation which imposes relations between the various partial derivatives of a multivariable function.
+the function is often thought of as an "unknown" to be solved for, similarly to how x is thought of as an unknown number to be solved for in an algebraic equation like x2 − 3x + 2 = 0. however, it is usually impossible to write down explicit formulas for solutions of partial differential equations. there is, correspondingly, a vast amount of modern mathematical and scientific research on methods to numerically approximate solutions of certain partial differential equations using computers. partial differential equations also occupy a large sector of pure mathematical research, in which the usual questions are, broadly speaking, on the identification of general qualitative features of solutions of various partial differential equations. among the many open questions are the existence and smoothness of solutions to the navier–stokes equations, named as one of the millennium prize problems in 2000.
+partial differential equations are ubiquitous in mathematically oriented scientific fields, such as physics and engineering. for instance, they are foundational in the modern scientific understanding of sound, heat, diffusion, electrostatics, electrodynamics, thermodynamics, fluid dynamics, elasticity, general relativity, and quantum mechanics (schrödinger equation, pauli equation, etc). they also arise from many purely mathematical considerations, such as differential geometry and the calculus of variations; among other notable applications, they are the fundamental tool in the proof of the poincaré conjecture from geometric topology.
+partly due to this variety of sources, there is a wide spectrum of different types of partial differential equations, and methods have been developed for dealing with many of the individual equations which arise. as such, it is usually acknowledged that there is no "general theory" of partial differential equations, with specialist knowledge being somewhat divided between several essentially distinct subfields.ordinary differential equations form a subclass of partial differential equations, corresponding to functions of a single variable. stochastic partial differential equations and nonlocal equations are, as of 2020, particularly widely studied extensions of the "pde" notion. more classical topics, on which there is still much active research, include elliptic and parabolic partial differential equations, fluid mechanics, boltzmann equations, and dispersive partial differential equations.
+
+
+== introduction ==
+one says that a function u(x, y, z) of three variables is "harmonic" or "a solution of the laplace equation" if it satisfies the condition
+
+such functions were widely studied in the nineteenth century due to their relevance for classical mechanics. if explicitly given a function, it is usually a matter of straightforward computation to check whether or not it is harmonic. for instance
+ and 
+are both harmonic while
+
+is not. it may be surprising that the two given examples of harmonic functions are of such a strikingly different form from one another. this is a reflection of the fact that they are not, in any immediate way, both special cases of a "general solution formula" of the laplace equation. this is in striking contrast to the case of ordinary differential equations (odes) roughly similar to the laplace equation, with the aim of many introductory textbooks being to find algorithms leading to general solution formulas. for the laplace equation, as for a large number of partial differential equations, such solution formulas fail to exist.
+the nature of this failure can be seen more concretely in the case of the following pde: for a function v(x, y) of two variables, consider the equation
+
+it can be directly checked that any function v of the form v(x, y) = f(x) + g(y), for any single-variable functions f and g whatsoever, will satisfy this condition. this is far beyond the choices available in ode solution formulas, which typically allow the free choice of some numbers. in the study of pde, one generally has the free choice of functions.
+the nature of this choice varies from pde to pde. to understand it for any given equation, existence and uniqueness theorems are usually important organizational principles. in many introductory textbooks, the role of existence and uniqueness theorems for ode can be somewhat opaque; the existence half is usually unnecessary, since one can directly check any proposed solution formula, while the uniqueness half is often only present in the background in order to ensure that a proposed solution formula is as general as possible. by contrast, for pde, existence and uniqueness theorems are often the only means by which one can navigate through the plethora of different solutions at hand. for this reason, they are also fundamental when carrying out a purely numerical simulation, as one must have an understanding of what data is to be prescribed by the user and what is to be left to the computer to calculate.
+to discuss such existence and uniqueness theorems, it is necessary to be precise about the domain of the "unknown function." otherwise, speaking only in terms such as "a function of two variables," it is impossible to meaningfully formulate the results. that is, the domain of the unknown function must be regarded as part of the structure of the pde itself.
+the following provides two classic examples of such existence and uniqueness theorems. even though the two pde in question are so similar, there is a striking difference in behavior: for the first pde, one has the free prescription of a single function, while for the second pde, one has the free prescription of two functions.
+
+let b denote the unit-radius disk around the origin in the plane. for any continuous function u on the unit circle, there is exactly one function u on b such that  and whose restriction to the unit circle is given by u.
+for any functions f and g on the real line r, there is exactly one function u on r × (−1, 1) such that  and with u(x, 0) = f(x) and ∂u/∂y(x, 0) = g(x) for all values of x.even more phenomena are possible. for instance, the following pde, arising naturally in the field of differential geometry, illustrates an example where there is a simple and completely explicit solution formula, but with the free choice of only three numbers and not even one function.
+
+if u is a function on r2 with  then there are numbers a, b, and c with u(x, y) = ax + by + c.in contrast to the earlier examples, this pde is nonlinear, owing to the square roots and the squares. a linear pde is one such that, if it is homogeneous, the sum of any two solutions is also a solution, and all constant multiples of any solution is also a solution.
+
+
+== well-posedness ==
+well-posedness refers to a common schematic package of information about a pde. to say that a pde is well-posed, one must have:
+
+an existence and uniqueness theorem, asserting that by the prescription of some freely chosen functions, one can single out one specific solution of the pde
+by continuously changing the free choices, one continuously changes the corresponding solutionthis is, by the necessity of being applicable to several different pde, somewhat vague. the requirement of "continuity," in particular, is ambiguous, since there are usually many inequivalent means by which it can be rigorously defined. it is, however, somewhat unusual to study a pde without specifying a way in which it is well-posed.
+
+
+== existence of local solutions ==
+the cauchy–kowalevski theorem for cauchy initial value problems essentially states that if the terms in a partial differential equation are all made up of analytic functions and a certain transversality condition is satisfied (the hyperplane or more generally hypersurface where the initial data are posed must be noncharacteristic with respect to the partial differential operator), then on certain regions, there necessarily exist solutions which are as well analytic functions. this is a fundamental result in the study of analytic partial differential equations. surprisingly, the theorem does not hold in the setting of smooth functions; example example discovered by hans lewy in 1957 consists of a linear partial differential equation whose coefficients are smooth (i.e., have derivatives of all orders) but not analytic for which no solution exists. so the cauchy-kowalevski theorem is necessarily limited in its scope to analytic functions.
+
+
+== classification ==
+
+
+=== notation ===
+when writing pdes, it is common to denote partial derivatives using subscripts. for example:
+
+in the general situation that u is a function of n variables, then ui denotes the first partial derivative relative to the i-th input, uij denotes the second partial derivative relative to the i-th and j-th inputs, and so on.
+the greek letter δ denotes the laplace operator; if u is a function of n variables, then
+
+in the physics literature, the laplace operator is often denoted by ∇2; in the mathematics literature, ∇2u may also denote the hessian matrix of u.
+
+
+=== equations of first order ===
+
+
+=== linear and nonlinear equations ===
+a pde is called linear if it is linear in the unknown and its derivatives. for example, for a function u of x and y, a second order linear pde is of the form
+
+where ai and f are functions of the independent variables only. (often the mixed-partial derivatives uxy and uyx will be equated, but this is not required for the discussion of linearity.)
+if the ai are constants (independent of x and y) then the pde is called linear with constant coefficients. if f is zero everywhere then the linear pde is homogeneous, otherwise it is inhomogeneous. (this is separate from asymptotic homogenization, which studies the effects of high-frequency oscillations in the coefficients upon solutions to pdes.)
+nearest to linear pdes are semilinear pdes, where only the highest order derivatives appear as linear terms, with coefficients that are functions of the independent variables. the lower order derivatives and the unknown function may appear arbitrarily. for example, a general second order semilinear pde in two variables is
+
+in a quasilinear pde the highest order derivatives likewise appear only as linear terms, but with coefficients possibly functions of the unknown and lower-order derivatives:
+
+many of the fundamental pdes in physics are quasilinear, such as the einstein equations of general relativity and the navier–stokes equations describing fluid motion.
+a pde without any linearity properties is called fully nonlinear, and possesses nonlinearities on one or more of the highest-order derivatives. an example is the monge–ampère equation, which arises in differential geometry.
+
+
+=== linear equations of second order ===
+elliptic, parabolic, and hyperbolic partial differential equations of order two have been widely studied since the beginning of the twentieth century. however, there are many other important types of pde, including the korteweg–de vries equation. there are also hybrids such as the euler–tricomi equation, which vary from elliptic to hyperbolic for different regions of the domain. there are also important extensions of these basic types to higher-order pde, but such knowledge is more specialized.
+the elliptic/parabolic/hyperbolic classification provides a guide to appropriate initial and boundary conditions and to the smoothness of the solutions. assuming uxy = uyx, the general linear second-order pde in two independent variables has the form
+
+where the coefficients a, b, c... may depend upon x and y. if a2 + b2 + c2 > 0 over a region of the xy-plane, the pde is second-order in that region. this form is analogous to the equation for a conic section:
+
+more precisely, replacing ∂x by x, and likewise for other variables (formally this is done by a fourier transform), converts a constant-coefficient pde into a polynomial of the same degree, with the terms of the highest degree (a homogeneous polynomial, here a quadratic form) being most significant for the classification.
+just as one classifies conic sections and quadratic forms into parabolic, hyperbolic, and elliptic based on the discriminant b2 − 4ac, the same can be done for a second-order pde at a given point. however, the discriminant in a pde is given by b2 − ac due to the convention of the xy term being 2b rather than b; formally, the discriminant (of the associated quadratic form) is (2b)2 − 4ac = 4(b2 − ac), with the factor of 4 dropped for simplicity.
+
+b2 − ac < 0 (elliptic partial differential equation): solutions of elliptic pdes are as smooth as the coefficients allow, within the interior of the region where the equation and solutions are defined. for example, solutions of laplace's equation are analytic within the domain where they are defined, but solutions may assume boundary values that are not smooth. the motion of a fluid at subsonic speeds can be approximated with elliptic pdes, and the euler–tricomi equation is elliptic where x < 0.
+b2 − ac = 0 (parabolic partial differential equation): equations that are parabolic at every point can be transformed into a form analogous to the heat equation by a change of independent variables. solutions smooth out as the transformed time variable increases. the euler–tricomi equation has parabolic type on the line where x = 0.
+b2 − ac > 0 (hyperbolic partial differential equation): hyperbolic equations retain any discontinuities of functions or derivatives in the initial data. an example is the wave equation. the motion of a fluid at supersonic speeds can be approximated with hyperbolic pdes, and the euler–tricomi equation is hyperbolic where x > 0.if there are n independent variables x1, x2 , …, xn, a general linear partial differential equation of second order has the form
+
+the classification depends upon the signature of the eigenvalues of the coefficient matrix ai,j.
+
+elliptic: the eigenvalues are all positive or all negative.
+parabolic: the eigenvalues are all positive or all negative, except one that is zero.
+hyperbolic: there is only one negative eigenvalue and all the rest are positive, or there is only one positive eigenvalue and all the rest are negative.
+ultrahyperbolic: there is more than one positive eigenvalue and more than one negative eigenvalue, and there are no zero eigenvalues.the theory of elliptic, parabolic, and hyperbolic equations have been studied for centuries, largely centered around or based upon the standard examples of the laplace equation, the heat equation, and the wave equation.
+
+
+=== systems of first-order equations and characteristic surfaces ===
+the classification of partial differential equations can be extended to systems of first-order equations, where the unknown u is now a vector with m components, and the coefficient matrices aν are m by m matrices for ν = 1, 2, …, n. the partial differential equation takes the form
+
+where the coefficient matrices aν and the vector b may depend upon x and u. if a hypersurface s is given in the implicit form
+
+where φ has a non-zero gradient, then s is a characteristic surface for the operator l at a given point if the characteristic form vanishes:
+
+the geometric interpretation of this condition is as follows: if data for u are prescribed on the surface s, then it may be possible to determine the normal derivative of u on s from the differential equation. if the data on s and the differential equation determine the normal derivative of u on s, then s is non-characteristic. if the data on s and the differential equation do not determine the normal derivative of u on s, then the surface is characteristic, and the differential equation restricts the data on s: the differential equation is internal to s.
+
+a first-order system lu = 0 is elliptic if no surface is characteristic for l: the values of u on s and the differential equation always determine the normal derivative of u on s.
+a first-order system is hyperbolic at a point if there is a spacelike surface s with normal ξ at that point. this means that, given any non-trivial vector η orthogonal to ξ, and a scalar multiplier λ, the equation q(λξ + η) = 0 has m real roots λ1, λ2, …, λm. the system is strictly hyperbolic if these roots are always distinct. the geometrical interpretation of this condition is as follows: the characteristic form q(ζ) = 0 defines a cone (the normal cone) with homogeneous coordinates ζ. in the hyperbolic case, this cone has m sheets, and the axis ζ = λξ runs inside these sheets: it does not intersect any of them. but when displaced from the origin by η, this axis intersects every sheet. in the elliptic case, the normal cone has no real sheets.
+
+
+== analytical solutions ==
+
+
+=== separation of variables ===
+
+linear pdes can be reduced to systems of ordinary differential equations by the important technique of separation of variables. this technique rests on a characteristic of solutions to differential equations: if one can find any solution that solves the equation and satisfies the boundary conditions, then it is the solution (this also applies to odes). we assume as an ansatz that the dependence of a solution on the parameters space and time can be written as a product of terms that each depend on a single parameter, and then see if this can be made to solve the problem.in the method of separation of variables, one reduces a pde to a pde in fewer variables, which is an ordinary differential equation if in one variable – these are in turn easier to solve.
+this is possible for simple pdes, which are called separable partial differential equations, and the domain is generally a rectangle (a product of intervals). separable pdes correspond to diagonal matrices – thinking of "the value for fixed x" as a coordinate, each coordinate can be understood separately.
+this generalizes to the method of characteristics, and is also used in integral transforms.
+
+
+=== method of characteristics ===
+
+in special cases, one can find characteristic curves on which the equation reduces to an ode – changing coordinates in the domain to straighten these curves allows separation of variables, and is called the method of characteristics.
+more generally, one may find characteristic surfaces.
+
+
+=== integral transform ===
+an integral transform may transform the pde to a simpler one, in particular, a separable pde. this corresponds to diagonalizing an operator.
+an important example of this is fourier analysis, which diagonalizes the heat equation using the eigenbasis of sinusoidal waves.
+if the domain is finite or periodic, an infinite sum of solutions such as a fourier series is appropriate, but an integral of solutions such as a fourier integral is generally required for infinite domains. the solution for a point source for the heat equation given above is an example of the use of a fourier integral.
+
+
+=== change of variables ===
+often a pde can be reduced to a simpler form with a known solution by a suitable change of variables. for example, the black–scholes equation
+
+is reducible to the heat equation
+
+by the change of variables
+
+
+=== fundamental solution ===
+
+inhomogeneous equations can often be solved (for constant coefficient pdes, always be solved) by finding the fundamental solution (the solution for a point source), then taking the convolution with the boundary conditions to get the solution.
+this is analogous in signal processing to understanding a filter by its impulse response.
+
+
+=== superposition principle ===
+
+the superposition principle applies to any linear system, including linear systems of pdes. a common visualization of this concept is the interaction of two waves in phase being combined to result in a greater amplitude, for example sin x + sin x = 2 sin x. the same principle can be observed in pdes where the solutions may be real or complex and additive. if u1 and u2 are solutions of linear pde in some function space r, then u = c1u1 + c2u2 with any constants c1 and c2 are also a solution of that pde in the same function space.
+
+
+=== methods for non-linear equations ===
+
+there are no generally applicable methods to solve nonlinear pdes. still, existence and uniqueness results (such as the cauchy–kowalevski theorem) are often possible, as are proofs of important qualitative and quantitative properties of solutions (getting these results is a major part of analysis). computational solution to the nonlinear pdes, the split-step method, exist for specific equations like nonlinear schrödinger equation.
+nevertheless, some techniques can be used for several types of equations. the h-principle is the most powerful method to solve underdetermined equations. the riquier–janet theory is an effective method for obtaining information about many analytic overdetermined systems.
+the method of characteristics can be used in some very special cases to solve nonlinear partial differential equations.in some cases, a pde can be solved via perturbation analysis in which the solution is considered to be a correction to an equation with a known solution. alternatives are numerical analysis techniques from simple finite difference schemes to the more mature multigrid and finite element methods. many interesting problems in science and engineering are solved in this way using computers, sometimes high performance supercomputers.
+
+
+=== lie group method ===
+from 1870 sophus lie's work put the theory of differential equations on a more satisfactory foundation. he showed that the integration theories of the older mathematicians can, by the introduction of what are now called lie groups, be referred, to a common source; and that ordinary differential equations which admit the same infinitesimal transformations present comparable difficulties of integration. he also emphasized the subject of transformations of contact.
+a general approach to solving pdes uses the symmetry property of differential equations, the continuous infinitesimal transformations of solutions to solutions (lie theory). continuous group theory, lie algebras and differential geometry are used to understand the structure of linear and nonlinear partial differential equations for generating integrable equations, to find its lax pairs, recursion operators, bäcklund transform and finally finding exact analytic solutions to the pde.
+symmetry methods have been recognized to study differential equations arising in mathematics, physics, engineering, and many other disciplines.
+
+
+=== semianalytical methods ===
+the adomian decomposition method, the lyapunov artificial small parameter method, and his homotopy perturbation method are all special cases of the more general homotopy analysis method. these are series expansion methods, and except for the lyapunov method, are independent of small physical parameters as compared to the well known perturbation theory, thus giving these methods greater flexibility and solution generality.
+
+
+== numerical solutions ==
+
+the three most widely used numerical methods to solve pdes are the finite element method (fem), finite volume methods (fvm) and finite difference methods (fdm), as well other kind of methods called meshfree methods, which were made to solve problems where the aforementioned methods are limited. the fem has a prominent position among these methods and especially its exceptionally efficient higher-order version hp-fem. other hybrid versions of fem and meshfree methods include the generalized finite element method (gfem), extended finite element method (xfem), spectral finite element method (sfem), meshfree finite element method, discontinuous galerkin finite element method (dgfem), element-free galerkin method (efgm), interpolating element-free galerkin method (iefgm), etc.
+
+
+=== finite element method ===
+
+the finite element method (fem) (its practical application often known as finite element analysis (fea)) is a numerical technique for finding approximate solutions of partial differential equations (pde) as well as of integral equations. the solution approach is based either on eliminating the differential equation completely (steady state problems), or rendering the pde into an approximating system of ordinary differential equations, which are then numerically integrated using standard techniques such as euler's method, runge–kutta, etc.
+
+
+=== finite difference method ===
+
+finite-difference methods are numerical methods for approximating the solutions to differential equations using finite difference equations to approximate derivatives.
+
+
+=== finite volume method ===
+
+similar to the finite difference method or finite element method, values are calculated at discrete places on a meshed geometry. "finite volume" refers to the small volume surrounding each node point on a mesh. in the finite volume method, surface integrals in a partial differential equation that contain a divergence term are converted to volume integrals, using the divergence theorem. these terms are then evaluated as fluxes at the surfaces of each finite volume. because the flux entering a given volume is identical to that leaving the adjacent volume, these methods conserve mass by design.
+
+
+== the energy method ==
+the energy method is a mathematical procedure that can be used to verify well-posedness of initial-boundary-value-problems. in the following example the energy method is used to decide where and which boundary conditions should be imposed such that the resulting ibvp is well-posed. consider the one-dimensional hyperbolic pde given by
+
+where 
+  
+    
+      
+        α
+        ≠
+        0
+      
+    
+    {\displaystyle \alpha \neq 0}
+   is a constant and 
+  
+    
+      
+        u
+        (
+        x
+        ,
+        t
+        )
+      
+    
+    {\displaystyle u(x,t)}
+   is an unknown function with initial condition 
+  
+    
+      
+        u
+        (
+        x
+        ,
+        0
+        )
+        =
+        f
+        (
+        x
+        )
+      
+    
+    {\displaystyle u(x,0)=f(x)}
+  . multiplying with 
+  
+    
+      
+        u
+      
+    
+    {\displaystyle u}
+   and integrating over the domain gives
+
+using that
+
+where integration by parts has been used for the second relationship, we get
+
+here 
+  
+    
+      
+        ‖
+        ⋅
+        ‖
+      
+    
+    {\displaystyle \|\cdot \|}
+   denotes the standard 
+  
+    
+      
+        
+          l
+          
+            2
+          
+        
+      
+    
+    {\displaystyle l^{2}}
+   norm.
+for well-posedness we require that the energy of the solution is non-increasing, i.e. that 
+  
+    
+      
+        
+          
+            ∂
+            
+              ∂
+              t
+            
+          
+        
+        ‖
+        u
+        
+          ‖
+          
+            2
+          
+        
+        ≤
+        0
+      
+    
+    {\textstyle {\frac {\partial }{\partial t}}\|u\|^{2}\leq 0}
+  , which is achieved by specifying 
+  
+    
+      
+        u
+      
+    
+    {\displaystyle u}
+   at 
+  
+    
+      
+        x
+        =
+        a
+      
+    
+    {\displaystyle x=a}
+   if 
+  
+    
+      
+        α
+        >
+        0
+      
+    
+    {\displaystyle \alpha >0}
+   and at 
+  
+    
+      
+        x
+        =
+        b
+      
+    
+    {\displaystyle x=b}
+   if 
+  
+    
+      
+        α
+        <
+        0
+      
+    
+    {\displaystyle \alpha <0}
+  . this corresponds to only imposing boundary conditions at the inflow. note that well-posedness allows for growth in terms of data (initial and boundary) and thus it is sufficient to show that 
+  
+    
+      
+        
+          
+            ∂
+            
+              ∂
+              t
+            
+          
+        
+        ‖
+        u
+        
+          ‖
+          
+            2
+          
+        
+        ≤
+        0
+      
+    
+    {\textstyle {\frac {\partial }{\partial t}}\|u\|^{2}\leq 0}
+   holds when all data is set to zero.
+
+
+== see also ==
+some common pdes
+
+heat equation
+wave equation
+laplace's equation
+helmholtz equation
+klein–gordon equation
+poisson's equation
+navier-stokes equation
+burgers' equationtypes of boundary conditions
+
+dirichlet boundary condition
+neumann boundary condition
+robin boundary condition
+cauchy problemvarious topics
+
+jet bundle
+laplace transform applied to differential equations
+list of dynamical systems and differential equations topics
+matrix differential equation
+numerical partial differential equations
+partial differential algebraic equation
+recurrence relation
+stochastic processes and boundary value problems
+
+
+== notes ==
+
+
+== references ==
+
+
+== further reading ==
+cajori, florian (1928). "the early history of partial differential equations and of partial differentiation and integration" (pdf). the american mathematical monthly. 35 (9): 459–467. doi:10.2307/2298771. jstor 2298771. archived from the original (pdf) on 2018-11-23. retrieved 2016-05-15.
+nirenberg, louis (1994). "partial differential equations in the first half of the century." development of mathematics 1900–1950 (luxembourg, 1992), 479–515, birkhäuser, basel.
+brezis, h., & browder, f. (1998). "partial differential equations in the 20th century." advances in mathematics, 135(1), 76–144. doi:10.1006/aima.1997.1713
+
+
+== external links ==
+
+"differential equation, partial", encyclopedia of mathematics, ems press, 2001 [1994]
+partial differential equations: exact solutions at eqworld: the world of mathematical equations.
+partial differential equations: index at eqworld: the world of mathematical equations.
+partial differential equations: methods at eqworld: the world of mathematical equations.
+example problems with solutions at exampleproblems.com
+partial differential equations at mathworld.wolfram.com
+partial differential equations with mathematica
+partial differential equations in cleve moler: numerical computing with matlab
+partial differential equations at nag.com
+sanderson, grant (april 21, 2019). "but what is a partial differential equation?". 3blue1brown. archived from the original on 2021-11-02 – via youtube.
