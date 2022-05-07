@@ -69,7 +69,7 @@ def one_hot_all(x_train, dic_size):
     return trains_oh
 
 
-def data_preprocessing(directory= './data', save=True, limited=False):
+def data_preprocessing(directory= './data', save=True, one_hot= False, limited=False):
     ## We find the most suitable maximal length in this article 
     text_overall, summary_overall, title_overall = [], [], [] 
     text_count, summary_count = [], []
@@ -151,16 +151,41 @@ def data_preprocessing(directory= './data', save=True, limited=False):
 
     y_voc_size = len(y_tokenizer.word_index)+1
 
-    x_train= one_hot_all(x_train, x_voc_size)
-    y_train = one_hot_all(y_train, y_voc_size)
-    x_test= one_hot_all(x_train, x_voc_size)
-    y_test = one_hot_all(y_train, y_voc_size)
+
+    
 
     ## Save the preprocessed data to file
     if save is True:
         np.savez('preprocessed', x_train=x_train, x_test=x_test, y_train=y_train,y_test=y_test, labels=title_overall,
                                 max_text_len=max_text_len, max_summary_len=max_summary_len, x_voc_size=x_voc_size, y_voc_size=y_voc_size,
-                                tokenizer = tokenizer, y_tokenizer=y_tokenizer)
+                                )
+        if one_hot is True:
+            x_train= one_hot_all(x_train, x_voc_size)
+            y_train = one_hot_all(y_train, y_voc_size)
+            x_test= one_hot_all(x_train, x_voc_size)
+            y_test = one_hot_all(y_train, y_voc_size)
+            np.savez('preprocessed_oh', x_train_oh=x_train, x_test_oh=x_test, y_train_oh=y_train,y_test_oh=y_test, labels=labels,
+                                max_text_len=max_text_len, max_summary_len=max_summary_len, x_voc_size=x_voc_size, y_voc_size=y_voc_size,
+                                )
     else: return (x_train, x_test, y_train, y_test, max_text_len, max_summary_len, x_voc_size, y_voc_size)
 
 data_preprocessing()
+    
+def vec2oh(filename):
+    data = np.load(filename)
+    x_train = data['x_train']
+    x_test = data['x_test']
+    y_train = data['y_train']
+    y_test = data['y_test']
+    labels = data["labels"]
+    max_text_len = data['max_text_len']
+    max_summary_len = data['max_summary_len']
+    x_voc_size = data['x_voc_size']
+    y_voc_size = data['y_voc_size']
+    x_train= one_hot_all(x_train, x_voc_size)
+    y_train = one_hot_all(y_train, y_voc_size)
+    x_test= one_hot_all(x_train, x_voc_size)
+    y_test = one_hot_all(y_train, y_voc_size)
+    np.savez('preprocessed_oh', x_train_oh=x_train, x_test_oh=x_test, y_train_oh=y_train,y_test_oh=y_test, labels=labels,
+                                max_text_len=max_text_len, max_summary_len=max_summary_len, x_voc_size=x_voc_size, y_voc_size=y_voc_size,
+                                )
