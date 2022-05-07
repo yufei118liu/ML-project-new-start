@@ -53,23 +53,27 @@ def split_summary(lines):
 def one_hot_enc(ar, dic_size):
     #print(ar)
     n = np.max(ar) +1
-    i = np.sum(np.eye(dic_size)[ar], axis= 0)
+    count = np.sum(np.eye(dic_size)[ar], axis= 0)
     bl = np.array(i, dtype=bool)
-    oh = bl.astype(int)
+    ex = bl.astype(int)
     #padded = pad_sequences(oh, maxlen=x_voc_size, padding='post', truncating='post')
-    return oh
+    return count, ex
 
-def one_hot_all(x_train, dic_size):
+def one_hot_all(input, dic_size):
     #print(len(x_train))
     #print(len(x_train[0]))
     #print(x_train[0])
-    trains_oh = []
-    for each in x_train:
-        trains_oh.append(one_hot_enc(each, dic_size))
-    return trains_oh
+    existence = []
+    occurrence = []
+    
+    for each in input:
+        count, ex = one_hot_enc(each, dic_size)
+        existence.append(ex)
+        occurrence.append(count)
+    return existence, occurrence
 
 
-def data_preprocessing(directory= './data', save=True, limited=False):
+def data_preprocessing(directory= './data', one_hot= False, limited=False):
     ## We find the most suitable maximal length in this article 
     text_overall, summary_overall, title_overall = [], [], [] 
     text_count, summary_count = [], []
@@ -123,44 +127,62 @@ def data_preprocessing(directory= './data', save=True, limited=False):
 
 
     ## Store sentence vectors:
-    max_text_len = 20000
-    max_summary_len = 200
-    x_train, x_test, y_train, y_test = train_test_split(text_overall, summary_overall, test_size=0.1, shuffle=True)
+    #max_text_len = 20000
+    #max_summary_len = 200
+    
     tokenizer = Tokenizer()
-    tokenizer.fit_on_texts(x_train)
+    tokenizer.fit_on_texts(text_overall)
 
-    x_train = tokenizer.texts_to_sequences(x_train)
-    x_test = tokenizer.texts_to_sequences(x_test)
+    text_vec = tokenizer.texts_to_sequences(text_overall)
 
     #x_train = pad_sequences(x_train, maxlen=max_text_len, padding='post', truncating='post')
     #x_test = pad_sequences(x_train, maxlen=max_text_len, padding='post', truncating='post')
 
 
-    x_voc_size = len(tokenizer.word_index)+1
+    text_voc_size = len(tokenizer.word_index)+1
 
 
     y_tokenizer = Tokenizer()
-    y_tokenizer.fit_on_texts(y_train)
+    y_tokenizer.fit_on_texts(summary_overall)
 
-    y_train = y_tokenizer.texts_to_sequences(y_train)
-    y_test = y_tokenizer.texts_to_sequences(y_test)
+    sum_vec = y_tokenizer.texts_to_sequences(summary_overall)
+
 
     #y_train = pad_sequences(y_train, maxlen=max_summary_len, padding='post', truncating='post')
     #y_test = pad_sequences(y_train, maxlen=max_summary_len, padding='post', truncating='post')
 
 
-    y_voc_size = len(y_tokenizer.word_index)+1
+    sum_voc_size = len(y_tokenizer.word_index)+1
 
-    x_train= one_hot_all(x_train, x_voc_size)
-    y_train = one_hot_all(y_train, y_voc_size)
-    x_test= one_hot_all(x_train, x_voc_size)
-    y_test = one_hot_all(y_train, y_voc_size)
+
+    
 
     ## Save the preprocessed data to file
-    if save is True:
-        np.savez('preprocessed', x_train=x_train, x_test=x_test, y_train=y_train,y_test=y_test, labels=title_overall,
-                                max_text_len=max_text_len, max_summary_len=max_summary_len, x_voc_size=x_voc_size, y_voc_size=y_voc_size,
-                                tokenizer = tokenizer, y_tokenizer=y_tokenizer)
-    else: return (x_train, x_test, y_train, y_test, max_text_len, max_summary_len, x_voc_size, y_voc_size)
 
-data_preprocessing()
+    np.savez('preprocessed', text_word2vec = text_vec, summary_word2vec = sum_vec, labels=title_overall,
+                                text_voc_size=text_voc_size, summary_voc_size=sum_voc_size,
+                            )
+    if one_hot is True:
+        text_ex, text_count= one_hot_all(text_vec, text_voc_size)
+        sum_ex, sum_count = one_hot_all(sum_vec, sum_voc_size)
+        
+        np.savez('preprocessed_oh', text_word2vec = text_vec, summary_word2vec = sum_vec, text_existence=text_ex,text_count=text_count, 
+                                    sum_existence=sum_ex,sum_count=sum_count, labels=title_overall, text_voc_size=text_voc_size, summary_voc_size=sum_voc_size,
+                            )
+
+
+
+    
+def vec2oh(filename):
+    data = np.load(filename)
+    text_vec = data['text_word2vec']
+    sum_vec = data['summary_word2vec']
+    labels = data["labels"]
+    text_voc_size = data['text_voc_size']
+    sum_voc_size = data['sum_voc_size']
+    text_ex, text_count= one_hot_all(text_vec, text_voc_size)
+    sum_ex, sum_count = one_hot_all(sum_vec, sum_voc_size)
+            
+    np.savez('preprocessed_oh', text_word2vec = text_vec, summary_word2vec = sum_vec, text_existence=text_ex,text_count=text_count, 
+                                        sum_existence=sum_ex,sum_count=sum_count, labels=title_overall, text_voc_size=text_voc_size, summary_voc_size=sum_voc_size,
+                                )
