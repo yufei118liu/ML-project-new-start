@@ -11,6 +11,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import nltk
 from nltk.stem import PorterStemmer
+import sys
 
 # Tokenization and Cleaning
 
@@ -186,3 +187,6 @@ def vec2oh(filename):
     np.savez('preprocessed_oh', text_word2vec = text_vec, summary_word2vec = sum_vec, text_existence=text_ex,text_count=text_count, 
                                         summary_existence=sum_ex,summary_count=sum_count, labels=labels, text_voc_size=text_voc_size, summary_voc_size=sum_voc_size,
                                 )
+
+if __name__ == "__main__":
+    data_preprocessing(directory= sys.argv[1])
