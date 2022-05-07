@@ -52,9 +52,9 @@ def split_summary(lines):
 
 def one_hot_enc(ar, dic_size):
     #print(ar)
-    n = np.max(ar) +1
+    #n = np.max(ar) +1
     count = np.sum(np.eye(dic_size)[ar], axis= 0)
-    bl = np.array(i, dtype=bool)
+    bl = np.array(count, dtype=bool)
     ex = bl.astype(int)
     #padded = pad_sequences(oh, maxlen=x_voc_size, padding='post', truncating='post')
     return count, ex
@@ -167,22 +167,23 @@ def data_preprocessing(directory= './data', one_hot= False, limited=False):
         sum_ex, sum_count = one_hot_all(sum_vec, sum_voc_size)
         
         np.savez('preprocessed_oh', text_word2vec = text_vec, summary_word2vec = sum_vec, text_existence=text_ex,text_count=text_count, 
-                                    sum_existence=sum_ex,sum_count=sum_count, labels=title_overall, text_voc_size=text_voc_size, summary_voc_size=sum_voc_size,
+                                    summary_existence=sum_ex,summary_count=sum_count, labels=title_overall, text_voc_size=text_voc_size, summary_voc_size=sum_voc_size,
                             )
 
 
 
     
 def vec2oh(filename):
-    data = np.load(filename)
+    data = np.load(filename, allow_pickle=True)
     text_vec = data['text_word2vec']
     sum_vec = data['summary_word2vec']
     labels = data["labels"]
     text_voc_size = data['text_voc_size']
-    sum_voc_size = data['sum_voc_size']
+    sum_voc_size = data['summary_voc_size']
     text_ex, text_count= one_hot_all(text_vec, text_voc_size)
     sum_ex, sum_count = one_hot_all(sum_vec, sum_voc_size)
             
     np.savez('preprocessed_oh', text_word2vec = text_vec, summary_word2vec = sum_vec, text_existence=text_ex,text_count=text_count, 
-                                        sum_existence=sum_ex,sum_count=sum_count, labels=title_overall, text_voc_size=text_voc_size, summary_voc_size=sum_voc_size,
+                                        summary_existence=sum_ex,summary_count=sum_count, labels=labels, text_voc_size=text_voc_size, summary_voc_size=sum_voc_size,
                                 )
+vec2oh("./preprocessed.npz")
