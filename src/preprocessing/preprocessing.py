@@ -6,12 +6,10 @@ from nltk.corpus import stopwords
 from nltk.tokenize import sent_tokenize, word_tokenize
 from keras.preprocessing.text import Tokenizer
 import re
-<<<<<<< HEAD
-=======
 import pandas as pd
 import matplotlib.pyplot as plt
 import tensorflow as tf
->>>>>>> preprocess
+
 from nltk.stem import PorterStemmer
 import sys
 from multiprocessing import Pool
@@ -87,7 +85,7 @@ def one_hot_all(input, dic_size):
     return existence, occurrence
 
 
-def data_preprocessing(directory= './data', one_hot= False, limited=False, only_summary=True):
+def data_preprocessing(directory= './data', one_hot= False, limited=False, include_text=False):
     ## We find the most suitable maximal length in this article 
     text_overall, summary_overall, title_overall = [], [], [] 
     text_count, summary_count = [], []
@@ -111,16 +109,17 @@ def data_preprocessing(directory= './data', one_hot= False, limited=False, only_
                 continue
             summary, lines = split_summary(summary), split_string(lines)
 
-            clean_text = []
-            tex_count = 0
-            for line in lines:
-                temp = clean(line)
-                if temp != []:
-                    tex_count += (len(temp))
-                    for t in temp:
-                        clean_text.append(t)  
-            text_overall.append(clean_text)
-            text_count.append(tex_count)
+            if include_text:
+                clean_text = []
+                tex_count = 0
+                for line in lines:
+                    temp = clean(line)
+                    if temp != []:
+                        tex_count += (len(temp))
+                        for t in temp:
+                            clean_text.append(t)  
+                text_overall.append(clean_text)
+                text_count.append(tex_count)
 
             clean_summary = []
             sum_count = 0
@@ -136,7 +135,7 @@ def data_preprocessing(directory= './data', one_hot= False, limited=False, only_
             title_overall.append(title)  
 
             if limited is True:
-                if len(title_overall)>= 50:
+                if len(title_overall)>= 500:
                     break
 
 
@@ -145,16 +144,20 @@ def data_preprocessing(directory= './data', one_hot= False, limited=False, only_
     #max_summary_len = 200
     #if only_summary is False:
     tokenizer = Tokenizer()
-    tokenizer.fit_on_texts(text_overall)
+    if include_text:
+        
+        tokenizer.fit_on_texts(text_overall)
 
-    text_vec = tokenizer.texts_to_sequences(text_overall)
+        text_vec = tokenizer.texts_to_sequences(text_overall)
 
-    #x_train = pad_sequences(x_train, maxlen=max_text_len, padding='post', truncating='post')
-    #x_test = pad_sequences(x_train, maxlen=max_text_len, padding='post', truncating='post')
+        #x_train = pad_sequences(x_train, maxlen=max_text_len, padding='post', truncating='post')
+        #x_test = pad_sequences(x_train, maxlen=max_text_len, padding='post', truncating='post')
 
 
-    text_voc_size = len(tokenizer.word_index)+1
-
+        text_voc_size = len(tokenizer.word_index)+1
+    else:
+        text_vec = list()
+        text_voc_size = 0
 
     y_tokenizer = Tokenizer()
     y_tokenizer.fit_on_texts(summary_overall)
@@ -172,12 +175,15 @@ def data_preprocessing(directory= './data', one_hot= False, limited=False, only_
     
 
     ## Save the preprocessed data to file
-
     np.savez('preprocessed', text_word2vec = text_vec, summary_word2vec = sum_vec, labels=title_overall,
                                 text_voc_size=text_voc_size, summary_voc_size=sum_voc_size,
                             )
     if one_hot is True:
-        text_ex, text_count= one_hot_all(text_vec, text_voc_size)
+        if include_text:
+            text_ex, text_count= one_hot_all(text_vec, text_voc_size)
+        else:
+            text_count = []
+            text_ex = []
         sum_ex, sum_count = one_hot_all(sum_vec, sum_voc_size)
         # vectorizer = CountVectorizer()
         # X = vectorizer.fit_transform(text_vec)
