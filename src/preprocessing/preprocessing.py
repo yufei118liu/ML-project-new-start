@@ -5,11 +5,10 @@ import os
 from nltk.corpus import stopwords
 from nltk.tokenize import sent_tokenize, word_tokenize
 from keras.preprocessing.text import Tokenizer
-from sklearn.model_selection import train_test_split
 import re
 import pandas as pd
 import matplotlib.pyplot as plt
-import nltk
+import tensorflow as tf
 from nltk.stem import PorterStemmer
 
 # Tokenization and Cleaning
@@ -52,8 +51,9 @@ def split_summary(lines):
 
 def one_hot_enc(ar, dic_size):
     #print(ar)
-    #n = np.max(ar) +1
-    count = np.sum(np.eye(dic_size)[ar], axis= 0)
+    n = np.max(ar) +1
+    #count = np.sum(np.eye(dic_size)[ar], axis= 0)
+    count = np.sum(tf.one_hot(ar, n), axis= 0)
     bl = np.array(count, dtype=bool)
     ex = bl.astype(int)
     #padded = pad_sequences(oh, maxlen=x_voc_size, padding='post', truncating='post')
@@ -63,17 +63,21 @@ def one_hot_all(input, dic_size):
     #print(len(x_train))
     #print(len(x_train[0]))
     #print(x_train[0])
+    
     existence = []
     occurrence = []
     
     for each in input:
         count, ex = one_hot_enc(each, dic_size)
+
         existence.append(ex)
-        occurrence.append(count)
+        occurrence.append(np.array(count)/len(input))
+    print(count)
+    
     return existence, occurrence
 
 
-def data_preprocessing(directory= './data', one_hot= False, limited=False):
+def data_preprocessing(directory= './data', one_hot= False, limited=False, only_summary=True):
     ## We find the most suitable maximal length in this article 
     text_overall, summary_overall, title_overall = [], [], [] 
     text_count, summary_count = [], []
@@ -129,7 +133,7 @@ def data_preprocessing(directory= './data', one_hot= False, limited=False):
     ## Store sentence vectors:
     #max_text_len = 20000
     #max_summary_len = 200
-    
+    #if only_summary is False:
     tokenizer = Tokenizer()
     tokenizer.fit_on_texts(text_overall)
 
