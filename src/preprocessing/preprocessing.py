@@ -196,19 +196,11 @@ def vec2oh(filename):
                                 )
 
 if __name__ == "__main__":
-<<<<<<< Updated upstream
+
     if len(sys.argv)> 1:
-        data_preprocessing(directory= sys.argv[1], one_hot = True)
+        data_preprocessing(directory= sys.argv[1], one_hot = True, limited = True)
     else:
         data_preprocessing()
-=======
-<<<<<<< Updated upstream
+
     data_preprocessing(directory= sys.argv[1])
-=======
-    if len(sys.argv)> 1:
-        data_preprocessing(directory= sys.argv[1], one_hot = True, limited= True)
-    else:
-        data_preprocessing()
-    print("Preprocessing done")
->>>>>>> Stashed changes
->>>>>>> Stashed changes
+
