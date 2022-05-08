@@ -3,8 +3,8 @@
 # General:
 1) Modify list of queries (right now contains Math article data so don't)
 2) run ```python3 main.py``` to scrape the articles if main is empty
-3) Go to ```src/preprocessing``` run ```python3 preprocessing.py``` to get npz data file (preprocessed articles), file is too large to put on github to do this
-4) Create your personal note book and load the ```preprocessed.npz``` similar to model_yao.ipynb and do experiments
+3) Go to ```src/preprocessing``` run ```python3 preprocessing.py ../../data``` to get npz data file (preprocessed articles), file is too large to put on github to do this
+4) Create your personal notebook and load the ```preprocessed.npz``` similar to model_yao.ipynb and do experiments
 5) Create 2d vector embedding from either summary or whole text
 6) Cluster them!
 
@@ -38,4 +38,8 @@ If with one_hot vectors:
 
 Note that one can also generate one_hot vectors base on a 'preprocessed.npz' file by calling vec2oh('preprocessed.npz')
 
+
+1) cd into preprocessing
+2) ```python3 preprocessing.py ../../data```
+3) load with one hot format in notebook
 
