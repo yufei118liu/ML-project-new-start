@@ -9,7 +9,8 @@ from sklearn.model_selection import train_test_split
 import re
 from nltk.stem import PorterStemmer
 import sys
-
+from multiprocessing import Pool
+from sklearn.feature_extraction.text import CountVectorizer
 # Tokenization and Cleaning
 
 
@@ -48,7 +49,8 @@ def split_summary(lines):
     sent_tokens.append("_END_")
     return sent_tokens
 
-def one_hot_enc(ar, dic_size):
+def one_hot_enc(tup):
+    ar, dic_size = tup
     #print(ar)
     #n = np.max(ar) +1
     count = np.sum(np.eye(dic_size)[ar], axis= 0)
@@ -61,13 +63,20 @@ def one_hot_all(input, dic_size):
     #print(len(x_train))
     #print(len(x_train[0]))
     #print(x_train[0])
+    print("one hot all")
     existence = []
     occurrence = []
-    
-    for each in input:
-        count, ex = one_hot_enc(each, dic_size)
+    p = Pool()
+    vector_input = [(each, dic_size) for each in input]
+    result = p.map(one_hot_enc,vector_input)
+    for each in result:
+        count, ex = each
         existence.append(ex)
         occurrence.append(count)
+    # for each in input:
+    #     count, ex = one_hot_enc(each, dic_size)
+    #     existence.append(ex)
+    #     occurrence.append(count)
     return existence, occurrence
 
 
@@ -120,7 +129,7 @@ def data_preprocessing(directory= './data', one_hot= False, limited=False):
             title_overall.append(title)  
 
             if limited is True:
-                if len(title_overall)>= 10:
+                if len(title_overall)>= 50:
                     break
 
 
@@ -163,7 +172,8 @@ def data_preprocessing(directory= './data', one_hot= False, limited=False):
     if one_hot is True:
         text_ex, text_count= one_hot_all(text_vec, text_voc_size)
         sum_ex, sum_count = one_hot_all(sum_vec, sum_voc_size)
-        
+        # vectorizer = CountVectorizer()
+        # X = vectorizer.fit_transform(text_vec)
         np.savez('preprocessed_oh', text_word2vec = text_vec, summary_word2vec = sum_vec, text_existence=text_ex,text_count=text_count, 
                                     summary_existence=sum_ex,summary_count=sum_count, labels=title_overall, text_voc_size=text_voc_size, summary_voc_size=sum_voc_size,
                             )
@@ -186,7 +196,19 @@ def vec2oh(filename):
                                 )
 
 if __name__ == "__main__":
+<<<<<<< Updated upstream
     if len(sys.argv)> 1:
         data_preprocessing(directory= sys.argv[1], one_hot = True)
     else:
         data_preprocessing()
+=======
+<<<<<<< Updated upstream
+    data_preprocessing(directory= sys.argv[1])
+=======
+    if len(sys.argv)> 1:
+        data_preprocessing(directory= sys.argv[1], one_hot = True, limited= True)
+    else:
+        data_preprocessing()
+    print("Preprocessing done")
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
