@@ -6,14 +6,19 @@ from sklearn.cluster import AgglomerativeClustering
 from sklearn.decomposition import PCA,KernelPCA
 from sklearn.manifold import TSNE
 import pandas as pd
-def compute_kmeans(X, no_clusters=3):
+def compute_kmeans(X, title = "",no_clusters=3):
     """Compute K means of 3 groups by default"""
     kmeans = KMeans(n_clusters=no_clusters)
     res = kmeans.fit(X)
     #print(f"res: \n {res}")
+    plt.figure(figsize=(40,40))
     classes = kmeans.predict(X)
     #print(f"classes: {classes}")
-    return classes
+    plt.scatter(X[:, 0], X[:, 1], c=classes)
+    plt.title(title)
+    plt.show()
+        
+    # return classes
 
 def convert_classes_to_clusters(classes):
     """takes in array of classes where each index indicates the class

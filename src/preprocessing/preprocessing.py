@@ -7,9 +7,6 @@ from nltk.tokenize import sent_tokenize, word_tokenize
 from keras.preprocessing.text import Tokenizer
 from sklearn.model_selection import train_test_split
 import re
-import pandas as pd
-import matplotlib.pyplot as plt
-import nltk
 from nltk.stem import PorterStemmer
 import sys
 
@@ -189,4 +186,7 @@ def vec2oh(filename):
                                 )
 
 if __name__ == "__main__":
-    data_preprocessing(directory= sys.argv[1])
+    if len(sys.argv)> 1:
+        data_preprocessing(directory= sys.argv[1], one_hot = True)
+    else:
+        data_preprocessing()
