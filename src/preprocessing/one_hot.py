@@ -1,19 +1,16 @@
 
 ## Import Dependencies
-import numpy as np
-from keras.preprocessing.sequence import pad_sequences
-
-data = np.load('./preprocessed_oh.npz', allow_pickle=True)
-text_vec = data['text_word2vec']
-summary_vec = data['summary_word2vec']
-text_existence = data['text_existence']
-text_count = data['text_count']
-summary_existence = data['summary_existence']
-summary_count = data['summary_count']
-labels = data["labels"]
-text_voc_size = data['text_voc_size']
-summary_voc_size = data['summary_voc_size']
-
-print(text_vec[:3])
-print(text_existence[:3])
-print(text_count[:3])
+from sklearn.feature_extraction.text import CountVectorizer
+import os
+import sys
+if __name__ == "__main__":
+    path = "./data/"
+    filelist = [path+file for file in os.listdir("./data")]
+    #for each in filelist:
+        #print(each)
+        #with open(each) as f:
+    
+    vectorizer = CountVectorizer(input='filename', strip_accents='ascii', stop_words='english')
+    X = vectorizer.fit_transform(filelist)
+        #f.close()
+    print(X.toarray().all() == 0)
