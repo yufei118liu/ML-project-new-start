@@ -59,7 +59,7 @@ def one_hot_enc(tup):
     #print(ar)
     n = np.max(ar) +1
     #count = np.sum(np.eye(dic_size)[ar], axis= 0)
-    count = np.sum(tf.one_hot(ar, n), axis= 0)
+    count = np.sum(tf.one_hot(ar, n), axis= 0)/len(ar)
     bl = np.array(count, dtype=bool)
     ex = bl.astype(int)
     
