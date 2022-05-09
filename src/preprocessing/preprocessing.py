@@ -5,6 +5,7 @@ import os
 from nltk.corpus import stopwords
 from nltk.tokenize import sent_tokenize, word_tokenize
 from keras.preprocessing.text import Tokenizer
+from keras.preprocessing.sequence import pad_sequences
 import re
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -56,7 +57,8 @@ def one_hot_enc(ar, dic_size):
     count = np.sum(tf.one_hot(ar, n), axis= 0)
     bl = np.array(count, dtype=bool)
     ex = bl.astype(int)
-    #padded = pad_sequences(oh, maxlen=x_voc_size, padding='post', truncating='post')
+    ex = pad_sequences(ex, maxlen=dic_size, padding='post', truncating='post')
+    count = pad_sequences(count, maxlen=dic_size, padding='post', truncating='post')
     return count, ex
 
 def one_hot_all(input, dic_size):
