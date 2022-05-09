@@ -17,3 +17,4 @@ summary_voc_size = data['summary_voc_size']
 print(text_vec[:3])
 print(text_existence[:3])
 print(text_count[:3])
+print([ex.shape for ex in text_existence] )
