@@ -2,7 +2,7 @@
 ## Import Dependencies
 
 import numpy as np
-from keras.preprocessing.sequence import pad_sequences
+
 
 data = np.load('./preprocessed_oh.npz', allow_pickle=True)
 text_vec = data['text_word2vec']
