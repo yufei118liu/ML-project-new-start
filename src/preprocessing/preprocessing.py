@@ -81,8 +81,8 @@ def one_hot_all(input, dic_size):
         existence.append(ex)
         occurrence.append(count)
 
-    ex = pad_sequences(existence, maxlen=dic_size, padding='post', truncating='post')
-    count = pad_sequences(occurrence, maxlen=dic_size, padding='post', truncating='post')
+    ex = pad_sequences(existence, maxlen=dic_size, padding='post', truncating='post', dtype=float)
+    count = pad_sequences(occurrence, maxlen=dic_size, padding='post', truncating='post', dtype=float)
     return ex, count
 
 
