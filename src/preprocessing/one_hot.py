@@ -19,7 +19,7 @@ summary_vec = data['summary_word2vec']
 #text_count = data['text_count']
 summary_existence = data['summary_existence']
 summary_count = data['summary_count']
-#labels = data["labels"]
+labels = data["labels"]
 #text_voc_size = data['text_voc_size']
 summary_voc_size = data['summary_voc_size']
 
@@ -27,8 +27,10 @@ summary_voc_size = data['summary_voc_size']
 #print(summary_existence[:3])
 #print(summary_count[:3])
 print(len(summary_existence))
+print(labels[:3])
 #print([ex.shape for ex in summary_existence] )
-'''def one_hot_enc(tup):
+'''
+def one_hot_enc(tup):
     ar, dic_size = tup
     #print(ar)
     n = np.max(ar) +1
@@ -63,12 +65,13 @@ data = np.load('./preprocessed_topic.npz', allow_pickle=True)
 
 summary_vec = data['summary_word2vec']
 summary_voc_size = data['summary_voc_size']
+labels = data["labels"]
 sum_ex, sum_count = one_hot_all(summary_vec, summary_voc_size)
 print(sum_ex, sum_count)
-np.savez('preprocessed_topic_oh', summary_word2vec = summary_vec, 
+np.savez('preprocessed_topic_oh', summary_word2vec = summary_vec, labels=labels, 
                                         summary_existence=sum_ex,summary_count=sum_count, summary_voc_size=summary_voc_size,
-                                )
+                                )'''
 
-#print(summary_vec[:3])'''
+#print(summary_vec[:3])
 
 
