@@ -72,23 +72,26 @@ def compute_kmeans(X, title = "",no_clusters=3):
 
 
 
-def plot_tsne(matrix,titles_list,title="", metric = "cosine", perplexity = 60):
+def plot_tsne(matrix, titles_list,label, title="", metric = "cosine", perplexity = 60):
     """Reduces matrix to 2 dimensions using TSNE and plots it"""
     reduced_matrix =TSNE(n_components=2,init='pca',method='exact',perplexity=perplexity, metric = metric).fit_transform(matrix)
     axes =reduced_matrix.T
 
     plt.figure(figsize=(20,20),dpi= 600, facecolor='white')
-    axis1 =axes[0].tolist()
-    axis2 =axes[1].tolist()
-    plt.scatter(axis1,axis2)
-    for i,label in enumerate(titles_list):
+    axis1 =np.array(axes[0].tolist())
+    axis2 =np.array(axes[1].tolist())
+    for i in [0, 1, 2]:
+    
+        plt.scatter(axis1[label == i] , axis2[label == i] , label = i)
+    #plt.scatter(axis1,axis2)
+    for i,labels in enumerate(titles_list):
         if i % 2 == 0:
-            plt.annotate(label, (axis1[i], axis2[i]))
+            plt.annotate(labels, (axis1[i], axis2[i]))
     plt.title(title)
     plt.savefig(f'Diagrams/{title}.png')
     return reduced_matrix
 
-def plot_kpca(matrix,titles_list, kernel="linear",title=""):
+def plot_kpca(matrix,titles_list, label, kernel="linear",title=""):
     """Reduces matrix to 2 dimensions using PCA and plots it
     kernel choices: {‘linear’, ‘poly’, ‘rbf’, ‘sigmoid’, ‘cosine’, ‘precomputed’}
     """
@@ -100,12 +103,15 @@ def plot_kpca(matrix,titles_list, kernel="linear",title=""):
     transposed =reduced_matrix.T
     fig, axes = plt.subplots(2,1, figsize=(10, 10), dpi= 1200, facecolor='white')
     # axi.figure(figsize=(20,20),dpi= 600, facecolor='white')
-    axis1 =transposed[0].tolist()
-    axis2 =transposed[1].tolist()
-    axes[0].scatter(axis1,axis2)
-    for i,label in enumerate(titles_list):
+    axis1 =np.array(transposed[0].tolist())
+    axis2 =np.array(transposed[1].tolist())
+    for i in [0, 1, 2]:
+    
+        axes[0].scatter(axis1[label == i] , axis2[label == i] , label = i)
+    #axes[0].scatter(axis1,axis2)
+    for i,labels in enumerate(titles_list):
         if i % 10 == 0:
-            axes[0].annotate(label, (axis1[i], axis2[i]))
+            axes[0].annotate(labels, (axis1[i], axis2[i]))
     axes[0].set_title(title)
     # axes[1].plot(range(1,len(pca.eigenvalues_)+1), pca.eigenvalues_)
     axes[1].set_title(f"Eigenvalues of {title}")
@@ -124,7 +130,7 @@ def plot_dendrogram(matrix,titles_list = None,  hierarchy_method = "complete",di
     plt.show()
     plt.savefig(f'Diagrams/{title}.png')
     
-def plot_pca(matrix,titles_list = None,title=""):
+def plot_pca(matrix, label, titles_list = None,title=""):
     """Reduces matrix to 2 dimensions using PCA and plots it along with the screeplot
     output: 
     reduced_matrix: 2 x m matrix"""
@@ -134,11 +140,13 @@ def plot_pca(matrix,titles_list = None,title=""):
     print(f"shape reduced matrix: {np.shape(reduced_matrix)}")
     print(f"pca.explained_variance_ratio_: {pca.explained_variance_ratio_}")
     transpose =reduced_matrix.T
-    axis1 =transpose[0].tolist()
-    axis2 =transpose[1].tolist()
+    axis1 =np.array(transpose[0].tolist())
+    axis2 =np.array(transpose[1].tolist())
     fig, axes = plt.subplots(2,1, figsize=(10, 10), dpi= 1200, facecolor='white')
+    for i in [0, 1, 2]:
     
-    axes[0].scatter(axis1,axis2)
+        axes[0].scatter(axis1[label == i] , axis2[label == i] , label = i)
+    #axes[0].scatter(axis1,axis2)
     for i,label in enumerate(titles_list):
         if (i+4)%10 == 0:
             axes[0].annotate(label, (axis1[i], axis2[i]))

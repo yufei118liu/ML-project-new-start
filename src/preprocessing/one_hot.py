@@ -12,7 +12,7 @@ import tensorflow as tf
 from multiprocessing import Pool
 
 
-data = np.load('./preprocessed_topic_oh.npz', allow_pickle=True)
+'''data = np.load('./preprocessed_topic_oh.npz', allow_pickle=True)
 #text_vec = data['text_word2vec']
 summary_vec = data['summary_word2vec']
 #text_existence = data['text_existence']
@@ -66,11 +66,12 @@ data = np.load('./preprocessed_topic.npz', allow_pickle=True)
 summary_vec = data['summary_word2vec']
 summary_voc_size = data['summary_voc_size']
 labels = data["labels"]
+
 sum_ex, sum_count = one_hot_all(summary_vec, summary_voc_size)
 print(sum_ex, sum_count)
 np.savez('preprocessed_topic_oh', summary_word2vec = summary_vec, labels=labels, 
                                         summary_existence=sum_ex,summary_count=sum_count, summary_voc_size=summary_voc_size,
-                                )'''
+                                )
 
 #print(summary_vec[:3])
 
