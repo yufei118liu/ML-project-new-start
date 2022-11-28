@@ -1,4 +1,6 @@
 # ML-project-new-start
+# Simple:
+If you're not into the code, you can take a look at the diagrams they provide quite an interesting overview of different categories of Wikipedia Articles.
 
 # General:
 1) Modify list of queries (right now contains Math article data so don't)
